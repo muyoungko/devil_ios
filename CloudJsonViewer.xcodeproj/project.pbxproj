@@ -1,0 +1,799 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6D132B55255E66EB00004E1F /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B54255E66EB00004E1F /* LoginController.m */; };
+		6D132B82255E6D5200004E1F /* Devil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B81255E6D5200004E1F /* Devil.m */; };
+		6D132B86255E6D9E00004E1F /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B85255E6D9E00004E1F /* MainController.m */; };
+		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
+		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
+		6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B97255E6E0F00004E1F /* DrawerView.m */; };
+		6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */; };
+		6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B99255E6E0F00004E1F /* HttpUtil.mm */; };
+		6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B9A255E6E0F00004E1F /* DeepLink.m */; };
+		6D132BA6255E6FE800004E1F /* SubController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132BA5255E6FE800004E1F /* SubController.m */; };
+		6D132BAA255E700000004E1F /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132BA9255E700000004E1F /* BaseController.m */; };
+		6D132BB4255E71D300004E1F /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB0255E71D200004E1F /* KakaoLink.framework */; };
+		6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */; };
+		6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB2255E71D200004E1F /* KakaoCommon.framework */; };
+		6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */; };
+		6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BBA255E751C00004E1F /* GoogleService-Info.plist */; };
+		6D132BC5255E76F400004E1F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC3255E76F400004E1F /* loading.json */; };
+		6D132BC6255E76F400004E1F /* lang.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC4255E76F400004E1F /* lang.json */; };
+		6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803402208639C0017398B /* WildCardNextChain.m */; };
+		6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */; };
+		6D88038C2208639C0017398B /* WildCardIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034B2208639C0017398B /* WildCardIndicatorView.m */; };
+		6D88038D2208639C0017398B /* WildCardUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034C2208639C0017398B /* WildCardUITextField.m */; };
+		6D88038E2208639C0017398B /* ReplaceRuleExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034F2208639C0017398B /* ReplaceRuleExtension.m */; };
+		6D88038F2208639C0017398B /* ReplaceRuleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803512208639C0017398B /* ReplaceRuleImage.m */; };
+		6D8803902208639C0017398B /* ReplaceRuleRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803522208639C0017398B /* ReplaceRuleRepeat.m */; };
+		6D8803912208639C0017398B /* ReplaceRuleClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803542208639C0017398B /* ReplaceRuleClick.m */; };
+		6D8803922208639C0017398B /* ReplaceRuleHidden.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803562208639C0017398B /* ReplaceRuleHidden.m */; };
+		6D8803932208639C0017398B /* ReplaceRuleReplaceUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803572208639C0017398B /* ReplaceRuleReplaceUrl.m */; };
+		6D8803942208639C0017398B /* ReplaceRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803592208639C0017398B /* ReplaceRule.m */; };
+		6D8803952208639C0017398B /* ReplaceRuleColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88035C2208639C0017398B /* ReplaceRuleColor.m */; };
+		6D8803962208639C0017398B /* ReplaceRuleLocalImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88035E2208639C0017398B /* ReplaceRuleLocalImage.m */; };
+		6D8803972208639C0017398B /* ReplaceRuleText.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803602208639C0017398B /* ReplaceRuleText.m */; };
+		6D8803982208639C0017398B /* WildCardScreenTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803642208639C0017398B /* WildCardScreenTableView.m */; };
+		6D8803992208639C0017398B /* WildCardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803672208639C0017398B /* WildCardUIView.m */; };
+		6D88039A2208639C0017398B /* WildCardMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803682208639C0017398B /* WildCardMeta.m */; };
+		6D88039B2208639C0017398B /* WildCardCollectionViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803692208639C0017398B /* WildCardCollectionViewHelper.m */; };
+		6D88039C2208639C0017398B /* MappingSyntaxInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88036B2208639C0017398B /* MappingSyntaxInterpreter.m */; };
+		6D88039D2208639C0017398B /* WildCardLayoutPathUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88036C2208639C0017398B /* WildCardLayoutPathUnit.m */; };
+		6D88039E2208639C0017398B /* WildCardUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803702208639C0017398B /* WildCardUILabel.m */; };
+		6D88039F2208639C0017398B /* WildCardGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803712208639C0017398B /* WildCardGridView.m */; };
+		6D8803A02208639C0017398B /* WildCardCollectionViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803722208639C0017398B /* WildCardCollectionViewAdapter.m */; };
+		6D8803A12208639C0017398B /* WildCardViewPagerRightAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803752208639C0017398B /* WildCardViewPagerRightAction.m */; };
+		6D8803A22208639C0017398B /* WildCardSetTextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803762208639C0017398B /* WildCardSetTextAction.m */; };
+		6D8803A32208639C0017398B /* WildCardAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803782208639C0017398B /* WildCardAction.m */; };
+		6D8803A42208639C0017398B /* WildCardViewPagerLeftAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037A2208639C0017398B /* WildCardViewPagerLeftAction.m */; };
+		6D8803A52208639C0017398B /* WildCardTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037B2208639C0017398B /* WildCardTrigger.m */; };
+		6D8803A62208639C0017398B /* WildCardApplyAgainAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037C2208639C0017398B /* WildCardApplyAgainAction.m */; };
+		6D8803A72208639C0017398B /* WildCardUITapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037E2208639C0017398B /* WildCardUITapGestureRecognizer.m */; };
+		6D8803A82208639C0017398B /* WildCardCustomAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803802208639C0017398B /* WildCardCustomAction.m */; };
+		6D8803A92208639C0017398B /* WildCardExtensionConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803852208639C0017398B /* WildCardExtensionConstructor.m */; };
+		6D8803AA2208639C0017398B /* WildCardFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803862208639C0017398B /* WildCardFunction.m */; };
+		6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803872208639C0017398B /* WildCardUtil.m */; };
+		6D8803AC2208639C0017398B /* WildCardConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803882208639C0017398B /* WildCardConstructor.m */; };
+		6DF137F820D7469A00071B9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF137F720D7469A00071B9F /* main.m */; };
+		6DF137FB20D7469A00071B9F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF137FA20D7469A00071B9F /* AppDelegate.m */; };
+		6DF137FE20D7469A00071B9F /* FirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF137FD20D7469A00071B9F /* FirstController.m */; };
+		6DF1380420D7469A00071B9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DF1380220D7469A00071B9F /* Main.storyboard */; };
+		6DF1380620D7469A00071B9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DF1380520D7469A00071B9F /* Assets.xcassets */; };
+		6DF1380920D7469B00071B9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DF1380720D7469B00071B9F /* LaunchScreen.storyboard */; };
+		6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */; };
+		81DC92FEE702C5D0C03A42F5 /* libPods-CloudJsonViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.release.xcconfig"; sourceTree = "<group>"; };
+		6D132B53255E66EB00004E1F /* LoginController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
+		6D132B54255E66EB00004E1F /* LoginController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
+		6D132B80255E6D5200004E1F /* Devil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Devil.h; sourceTree = "<group>"; };
+		6D132B81255E6D5200004E1F /* Devil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Devil.m; sourceTree = "<group>"; };
+		6D132B84255E6D9E00004E1F /* MainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
+		6D132B85255E6D9E00004E1F /* MainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
+		6D132B8A255E6E0F00004E1F /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
+		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
+		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
+		6D132B91255E6E0F00004E1F /* HttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUtil.h; sourceTree = "<group>"; };
+		6D132B92255E6E0F00004E1F /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
+		6D132B93255E6E0F00004E1F /* DeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeepLink.h; sourceTree = "<group>"; };
+		6D132B95255E6E0F00004E1F /* Lang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lang.m; sourceTree = "<group>"; };
+		6D132B96255E6E0F00004E1F /* Lang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lang.h; sourceTree = "<group>"; };
+		6D132B97255E6E0F00004E1F /* DrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerView.m; sourceTree = "<group>"; };
+		6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
+		6D132B99255E6E0F00004E1F /* HttpUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HttpUtil.mm; sourceTree = "<group>"; };
+		6D132B9A255E6E0F00004E1F /* DeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeepLink.m; sourceTree = "<group>"; };
+		6D132BA4255E6FE800004E1F /* SubController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubController.h; sourceTree = "<group>"; };
+		6D132BA5255E6FE800004E1F /* SubController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubController.m; sourceTree = "<group>"; };
+		6D132BA8255E700000004E1F /* BaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
+		6D132BA9255E700000004E1F /* BaseController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
+		6D132BB0255E71D200004E1F /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoLink.framework; path = frameworks/KakaoLink.framework; sourceTree = "<group>"; };
+		6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoMessageTemplate.framework; path = frameworks/KakaoMessageTemplate.framework; sourceTree = "<group>"; };
+		6D132BB2255E71D200004E1F /* KakaoCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoCommon.framework; path = frameworks/KakaoCommon.framework; sourceTree = "<group>"; };
+		6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoOpenSDK.framework; path = frameworks/KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		6D132BBA255E751C00004E1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6D132BBD255E759700004E1F /* CloudJsonViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudJsonViewer.entitlements; sourceTree = "<group>"; };
+		6D132BC3255E76F400004E1F /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		6D132BC4255E76F400004E1F /* lang.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lang.json; sourceTree = "<group>"; };
+		6D8803402208639C0017398B /* WildCardNextChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardNextChain.m; sourceTree = "<group>"; };
+		6D8803412208639C0017398B /* WildCardCollectionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewHelper.h; sourceTree = "<group>"; };
+		6D8803422208639C0017398B /* WildCardMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardMeta.h; sourceTree = "<group>"; };
+		6D8803432208639C0017398B /* WildCardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUIView.h; sourceTree = "<group>"; };
+		6D8803442208639C0017398B /* WildCardLayoutPathUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardLayoutPathUnit.h; sourceTree = "<group>"; };
+		6D8803452208639C0017398B /* MappingSyntaxInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingSyntaxInterpreter.h; sourceTree = "<group>"; };
+		6D8803472208639C0017398B /* WildCardIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardIndicatorView.h; sourceTree = "<group>"; };
+		6D8803482208639C0017398B /* WildCardLCAnimatedPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardLCAnimatedPageControl.h; sourceTree = "<group>"; };
+		6D8803492208639C0017398B /* WildCardUITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUITextField.h; sourceTree = "<group>"; };
+		6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardLCAnimatedPageControl.m; sourceTree = "<group>"; };
+		6D88034B2208639C0017398B /* WildCardIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardIndicatorView.m; sourceTree = "<group>"; };
+		6D88034C2208639C0017398B /* WildCardUITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextField.m; sourceTree = "<group>"; };
+		6D88034E2208639C0017398B /* ReplaceRuleColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleColor.h; sourceTree = "<group>"; };
+		6D88034F2208639C0017398B /* ReplaceRuleExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleExtension.m; sourceTree = "<group>"; };
+		6D8803502208639C0017398B /* ReplaceRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRule.h; sourceTree = "<group>"; };
+		6D8803512208639C0017398B /* ReplaceRuleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImage.m; sourceTree = "<group>"; };
+		6D8803522208639C0017398B /* ReplaceRuleRepeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleRepeat.m; sourceTree = "<group>"; };
+		6D8803532208639C0017398B /* ReplaceRuleLocalImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleLocalImage.h; sourceTree = "<group>"; };
+		6D8803542208639C0017398B /* ReplaceRuleClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleClick.m; sourceTree = "<group>"; };
+		6D8803552208639C0017398B /* ReplaceRuleText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleText.h; sourceTree = "<group>"; };
+		6D8803562208639C0017398B /* ReplaceRuleHidden.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleHidden.m; sourceTree = "<group>"; };
+		6D8803572208639C0017398B /* ReplaceRuleReplaceUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleReplaceUrl.m; sourceTree = "<group>"; };
+		6D8803582208639C0017398B /* ReplaceRuleRepeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleRepeat.h; sourceTree = "<group>"; };
+		6D8803592208639C0017398B /* ReplaceRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRule.m; sourceTree = "<group>"; };
+		6D88035A2208639C0017398B /* ReplaceRuleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImage.h; sourceTree = "<group>"; };
+		6D88035B2208639C0017398B /* ReplaceRuleExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleExtension.h; sourceTree = "<group>"; };
+		6D88035C2208639C0017398B /* ReplaceRuleColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleColor.m; sourceTree = "<group>"; };
+		6D88035D2208639C0017398B /* ReplaceRuleClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleClick.h; sourceTree = "<group>"; };
+		6D88035E2208639C0017398B /* ReplaceRuleLocalImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleLocalImage.m; sourceTree = "<group>"; };
+		6D88035F2208639C0017398B /* ReplaceRuleHidden.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleHidden.h; sourceTree = "<group>"; };
+		6D8803602208639C0017398B /* ReplaceRuleText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleText.m; sourceTree = "<group>"; };
+		6D8803612208639C0017398B /* ReplaceRuleReplaceUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleReplaceUrl.h; sourceTree = "<group>"; };
+		6D8803622208639C0017398B /* WildCardFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardFunction.h; sourceTree = "<group>"; };
+		6D8803632208639C0017398B /* WildCardExtensionConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardExtensionConstructor.h; sourceTree = "<group>"; };
+		6D8803642208639C0017398B /* WildCardScreenTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardScreenTableView.m; sourceTree = "<group>"; };
+		6D8803652208639C0017398B /* WildCardConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardConstructor.h; sourceTree = "<group>"; };
+		6D8803662208639C0017398B /* WildCardUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUtil.h; sourceTree = "<group>"; };
+		6D8803672208639C0017398B /* WildCardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUIView.m; sourceTree = "<group>"; };
+		6D8803682208639C0017398B /* WildCardMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardMeta.m; sourceTree = "<group>"; };
+		6D8803692208639C0017398B /* WildCardCollectionViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCollectionViewHelper.m; sourceTree = "<group>"; };
+		6D88036A2208639C0017398B /* WildCardNextChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardNextChain.h; sourceTree = "<group>"; };
+		6D88036B2208639C0017398B /* MappingSyntaxInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingSyntaxInterpreter.m; sourceTree = "<group>"; };
+		6D88036C2208639C0017398B /* WildCardLayoutPathUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardLayoutPathUnit.m; sourceTree = "<group>"; };
+		6D88036E2208639C0017398B /* WildCardGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardGridView.h; sourceTree = "<group>"; };
+		6D88036F2208639C0017398B /* WildCardCollectionViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewAdapter.h; sourceTree = "<group>"; };
+		6D8803702208639C0017398B /* WildCardUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUILabel.m; sourceTree = "<group>"; };
+		6D8803712208639C0017398B /* WildCardGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardGridView.m; sourceTree = "<group>"; };
+		6D8803722208639C0017398B /* WildCardCollectionViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCollectionViewAdapter.m; sourceTree = "<group>"; };
+		6D8803732208639C0017398B /* WildCardUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUILabel.h; sourceTree = "<group>"; };
+		6D8803752208639C0017398B /* WildCardViewPagerRightAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardViewPagerRightAction.m; sourceTree = "<group>"; };
+		6D8803762208639C0017398B /* WildCardSetTextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardSetTextAction.m; sourceTree = "<group>"; };
+		6D8803772208639C0017398B /* WildCardCustomAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCustomAction.h; sourceTree = "<group>"; };
+		6D8803782208639C0017398B /* WildCardAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardAction.m; sourceTree = "<group>"; };
+		6D8803792208639C0017398B /* WildCardUITapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUITapGestureRecognizer.h; sourceTree = "<group>"; };
+		6D88037A2208639C0017398B /* WildCardViewPagerLeftAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardViewPagerLeftAction.m; sourceTree = "<group>"; };
+		6D88037B2208639C0017398B /* WildCardTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardTrigger.m; sourceTree = "<group>"; };
+		6D88037C2208639C0017398B /* WildCardApplyAgainAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardApplyAgainAction.m; sourceTree = "<group>"; };
+		6D88037D2208639C0017398B /* WildCardViewPagerRightAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardViewPagerRightAction.h; sourceTree = "<group>"; };
+		6D88037E2208639C0017398B /* WildCardUITapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUITapGestureRecognizer.m; sourceTree = "<group>"; };
+		6D88037F2208639C0017398B /* WildCardAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardAction.h; sourceTree = "<group>"; };
+		6D8803802208639C0017398B /* WildCardCustomAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCustomAction.m; sourceTree = "<group>"; };
+		6D8803812208639C0017398B /* WildCardSetTextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardSetTextAction.h; sourceTree = "<group>"; };
+		6D8803822208639C0017398B /* WildCardTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardTrigger.h; sourceTree = "<group>"; };
+		6D8803832208639C0017398B /* WildCardViewPagerLeftAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardViewPagerLeftAction.h; sourceTree = "<group>"; };
+		6D8803842208639C0017398B /* WildCardApplyAgainAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardApplyAgainAction.h; sourceTree = "<group>"; };
+		6D8803852208639C0017398B /* WildCardExtensionConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardExtensionConstructor.m; sourceTree = "<group>"; };
+		6D8803862208639C0017398B /* WildCardFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardFunction.m; sourceTree = "<group>"; };
+		6D8803872208639C0017398B /* WildCardUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUtil.m; sourceTree = "<group>"; };
+		6D8803882208639C0017398B /* WildCardConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardConstructor.m; sourceTree = "<group>"; };
+		6D8803892208639C0017398B /* WildCardScreenTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardScreenTableView.h; sourceTree = "<group>"; };
+		6DF137F320D7469A00071B9F /* CloudJsonViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudJsonViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DF137F720D7469A00071B9F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6DF137F920D7469A00071B9F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6DF137FA20D7469A00071B9F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6DF137FC20D7469A00071B9F /* FirstController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstController.h; sourceTree = "<group>"; };
+		6DF137FD20D7469A00071B9F /* FirstController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstController.m; sourceTree = "<group>"; };
+		6DF1380320D7469A00071B9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6DF1380520D7469A00071B9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6DF1380820D7469B00071B9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6DF1380A20D7469B00071B9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DFB6D7922CE5D1E00962591 /* ReplaceRuleImageResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImageResource.h; sourceTree = "<group>"; };
+		6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImageResource.m; sourceTree = "<group>"; };
+		980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudJsonViewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6DF137F020D7469A00071B9F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D132BB4255E71D300004E1F /* KakaoLink.framework in Frameworks */,
+				6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */,
+				6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */,
+				6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */,
+				81DC92FEE702C5D0C03A42F5 /* libPods-CloudJsonViewer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0BCC150E47406F73DA50155A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D132BB2255E71D200004E1F /* KakaoCommon.framework */,
+				6D132BB0255E71D200004E1F /* KakaoLink.framework */,
+				6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */,
+				6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */,
+				980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1E05F4C7336AAD91274BEE67 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */,
+				2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6D132B7F255E6D4000004E1F /* core */ = {
+			isa = PBXGroup;
+			children = (
+				6D132B80255E6D5200004E1F /* Devil.h */,
+				6D132B81255E6D5200004E1F /* Devil.m */,
+				6D132BA4255E6FE800004E1F /* SubController.h */,
+				6D132BA5255E6FE800004E1F /* SubController.m */,
+				6D132BA8255E700000004E1F /* BaseController.h */,
+				6D132BA9255E700000004E1F /* BaseController.m */,
+			);
+			name = core;
+			sourceTree = "<group>";
+		};
+		6D132B89255E6E0F00004E1F /* july */ = {
+			isa = PBXGroup;
+			children = (
+				6D132B94255E6E0F00004E1F /* lang */,
+				6D132B8E255E6E0F00004E1F /* util */,
+				6D132B92255E6E0F00004E1F /* CustomIOSAlertView.h */,
+				6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */,
+				6D132B93255E6E0F00004E1F /* DeepLink.h */,
+				6D132B9A255E6E0F00004E1F /* DeepLink.m */,
+				6D132B8A255E6E0F00004E1F /* DrawerView.h */,
+				6D132B97255E6E0F00004E1F /* DrawerView.m */,
+				6D132B91255E6E0F00004E1F /* HttpUtil.h */,
+				6D132B99255E6E0F00004E1F /* HttpUtil.mm */,
+			);
+			path = july;
+			sourceTree = "<group>";
+		};
+		6D132B8E255E6E0F00004E1F /* util */ = {
+			isa = PBXGroup;
+			children = (
+				6D132B8F255E6E0F00004E1F /* JulyUtil.h */,
+				6D132B90255E6E0F00004E1F /* JulyUtil.m */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		6D132B94255E6E0F00004E1F /* lang */ = {
+			isa = PBXGroup;
+			children = (
+				6D132B95255E6E0F00004E1F /* Lang.m */,
+				6D132B96255E6E0F00004E1F /* Lang.h */,
+			);
+			path = lang;
+			sourceTree = "<group>";
+		};
+		6D132BC2255E76F400004E1F /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				6D132BC3255E76F400004E1F /* loading.json */,
+				6D132BC4255E76F400004E1F /* lang.json */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		6D88033F2208639C0017398B /* wildcard */ = {
+			isa = PBXGroup;
+			children = (
+				6D8803462208639C0017398B /* extensionview */,
+				6D8803452208639C0017398B /* MappingSyntaxInterpreter.h */,
+				6D88036B2208639C0017398B /* MappingSyntaxInterpreter.m */,
+				6D88034D2208639C0017398B /* replacerule */,
+				6D8803742208639C0017398B /* TriggerAction */,
+				6D88036D2208639C0017398B /* view */,
+				6D8803412208639C0017398B /* WildCardCollectionViewHelper.h */,
+				6D8803692208639C0017398B /* WildCardCollectionViewHelper.m */,
+				6D8803652208639C0017398B /* WildCardConstructor.h */,
+				6D8803882208639C0017398B /* WildCardConstructor.m */,
+				6D8803632208639C0017398B /* WildCardExtensionConstructor.h */,
+				6D8803852208639C0017398B /* WildCardExtensionConstructor.m */,
+				6D8803622208639C0017398B /* WildCardFunction.h */,
+				6D8803862208639C0017398B /* WildCardFunction.m */,
+				6D8803442208639C0017398B /* WildCardLayoutPathUnit.h */,
+				6D88036C2208639C0017398B /* WildCardLayoutPathUnit.m */,
+				6D8803422208639C0017398B /* WildCardMeta.h */,
+				6D8803682208639C0017398B /* WildCardMeta.m */,
+				6D88036A2208639C0017398B /* WildCardNextChain.h */,
+				6D8803402208639C0017398B /* WildCardNextChain.m */,
+				6D8803892208639C0017398B /* WildCardScreenTableView.h */,
+				6D8803642208639C0017398B /* WildCardScreenTableView.m */,
+				6D8803432208639C0017398B /* WildCardUIView.h */,
+				6D8803672208639C0017398B /* WildCardUIView.m */,
+				6D8803662208639C0017398B /* WildCardUtil.h */,
+				6D8803872208639C0017398B /* WildCardUtil.m */,
+			);
+			path = wildcard;
+			sourceTree = "<group>";
+		};
+		6D8803462208639C0017398B /* extensionview */ = {
+			isa = PBXGroup;
+			children = (
+				6D8803472208639C0017398B /* WildCardIndicatorView.h */,
+				6D8803482208639C0017398B /* WildCardLCAnimatedPageControl.h */,
+				6D8803492208639C0017398B /* WildCardUITextField.h */,
+				6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */,
+				6D88034B2208639C0017398B /* WildCardIndicatorView.m */,
+				6D88034C2208639C0017398B /* WildCardUITextField.m */,
+			);
+			path = extensionview;
+			sourceTree = "<group>";
+		};
+		6D88034D2208639C0017398B /* replacerule */ = {
+			isa = PBXGroup;
+			children = (
+				6D8803502208639C0017398B /* ReplaceRule.h */,
+				6D8803592208639C0017398B /* ReplaceRule.m */,
+				6D88035D2208639C0017398B /* ReplaceRuleClick.h */,
+				6D8803542208639C0017398B /* ReplaceRuleClick.m */,
+				6D88034E2208639C0017398B /* ReplaceRuleColor.h */,
+				6D88035C2208639C0017398B /* ReplaceRuleColor.m */,
+				6D88035B2208639C0017398B /* ReplaceRuleExtension.h */,
+				6D88034F2208639C0017398B /* ReplaceRuleExtension.m */,
+				6D88035F2208639C0017398B /* ReplaceRuleHidden.h */,
+				6D8803562208639C0017398B /* ReplaceRuleHidden.m */,
+				6D88035A2208639C0017398B /* ReplaceRuleImage.h */,
+				6D8803512208639C0017398B /* ReplaceRuleImage.m */,
+				6DFB6D7922CE5D1E00962591 /* ReplaceRuleImageResource.h */,
+				6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */,
+				6D8803532208639C0017398B /* ReplaceRuleLocalImage.h */,
+				6D88035E2208639C0017398B /* ReplaceRuleLocalImage.m */,
+				6D8803582208639C0017398B /* ReplaceRuleRepeat.h */,
+				6D8803522208639C0017398B /* ReplaceRuleRepeat.m */,
+				6D8803612208639C0017398B /* ReplaceRuleReplaceUrl.h */,
+				6D8803572208639C0017398B /* ReplaceRuleReplaceUrl.m */,
+				6D8803552208639C0017398B /* ReplaceRuleText.h */,
+				6D8803602208639C0017398B /* ReplaceRuleText.m */,
+			);
+			path = replacerule;
+			sourceTree = "<group>";
+		};
+		6D88036D2208639C0017398B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				6D88036E2208639C0017398B /* WildCardGridView.h */,
+				6D88036F2208639C0017398B /* WildCardCollectionViewAdapter.h */,
+				6D8803702208639C0017398B /* WildCardUILabel.m */,
+				6D8803712208639C0017398B /* WildCardGridView.m */,
+				6D8803722208639C0017398B /* WildCardCollectionViewAdapter.m */,
+				6D8803732208639C0017398B /* WildCardUILabel.h */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		6D8803742208639C0017398B /* TriggerAction */ = {
+			isa = PBXGroup;
+			children = (
+				6D8803752208639C0017398B /* WildCardViewPagerRightAction.m */,
+				6D8803762208639C0017398B /* WildCardSetTextAction.m */,
+				6D8803772208639C0017398B /* WildCardCustomAction.h */,
+				6D8803782208639C0017398B /* WildCardAction.m */,
+				6D8803792208639C0017398B /* WildCardUITapGestureRecognizer.h */,
+				6D88037A2208639C0017398B /* WildCardViewPagerLeftAction.m */,
+				6D88037B2208639C0017398B /* WildCardTrigger.m */,
+				6D88037C2208639C0017398B /* WildCardApplyAgainAction.m */,
+				6D88037D2208639C0017398B /* WildCardViewPagerRightAction.h */,
+				6D88037E2208639C0017398B /* WildCardUITapGestureRecognizer.m */,
+				6D88037F2208639C0017398B /* WildCardAction.h */,
+				6D8803802208639C0017398B /* WildCardCustomAction.m */,
+				6D8803812208639C0017398B /* WildCardSetTextAction.h */,
+				6D8803822208639C0017398B /* WildCardTrigger.h */,
+				6D8803832208639C0017398B /* WildCardViewPagerLeftAction.h */,
+				6D8803842208639C0017398B /* WildCardApplyAgainAction.h */,
+			);
+			path = TriggerAction;
+			sourceTree = "<group>";
+		};
+		6DF137EA20D7469A00071B9F = {
+			isa = PBXGroup;
+			children = (
+				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
+				6D132BC2255E76F400004E1F /* assets */,
+				6D132B89255E6E0F00004E1F /* july */,
+				6D88033F2208639C0017398B /* wildcard */,
+				6DF137F520D7469A00071B9F /* CloudJsonViewer */,
+				6DF137F420D7469A00071B9F /* Products */,
+				1E05F4C7336AAD91274BEE67 /* Pods */,
+				0BCC150E47406F73DA50155A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		6DF137F420D7469A00071B9F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6DF137F320D7469A00071B9F /* CloudJsonViewer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6DF137F520D7469A00071B9F /* CloudJsonViewer */ = {
+			isa = PBXGroup;
+			children = (
+				6D132BBD255E759700004E1F /* CloudJsonViewer.entitlements */,
+				6D132B7F255E6D4000004E1F /* core */,
+				6DF137FC20D7469A00071B9F /* FirstController.h */,
+				6DF137FD20D7469A00071B9F /* FirstController.m */,
+				6D132B53255E66EB00004E1F /* LoginController.h */,
+				6D132B54255E66EB00004E1F /* LoginController.m */,
+				6DF137F920D7469A00071B9F /* AppDelegate.h */,
+				6DF137FA20D7469A00071B9F /* AppDelegate.m */,
+				6D132B84255E6D9E00004E1F /* MainController.h */,
+				6D132B85255E6D9E00004E1F /* MainController.m */,
+				6DF1380220D7469A00071B9F /* Main.storyboard */,
+				6DF1380520D7469A00071B9F /* Assets.xcassets */,
+				6DF1380720D7469B00071B9F /* LaunchScreen.storyboard */,
+				6DF1380A20D7469B00071B9F /* Info.plist */,
+				6DF137F620D7469A00071B9F /* Supporting Files */,
+			);
+			path = CloudJsonViewer;
+			sourceTree = "<group>";
+		};
+		6DF137F620D7469A00071B9F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6DF137F720D7469A00071B9F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6DF137F220D7469A00071B9F /* CloudJsonViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "CloudJsonViewer" */;
+			buildPhases = (
+				4CCA04F407CC2C66AE373E74 /* [CP] Check Pods Manifest.lock */,
+				6DF137EF20D7469A00071B9F /* Sources */,
+				6DF137F020D7469A00071B9F /* Frameworks */,
+				6DF137F120D7469A00071B9F /* Resources */,
+				CDB8FF7F82D450D69287147B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CloudJsonViewer;
+			productName = CloudJsonViewer;
+			productReference = 6DF137F320D7469A00071B9F /* CloudJsonViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6DF137EB20D7469A00071B9F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Mu Young Ko";
+				TargetAttributes = {
+					6DF137F220D7469A00071B9F = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 3675B8UJSV;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 6DF137EE20D7469A00071B9F /* Build configuration list for PBXProject "CloudJsonViewer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+				Base,
+			);
+			mainGroup = 6DF137EA20D7469A00071B9F;
+			productRefGroup = 6DF137F420D7469A00071B9F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6DF137F220D7469A00071B9F /* CloudJsonViewer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6DF137F120D7469A00071B9F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6DF1380920D7469B00071B9F /* LaunchScreen.storyboard in Resources */,
+				6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */,
+				6DF1380620D7469A00071B9F /* Assets.xcassets in Resources */,
+				6DF1380420D7469A00071B9F /* Main.storyboard in Resources */,
+				6D132BC5255E76F400004E1F /* loading.json in Resources */,
+				6D132BC6255E76F400004E1F /* lang.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4CCA04F407CC2C66AE373E74 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CloudJsonViewer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CDB8FF7F82D450D69287147B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer-resources.sh",
+				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6DF137EF20D7469A00071B9F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D88038C2208639C0017398B /* WildCardIndicatorView.m in Sources */,
+				6D88038E2208639C0017398B /* ReplaceRuleExtension.m in Sources */,
+				6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */,
+				6D8803AC2208639C0017398B /* WildCardConstructor.m in Sources */,
+				6D8803962208639C0017398B /* ReplaceRuleLocalImage.m in Sources */,
+				6D8803912208639C0017398B /* ReplaceRuleClick.m in Sources */,
+				6D8803942208639C0017398B /* ReplaceRule.m in Sources */,
+				6D8803A62208639C0017398B /* WildCardApplyAgainAction.m in Sources */,
+				6D132BA6255E6FE800004E1F /* SubController.m in Sources */,
+				6D8803AA2208639C0017398B /* WildCardFunction.m in Sources */,
+				6D8803A82208639C0017398B /* WildCardCustomAction.m in Sources */,
+				6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */,
+				6D8803A92208639C0017398B /* WildCardExtensionConstructor.m in Sources */,
+				6D8803932208639C0017398B /* ReplaceRuleReplaceUrl.m in Sources */,
+				6D88039D2208639C0017398B /* WildCardLayoutPathUnit.m in Sources */,
+				6D88038D2208639C0017398B /* WildCardUITextField.m in Sources */,
+				6D8803A22208639C0017398B /* WildCardSetTextAction.m in Sources */,
+				6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */,
+				6D8803972208639C0017398B /* ReplaceRuleText.m in Sources */,
+				6D132B9D255E6E0F00004E1F /* Lang.m in Sources */,
+				6D88039B2208639C0017398B /* WildCardCollectionViewHelper.m in Sources */,
+				6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */,
+				6D88039C2208639C0017398B /* MappingSyntaxInterpreter.m in Sources */,
+				6DF137FB20D7469A00071B9F /* AppDelegate.m in Sources */,
+				6DF137FE20D7469A00071B9F /* FirstController.m in Sources */,
+				6D132B82255E6D5200004E1F /* Devil.m in Sources */,
+				6D8803992208639C0017398B /* WildCardUIView.m in Sources */,
+				6D132BAA255E700000004E1F /* BaseController.m in Sources */,
+				6D8803952208639C0017398B /* ReplaceRuleColor.m in Sources */,
+				6D8803902208639C0017398B /* ReplaceRuleRepeat.m in Sources */,
+				6D8803A32208639C0017398B /* WildCardAction.m in Sources */,
+				6D8803982208639C0017398B /* WildCardScreenTableView.m in Sources */,
+				6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */,
+				6D132B86255E6D9E00004E1F /* MainController.m in Sources */,
+				6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */,
+				6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */,
+				6D8803A52208639C0017398B /* WildCardTrigger.m in Sources */,
+				6D8803A42208639C0017398B /* WildCardViewPagerLeftAction.m in Sources */,
+				6D88039F2208639C0017398B /* WildCardGridView.m in Sources */,
+				6D88038F2208639C0017398B /* ReplaceRuleImage.m in Sources */,
+				6DF137F820D7469A00071B9F /* main.m in Sources */,
+				6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */,
+				6D132B55255E66EB00004E1F /* LoginController.m in Sources */,
+				6D8803922208639C0017398B /* ReplaceRuleHidden.m in Sources */,
+				6D88039E2208639C0017398B /* WildCardUILabel.m in Sources */,
+				6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */,
+				6D8803A02208639C0017398B /* WildCardCollectionViewAdapter.m in Sources */,
+				6D88039A2208639C0017398B /* WildCardMeta.m in Sources */,
+				6D8803A72208639C0017398B /* WildCardUITapGestureRecognizer.m in Sources */,
+				6D8803A12208639C0017398B /* WildCardViewPagerRightAction.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		6DF1380220D7469A00071B9F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6DF1380320D7469A00071B9F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6DF1380720D7469B00071B9F /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6DF1380820D7469B00071B9F /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6DF1380B20D7469B00071B9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6DF1380C20D7469B00071B9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6DF1380E20D7469B00071B9F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CloudJsonViewer/CloudJsonViewer.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3675B8UJSV;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/frameworks",
+				);
+				INFOPLIST_FILE = CloudJsonViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6DF1380F20D7469B00071B9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CloudJsonViewer/CloudJsonViewer.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: muyoung ko (3675B8UJSV)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3675B8UJSV;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/frameworks",
+				);
+				INFOPLIST_FILE = CloudJsonViewer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6DF137EE20D7469A00071B9F /* Build configuration list for PBXProject "CloudJsonViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DF1380B20D7469B00071B9F /* Debug */,
+				6DF1380C20D7469B00071B9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "CloudJsonViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DF1380E20D7469B00071B9F /* Debug */,
+				6DF1380F20D7469B00071B9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6DF137EB20D7469A00071B9F /* Project object */;
+}

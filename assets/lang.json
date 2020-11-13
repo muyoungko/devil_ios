@@ -1,0 +1,506 @@
+{
+  "Add Room": {
+    "ko": "숙소 추가",
+    "en": "Add Room",
+    "fr": "Ajouter une salle",
+    "it": "Aggiungi camera"
+  },
+  "Sun": {
+    "ko": "일",
+    "en": "Sun",
+    "fr": "Soleil",
+    "it": "Sole"
+  },
+  "Mon": {
+    "ko": "월",
+    "en": "Mon",
+    "fr": "lun",
+    "it": "Mon"
+  },
+  "Tue": {
+    "ko": "화",
+    "en": "Tue",
+    "fr": "Mar",
+    "it": "mar"
+  },
+  "Wen": {
+    "ko": "수",
+    "en": "Wen",
+    "fr": "Loupe",
+    "it": "natta"
+  },
+  "Thu": {
+    "ko": "목",
+    "en": "Thu",
+    "fr": "jeu",
+    "it": "gio"
+  },
+  "Fri": {
+    "ko": "금",
+    "en": "Fri",
+    "fr": "ven",
+    "it": "Fri"
+  },
+  "Sat": {
+    "ko": "토",
+    "en": "Sat",
+    "fr": "Sam",
+    "it": "Sat"
+  },
+  "Ask Question": {
+    "ko": "문의하기",
+    "en": "Ask Question",
+    "fr": "Poser une question",
+    "it": "Fai una domanda"
+  },
+  "Member Ship": {
+    "ko": "멤버십",
+    "en": "Member Ship",
+    "fr": "Navire membre",
+    "it": "Nave membro"
+  },
+  "Room List": {
+    "ko": "숙소 목록",
+    "en": "Room List",
+    "fr": "Liste des chambres",
+    "it": "Elenco camere"
+  },
+  "페이스북으로 로그인": {
+    "ko": "페이스북으로 로그인",
+    "en": "Sign in with Facebook",
+    "fr": "Se connecter avec Facebook",
+    "it": "Fai il login con facebook"
+  },
+  "구글계정으로 로그인": {
+    "ko": "구글계정으로 로그인",
+    "en": "Sign in with Google",
+    "fr": "Connectez-vous avec Google",
+    "it": "Accedi con Google"
+  },
+  "애플계정으로 로그인": {
+    "ko": "애플계정으로 로그인",
+    "en": "Sign in with Apple",
+    "fr": "Sign in with Apple",
+    "it": "Sign in with Apple"
+  },
+  "SHARE": {
+    "ko": "공유하기",
+    "en": "SHARE",
+    "fr": "PARTAGER",
+    "it": "CONDIVIDERE"
+  },
+  "REMOVE": {
+    "ko": "삭제",
+    "en": "REMOVE",
+    "fr": "RETIRER",
+    "it": "RIMUOVERE"
+  },
+  "Color": {
+    "ko": "색깔",
+    "en": "Color",
+    "fr": "Couleur",
+    "it": "Colore"
+  },
+  "ex) 1호점": {
+    "ko": "ex) 1호점",
+    "en": "ex) House No.1",
+    "fr": "ex) Maison n ° 1",
+    "it": "ex) Casa n. 1"
+  },
+  "Room Name": {
+    "ko": "숙소 이름",
+    "en": "Room Name",
+    "fr": "Nom de la salle",
+    "it": "Nome della stanza"
+  },
+  "http://...": {
+    "ko": "http://...",
+    "en": "http://...",
+    "fr": "http: // ...",
+    "it": "http: // ..."
+  },
+  "Airbnb Calendar URL": {
+    "ko": "비앤비 달력 URL",
+    "en": "Airbnb Calendar URL",
+    "fr": "URL du calendrier Airbnb",
+    "it": "URL del calendario di Airbnb"
+  },
+  "SAVE": {
+    "ko": "저장",
+    "en": "SAVE",
+    "fr": "ENREGISTRER",
+    "it": "SALVA"
+  },
+  "What is \nAirbnb Calrdendar URL?": {
+    "ko": "비앤비 달력 URL이 \n무엇인가요?",
+    "en": "What is \nAirbnb Calrdendar URL?",
+    "fr": "Quel est\nURL Airbnb Calrdendar?",
+    "it": "Cosa è\nURL Airbnb Calrdendar?"
+  },
+  "회원 가입을 원하시면\n다음에 동의해주세요": {
+    "ko": "회원 가입을 원하시면\n다음에 동의해주세요",
+    "en": "For signing in\nPlease, agree following",
+    "fr": "Pour vous connecter\nS'il vous plaît, acceptez de suivre",
+    "it": "Per accedere\nPer favore, concorda quanto segue"
+  },
+  "서비스 이용 약관": {
+    "ko": "서비스 이용 약관",
+    "en": "Terms of Use",
+    "fr": "Conditions d'utilisation",
+    "it": "Condizioni d'uso"
+  },
+  "개인정보 이용 약관동의": {
+    "ko": "개인정보 이용 약관동의",
+    "en": "Terms of Privacy",
+    "fr": "Conditions de confidentialité",
+    "it": "Termini di privacy"
+  },
+  "모두 동의": {
+    "ko": "모두 동의",
+    "en": "Agree All",
+    "fr": "Tout accepter",
+    "it": "Accetto tutti"
+  },
+  "자세히 >": {
+    "ko": "자세히 >",
+    "en": "Details",
+    "fr": "Détails",
+    "it": "Dettagli"
+  },
+  "MemberShip 1": {
+    "ko": "MemberShip 1",
+    "en": "MemberShip 1",
+    "fr": "MemberShip 1",
+    "it": "MemberShip 1"
+  },
+  "광고 없이 이용가능합니다.": {
+    "ko": "광고 없이 이용가능합니다.",
+    "en": "You can use without advertisement",
+    "fr": "Vous pouvez utiliser sans publicité",
+    "it": "Puoi usare senza pubblicità"
+  },
+  "멤버십은 언제든 취소가능합니다.": {
+    "ko": "멤버십은 언제든 취소가능합니다.",
+    "en": "Member Ship can be canceled anytime.",
+    "fr": "Le navire membre peut être annulé à tout moment.",
+    "it": "La nave membro può essere cancellata in qualsiasi momento."
+  },
+  "All in One Calendar": {
+    "ko": "하나의 달력으로",
+    "en": "All in One Calendar",
+    "fr": "Tout en un calendrier",
+    "it": "Calendario tutto in uno"
+  },
+  "And": {
+    "ko": "그리고",
+    "en": "And",
+    "fr": "Et",
+    "it": "E"
+  },
+  "To Friend": {
+    "ko": "친구에게",
+    "en": "To Friend",
+    "fr": "A un ami",
+    "it": "All'amico"
+  },
+  "https://bnbhost.page.link/XXXX": {
+    "ko": "https://bnbhost.page.link/XXXX",
+    "en": "https://bnbhost.page.link/XXXX",
+    "fr": "https://bnbhost.page.link/XXXX",
+    "it": "https://bnbhost.page.link/XXXX"
+  },
+  "Then": {
+    "ko": "그리고",
+    "en": "Then",
+    "fr": "alors",
+    "it": "Poi"
+  },
+  "Welcome": {
+    "ko": "반갑습니다",
+    "en": "Welcome",
+    "fr": "Bienvenue",
+    "it": "benvenuto"
+  },
+  "1. Go to PC": {
+    "ko": "1. PC를 켜세요",
+    "en": "1. Go to PC",
+    "fr": "1. Allez sur PC",
+    "it": "1. Vai a PC"
+  },
+  "2. Go to Your Room > Availability": {
+    "ko": "2. 숙소 > 예약 가능 여부",
+    "en": "2. Go to Your Room > Availability",
+    "fr": "2. Allez dans votre chambre> Disponibilité",
+    "it": "2. Vai a La tua camera> Disponibilità"
+  },
+  "Scroll Down …": {
+    "ko": "스크롤 다운...",
+    "en": "Scroll Down …",
+    "fr": "Défiler vers le bas …",
+    "it": "Scorri verso il basso ..."
+  },
+  "3. Click Export Calendar": {
+    "ko": "3. 달력 내보내기를 클릭하세요",
+    "en": "3. Click Export Calendar",
+    "fr": "3. Cliquez sur Exporter le calendrier",
+    "it": "3. Fai clic su Esporta calendario"
+  },
+  "4. Copy URL and Paste to\n“Calendar URL” \n(Maybe use e-mail, KakaoTalk or What’sApp)": {
+    "ko": "4.URL 복사하기로 붙여넣으세요\n“비앤비 달력 URL” \n(카톡이나 이메일 등을 이용하세요)",
+    "en": "4. Copy URL and Paste to\n“Calendar URL” \n(Maybe use e-mail, KakaoTalk or What’sApp)",
+    "fr": "4. Copiez l'URL et collez-la dans\n«URL d'agenda»\n(Peut-être utiliser le courrier électronique, KakaoTalk ou What’sApp)",
+    "it": "4. Copia URL e incolla in\n\"URL del calendario\"\n(Forse usa e-mail, KakaoTalk o What’sApp)"
+  },
+  "5. END": {
+    "ko": "5. 끝",
+    "en": "5. END",
+    "fr": "5. FIN",
+    "it": "5. FINE"
+  },
+  "Login": {
+    "ko": "로그인",
+    "en": "Login",
+    "fr": "Login",
+    "it": "Login"
+  },
+  "Logout": {
+    "ko": "로그아웃",
+    "en": "Logout",
+    "fr": "Logout",
+    "it": "Logout"
+  },
+  "Logout completed": {
+    "ko": "로그아웃되었습니다.",
+    "en": "Logout completed",
+    "fr": "Logout completed",
+    "it": "Logout completed"
+  },
+  "Free for 15 days": {
+    "ko": "15일 무료",
+    "en": "Free for 15 days",
+    "fr": "Free for 15 days",
+    "it": "Free for 15 days"
+  },
+  "Do you really want to remove the room?": {
+    "ko": "숙소를 삭제하시겠습니까?",
+    "en": "Do you really want to remove the room?",
+    "fr": "Do you really want to remove the room?",
+    "it": "Do you really want to remove the room?"
+  },
+  "Share My Bnb Host": {
+    "ko": "숙소를 공유합니다.",
+    "en": "Share My Bnb Host",
+    "fr": "Share My Bnb Host",
+    "it": "Share My Bnb Host"
+  },
+  "New Room": {
+    "ko": "신규 숙소",
+    "en": "New Room",
+    "fr": "New Room",
+    "it": "New Room"
+  },
+  "Room name is already exists": {
+    "ko": "이미 숙소 이름이 있습니다.",
+    "en": "Room name is already exists",
+    "fr": "Room name is already exists",
+    "it": "Room name is already exists"
+  },
+  "Url is already exists": {
+    "ko": "이미 URL이 있습니다.",
+    "en": "Url is already exists",
+    "fr": "Url is already exists",
+    "it": "Url is already exists"
+  },
+  "Please , Back button one more time for exit": {
+    "ko": "뒤로 버튼을 한번더 누르시면 종료됩니다.",
+    "en": "Please , Back button one more time for exit",
+    "fr": "Please , Back button one more time for exit",
+    "it": "Please , Back button one more time for exit"
+  },
+  "Do you want to go membership?": {
+    "ko": "멤버십 화면으로 이동하시겠습니까?",
+    "en": "Do you want to go membership?",
+    "fr": "Do you want to go membership?",
+    "it": "Do you want to go membership?"
+  },
+  "Free MemberShip": {
+    "ko": "무료 멤버십",
+    "en": "Free MemberShip",
+    "fr": "Free MemberShip",
+    "it": "Free MemberShip"
+  },
+  "MemberShip One": {
+    "ko": "멤버십 원",
+    "en": "MemberShip One",
+    "fr": "MemberShip One",
+    "it": "MemberShip One"
+  },
+  "MemberShip": {
+    "ko": "멤버십",
+    "en": "MemberShip",
+    "fr": "MemberShip",
+    "it": "MemberShip"
+  },
+  "Sign In": {
+    "ko": "서비스 가입",
+    "en": "Sign In",
+    "fr": "Sign In",
+    "it": "Sign In"
+  },
+  "Terms of Privacy": {
+    "ko": "개인정보 처리 방침",
+    "en": "Terms of Privacy",
+    "fr": "Terms of Privacy",
+    "it": "Terms of Privacy"
+  },
+  "Terms of Use": {
+    "ko": "서비스 이용 약관",
+    "en": "Terms of Use",
+    "fr": "Terms of Use",
+    "it": "Terms of Use"
+  },
+  "Complete": {
+    "ko": "완료",
+    "en": "Complete",
+    "fr": "Complete",
+    "it": "Complete"
+  },
+  "Subscribe": {
+    "ko": "정기 결제",
+    "en": "Subscribe",
+    "fr": "Subscribe",
+    "it": "Subscribe"
+  },
+  "Subscribe Cancel": {
+    "ko": "정기 결제 취소",
+    "en": "Subscribe Cancel",
+    "fr": "Subscribe Cancel",
+    "it": "Subscribe Cancel"
+  },
+  "Thanks for subscription": {
+    "ko": "구입해 주셔서 감사합니다",
+    "en": "Thanks for subscription",
+    "fr": "Thanks for subscription",
+    "it": "Thanks for subscription"
+  },
+  "Free trial left %d days. Do you want to get membership?": {
+    "ko": "무료 사용기간이 %d일 남았습니다. 정기 결제를 하시겠습니까?",
+    "en": "Free trial left %d days. Do you want to get membership?",
+    "fr": "Free trial left %d days. Do you want to get membership?",
+    "it": "Free trial left %d days. Do you want to get membership?"
+  },
+  "정기 결제 하기": {
+    "ko": "정기 결제 하기",
+    "en": "Subscribe",
+    "fr": "Subscribe",
+    "it": "Subscribe"
+  },
+  "Today": {
+    "ko": "오늘",
+    "en": "Today",
+    "fr": "Today",
+    "it": "Today"
+  },
+  "Please Add Your First Room": {
+    "ko": "방을 추가해주세요",
+    "en": "Please Add Your First Room",
+    "fr": "Please Add Your First Room",
+    "it": "Please Add Your First Room"
+  },
+  "Do you really want to remove the memo?": {
+    "ko": "메모를 삭제하시겠습니까?",
+    "en": "Do you really want to remove the memo?",
+    "fr": "Do you really want to remove the memo?",
+    "it": "Do you really want to remove the memo?"
+  },
+  "There is no memo yet": {
+    "ko": "메모가 없습니다",
+    "en": "There is no memo yet",
+    "fr": "There is no memo yet",
+    "it": "There is no memo yet"
+  },
+  "You can remove ads": {
+    "ko": "광고없이 이용하실 수 있습니다",
+    "en": "You can remove ads",
+    "fr": "You can remove ads",
+    "it": "You can remove ads"
+  },
+  "Getting Room": {
+    "ko": "숙소 불러오기",
+    "en": "Getting Room",
+    "fr": "Getting Room",
+    "it": "Getting Room"
+  },
+  "Accessing Airbnb": {
+    "ko": "에어비앤비에 접속 중입니다.",
+    "en": "Accessing Airbnb",
+    "fr": "Accessing Airbnb",
+    "it": "Accessing Airbnb"
+  },
+  "Please sign in Airbnb": {
+    "ko": "로그인 하십시오",
+    "en": "Please sign in Airbnb",
+    "fr": "Please sign in Airbnb",
+    "it": "Please sign in Airbnb"
+  },
+  "Please click the room name to add": {
+    "ko": "방 제목을 클릭하십시오",
+    "en": "Please click the room name to add",
+    "fr": "Please click the room name to add",
+    "it": "Please click the room name to add"
+  },
+  "Under Sync calendars, select Export Calendar": {
+    "ko": "달력 동기화에 내보내기를 클릭하십시오",
+    "en": "Under Sync calendars, select Export Calendar",
+    "fr": "Under Sync calendars, select Export Calendar",
+    "it": "Under Sync calendars, select Export Calendar"
+  },
+  "Add Your First Room": {
+    "ko": "첫 번째 숙소를 등록해보세요",
+    "en": "Add Your First Room",
+    "fr": "Add Your First Room",
+    "it": "Add Your First Room"
+  },
+  "The more add room, the more useful": {
+    "ko": "여러 숙소를 등록할수록 더 유용합니다",
+    "en": "The more add room, the more useful",
+    "fr": "The more add room, the more useful",
+    "it": "The more add room, the more useful"
+  },
+  "LOAD": {
+    "ko": "불러오기",
+    "en": "LOAD",
+    "fr": "LOAD",
+    "it": "LOAD"
+  },
+  "- You can remove ads - Memo on calendar is sent to co-workers": {
+    "ko": "- 광고없이 이용하실 수 있습니다\n- 메모를 작성하면 동료에게 알림이 갑니다.",
+    "en": "- You can remove ads\n- Memo on calendar is sent to co-workers",
+    "fr": "- You can remove ads\n- Memo on calendar is sent to co-workers",
+    "it": "- You can remove ads\n- Memo on calendar is sent to co-workers"
+  },
+  "Get a subscription to Member Ship 1, enabling these premium features": {
+    "ko": "멤버십1으로 업그레이드 해주시면 다음과 같은 기능을 이용하실 수 있습니다.",
+    "en": "Get a subscription to Member Ship 1, enabling these premium features",
+    "fr": "Get a subscription to Member Ship 1, enabling these premium features",
+    "it": "Get a subscription to Member Ship 1, enabling these premium features"
+  },
+  "Upgrade To MemberShip 1": {
+    "ko": "멤버십1 업그레이드",
+    "en": "Upgrade To MemberShip 1",
+    "fr": "Upgrade To MemberShip 1",
+    "it": "Upgrade To MemberShip 1"
+  },
+  "Subscription will be charged to your credit card through your iTunes account. Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period. You can cancel anytime with your iTunes account settings. Any unused portion of a free trial will be forfeited if you purchase a subscription.": {
+    "ko": "구독은 iTunes 계정을 통해 신용 카드로 청구됩니다. 현재 기간이 끝나기 24 시간 전에 취소하지 않으면 구독이 자동으로 갱신됩니다. iTunes 계정 설정으로 언제든지 취소 할 수 있습니다. 구독을 구매하면 무료 평가판의 사용되지 않은 부분이 만료됩니다.",
+    "en": "Subscription will be charged to your credit card through your iTunes account. Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period. You can cancel anytime with your iTunes account settings. Any unused portion of a free trial will be forfeited if you purchase a subscription.",
+    "fr": "Subscription will be charged to your credit card through your iTunes account. Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period. You can cancel anytime with your iTunes account settings. Any unused portion of a free trial will be forfeited if you purchase a subscription.",
+    "it": "Subscription will be charged to your credit card through your iTunes account. Subscriptions will automatically renew unless canceled within 24-hours before the end of the current period. You can cancel anytime with your iTunes account settings. Any unused portion of a free trial will be forfeited if you purchase a subscription."
+  },
+  "monthfor six months": {
+    "ko": "매달 6개월 동안",
+    "en": "month\nfor six months",
+    "fr": "month\nfor six months",
+    "it": "month\nfor six months"
+  },
+}
