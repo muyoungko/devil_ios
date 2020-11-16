@@ -140,25 +140,13 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    
-    [[WildCardConstructor sharedInstance] initWithOnline:@"devil" onComplete:^(BOOL success) {
-        if(res && [res[@"r"] boolValue]){
-            {
-                MainController* vc = [[MainController alloc] init];
-                [self.navigationController setViewControllers:@[vc] animated:NO];
-            }
-        } else if(res && ![res[@"r"] boolValue]){
-            LoginController* vc = [[LoginController alloc] init];
-            [self.navigationController setViewControllers:@[vc] animated:NO];
-        } else {
-            [self showAlertWithFinish:@"앱을 초기화하지 못하였습니다. 네트워크 연결을 확인해주세요"]; 
-        }
-    }];
-        
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:[[FirstController alloc] init]];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"main" bundle:nil];
+    UIViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"first"];
+    //UIViewController* vc = [[FirstController alloc] init];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
-    
+        
     return YES;
 }
 

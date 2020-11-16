@@ -66,7 +66,7 @@
 -(void) initWithOnline:(NSString*_Nonnull)projectKey onComplete:(void (^_Nonnull)(BOOL success))complete
 {
     [WildCardConstructor sharedInstance].onLineMode = YES;
-    NSString* url = [NSString stringWithFormat:@"http://www.sering.co.kr:3000/project_json?key=%@", projectKey];
+    NSString* url = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/1605234988599", projectKey];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* responseJsonObject) {
         if(responseJsonObject != nil)
         {
