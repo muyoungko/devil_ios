@@ -7,17 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D132B55255E66EB00004E1F /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B54255E66EB00004E1F /* LoginController.m */; };
-		6D132B82255E6D5200004E1F /* Devil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B81255E6D5200004E1F /* Devil.m */; };
-		6D132B86255E6D9E00004E1F /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B85255E6D9E00004E1F /* MainController.m */; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
 		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
 		6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B97255E6E0F00004E1F /* DrawerView.m */; };
 		6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */; };
 		6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B99255E6E0F00004E1F /* HttpUtil.mm */; };
 		6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B9A255E6E0F00004E1F /* DeepLink.m */; };
-		6D132BA6255E6FE800004E1F /* SubController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132BA5255E6FE800004E1F /* SubController.m */; };
-		6D132BAA255E700000004E1F /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132BA9255E700000004E1F /* BaseController.m */; };
 		6D132BB4255E71D300004E1F /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB0255E71D200004E1F /* KakaoLink.framework */; };
 		6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */; };
 		6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB2255E71D200004E1F /* KakaoCommon.framework */; };
@@ -25,6 +20,17 @@
 		6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BBA255E751C00004E1F /* GoogleService-Info.plist */; };
 		6D132BC5255E76F400004E1F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC3255E76F400004E1F /* loading.json */; };
 		6D132BC6255E76F400004E1F /* lang.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC4255E76F400004E1F /* lang.json */; };
+		6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678B62567B1E2006D57DD /* BaseController.m */; };
+		6D4678CD2567B1E2006D57DD /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678B92567B1E2006D57DD /* MainController.m */; };
+		6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BB2567B1E2006D57DD /* LoginController.m */; };
+		6D4678CF2567B1E2006D57DD /* Devil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BC2567B1E2006D57DD /* Devil.m */; };
+		6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6D4678BF2567B1E2006D57DD /* LaunchScreen.storyboard */; };
+		6D4678D42567B1E2006D57DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678C42567B1E2006D57DD /* main.m */; };
+		6D4678D52567B1E2006D57DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678C62567B1E2006D57DD /* AppDelegate.m */; };
+		6D4678D62567B1E2006D57DD /* SubController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678C92567B1E2006D57DD /* SubController.m */; };
+		6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D4678DA2567B24C006D57DD /* Assets.xcassets */; };
+		6D4678E12567D46D006D57DD /* FirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678DF2567D46D006D57DD /* FirstController.m */; };
+		6D4678E22567D46D006D57DD /* FirstController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D4678E02567D46D006D57DD /* FirstController.xib */; };
 		6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803402208639C0017398B /* WildCardNextChain.m */; };
 		6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */; };
 		6D88038C2208639C0017398B /* WildCardIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034B2208639C0017398B /* WildCardIndicatorView.m */; };
@@ -60,24 +66,12 @@
 		6D8803AA2208639C0017398B /* WildCardFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803862208639C0017398B /* WildCardFunction.m */; };
 		6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803872208639C0017398B /* WildCardUtil.m */; };
 		6D8803AC2208639C0017398B /* WildCardConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803882208639C0017398B /* WildCardConstructor.m */; };
-		6DF137F820D7469A00071B9F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF137F720D7469A00071B9F /* main.m */; };
-		6DF137FB20D7469A00071B9F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF137FA20D7469A00071B9F /* AppDelegate.m */; };
-		6DF137FE20D7469A00071B9F /* FirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF137FD20D7469A00071B9F /* FirstController.m */; };
-		6DF1380420D7469A00071B9F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DF1380220D7469A00071B9F /* Main.storyboard */; };
-		6DF1380620D7469A00071B9F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DF1380520D7469A00071B9F /* Assets.xcassets */; };
-		6DF1380920D7469B00071B9F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DF1380720D7469B00071B9F /* LaunchScreen.storyboard */; };
 		6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */; };
 		81DC92FEE702C5D0C03A42F5 /* libPods-CloudJsonViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.release.xcconfig"; sourceTree = "<group>"; };
-		6D132B53255E66EB00004E1F /* LoginController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
-		6D132B54255E66EB00004E1F /* LoginController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
-		6D132B80255E6D5200004E1F /* Devil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Devil.h; sourceTree = "<group>"; };
-		6D132B81255E6D5200004E1F /* Devil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Devil.m; sourceTree = "<group>"; };
-		6D132B84255E6D9E00004E1F /* MainController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
-		6D132B85255E6D9E00004E1F /* MainController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
 		6D132B8A255E6E0F00004E1F /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
 		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
@@ -90,18 +84,32 @@
 		6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		6D132B99255E6E0F00004E1F /* HttpUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HttpUtil.mm; sourceTree = "<group>"; };
 		6D132B9A255E6E0F00004E1F /* DeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeepLink.m; sourceTree = "<group>"; };
-		6D132BA4255E6FE800004E1F /* SubController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubController.h; sourceTree = "<group>"; };
-		6D132BA5255E6FE800004E1F /* SubController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubController.m; sourceTree = "<group>"; };
-		6D132BA8255E700000004E1F /* BaseController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
-		6D132BA9255E700000004E1F /* BaseController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
 		6D132BB0255E71D200004E1F /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoLink.framework; path = frameworks/KakaoLink.framework; sourceTree = "<group>"; };
 		6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoMessageTemplate.framework; path = frameworks/KakaoMessageTemplate.framework; sourceTree = "<group>"; };
 		6D132BB2255E71D200004E1F /* KakaoCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoCommon.framework; path = frameworks/KakaoCommon.framework; sourceTree = "<group>"; };
 		6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoOpenSDK.framework; path = frameworks/KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		6D132BBA255E751C00004E1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		6D132BBD255E759700004E1F /* CloudJsonViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudJsonViewer.entitlements; sourceTree = "<group>"; };
 		6D132BC3255E76F400004E1F /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		6D132BC4255E76F400004E1F /* lang.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lang.json; sourceTree = "<group>"; };
+		6D4678B62567B1E2006D57DD /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
+		6D4678B82567B1E2006D57DD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		6D4678B92567B1E2006D57DD /* MainController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainController.m; sourceTree = "<group>"; };
+		6D4678BA2567B1E2006D57DD /* SubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubController.h; sourceTree = "<group>"; };
+		6D4678BB2567B1E2006D57DD /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
+		6D4678BC2567B1E2006D57DD /* Devil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Devil.m; sourceTree = "<group>"; };
+		6D4678C02567B1E2006D57DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		6D4678C32567B1E2006D57DD /* BaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseController.h; sourceTree = "<group>"; };
+		6D4678C42567B1E2006D57DD /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6D4678C52567B1E2006D57DD /* MainController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainController.h; sourceTree = "<group>"; };
+		6D4678C62567B1E2006D57DD /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6D4678C72567B1E2006D57DD /* Devil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Devil.h; sourceTree = "<group>"; };
+		6D4678C82567B1E2006D57DD /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
+		6D4678C92567B1E2006D57DD /* SubController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubController.m; sourceTree = "<group>"; };
+		6D4678CB2567B1E2006D57DD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D4678DA2567B24C006D57DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6D4678DE2567D46D006D57DD /* FirstController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstController.h; sourceTree = "<group>"; };
+		6D4678DF2567D46D006D57DD /* FirstController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstController.m; sourceTree = "<group>"; };
+		6D4678E02567D46D006D57DD /* FirstController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstController.xib; sourceTree = "<group>"; };
 		6D8803402208639C0017398B /* WildCardNextChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardNextChain.m; sourceTree = "<group>"; };
 		6D8803412208639C0017398B /* WildCardCollectionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewHelper.h; sourceTree = "<group>"; };
 		6D8803422208639C0017398B /* WildCardMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardMeta.h; sourceTree = "<group>"; };
@@ -173,15 +181,6 @@
 		6D8803882208639C0017398B /* WildCardConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardConstructor.m; sourceTree = "<group>"; };
 		6D8803892208639C0017398B /* WildCardScreenTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardScreenTableView.h; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* CloudJsonViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudJsonViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DF137F720D7469A00071B9F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		6DF137F920D7469A00071B9F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		6DF137FA20D7469A00071B9F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6DF137FC20D7469A00071B9F /* FirstController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstController.h; sourceTree = "<group>"; };
-		6DF137FD20D7469A00071B9F /* FirstController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstController.m; sourceTree = "<group>"; };
-		6DF1380320D7469A00071B9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6DF1380520D7469A00071B9F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		6DF1380820D7469B00071B9F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6DF1380A20D7469B00071B9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6DFB6D7922CE5D1E00962591 /* ReplaceRuleImageResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImageResource.h; sourceTree = "<group>"; };
 		6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImageResource.m; sourceTree = "<group>"; };
 		980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudJsonViewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,19 +222,6 @@
 				2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		6D132B7F255E6D4000004E1F /* core */ = {
-			isa = PBXGroup;
-			children = (
-				6D132B80255E6D5200004E1F /* Devil.h */,
-				6D132B81255E6D5200004E1F /* Devil.m */,
-				6D132BA4255E6FE800004E1F /* SubController.h */,
-				6D132BA5255E6FE800004E1F /* SubController.m */,
-				6D132BA8255E700000004E1F /* BaseController.h */,
-				6D132BA9255E700000004E1F /* BaseController.m */,
-			);
-			name = core;
 			sourceTree = "<group>";
 		};
 		6D132B89255E6E0F00004E1F /* july */ = {
@@ -280,6 +266,40 @@
 				6D132BC4255E76F400004E1F /* lang.json */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		6D4678B52567B1E2006D57DD /* devil */ = {
+			isa = PBXGroup;
+			children = (
+				6D4678DD2567B257006D57DD /* vc */,
+				6D4678DA2567B24C006D57DD /* Assets.xcassets */,
+				6D4678B82567B1E2006D57DD /* AppDelegate.h */,
+				6D4678C62567B1E2006D57DD /* AppDelegate.m */,
+				6D4678C32567B1E2006D57DD /* BaseController.h */,
+				6D4678B62567B1E2006D57DD /* BaseController.m */,
+				6D4678C72567B1E2006D57DD /* Devil.h */,
+				6D4678BC2567B1E2006D57DD /* Devil.m */,
+				6D4678CB2567B1E2006D57DD /* Info.plist */,
+				6D4678BF2567B1E2006D57DD /* LaunchScreen.storyboard */,
+				6D4678C82567B1E2006D57DD /* LoginController.h */,
+				6D4678BB2567B1E2006D57DD /* LoginController.m */,
+				6D4678C42567B1E2006D57DD /* main.m */,
+				6D4678C52567B1E2006D57DD /* MainController.h */,
+				6D4678B92567B1E2006D57DD /* MainController.m */,
+				6D4678BA2567B1E2006D57DD /* SubController.h */,
+				6D4678C92567B1E2006D57DD /* SubController.m */,
+			);
+			path = devil;
+			sourceTree = "<group>";
+		};
+		6D4678DD2567B257006D57DD /* vc */ = {
+			isa = PBXGroup;
+			children = (
+				6D4678DE2567D46D006D57DD /* FirstController.h */,
+				6D4678DF2567D46D006D57DD /* FirstController.m */,
+				6D4678E02567D46D006D57DD /* FirstController.xib */,
+			);
+			path = vc;
 			sourceTree = "<group>";
 		};
 		6D88033F2208639C0017398B /* wildcard */ = {
@@ -397,10 +417,10 @@
 			isa = PBXGroup;
 			children = (
 				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
+				6D4678B52567B1E2006D57DD /* devil */,
 				6D132BC2255E76F400004E1F /* assets */,
 				6D132B89255E6E0F00004E1F /* july */,
 				6D88033F2208639C0017398B /* wildcard */,
-				6DF137F520D7469A00071B9F /* CloudJsonViewer */,
 				6DF137F420D7469A00071B9F /* Products */,
 				1E05F4C7336AAD91274BEE67 /* Pods */,
 				0BCC150E47406F73DA50155A /* Frameworks */,
@@ -413,36 +433,6 @@
 				6DF137F320D7469A00071B9F /* CloudJsonViewer.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		6DF137F520D7469A00071B9F /* CloudJsonViewer */ = {
-			isa = PBXGroup;
-			children = (
-				6D132BBD255E759700004E1F /* CloudJsonViewer.entitlements */,
-				6D132B7F255E6D4000004E1F /* core */,
-				6DF137FC20D7469A00071B9F /* FirstController.h */,
-				6DF137FD20D7469A00071B9F /* FirstController.m */,
-				6D132B53255E66EB00004E1F /* LoginController.h */,
-				6D132B54255E66EB00004E1F /* LoginController.m */,
-				6DF137F920D7469A00071B9F /* AppDelegate.h */,
-				6DF137FA20D7469A00071B9F /* AppDelegate.m */,
-				6D132B84255E6D9E00004E1F /* MainController.h */,
-				6D132B85255E6D9E00004E1F /* MainController.m */,
-				6DF1380220D7469A00071B9F /* Main.storyboard */,
-				6DF1380520D7469A00071B9F /* Assets.xcassets */,
-				6DF1380720D7469B00071B9F /* LaunchScreen.storyboard */,
-				6DF1380A20D7469B00071B9F /* Info.plist */,
-				6DF137F620D7469A00071B9F /* Supporting Files */,
-			);
-			path = CloudJsonViewer;
-			sourceTree = "<group>";
-		};
-		6DF137F620D7469A00071B9F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				6DF137F720D7469A00071B9F /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,11 +497,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DF1380920D7469B00071B9F /* LaunchScreen.storyboard in Resources */,
+				6D4678E22567D46D006D57DD /* FirstController.xib in Resources */,
 				6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */,
-				6DF1380620D7469A00071B9F /* Assets.xcassets in Resources */,
-				6DF1380420D7469A00071B9F /* Main.storyboard in Resources */,
 				6D132BC5255E76F400004E1F /* loading.json in Resources */,
+				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
+				6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */,
 				6D132BC6255E76F400004E1F /* lang.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -572,7 +562,7 @@
 				6D8803912208639C0017398B /* ReplaceRuleClick.m in Sources */,
 				6D8803942208639C0017398B /* ReplaceRule.m in Sources */,
 				6D8803A62208639C0017398B /* WildCardApplyAgainAction.m in Sources */,
-				6D132BA6255E6FE800004E1F /* SubController.m in Sources */,
+				6D4678CF2567B1E2006D57DD /* Devil.m in Sources */,
 				6D8803AA2208639C0017398B /* WildCardFunction.m in Sources */,
 				6D8803A82208639C0017398B /* WildCardCustomAction.m in Sources */,
 				6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */,
@@ -583,30 +573,30 @@
 				6D8803A22208639C0017398B /* WildCardSetTextAction.m in Sources */,
 				6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */,
 				6D8803972208639C0017398B /* ReplaceRuleText.m in Sources */,
+				6D4678D62567B1E2006D57DD /* SubController.m in Sources */,
+				6D4678D52567B1E2006D57DD /* AppDelegate.m in Sources */,
 				6D132B9D255E6E0F00004E1F /* Lang.m in Sources */,
+				6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */,
+				6D4678D42567B1E2006D57DD /* main.m in Sources */,
 				6D88039B2208639C0017398B /* WildCardCollectionViewHelper.m in Sources */,
 				6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */,
 				6D88039C2208639C0017398B /* MappingSyntaxInterpreter.m in Sources */,
-				6DF137FB20D7469A00071B9F /* AppDelegate.m in Sources */,
-				6DF137FE20D7469A00071B9F /* FirstController.m in Sources */,
-				6D132B82255E6D5200004E1F /* Devil.m in Sources */,
 				6D8803992208639C0017398B /* WildCardUIView.m in Sources */,
-				6D132BAA255E700000004E1F /* BaseController.m in Sources */,
+				6D4678CD2567B1E2006D57DD /* MainController.m in Sources */,
 				6D8803952208639C0017398B /* ReplaceRuleColor.m in Sources */,
 				6D8803902208639C0017398B /* ReplaceRuleRepeat.m in Sources */,
 				6D8803A32208639C0017398B /* WildCardAction.m in Sources */,
 				6D8803982208639C0017398B /* WildCardScreenTableView.m in Sources */,
 				6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */,
-				6D132B86255E6D9E00004E1F /* MainController.m in Sources */,
+				6D4678E12567D46D006D57DD /* FirstController.m in Sources */,
 				6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */,
 				6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */,
 				6D8803A52208639C0017398B /* WildCardTrigger.m in Sources */,
 				6D8803A42208639C0017398B /* WildCardViewPagerLeftAction.m in Sources */,
 				6D88039F2208639C0017398B /* WildCardGridView.m in Sources */,
+				6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */,
 				6D88038F2208639C0017398B /* ReplaceRuleImage.m in Sources */,
-				6DF137F820D7469A00071B9F /* main.m in Sources */,
 				6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */,
-				6D132B55255E66EB00004E1F /* LoginController.m in Sources */,
 				6D8803922208639C0017398B /* ReplaceRuleHidden.m in Sources */,
 				6D88039E2208639C0017398B /* WildCardUILabel.m in Sources */,
 				6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */,
@@ -620,18 +610,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		6DF1380220D7469A00071B9F /* Main.storyboard */ = {
+		6D4678BF2567B1E2006D57DD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				6DF1380320D7469A00071B9F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		6DF1380720D7469B00071B9F /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6DF1380820D7469B00071B9F /* Base */,
+				6D4678C02567B1E2006D57DD /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -736,14 +718,13 @@
 			baseConfigurationReference = CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CloudJsonViewer/CloudJsonViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
 				);
-				INFOPLIST_FILE = CloudJsonViewer/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
@@ -756,7 +737,6 @@
 			baseConfigurationReference = 2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = CloudJsonViewer/CloudJsonViewer.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: muyoung ko (3675B8UJSV)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -764,7 +744,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
 				);
-				INFOPLIST_FILE = CloudJsonViewer/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
