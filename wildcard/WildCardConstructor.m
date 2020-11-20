@@ -90,7 +90,7 @@
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey
 {
     if(_cloudJsonMap[blockKey] != nil)
-        return _cloudJsonMap[blockKey][@"cloudJson"];
+        return _cloudJsonMap[blockKey];
     else
         return nil;
 }
@@ -99,7 +99,7 @@
 {
     if(_cloudJsonMap[blockKey] != nil)
     {
-        NSMutableDictionary* root = _cloudJsonMap[blockKey][@"cloudJson"];
+        NSMutableDictionary* root = _cloudJsonMap[blockKey];
         return [self findJsonRoot:root withName:nodeName];
     }
     else

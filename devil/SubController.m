@@ -34,13 +34,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-    [self.navigationController.navigationBar setTitleTextAttributes:
-     @{NSForegroundColorAttributeName:[UIColor blackColor]}];
-    if(self.isGrayBG)
-        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xf9f9f9)];
-    else
-        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xffffff)];
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
+//    [self.navigationController.navigationBar setTitleTextAttributes:
+//     @{NSForegroundColorAttributeName:[UIColor blackColor]}];
+//    if(self.isGrayBG)
+//        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xf9f9f9)];
+//    else
+//        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xffffff)];
 }
 
 - (void)setBgGray{

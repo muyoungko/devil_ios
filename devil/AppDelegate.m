@@ -139,9 +139,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         [UNUserNotificationCenter currentNotificationCenter].delegate = self;
     }
     
+    
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    UIViewController* vc = [[FirstController alloc] init];
+    UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
         

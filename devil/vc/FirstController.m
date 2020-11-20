@@ -20,6 +20,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSBundle mainBundle] loadNibNamed:@"FirstController" owner:self options:nil];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    
     [self showIndicator];
     [[WildCardConstructor sharedInstance] initWithOnline:@"1605234988599" onComplete:^(BOOL success) {
         [[Devil sharedInstance] isLogin:^(id  _Nonnull res) {
@@ -34,6 +37,7 @@
         }];
     }];
 }
+
 
 /*
 #pragma mark - Navigation

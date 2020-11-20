@@ -64,11 +64,20 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6DF137F220D7469A00071B9F"
+            BuildableName = "devil.app"
+            BlueprintName = "devil"
+            ReferencedContainer = "container:devil.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6DF137F220D7469A00071B9F"
             BuildableName = "CloudJsonViewer.app"
             BlueprintName = "CloudJsonViewer"
             ReferencedContainer = "container:CloudJsonViewer.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

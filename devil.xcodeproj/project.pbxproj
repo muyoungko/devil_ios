@@ -31,6 +31,8 @@
 		6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6D4678DA2567B24C006D57DD /* Assets.xcassets */; };
 		6D4678E12567D46D006D57DD /* FirstController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678DF2567D46D006D57DD /* FirstController.m */; };
 		6D4678E22567D46D006D57DD /* FirstController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D4678E02567D46D006D57DD /* FirstController.xib */; };
+		6D4679132567DD61006D57DD /* JoinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4679122567DD61006D57DD /* JoinController.m */; };
+		6D4679182567DDE3006D57DD /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4679172567DDE3006D57DD /* WebController.m */; };
 		6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803402208639C0017398B /* WildCardNextChain.m */; };
 		6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */; };
 		6D88038C2208639C0017398B /* WildCardIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034B2208639C0017398B /* WildCardIndicatorView.m */; };
@@ -110,6 +112,11 @@
 		6D4678DE2567D46D006D57DD /* FirstController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstController.h; sourceTree = "<group>"; };
 		6D4678DF2567D46D006D57DD /* FirstController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstController.m; sourceTree = "<group>"; };
 		6D4678E02567D46D006D57DD /* FirstController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FirstController.xib; sourceTree = "<group>"; };
+		6D4679112567DD61006D57DD /* JoinController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JoinController.h; sourceTree = "<group>"; };
+		6D4679122567DD61006D57DD /* JoinController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JoinController.m; sourceTree = "<group>"; };
+		6D4679162567DDE3006D57DD /* WebController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
+		6D4679172567DDE3006D57DD /* WebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
+		6D46791A25680570006D57DD /* devil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = devil.entitlements; sourceTree = "<group>"; };
 		6D8803402208639C0017398B /* WildCardNextChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardNextChain.m; sourceTree = "<group>"; };
 		6D8803412208639C0017398B /* WildCardCollectionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewHelper.h; sourceTree = "<group>"; };
 		6D8803422208639C0017398B /* WildCardMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardMeta.h; sourceTree = "<group>"; };
@@ -180,7 +187,7 @@
 		6D8803872208639C0017398B /* WildCardUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUtil.m; sourceTree = "<group>"; };
 		6D8803882208639C0017398B /* WildCardConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardConstructor.m; sourceTree = "<group>"; };
 		6D8803892208639C0017398B /* WildCardScreenTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardScreenTableView.h; sourceTree = "<group>"; };
-		6DF137F320D7469A00071B9F /* CloudJsonViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudJsonViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFB6D7922CE5D1E00962591 /* ReplaceRuleImageResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImageResource.h; sourceTree = "<group>"; };
 		6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImageResource.m; sourceTree = "<group>"; };
 		980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudJsonViewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,6 +278,7 @@
 		6D4678B52567B1E2006D57DD /* devil */ = {
 			isa = PBXGroup;
 			children = (
+				6D46791A25680570006D57DD /* devil.entitlements */,
 				6D4678DD2567B257006D57DD /* vc */,
 				6D4678DA2567B24C006D57DD /* Assets.xcassets */,
 				6D4678B82567B1E2006D57DD /* AppDelegate.h */,
@@ -281,8 +289,6 @@
 				6D4678BC2567B1E2006D57DD /* Devil.m */,
 				6D4678CB2567B1E2006D57DD /* Info.plist */,
 				6D4678BF2567B1E2006D57DD /* LaunchScreen.storyboard */,
-				6D4678C82567B1E2006D57DD /* LoginController.h */,
-				6D4678BB2567B1E2006D57DD /* LoginController.m */,
 				6D4678C42567B1E2006D57DD /* main.m */,
 				6D4678C52567B1E2006D57DD /* MainController.h */,
 				6D4678B92567B1E2006D57DD /* MainController.m */,
@@ -298,6 +304,12 @@
 				6D4678DE2567D46D006D57DD /* FirstController.h */,
 				6D4678DF2567D46D006D57DD /* FirstController.m */,
 				6D4678E02567D46D006D57DD /* FirstController.xib */,
+				6D4678C82567B1E2006D57DD /* LoginController.h */,
+				6D4678BB2567B1E2006D57DD /* LoginController.m */,
+				6D4679112567DD61006D57DD /* JoinController.h */,
+				6D4679122567DD61006D57DD /* JoinController.m */,
+				6D4679162567DDE3006D57DD /* WebController.h */,
+				6D4679172567DDE3006D57DD /* WebController.m */,
 			);
 			path = vc;
 			sourceTree = "<group>";
@@ -430,7 +442,7 @@
 		6DF137F420D7469A00071B9F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6DF137F320D7469A00071B9F /* CloudJsonViewer.app */,
+				6DF137F320D7469A00071B9F /* devil.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -438,9 +450,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6DF137F220D7469A00071B9F /* CloudJsonViewer */ = {
+		6DF137F220D7469A00071B9F /* devil */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "CloudJsonViewer" */;
+			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "devil" */;
 			buildPhases = (
 				4CCA04F407CC2C66AE373E74 /* [CP] Check Pods Manifest.lock */,
 				6DF137EF20D7469A00071B9F /* Sources */,
@@ -452,9 +464,9 @@
 			);
 			dependencies = (
 			);
-			name = CloudJsonViewer;
+			name = devil;
 			productName = CloudJsonViewer;
-			productReference = 6DF137F320D7469A00071B9F /* CloudJsonViewer.app */;
+			productReference = 6DF137F320D7469A00071B9F /* devil.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -473,7 +485,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6DF137EE20D7469A00071B9F /* Build configuration list for PBXProject "CloudJsonViewer" */;
+			buildConfigurationList = 6DF137EE20D7469A00071B9F /* Build configuration list for PBXProject "devil" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -487,7 +499,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6DF137F220D7469A00071B9F /* CloudJsonViewer */,
+				6DF137F220D7469A00071B9F /* devil */,
 			);
 		};
 /* End PBXProject section */
@@ -559,12 +571,14 @@
 				6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */,
 				6D8803AC2208639C0017398B /* WildCardConstructor.m in Sources */,
 				6D8803962208639C0017398B /* ReplaceRuleLocalImage.m in Sources */,
+				6D4679132567DD61006D57DD /* JoinController.m in Sources */,
 				6D8803912208639C0017398B /* ReplaceRuleClick.m in Sources */,
 				6D8803942208639C0017398B /* ReplaceRule.m in Sources */,
 				6D8803A62208639C0017398B /* WildCardApplyAgainAction.m in Sources */,
 				6D4678CF2567B1E2006D57DD /* Devil.m in Sources */,
 				6D8803AA2208639C0017398B /* WildCardFunction.m in Sources */,
 				6D8803A82208639C0017398B /* WildCardCustomAction.m in Sources */,
+				6D4679182567DDE3006D57DD /* WebController.m in Sources */,
 				6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */,
 				6D8803A92208639C0017398B /* WildCardExtensionConstructor.m in Sources */,
 				6D8803932208639C0017398B /* ReplaceRuleReplaceUrl.m in Sources */,
@@ -718,6 +732,7 @@
 			baseConfigurationReference = CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -737,6 +752,7 @@
 			baseConfigurationReference = 2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: muyoung ko (3675B8UJSV)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -755,7 +771,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6DF137EE20D7469A00071B9F /* Build configuration list for PBXProject "CloudJsonViewer" */ = {
+		6DF137EE20D7469A00071B9F /* Build configuration list for PBXProject "devil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6DF1380B20D7469B00071B9F /* Debug */,
@@ -764,7 +780,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "CloudJsonViewer" */ = {
+		6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "devil" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6DF1380E20D7469B00071B9F /* Debug */,
