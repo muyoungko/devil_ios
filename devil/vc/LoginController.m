@@ -23,15 +23,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"Login";
-    
-    self.data = [[NSMutableDictionary alloc] init];
     self.data[@"os"] = @"ios";
-
+    [self hideNavigationBar];
     [self constructBlockUnder:@"1605249371392"];
-    [self setBgGray];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)bottomClick:(id)sender{

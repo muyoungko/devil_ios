@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>PUI 2.0</string>
+	<string>Devil App Builder</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -26,8 +26,8 @@
 	<string>Devil App Builder</string>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
-		<string>http://m.bnbhostsering.com/share</string>
-		<string>https://bnbhost.page.link</string>
+		<string>http://m.deavil.com/share</string>
+		<string>https://sketchtoapp.page.link</string>
 	</array>
 	<key>GADApplicationIdentifier</key>
 	<string>ca-app-pub-5134106554966339~8374651954</string>
@@ -38,23 +38,23 @@
 		<string>fb-messenger-share-api</string>
 		<string>fbauth2</string>
 		<string>fbshareextension</string>
-        <string>kakaod0c7657dc3cd93575cc590b87c0dc624</string>
+		<string>kakaod0c7657dc3cd93575cc590b87c0dc624</string>
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
 		<string>kakaotalk-5.9.7</string>
-		<string>storylink</string>      
+		<string>storylink</string>
 	</array>
-    <key>KAKAO_APP_KEY</key>
+	<key>KAKAO_APP_KEY</key>
 	<string>d0c7657dc3cd93575cc590b87c0dc624</string>
-    <key>CFBundleURLTypes</key>
+	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
-			<array>         
-				<string>com.googleusercontent.apps.727416783196-jlelvd7ng0l6qctuoog6air8i46h3iof</string>
+			<array>
+				<string>com.googleusercontent.apps.257412051634-gnkm5n8p37jocftjutrbq2amj00qk34f</string>
 			</array>
 		</dict>
 		<dict>
@@ -84,7 +84,6 @@
 			</array>
 		</dict>
 	</array>
-       
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

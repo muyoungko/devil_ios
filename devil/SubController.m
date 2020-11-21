@@ -13,8 +13,6 @@
 
 @interface SubController ()
 
-@property BOOL isGrayBG;
-
 @end
 
 @implementation SubController
@@ -23,13 +21,19 @@
     [super viewDidLoad];
     
     self.data = [@{} mutableCopy];
-    self.isGrayBG = NO;
-    self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    self.viewHeight = screenHeight - self.offsetY;
-    self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     [self constructLeftBackButton];
 }
 
+- (void)showNavigationBar{
+   self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+    self.viewHeight = screenHeight - self.offsetY;
+    self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
+}
+- (void)hideNavigationBar{
+    self.offsetY = 0;
+    self.viewHeight = screenHeight - self.offsetY;
+    self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
+}
 
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -41,16 +45,6 @@
 //        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xf9f9f9)];
 //    else
 //        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xffffff)];
-}
-
-- (void)setBgGray{
-    self.isGrayBG = YES;
-    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xf9f9f9)];
-    self.view.backgroundColor = UIColorFromRGB(0xf9f9f9);
-    self.viewMain.backgroundColor = UIColorFromRGB(0xf9f9f9);
-    self.mainWc.backgroundColor = UIColorFromRGB(0xf9f9f9);
-    self.tv.backgroundColor = UIColorFromRGB(0xf9f9f9);
-    [self.mainWc subviews][0].backgroundColor = UIColorFromRGB(0xf9f9f9);
 }
 
 - (void)setTitleLogo{

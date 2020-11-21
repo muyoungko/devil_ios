@@ -20,11 +20,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = trans(@"Sign In");
-    
+    self.title = trans(@"회원 가입");
     self.data[@"email"] = self.email;
-    [self constructBlockUnder:@"0E769675-0C27-4800-A6C2-434EEEA49C2B"];
-    [self constructBottom:trans(@"Complete")];
+    [self showNavigationBar];
+    [self constructBlockUnder:@"1605943385593"];
 }
 
 - (void)bottomClick:(id)sender{

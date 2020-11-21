@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)createWildCardScreenListView:(NSString*)screenName;
 
+- (void)showNavigationBar;
+- (void)hideNavigationBar;
+
 - (void)constructScrollView;
 - (void)reloadBlock;
 - (void)constructBlockUnder:(NSString*)block;
@@ -35,7 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)constructBottomSecondary:(NSString*) title;
 - (void)bottomClick:(id)sender;
 
-- (void)setBgGray;
 - (void)setTitleLogo;
 - (void)popToMain:(NSString*)tabName;
 @end
