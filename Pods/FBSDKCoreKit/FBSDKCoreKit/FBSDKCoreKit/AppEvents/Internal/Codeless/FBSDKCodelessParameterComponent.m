@@ -20,14 +20,16 @@
 
 #if !TARGET_OS_TV
 
-#import "FBSDKCodelessParameterComponent.h"
+ #import "FBSDKCodelessParameterComponent.h"
 
-#import "FBSDKCodelessPathComponent.h"
-#import "FBSDKViewHierarchyMacros.h"
+ #import "FBSDKCodelessPathComponent.h"
+ #import "FBSDKInternalUtility.h"
+ #import "FBSDKViewHierarchyMacros.h"
 
 @implementation FBSDKCodelessParameterComponent
 
-- (instancetype)initWithJSON:(NSDictionary *)dict {
+- (instancetype)initWithJSON:(NSDictionary *)dict
+{
   if (self = [super init]) {
     _name = [dict[CODELESS_MAPPING_PARAMETER_NAME_KEY] copy];
     _value = [dict[CODELESS_MAPPING_PARAMETER_VALUE_KEY] copy];
@@ -37,7 +39,7 @@
     NSMutableArray *mut = [NSMutableArray array];
     for (NSDictionary *info in ary) {
       FBSDKCodelessPathComponent *component = [[FBSDKCodelessPathComponent alloc] initWithJSON:info];
-      [mut addObject:component];
+      [FBSDKTypeUtility array:mut addObject:component];
     }
     _path = [mut copy];
   }
@@ -65,7 +67,7 @@
   }
 
   for (int i = 0; i < _path.count; i++) {
-    if (![_path[i] isEqualToPath:parameter.path[i]]) {
+    if (![[FBSDKTypeUtility array:_path objectAtIndex:i] isEqualToPath:[FBSDKTypeUtility array:parameter.path objectAtIndex:i]]) {
       return NO;
     }
   }

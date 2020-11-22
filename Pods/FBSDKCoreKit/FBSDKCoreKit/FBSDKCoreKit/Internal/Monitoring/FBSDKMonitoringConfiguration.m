@@ -16,16 +16,17 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import "FBSDKCoreKit+Internal.h"
-
 #import "FBSDKMonitoringConfiguration.h"
+
+#import "FBSDKCoreKit+Internal.h"
 
 static NSString *defaultRateKey = @"default";
 static NSString *sampleRatesKey = @"sample_rates";
 static NSString *sampleRateNameKey = @"key";
 static NSString *sampleRateValueKey = @"value";
 
-@implementation FBSDKMonitoringConfiguration {
+@implementation FBSDKMonitoringConfiguration
+{
   NSDictionary<NSString *, NSNumber *> *_sampleRates;
 }
 
@@ -51,15 +52,19 @@ typedef NSDictionary<NSString *, NSNumber *> SampleRates;
 {
   if (self = [super init]) {
     NSMutableDictionary *sampleRates = [NSMutableDictionary dictionary];
-    NSArray<RemoteSampleRates *> *remoteSampleRates = dictionary[sampleRatesKey];
+    NSArray<RemoteSampleRates *> *remoteSampleRates = [FBSDKTypeUtility dictionary:dictionary
+                                                                      objectForKey:sampleRatesKey
+                                                                            ofType:NSArray.class];
+    if (!remoteSampleRates) {
+      return self;
+    }
 
     for (RemoteSampleRates *ratePair in remoteSampleRates) {
-      NSString *key = ratePair[sampleRateNameKey];
-      NSNumber *value = ratePair[sampleRateValueKey];
+      NSString *key = [FBSDKTypeUtility dictionary:ratePair objectForKey:sampleRateNameKey ofType:NSString.class];
+      NSNumber *value = [FBSDKTypeUtility dictionary:ratePair objectForKey:sampleRateValueKey ofType:NSNumber.class];
 
-      if ([value isKindOfClass:[NSNumber class]] &&
-          value.intValue > 0) {
-        [FBSDKBasicUtility dictionary:sampleRates setObject:value forKey:key];
+      if (value.intValue > 0) {
+        [FBSDKTypeUtility dictionary:sampleRates setObject:value forKey:key];
       }
     }
 
@@ -71,14 +76,16 @@ typedef NSDictionary<NSString *, NSNumber *> SampleRates;
 
 - (int)sampleRateForEntry:(nonnull id<FBSDKMonitorEntry>)entry
 {
-  return [_sampleRates objectForKey:entry.name].intValue ?: self.defaultSamplingRate;
+  return [[FBSDKTypeUtility dictionary:_sampleRates objectForKey:entry.name ofType:NSObject.class] intValue] ?: self.defaultSamplingRate;
 }
 
-- (void)encodeWithCoder:(nonnull NSCoder *)encoder {
+- (void)encodeWithCoder:(nonnull NSCoder *)encoder
+{
   [encoder encodeObject:_sampleRates forKey:sampleRatesKey];
 }
 
-- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder {
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)decoder
+{
   _sampleRates = [decoder decodeObjectOfClass:[SampleRates class] forKey:sampleRatesKey];
   return self;
 }

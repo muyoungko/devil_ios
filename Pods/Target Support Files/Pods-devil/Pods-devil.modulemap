@@ -1,0 +1,6 @@
+module Pods_devil {
+  umbrella header "Pods-devil-umbrella.h"
+
+  export *
+  module * { export * }
+}

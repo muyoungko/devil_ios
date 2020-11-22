@@ -16,8 +16,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import <FirebaseMessaging/FIRMessaging.h>
-
 NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSString *const kFIRMessagingDomain;
@@ -41,11 +39,7 @@ typedef NS_ENUM(NSUInteger, FIRMessagingErrorCode) {
   kFIRMessagingErrorCodeSave = 1004,
   kFIRMessagingErrorCodeSizeExceeded = 1005,
 
-  // Already connected with MCS
-  kFIRMessagingErrorCodeAlreadyConnected = 2001,
-
   // PubSub errors
-  kFIRMessagingErrorCodePubSubClientNotSetup = 3004,
   kFIRMessagingErrorCodePubSubOperationIsCancelled = 3005,
 };
 

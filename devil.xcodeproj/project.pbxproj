@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32677F623A61C14DEAC1B329 /* libPods-devil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F49D24AF4CFF2314EAFAE7 /* libPods-devil.a */; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
 		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
 		6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B97255E6E0F00004E1F /* DrawerView.m */; };
@@ -72,7 +73,6 @@
 		6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803872208639C0017398B /* WildCardUtil.m */; };
 		6D8803AC2208639C0017398B /* WildCardConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803882208639C0017398B /* WildCardConstructor.m */; };
 		6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */; };
-		81DC92FEE702C5D0C03A42F5 /* libPods-CloudJsonViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -90,6 +90,7 @@
 
 /* Begin PBXFileReference section */
 		2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.release.xcconfig"; sourceTree = "<group>"; };
+		4B7679E8A3D66962E99E8A44 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Pods/Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
 		6D132B8A255E6E0F00004E1F /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
 		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
@@ -211,8 +212,9 @@
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DFB6D7922CE5D1E00962591 /* ReplaceRuleImageResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImageResource.h; sourceTree = "<group>"; };
 		6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImageResource.m; sourceTree = "<group>"; };
-		980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CloudJsonViewer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		76F49D24AF4CFF2314EAFAE7 /* libPods-devil.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-devil.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
+		F35FF85D2CFEA5239FF67FF9 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,7 +227,7 @@
 				6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */,
 				6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */,
 				6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */,
-				81DC92FEE702C5D0C03A42F5 /* libPods-CloudJsonViewer.a in Frameworks */,
+				32677F623A61C14DEAC1B329 /* libPods-devil.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +242,7 @@
 				6D132BB0255E71D200004E1F /* KakaoLink.framework */,
 				6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */,
 				6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */,
-				980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */,
+				76F49D24AF4CFF2314EAFAE7 /* libPods-devil.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -250,6 +252,8 @@
 			children = (
 				CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */,
 				2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */,
+				F35FF85D2CFEA5239FF67FF9 /* Pods-devil.debug.xcconfig */,
+				4B7679E8A3D66962E99E8A44 /* Pods-devil.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -498,11 +502,13 @@
 			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "devil" */;
 			buildPhases = (
 				4CCA04F407CC2C66AE373E74 /* [CP] Check Pods Manifest.lock */,
+				560C05E68D8EEA8474A9D90C /* [CP] Prepare Artifacts */,
 				6DF137EF20D7469A00071B9F /* Sources */,
 				6DF137F020D7469A00071B9F /* Frameworks */,
 				6DF137F120D7469A00071B9F /* Resources */,
 				CDB8FF7F82D450D69287147B /* [CP] Copy Pods Resources */,
 				6D467998256A174F006D57DD /* Embed Frameworks */,
+				3C2D02838F5C6839B84697B1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -567,6 +573,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3C2D02838F5C6839B84697B1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4CCA04F407CC2C66AE373E74 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -578,11 +601,30 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CloudJsonViewer-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-devil-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		560C05E68D8EEA8474A9D90C /* [CP] Prepare Artifacts */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-artifacts.sh",
+				"${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework",
+				"${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework",
+			);
+			name = "[CP] Prepare Artifacts";
+			outputPaths = (
+				"${BUILT_PRODUCTS_DIR}/cocoapods-artifacts-${CONFIGURATION}.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-artifacts.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CDB8FF7F82D450D69287147B /* [CP] Copy Pods Resources */ = {
@@ -591,7 +633,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh",
 				"${PODS_ROOT}/FBSDKCoreKit/FacebookSDKStrings.bundle",
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 			);
@@ -602,7 +644,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -775,7 +817,7 @@
 		};
 		6DF1380E20D7469B00071B9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */;
+			baseConfigurationReference = F35FF85D2CFEA5239FF67FF9 /* Pods-devil.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
@@ -795,7 +837,7 @@
 		};
 		6DF1380F20D7469B00071B9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */;
+			baseConfigurationReference = 4B7679E8A3D66962E99E8A44 /* Pods-devil.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
