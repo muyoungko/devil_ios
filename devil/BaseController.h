@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WildCardConstructor.h"
-#import "WildCardUIView.h"
-#import "WildCardScreenTableView.h"
-#import "WildCardMeta.h"
+#import <devilcore/devilcore.h>
 #import "AppDelegate.h"
 
 

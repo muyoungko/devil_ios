@@ -22,9 +22,81 @@
 
 /* Begin PBXBuildFile section */
 		6D4679A6256A4980006D57DD /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6D4679A4256A4980006D57DD /* LICENSE */; };
-		6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4679E3256AA5E9006D57DD /* DevilSdk.h */; };
-		6D4679E8256AA5EA006D57DD /* devilcore.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4679E4256AA5E9006D57DD /* devilcore.h */; };
+		6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4679E3256AA5E9006D57DD /* DevilSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D4679E8256AA5EA006D57DD /* devilcore.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4679E4256AA5E9006D57DD /* devilcore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4679E5256AA5E9006D57DD /* DevilSdk.m */; };
+		6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A37256AB079006D57DD /* WildCardNextChain.m */; };
+		6D467A84256AB07A006D57DD /* WildCardCollectionViewHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A38256AB079006D57DD /* WildCardCollectionViewHelper.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A85256AB07A006D57DD /* WildCardMeta.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A39256AB079006D57DD /* WildCardMeta.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A3A256AB079006D57DD /* WildCardUIView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A87256AB07A006D57DD /* WildCardLayoutPathUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A3B256AB079006D57DD /* WildCardLayoutPathUnit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A88256AB07A006D57DD /* MappingSyntaxInterpreter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A3C256AB079006D57DD /* MappingSyntaxInterpreter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A3E256AB079006D57DD /* WildCardIndicatorView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A3F256AB079006D57DD /* WildCardLCAnimatedPageControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A40256AB079006D57DD /* WildCardUITextField.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A8C256AB07A006D57DD /* WildCardLCAnimatedPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A41256AB079006D57DD /* WildCardLCAnimatedPageControl.m */; };
+		6D467A8D256AB07A006D57DD /* WildCardIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A42256AB079006D57DD /* WildCardIndicatorView.m */; };
+		6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A43256AB079006D57DD /* WildCardUITextField.m */; };
+		6D467A8F256AB07A006D57DD /* ReplaceRuleColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A45256AB079006D57DD /* ReplaceRuleColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A90256AB07A006D57DD /* ReplaceRuleExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */; };
+		6D467A91256AB07A006D57DD /* ReplaceRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A47256AB07A006D57DD /* ReplaceRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A92256AB07A006D57DD /* ReplaceRuleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */; };
+		6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A49256AB07A006D57DD /* ReplaceRuleRepeat.m */; };
+		6D467A94256AB07A006D57DD /* ReplaceRuleLocalImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A4B256AB07A006D57DD /* ReplaceRuleClick.m */; };
+		6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A4C256AB07A006D57DD /* ReplaceRuleText.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A4D256AB07A006D57DD /* ReplaceRuleHidden.m */; };
+		6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A4F256AB07A006D57DD /* ReplaceRuleReplaceUrl.m */; };
+		6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A50256AB07A006D57DD /* ReplaceRuleRepeat.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A9B256AB07A006D57DD /* ReplaceRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A51256AB07A006D57DD /* ReplaceRule.m */; };
+		6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A9D256AB07A006D57DD /* ReplaceRuleExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A53256AB07A006D57DD /* ReplaceRuleExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A54256AB07A006D57DD /* ReplaceRuleColor.m */; };
+		6D467A9F256AB07A006D57DD /* ReplaceRuleClick.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A55256AB07A006D57DD /* ReplaceRuleClick.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AA0256AB07A006D57DD /* ReplaceRuleLocalImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A56256AB07A006D57DD /* ReplaceRuleLocalImage.m */; };
+		6D467AA1256AB07A006D57DD /* ReplaceRuleImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A57256AB07A006D57DD /* ReplaceRuleImageResource.m */; };
+		6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A58256AB07A006D57DD /* ReplaceRuleHidden.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A59256AB07A006D57DD /* ReplaceRuleText.m */; };
+		6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A5A256AB07A006D57DD /* ReplaceRuleReplaceUrl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A5B256AB07A006D57DD /* WildCardFunction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A5C256AB07A006D57DD /* WildCardExtensionConstructor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A5D256AB07A006D57DD /* WildCardScreenTableView.m */; };
+		6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A5E256AB07A006D57DD /* WildCardConstructor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AA9256AB07A006D57DD /* WildCardUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A5F256AB07A006D57DD /* WildCardUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AAA256AB07A006D57DD /* WildCardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A60256AB07A006D57DD /* WildCardUIView.m */; };
+		6D467AAB256AB07A006D57DD /* WildCardMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A61256AB07A006D57DD /* WildCardMeta.m */; };
+		6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A62256AB07A006D57DD /* WildCardCollectionViewHelper.m */; };
+		6D467AAD256AB07A006D57DD /* WildCardNextChain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A63256AB07A006D57DD /* WildCardNextChain.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AAE256AB07A006D57DD /* MappingSyntaxInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A64256AB07A006D57DD /* MappingSyntaxInterpreter.m */; };
+		6D467AAF256AB07A006D57DD /* WildCardLayoutPathUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A65256AB07A006D57DD /* WildCardLayoutPathUnit.m */; };
+		6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A67256AB07A006D57DD /* WildCardGridView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AB1256AB07A006D57DD /* WildCardCollectionViewAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A68256AB07A006D57DD /* WildCardCollectionViewAdapter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A69256AB07A006D57DD /* WildCardUILabel.m */; };
+		6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A6A256AB07A006D57DD /* WildCardGridView.m */; };
+		6D467AB4256AB07A006D57DD /* WildCardCollectionViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A6B256AB07A006D57DD /* WildCardCollectionViewAdapter.m */; };
+		6D467AB5256AB07A006D57DD /* WildCardUILabel.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A6C256AB07A006D57DD /* WildCardUILabel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AB6256AB07A006D57DD /* WildCardViewPagerRightAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A6E256AB07A006D57DD /* WildCardViewPagerRightAction.m */; };
+		6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A6F256AB07A006D57DD /* WildCardSetTextAction.m */; };
+		6D467AB8256AB07A006D57DD /* WildCardCustomAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A70256AB07A006D57DD /* WildCardCustomAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AB9256AB07A006D57DD /* WildCardAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A71256AB07A006D57DD /* WildCardAction.m */; };
+		6D467ABA256AB07A006D57DD /* WildCardUITapGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A72256AB07A006D57DD /* WildCardUITapGestureRecognizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467ABB256AB07A006D57DD /* WildCardViewPagerLeftAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A73256AB07A006D57DD /* WildCardViewPagerLeftAction.m */; };
+		6D467ABC256AB07A006D57DD /* WildCardTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A74256AB07A006D57DD /* WildCardTrigger.m */; };
+		6D467ABD256AB07A006D57DD /* WildCardApplyAgainAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A75256AB07A006D57DD /* WildCardApplyAgainAction.m */; };
+		6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A76256AB07A006D57DD /* WildCardViewPagerRightAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A77256AB07A006D57DD /* WildCardUITapGestureRecognizer.m */; };
+		6D467AC0256AB07A006D57DD /* WildCardAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A78256AB07A006D57DD /* WildCardAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A79256AB07A006D57DD /* WildCardCustomAction.m */; };
+		6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A7A256AB07A006D57DD /* WildCardSetTextAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AC3256AB07A006D57DD /* WildCardTrigger.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A7B256AB07A006D57DD /* WildCardTrigger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AC4256AB07A006D57DD /* WildCardViewPagerLeftAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A7C256AB07A006D57DD /* WildCardViewPagerLeftAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A7D256AB07A006D57DD /* WildCardApplyAgainAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D467AC6256AB07A006D57DD /* WildCardExtensionConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A7E256AB07A006D57DD /* WildCardExtensionConstructor.m */; };
+		6D467AC7256AB07A006D57DD /* WildCardFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A7F256AB07A006D57DD /* WildCardFunction.m */; };
+		6D467AC8256AB07A006D57DD /* WildCardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A80256AB07A006D57DD /* WildCardUtil.m */; };
+		6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A81256AB07A006D57DD /* WildCardConstructor.m */; };
+		6D467ACA256AB07A006D57DD /* WildCardScreenTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A82256AB07A006D57DD /* WildCardScreenTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +105,78 @@
 		6D4679E3256AA5E9006D57DD /* DevilSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilSdk.h; sourceTree = "<group>"; };
 		6D4679E4256AA5E9006D57DD /* devilcore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilcore.h; sourceTree = "<group>"; };
 		6D4679E5256AA5E9006D57DD /* DevilSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilSdk.m; sourceTree = "<group>"; };
+		6D467A37256AB079006D57DD /* WildCardNextChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardNextChain.m; sourceTree = "<group>"; };
+		6D467A38256AB079006D57DD /* WildCardCollectionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewHelper.h; sourceTree = "<group>"; };
+		6D467A39256AB079006D57DD /* WildCardMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardMeta.h; sourceTree = "<group>"; };
+		6D467A3A256AB079006D57DD /* WildCardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUIView.h; sourceTree = "<group>"; };
+		6D467A3B256AB079006D57DD /* WildCardLayoutPathUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardLayoutPathUnit.h; sourceTree = "<group>"; };
+		6D467A3C256AB079006D57DD /* MappingSyntaxInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingSyntaxInterpreter.h; sourceTree = "<group>"; };
+		6D467A3E256AB079006D57DD /* WildCardIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardIndicatorView.h; sourceTree = "<group>"; };
+		6D467A3F256AB079006D57DD /* WildCardLCAnimatedPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardLCAnimatedPageControl.h; sourceTree = "<group>"; };
+		6D467A40256AB079006D57DD /* WildCardUITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUITextField.h; sourceTree = "<group>"; };
+		6D467A41256AB079006D57DD /* WildCardLCAnimatedPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardLCAnimatedPageControl.m; sourceTree = "<group>"; };
+		6D467A42256AB079006D57DD /* WildCardIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardIndicatorView.m; sourceTree = "<group>"; };
+		6D467A43256AB079006D57DD /* WildCardUITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextField.m; sourceTree = "<group>"; };
+		6D467A45256AB079006D57DD /* ReplaceRuleColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleColor.h; sourceTree = "<group>"; };
+		6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleExtension.m; sourceTree = "<group>"; };
+		6D467A47256AB07A006D57DD /* ReplaceRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRule.h; sourceTree = "<group>"; };
+		6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImage.m; sourceTree = "<group>"; };
+		6D467A49256AB07A006D57DD /* ReplaceRuleRepeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleRepeat.m; sourceTree = "<group>"; };
+		6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleLocalImage.h; sourceTree = "<group>"; };
+		6D467A4B256AB07A006D57DD /* ReplaceRuleClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleClick.m; sourceTree = "<group>"; };
+		6D467A4C256AB07A006D57DD /* ReplaceRuleText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleText.h; sourceTree = "<group>"; };
+		6D467A4D256AB07A006D57DD /* ReplaceRuleHidden.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleHidden.m; sourceTree = "<group>"; };
+		6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImageResource.h; sourceTree = "<group>"; };
+		6D467A4F256AB07A006D57DD /* ReplaceRuleReplaceUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleReplaceUrl.m; sourceTree = "<group>"; };
+		6D467A50256AB07A006D57DD /* ReplaceRuleRepeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleRepeat.h; sourceTree = "<group>"; };
+		6D467A51256AB07A006D57DD /* ReplaceRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRule.m; sourceTree = "<group>"; };
+		6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImage.h; sourceTree = "<group>"; };
+		6D467A53256AB07A006D57DD /* ReplaceRuleExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleExtension.h; sourceTree = "<group>"; };
+		6D467A54256AB07A006D57DD /* ReplaceRuleColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleColor.m; sourceTree = "<group>"; };
+		6D467A55256AB07A006D57DD /* ReplaceRuleClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleClick.h; sourceTree = "<group>"; };
+		6D467A56256AB07A006D57DD /* ReplaceRuleLocalImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleLocalImage.m; sourceTree = "<group>"; };
+		6D467A57256AB07A006D57DD /* ReplaceRuleImageResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImageResource.m; sourceTree = "<group>"; };
+		6D467A58256AB07A006D57DD /* ReplaceRuleHidden.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleHidden.h; sourceTree = "<group>"; };
+		6D467A59256AB07A006D57DD /* ReplaceRuleText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleText.m; sourceTree = "<group>"; };
+		6D467A5A256AB07A006D57DD /* ReplaceRuleReplaceUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleReplaceUrl.h; sourceTree = "<group>"; };
+		6D467A5B256AB07A006D57DD /* WildCardFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardFunction.h; sourceTree = "<group>"; };
+		6D467A5C256AB07A006D57DD /* WildCardExtensionConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardExtensionConstructor.h; sourceTree = "<group>"; };
+		6D467A5D256AB07A006D57DD /* WildCardScreenTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardScreenTableView.m; sourceTree = "<group>"; };
+		6D467A5E256AB07A006D57DD /* WildCardConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardConstructor.h; sourceTree = "<group>"; };
+		6D467A5F256AB07A006D57DD /* WildCardUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUtil.h; sourceTree = "<group>"; };
+		6D467A60256AB07A006D57DD /* WildCardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUIView.m; sourceTree = "<group>"; };
+		6D467A61256AB07A006D57DD /* WildCardMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardMeta.m; sourceTree = "<group>"; };
+		6D467A62256AB07A006D57DD /* WildCardCollectionViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCollectionViewHelper.m; sourceTree = "<group>"; };
+		6D467A63256AB07A006D57DD /* WildCardNextChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardNextChain.h; sourceTree = "<group>"; };
+		6D467A64256AB07A006D57DD /* MappingSyntaxInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingSyntaxInterpreter.m; sourceTree = "<group>"; };
+		6D467A65256AB07A006D57DD /* WildCardLayoutPathUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardLayoutPathUnit.m; sourceTree = "<group>"; };
+		6D467A67256AB07A006D57DD /* WildCardGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardGridView.h; sourceTree = "<group>"; };
+		6D467A68256AB07A006D57DD /* WildCardCollectionViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewAdapter.h; sourceTree = "<group>"; };
+		6D467A69256AB07A006D57DD /* WildCardUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUILabel.m; sourceTree = "<group>"; };
+		6D467A6A256AB07A006D57DD /* WildCardGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardGridView.m; sourceTree = "<group>"; };
+		6D467A6B256AB07A006D57DD /* WildCardCollectionViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCollectionViewAdapter.m; sourceTree = "<group>"; };
+		6D467A6C256AB07A006D57DD /* WildCardUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUILabel.h; sourceTree = "<group>"; };
+		6D467A6E256AB07A006D57DD /* WildCardViewPagerRightAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardViewPagerRightAction.m; sourceTree = "<group>"; };
+		6D467A6F256AB07A006D57DD /* WildCardSetTextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardSetTextAction.m; sourceTree = "<group>"; };
+		6D467A70256AB07A006D57DD /* WildCardCustomAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCustomAction.h; sourceTree = "<group>"; };
+		6D467A71256AB07A006D57DD /* WildCardAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardAction.m; sourceTree = "<group>"; };
+		6D467A72256AB07A006D57DD /* WildCardUITapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUITapGestureRecognizer.h; sourceTree = "<group>"; };
+		6D467A73256AB07A006D57DD /* WildCardViewPagerLeftAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardViewPagerLeftAction.m; sourceTree = "<group>"; };
+		6D467A74256AB07A006D57DD /* WildCardTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardTrigger.m; sourceTree = "<group>"; };
+		6D467A75256AB07A006D57DD /* WildCardApplyAgainAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardApplyAgainAction.m; sourceTree = "<group>"; };
+		6D467A76256AB07A006D57DD /* WildCardViewPagerRightAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardViewPagerRightAction.h; sourceTree = "<group>"; };
+		6D467A77256AB07A006D57DD /* WildCardUITapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUITapGestureRecognizer.m; sourceTree = "<group>"; };
+		6D467A78256AB07A006D57DD /* WildCardAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardAction.h; sourceTree = "<group>"; };
+		6D467A79256AB07A006D57DD /* WildCardCustomAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCustomAction.m; sourceTree = "<group>"; };
+		6D467A7A256AB07A006D57DD /* WildCardSetTextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardSetTextAction.h; sourceTree = "<group>"; };
+		6D467A7B256AB07A006D57DD /* WildCardTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardTrigger.h; sourceTree = "<group>"; };
+		6D467A7C256AB07A006D57DD /* WildCardViewPagerLeftAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardViewPagerLeftAction.h; sourceTree = "<group>"; };
+		6D467A7D256AB07A006D57DD /* WildCardApplyAgainAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardApplyAgainAction.h; sourceTree = "<group>"; };
+		6D467A7E256AB07A006D57DD /* WildCardExtensionConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardExtensionConstructor.m; sourceTree = "<group>"; };
+		6D467A7F256AB07A006D57DD /* WildCardFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardFunction.m; sourceTree = "<group>"; };
+		6D467A80256AB07A006D57DD /* WildCardUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUtil.m; sourceTree = "<group>"; };
+		6D467A81256AB07A006D57DD /* WildCardConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardConstructor.m; sourceTree = "<group>"; };
+		6D467A82256AB07A006D57DD /* WildCardScreenTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardScreenTableView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,11 +218,123 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6D467A36256AB079006D57DD /* wildcard */,
 				6D4679E3256AA5E9006D57DD /* DevilSdk.h */,
 				6D4679E4256AA5E9006D57DD /* devilcore.h */,
 				6D4679E5256AA5E9006D57DD /* DevilSdk.m */,
 			);
 			path = source;
+			sourceTree = "<group>";
+		};
+		6D467A36256AB079006D57DD /* wildcard */ = {
+			isa = PBXGroup;
+			children = (
+				6D467A3D256AB079006D57DD /* extensionview */,
+				6D467A3C256AB079006D57DD /* MappingSyntaxInterpreter.h */,
+				6D467A64256AB07A006D57DD /* MappingSyntaxInterpreter.m */,
+				6D467A44256AB079006D57DD /* replacerule */,
+				6D467A6D256AB07A006D57DD /* TriggerAction */,
+				6D467A66256AB07A006D57DD /* view */,
+				6D467A38256AB079006D57DD /* WildCardCollectionViewHelper.h */,
+				6D467A62256AB07A006D57DD /* WildCardCollectionViewHelper.m */,
+				6D467A5E256AB07A006D57DD /* WildCardConstructor.h */,
+				6D467A81256AB07A006D57DD /* WildCardConstructor.m */,
+				6D467A5C256AB07A006D57DD /* WildCardExtensionConstructor.h */,
+				6D467A7E256AB07A006D57DD /* WildCardExtensionConstructor.m */,
+				6D467A5B256AB07A006D57DD /* WildCardFunction.h */,
+				6D467A7F256AB07A006D57DD /* WildCardFunction.m */,
+				6D467A3B256AB079006D57DD /* WildCardLayoutPathUnit.h */,
+				6D467A65256AB07A006D57DD /* WildCardLayoutPathUnit.m */,
+				6D467A39256AB079006D57DD /* WildCardMeta.h */,
+				6D467A61256AB07A006D57DD /* WildCardMeta.m */,
+				6D467A63256AB07A006D57DD /* WildCardNextChain.h */,
+				6D467A37256AB079006D57DD /* WildCardNextChain.m */,
+				6D467A82256AB07A006D57DD /* WildCardScreenTableView.h */,
+				6D467A5D256AB07A006D57DD /* WildCardScreenTableView.m */,
+				6D467A3A256AB079006D57DD /* WildCardUIView.h */,
+				6D467A60256AB07A006D57DD /* WildCardUIView.m */,
+				6D467A5F256AB07A006D57DD /* WildCardUtil.h */,
+				6D467A80256AB07A006D57DD /* WildCardUtil.m */,
+			);
+			path = wildcard;
+			sourceTree = "<group>";
+		};
+		6D467A3D256AB079006D57DD /* extensionview */ = {
+			isa = PBXGroup;
+			children = (
+				6D467A3E256AB079006D57DD /* WildCardIndicatorView.h */,
+				6D467A3F256AB079006D57DD /* WildCardLCAnimatedPageControl.h */,
+				6D467A40256AB079006D57DD /* WildCardUITextField.h */,
+				6D467A41256AB079006D57DD /* WildCardLCAnimatedPageControl.m */,
+				6D467A42256AB079006D57DD /* WildCardIndicatorView.m */,
+				6D467A43256AB079006D57DD /* WildCardUITextField.m */,
+			);
+			path = extensionview;
+			sourceTree = "<group>";
+		};
+		6D467A44256AB079006D57DD /* replacerule */ = {
+			isa = PBXGroup;
+			children = (
+				6D467A45256AB079006D57DD /* ReplaceRuleColor.h */,
+				6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */,
+				6D467A47256AB07A006D57DD /* ReplaceRule.h */,
+				6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */,
+				6D467A49256AB07A006D57DD /* ReplaceRuleRepeat.m */,
+				6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */,
+				6D467A4B256AB07A006D57DD /* ReplaceRuleClick.m */,
+				6D467A4C256AB07A006D57DD /* ReplaceRuleText.h */,
+				6D467A4D256AB07A006D57DD /* ReplaceRuleHidden.m */,
+				6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */,
+				6D467A4F256AB07A006D57DD /* ReplaceRuleReplaceUrl.m */,
+				6D467A50256AB07A006D57DD /* ReplaceRuleRepeat.h */,
+				6D467A51256AB07A006D57DD /* ReplaceRule.m */,
+				6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */,
+				6D467A53256AB07A006D57DD /* ReplaceRuleExtension.h */,
+				6D467A54256AB07A006D57DD /* ReplaceRuleColor.m */,
+				6D467A55256AB07A006D57DD /* ReplaceRuleClick.h */,
+				6D467A56256AB07A006D57DD /* ReplaceRuleLocalImage.m */,
+				6D467A57256AB07A006D57DD /* ReplaceRuleImageResource.m */,
+				6D467A58256AB07A006D57DD /* ReplaceRuleHidden.h */,
+				6D467A59256AB07A006D57DD /* ReplaceRuleText.m */,
+				6D467A5A256AB07A006D57DD /* ReplaceRuleReplaceUrl.h */,
+			);
+			path = replacerule;
+			sourceTree = "<group>";
+		};
+		6D467A66256AB07A006D57DD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				6D467A67256AB07A006D57DD /* WildCardGridView.h */,
+				6D467A68256AB07A006D57DD /* WildCardCollectionViewAdapter.h */,
+				6D467A69256AB07A006D57DD /* WildCardUILabel.m */,
+				6D467A6A256AB07A006D57DD /* WildCardGridView.m */,
+				6D467A6B256AB07A006D57DD /* WildCardCollectionViewAdapter.m */,
+				6D467A6C256AB07A006D57DD /* WildCardUILabel.h */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		6D467A6D256AB07A006D57DD /* TriggerAction */ = {
+			isa = PBXGroup;
+			children = (
+				6D467A6E256AB07A006D57DD /* WildCardViewPagerRightAction.m */,
+				6D467A6F256AB07A006D57DD /* WildCardSetTextAction.m */,
+				6D467A70256AB07A006D57DD /* WildCardCustomAction.h */,
+				6D467A71256AB07A006D57DD /* WildCardAction.m */,
+				6D467A72256AB07A006D57DD /* WildCardUITapGestureRecognizer.h */,
+				6D467A73256AB07A006D57DD /* WildCardViewPagerLeftAction.m */,
+				6D467A74256AB07A006D57DD /* WildCardTrigger.m */,
+				6D467A75256AB07A006D57DD /* WildCardApplyAgainAction.m */,
+				6D467A76256AB07A006D57DD /* WildCardViewPagerRightAction.h */,
+				6D467A77256AB07A006D57DD /* WildCardUITapGestureRecognizer.m */,
+				6D467A78256AB07A006D57DD /* WildCardAction.h */,
+				6D467A79256AB07A006D57DD /* WildCardCustomAction.m */,
+				6D467A7A256AB07A006D57DD /* WildCardSetTextAction.h */,
+				6D467A7B256AB07A006D57DD /* WildCardTrigger.h */,
+				6D467A7C256AB07A006D57DD /* WildCardViewPagerLeftAction.h */,
+				6D467A7D256AB07A006D57DD /* WildCardApplyAgainAction.h */,
+			);
+			path = TriggerAction;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -88,6 +344,42 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */,
+				6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */,
+				6D467A8F256AB07A006D57DD /* ReplaceRuleColor.h in Headers */,
+				6D467AC3256AB07A006D57DD /* WildCardTrigger.h in Headers */,
+				6D467A84256AB07A006D57DD /* WildCardCollectionViewHelper.h in Headers */,
+				6D467AC4256AB07A006D57DD /* WildCardViewPagerLeftAction.h in Headers */,
+				6D467AAD256AB07A006D57DD /* WildCardNextChain.h in Headers */,
+				6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */,
+				6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */,
+				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
+				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
+				6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */,
+				6D467A85256AB07A006D57DD /* WildCardMeta.h in Headers */,
+				6D467A9F256AB07A006D57DD /* ReplaceRuleClick.h in Headers */,
+				6D467A9D256AB07A006D57DD /* ReplaceRuleExtension.h in Headers */,
+				6D467A88256AB07A006D57DD /* MappingSyntaxInterpreter.h in Headers */,
+				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
+				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
+				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
+				6D467AC0256AB07A006D57DD /* WildCardAction.h in Headers */,
+				6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */,
+				6D467A87256AB07A006D57DD /* WildCardLayoutPathUnit.h in Headers */,
+				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
+				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
+				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
+				6D467AB8256AB07A006D57DD /* WildCardCustomAction.h in Headers */,
+				6D467ACA256AB07A006D57DD /* WildCardScreenTableView.h in Headers */,
+				6D467A94256AB07A006D57DD /* ReplaceRuleLocalImage.h in Headers */,
+				6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */,
+				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
+				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
+				6D467ABA256AB07A006D57DD /* WildCardUITapGestureRecognizer.h in Headers */,
+				6D467A91256AB07A006D57DD /* ReplaceRule.h in Headers */,
+				6D467AB5256AB07A006D57DD /* WildCardUILabel.h in Headers */,
+				6D467AA9256AB07A006D57DD /* WildCardUtil.h in Headers */,
+				6D467AB1256AB07A006D57DD /* WildCardCollectionViewAdapter.h in Headers */,
 				6D4679E8256AA5EA006D57DD /* devilcore.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,
 			);
@@ -185,7 +477,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D467AAA256AB07A006D57DD /* WildCardUIView.m in Sources */,
+				6D467AC8256AB07A006D57DD /* WildCardUtil.m in Sources */,
+				6D467A8D256AB07A006D57DD /* WildCardIndicatorView.m in Sources */,
+				6D467ABC256AB07A006D57DD /* WildCardTrigger.m in Sources */,
+				6D467AAE256AB07A006D57DD /* MappingSyntaxInterpreter.m in Sources */,
+				6D467AAB256AB07A006D57DD /* WildCardMeta.m in Sources */,
+				6D467ABB256AB07A006D57DD /* WildCardViewPagerLeftAction.m in Sources */,
+				6D467AC7256AB07A006D57DD /* WildCardFunction.m in Sources */,
+				6D467ABD256AB07A006D57DD /* WildCardApplyAgainAction.m in Sources */,
+				6D467A8C256AB07A006D57DD /* WildCardLCAnimatedPageControl.m in Sources */,
+				6D467A90256AB07A006D57DD /* ReplaceRuleExtension.m in Sources */,
+				6D467AAF256AB07A006D57DD /* WildCardLayoutPathUnit.m in Sources */,
+				6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */,
+				6D467AA0256AB07A006D57DD /* ReplaceRuleLocalImage.m in Sources */,
+				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,
+				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,
+				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
+				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,
+				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,
+				6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */,
+				6D467A92256AB07A006D57DD /* ReplaceRuleImage.m in Sources */,
+				6D467AB4256AB07A006D57DD /* WildCardCollectionViewAdapter.m in Sources */,
+				6D467A9B256AB07A006D57DD /* ReplaceRule.m in Sources */,
+				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
+				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
+				6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */,
+				6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */,
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,
+				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
+				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,
+				6D467AB9256AB07A006D57DD /* WildCardAction.m in Sources */,
+				6D467AA1256AB07A006D57DD /* ReplaceRuleImageResource.m in Sources */,
+				6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */,
+				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
+				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
+				6D467AC6256AB07A006D57DD /* WildCardExtensionConstructor.m in Sources */,
+				6D467AB6256AB07A006D57DD /* WildCardViewPagerRightAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

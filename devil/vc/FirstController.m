@@ -10,7 +10,6 @@
 #import "MainController.h"
 #import "LoginController.h"
 #import "Devil.h"
-#import "WildCardConstructor.h"
 #import <devilcore/devilcore.h>
 
 @interface FirstController ()

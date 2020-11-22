@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		32677F623A61C14DEAC1B329 /* libPods-devil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F49D24AF4CFF2314EAFAE7 /* libPods-devil.a */; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
 		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
 		6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B97255E6E0F00004E1F /* DrawerView.m */; };
@@ -35,44 +34,10 @@
 		6D4679132567DD61006D57DD /* JoinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4679122567DD61006D57DD /* JoinController.m */; };
 		6D4679182567DDE3006D57DD /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4679172567DDE3006D57DD /* WebController.m */; };
 		6D46791E25699108006D57DD /* back_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D46791D25699107006D57DD /* back_black@3x.png */; };
-		6D4679A0256A1884006D57DD /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D46799F256A1884006D57DD /* devilcore.framework */; };
 		6D4679AA256A51B9006D57DD /* devil.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D4679A9256A51B9006D57DD /* devil.podspec */; };
-		6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803402208639C0017398B /* WildCardNextChain.m */; };
-		6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */; };
-		6D88038C2208639C0017398B /* WildCardIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034B2208639C0017398B /* WildCardIndicatorView.m */; };
-		6D88038D2208639C0017398B /* WildCardUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034C2208639C0017398B /* WildCardUITextField.m */; };
-		6D88038E2208639C0017398B /* ReplaceRuleExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034F2208639C0017398B /* ReplaceRuleExtension.m */; };
-		6D88038F2208639C0017398B /* ReplaceRuleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803512208639C0017398B /* ReplaceRuleImage.m */; };
-		6D8803902208639C0017398B /* ReplaceRuleRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803522208639C0017398B /* ReplaceRuleRepeat.m */; };
-		6D8803912208639C0017398B /* ReplaceRuleClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803542208639C0017398B /* ReplaceRuleClick.m */; };
-		6D8803922208639C0017398B /* ReplaceRuleHidden.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803562208639C0017398B /* ReplaceRuleHidden.m */; };
-		6D8803932208639C0017398B /* ReplaceRuleReplaceUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803572208639C0017398B /* ReplaceRuleReplaceUrl.m */; };
-		6D8803942208639C0017398B /* ReplaceRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803592208639C0017398B /* ReplaceRule.m */; };
-		6D8803952208639C0017398B /* ReplaceRuleColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88035C2208639C0017398B /* ReplaceRuleColor.m */; };
-		6D8803962208639C0017398B /* ReplaceRuleLocalImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88035E2208639C0017398B /* ReplaceRuleLocalImage.m */; };
-		6D8803972208639C0017398B /* ReplaceRuleText.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803602208639C0017398B /* ReplaceRuleText.m */; };
-		6D8803982208639C0017398B /* WildCardScreenTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803642208639C0017398B /* WildCardScreenTableView.m */; };
-		6D8803992208639C0017398B /* WildCardUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803672208639C0017398B /* WildCardUIView.m */; };
-		6D88039A2208639C0017398B /* WildCardMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803682208639C0017398B /* WildCardMeta.m */; };
-		6D88039B2208639C0017398B /* WildCardCollectionViewHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803692208639C0017398B /* WildCardCollectionViewHelper.m */; };
-		6D88039C2208639C0017398B /* MappingSyntaxInterpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88036B2208639C0017398B /* MappingSyntaxInterpreter.m */; };
-		6D88039D2208639C0017398B /* WildCardLayoutPathUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88036C2208639C0017398B /* WildCardLayoutPathUnit.m */; };
-		6D88039E2208639C0017398B /* WildCardUILabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803702208639C0017398B /* WildCardUILabel.m */; };
-		6D88039F2208639C0017398B /* WildCardGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803712208639C0017398B /* WildCardGridView.m */; };
-		6D8803A02208639C0017398B /* WildCardCollectionViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803722208639C0017398B /* WildCardCollectionViewAdapter.m */; };
-		6D8803A12208639C0017398B /* WildCardViewPagerRightAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803752208639C0017398B /* WildCardViewPagerRightAction.m */; };
-		6D8803A22208639C0017398B /* WildCardSetTextAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803762208639C0017398B /* WildCardSetTextAction.m */; };
-		6D8803A32208639C0017398B /* WildCardAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803782208639C0017398B /* WildCardAction.m */; };
-		6D8803A42208639C0017398B /* WildCardViewPagerLeftAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037A2208639C0017398B /* WildCardViewPagerLeftAction.m */; };
-		6D8803A52208639C0017398B /* WildCardTrigger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037B2208639C0017398B /* WildCardTrigger.m */; };
-		6D8803A62208639C0017398B /* WildCardApplyAgainAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037C2208639C0017398B /* WildCardApplyAgainAction.m */; };
-		6D8803A72208639C0017398B /* WildCardUITapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88037E2208639C0017398B /* WildCardUITapGestureRecognizer.m */; };
-		6D8803A82208639C0017398B /* WildCardCustomAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803802208639C0017398B /* WildCardCustomAction.m */; };
-		6D8803A92208639C0017398B /* WildCardExtensionConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803852208639C0017398B /* WildCardExtensionConstructor.m */; };
-		6D8803AA2208639C0017398B /* WildCardFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803862208639C0017398B /* WildCardFunction.m */; };
-		6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803872208639C0017398B /* WildCardUtil.m */; };
-		6D8803AC2208639C0017398B /* WildCardConstructor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803882208639C0017398B /* WildCardConstructor.m */; };
-		6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */; };
+		6D467A35256AAE12006D57DD /* Void.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A34256AAE12006D57DD /* Void.swift */; };
+		6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; };
+		6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -82,6 +47,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,82 +103,11 @@
 		6D46791D25699107006D57DD /* back_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_black@3x.png"; sourceTree = "<group>"; };
 		6D46798E256A174F006D57DD /* devillogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = devillogin.h; sourceTree = "<group>"; };
 		6D46798F256A174F006D57DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6D46799F256A1884006D57DD /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D4679A9256A51B9006D57DD /* devil.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devil.podspec; sourceTree = "<group>"; };
-		6D8803402208639C0017398B /* WildCardNextChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardNextChain.m; sourceTree = "<group>"; };
-		6D8803412208639C0017398B /* WildCardCollectionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewHelper.h; sourceTree = "<group>"; };
-		6D8803422208639C0017398B /* WildCardMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardMeta.h; sourceTree = "<group>"; };
-		6D8803432208639C0017398B /* WildCardUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUIView.h; sourceTree = "<group>"; };
-		6D8803442208639C0017398B /* WildCardLayoutPathUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardLayoutPathUnit.h; sourceTree = "<group>"; };
-		6D8803452208639C0017398B /* MappingSyntaxInterpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MappingSyntaxInterpreter.h; sourceTree = "<group>"; };
-		6D8803472208639C0017398B /* WildCardIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardIndicatorView.h; sourceTree = "<group>"; };
-		6D8803482208639C0017398B /* WildCardLCAnimatedPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardLCAnimatedPageControl.h; sourceTree = "<group>"; };
-		6D8803492208639C0017398B /* WildCardUITextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUITextField.h; sourceTree = "<group>"; };
-		6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardLCAnimatedPageControl.m; sourceTree = "<group>"; };
-		6D88034B2208639C0017398B /* WildCardIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardIndicatorView.m; sourceTree = "<group>"; };
-		6D88034C2208639C0017398B /* WildCardUITextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextField.m; sourceTree = "<group>"; };
-		6D88034E2208639C0017398B /* ReplaceRuleColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleColor.h; sourceTree = "<group>"; };
-		6D88034F2208639C0017398B /* ReplaceRuleExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleExtension.m; sourceTree = "<group>"; };
-		6D8803502208639C0017398B /* ReplaceRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRule.h; sourceTree = "<group>"; };
-		6D8803512208639C0017398B /* ReplaceRuleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImage.m; sourceTree = "<group>"; };
-		6D8803522208639C0017398B /* ReplaceRuleRepeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleRepeat.m; sourceTree = "<group>"; };
-		6D8803532208639C0017398B /* ReplaceRuleLocalImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleLocalImage.h; sourceTree = "<group>"; };
-		6D8803542208639C0017398B /* ReplaceRuleClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleClick.m; sourceTree = "<group>"; };
-		6D8803552208639C0017398B /* ReplaceRuleText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleText.h; sourceTree = "<group>"; };
-		6D8803562208639C0017398B /* ReplaceRuleHidden.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleHidden.m; sourceTree = "<group>"; };
-		6D8803572208639C0017398B /* ReplaceRuleReplaceUrl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleReplaceUrl.m; sourceTree = "<group>"; };
-		6D8803582208639C0017398B /* ReplaceRuleRepeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleRepeat.h; sourceTree = "<group>"; };
-		6D8803592208639C0017398B /* ReplaceRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRule.m; sourceTree = "<group>"; };
-		6D88035A2208639C0017398B /* ReplaceRuleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImage.h; sourceTree = "<group>"; };
-		6D88035B2208639C0017398B /* ReplaceRuleExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleExtension.h; sourceTree = "<group>"; };
-		6D88035C2208639C0017398B /* ReplaceRuleColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleColor.m; sourceTree = "<group>"; };
-		6D88035D2208639C0017398B /* ReplaceRuleClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleClick.h; sourceTree = "<group>"; };
-		6D88035E2208639C0017398B /* ReplaceRuleLocalImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleLocalImage.m; sourceTree = "<group>"; };
-		6D88035F2208639C0017398B /* ReplaceRuleHidden.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleHidden.h; sourceTree = "<group>"; };
-		6D8803602208639C0017398B /* ReplaceRuleText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleText.m; sourceTree = "<group>"; };
-		6D8803612208639C0017398B /* ReplaceRuleReplaceUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleReplaceUrl.h; sourceTree = "<group>"; };
-		6D8803622208639C0017398B /* WildCardFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardFunction.h; sourceTree = "<group>"; };
-		6D8803632208639C0017398B /* WildCardExtensionConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardExtensionConstructor.h; sourceTree = "<group>"; };
-		6D8803642208639C0017398B /* WildCardScreenTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardScreenTableView.m; sourceTree = "<group>"; };
-		6D8803652208639C0017398B /* WildCardConstructor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardConstructor.h; sourceTree = "<group>"; };
-		6D8803662208639C0017398B /* WildCardUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUtil.h; sourceTree = "<group>"; };
-		6D8803672208639C0017398B /* WildCardUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUIView.m; sourceTree = "<group>"; };
-		6D8803682208639C0017398B /* WildCardMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardMeta.m; sourceTree = "<group>"; };
-		6D8803692208639C0017398B /* WildCardCollectionViewHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCollectionViewHelper.m; sourceTree = "<group>"; };
-		6D88036A2208639C0017398B /* WildCardNextChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardNextChain.h; sourceTree = "<group>"; };
-		6D88036B2208639C0017398B /* MappingSyntaxInterpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MappingSyntaxInterpreter.m; sourceTree = "<group>"; };
-		6D88036C2208639C0017398B /* WildCardLayoutPathUnit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardLayoutPathUnit.m; sourceTree = "<group>"; };
-		6D88036E2208639C0017398B /* WildCardGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardGridView.h; sourceTree = "<group>"; };
-		6D88036F2208639C0017398B /* WildCardCollectionViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewAdapter.h; sourceTree = "<group>"; };
-		6D8803702208639C0017398B /* WildCardUILabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUILabel.m; sourceTree = "<group>"; };
-		6D8803712208639C0017398B /* WildCardGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardGridView.m; sourceTree = "<group>"; };
-		6D8803722208639C0017398B /* WildCardCollectionViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCollectionViewAdapter.m; sourceTree = "<group>"; };
-		6D8803732208639C0017398B /* WildCardUILabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUILabel.h; sourceTree = "<group>"; };
-		6D8803752208639C0017398B /* WildCardViewPagerRightAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardViewPagerRightAction.m; sourceTree = "<group>"; };
-		6D8803762208639C0017398B /* WildCardSetTextAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardSetTextAction.m; sourceTree = "<group>"; };
-		6D8803772208639C0017398B /* WildCardCustomAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCustomAction.h; sourceTree = "<group>"; };
-		6D8803782208639C0017398B /* WildCardAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardAction.m; sourceTree = "<group>"; };
-		6D8803792208639C0017398B /* WildCardUITapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardUITapGestureRecognizer.h; sourceTree = "<group>"; };
-		6D88037A2208639C0017398B /* WildCardViewPagerLeftAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardViewPagerLeftAction.m; sourceTree = "<group>"; };
-		6D88037B2208639C0017398B /* WildCardTrigger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardTrigger.m; sourceTree = "<group>"; };
-		6D88037C2208639C0017398B /* WildCardApplyAgainAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardApplyAgainAction.m; sourceTree = "<group>"; };
-		6D88037D2208639C0017398B /* WildCardViewPagerRightAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardViewPagerRightAction.h; sourceTree = "<group>"; };
-		6D88037E2208639C0017398B /* WildCardUITapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUITapGestureRecognizer.m; sourceTree = "<group>"; };
-		6D88037F2208639C0017398B /* WildCardAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardAction.h; sourceTree = "<group>"; };
-		6D8803802208639C0017398B /* WildCardCustomAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardCustomAction.m; sourceTree = "<group>"; };
-		6D8803812208639C0017398B /* WildCardSetTextAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardSetTextAction.h; sourceTree = "<group>"; };
-		6D8803822208639C0017398B /* WildCardTrigger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardTrigger.h; sourceTree = "<group>"; };
-		6D8803832208639C0017398B /* WildCardViewPagerLeftAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardViewPagerLeftAction.h; sourceTree = "<group>"; };
-		6D8803842208639C0017398B /* WildCardApplyAgainAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardApplyAgainAction.h; sourceTree = "<group>"; };
-		6D8803852208639C0017398B /* WildCardExtensionConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardExtensionConstructor.m; sourceTree = "<group>"; };
-		6D8803862208639C0017398B /* WildCardFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardFunction.m; sourceTree = "<group>"; };
-		6D8803872208639C0017398B /* WildCardUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardUtil.m; sourceTree = "<group>"; };
-		6D8803882208639C0017398B /* WildCardConstructor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardConstructor.m; sourceTree = "<group>"; };
-		6D8803892208639C0017398B /* WildCardScreenTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardScreenTableView.h; sourceTree = "<group>"; };
+		6D467A33256AAE11006D57DD /* devil-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "devil-Bridging-Header.h"; sourceTree = "<group>"; };
+		6D467A34256AAE12006D57DD /* Void.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Void.swift; sourceTree = "<group>"; };
+		6D467AED256AB1B0006D57DD /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DFB6D7922CE5D1E00962591 /* ReplaceRuleImageResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImageResource.h; sourceTree = "<group>"; };
-		6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImageResource.m; sourceTree = "<group>"; };
-		76F49D24AF4CFF2314EAFAE7 /* libPods-devil.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-devil.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		F35FF85D2CFEA5239FF67FF9 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -222,12 +117,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D4679A0256A1884006D57DD /* devilcore.framework in Frameworks */,
 				6D132BB4255E71D300004E1F /* KakaoLink.framework in Frameworks */,
 				6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */,
 				6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */,
 				6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */,
-				32677F623A61C14DEAC1B329 /* libPods-devil.a in Frameworks */,
+				6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,12 +131,11 @@
 		0BCC150E47406F73DA50155A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6D46799F256A1884006D57DD /* devilcore.framework */,
+				6D467AED256AB1B0006D57DD /* devilcore.framework */,
 				6D132BB2255E71D200004E1F /* KakaoCommon.framework */,
 				6D132BB0255E71D200004E1F /* KakaoLink.framework */,
 				6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */,
 				6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */,
-				76F49D24AF4CFF2314EAFAE7 /* libPods-devil.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -321,6 +214,8 @@
 				6D4678B92567B1E2006D57DD /* MainController.m */,
 				6D4678BA2567B1E2006D57DD /* SubController.h */,
 				6D4678C92567B1E2006D57DD /* SubController.m */,
+				6D467A34256AAE12006D57DD /* Void.swift */,
+				6D467A33256AAE11006D57DD /* devil-Bridging-Header.h */,
 			);
 			path = devil;
 			sourceTree = "<group>";
@@ -358,117 +253,6 @@
 			path = devillogin;
 			sourceTree = "<group>";
 		};
-		6D88033F2208639C0017398B /* wildcard */ = {
-			isa = PBXGroup;
-			children = (
-				6D8803462208639C0017398B /* extensionview */,
-				6D8803452208639C0017398B /* MappingSyntaxInterpreter.h */,
-				6D88036B2208639C0017398B /* MappingSyntaxInterpreter.m */,
-				6D88034D2208639C0017398B /* replacerule */,
-				6D8803742208639C0017398B /* TriggerAction */,
-				6D88036D2208639C0017398B /* view */,
-				6D8803412208639C0017398B /* WildCardCollectionViewHelper.h */,
-				6D8803692208639C0017398B /* WildCardCollectionViewHelper.m */,
-				6D8803652208639C0017398B /* WildCardConstructor.h */,
-				6D8803882208639C0017398B /* WildCardConstructor.m */,
-				6D8803632208639C0017398B /* WildCardExtensionConstructor.h */,
-				6D8803852208639C0017398B /* WildCardExtensionConstructor.m */,
-				6D8803622208639C0017398B /* WildCardFunction.h */,
-				6D8803862208639C0017398B /* WildCardFunction.m */,
-				6D8803442208639C0017398B /* WildCardLayoutPathUnit.h */,
-				6D88036C2208639C0017398B /* WildCardLayoutPathUnit.m */,
-				6D8803422208639C0017398B /* WildCardMeta.h */,
-				6D8803682208639C0017398B /* WildCardMeta.m */,
-				6D88036A2208639C0017398B /* WildCardNextChain.h */,
-				6D8803402208639C0017398B /* WildCardNextChain.m */,
-				6D8803892208639C0017398B /* WildCardScreenTableView.h */,
-				6D8803642208639C0017398B /* WildCardScreenTableView.m */,
-				6D8803432208639C0017398B /* WildCardUIView.h */,
-				6D8803672208639C0017398B /* WildCardUIView.m */,
-				6D8803662208639C0017398B /* WildCardUtil.h */,
-				6D8803872208639C0017398B /* WildCardUtil.m */,
-			);
-			path = wildcard;
-			sourceTree = "<group>";
-		};
-		6D8803462208639C0017398B /* extensionview */ = {
-			isa = PBXGroup;
-			children = (
-				6D8803472208639C0017398B /* WildCardIndicatorView.h */,
-				6D8803482208639C0017398B /* WildCardLCAnimatedPageControl.h */,
-				6D8803492208639C0017398B /* WildCardUITextField.h */,
-				6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */,
-				6D88034B2208639C0017398B /* WildCardIndicatorView.m */,
-				6D88034C2208639C0017398B /* WildCardUITextField.m */,
-			);
-			path = extensionview;
-			sourceTree = "<group>";
-		};
-		6D88034D2208639C0017398B /* replacerule */ = {
-			isa = PBXGroup;
-			children = (
-				6D8803502208639C0017398B /* ReplaceRule.h */,
-				6D8803592208639C0017398B /* ReplaceRule.m */,
-				6D88035D2208639C0017398B /* ReplaceRuleClick.h */,
-				6D8803542208639C0017398B /* ReplaceRuleClick.m */,
-				6D88034E2208639C0017398B /* ReplaceRuleColor.h */,
-				6D88035C2208639C0017398B /* ReplaceRuleColor.m */,
-				6D88035B2208639C0017398B /* ReplaceRuleExtension.h */,
-				6D88034F2208639C0017398B /* ReplaceRuleExtension.m */,
-				6D88035F2208639C0017398B /* ReplaceRuleHidden.h */,
-				6D8803562208639C0017398B /* ReplaceRuleHidden.m */,
-				6D88035A2208639C0017398B /* ReplaceRuleImage.h */,
-				6D8803512208639C0017398B /* ReplaceRuleImage.m */,
-				6DFB6D7922CE5D1E00962591 /* ReplaceRuleImageResource.h */,
-				6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */,
-				6D8803532208639C0017398B /* ReplaceRuleLocalImage.h */,
-				6D88035E2208639C0017398B /* ReplaceRuleLocalImage.m */,
-				6D8803582208639C0017398B /* ReplaceRuleRepeat.h */,
-				6D8803522208639C0017398B /* ReplaceRuleRepeat.m */,
-				6D8803612208639C0017398B /* ReplaceRuleReplaceUrl.h */,
-				6D8803572208639C0017398B /* ReplaceRuleReplaceUrl.m */,
-				6D8803552208639C0017398B /* ReplaceRuleText.h */,
-				6D8803602208639C0017398B /* ReplaceRuleText.m */,
-			);
-			path = replacerule;
-			sourceTree = "<group>";
-		};
-		6D88036D2208639C0017398B /* view */ = {
-			isa = PBXGroup;
-			children = (
-				6D88036E2208639C0017398B /* WildCardGridView.h */,
-				6D88036F2208639C0017398B /* WildCardCollectionViewAdapter.h */,
-				6D8803702208639C0017398B /* WildCardUILabel.m */,
-				6D8803712208639C0017398B /* WildCardGridView.m */,
-				6D8803722208639C0017398B /* WildCardCollectionViewAdapter.m */,
-				6D8803732208639C0017398B /* WildCardUILabel.h */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		6D8803742208639C0017398B /* TriggerAction */ = {
-			isa = PBXGroup;
-			children = (
-				6D8803752208639C0017398B /* WildCardViewPagerRightAction.m */,
-				6D8803762208639C0017398B /* WildCardSetTextAction.m */,
-				6D8803772208639C0017398B /* WildCardCustomAction.h */,
-				6D8803782208639C0017398B /* WildCardAction.m */,
-				6D8803792208639C0017398B /* WildCardUITapGestureRecognizer.h */,
-				6D88037A2208639C0017398B /* WildCardViewPagerLeftAction.m */,
-				6D88037B2208639C0017398B /* WildCardTrigger.m */,
-				6D88037C2208639C0017398B /* WildCardApplyAgainAction.m */,
-				6D88037D2208639C0017398B /* WildCardViewPagerRightAction.h */,
-				6D88037E2208639C0017398B /* WildCardUITapGestureRecognizer.m */,
-				6D88037F2208639C0017398B /* WildCardAction.h */,
-				6D8803802208639C0017398B /* WildCardCustomAction.m */,
-				6D8803812208639C0017398B /* WildCardSetTextAction.h */,
-				6D8803822208639C0017398B /* WildCardTrigger.h */,
-				6D8803832208639C0017398B /* WildCardViewPagerLeftAction.h */,
-				6D8803842208639C0017398B /* WildCardApplyAgainAction.h */,
-			);
-			path = TriggerAction;
-			sourceTree = "<group>";
-		};
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
@@ -478,7 +262,6 @@
 				6D4678B52567B1E2006D57DD /* devil */,
 				6D132BC2255E76F400004E1F /* assets */,
 				6D132B89255E6E0F00004E1F /* july */,
-				6D88033F2208639C0017398B /* wildcard */,
 				6D46798D256A174F006D57DD /* devillogin */,
 				6DF137F420D7469A00071B9F /* Products */,
 				1E05F4C7336AAD91274BEE67 /* Pods */,
@@ -531,6 +314,7 @@
 					6DF137F220D7469A00071B9F = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = 3675B8UJSV;
+						LastSwiftMigration = 1210;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -654,58 +438,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D88038C2208639C0017398B /* WildCardIndicatorView.m in Sources */,
-				6D88038E2208639C0017398B /* ReplaceRuleExtension.m in Sources */,
-				6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */,
-				6D8803AC2208639C0017398B /* WildCardConstructor.m in Sources */,
-				6D8803962208639C0017398B /* ReplaceRuleLocalImage.m in Sources */,
 				6D4679132567DD61006D57DD /* JoinController.m in Sources */,
-				6D8803912208639C0017398B /* ReplaceRuleClick.m in Sources */,
-				6D8803942208639C0017398B /* ReplaceRule.m in Sources */,
-				6D8803A62208639C0017398B /* WildCardApplyAgainAction.m in Sources */,
 				6D4678CF2567B1E2006D57DD /* Devil.m in Sources */,
-				6D8803AA2208639C0017398B /* WildCardFunction.m in Sources */,
-				6D8803A82208639C0017398B /* WildCardCustomAction.m in Sources */,
 				6D4679182567DDE3006D57DD /* WebController.m in Sources */,
-				6D8803AB2208639C0017398B /* WildCardUtil.m in Sources */,
-				6D8803A92208639C0017398B /* WildCardExtensionConstructor.m in Sources */,
-				6D8803932208639C0017398B /* ReplaceRuleReplaceUrl.m in Sources */,
-				6D88039D2208639C0017398B /* WildCardLayoutPathUnit.m in Sources */,
-				6D88038D2208639C0017398B /* WildCardUITextField.m in Sources */,
-				6D8803A22208639C0017398B /* WildCardSetTextAction.m in Sources */,
+				6D467A35256AAE12006D57DD /* Void.swift in Sources */,
 				6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */,
-				6D8803972208639C0017398B /* ReplaceRuleText.m in Sources */,
 				6D4678D62567B1E2006D57DD /* SubController.m in Sources */,
 				6D4678D52567B1E2006D57DD /* AppDelegate.m in Sources */,
 				6D132B9D255E6E0F00004E1F /* Lang.m in Sources */,
 				6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */,
 				6D4678D42567B1E2006D57DD /* main.m in Sources */,
-				6D88039B2208639C0017398B /* WildCardCollectionViewHelper.m in Sources */,
 				6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */,
-				6D88039C2208639C0017398B /* MappingSyntaxInterpreter.m in Sources */,
-				6D8803992208639C0017398B /* WildCardUIView.m in Sources */,
 				6D4678CD2567B1E2006D57DD /* MainController.m in Sources */,
-				6D8803952208639C0017398B /* ReplaceRuleColor.m in Sources */,
-				6D8803902208639C0017398B /* ReplaceRuleRepeat.m in Sources */,
-				6D8803A32208639C0017398B /* WildCardAction.m in Sources */,
-				6D8803982208639C0017398B /* WildCardScreenTableView.m in Sources */,
 				6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */,
 				6D4678E12567D46D006D57DD /* FirstController.m in Sources */,
 				6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */,
-				6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */,
-				6D8803A52208639C0017398B /* WildCardTrigger.m in Sources */,
-				6D8803A42208639C0017398B /* WildCardViewPagerLeftAction.m in Sources */,
-				6D88039F2208639C0017398B /* WildCardGridView.m in Sources */,
 				6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */,
-				6D88038F2208639C0017398B /* ReplaceRuleImage.m in Sources */,
-				6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */,
-				6D8803922208639C0017398B /* ReplaceRuleHidden.m in Sources */,
-				6D88039E2208639C0017398B /* WildCardUILabel.m in Sources */,
 				6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */,
-				6D8803A02208639C0017398B /* WildCardCollectionViewAdapter.m in Sources */,
-				6D88039A2208639C0017398B /* WildCardMeta.m in Sources */,
-				6D8803A72208639C0017398B /* WildCardUITapGestureRecognizer.m in Sources */,
-				6D8803A12208639C0017398B /* WildCardViewPagerRightAction.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -820,6 +569,7 @@
 			baseConfigurationReference = F35FF85D2CFEA5239FF67FF9 /* Pods-devil.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -830,8 +580,15 @@
 				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "devil/devil-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -840,6 +597,7 @@
 			baseConfigurationReference = 4B7679E8A3D66962E99E8A44 /* Pods-devil.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: muyoung ko (3675B8UJSV)";
 				CODE_SIGN_STYLE = Automatic;
@@ -851,8 +609,14 @@
 				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/swift",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "devil/devil-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};

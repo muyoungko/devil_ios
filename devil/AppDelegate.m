@@ -12,10 +12,8 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import <AFNetworking/AFNetworking.h>
-#import "MappingSyntaxInterpreter.h"
 #import "UIImageView+AFNetworking.h"
 #import "Devil.h"
-#import "MappingSyntaxInterpreter.h"
 
 #import "FirstController.h"
 #import "MainController.h"

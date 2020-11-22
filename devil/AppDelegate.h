@@ -11,7 +11,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "Firebase.h"
-#import "WildCardConstructor.h"
+#import <devilcore/devilcore.h>
 #import <UserNotifications/UserNotifications.h>
 
 @import GoogleSignIn;

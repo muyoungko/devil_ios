@@ -7,7 +7,6 @@
 //
 
 #import "BaseController.h"
-#import "WildCardConstructor.h"
 #import "AppDelegate.h"
 #import "Devil.h"
 #import "DrawerView.h"
