@@ -7,10 +7,19 @@
 //
 
 #import "SubController.h"
+#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface WebController : SubController
+@interface WebController : SubController< WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
+
+@property (nonatomic, retain) NSString* topTitle;
+@property (nonatomic, retain) NSString* url;
+@property void (^mcallback)(id res) ;
+
++(void)goUrlAbsolute:(NSString*)url title:(NSString*)title;
++(void)goUrl:(NSString*)url title:(NSString*)title;
++(void)goUrl:(NSString*)url res:(id)res;
 
 @end
 

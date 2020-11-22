@@ -26,13 +26,29 @@
     [self constructBlockUnder:@"1605943385593"];
 }
 
-- (void)bottomClick:(id)sender{
-    [self join];
-}
-
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
 {
-    if([functionName isEqualToString:@"check1"]){
+    if([functionName hasPrefix:@"detail1"]){
+        WebController* vc = [[WebController alloc] init];
+        NSString* title = trans(@"Terms of Privacy");
+        vc.topTitle = title;
+        if([[Lang getCurrentLang] isEqualToString:@"ko"])
+            vc.url = [NSString stringWithFormat:@"%@/agree/private.html", HOST_WEB];
+        else
+            vc.url = [NSString stringWithFormat:@"%@/agree/private_en.html", HOST_WEB];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    } else if([functionName hasPrefix:@"detail2"]){
+        WebController* vc = [[WebController alloc] init];
+        NSString* title = trans(@"Terms of Use");
+        vc.topTitle = title;
+        if([[Lang getCurrentLang] isEqualToString:@"ko"])
+            vc.url = [NSString stringWithFormat:@"%@/agree/service.html", HOST_WEB];
+        else
+            vc.url = [NSString stringWithFormat:@"%@/agree/service_en.html", HOST_WEB];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    } else if([functionName isEqualToString:@"check1"]){
         BOOL allcheck = [@"Y" isEqualToString: self.data[@"check1"]];
         for(int i=2;i<=3;i++)
             self.data[[NSString stringWithFormat:@"check%d",i]] =  allcheck?@"Y":@"N";

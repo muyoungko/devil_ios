@@ -318,8 +318,7 @@
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
     
-    UIView* childUIView = [[cell subviews] objectAtIndex:0];
-    childUIView = cell;
+    UIView* childUIView = cell;
     if([[childUIView subviews] count] == 0)
     {
         NSDictionary *cloudJson = _cloudJsonGetter(position);

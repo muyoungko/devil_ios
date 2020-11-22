@@ -25,11 +25,13 @@
 }
 
 - (void)showNavigationBar{
-   self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
 }
 - (void)hideNavigationBar{
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
@@ -108,14 +110,16 @@
 }
 
 - (void)constructLeftBackButton{
-    UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 100,50)];
-    leftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [leftButton setImage:[UIImage imageNamed:@"back_black.png"] forState:UIControlStateNormal];
-    [leftButton addTarget:self action:@selector(backClick:)
-         forControlEvents:UIControlEventTouchUpInside];
-    //[leftButton setShowsTouchWhenHighlighted:YES];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    if([self.navigationController.viewControllers count] > 2){
+        UIButton *leftButton = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 100,50)];
+        leftButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [leftButton setImage:[UIImage imageNamed:@"back_black.png"] forState:UIControlStateNormal];
+        [leftButton addTarget:self action:@selector(backClick:)
+             forControlEvents:UIControlEventTouchUpInside];
+        //[leftButton setShowsTouchWhenHighlighted:YES];
+        
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    }
 }
 
 - (void)backClick:(id)sender{
