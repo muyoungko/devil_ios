@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
-  s.version          = '0.0.5'
+  s.platform         = :ios
+  s.version          = '0.0.7'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     Devil Core
@@ -10,11 +11,11 @@ Pod::Spec.new do |s|
   s.author           = { 'muyoungko' => 'muyoungko@gmail.com' }
   s.source           = { :git => 'https://github.com/muyoungko/devil_ios.git', :tag => s.version.to_s }
   #s.ios.deployment_target = '8.0'
-  #s.source_files = 'devilcore/devilcore/*.*'
+  s.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*'
   
   s.subspec 'DevilCore' do |devilCore|
     # devilCore.dependency 'Alamofire'
-    devilCore.source_files = 'devilcore/devilcore/source/*.*'
+    devilCore.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*'
     # s.resources = 'Pod/Assets/*'
   end
 
