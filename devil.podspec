@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
-  s.version          = '0.0.1'
+  s.version          = '0.0.3'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     Devil Core
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'DevilCore' do |devilCore|
     # devilCore.dependency 'Alamofire'
-    devilCore.source_files = 'devilcore/devilcore/*.*'
+    devilCore.source_files = 'devilcore/devilcore/source/*.*'
     # s.resources = 'Pod/Assets/*'
   end
 
