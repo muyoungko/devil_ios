@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:Pods/../devilcore/devilcore.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:/Users/muyoungko/Documents/devil/devil_ios/devil.xcodeproj">
    </FileRef>
    <FileRef

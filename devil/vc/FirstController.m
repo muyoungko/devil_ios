@@ -11,6 +11,7 @@
 #import "LoginController.h"
 #import "Devil.h"
 #import "WildCardConstructor.h"
+#import <devilcore/devilcore.h>
 
 @interface FirstController ()
 
@@ -20,6 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [DevilSdk sharedInstance];
+    
     [[NSBundle mainBundle] loadNibNamed:@"FirstController" owner:self options:nil];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     

@@ -34,6 +34,8 @@
 		6D4679132567DD61006D57DD /* JoinController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4679122567DD61006D57DD /* JoinController.m */; };
 		6D4679182567DDE3006D57DD /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4679172567DDE3006D57DD /* WebController.m */; };
 		6D46791E25699108006D57DD /* back_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D46791D25699107006D57DD /* back_black@3x.png */; };
+		6D4679A0256A1884006D57DD /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D46799F256A1884006D57DD /* devilcore.framework */; };
+		6D4679AA256A51B9006D57DD /* devil.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D4679A9256A51B9006D57DD /* devil.podspec */; };
 		6D88038A2208639C0017398B /* WildCardNextChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8803402208639C0017398B /* WildCardNextChain.m */; };
 		6D88038B2208639C0017398B /* WildCardLCAnimatedPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034A2208639C0017398B /* WildCardLCAnimatedPageControl.m */; };
 		6D88038C2208639C0017398B /* WildCardIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D88034B2208639C0017398B /* WildCardIndicatorView.m */; };
@@ -72,6 +74,19 @@
 		6DFB6D7B22CE5D1E00962591 /* ReplaceRuleImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB6D7A22CE5D1E00962591 /* ReplaceRuleImageResource.m */; };
 		81DC92FEE702C5D0C03A42F5 /* libPods-CloudJsonViewer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 980D08EEF54398EBCB7377BB /* libPods-CloudJsonViewer.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6D467998256A174F006D57DD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.release.xcconfig"; sourceTree = "<group>"; };
@@ -119,6 +134,10 @@
 		6D4679172567DDE3006D57DD /* WebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
 		6D46791A25680570006D57DD /* devil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = devil.entitlements; sourceTree = "<group>"; };
 		6D46791D25699107006D57DD /* back_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_black@3x.png"; sourceTree = "<group>"; };
+		6D46798E256A174F006D57DD /* devillogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = devillogin.h; sourceTree = "<group>"; };
+		6D46798F256A174F006D57DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D46799F256A1884006D57DD /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D4679A9256A51B9006D57DD /* devil.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devil.podspec; sourceTree = "<group>"; };
 		6D8803402208639C0017398B /* WildCardNextChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardNextChain.m; sourceTree = "<group>"; };
 		6D8803412208639C0017398B /* WildCardCollectionViewHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardCollectionViewHelper.h; sourceTree = "<group>"; };
 		6D8803422208639C0017398B /* WildCardMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardMeta.h; sourceTree = "<group>"; };
@@ -201,6 +220,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D4679A0256A1884006D57DD /* devilcore.framework in Frameworks */,
 				6D132BB4255E71D300004E1F /* KakaoLink.framework in Frameworks */,
 				6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */,
 				6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */,
@@ -215,6 +235,7 @@
 		0BCC150E47406F73DA50155A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D46799F256A1884006D57DD /* devilcore.framework */,
 				6D132BB2255E71D200004E1F /* KakaoCommon.framework */,
 				6D132BB0255E71D200004E1F /* KakaoLink.framework */,
 				6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */,
@@ -322,6 +343,15 @@
 				6D46791D25699107006D57DD /* back_black@3x.png */,
 			);
 			path = image;
+			sourceTree = "<group>";
+		};
+		6D46798D256A174F006D57DD /* devillogin */ = {
+			isa = PBXGroup;
+			children = (
+				6D46798E256A174F006D57DD /* devillogin.h */,
+				6D46798F256A174F006D57DD /* Info.plist */,
+			);
+			path = devillogin;
 			sourceTree = "<group>";
 		};
 		6D88033F2208639C0017398B /* wildcard */ = {
@@ -438,12 +468,14 @@
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
+				6D4679A9256A51B9006D57DD /* devil.podspec */,
 				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
 				6D46791C25699107006D57DD /* image */,
 				6D4678B52567B1E2006D57DD /* devil */,
 				6D132BC2255E76F400004E1F /* assets */,
 				6D132B89255E6E0F00004E1F /* july */,
 				6D88033F2208639C0017398B /* wildcard */,
+				6D46798D256A174F006D57DD /* devillogin */,
 				6DF137F420D7469A00071B9F /* Products */,
 				1E05F4C7336AAD91274BEE67 /* Pods */,
 				0BCC150E47406F73DA50155A /* Frameworks */,
@@ -470,6 +502,7 @@
 				6DF137F020D7469A00071B9F /* Frameworks */,
 				6DF137F120D7469A00071B9F /* Resources */,
 				CDB8FF7F82D450D69287147B /* [CP] Copy Pods Resources */,
+				6D467998256A174F006D57DD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -525,6 +558,7 @@
 				6D46791E25699108006D57DD /* back_black@3x.png in Resources */,
 				6D132BC5255E76F400004E1F /* loading.json in Resources */,
 				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
+				6D4679AA256A51B9006D57DD /* devil.podspec in Resources */,
 				6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */,
 				6D132BC6255E76F400004E1F /* lang.json in Resources */,
 			);

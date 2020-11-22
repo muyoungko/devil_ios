@@ -1,0 +1,6 @@
+framework module devilcore {
+  umbrella header "devilcore.h"
+
+  export *
+  module * { export * }
+}
