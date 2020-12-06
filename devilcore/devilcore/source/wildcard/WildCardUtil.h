@@ -18,5 +18,7 @@
 +(BOOL)hasGravityCenterVertical:(int)gravity;
 +(BOOL)hasGravityRight:(int)gravity;
 +(BOOL)hasGravityCenterHorizontal:(int)gravity;
++(void)fitToScreen:(id)layer;
++(void)fitToScreenRecur:(id)layer offsety:(float)offsety theight:(float)height;
 
 @end

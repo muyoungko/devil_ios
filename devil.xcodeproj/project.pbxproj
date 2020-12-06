@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
 		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
-		6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B97255E6E0F00004E1F /* DrawerView.m */; };
 		6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */; };
 		6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B99255E6E0F00004E1F /* HttpUtil.mm */; };
 		6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B9A255E6E0F00004E1F /* DeepLink.m */; };
@@ -58,7 +57,6 @@
 /* Begin PBXFileReference section */
 		2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.release.xcconfig"; sourceTree = "<group>"; };
 		4B7679E8A3D66962E99E8A44 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Pods/Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
-		6D132B8A255E6E0F00004E1F /* DrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerView.h; sourceTree = "<group>"; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
 		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
 		6D132B91255E6E0F00004E1F /* HttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUtil.h; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 		6D132B93255E6E0F00004E1F /* DeepLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeepLink.h; sourceTree = "<group>"; };
 		6D132B95255E6E0F00004E1F /* Lang.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Lang.m; sourceTree = "<group>"; };
 		6D132B96255E6E0F00004E1F /* Lang.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lang.h; sourceTree = "<group>"; };
-		6D132B97255E6E0F00004E1F /* DrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerView.m; sourceTree = "<group>"; };
 		6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		6D132B99255E6E0F00004E1F /* HttpUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HttpUtil.mm; sourceTree = "<group>"; };
 		6D132B9A255E6E0F00004E1F /* DeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeepLink.m; sourceTree = "<group>"; };
@@ -162,8 +159,6 @@
 				6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */,
 				6D132B93255E6E0F00004E1F /* DeepLink.h */,
 				6D132B9A255E6E0F00004E1F /* DeepLink.m */,
-				6D132B8A255E6E0F00004E1F /* DrawerView.h */,
-				6D132B97255E6E0F00004E1F /* DrawerView.m */,
 				6D132B91255E6E0F00004E1F /* HttpUtil.h */,
 				6D132B99255E6E0F00004E1F /* HttpUtil.mm */,
 			);
@@ -456,7 +451,6 @@
 				6D4678CD2567B1E2006D57DD /* MainController.m in Sources */,
 				6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */,
 				6D4678E12567D46D006D57DD /* FirstController.m in Sources */,
-				6D132B9E255E6E0F00004E1F /* DrawerView.m in Sources */,
 				6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */,
 				6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */,
 			);

@@ -12,7 +12,7 @@
 
 @implementation WildCardScreenTableView
 
--(id)initWithScreenName:(NSString*)screenKey
+-(id)initWithScreenId:(NSString*)screenKey
 {
     self = [super init];
     if(self)

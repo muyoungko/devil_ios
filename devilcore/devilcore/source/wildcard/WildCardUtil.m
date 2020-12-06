@@ -162,5 +162,31 @@
 }
 
 
++(void)fitToScreen:(id)layer{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    float screenWidth = (float)screenRect.size.width;
+    float screenHeight = (float)screenRect.size.height;
+
+    float sketch_height_of_screen = screenHeight * 360 / screenWidth;
+    [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen];
+}
+
++(void)fitToScreenRecur:(id)layer offsety:(float)offsety height:(float)height{
+    id frame = layer[@"frame"];
+    float y = [frame[@"y"] floatValue];
+    float h = [frame[@"h"] floatValue];
+
+    if(y + h > height) {
+        h -= (y + h) - height;
+        frame[@"h"] = [NSNumber numberWithFloat:h];
+    }
+
+    id layers = layer[@"layers"];
+    if(layers != nil){
+        for(int i=0;i<[layers count];i++){
+            [WildCardUtil fitToScreenRecur:layers[i] offsety:(offsety + y) height:height];
+        }
+    }
+}
 
 @end

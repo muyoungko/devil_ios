@@ -1,5 +1,5 @@
 //
-//  DrawerView.h
+//  WildCardDrawerView.h
 //  sticar
 //
 //  Created by Mu Young Ko on 2019. 6. 14..
@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define MENU_WIDTH 320
 #define MODAL_ALPHA 0.7f
 
-@interface DrawerView : UIView
+@interface WildCardDrawerView : UIView
 {
     int screenWidth, screenHeight;
     int naviStatus;

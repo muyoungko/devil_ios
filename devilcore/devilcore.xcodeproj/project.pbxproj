@@ -111,6 +111,8 @@
 		6D467B87257CD9F3006D57DD /* WildCardUIButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B85257CD9F2006D57DD /* WildCardUIButton.m */; };
 		6D467B8C257CF2F7006D57DD /* JevilAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B8A257CF2F7006D57DD /* JevilAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
+		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
+		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -205,6 +207,8 @@
 		6D467B85257CD9F2006D57DD /* WildCardUIButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIButton.m; sourceTree = "<group>"; };
 		6D467B8A257CF2F7006D57DD /* JevilAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilAction.h; sourceTree = "<group>"; };
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
+		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
+		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,14 +337,16 @@
 		6D467A66256AB07A006D57DD /* view */ = {
 			isa = PBXGroup;
 			children = (
-				6D467A67256AB07A006D57DD /* WildCardGridView.h */,
 				6D467A68256AB07A006D57DD /* WildCardCollectionViewAdapter.h */,
-				6D467A69256AB07A006D57DD /* WildCardUILabel.m */,
-				6D467A6A256AB07A006D57DD /* WildCardGridView.m */,
 				6D467A6B256AB07A006D57DD /* WildCardCollectionViewAdapter.m */,
-				6D467A6C256AB07A006D57DD /* WildCardUILabel.h */,
+				6D467B92257CF518006D57DD /* WildCardDrawerView.h */,
+				6D467B93257CF51A006D57DD /* WildCardDrawerView.m */,
+				6D467A67256AB07A006D57DD /* WildCardGridView.h */,
+				6D467A6A256AB07A006D57DD /* WildCardGridView.m */,
 				6D467B84257CD9F2006D57DD /* WildCardUIButton.h */,
 				6D467B85257CD9F2006D57DD /* WildCardUIButton.m */,
+				6D467A6C256AB07A006D57DD /* WildCardUILabel.h */,
+				6D467A69256AB07A006D57DD /* WildCardUILabel.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -446,6 +452,7 @@
 				6D467B8C257CF2F7006D57DD /* JevilAction.h in Headers */,
 				6D467AB1256AB07A006D57DD /* WildCardCollectionViewAdapter.h in Headers */,
 				6D4679E8256AA5EA006D57DD /* devilcore.h in Headers */,
+				6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -573,6 +580,7 @@
 				6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */,
 				6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */,
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,
+				6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */,
 				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
 				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,
 				6D467AB9256AB07A006D57DD /* WildCardAction.m in Sources */,

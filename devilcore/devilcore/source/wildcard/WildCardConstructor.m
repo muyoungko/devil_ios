@@ -120,6 +120,16 @@ static NSString *default_project_id = nil;
         return nil;
 }
 
+-(NSString*) getScreenIdByName:(NSString*)screenName {
+    id keys = [_screenMap allKeys];
+    for(id k in keys) {
+        if([_screenMap[k][@"name"] isEqualToString:screenName]){
+            return k;
+        }
+    }
+    return nil;
+}
+
 -(NSMutableDictionary*_Nullable) findJsonRoot:(NSMutableDictionary*_Nonnull)root withName:(NSString*)nodeName
 {
     if(root == nil)

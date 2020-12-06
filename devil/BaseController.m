@@ -9,14 +9,14 @@
 #import "BaseController.h"
 #import "AppDelegate.h"
 #import "Devil.h"
-#import "DrawerView.h"
+#import <devilcore/devilcore.h>
 #import "Lottie/Lottie.h"
 #import "JulyUtil.h"
 
 @interface BaseController ()
 
 @property int originalY;
-@property (nonatomic, retain) DrawerView* d;
+@property (nonatomic, retain) WildCardDrawerView* d;
 
 @end
 
@@ -93,7 +93,7 @@
 {
     UIWindow* w = [UIApplication sharedApplication].keyWindow;
     
-    DrawerView* d = [[DrawerView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
+    WildCardDrawerView* d = [[WildCardDrawerView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
     [w addSubview:d];
     self.d = d;
     

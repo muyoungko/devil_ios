@@ -77,7 +77,7 @@
 }
 
 - (void)createWildCardScreenListView:(NSString*)screenName{
-    self.tv = [[WildCardScreenTableView alloc] initWithScreenName:screenName];
+    self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenName];
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;
     self.tv.tableViewDelegate = self;
@@ -96,7 +96,7 @@
         //TODO jevil
         return YES;
     } else if([functionName hasPrefix:@"Jevil"]) {
-        [JevilAction actoin:functionName args:args viewController:self meta:meta];
+        [JevilAction act:functionName args:args viewController:self meta:meta];
         return YES;
     } 
     return NO;

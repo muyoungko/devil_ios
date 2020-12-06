@@ -74,6 +74,7 @@
 -(NSMutableDictionary*_Nullable) getAllBlockJson;
 
 -(NSString*)getFirstScreenId;
+-(NSString*)getScreenIdByName:(NSString*)screenName;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey withName:(NSString*)nodeName;
 -(NSMutableArray*)getScreenIfList:(NSString*)screen;
 -(NSMutableDictionary*)getScreen:(NSString*)screenId;

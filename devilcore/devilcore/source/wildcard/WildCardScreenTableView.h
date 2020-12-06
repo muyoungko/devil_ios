@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WildCardScreenTableView : UITableView<UITableViewDelegate, UITableViewDataSource,UITableViewDragDelegate, UITableViewDropDelegate,  WildCardConstructorInstanceDelegate, UIScrollViewDelegate>
 
 
--(id)initWithScreenName:(NSString*)screenKey;
+-(id)initWithScreenId:(NSString*)screenKey;
 -(void)dragEnable:(BOOL)enable;
 -(void)reloadData;
 

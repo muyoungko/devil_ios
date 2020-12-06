@@ -78,7 +78,7 @@
 }
 
 - (void)createWildCardScreenListView:(NSString*)screenName{
-    self.tv = [[WildCardScreenTableView alloc] initWithScreenName:screenName];
+    self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenName];
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;
     self.tv.tableViewDelegate = self;

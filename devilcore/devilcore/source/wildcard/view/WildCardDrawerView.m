@@ -1,14 +1,14 @@
 //
-//  DrawerView.m
+//  WildCardDrawerView.m
 //  sticar
 //
 //  Created by Mu Young Ko on 2019. 6. 14..
 //  Copyright © 2019년 trix. All rights reserved.
 //
 
-#import "DrawerView.h"
+#import "WildCardDrawerView.h"
 
-@implementation DrawerView
+@implementation WildCardDrawerView
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
