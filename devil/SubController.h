@@ -40,6 +40,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)setTitleLogo;
 - (void)popToMain:(NSString*)tabName;
+
+- (void)constructRightBackButton:(NSString*)png;
+- (void)rightClick:(id)sender;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -38,6 +38,7 @@
 		6D467A35256AAE12006D57DD /* Void.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A34256AAE12006D57DD /* Void.swift */; };
 		6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; };
 		6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -107,6 +108,7 @@
 		6D467A33256AAE11006D57DD /* devil-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "devil-Bridging-Header.h"; sourceTree = "<group>"; };
 		6D467A34256AAE12006D57DD /* Void.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Void.swift; sourceTree = "<group>"; };
 		6D467AED256AB1B0006D57DD /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D467B68257A2E17006D57DD /* refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@3x.png"; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		F35FF85D2CFEA5239FF67FF9 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Pods/Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 		6D46791C25699107006D57DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				6D467B68257A2E17006D57DD /* refresh@3x.png */,
 				6D46791D25699107006D57DD /* back_black@3x.png */,
 			);
 			path = image;
@@ -348,6 +351,7 @@
 				6D46791E25699108006D57DD /* back_black@3x.png in Resources */,
 				6D132BC5255E76F400004E1F /* loading.json in Resources */,
 				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
+				6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */,
 				6D4679AA256A51B9006D57DD /* devil.podspec in Resources */,
 				6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */,
 				6D132BC6255E76F400004E1F /* lang.json in Resources */,

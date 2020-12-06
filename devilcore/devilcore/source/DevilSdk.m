@@ -6,6 +6,7 @@
 //
 
 #import "DevilSdk.h"
+#import "devilcore.h"
 
 @implementation DevilSdk
 
@@ -16,6 +17,15 @@
         sharedInstance = [[DevilSdk alloc] init];
     });
     return sharedInstance;
+}
+
++(void)start:(NSString*)project_id viewController:(UIViewController*)vc {
+    [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:^(BOOL success) {
+        DevilController* d = [[DevilController alloc] init];
+        NSString* firstScreenId = [[WildCardConstructor sharedInstance] getFirstScreenId];
+        d.screenId = firstScreenId; 
+        [vc.navigationController pushViewController:d animated:YES];
+    }];
 }
 
 @end

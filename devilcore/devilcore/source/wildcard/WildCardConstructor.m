@@ -34,13 +34,25 @@
 @implementation WildCardConstructor
 
 
+static NSString *default_project_id = nil;
 + (WildCardConstructor*)sharedInstance {
-    static WildCardConstructor *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[self alloc] init];
+    
+    return [WildCardConstructor sharedInstance:default_project_id];
+}
+
++ (WildCardConstructor*)sharedInstance:(NSString*)project_id {
+    default_project_id = project_id;
+    static NSMutableDictionary* sharedInstanceMap = nil; 
+    static dispatch_once_t onceToken2;
+    dispatch_once(&onceToken2, ^{
+        sharedInstanceMap = [[NSMutableDictionary alloc] init];
     });
-    return sharedInstance;
+    if(!sharedInstanceMap[project_id]){
+        WildCardConstructor* wildCardConstructor = [[WildCardConstructor alloc] init];
+        wildCardConstructor.project_id = project_id;
+        sharedInstanceMap[project_id] = wildCardConstructor;
+    }
+    return sharedInstanceMap[project_id];
 }
 
 -(id)init
@@ -50,29 +62,31 @@
     return self;
 }
 
--(void) initWithLocal:(NSString*_Nonnull)projectKey onComplete:(void (^_Nonnull)(BOOL success))complete
+-(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete
 {
     [WildCardConstructor sharedInstance].onLineMode = NO;
-    NSString *path = [[NSBundle mainBundle] pathForResource:projectKey ofType:@"json"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:self.project_id ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingUncached error:nil];
     
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     _cloudJsonMap = json[@"cloudJsonMap"];
     _screenMap = json[@"screenMap"];
+    _blockMap = json[@"block"];
     complete(YES);
 }
 
 
--(void) initWithOnline:(NSString*_Nonnull)projectKey onComplete:(void (^_Nonnull)(BOOL success))complete
+-(void) initWithOnlineOnComplete:(void (^_Nonnull)(BOOL success))complete
 {
     [WildCardConstructor sharedInstance].onLineMode = YES;
-    NSString* path = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", projectKey];
-    NSString* url = [NSString stringWithFormat:path, projectKey];
+    NSString* path = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", self.project_id];
+    NSString* url = [NSString stringWithFormat:path, self.project_id];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* responseJsonObject) {
         if(responseJsonObject != nil)
         {
             _cloudJsonMap = responseJsonObject[@"cloudJsonMap"] ;
             _screenMap = responseJsonObject[@"screenMap"];
+            _blockMap = responseJsonObject[@"block"];
             complete(YES);
         }
         else
@@ -128,9 +142,32 @@
     return nil;
 }
 
+
+-(NSString*)getFirstScreenId {
+    id keys = [_screenMap allKeys];
+    for(id k in keys) {
+        if([_screenMap[k][@"splash"] boolValue]){
+            return [k stringValue];
+        }
+    }
+    return nil;
+}
+
 -(NSMutableArray*)getScreenIfList:(NSString*)screen
 {
     return _screenMap[screen][@"list"];
+}
+
+-(NSMutableDictionary*)getScreen:(NSString*)screenId{
+    return _screenMap[screenId];
+}
+
+-(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId{
+    NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
+    if(header_block_id)
+        return _cloudJsonMap[header_block_id];
+    else
+        return nil;
 }
 
 

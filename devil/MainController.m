@@ -17,6 +17,16 @@
     [self showNavigationBar];
     self.title = trans(@"프로젝트 목록");
     
+    [self constructRightBackButton:@"refresh.png"];
+    
+    [self update];
+}
+
+- (void)rightClick:(id)sender{
+    [self update];
+}
+
+-(void)update{
     [self showIndicator];
     [[Devil sharedInstance] request:@"/front/api/project" postParam:nil complete:^(id  _Nonnull res) {
        [self hideIndicator];
@@ -25,4 +35,17 @@
     }];
 }
 
+-(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
+    if([functionName isEqualToString:@"start"]){
+        NSString* project_id = [NSString stringWithFormat:@"%@", meta.correspondData[@"id"]];
+        AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        [WildCardConstructor sharedInstance:project_id].delegate = appDelegate;
+        [WildCardConstructor sharedInstance:project_id].textConvertDelegate = appDelegate;
+        [WildCardConstructor sharedInstance:project_id].textTransDelegate = appDelegate;
+        [DevilSdk start:project_id viewController:self];
+        return true;
+    }
+    else 
+        return [super onInstanceCustomAction:meta function:functionName args:args view:node];
+}
 @end

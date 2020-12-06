@@ -40,7 +40,7 @@
         for(int i=0;i<[_ifList count];i++)
         {
             NSDictionary *ifListItem = [_ifList objectAtIndex:i];
-            NSString *key = [ifListItem objectForKey:@"block_id"];
+            NSString *key = [[ifListItem objectForKey:@"block_id"] stringValue];
             NSString *type = [ifListItem objectForKey:@"type"];
             
             if([type isEqualToString:@"sketch"] || [type isEqualToString:@"list"]){
@@ -78,7 +78,7 @@
     for(int i=0;i<[_ifList count];i++)
     {
         NSDictionary *ifListItem = [_ifList objectAtIndex:i];
-        NSString *key = [ifListItem objectForKey:@"key"];
+        NSString *key = [[ifListItem objectForKey:@"block_id"] stringValue];
         NSString *ifCondition = [ifListItem objectForKey:@"ifcondition"];
         NSString *type = [ifListItem objectForKey:@"type"];
         

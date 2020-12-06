@@ -127,6 +127,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
+    [WildCardConstructor sharedInstance:@"1605234988599"];
     [WildCardConstructor sharedInstance].delegate = self;
     [WildCardConstructor sharedInstance].textConvertDelegate = self;
     [WildCardConstructor sharedInstance].textTransDelegate = self;

@@ -42,7 +42,10 @@
 
 @interface WildCardConstructor : NSObject
 
-+(WildCardConstructor*)sharedInstance;
++ (WildCardConstructor*)sharedInstance;
++ (WildCardConstructor*)sharedInstance:(NSString*)project_id;
+
+@property (nonatomic, retain) NSString* _Nullable project_id;
 
 @property BOOL onLineMode;
 @property (nonatomic, weak, nullable) id <WildCardConstructorGlobalDelegate> delegate;
@@ -51,6 +54,7 @@
 
 @property (nonatomic, retain) NSMutableDictionary* _Nullable cloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable screenMap;
+@property (nonatomic, retain) NSMutableDictionary* _Nullable blockMap;
 @property (nonatomic, retain) NSString* _Nullable xButtonImageName;
 
 +(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
@@ -65,13 +69,17 @@
 +(float) convertTextSize:(int)sketchTextSize;
 +(CGRect)getFrame:(NSDictionary*) layer : (WildCardUIView*)parentForPadding;
 
--(void) initWithLocal:(NSString*_Nonnull)projectKey onComplete:(void (^_Nonnull)(BOOL success))complete;
--(void) initWithOnline:(NSString*_Nonnull)projectKey onComplete:(void (^_Nonnull)(BOOL success))complete;
+-(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete;
+-(void) initWithOnlineOnComplete:(void (^_Nonnull)(BOOL success))complete;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey;
 -(NSMutableDictionary*_Nullable) getAllBlockJson;
 
+-(NSString*)getFirstScreenId;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey withName:(NSString*)nodeName;
 -(NSMutableArray*)getScreenIfList:(NSString*)screen;
+-(NSMutableDictionary*)getScreen:(NSString*)screenId;
+-(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId;
+
 @end
 
 

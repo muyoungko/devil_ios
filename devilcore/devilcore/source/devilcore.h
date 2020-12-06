@@ -16,8 +16,13 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 // In this header, you should import all the public headers of your framework using statements like #import <devilcore/PublicHeader.h>
 
 #import "DevilSdk.h"
+#import "DevilWebView.h"
+#import "DevilWebViewController.h"
+#import "DevilController.h"
+#import "DevilHeader.h"
 #import "WildCardConstructor.h"
 #import "WildCardUIView.h"
 #import "WildCardScreenTableView.h"
 #import "WildCardMeta.h"
+
 

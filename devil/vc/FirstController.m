@@ -26,7 +26,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     [self showIndicator];
-    [[WildCardConstructor sharedInstance] initWithOnline:@"1605234988599" onComplete:^(BOOL success) {
+    [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
         [[Devil sharedInstance] isLogin:^(id  _Nonnull res) {
             [self hideIndicator];
             if(res){

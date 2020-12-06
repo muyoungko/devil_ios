@@ -185,4 +185,22 @@
     
 }
 
+- (void)constructRightBackButton:(NSString*)png{
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 100,50)];
+    rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    [rightButton setImage:[UIImage imageNamed:png] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(rightClick:)
+         forControlEvents:UIControlEventTouchUpInside];
+    //[leftButton setShowsTouchWhenHighlighted:YES];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+}
+
+- (void)rightClick:(id)sender{
+    
+}
+
+-(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
+    return false;
+}
 @end
