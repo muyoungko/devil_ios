@@ -617,7 +617,13 @@ static BOOL IS_TABLET = NO;
             [WildCardConstructor followSizeFromFather:vv child:web];
             NSString* url = layer[@"web"][@"url"]; 
             [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+            
+            UIView* cc = [vv superview];
             vv.userInteractionEnabled = YES;
+            while([[cc class] isEqual:[WildCardUIView class]]){
+                cc.userInteractionEnabled = YES;
+                cc = [cc superview];
+            }
         }
         
         if([@"text" isEqualToString:_class])
