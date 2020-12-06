@@ -7,10 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "DevilBaseController.h"
+#import "WildCardConstructor.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilController : DevilBaseController
+@interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardScreenTableViewDelegate>
 {
     int screenWidth, screenHeight;
 }

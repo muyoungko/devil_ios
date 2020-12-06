@@ -289,6 +289,14 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }];
 }
 
+- (void)onNetworkRequestToByte:(NSString*)url success:(void (^)(NSData* byte))success
+{
+    [JulyUtil request:url complete:^(id  _Nonnull byte) {
+        success(byte);
+    }];
+}
+
+
 
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension
 {

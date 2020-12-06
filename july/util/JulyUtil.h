@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(id)getFromList:(id)list col:(NSString*)col key:(NSString*)key;
 +(int)getIndexFromList:(id)list col:(NSString*)col key:(NSString*)key;
 +(void)request:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback;
++(void)request:(NSString*)url complete:(void (^)(id res))callback;
 +(void)share:(UIViewController*)vc text:(NSString*)textToShare;
 
 @end

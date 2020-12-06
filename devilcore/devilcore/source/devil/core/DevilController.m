@@ -43,7 +43,7 @@
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         [self showNavigationBar];
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]; 
-        self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data];
+        self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
     } else
         [self hideNavigationBar];
 
@@ -90,4 +90,15 @@
     
 }
 
+-(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
+    if([functionName isEqualToString:@"script"]){
+        NSString* script = args[0];
+        //TODO jevil
+        return YES;
+    } else if([functionName hasPrefix:@"Jevil"]) {
+        [JevilAction actoin:functionName args:args viewController:self meta:meta];
+        return YES;
+    } 
+    return NO;
+}
 @end

@@ -7,12 +7,15 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "WildCardConstructor.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilHeader : NSObject
 
--(id)initWithViewController:(UIViewController*)viewController layer:(id)headerCloudJson withData:(id)data;
+@property (nonatomic, retain) WildCardMeta* meta;
+
+-(id)initWithViewController:(UIViewController*)vc layer:(id)cj withData:(id)data instanceDelegate:(id)delegate;
 -(void)update;
 
 @end

@@ -24,5 +24,5 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "WildCardUIView.h"
 #import "WildCardScreenTableView.h"
 #import "WildCardMeta.h"
-
+#import "JevilAction.h"
 

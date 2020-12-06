@@ -19,9 +19,8 @@
 @required
 - (UIView*)getNetworkImageViewInstnace;
 - (void)loadNetworkImageView:(UIView*)networkImageView withUrl:(NSString*)url;
-
 - (void)onNetworkRequest:(NSString*)url success:(void (^)(NSMutableDictionary* responseJsonObject))success;
-
+- (void)onNetworkRequestToByte:(NSString*)url success:(void (^)(NSData* byte))success;
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension;
 
 -(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data;

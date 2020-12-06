@@ -87,6 +87,21 @@
 }
 
 
++(void)request:(NSString*)url complete:(void (^)(id res))callback{
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    [manager GET:url parameters:@{} headers:@{} progress:nil success:^(NSURLSessionTask *task, id res)
+    {
+        callback(res);
+    }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+    {
+        callback(nil);
+    }];
+}
+
 +(void)share:(UIViewController*)vc text:(NSString*)textToShare{
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];
     activityVC.excludedActivityTypes = @[UIActivityTypePrint, UIActivityTypeCopyToPasteboard, UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll]; //Exclude whichever aren't relevant

@@ -22,6 +22,11 @@
     [self update];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xffffff)];
+}
+
 - (void)rightClick:(id)sender{
     [self update];
 }
