@@ -77,39 +77,8 @@
     [self showIndicator];
 }
 
-- (void)careRes{
-    if(self.res){
-        if([self.res[@"type"] isEqualToString:@"혈당"]){
-            NSString* s = [NSString stringWithFormat:@"javascript:put('%@', '%@')", self.res[@"key"], trim(self.res[@"val"])];
-            [self.webView evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
-
-            }];
-        } else if([self.res[@"type"] isEqualToString:@"혈압"]){
-            NSString* s = [NSString stringWithFormat:@"javascript:put('%@', '%@', '%@')", self.res[@"key"], trim(self.res[@"val1"]), trim(self.res[@"val2"])];
-            [self.webView evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
-
-            }];
-        } else if([self.res[@"type"] isEqualToString:@"체온"]){
-            NSString* s = [NSString stringWithFormat:@"javascript:put('%@', '%@')", self.res[@"key"], self.res[@"val"]];
-            [self.webView evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
-
-            }];
-        } else if([self.res[@"type"] isEqualToString:@"복약"]){
-            NSError *error;
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.res options:nil error:&error];
-            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            jsonString = urlencode(jsonString); 
-            NSString* s = [NSString stringWithFormat:@"javascript:put('%@', '%@')", self.res[@"key"], jsonString];
-            [self.webView evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
-
-            }];
-        }
-        self.res = nil;
-    }
-}
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     [self hideIndicator];
-    [self performSelector:@selector(careRes) withObject:nil afterDelay:1.0f];
 }
 
 - (WKWebView *)webView:(WKWebView *)webView createWebViewWithConfiguration:(WKWebViewConfiguration *)configuration forNavigationAction:(WKNavigationAction *)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures {

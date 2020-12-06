@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilWebView : WKWebView
+@interface DevilWebView : WKWebView< WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
 
 @end
 

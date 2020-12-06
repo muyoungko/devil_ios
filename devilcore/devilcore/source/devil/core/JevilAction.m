@@ -16,7 +16,8 @@
     functionName = [functionName stringByReplacingOccurrencesOfString:@"Jevil." withString:@""];
     if([functionName isEqualToString:@"menu"]){
         UIWindow* w = [UIApplication sharedApplication].keyWindow;
-        if([vc.view viewWithTag:44123] == nil){
+        UIView* pv = w;
+        if([pv viewWithTag:44123] == nil){
             CGRect screenRect = [[UIScreen mainScreen] bounds];
             int screenWidth = screenRect.size.width;
             int screenHeight = screenRect.size.height;
@@ -25,7 +26,7 @@
             screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
             WildCardDrawerView* d = [[WildCardDrawerView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
             [d setTag:44123];
-            [w addSubview:d];
+            [pv addSubview:d];
             NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
             
             WildCardScreenTableView* tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
@@ -42,7 +43,8 @@
     }
     else if([functionName isEqualToString:@"menuDown"]){
         UIWindow* w = [UIApplication sharedApplication].keyWindow;
-        WildCardDrawerView* d = [w viewWithTag:44123];
+        UIView* pv = w;
+        WildCardDrawerView* d = [pv viewWithTag:44123];
         [d naviDown];
     }
 }
