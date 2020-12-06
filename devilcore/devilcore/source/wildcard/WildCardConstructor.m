@@ -28,6 +28,7 @@
 #import "WildCardUITapGestureRecognizer.h"
 #import "WildCardMeta.h"
 #import "WildCardFunction.h"
+#import "DevilWebView.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -609,13 +610,14 @@ static BOOL IS_TABLET = NO;
                 [iv setImage: [UIImage imageNamed:imageName]];
                 [WildCardConstructor followSizeFromFather:vv child:iv];
             }
-            
-            
-            
-            
+        } else if ([layer objectForKey:(@"web")] != nil) {
+        
+            DevilWebView* web = [[DevilWebView alloc] init];
+            [vv addSubview:web];
+            [WildCardConstructor followSizeFromFather:vv child:web];
+            NSString* url = layer[@"web"][@"url"]; 
+            [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
         }
-        
-        
         
         if([@"text" isEqualToString:_class])
         {
