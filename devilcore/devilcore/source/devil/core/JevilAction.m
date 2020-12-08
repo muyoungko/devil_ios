@@ -46,6 +46,15 @@
         UIView* pv = w;
         WildCardDrawerView* d = [pv viewWithTag:44123];
         [d naviDown];
+    } else if([functionName isEqualToString:@"out"]){
+        
+        NSString* urlTo = args[0];
+        urlTo = [urlTo stringByReplacingOccurrencesOfString:@"'" withString:@""];
+            
+        if(urlTo != nil)
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlTo] options:@{} completionHandler:^(BOOL success) {
+
+            }];
     }
 }
 
