@@ -19,12 +19,13 @@
     return sharedInstance;
 }
 
-+(void)start:(NSString*)project_id viewController:(UIViewController*)vc {
++(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback{
     [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:^(BOOL success) {
         DevilController* d = [[DevilController alloc] init];
         NSString* firstScreenId = [[WildCardConstructor sharedInstance] getFirstScreenId];
         d.screenId = firstScreenId; 
         [vc.navigationController pushViewController:d animated:YES];
+        callback(success);
     }];
 }
 

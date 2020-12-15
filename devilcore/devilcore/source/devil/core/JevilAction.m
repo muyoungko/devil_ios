@@ -4,11 +4,11 @@
 //
 //  Created by Mu Young Ko on 2020/12/06.
 //
-
 #import "JevilAction.h"
 #import "WildCardDrawerView.h"
 #import "WildCardScreenTableView.h"
 #import "WildCardConstructor.h"
+#import "DevilController.h"
 
 @implementation JevilAction
 
@@ -28,6 +28,7 @@
             [d setTag:44123];
             [pv addSubview:d];
             NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+            [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:screenId sketch_height_more:0];
             
             WildCardScreenTableView* tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
             tv.data = meta.correspondData;
@@ -46,6 +47,8 @@
         UIView* pv = w;
         WildCardDrawerView* d = [pv viewWithTag:44123];
         [d naviDown];
+    } else if([functionName isEqualToString:@"back"]){
+        [vc.navigationController popViewControllerAnimated:YES];
     } else if([functionName isEqualToString:@"out"]){
         
         NSString* urlTo = args[0];
@@ -55,6 +58,12 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlTo] options:@{} completionHandler:^(BOOL success) {
 
             }];
+    } else if([functionName isEqualToString:@"go"]){
+        DevilController* nvc = [[DevilController alloc] init];
+        NSString* screenName = args[0];
+        screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        nvc.screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        [vc.navigationController pushViewController:nvc animated:YES];
     }
 }
 

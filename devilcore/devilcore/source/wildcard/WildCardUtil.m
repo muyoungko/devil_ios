@@ -163,12 +163,17 @@
 
 
 +(void)fitToScreen:(id)layer{
+    [WildCardUtil fitToScreen:layer sketch_height_more:0];
+}
+
+
++(void)fitToScreen:(id)layer sketch_height_more:(int)sketch_height_more {
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     float screenWidth = (float)screenRect.size.width;
     float screenHeight = (float)screenRect.size.height;
 
     float sketch_height_of_screen = screenHeight * 360 / screenWidth;
-    [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen];
+    [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen + sketch_height_more];
 }
 
 +(void)fitToScreenRecur:(id)layer offsety:(float)offsety height:(float)height{

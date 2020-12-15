@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DevilSdk : NSObject
 
 +(DevilSdk*)sharedInstance;
-+(void)start:(NSString*)project_id viewController:(UIViewController*)vc;
++(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback;
 
 @end
 

@@ -131,6 +131,17 @@ static NSString *default_project_id = nil;
     return nil;
 }
 
+- (void) firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height {
+    id s = _screenMap[screenId];
+    id list = s[@"list"];
+    if([list count] > 0) {
+        id block_id = [list[0][@"block_id"] stringValue];
+        id block = _blockMap[block_id];
+        if([block[@"fit_to_screen"] boolValue])
+            [WildCardUtil fitToScreen:_cloudJsonMap[block_id] sketch_height_more:height];
+    }
+}
+
 -(NSMutableDictionary*_Nullable) findJsonRoot:(NSMutableDictionary*_Nonnull)root withName:(NSString*)nodeName
 {
     if(root == nil)
@@ -174,10 +185,11 @@ static NSString *default_project_id = nil;
 }
 
 -(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId{
-    NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
-    if(header_block_id)
+    id h = _screenMap[screenId][@"header_block_id"];
+    if(h != nil && h != [NSNull null]){
+        NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
         return _cloudJsonMap[header_block_id];
-    else
+    } else
         return nil;
 }
 

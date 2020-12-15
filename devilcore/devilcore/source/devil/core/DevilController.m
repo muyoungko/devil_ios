@@ -7,10 +7,12 @@
 
 #import "DevilController.h"
 #import "devilcore.h"
+#import "JevilCtx.h"
 
 @interface DevilController ()
 
 @property (nonatomic, retain) DevilHeader* header;
+@property (nonatomic, retain) JevilCtx* jevil;
 
 @end
 
@@ -18,6 +20,8 @@
 
 - (void)viewDidLoad{   
     [super viewDidLoad];
+    
+    self.jevil = [[JevilCtx alloc] init];
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     screenWidth = screenRect.size.width;
@@ -28,20 +32,19 @@
     [self.view addSubview:_viewMain];
     
     self.data = [@{} mutableCopy];
-    self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+    self.offsetY = self.navigationController.navigationBar.frame.size.height 
+        + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
-    
     
     
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
-        //jevil.code(code, data, null);
+        [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
-        [self showNavigationBar];
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]; 
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
     } else
@@ -50,12 +53,30 @@
     [self createWildCardScreenListView:self.screenId];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self checkHeader];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self checkHeader];
+}
+
+- (void)checkHeader{
+    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId])
+        [self showNavigationBar];
+    else
+        [self hideNavigationBar];
+}
+
 - (void)showNavigationBar{
     [self.navigationController setNavigationBarHidden:NO animated:NO];
     self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
 }
+
 - (void)hideNavigationBar{
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.offsetY = 0;
@@ -76,12 +97,12 @@
     self.scrollView.contentSize = CGSizeMake(screenWidth, self.mainWc.frame.size.height);
 }
 
-- (void)createWildCardScreenListView:(NSString*)screenName{
-    self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenName];
+- (void)createWildCardScreenListView:(NSString*)screenId{
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:screenId sketch_height_more:0];
+    self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;
     self.tv.tableViewDelegate = self;
-    self.tv.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 100)];
     self.tv.frame =  CGRectMake(0, 0, self.viewMain.frame.size.width, self.viewMain.frame.size.height);
     [self.viewMain addSubview:self.tv];
 }
