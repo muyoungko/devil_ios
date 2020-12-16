@@ -71,6 +71,7 @@
                     [logoImage setImage:[UIImage imageWithData:byte]];
                     [logo addSubview:logoImage];
                     self.barButtonByName[@"logo"] = logo;
+                    [self update];
                 }];
             } else if([@"left" isEqualToString:layer_name]){
                 id layer2 = layer[@"layers"];
