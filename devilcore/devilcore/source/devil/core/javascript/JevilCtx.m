@@ -35,8 +35,12 @@
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)viewController data:(id)data meta:(WildCardMeta*)meta{
     self.jscontext[@"data"] = data;
     JSValue* r = [self.jscontext evaluateScript:code];
-//    [self.jscontext evaluateScript:@"data.output='mynameis'"];
-//    JSValue* r = [self.jscontext evaluateScript:@"data"];
-    return r;
+    JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
+    id newData = [dataJs toDictionary];
+    id allKey = [newData allKeys];
+    for(id k in allKey) {
+        data[k] = newData[k]; 
+    }
+    return [r toString];
 }
 @end

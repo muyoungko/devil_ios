@@ -186,14 +186,25 @@
 }
 
 - (void)constructRightBackButton:(NSString*)png{
-    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 100,50)];
+    UIButton *rightButton = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 30,30)];
     rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     [rightButton setImage:[UIImage imageNamed:png] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(rightClick:)
          forControlEvents:UIControlEventTouchUpInside];
     //[leftButton setShowsTouchWhenHighlighted:YES];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    //self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightButton];
+    
+//    UIButton *rightButton2 = [[UIButton alloc] initWithFrame:CGRectMake(0,0, 30,30)];
+//    rightButton2.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+//    [rightButton2 setImage:[UIImage imageNamed:png] forState:UIControlStateNormal];
+//    [rightButton2 addTarget:self action:@selector(rightClick:)
+//         forControlEvents:UIControlEventTouchUpInside];
+         
+    self.navigationItem.rightBarButtonItems = @[ 
+        [[UIBarButtonItem alloc] initWithCustomView:rightButton],
+        //[[UIBarButtonItem alloc] initWithCustomView:rightButton2]
+    ];
 }
 
 - (void)rightClick:(id)sender{
