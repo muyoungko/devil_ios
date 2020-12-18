@@ -38,6 +38,7 @@
 		6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; };
 		6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
+		7C1CC307DC74494B214E1E84 /* libPods-devil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 640918658F592640581F925C /* libPods-devil.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.release.xcconfig"; sourceTree = "<group>"; };
 		4B7679E8A3D66962E99E8A44 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Pods/Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
+		640918658F592640581F925C /* libPods-devil.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-devil.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
 		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
 		6D132B91255E6E0F00004E1F /* HttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUtil.h; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */,
 				6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */,
 				6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */,
+				7C1CC307DC74494B214E1E84 /* libPods-devil.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,6 +138,7 @@
 				6D132BB0255E71D200004E1F /* KakaoLink.framework */,
 				6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */,
 				6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */,
+				640918658F592640581F925C /* libPods-devil.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

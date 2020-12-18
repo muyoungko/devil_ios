@@ -124,12 +124,12 @@ install_xcframework() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_xcframework "${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework" "" "false" "ios-armv7_arm64/GoogleMobileAds.framework" "ios-i386_x86_64-simulator/GoogleMobileAds.framework"
-  install_xcframework "${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework" "" "false" "ios-armv7_arm64_arm64e/UserMessagingPlatform.framework" "ios-i386_x86_64-simulator/UserMessagingPlatform.framework"
+  install_xcframework "${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework" "" "false" "ios-arm64_armv7/GoogleMobileAds.framework" "ios-arm64_i386_x86_64-simulator/GoogleMobileAds.framework"
+  install_xcframework "${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework" "" "false" "ios-arm64_armv7/UserMessagingPlatform.framework" "ios-arm64_i386_x86_64-simulator/UserMessagingPlatform.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_xcframework "${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework" "" "false" "ios-armv7_arm64/GoogleMobileAds.framework" "ios-i386_x86_64-simulator/GoogleMobileAds.framework"
-  install_xcframework "${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework" "" "false" "ios-armv7_arm64_arm64e/UserMessagingPlatform.framework" "ios-i386_x86_64-simulator/UserMessagingPlatform.framework"
+  install_xcframework "${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework" "" "false" "ios-arm64_armv7/GoogleMobileAds.framework" "ios-arm64_i386_x86_64-simulator/GoogleMobileAds.framework"
+  install_xcframework "${PODS_ROOT}/GoogleUserMessagingPlatform/Frameworks/Release/UserMessagingPlatform.xcframework" "" "false" "ios-arm64_armv7/UserMessagingPlatform.framework" "ios-arm64_i386_x86_64-simulator/UserMessagingPlatform.framework"
 fi
 
 echo "Artifact list stored at $ARTIFACT_LIST_FILE"

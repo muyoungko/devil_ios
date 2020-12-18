@@ -33,12 +33,15 @@
             WildCardScreenTableView* tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
             tv.data = meta.correspondData;
             tv.wildCardConstructorInstanceDelegate = meta.wildCardConstructorInstanceDelegate;
+            [tv setTag:87652];
             tv.frame = CGRectMake(0, 0, screenWidth, screenHeight);
             [d.viewMenu addSubview:tv];
             
             int statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
         }
         WildCardDrawerView* d = [w viewWithTag:44123];
+        WildCardScreenTableView* tv = [d viewWithTag:87652];
+        [tv reloadData];
         [d naviUp];
         //self.leftWc.frame = CGRectMake(self.leftWc.frame.origin.x, statusBarHeight, self.leftWc.frame.size.width, screenHeight);
     }
@@ -64,6 +67,8 @@
         screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
         nvc.screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
         [vc.navigationController pushViewController:nvc animated:YES];
+    } else if([functionName isEqualToString:@"home"]){
+        [vc.navigationController popToRootViewControllerAnimated:YES];
     }
 }
 

@@ -281,12 +281,6 @@
 }
 
 
--(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
-{
-    float h = [cloudJson[@"frame"][@"h"] floatValue];
-    return h;
-}
-
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -294,10 +288,11 @@
     NSDictionary *cloudJson = _cloudJsonGetter(position);
     
     if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
-        float h = [self mesureHeight:cloudJson data:_data[position]];
+        float h = [WildCardConstructor mesureHeight:cloudJson data:_data[position]];
         return CGSizeMake(collectionView.frame.size.width, h);
     } else {
         float w = [self mesureWidth:cloudJson data:_data[position]];
+        w = [WildCardConstructor convertSketchToPixel:w];
         return CGSizeMake(w, collectionView.frame.size.height);
     }
 }
@@ -319,6 +314,8 @@
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
     
     UIView* childUIView = cell;
+    if([[cell subviews] count] == 1 && [[[[cell subviews] objectAtIndex:0] subviews] count] == 0)
+        childUIView = [[cell subviews] objectAtIndex:0];
     if([[childUIView subviews] count] == 0)
     {
         NSDictionary *cloudJson = _cloudJsonGetter(position);

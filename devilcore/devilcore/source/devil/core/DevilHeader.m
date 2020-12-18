@@ -18,6 +18,7 @@
 @property (nonatomic, retain) UIViewController* vc;
 @property (nonatomic, retain) id cj;
 @property (nonatomic, retain) id barButtonByName;
+@property (nonatomic, retain) NSString* logoClickAction;
 
 @end
 
@@ -71,6 +72,15 @@
                     [logoImage setImage:[UIImage imageWithData:byte]];
                     [logo addSubview:logoImage];
                     self.barButtonByName[@"logo"] = logo;
+                    
+                    if(layer[@"clickContent"]){
+                        UITapGestureRecognizer *logoTap =
+                        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleLogoTap)];
+                        self.logoClickAction = layer[@"clickContent"]; 
+                        [logo addGestureRecognizer:logoTap];
+                        logo.userInteractionEnabled = YES;
+                    }
+    
                     [self update];
                 }];
             } else if([@"left" isEqualToString:layer_name]){
@@ -91,6 +101,7 @@
         }
     }
 }
+
 -(void)update{
     id layers = self.cj[@"layers"];
     [self.vc.navigationItem setHidesBackButton:YES];
@@ -190,6 +201,12 @@
             [self update];
         }];
     }
+}
+
+-(void)handleLogoTap{
+    NSString *action = self.logoClickAction;
+    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
 }
 
 -(void)aClick:(id)sender{
