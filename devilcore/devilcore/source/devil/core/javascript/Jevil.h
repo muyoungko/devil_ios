@@ -22,6 +22,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)replaceScreen:(NSString*)screenName;
 + (void)rootScreen:(NSString*)screenName;
 + (void)finish;        
++ (void)alert:(NSString*)msg;
+
++ (void)showIndicator;
++ (void)hideIndicator;
++ (void)get:(NSString *)url then:(JSValue *)callback;
+
 @end
 
 @interface Jevil : NSObject <Jevil>

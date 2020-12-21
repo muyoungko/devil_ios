@@ -69,7 +69,7 @@ static NSString *default_project_id = nil;
     NSString *path = [[NSBundle mainBundle] pathForResource:self.project_id ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingUncached error:nil];
     
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     _cloudJsonMap = json[@"cloudJsonMap"];
     _screenMap = json[@"screenMap"];
     _blockMap = json[@"block"];
@@ -248,6 +248,14 @@ static NSString *default_project_id = nil;
     NSString *action = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     [WildCardAction parseAndConducts:trigger action:action meta:recognizer.meta];
+}
+
+-(void)script:(WildCardUITapGestureRecognizer *)recognizer
+{
+    WildCardUIView* vv = (WildCardUIView*)recognizer.view;
+    NSString *script = vv.stringTag;
+    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    [WildCardAction execute:trigger script:script meta:recognizer.meta];
 }
 
 
@@ -464,6 +472,18 @@ static BOOL IS_TABLET = NO;
             WildCardUITapGestureRecognizer *singleFingerTap =
             [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance]
                                                             action:@selector(onClickListener:)];
+            singleFingerTap.meta = wcMeta;
+            [vv addGestureRecognizer:singleFingerTap];
+        } else if([layer objectForKey:@"clickJavascript"] != nil)
+        {
+            [outRules addObject:ReplaceRuleClick(vv,layer, [layer objectForKey:@"clickJavascript"])];
+            vv.userInteractionEnabled = YES;
+            
+            [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
+            
+            WildCardUITapGestureRecognizer *singleFingerTap =
+            [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance]
+                                                            action:@selector(script:)];
             singleFingerTap.meta = wcMeta;
             [vv addGestureRecognizer:singleFingerTap];
         }

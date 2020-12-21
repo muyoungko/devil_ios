@@ -97,4 +97,36 @@
     return [value toBool];
 }
 
++ (void)alert:(NSString*)msg{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+                                                        
+    }]];
+    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+}
+
+
++ (void)get:(NSString *)url then:(JSValue *)callback {
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod:@"GET"];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if ([data length] > 0 && error == nil) {
+            [callback callWithArguments:@[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding], @YES]];
+        } 
+    }];
+}
+
++ (void)showIndicator{
+    [((DevilController*)[JevilCtx sharedInstance].vc) showIndicator];
+}
++ (void)hideIndicator{
+    [((DevilController*)[JevilCtx sharedInstance].vc) hideIndicator];
+}
 @end

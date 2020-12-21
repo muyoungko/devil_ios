@@ -69,7 +69,26 @@
         NSString* screenName = args[0];
         screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
         nvc.screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        if(!nvc.screenId)
+            [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];
         [vc.navigationController pushViewController:nvc animated:YES];
+    } else if([functionName isEqualToString:@"replaceScreen"]){
+        DevilController* nvc = [[DevilController alloc] init];
+        NSString* screenName = args[0];
+        screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        nvc.screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        if(!nvc.screenId)
+            [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];
+        [vc.navigationController popViewControllerAnimated:NO];
+        [vc.navigationController pushViewController:nvc animated:NO];
+    } else if([functionName isEqualToString:@"rootScreen"]){
+        DevilController* nvc = [[DevilController alloc] init];
+        NSString* screenName = args[0];
+        screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        nvc.screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        if(!nvc.screenId)
+            [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];
+        [vc.navigationController setViewControllers:@[nvc]];
     } else if([functionName isEqualToString:@"home"]){
         [vc.navigationController popToRootViewControllerAnimated:YES];
     }

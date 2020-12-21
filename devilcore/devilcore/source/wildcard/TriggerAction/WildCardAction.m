@@ -13,6 +13,7 @@
 #import "WildCardViewPagerRightAction.h"
 #import "WildCardSetTextAction.h"
 #import "WildCardMeta.h"
+#import "WildCardScriptAction.h"
 
 @implementation WildCardAction
 
@@ -124,6 +125,13 @@
     }
     
     return action;
+}
+
++(void)execute:(WildCardTrigger*)trigger script:(NSString*)script meta:(WildCardMeta*)meta
+{
+    WildCardScriptAction * action = [[WildCardScriptAction alloc] initWithMeta:meta];
+    action.script = script;
+    [action act:trigger];
 }
 
 -(void)act:(WildCardTrigger*)trigger

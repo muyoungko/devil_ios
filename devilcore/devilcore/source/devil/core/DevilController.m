@@ -8,6 +8,7 @@
 #import "DevilController.h"
 #import "devilcore.h"
 #import "JevilCtx.h"
+#import "DevilExceptionHandler.h"
 
 @interface DevilController ()
 
@@ -112,14 +113,20 @@
 }
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
-    if([functionName isEqualToString:@"script"]){
-        NSString* script = args[0];
-        //TODO jevil
-        return YES;
-    } else if([functionName hasPrefix:@"Jevil"]) {
-        [JevilAction act:functionName args:args viewController:self meta:meta];
-        return YES;
-    } 
+    @try{
+        if([functionName isEqualToString:@"script"]){
+            NSString* code = args[0];
+            [self.jevil code:code viewController:self data:self.data meta:nil];
+            return YES;
+        } else if([functionName hasPrefix:@"Jevil"]) {
+            [JevilAction act:functionName args:args viewController:self meta:meta];
+            return YES;
+        }
+    } @catch (NSException* e){
+        [DevilExceptionHandler handle:self data:self.data e:e];
+        NSLog(@"%@",e);
+    }
+     
     return NO;
 }
 @end

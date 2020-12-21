@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilBaseController : UIViewController
 
+- (void)showIndicator;
+- (void)hideIndicator;
 
 @end
 

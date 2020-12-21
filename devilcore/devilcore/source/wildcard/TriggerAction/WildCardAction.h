@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) WildCardMeta* meta;
 
++(void)execute:(WildCardTrigger*)trigger script:(NSString*)script meta:(WildCardMeta*)meta;
+
 +(void)parseAndConducts:(WildCardTrigger*)trigger action:(NSString*)actionString meta:(WildCardMeta*)meta;
 
 +(void)conduct:(WildCardTrigger*)trigger action:(NSString*)actionString meta:(WildCardMeta*)meta;
