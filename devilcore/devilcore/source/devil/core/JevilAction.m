@@ -9,6 +9,7 @@
 #import "WildCardScreenTableView.h"
 #import "WildCardConstructor.h"
 #import "DevilController.h"
+#import <SafariServices/SafariServices.h>
 
 @implementation JevilAction
 
@@ -57,10 +58,12 @@
         NSString* urlTo = args[0];
         urlTo = [urlTo stringByReplacingOccurrencesOfString:@"'" withString:@""];
             
-        if(urlTo != nil)
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlTo] options:@{} completionHandler:^(BOOL success) {
+        if(urlTo != nil){
+            SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:urlTo]];
+            //svc.delegate = self;
+            [vc presentViewController:svc animated:YES completion:nil];
 
-            }];
+        }
     } else if([functionName isEqualToString:@"go"]){
         DevilController* nvc = [[DevilController alloc] init];
         NSString* screenName = args[0];
