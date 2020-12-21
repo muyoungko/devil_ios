@@ -8,6 +8,7 @@
 #import "Jevil.h"
 #import "WildCardConstructor.h"
 #import "DevilController.h"
+#import "JevilCtx.h"
 
 @interface Jevil()
 
@@ -20,6 +21,7 @@
 @end
 
 @implementation Jevil
+
 
 - (NSString *)description
 {
@@ -48,19 +50,22 @@
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     d.screenId = screenId;
-    
+    [[JevilCtx sharedInstance].vc.navigationController pushViewController:d animated:YES];
 }
 
 + (void)replaceScreen:(NSString*)screenName{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     d.screenId = screenId;
+    [[JevilCtx sharedInstance].vc.navigationController popViewControllerAnimated:NO];
+    [[JevilCtx sharedInstance].vc.navigationController pushViewController:d animated:NO];
 }
 
 + (void)rootScreen:(NSString*)screenName{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     d.screenId = screenId;
+    [[JevilCtx sharedInstance].vc.navigationController setViewControllers:@[d]];
 }
 
 + (void)finish{

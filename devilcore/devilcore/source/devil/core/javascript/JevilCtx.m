@@ -19,6 +19,15 @@
 
 @implementation JevilCtx
 
++(Jevil*)sharedInstance{
+    static JevilCtx *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[JevilCtx alloc] init];
+    });
+    return sharedInstance;
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -32,7 +41,8 @@
     return self;
 }
 
--(NSString*)code:(NSString*)code viewController:(UIViewController*)viewController data:(id)data meta:(WildCardMeta*)meta{
+-(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta{
+    [JevilCtx sharedInstance].vc = vc;
     self.jscontext[@"data"] = data;
     JSValue* r = [self.jscontext evaluateScript:code];
     JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
