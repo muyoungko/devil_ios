@@ -130,7 +130,7 @@
                 tf.showXButton = YES;
             }
             
-            if(extension[@"select4"] != nil && [@"on" isEqualToString:extension[@"select4"]]){
+            if(extension[@"select4"] != nil && [@"Y" isEqualToString:extension[@"select4"]]){
                 tf.secureTextEntry = YES;
             } else if([@"number" isEqualToString:extension[@"select7"]]){
                 tf.keyboardType = UIKeyboardTypeNumberPad;
@@ -264,7 +264,7 @@
             BOOL check = YES;
             if(meta.correspondData[watch] == nil)
             {
-                if([@"on" isEqualToString:defaultOnOff])
+                if([@"Y" isEqualToString:defaultOnOff])
                     check = YES;
                 else
                     check = NO;

@@ -112,10 +112,39 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 
+- (void) preparePushToken:(UIApplication *)application {
+    if ([UNUserNotificationCenter class] != nil) {
+      // iOS 10 or later
+      // For iOS 10 display notification (sent via APNS)
+      [UNUserNotificationCenter currentNotificationCenter].delegate = self;
+      UNAuthorizationOptions authOptions = UNAuthorizationOptionAlert |
+          UNAuthorizationOptionSound | UNAuthorizationOptionBadge;
+      [[UNUserNotificationCenter currentNotificationCenter]
+          requestAuthorizationWithOptions:authOptions
+          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            // ...
+          }];
+    } else {
+      // iOS 10 notifications aren't available; fall back to iOS 8-9 notifications.
+      UIUserNotificationType allNotificationTypes =
+      (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+      UIUserNotificationSettings *settings =
+      [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+      [application registerUserNotificationSettings:settings];
+    }
+    
+    [application registerForRemoteNotifications];
+    [FIRMessaging messaging].delegate = self;
+}
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [FIRApp configure];
-    [FIRMessaging messaging].delegate = self;
+    
+    if(launchOptions == nil){
+        [self preparePushToken:application];
+    }
+    
     [KOSession sharedSession].clientSecret = @"d0c7657dc3cd93575cc590b87c0dc624";
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     
@@ -132,12 +161,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [WildCardConstructor sharedInstance].textConvertDelegate = self;
     [WildCardConstructor sharedInstance].textTransDelegate = self;
     [WildCardConstructor sharedInstance].xButtonImageName = @"xbutton";
-    
-    if(launchOptions == nil){
-        [self registerForRemoteNotifications];
-        [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-    }
-    
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
