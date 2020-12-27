@@ -33,7 +33,10 @@
     _viewMain.userInteractionEnabled = YES;
     [self.view addSubview:_viewMain];
     
-    self.data = [@{} mutableCopy];
+    if(self.dataString) {
+        self.data = [NSJSONSerialization JSONObjectWithData:[self.dataString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    } else
+        self.data = [@{} mutableCopy];
     self.offsetY = self.navigationController.navigationBar.frame.size.height 
         + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;

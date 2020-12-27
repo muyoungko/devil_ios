@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
                         address:(NSString *)address;
 
 + (BOOL)isLogin;
-+ (void)go:(NSString*)screenName;
++ (void)go:(NSString*)screenName :(NSString*)dataString;
 + (void)replaceScreen:(NSString*)screenName;
 + (void)rootScreen:(NSString*)screenName;
 + (void)finish;        

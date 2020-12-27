@@ -46,9 +46,12 @@
     return true;
 }
 
-+ (void)go:(NSString*)screenName{
+
+
++ (void)go:(NSString*)screenName :(NSString*)dataString{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
+    d.dataString = dataString;
     d.screenId = screenId;
     [[JevilCtx sharedInstance].vc.navigationController pushViewController:d animated:YES];
 }

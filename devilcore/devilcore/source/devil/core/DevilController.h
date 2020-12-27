@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)hideNavigationBar;
 -(void)updateMeta;
 
+@property (nonatomic, retain) NSString* screenId;
+@property (nonatomic, retain) NSString* dataString;
+
 @property(nonatomic, retain) NSMutableDictionary* data;
 @property int viewHeight;
 @property int offsetY;
@@ -28,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) UIView* viewMain;
 @property (nonatomic, retain) WildCardScreenTableView* tv;
 
-@property (nonatomic, retain) NSString* screenId;
+
 
 @end
 
