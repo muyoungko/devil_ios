@@ -57,8 +57,9 @@
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     d.screenId = screenId;
-    [[JevilCtx sharedInstance].vc.navigationController popViewControllerAnimated:NO];
-    [[JevilCtx sharedInstance].vc.navigationController pushViewController:d animated:NO];
+    UINavigationController* n = [JevilCtx sharedInstance].vc.navigationController;
+    [n popViewControllerAnimated:NO];
+    [n pushViewController:d animated:NO];
 }
 
 + (void)rootScreen:(NSString*)screenName{
@@ -112,21 +113,61 @@
 
 
 + (void)get:(NSString *)url then:(JSValue *)callback {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                           cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                                       timeoutInterval:10];
-    [request setHTTPMethod:@"GET"];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        if ([data length] > 0 && error == nil) {
-            [callback callWithArguments:@[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding], @YES]];
-        } 
+
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    id header = [@{} mutableCopy];
+    id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
+    for(id h in header_list){
+        header[h[@"header"]] = h[@"content"];
+    }
+
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseJsonObject
+                                                           options:NSJSONWritingPrettyPrinted 
+                                                             error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]; 
+        [callback callWithArguments:@[jsonString, @YES]];
     }];
 }
 
-+ (void)showIndicator{
-    [((DevilController*)[JevilCtx sharedInstance].vc) showIndicator];
++ (void)post:(NSString *)url :(NSString*)param then:(JSValue *)callback {
+
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    id header = [@{} mutableCopy];
+    id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
+    for(id h in header_list){
+        header[h[@"header"]] = h[@"content"];
+    }
+
+    id json = [NSJSONSerialization JSONObjectWithData:[param dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:json success:^(NSMutableDictionary *responseJsonObject) {
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseJsonObject
+                                                           options:NSJSONWritingPrettyPrinted 
+                                                             error:&error];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]; 
+        [callback callWithArguments:@[jsonString, @YES]];
+    }];
 }
-+ (void)hideIndicator{
-    [((DevilController*)[JevilCtx sharedInstance].vc) hideIndicator];
+
++ (void)startLoading{
+    if([WildCardConstructor sharedInstance].loadingDelegate)
+        [[WildCardConstructor sharedInstance].loadingDelegate stopLoading];
+}
++ (void)stopLoading{
+    if([WildCardConstructor sharedInstance].loadingDelegate)
+        [[WildCardConstructor sharedInstance].loadingDelegate startLoading];
+}
+
++ (void)update{
+    UIViewController*vc = [JevilCtx sharedInstance].vc;
+    if(vc != nil && [[vc class] isKindOfClass:[DevilController class]]){
+        [((DevilController*)vc) updateMeta];
+    }
 }
 @end

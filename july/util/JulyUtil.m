@@ -86,6 +86,48 @@
     }
 }
 
++(void)request:(NSString*)url header:(id _Nullable)header postParam:(id _Nullable)params complete:(void (^)(id res))callback{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    id headers = [@{@"Accept": @"application/json",
+        @"Content-Type": @"application/json",
+    } mutableCopy];
+    for(id k in [header allKeys]){
+        headers[k] = header[k];
+    }
+    
+    [manager POST:url parameters:params headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
+    {
+        NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+        callback(r);
+    }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+    {
+        callback(nil);
+    }];
+}
+
++(void)request:(NSString*)url header:(id _Nullable)header complete:(void (^)(id res))callback{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    id headers = [@{@"Accept": @"application/json"} mutableCopy];
+    for(id k in [header allKeys]){
+        headers[k] = header[k];
+    }
+    [manager GET:url parameters:@{} headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
+    {
+        NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+        callback(r);
+    }
+         failure:^(NSURLSessionTask *operation, NSError *error)
+    {
+        callback(nil);
+    }];
+}
+
 
 +(void)request:(NSString*)url complete:(void (^)(id res))callback{
     

@@ -73,6 +73,7 @@ static NSString *default_project_id = nil;
     _cloudJsonMap = json[@"cloudJsonMap"];
     _screenMap = json[@"screenMap"];
     _blockMap = json[@"block"];
+    _project = json[@"project"];
     complete(YES);
 }
 
@@ -88,6 +89,7 @@ static NSString *default_project_id = nil;
             _cloudJsonMap = responseJsonObject[@"cloudJsonMap"] ;
             _screenMap = responseJsonObject[@"screenMap"];
             _blockMap = responseJsonObject[@"block"];
+            _project = responseJsonObject[@"project"];
             complete(YES);
         }
         else
@@ -189,6 +191,15 @@ static NSString *default_project_id = nil;
     if(h != nil && h != [NSNull null]){
         NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
         return _cloudJsonMap[header_block_id];
+    } else
+        return nil;
+}
+
+-(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId{
+    id h = _screenMap[screenId][@"footer_block_id"];
+    if(h != nil && h != [NSNull null]){
+        NSString* footer_block_id =  [_screenMap[screenId][@"footer_block_id"] stringValue];
+        return _cloudJsonMap[footer_block_id];
     } else
         return nil;
 }

@@ -21,6 +21,9 @@
 - (void)loadNetworkImageView:(UIView*)networkImageView withUrl:(NSString*)url;
 - (void)onNetworkRequest:(NSString*)url success:(void (^)(NSMutableDictionary* responseJsonObject))success;
 - (void)onNetworkRequestToByte:(NSString*)url success:(void (^)(NSData* byte))success;
+- (void)onNetworkRequestGet:(NSString*)url header:(NSDictionary*)header success:(void (^)(NSMutableDictionary* responseJsonObject))success;
+- (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success;
+
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension;
 
 -(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data;
@@ -38,6 +41,12 @@
 -(float)convertTextSize:(int)sketchTextSize;
 @end
 
+@protocol WildCardConstructorLoading<NSObject>
+@required
+-(float)startLoading;
+-(float)stopLoading;
+@end
+
 
 @interface WildCardConstructor : NSObject
 
@@ -50,10 +59,12 @@
 @property (nonatomic, weak, nullable) id <WildCardConstructorGlobalDelegate> delegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextConvertDelegate> textConvertDelegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextTransDelegate> textTransDelegate;
+@property (nonatomic, weak, nullable) id <WildCardConstructorLoading> loadingDelegate;
 
 @property (nonatomic, retain) NSMutableDictionary* _Nullable cloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable screenMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable blockMap;
+@property (nonatomic, retain) NSMutableDictionary* _Nullable project;
 @property (nonatomic, retain) NSString* _Nullable xButtonImageName;
 
 +(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
@@ -80,6 +91,7 @@
 -(NSMutableArray*)getScreenIfList:(NSString*)screen;
 -(NSMutableDictionary*)getScreen:(NSString*)screenId;
 -(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId;
+-(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId;
 
 @end
 

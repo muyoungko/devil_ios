@@ -13,6 +13,7 @@
 @interface DevilController ()
 
 @property (nonatomic, retain) DevilHeader* header;
+@property (nonatomic, retain) WildCardUIView* footer;
 @property (nonatomic, retain) JevilCtx* jevil;
 
 @end
@@ -50,6 +51,15 @@
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
     } else
         [self hideNavigationBar];
+        
+    if([[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId]){
+        id footerCloudJson = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId]; 
+        self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
+        [WildCardConstructor applyRule:self.footer withData:self.data];
+        
+        self.footer.frame = CGRectMake(0, screenHeight - self.footer.frame.size.height -30, self.footer.frame.size.width, self.footer.frame.size.height);
+        [self.view addSubview:self.footer];
+    }
 
     [self createWildCardScreenListView:self.screenId];
 }
@@ -62,6 +72,15 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self checkHeader];
+    
+    [WildCardConstructor sharedInstance].loadingDelegate = self;
+}
+
+- (void)startLoading{
+    [self showIndicator];
+}
+- (void)stopLoading{
+    [self hideIndicator];
 }
 
 - (void)checkHeader{
@@ -114,8 +133,9 @@
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
     @try{
-        if([functionName isEqualToString:@"script"]){
+        if([functionName isEqualToString:@"Jevil.script"]){
             NSString* code = args[0];
+            code = [code stringByReplacingOccurrencesOfString:@"'" withString:@""];
             [self.jevil code:code viewController:self data:self.data meta:nil];
             return YES;
         } else if([functionName hasPrefix:@"Jevil"]) {
@@ -129,4 +149,10 @@
      
     return NO;
 }
+
+
+-(void)updateMeta {
+    [self.tv reloadData];
+}
+
 @end

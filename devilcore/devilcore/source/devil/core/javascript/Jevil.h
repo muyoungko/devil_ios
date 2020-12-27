@@ -24,9 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)finish;        
 + (void)alert:(NSString*)msg;
 
-+ (void)showIndicator;
-+ (void)hideIndicator;
++ (void)startLoading;
++ (void)stopLoading;
 + (void)get:(NSString *)url then:(JSValue *)callback;
++ (void)post:(NSString *)url :(NSString*)param then:(JSValue *)callback;
++ (void)update;
 
 @end
 

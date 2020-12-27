@@ -9,6 +9,7 @@
 
 #import "JevilCtx.h"
 #import "Jevil.h"
+#import "WildCardConstructor.h"
 
 @interface JevilCtx ()
 
@@ -37,6 +38,8 @@
         [self.jscontext setExceptionHandler:^(JSContext *context, JSValue *exception) {
             NSLog(@"%@",exception); 
         }];
+        
+        
     }
     return self;
 }
@@ -44,6 +47,15 @@
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta{
     [JevilCtx sharedInstance].vc = vc;
     self.jscontext[@"data"] = data;
+    
+    id config_list = [WildCardConstructor sharedInstance].project[@"config_list"];
+    for(id c in config_list){
+        NSString* name = c[@"name"];
+        NSString* value = c[@"value"];
+        self.jscontext[name] = value;
+    }
+    self.jscontext[@"data"] = data;
+    
     JSValue* r = [self.jscontext evaluateScript:code];
     JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
     id newData = [dataJs toDictionary];

@@ -9,7 +9,6 @@
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #import "SubController.h"
-#import "MainController.h"
 
 @interface SubController ()
 
@@ -48,21 +47,6 @@
 //    else
 //        [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xffffff)];
 }
-
-- (void)setTitleLogo{
-    UIImageView* logo = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
-    self.navigationItem.titleView = logo;
-    
-    UITapGestureRecognizer *logoTap =
-    [[UITapGestureRecognizer alloc] initWithTarget:self      action:@selector(handleLogoTap:)];
-    [logo addGestureRecognizer:logoTap];
-    logo.userInteractionEnabled = YES;
-}
-
-- (void)handleLogoTap:(UITapGestureRecognizer *)recognizer{
-    [self openTopMenu];
-}
-
 
 
 - (UIImage *)imageFromLayer:(CALayer *)layer

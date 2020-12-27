@@ -319,7 +319,17 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }];
 }
 
+- (void)onNetworkRequestGet:(NSString*)url header:(NSDictionary*)header success:(void (^)(NSMutableDictionary* responseJsonObject))success{
+    [JulyUtil request:url header:header complete:^(id  _Nonnull json) {
+        success(json);
+    }];
+}
 
+- (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success{
+    [JulyUtil request:url header:header postParam:json complete:^(id  _Nonnull json) {
+        success(json);
+    }];
+}
 
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension
 {

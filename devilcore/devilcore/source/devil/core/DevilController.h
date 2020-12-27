@@ -11,13 +11,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardScreenTableViewDelegate>
+@interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardScreenTableViewDelegate, WildCardConstructorLoading>
 {
     int screenWidth, screenHeight;
 }
 
-- (void)showNavigationBar;
-- (void)hideNavigationBar;
+-(void)showNavigationBar;
+-(void)hideNavigationBar;
+-(void)updateMeta;
 
 @property(nonatomic, retain) NSMutableDictionary* data;
 @property int viewHeight;
