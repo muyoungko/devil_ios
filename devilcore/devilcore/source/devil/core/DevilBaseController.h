@@ -11,6 +11,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilBaseController : UIViewController
+{
+    int screenWidth, screenHeight;
+    CGPoint editingPoint;
+    UIView* editingView;
+}
 
 - (void)showIndicator;
 - (void)hideIndicator;

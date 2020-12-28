@@ -25,10 +25,6 @@
     
     self.jevil = [[JevilCtx alloc] init];
     
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    screenWidth = screenRect.size.width;
-    screenHeight = screenRect.size.height;
-    
     _viewMain = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
     _viewMain.userInteractionEnabled = YES;
     [self.view addSubview:_viewMain];
@@ -121,7 +117,11 @@
 }
 
 - (void)createWildCardScreenListView:(NSString*)screenId{
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:screenId sketch_height_more:0];
+    int sketch_height_more = 0;
+    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
+        sketch_height_more = 80;
+    }
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:screenId sketch_height_more:sketch_height_more];
     self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;

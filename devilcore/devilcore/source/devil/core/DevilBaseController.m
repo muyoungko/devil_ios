@@ -10,12 +10,42 @@
 
 @interface DevilBaseController ()
 
+@property int originalY;
+
 @end
 
 @implementation DevilBaseController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    screenWidth = screenRect.size.width;
+    screenHeight = screenRect.size.height;
+    
+    UITapGestureRecognizer *singleFingerTap2 =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
+    [self.view addGestureRecognizer:singleFingerTap2];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
+{
+    [self.view endEditing:YES];
 }
 
 /*
@@ -46,6 +76,23 @@
 //    [self.view addSubview:loading];
 }
 
+- (void)textEditing:(NSNotification*)noti
+{
+    UIView* tf = (UIView*)noti.object;
+    editingPoint = [tf convertPoint:tf.frame.origin toView:self.view];
+    if(editingView != tf)
+    {
+        if(editingPoint.y > screenHeight/4)
+        {
+            [UIView animateWithDuration:0.3f animations:^{
+                int toUp = screenHeight/4 - editingPoint.y;
+                self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
+            }];
+        }
+    }
+    editingView = tf;
+}
+
 - (void)hideIndicator
 {
     while([self.view viewWithTag:2243] != nil)
@@ -56,6 +103,20 @@
     {
         [[self.view viewWithTag:2244] removeFromSuperview];
     }
+}
+
+- (void)keyboardWillShow:(NSNotification*)noti
+{
+    if(editingPoint.y > screenHeight/4)
+    {
+        int toUp = screenHeight/4 - editingPoint.y;
+        self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification*)noti
+{
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 @end

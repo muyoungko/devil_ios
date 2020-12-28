@@ -23,7 +23,7 @@
 /* Begin PBXBuildFile section */
 		6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
-		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; };
+		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */; };
 		6D4433692588065400B0E616 /* JevilCtx.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4433672588065400B0E616 /* JevilCtx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D44336A2588065400B0E616 /* JevilCtx.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4433682588065400B0E616 /* JevilCtx.m */; };
@@ -121,7 +121,7 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; };
+		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 /* End PBXBuildFile section */
 
@@ -464,7 +464,6 @@
 				6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */,
 				6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */,
 				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
-				6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */,
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
 				6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */,
 				6D467A85256AB07A006D57DD /* WildCardMeta.h in Headers */,
@@ -502,6 +501,7 @@
 				6D467B86257CD9F3006D57DD /* WildCardUIButton.h in Headers */,
 				6D44336F25881C3800B0E616 /* Jevil.h in Headers */,
 				6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */,
+				6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */,
 				6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */,
 				6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,

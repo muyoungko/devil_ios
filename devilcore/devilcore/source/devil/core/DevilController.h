@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardScreenTableViewDelegate, WildCardConstructorLoading>
 {
-    int screenWidth, screenHeight;
 }
 
 -(void)showNavigationBar;

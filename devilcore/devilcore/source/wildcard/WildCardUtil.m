@@ -173,7 +173,7 @@
     float screenHeight = (float)screenRect.size.height;
 
     float sketch_height_of_screen = screenHeight * 360 / screenWidth;
-    [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen + sketch_height_more];
+    [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen - sketch_height_more];
 }
 
 +(void)fitToScreenRecur:(id)layer offsety:(float)offsety height:(float)height{
