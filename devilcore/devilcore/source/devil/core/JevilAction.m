@@ -10,6 +10,7 @@
 #import "WildCardConstructor.h"
 #import "DevilController.h"
 #import <SafariServices/SafariServices.h>
+#import "MappingSyntaxInterpreter.h"
 
 @implementation JevilAction
 
@@ -69,6 +70,9 @@
         NSString* screenName = args[0];
         screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
         nvc.screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        if([args count] > 1)
+            nvc.dataString = [MappingSyntaxInterpreter getJsonWithPath:args[1] :meta.correspondData];
+        
         if(!nvc.screenId)
             [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];
         [vc.navigationController pushViewController:nvc animated:YES];

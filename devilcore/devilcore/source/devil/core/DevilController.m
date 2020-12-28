@@ -87,9 +87,9 @@
 }
 
 - (void)checkHeader{
-    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId])
+    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         [self showNavigationBar];
-    else
+    }else
         [self hideNavigationBar];
 }
 
@@ -138,7 +138,12 @@
     @try{
         if([functionName isEqualToString:@"Jevil.script"]){
             NSString* code = args[0];
-            code = [code stringByReplacingOccurrencesOfString:@"'" withString:@""];
+            code = [code substringFromIndex:1];
+            code = [code substringToIndex:[code length]-1];
+            [self.jevil code:code viewController:self data:self.data meta:nil];
+            return YES;
+        } else if([functionName isEqualToString:@"script"]){
+            NSString* code = args[0];
             [self.jevil code:code viewController:self data:self.data meta:nil];
             return YES;
         } else if([functionName hasPrefix:@"Jevil"]) {

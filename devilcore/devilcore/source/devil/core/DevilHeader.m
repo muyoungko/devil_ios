@@ -32,6 +32,7 @@
     if(cj[@"backgroundColor"]){
         UIColor* bgColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
         [vc.navigationController.navigationBar setBarTintColor:bgColor];
+        [vc.navigationController.navigationBar setBackgroundColor:bgColor]; 
     }
     
     
@@ -159,9 +160,16 @@
             int bw = 40;
             leftButton.frame = CGRectMake(0,0, bw, bw);
             UIImage* icon_image = [UIImage imageWithData:byte];
-            icon_image = [self imageWithImage:icon_image convertToSize:CGSizeMake(
-                64, 64
+            
+            if(rect.size.width<rect.size.height){
+                icon_image = [self imageWithImage:icon_image convertToSize:CGSizeMake(
+                    64*rect.size.width/rect.size.height, 64
                 )];
+            } else {
+                icon_image = [self imageWithImage:icon_image convertToSize:CGSizeMake(
+                    64, 64*rect.size.height/rect.size.width
+                )];
+            }
             
             UIImage* icon_asset_image = icon_image;//[[UIImage alloc] initWithIm];             
             [icon_asset_image.imageAsset registerImage:icon_image withTraitCollection:[UITraitCollection traitCollectionWithDisplayScale:3.0]];
@@ -171,19 +179,19 @@
             leftButton.stringTag = icon_layer[@"clickContent"]; 
             leftButton.imageView.contentMode = UIViewContentModeCenter;
             
-            i++;
+//            i++;
 //            if(i%3 == 0)
 //                [leftButton setBackgroundColor:[UIColor greenColor]];
 //            else if(i%3 == 1)
-//                [leftButton setBackgroundColor:[UIColor blueColor]];
+//                [leftButton setBackgroundColor:[UIColor grayColor]];
 //            else if(i%3 == 2)
 //                [leftButton setBackgroundColor:[UIColor redColor]];
             
             if(isLeft){
 //                leftButton.imageEdgeInsets = UIEdgeInsetsMake(
-//                    bw - rect.size.height /2,
+//                    (bw - rect.size.height) /2,
 //                    0,
-//                    bw - rect.size.height /2,
+//                    (bw - rect.size.width) /2,
 //                    bw - rect.size.width
 //                );
                 self.barButtonByName[name] = [[UIBarButtonItem alloc] initWithCustomView:leftButton];

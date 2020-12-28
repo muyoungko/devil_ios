@@ -169,7 +169,9 @@
 
 + (void)update{
     UIViewController*vc = [JevilCtx sharedInstance].vc;
-    if(vc != nil && [[vc class] isKindOfClass:[DevilController class]]){
+    if(vc != nil && 
+        ([[vc class] isKindOfClass:[DevilController class]] || [[vc class] isEqual:[DevilController class]]))
+        {
         [((DevilController*)vc) updateMeta];
     }
 }

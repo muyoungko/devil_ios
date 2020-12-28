@@ -37,6 +37,17 @@
         self.jscontext[@"Jevil"] = [Jevil class];
         [self.jscontext setExceptionHandler:^(JSContext *context, JSValue *exception) {
             NSLog(@"%@",exception); 
+            NSString* msg = [NSString stringWithFormat:@"%@", exception];
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+            [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+                                                              style:UIAlertActionStyleCancel
+                                                            handler:^(UIAlertAction *action) {
+                                                                
+            }]];
+            [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
         }];
         
         
@@ -46,7 +57,6 @@
 
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta{
     [JevilCtx sharedInstance].vc = vc;
-    self.jscontext[@"data"] = data;
     
     id config_list = [WildCardConstructor sharedInstance].project[@"config_list"];
     for(id c in config_list){

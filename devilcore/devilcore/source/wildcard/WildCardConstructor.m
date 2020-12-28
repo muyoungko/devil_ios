@@ -658,6 +658,7 @@ static BOOL IS_TABLET = NO;
             DevilWebView* web = [[DevilWebView alloc] init];
             [vv addSubview:web];
             [WildCardConstructor followSizeFromFather:vv child:web];
+            
             NSString* url = layer[@"web"][@"url"]; 
             [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
             
