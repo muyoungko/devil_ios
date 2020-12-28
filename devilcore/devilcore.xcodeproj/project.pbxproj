@@ -121,6 +121,8 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; };
+		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -225,6 +227,8 @@
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
 		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
+		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
+		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,28 +348,30 @@
 		6D467A44256AB079006D57DD /* replacerule */ = {
 			isa = PBXGroup;
 			children = (
-				6D467A45256AB079006D57DD /* ReplaceRuleColor.h */,
-				6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */,
 				6D467A47256AB07A006D57DD /* ReplaceRule.h */,
-				6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */,
-				6D467A49256AB07A006D57DD /* ReplaceRuleRepeat.m */,
-				6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */,
-				6D467A4B256AB07A006D57DD /* ReplaceRuleClick.m */,
-				6D467A4C256AB07A006D57DD /* ReplaceRuleText.h */,
-				6D467A4D256AB07A006D57DD /* ReplaceRuleHidden.m */,
-				6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */,
-				6D467A4F256AB07A006D57DD /* ReplaceRuleReplaceUrl.m */,
-				6D467A50256AB07A006D57DD /* ReplaceRuleRepeat.h */,
 				6D467A51256AB07A006D57DD /* ReplaceRule.m */,
-				6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */,
-				6D467A53256AB07A006D57DD /* ReplaceRuleExtension.h */,
-				6D467A54256AB07A006D57DD /* ReplaceRuleColor.m */,
 				6D467A55256AB07A006D57DD /* ReplaceRuleClick.h */,
-				6D467A56256AB07A006D57DD /* ReplaceRuleLocalImage.m */,
-				6D467A57256AB07A006D57DD /* ReplaceRuleImageResource.m */,
+				6D467A4B256AB07A006D57DD /* ReplaceRuleClick.m */,
+				6D467A45256AB079006D57DD /* ReplaceRuleColor.h */,
+				6D467A54256AB07A006D57DD /* ReplaceRuleColor.m */,
+				6D467A53256AB07A006D57DD /* ReplaceRuleExtension.h */,
+				6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */,
 				6D467A58256AB07A006D57DD /* ReplaceRuleHidden.h */,
-				6D467A59256AB07A006D57DD /* ReplaceRuleText.m */,
+				6D467A4D256AB07A006D57DD /* ReplaceRuleHidden.m */,
+				6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */,
+				6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */,
+				6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */,
+				6D467A57256AB07A006D57DD /* ReplaceRuleImageResource.m */,
+				6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */,
+				6D467A56256AB07A006D57DD /* ReplaceRuleLocalImage.m */,
+				6D467A50256AB07A006D57DD /* ReplaceRuleRepeat.h */,
+				6D467A49256AB07A006D57DD /* ReplaceRuleRepeat.m */,
 				6D467A5A256AB07A006D57DD /* ReplaceRuleReplaceUrl.h */,
+				6D467A4F256AB07A006D57DD /* ReplaceRuleReplaceUrl.m */,
+				6D467A4C256AB07A006D57DD /* ReplaceRuleText.h */,
+				6D467A59256AB07A006D57DD /* ReplaceRuleText.m */,
+				6DBFED3B259A27EB00813987 /* ReplaceWeb.h */,
+				6DBFED3C259A27EB00813987 /* ReplaceWeb.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -458,6 +464,7 @@
 				6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */,
 				6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */,
 				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
+				6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */,
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
 				6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */,
 				6D467A85256AB07A006D57DD /* WildCardMeta.h in Headers */,
@@ -635,6 +642,7 @@
 				6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */,
 				6D467B63257A268C006D57DD /* DevilHeader.m in Sources */,
 				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
+				6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,

@@ -22,7 +22,7 @@
 #define RULE_TYPE_REPLACE_URL 9
 #define RULE_TYPE_EXTENSION 10
 #define RULE_TYPE_COLOR 11
-
+#define RULE_TYPE_WEB 13
 
 @interface ReplaceRule : NSObject
 

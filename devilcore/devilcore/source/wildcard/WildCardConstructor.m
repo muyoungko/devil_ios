@@ -17,6 +17,7 @@
 #import "ReplaceRuleReplaceUrl.h"
 #import "ReplaceRuleExtension.h"
 #import "ReplaceRuleColor.h"
+#import "ReplaceWeb.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -659,9 +660,9 @@ static BOOL IS_TABLET = NO;
             [vv addSubview:web];
             [WildCardConstructor followSizeFromFather:vv child:web];
             
-            NSString* url = layer[@"web"][@"url"]; 
-            [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-            
+            NSString* url = layer[@"web"][@"url"];
+            [outRules addObject:ReplaceWeb(web, layer, url)];
+                
             UIView* cc = [vv superview];
             vv.userInteractionEnabled = YES;
             while([[cc class] isEqual:[WildCardUIView class]]){
@@ -1697,6 +1698,14 @@ static BOOL IS_TABLET = NO;
         
         [lv setText:text];
         //NSLog(@"%@ -> %@", rule.replaceJsonKey , text!=nil? text:@"nil");
+    }
+    else if(rule.replaceType == RULE_TYPE_WEB)
+    {
+        WKWebView* web = (WKWebView*)rule.replaceView;
+        NSString* url = [MappingSyntaxInterpreter interpret:rule.replaceJsonKey:opt];
+        if(url != nil){
+            [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+        }
     }
     else if(rule.replaceType == RULE_TYPE_COLOR)
     {
