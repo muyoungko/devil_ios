@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)viewController data:(id)data meta:(WildCardMeta*)meta;
 
 @property (nonatomic, retain) UIViewController* vc;
+@property (nonatomic, retain) WildCardMeta* meta;
 
 @end
 

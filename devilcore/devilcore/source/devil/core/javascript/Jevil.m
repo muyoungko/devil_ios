@@ -9,6 +9,7 @@
 #import "WildCardConstructor.h"
 #import "DevilController.h"
 #import "JevilCtx.h"
+#import "JevilAction.h"
 
 @interface Jevil()
 
@@ -115,6 +116,32 @@
     [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
++ (void)alertFinish:(NSString*)msg{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+       [[JevilCtx sharedInstance].vc.navigationController popViewControllerAnimated:YES];
+    }]];
+    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+}
+
+
++ (void)save:(NSString *)key :(NSString *)value{
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (void)remove:(NSString *)key{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (NSString*)get:(NSString *)key{
+    NSString* r = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    return r;
+}
 
 + (void)get:(NSString *)url then:(JSValue *)callback {
 
@@ -154,18 +181,19 @@
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseJsonObject
                                                            options:NSJSONWritingPrettyPrinted 
                                                              error:&error];
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]; 
-        [callback callWithArguments:@[jsonString, @YES]];
+        NSMutableDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [callback callWithArguments:@[json, @YES]];
     }];
 }
 
 + (void)startLoading{
     if([WildCardConstructor sharedInstance].loadingDelegate)
-        [[WildCardConstructor sharedInstance].loadingDelegate stopLoading];
+        [[WildCardConstructor sharedInstance].loadingDelegate startLoading];
 }
 + (void)stopLoading{
     if([WildCardConstructor sharedInstance].loadingDelegate)
-        [[WildCardConstructor sharedInstance].loadingDelegate startLoading];
+        [[WildCardConstructor sharedInstance].loadingDelegate stopLoading];
 }
 
 + (void)update{
@@ -175,5 +203,11 @@
         {
         [((DevilController*)vc) updateMeta];
     }
+}
+
++ (void)tab:(NSString*)screenName{
+    UIViewController*vc = [JevilCtx sharedInstance].vc;
+    id meta = [JevilCtx sharedInstance].meta;
+    [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
 }
 @end

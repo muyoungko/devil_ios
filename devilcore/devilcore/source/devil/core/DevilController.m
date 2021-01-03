@@ -63,6 +63,25 @@
     [self createWildCardScreenListView:self.screenId];
 }
 
+-(void)tab:(NSString*)screenId {
+    [self.tv removeFromSuperview];
+    
+    if(self.dataString) {
+        self.data = [NSJSONSerialization JSONObjectWithData:[self.dataString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    } else
+        self.data = [@{} mutableCopy];
+    self.screenId = screenId;
+    id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    if(screen[@"javascript_on_create"]){
+        NSString* code = screen[@"javascript_on_create"];
+        [self.jevil code:code viewController:self data:self.data meta:nil];
+    }
+
+    [WildCardConstructor applyRule:self.footer withData:self.data];
+
+    [self createWildCardScreenListView:self.screenId];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self checkHeader];
@@ -162,5 +181,7 @@
 -(void)updateMeta {
     [self.tv reloadData];
 }
+
+
 
 @end

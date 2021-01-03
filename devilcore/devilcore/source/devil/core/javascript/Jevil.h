@@ -23,9 +23,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)rootScreen:(NSString*)screenName;
 + (void)finish;        
 + (void)alert:(NSString*)msg;
-
++ (void)alertFinish:(NSString*)msg;
 + (void)startLoading;
 + (void)stopLoading;
++ (void)save:(NSString *)key :(NSString *)value;
++ (void)remove:(NSString *)key;
++ (NSString*)get:(NSString *)key;
 + (void)get:(NSString *)url then:(JSValue *)callback;
 + (void)post:(NSString *)url :(NSString*)param then:(JSValue *)callback;
 + (void)update;

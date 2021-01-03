@@ -95,6 +95,18 @@
         [vc.navigationController setViewControllers:@[nvc]];
     } else if([functionName isEqualToString:@"home"]){
         [vc.navigationController popToRootViewControllerAnimated:YES];
+    } else if([functionName isEqualToString:@"tab"]){
+        
+        NSString* screenName = args[0];
+        screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        
+        if(!screenId)
+            [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];
+        
+        if([vc class] == [DevilController class] || [vc isKindOfClass:[DevilController class]]){
+            [((DevilController*)vc) tab:screenId];
+        }
     }
 }
 
