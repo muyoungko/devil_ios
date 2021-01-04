@@ -129,6 +129,39 @@
     [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
++ (void)confirm:(NSString*)msg :(NSString*)yes :(NSString*)no :(JSValue *)callback {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                             message:msg
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:yes
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction *action) {
+                                                    [callback callWithArguments:@[@YES]];
+                                                        
+    }]];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:no
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+                                                    [callback callWithArguments:@[@NO]];    
+    }]];
+    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+}
+
++ (void)alertFunction:(NSString*)msg :(JSValue *)callback {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+                                                    [callback callWithArguments:@[]];
+                                                        
+    }]];
+    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+}
 
 + (void)save:(NSString *)key :(NSString *)value{
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];

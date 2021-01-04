@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)finish;        
 + (void)alert:(NSString*)msg;
 + (void)alertFinish:(NSString*)msg;
++ (void)alertFunction:(NSString*)msg :(JSValue *)callback;
++ (void)confirm:(NSString*)msg :(NSString*)yes :(NSString*)no :(JSValue *)callback;
 + (void)startLoading;
 + (void)stopLoading;
 + (void)save:(NSString *)key :(NSString *)value;
