@@ -571,6 +571,20 @@ static BOOL IS_TABLET = NO;
                     if(c < h/2 || vv.wrap_height)
                     {
                         vv.layer.cornerRadius = c;
+                        if(layer[@"borderRoundCorners"]){
+                            if(@available(iOS 11.0, *)){
+                                id clist = layer[@"borderRoundCorners"];
+                                vv.layer.maskedCorners = 0;
+                                if([clist[0] intValue] > 0)
+                                    vv.layer.maskedCorners |= kCALayerMinXMinYCorner;
+                                if([clist[1] intValue] > 0)
+                                    vv.layer.maskedCorners |= kCALayerMaxXMinYCorner;
+                                if([clist[2] intValue] > 0)
+                                    vv.layer.maskedCorners |= kCALayerMaxXMaxYCorner;
+                                if([clist[3] intValue] > 0)
+                                    vv.layer.maskedCorners |= kCALayerMinXMaxYCorner;
+                            }
+                        }
                     }
                     else
                     {
