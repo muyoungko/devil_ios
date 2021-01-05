@@ -109,14 +109,14 @@
 }
 
 - (void)showNavigationBar{
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
 }
 
 - (void)hideNavigationBar{
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);

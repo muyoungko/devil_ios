@@ -188,12 +188,7 @@
     }
 
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseJsonObject
-                                                           options:NSJSONWritingPrettyPrinted 
-                                                             error:&error];
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]; 
-        [callback callWithArguments:@[jsonString, @YES]];
+        [callback callWithArguments:@[responseJsonObject, @YES]];
     }];
 }
 
@@ -210,13 +205,7 @@
 
     id json = [NSJSONSerialization JSONObjectWithData:[param dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:json success:^(NSMutableDictionary *responseJsonObject) {
-        NSError *error;
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:responseJsonObject
-                                                           options:NSJSONWritingPrettyPrinted 
-                                                             error:&error];
-        NSMutableDictionary* json = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:nil];
-        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        [callback callWithArguments:@[json, @YES]];
+        [callback callWithArguments:@[responseJsonObject, @YES]];
     }];
 }
 
@@ -230,6 +219,14 @@
 }
 
 + (void)update{
+    
+    JSValue* dataJs = [[JevilCtx sharedInstance].currentJscontext evaluateScript:@"data"];
+    id newData = [dataJs toDictionary];
+    id allKey = [newData allKeys];
+    for(id k in allKey) {
+        [JevilCtx sharedInstance].data[k] = newData[k];
+    }
+    
     UIViewController*vc = [JevilCtx sharedInstance].vc;
     if(vc != nil && 
         ([[vc class] isKindOfClass:[DevilController class]] || [[vc class] isEqual:[DevilController class]]))

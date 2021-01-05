@@ -58,6 +58,8 @@
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta{
     [JevilCtx sharedInstance].vc = vc;
     [JevilCtx sharedInstance].meta = meta;
+    [JevilCtx sharedInstance].data = data;
+    [JevilCtx sharedInstance].currentJscontext = self.jscontext;
     
     id config_list = [WildCardConstructor sharedInstance].project[@"config_list"];
     for(id c in config_list){
