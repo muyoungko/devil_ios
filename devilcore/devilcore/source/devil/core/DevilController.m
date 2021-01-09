@@ -182,6 +182,21 @@
     [self.tv reloadData];
 }
 
+-(void)popup:(NSString*)screenId{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    //TODO : 팝업을 block으로 생성하도록 변경
+    CGFloat margin = 8.0F;
+    UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(margin, margin, alertController.view.bounds.size.width - margin * 4.0F, 100.0F)];
+    customView.backgroundColor = [UIColor greenColor];
+    [alertController.view addSubview:customView];
+
+    UIAlertAction *somethingAction = [UIAlertAction actionWithTitle:@"Something" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {}];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {}];
+    [alertController addAction:somethingAction];
+    [alertController addAction:cancelAction];
+    [self presentViewController:alertController animated:YES completion:^{}];
+}
 
 
 @end

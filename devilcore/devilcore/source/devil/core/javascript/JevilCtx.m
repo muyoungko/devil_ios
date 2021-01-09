@@ -62,10 +62,12 @@
     [JevilCtx sharedInstance].currentJscontext = self.jscontext;
     
     id config_list = [WildCardConstructor sharedInstance].project[@"config_list"];
-    for(id c in config_list){
-        NSString* name = c[@"name"];
-        NSString* value = c[@"value"];
-        self.jscontext[name] = value;
+    if(config_list != nil && config_list != [NSNull null]){
+        for(id c in config_list){
+            NSString* name = c[@"name"];
+            NSString* value = c[@"value"];
+            self.jscontext[name] = value;
+        }
     }
     self.jscontext[@"data"] = data;
     

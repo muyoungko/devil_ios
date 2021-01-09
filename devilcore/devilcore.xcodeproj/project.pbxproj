@@ -121,6 +121,8 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267725A89AD400600978 /* DevilSelectDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 /* End PBXBuildFile section */
@@ -227,6 +229,8 @@
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
 		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
+		6D7E267725A89AD400600978 /* DevilSelectDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSelectDialog.h; sourceTree = "<group>"; };
+		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -429,6 +433,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6D7E267625A89ABA00600978 /* view */,
 				6D0EE1672590BF5200C89D38 /* debug */,
 				6D4433662588062B00B0E616 /* javascript */,
 				6D467B60257A268C006D57DD /* DevilHeader.h */,
@@ -445,6 +450,15 @@
 				6D467B8B257CF2F7006D57DD /* JevilAction.m */,
 			);
 			path = core;
+			sourceTree = "<group>";
+		};
+		6D7E267625A89ABA00600978 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				6D7E267725A89AD400600978 /* DevilSelectDialog.h */,
+				6D7E267825A89AD400600978 /* DevilSelectDialog.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -503,6 +517,7 @@
 				6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */,
 				6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */,
 				6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */,
+				6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */,
 				6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,
 			);
@@ -630,6 +645,7 @@
 				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
 				6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */,
+				6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */,
 				6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */,
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,
 				6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */,

@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)hideNavigationBar;
 -(void)updateMeta;
 -(void)tab:(NSString*)screenId;
+-(void)popup:(NSString*)screenId;
 
 @property (nonatomic, retain) NSString* screenId;
 @property (nonatomic, retain) NSString* dataString;

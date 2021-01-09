@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
   s.platform         = :ios
-  s.version          = '0.0.20'
+  s.version          = '0.0.21'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Core
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   
   s.subspec 'DevilCore' do |devilCore|
     # devilCore.dependency 'Alamofire'
-    devilCore.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*' , 'devilcore/devilcore/source/devil/core/*.*' , 'devilcore/devilcore/source/devil/core/javascript/*.*', 'devilcore/devilcore/source/devil/core/debug/*.*'
+    devilCore.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*' , 'devilcore/devilcore/source/devil/core/*.*' , 'devilcore/devilcore/source/devil/core/javascript/*.*', 'devilcore/devilcore/source/devil/core/debug/*.*' 'devilcore/devilcore/source/devil/core/view/*.*'
     # s.resources = 'Pod/Assets/*'
   end
 

@@ -223,7 +223,7 @@ PODS:
     - nanopb/encode (= 2.30906.0)
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
-  - PromisesObjC (1.2.11)
+  - PromisesObjC (1.2.12)
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
@@ -303,8 +303,8 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
-  PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
+  PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
 PODFILE CHECKSUM: ea1aaf5eb2f5a27318b5d0e806eb84a0cfca9f8c
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.1

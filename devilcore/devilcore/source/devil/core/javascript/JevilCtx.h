@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "WildCardMeta.h"
+#import "DevilSelectDialog.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -22,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSMutableDictionary* data;
 @property (nonatomic, retain) UIViewController* vc;
 @property (nonatomic, retain) WildCardMeta* meta;
+@property (nonatomic, retain) DevilSelectDialog* devilSelectDialog;
 
 @end
 

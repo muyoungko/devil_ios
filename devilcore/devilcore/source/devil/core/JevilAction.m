@@ -107,6 +107,30 @@
         if([vc class] == [DevilController class] || [vc isKindOfClass:[DevilController class]]){
             [((DevilController*)vc) tab:screenId];
         }
+    } else if([functionName isEqualToString:@"popup"]){
+        
+        NSString* screenName = args[0];
+        screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        
+        if(!screenId)
+            [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];
+        
+        if([vc class] == [DevilController class] || [vc isKindOfClass:[DevilController class]]){
+            [((DevilController*)vc) popup:screenId];
+        }
+    } else if([functionName isEqualToString:@"select"]){
+        
+        NSString* screenName = args[0];
+        screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
+        NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+        
+        if(!screenId)
+            [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];
+        
+        if([vc class] == [DevilController class] || [vc isKindOfClass:[DevilController class]]){
+            [((DevilController*)vc) popup:screenId];
+        }
     }
 }
 

@@ -21,7 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)go:(NSString*)screenName :(NSString*)dataString;
 + (void)replaceScreen:(NSString*)screenName;
 + (void)rootScreen:(NSString*)screenName;
-+ (void)finish;        
++ (void)finish;
++ (void)back;
 + (void)alert:(NSString*)msg;
 + (void)alertFinish:(NSString*)msg;
 + (void)alertFunction:(NSString*)msg :(JSValue *)callback;
@@ -34,6 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)get:(NSString *)url then:(JSValue *)callback;
 + (void)post:(NSString *)url :(NSString*)param then:(JSValue *)callback;
 + (void)update;
++ (void)popup:(NSString*)screenName;
++ (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
++ (void)go:(NSString*)screenName;
 
 @end
 

@@ -10,6 +10,7 @@
 #import "DevilController.h"
 #import "JevilCtx.h"
 #import "JevilAction.h"
+#import "DevilSelectDialog.h"
 
 @interface Jevil()
 
@@ -47,7 +48,12 @@
     return true;
 }
 
-
++ (void)go:(NSString*)screenName {
+    NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+    DevilController* d = [[DevilController alloc] init];
+    d.screenId = screenId;
+    [[JevilCtx sharedInstance].vc.navigationController pushViewController:d animated:YES];
+}
 
 + (void)go:(NSString*)screenName :(NSString*)dataString{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
@@ -75,7 +81,11 @@
 }
 
 + (void)finish{
-    
+    [[JevilCtx sharedInstance].vc.navigationController popViewControllerAnimated:YES];
+}
+
++ (void)back{
+    [Jevil finish];
 }
 
 + (BOOL)isValidNumber:(NSString *)phone
@@ -239,5 +249,22 @@
     UIViewController*vc = [JevilCtx sharedInstance].vc;
     id meta = [JevilCtx sharedInstance].meta;
     [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
+}
+
++ (void)popup:(NSString*)screenName{
+    UIViewController*vc = [JevilCtx sharedInstance].vc;
+    id meta = [JevilCtx sharedInstance].meta;
+    [JevilAction act:@"Jevil.popup" args:@[screenName] viewController:vc meta:meta];
+}
+
++ (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback {
+    UIViewController*vc = [JevilCtx sharedInstance].vc;
+    DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:vc];
+    id list = [NSJSONSerialization JSONObjectWithData:[arrayString dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
+    [d popupSelect:list selectedKey:selectedKey onselect:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+    }];
+    
+    [JevilCtx sharedInstance].devilSelectDialog = d;
 }
 @end

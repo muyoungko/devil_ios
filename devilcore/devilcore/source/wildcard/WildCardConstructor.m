@@ -140,7 +140,7 @@ static NSString *default_project_id = nil;
     if([list count] > 0) {
         id block_id = [list[0][@"block_id"] stringValue];
         id block = _blockMap[block_id];
-        if([block[@"fit_to_screen"] boolValue])
+        if(block[@"fit_to_screen"] != [NSNull null] && [block[@"fit_to_screen"] boolValue])
             [WildCardUtil fitToScreen:_cloudJsonMap[block_id] sketch_height_more:height];
     }
 }
