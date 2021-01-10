@@ -123,6 +123,8 @@
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267725A89AD400600978 /* DevilSelectDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
+		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E268025AA935800600978 /* WildCardUITextView.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 /* End PBXBuildFile section */
@@ -231,6 +233,8 @@
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
 		6D7E267725A89AD400600978 /* DevilSelectDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSelectDialog.h; sourceTree = "<group>"; };
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
+		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
+		6D7E268025AA935800600978 /* WildCardUITextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextView.m; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -340,11 +344,13 @@
 			isa = PBXGroup;
 			children = (
 				6D467A3E256AB079006D57DD /* WildCardIndicatorView.h */,
-				6D467A3F256AB079006D57DD /* WildCardLCAnimatedPageControl.h */,
-				6D467A40256AB079006D57DD /* WildCardUITextField.h */,
-				6D467A41256AB079006D57DD /* WildCardLCAnimatedPageControl.m */,
 				6D467A42256AB079006D57DD /* WildCardIndicatorView.m */,
+				6D467A3F256AB079006D57DD /* WildCardLCAnimatedPageControl.h */,
+				6D467A41256AB079006D57DD /* WildCardLCAnimatedPageControl.m */,
+				6D467A40256AB079006D57DD /* WildCardUITextField.h */,
 				6D467A43256AB079006D57DD /* WildCardUITextField.m */,
+				6D7E267F25AA935800600978 /* WildCardUITextView.h */,
+				6D7E268025AA935800600978 /* WildCardUITextView.m */,
 			);
 			path = extensionview;
 			sourceTree = "<group>";
@@ -519,6 +525,7 @@
 				6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */,
 				6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */,
 				6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */,
+				6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,6 +665,7 @@
 				6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */,
 				6D467B63257A268C006D57DD /* DevilHeader.m in Sources */,
 				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
+				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
 				6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,

@@ -6,7 +6,7 @@
 //  Copyright © 2018년 sbs cnbc. All rights reserved.
 //
 
-#import "WildCardUITextField.h"
+#import "WildCardUITextView.h"
 #import "WildCardMeta.h"
 #import "WildCardTrigger.h"
 #import "WildCardAction.h"
@@ -19,22 +19,25 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
-@implementation WildCardUITextField
+@implementation WildCardUITextView
 
-+(WildCardUITextField*)create:(id)layer meta:(WildCardMeta*)meta {
++(WildCardUITextView*)create:(id)layer meta:(WildCardMeta*)meta {
     NSDictionary* extension = [layer objectForKey:@"extension"];
-    WildCardUITextField* tf = [[WildCardUITextField alloc] init];
+    WildCardUITextView* tf = [[WildCardUITextView alloc] init];
     NSMutableDictionary* textSpec = [layer objectForKey:@"textSpec"];
     if(textSpec != nil)
     {
         float sketchTextSize = [[textSpec objectForKey:@"textSize"] floatValue];
         float textSize = [WildCardConstructor convertTextSize:sketchTextSize];
         tf.font = [UIFont systemFontOfSize:textSize];
-        tf.textColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
+        tf.originalTextColor = tf.textColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
+        tf.emtpy = true;
+        tf.placeholderLabel = nil;
         NSString* text = [textSpec objectForKey:@"text"];
         if([WildCardConstructor sharedInstance].textTransDelegate != nil )
             text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
-        //tf.placeholder = text;
+        tf.placeholderText = text;
+        
         if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
             ;
         else
@@ -93,6 +96,8 @@
         tf.returnKeyType = UIReturnKeySearch;
     else if([@"next" isEqualToString:extension[@"select6"]])
         tf.returnKeyType = UIReturnKeyNext;
+    else if([@"enter" isEqualToString:extension[@"select6"]])
+        tf.returnKeyType = UIReturnKeyNext;
     
     tf.delegate = tf;
     
@@ -103,11 +108,54 @@
 {
     self = [super init];
     self.showXButton = NO;
+    self.emtpy = YES;
     self.xbuttonImageName = nil;
     self.doneClickAction = nil;
-    [self addTarget:self action:@selector(textChanged:) forControlEvents:UIControlEventEditingChanged];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                          selector:@selector(textChanged:)
+                                          name:UITextViewTextDidChangeNotification
+                                          object:nil];
     return self;
 }
+
+- (void)setText:(NSString *)text{
+    [super setText:text];
+    if(self.placeholderLabel != nil){
+        if(text == nil || [@"" isEqualToString:text])
+            self.placeholderLabel.hidden = NO;
+        else
+            self.placeholderLabel.hidden = YES;
+    }
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    if(self.placeholderLabel != nil){
+        self.placeholderLabel.hidden = YES;
+    }
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    NSString* text = [textView text];
+    [_meta.correspondData setObject:[textView text] forKey:_holder];
+    if(self.placeholderLabel != nil){
+        if(text == nil || [@"" isEqualToString:text])
+            self.placeholderLabel.hidden = NO;
+        else
+            self.placeholderLabel.hidden = YES;
+    }
+}
+
+- (void)textViewDidChange:(UITextView *)textView{
+    NSString* text = self.text;
+    [_meta.correspondData setObject:self.text forKey:_holder];
+    if(self.placeholderLabel != nil){
+        if(text == nil || [@"" isEqualToString:text])
+            self.placeholderLabel.hidden = NO;
+        else
+            self.placeholderLabel.hidden = YES;
+    }
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if(self.doneClickAction != nil)
@@ -120,62 +168,28 @@
         
     return YES;
 }
+
 - (void)textChanged:(UITextField *)textField{
-    UIView* p = [self superview];
-    if(self.showXButton)
-    {
-        UIButton* b = [p viewWithTag:5192837];
-        if(b == nil)
-        {
-            float pw = p.frame.size.width;
-            float ph = p.frame.size.height;
-            float bw = ph;
-            float inset = ph/3;
-            UIButton* b = [[UIButton alloc] initWithFrame:CGRectMake(pw-bw, 0, bw, bw)];
-            b.tag = 5192837;
-            b.imageEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset);
-            [b setImage:[UIImage imageNamed:_xbuttonImageName] forState:UIControlStateNormal];
-            [b addTarget:self action:@selector(clearAll:) forControlEvents:UIControlEventTouchUpInside];
-            [p addSubview:b];
-        }
-        b.hidden = NO;
-        if([textField text].length > 0)
-        {
-            b.hidden = NO;
-        }
-        else
-            b.hidden = YES;
-    }
-    [_meta.correspondData setObject:[textField text] forKey:_holder];
+    [_meta.correspondData setObject:self.text forKey:_holder];
 }
 
--(void)clearAll:(id)sender
-{
-    self.text = @"";
-    if(self.showXButton)
-    {
-        UIView* p = [self superview];
-        UIButton* b = [p viewWithTag:5192837];
-        b.hidden = YES;
-    }
-}
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    return YES;
-}
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    [_meta.correspondData setObject:[textField text] forKey:_holder];
-    return YES;
-}
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    [_meta.correspondData setObject:[textField text] forKey:_holder];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    NSLog(@"touches begin - TextField input");
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    return YES;
+//}
+//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+//{
+//    [_meta.correspondData setObject:[textField text] forKey:_holder];
+//    return YES;
+//}
+//- (void)textFieldDidEndEditing:(UITextField *)textField
+//{
+//    [_meta.correspondData setObject:[textField text] forKey:_holder];
+//}
+//
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    NSLog(@"touches begin - TextField input");
+//}
 @end

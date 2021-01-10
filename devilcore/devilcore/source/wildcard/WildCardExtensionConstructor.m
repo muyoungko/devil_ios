@@ -15,13 +15,7 @@
 #import "WildCardUtil.h"
 #import "WildCardUITapGestureRecognizer.h"
 #import "WildCardUITextField.h"
-
-#define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
-#define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
-#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
-#define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
-
+#import "WildCardUITextView.h"
 
 @implementation WildCardExtensionConstructor
 
@@ -75,80 +69,12 @@
         }
         case WILDCARD_EXTENSION_TYPE_INPUT:
         {
-            WildCardUITextField* tf = [[WildCardUITextField alloc] init];
-            NSMutableDictionary* textSpec = [layer objectForKey:@"textSpec"];
-            if(textSpec != nil)
-            {
-                float sketchTextSize = [[textSpec objectForKey:@"textSize"] floatValue];
-                float textSize = [WildCardConstructor convertTextSize:sketchTextSize];
-                tf.font = [UIFont systemFontOfSize:textSize];
-                tf.textColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
-                NSString* text = [textSpec objectForKey:@"text"];
-                if([WildCardConstructor sharedInstance].textTransDelegate != nil )
-                    text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
-                tf.placeholder = text;
-                if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
-                    ;
-                else
-                    [tf setValue:[WildCardUtil colorWithHexString:@"#777777"] forKeyPath:@"_placeholderLabel.textColor"];
-                
-                int halignment = 1;
-                int valignment = 0;
-                if([textSpec objectForKey:@"alignment"] != nil)
-                    halignment = [[textSpec objectForKey:@"alignment"] intValue];
-                if([textSpec objectForKey:@"valignment"] != nil)
-                    valignment = [[textSpec objectForKey:@"valignment"] intValue];
-                
-                if(halignment == 3)
-                    tf.textAlignment = NSTextAlignmentLeft;
-                else if(halignment == 17)
-                    tf.textAlignment = NSTextAlignmentCenter;
-                else if(halignment == 5)
-                    tf.textAlignment = NSTextAlignmentRight;
-                
-                if(valignment == 0) {
-                    valignment = GRAVITY_TOP;
-                }
-                else if(valignment == 1) {
-                    valignment = GRAVITY_VERTICAL_CENTER;
-                }
-                else if(valignment == 2) {
-                    valignment = GRAVITY_BOTTOM;
-                }
-            }
-            tf.userInteractionEnabled = YES;
-            NSString* holder = extension[@"select3"];
-            tf.meta = meta;
-            tf.holder = holder;
-            tf.autocapitalizationType = UITextAutocapitalizationTypeNone;
-            
-            tf.returnKeyType = UIReturnKeyDone;
-
-            if([WildCardConstructor sharedInstance].xButtonImageName != nil)
-            {
-                tf.xbuttonImageName = [WildCardConstructor sharedInstance].xButtonImageName;
-                tf.showXButton = YES;
+            if([@"multiline" isEqualToString:extension[@"select7"]]){
+                return [WildCardUITextView create:layer meta:meta];
+            } else {
+                return [WildCardUITextField create:layer meta:meta];
             }
             
-            if(extension[@"select4"] != nil && [@"Y" isEqualToString:extension[@"select4"]]){
-                tf.secureTextEntry = YES;
-            } else if([@"number" isEqualToString:extension[@"select7"]]){
-                tf.keyboardType = UIKeyboardTypeNumberPad;
-            }
-            
-            if(extension[@"select5"] != nil)
-            {
-                tf.doneClickAction = extension[@"select5"];
-            }
-            
-            if([@"search" isEqualToString:extension[@"select6"]])
-                tf.returnKeyType = UIReturnKeySearch;
-            else if([@"next" isEqualToString:extension[@"select6"]])
-                tf.returnKeyType = UIReturnKeyNext;
-            
-            tf.delegate = tf;
-            
-            return tf;
             break;
         }
         case WILDCARD_EXTENSION_TYPE_BILL_BOARD_PAGER:
@@ -214,6 +140,22 @@
         }
         case WILDCARD_EXTENSION_TYPE_INPUT:
         {
+            if([[[rule.replaceView subviews][0] class] isEqual:[WildCardUITextView class]]){
+                WildCardUITextView* tf = (WildCardUITextView*)[rule.replaceView subviews][0];
+                if(tf.placeholderLabel == nil){
+                    UILabel* ppp = [[UILabel alloc] initWithFrame:tf.frame];
+                    ppp.frame =
+                        CGRectMake(ppp.frame.origin.x, ppp.frame.origin.y+11,
+                               ppp.frame.size.width, ppp.frame.size.height
+                               );
+                    ppp.text = tf.placeholderText;
+                    ppp.font = tf.font;
+                    ppp.textColor = [UIColor lightGrayColor];
+                    [ppp sizeToFit];
+                    tf.placeholderLabel = ppp;
+                    [[tf superview] addSubview:ppp];
+                }
+            }
             WildCardUITextField* dt = (WildCardUITextField*)[rule.replaceView subviews][0];
             NSString* select3 = extension[@"select3"];
             dt.text = opt[select3];

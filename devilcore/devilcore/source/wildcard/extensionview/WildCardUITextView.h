@@ -13,16 +13,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class WildCardMeta;
 
-@interface WildCardUITextField : UITextField<UITextFieldDelegate>
+@interface WildCardUITextView : UITextView<UITextViewDelegate>
 
-+(WildCardUITextField*)create:(id)layer meta:(WildCardMeta*)meta;
++(WildCardUITextView*)create:(id)layer meta:(WildCardMeta*)meta;
 
 @property (nonatomic, retain) WildCardMeta* meta;
 @property (nonatomic, retain) NSString* holder;
 @property (nonatomic, retain) NSString* xbuttonImageName;
 @property BOOL showXButton;
 @property (nonatomic, retain) NSString* doneClickAction;
-
+@property (nonatomic, retain) NSString* placeholderText;
+@property (nonatomic, retain) UILabel* placeholderLabel;
+@property BOOL emtpy;
+@property UIColor* originalTextColor;
 
 @end
 
