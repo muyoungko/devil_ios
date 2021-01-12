@@ -52,12 +52,6 @@
 
 @property (retain, nonatomic) NSString* name;
 
-
-
-
-
-
-
-
+@property (retain, nonatomic) NSMutableDictionary* tags;
 
 @end

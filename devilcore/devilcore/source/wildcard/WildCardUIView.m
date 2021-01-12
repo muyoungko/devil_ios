@@ -44,6 +44,7 @@
         self.wrap_width = NO;
         self.wrap_height = NO;
         self.cornerRadiusHalf = NO;
+        self.tags = [@{} mutableCopy];
     }
     return self;
 }

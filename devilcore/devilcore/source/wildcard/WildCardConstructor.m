@@ -30,6 +30,7 @@
 #import "WildCardMeta.h"
 #import "WildCardFunction.h"
 #import "DevilWebView.h"
+#import "WildCardTimer.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -791,9 +792,16 @@ static BOOL IS_TABLET = NO;
                 [tv setText:text];
             }
             
-            
             //tv.backgroundColor = [UIColor redColor];
-            
+            if(layer[@"timer"]){
+                WildCardTimer* wildCardTimer = [[WildCardTimer alloc] initWith:wcMeta
+                                                                              :tv
+                                                                              :layer
+                                                                              :name
+                                                                              :vv
+                                                ];
+                [wildCardTimer startTimeFrom:tv.text];
+            }
         }
         
         

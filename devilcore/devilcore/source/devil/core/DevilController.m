@@ -159,11 +159,11 @@
             NSString* code = args[0];
             code = [code substringFromIndex:1];
             code = [code substringToIndex:[code length]-1];
-            [self.jevil code:code viewController:self data:self.data meta:nil];
+            [self.jevil code:code viewController:self data:self.data meta:meta];
             return YES;
         } else if([functionName isEqualToString:@"script"]){
             NSString* code = args[0];
-            [self.jevil code:code viewController:self data:self.data meta:nil];
+            [self.jevil code:code viewController:self data:self.data meta:meta];
             return YES;
         } else if([functionName hasPrefix:@"Jevil"]) {
             [JevilAction act:functionName args:args viewController:self meta:meta];

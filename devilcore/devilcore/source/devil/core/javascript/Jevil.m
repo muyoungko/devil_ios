@@ -24,7 +24,6 @@
 
 @implementation Jevil
 
-
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"%@ <%@, %@>", self.name, self.phone, self.address];
@@ -46,13 +45,6 @@
 
 + (BOOL)isLogin{
     return true;
-}
-
-+ (void)go:(NSString*)screenName {
-    NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
-    DevilController* d = [[DevilController alloc] init];
-    d.screenId = screenId;
-    [[JevilCtx sharedInstance].vc.navigationController pushViewController:d animated:YES];
 }
 
 + (void)go:(NSString*)screenName :(NSString*)dataString{
@@ -267,4 +259,11 @@
     
     [JevilCtx sharedInstance].devilSelectDialog = d;
 }
+
++ (void)resetTimer:(NSString *)nodeName{
+    id meta = [JevilCtx sharedInstance].meta;
+    WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
+    [vv.tags[@"timer"] reset];
+}
+
 @end

@@ -21,6 +21,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B225ADDD9100221A4C /* WildCardTimer.h */; };
+		6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B325ADDD9100221A4C /* WildCardTimer.m */; };
 		6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -130,6 +132,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D09C3B225ADDD9100221A4C /* WildCardTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardTimer.h; sourceTree = "<group>"; };
+		6D09C3B325ADDD9100221A4C /* WildCardTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardTimer.m; sourceTree = "<group>"; };
 		6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilExceptionHandler.h; sourceTree = "<group>"; };
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 			children = (
 				6D7E267725A89AD400600978 /* DevilSelectDialog.h */,
 				6D7E267825A89AD400600978 /* DevilSelectDialog.m */,
+				6D09C3B225ADDD9100221A4C /* WildCardTimer.h */,
+				6D09C3B325ADDD9100221A4C /* WildCardTimer.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -488,6 +494,7 @@
 				6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */,
 				6D467A85256AB07A006D57DD /* WildCardMeta.h in Headers */,
 				6D467A9F256AB07A006D57DD /* ReplaceRuleClick.h in Headers */,
+				6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */,
 				6D467A9D256AB07A006D57DD /* ReplaceRuleExtension.h in Headers */,
 				6D467A88256AB07A006D57DD /* MappingSyntaxInterpreter.h in Headers */,
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
@@ -652,6 +659,7 @@
 				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
 				6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */,
+				6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */,
 				6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */,
 				6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */,
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,

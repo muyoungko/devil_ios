@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)update;
 + (void)popup:(NSString*)screenName;
 + (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
-+ (void)go:(NSString*)screenName;
++ (void)resetTimer:(NSString *)nodeName;
 
 @end
 
