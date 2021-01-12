@@ -34,7 +34,7 @@
         NSString* text = [textSpec objectForKey:@"text"];
         if([WildCardConstructor sharedInstance].textTransDelegate != nil )
             text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
-        //tf.placeholder = text;
+        tf.placeholder = text;
         if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
             ;
         else

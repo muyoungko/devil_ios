@@ -29,3 +29,5 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "JevilCtx.h"
 #import "Jevil.h"
 #import "DevilWebView.h"
+#import "DevilSelectDialog.h"
+
