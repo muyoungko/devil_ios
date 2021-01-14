@@ -27,6 +27,7 @@
 		6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B925B07B3B00221A4C /* JevilInstance.m */; };
 		6D09C3C025B08B2A00221A4C /* DevilDebugView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3BE25B08B2A00221A4C /* DevilDebugView.h */; };
 		6D09C3C125B08B2A00221A4C /* DevilDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3BF25B08B2A00221A4C /* DevilDebugView.m */; };
+		6D09C3C625B09CCA00221A4C /* devil_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D09C3C525B09CCA00221A4C /* devil_icon.png */; };
 		6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -142,6 +143,7 @@
 		6D09C3B925B07B3B00221A4C /* JevilInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilInstance.m; sourceTree = "<group>"; };
 		6D09C3BE25B08B2A00221A4C /* DevilDebugView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDebugView.h; sourceTree = "<group>"; };
 		6D09C3BF25B08B2A00221A4C /* DevilDebugView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDebugView.m; sourceTree = "<group>"; };
+		6D09C3C525B09CCA00221A4C /* devil_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devil_icon.png; sourceTree = "<group>"; };
 		6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilExceptionHandler.h; sourceTree = "<group>"; };
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
@@ -262,6 +264,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D09C3C425B09C8800221A4C /* resource */ = {
+			isa = PBXGroup;
+			children = (
+				6D09C3C525B09CCA00221A4C /* devil_icon.png */,
+			);
+			path = resource;
+			sourceTree = "<group>";
+		};
 		6D0EE1672590BF5200C89D38 /* debug */ = {
 			isa = PBXGroup;
 			children = (
@@ -314,6 +324,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6D09C3C425B09C8800221A4C /* resource */,
 				6D467B29257A1470006D57DD /* devil */,
 				6D467A36256AB079006D57DD /* wildcard */,
 				6D4679E3256AA5E9006D57DD /* DevilSdk.h */,
@@ -613,6 +624,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D4679A6256A4980006D57DD /* LICENSE in Resources */,
+				6D09C3C625B09CCA00221A4C /* devil_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
