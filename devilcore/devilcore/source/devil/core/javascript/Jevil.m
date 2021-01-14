@@ -11,37 +11,14 @@
 #import "JevilCtx.h"
 #import "JevilAction.h"
 #import "DevilSelectDialog.h"
+#import "JevilInstance.h"
 
 @interface Jevil()
 
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSString *phone;
-@property (nonatomic) NSString *address;
-
-+ (BOOL)isValidNumber:(NSString *)phone;
 
 @end
 
 @implementation Jevil
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"%@ <%@, %@>", self.name, self.phone, self.address];
-}
-
-+ (instancetype)contactWithName:(NSString *)name phone:(NSString *)phone address:(NSString *)address
-{
-    if ([self isValidNumber:phone]) {
-        Jevil *contact = [Jevil new];
-        contact.name = name;
-        contact.phone = phone;
-        contact.address = address;
-        return contact;
-    } else {
-        NSLog(@"Phone number %@ doesn't match format", phone);
-        return nil;
-    }
-}
 
 + (BOOL)isLogin{
     return true;
@@ -53,14 +30,14 @@
     if(![@"undefined" isEqualToString: dataString])
         d.dataString = dataString;
     d.screenId = screenId;
-    [[JevilCtx sharedInstance].vc.navigationController pushViewController:d animated:YES];
+    [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
 }
 
 + (void)replaceScreen:(NSString*)screenName{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     d.screenId = screenId;
-    UINavigationController* n = [JevilCtx sharedInstance].vc.navigationController;
+    UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
     [n popViewControllerAnimated:NO];
     [n pushViewController:d animated:NO];
 }
@@ -69,11 +46,17 @@
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     d.screenId = screenId;
-    [[JevilCtx sharedInstance].vc.navigationController setViewControllers:@[d]];
+    [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];
 }
 
 + (void)finish{
-    [[JevilCtx sharedInstance].vc.navigationController popViewControllerAnimated:YES];
+    [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+}
+
++ (void)finish:(NSString*)callbackData {
+    id json = [NSJSONSerialization JSONObjectWithData:[callbackData dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
+    [JevilInstance globalInstance].callbackData = json;
+    [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)back{
@@ -115,7 +98,7 @@
                                                     handler:^(UIAlertAction *action) {
                                                         
     }]];
-    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
 + (void)alertFinish:(NSString*)msg{
@@ -126,9 +109,9 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
-       [[JevilCtx sharedInstance].vc.navigationController popViewControllerAnimated:YES];
+       [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
     }]];
-    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
 + (void)confirm:(NSString*)msg :(NSString*)yes :(NSString*)no :(JSValue *)callback {
@@ -148,7 +131,7 @@
                                                     handler:^(UIAlertAction *action) {
                                                     [callback callWithArguments:@[@NO]];    
     }]];
-    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
 + (void)alertFunction:(NSString*)msg :(JSValue *)callback {
@@ -162,7 +145,7 @@
                                                     [callback callWithArguments:@[]];
                                                         
     }]];
-    [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
 + (void)save:(NSString *)key :(NSString *)value{
@@ -222,14 +205,14 @@
 
 + (void)update{
     
-    JSValue* dataJs = [[JevilCtx sharedInstance].currentJscontext evaluateScript:@"data"];
+    JSValue* dataJs = [[JevilInstance currentInstance].jscontext evaluateScript:@"data"];
     id newData = [dataJs toDictionary];
     id allKey = [newData allKeys];
     for(id k in allKey) {
-        [JevilCtx sharedInstance].data[k] = newData[k];
+        [JevilInstance currentInstance].data[k] = newData[k];
     }
     
-    UIViewController*vc = [JevilCtx sharedInstance].vc;
+    UIViewController*vc = [JevilInstance currentInstance].vc;
     if(vc != nil && 
         ([[vc class] isKindOfClass:[DevilController class]] || [[vc class] isEqual:[DevilController class]]))
         {
@@ -238,30 +221,30 @@
 }
 
 + (void)tab:(NSString*)screenName{
-    UIViewController*vc = [JevilCtx sharedInstance].vc;
-    id meta = [JevilCtx sharedInstance].meta;
+    UIViewController*vc = [JevilInstance currentInstance].vc;
+    id meta = [JevilInstance currentInstance].meta;
     [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
 }
 
 + (void)popup:(NSString*)screenName{
-    UIViewController*vc = [JevilCtx sharedInstance].vc;
-    id meta = [JevilCtx sharedInstance].meta;
+    UIViewController*vc = [JevilInstance currentInstance].vc;
+    id meta = [JevilInstance currentInstance].meta;
     [JevilAction act:@"Jevil.popup" args:@[screenName] viewController:vc meta:meta];
 }
 
 + (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback {
-    UIViewController*vc = [JevilCtx sharedInstance].vc;
+    UIViewController*vc = [JevilInstance currentInstance].vc;
     DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:vc];
     id list = [NSJSONSerialization JSONObjectWithData:[arrayString dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
     [d popupSelect:list selectedKey:selectedKey onselect:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
     }];
     
-    [JevilCtx sharedInstance].devilSelectDialog = d;
+    [JevilInstance currentInstance].devilSelectDialog = d;
 }
 
 + (void)resetTimer:(NSString *)nodeName{
-    id meta = [JevilCtx sharedInstance].meta;
+    id meta = [JevilInstance currentInstance].meta;
     WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
     [vv.tags[@"timer"] reset];
 }

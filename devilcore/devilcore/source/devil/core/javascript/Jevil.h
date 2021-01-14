@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)replaceScreen:(NSString*)screenName;
 + (void)rootScreen:(NSString*)screenName;
 + (void)finish;
++ (void)finish:(NSString*)callbackDataString;
 + (void)back;
 + (void)alert:(NSString*)msg;
 + (void)alertFinish:(NSString*)msg;
@@ -42,10 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface Jevil : NSObject <Jevil>
-
-@property (nonatomic, readonly) NSString *name;
-@property (nonatomic, readonly) NSString *phone;
-@property (nonatomic, readonly) NSString *address;
 
 @end
 

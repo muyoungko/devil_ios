@@ -23,6 +23,10 @@
 /* Begin PBXBuildFile section */
 		6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B225ADDD9100221A4C /* WildCardTimer.h */; };
 		6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B325ADDD9100221A4C /* WildCardTimer.m */; };
+		6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B825B07B3B00221A4C /* JevilInstance.h */; };
+		6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B925B07B3B00221A4C /* JevilInstance.m */; };
+		6D09C3C025B08B2A00221A4C /* DevilDebugView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3BE25B08B2A00221A4C /* DevilDebugView.h */; };
+		6D09C3C125B08B2A00221A4C /* DevilDebugView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3BF25B08B2A00221A4C /* DevilDebugView.m */; };
 		6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -134,6 +138,10 @@
 /* Begin PBXFileReference section */
 		6D09C3B225ADDD9100221A4C /* WildCardTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardTimer.h; sourceTree = "<group>"; };
 		6D09C3B325ADDD9100221A4C /* WildCardTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardTimer.m; sourceTree = "<group>"; };
+		6D09C3B825B07B3B00221A4C /* JevilInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilInstance.h; sourceTree = "<group>"; };
+		6D09C3B925B07B3B00221A4C /* JevilInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilInstance.m; sourceTree = "<group>"; };
+		6D09C3BE25B08B2A00221A4C /* DevilDebugView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDebugView.h; sourceTree = "<group>"; };
+		6D09C3BF25B08B2A00221A4C /* DevilDebugView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDebugView.m; sourceTree = "<group>"; };
 		6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilExceptionHandler.h; sourceTree = "<group>"; };
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
@@ -259,6 +267,8 @@
 			children = (
 				6D0EE1682590BF6800C89D38 /* DevilExceptionHandler.h */,
 				6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */,
+				6D09C3BE25B08B2A00221A4C /* DevilDebugView.h */,
+				6D09C3BF25B08B2A00221A4C /* DevilDebugView.m */,
 			);
 			path = debug;
 			sourceTree = "<group>";
@@ -270,6 +280,8 @@
 				6D4433682588065400B0E616 /* JevilCtx.m */,
 				6D44336D25881C3800B0E616 /* Jevil.h */,
 				6D44336E25881C3800B0E616 /* Jevil.m */,
+				6D09C3B825B07B3B00221A4C /* JevilInstance.h */,
+				6D09C3B925B07B3B00221A4C /* JevilInstance.m */,
 			);
 			path = javascript;
 			sourceTree = "<group>";
@@ -484,6 +496,7 @@
 				6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */,
 				6D467A8F256AB07A006D57DD /* ReplaceRuleColor.h in Headers */,
 				6D467AC3256AB07A006D57DD /* WildCardTrigger.h in Headers */,
+				6D09C3C025B08B2A00221A4C /* DevilDebugView.h in Headers */,
 				6D467A84256AB07A006D57DD /* WildCardCollectionViewHelper.h in Headers */,
 				6D467AC4256AB07A006D57DD /* WildCardViewPagerLeftAction.h in Headers */,
 				6D467AAD256AB07A006D57DD /* WildCardNextChain.h in Headers */,
@@ -499,6 +512,7 @@
 				6D467A88256AB07A006D57DD /* MappingSyntaxInterpreter.h in Headers */,
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
+				6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */,
 				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
 				6D467AC0256AB07A006D57DD /* WildCardAction.h in Headers */,
 				6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */,
@@ -634,6 +648,7 @@
 				6D467A8D256AB07A006D57DD /* WildCardIndicatorView.m in Sources */,
 				6D467ABC256AB07A006D57DD /* WildCardTrigger.m in Sources */,
 				6D467AAE256AB07A006D57DD /* MappingSyntaxInterpreter.m in Sources */,
+				6D09C3C125B08B2A00221A4C /* DevilDebugView.m in Sources */,
 				6D467AAB256AB07A006D57DD /* WildCardMeta.m in Sources */,
 				6D467ABB256AB07A006D57DD /* WildCardViewPagerLeftAction.m in Sources */,
 				6D467AC7256AB07A006D57DD /* WildCardFunction.m in Sources */,
@@ -676,6 +691,7 @@
 				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
 				6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
+				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,
 				6D467AC6256AB07A006D57DD /* WildCardExtensionConstructor.m in Sources */,

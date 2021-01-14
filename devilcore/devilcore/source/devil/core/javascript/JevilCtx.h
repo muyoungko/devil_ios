@@ -19,12 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 +(JevilCtx*)sharedInstance;
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)viewController data:(id)data meta:(WildCardMeta*)meta;
 
-@property (nonatomic, retain) JSContext* currentJscontext;
-@property (nonatomic, retain) NSMutableDictionary* data;
-@property (nonatomic, retain) UIViewController* vc;
-@property (nonatomic, retain) WildCardMeta* meta;
-@property (nonatomic, retain) DevilSelectDialog* devilSelectDialog;
-
 @end
 
 NS_ASSUME_NONNULL_END

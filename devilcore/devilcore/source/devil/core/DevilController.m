@@ -8,7 +8,9 @@
 #import "DevilController.h"
 #import "devilcore.h"
 #import "JevilCtx.h"
+#import "JevilInstance.h"
 #import "DevilExceptionHandler.h"
+#import "DevilDebugView.h"
 
 @interface DevilController ()
 
@@ -61,6 +63,9 @@
     }
 
     [self createWildCardScreenListView:self.screenId];
+    
+    [JevilInstance globalInstance].callbackData = nil;
+    [DevilDebugView constructDebugViewIf:self];
 }
 
 -(void)tab:(NSString*)screenId {
@@ -92,6 +97,15 @@
     [self checkHeader];
     
     [WildCardConstructor sharedInstance].loadingDelegate = self;
+    
+    if([JevilInstance globalInstance].callbackData){
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[JevilInstance globalInstance].callbackData
+                                                           options:nil
+                                                             error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        [JevilInstance globalInstance].callbackData = nil;
+        [self.jevil code:[NSString stringWithFormat:@"callback(%@)", jsonString] viewController:self data:self.data meta:nil];
+    }
 }
 
 - (void)startLoading{

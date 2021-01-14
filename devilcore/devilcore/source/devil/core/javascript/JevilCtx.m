@@ -10,6 +10,7 @@
 #import "JevilCtx.h"
 #import "Jevil.h"
 #import "WildCardConstructor.h"
+#import "JevilInstance.h"
 
 @interface JevilCtx ()
 
@@ -47,19 +48,18 @@
                                                             handler:^(UIAlertAction *action) {
                                                                 
             }]];
-            [[JevilCtx sharedInstance].vc presentViewController:alertController animated:YES completion:^{}];
+            [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
         }];
-        
         
     }
     return self;
 }
 
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta{
-    [JevilCtx sharedInstance].vc = vc;
-    [JevilCtx sharedInstance].meta = meta;
-    [JevilCtx sharedInstance].data = data;
-    [JevilCtx sharedInstance].currentJscontext = self.jscontext;
+    [JevilInstance currentInstance].vc = vc;
+    [JevilInstance currentInstance].meta = meta;
+    [JevilInstance currentInstance].data = data;
+    [JevilInstance currentInstance].jscontext = self.jscontext;
     
     id config_list = [WildCardConstructor sharedInstance].project[@"config_list"];
     if(config_list != nil && config_list != [NSNull null]){
