@@ -41,7 +41,10 @@
         [self addSubview:iv];
         self.userInteractionEnabled = iv.userInteractionEnabled = YES;
         
-        iv.backgroundColor = [UIColor redColor];
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        UIImage *devil_icon = [UIImage imageNamed:@"devil_icon.png" inBundle:bundle compatibleWithTraitCollection:nil];
+        [iv setImage:devil_icon];
+        
         UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
         [iv addGestureRecognizer:singleFingerTap];
         
