@@ -70,6 +70,8 @@
         }
     }
     self.jscontext[@"data"] = data;
+    if(meta != nil)
+        self.jscontext[@"thisData"] = meta.correspondData;
     
     JSValue* r = [self.jscontext evaluateScript:code];
     JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
@@ -78,6 +80,11 @@
     for(id k in allKey) {
         data[k] = newData[k]; 
     }
+    
+    if(meta != nil){
+        //TODO thisData의 sync를 맞춰야함
+    }
+        
     return [r toString];
 }
 @end

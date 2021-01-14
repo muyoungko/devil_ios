@@ -21,7 +21,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)go:(NSString*)screenName :(NSString*)dataString;
 + (void)replaceScreen:(NSString*)screenName;
 + (void)rootScreen:(NSString*)screenName;
-+ (void)finish;
 + (void)finish:(NSString*)callbackDataString;
 + (void)back;
 + (void)alert:(NSString*)msg;

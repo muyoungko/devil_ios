@@ -49,18 +49,16 @@
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];
 }
 
-+ (void)finish{
-    [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
-}
-
 + (void)finish:(NSString*)callbackData {
+    if(callbackData){
     id json = [NSJSONSerialization JSONObjectWithData:[callbackData dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
     [JevilInstance globalInstance].callbackData = json;
+    }
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)back{
-    [Jevil finish];
+    [Jevil finish:nil];
 }
 
 + (BOOL)isValidNumber:(NSString *)phone
