@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) JSContext* jscontext;
 @property (nonatomic, retain) NSMutableDictionary* data;
 @property (nonatomic, retain) NSMutableDictionary* callbackData;
+@property (nonatomic, retain) JSValue* callbackFunction;
 @property (nonatomic, retain) UIViewController* vc;
 @property (nonatomic, retain) WildCardMeta* meta;
 @property (nonatomic, retain) DevilSelectDialog* devilSelectDialog;

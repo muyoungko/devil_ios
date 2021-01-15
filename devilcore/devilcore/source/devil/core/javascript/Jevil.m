@@ -51,11 +51,17 @@
 
 + (void)finish:(NSString*)callbackData {
     if(callbackData){
-    id json = [NSJSONSerialization JSONObjectWithData:[callbackData dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
-    [JevilInstance globalInstance].callbackData = json;
+        id json = [NSJSONSerialization JSONObjectWithData:[callbackData dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
+        [JevilInstance globalInstance].callbackData = json;
     }
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
+
++ (void)finishThen:(JSValue *)callback {
+    [JevilInstance globalInstance].callbackFunction = callback;
+    [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+}
+
 
 + (void)back{
     [Jevil finish:nil];
@@ -132,7 +138,7 @@
     [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
-+ (void)alertFunction:(NSString*)msg :(JSValue *)callback {
++ (void)alertThen:(NSString*)msg :(JSValue *)callback {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];

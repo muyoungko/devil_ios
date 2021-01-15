@@ -65,6 +65,7 @@
     [self createWildCardScreenListView:self.screenId];
     
     [JevilInstance globalInstance].callbackData = nil;
+    [JevilInstance globalInstance].callbackFunction = nil;
     [DevilDebugView constructDebugViewIf:self];
 }
 
@@ -105,6 +106,11 @@
         NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         [JevilInstance globalInstance].callbackData = nil;
         [self.jevil code:[NSString stringWithFormat:@"callback(%@)", jsonString] viewController:self data:self.data meta:nil];
+    } else if([JevilInstance globalInstance].callbackFunction){
+        JSValue* c = [JevilInstance globalInstance].callbackFunction;
+        [JevilInstance globalInstance].callbackFunction = nil;
+        NSString* acode = [NSString stringWithFormat:@"var a = %@()", c];
+        [self.jevil code:acode viewController:self data:self.data meta:nil];
     }
 }
 

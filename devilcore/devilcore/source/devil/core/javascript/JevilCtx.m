@@ -14,8 +14,6 @@
 
 @interface JevilCtx ()
 
-@property (nonatomic, retain) JSContext* jscontext;
-
 @end
 
 

@@ -22,10 +22,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)replaceScreen:(NSString*)screenName;
 + (void)rootScreen:(NSString*)screenName;
 + (void)finish:(NSString*)callbackDataString;
++ (void)finishThen:(JSValue *)callback;
 + (void)back;
 + (void)alert:(NSString*)msg;
 + (void)alertFinish:(NSString*)msg;
-+ (void)alertFunction:(NSString*)msg :(JSValue *)callback;
++ (void)alertThen:(NSString*)msg :(JSValue *)callback;
 + (void)confirm:(NSString*)msg :(NSString*)yes :(NSString*)no :(JSValue *)callback;
 + (void)startLoading;
 + (void)stopLoading;
