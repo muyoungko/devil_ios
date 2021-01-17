@@ -45,7 +45,7 @@ static NSString *default_project_id = nil;
 
 + (WildCardConstructor*)sharedInstance:(NSString*)project_id {
     default_project_id = project_id;
-    static NSMutableDictionary* sharedInstanceMap = nil; 
+    static NSMutableDictionary* sharedInstanceMap = nil;
     static dispatch_once_t onceToken2;
     dispatch_once(&onceToken2, ^{
         sharedInstanceMap = [[NSMutableDictionary alloc] init];
@@ -65,12 +65,17 @@ static NSString *default_project_id = nil;
     return self;
 }
 
++(NSData*)getLocalFile:(NSString*)path {
+    NSString * resourcePath = [[NSBundle mainBundle] resourcePath];
+    NSData *data = [[NSFileManager defaultManager] contentsAtPath:[resourcePath stringByAppendingPathComponent:path]];
+    return data;
+}
+
 -(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete
 {
     [WildCardConstructor sharedInstance].onLineMode = NO;
-    NSString *path = [[NSBundle mainBundle] pathForResource:self.project_id ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path options:NSDataReadingUncached error:nil];
-    
+    NSData *data = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/json/%@.json", self.project_id]];
+
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
     _cloudJsonMap = json[@"cloudJsonMap"];
     _screenMap = json[@"screenMap"];
@@ -663,10 +668,12 @@ static BOOL IS_TABLET = NO;
                 iv.clipsToBounds = YES;
                 iv.contentMode = UIViewContentModeScaleToFill;
                 [vv addSubview:iv];
+                
                 NSString* imageName = [layer objectForKey:@"localImageContent"];
                 NSUInteger index = [imageName rangeOfString:@"/" options:NSBackwardsSearch].location;
                 imageName = [imageName substringFromIndex:index+1];
-                [iv setImage: [UIImage imageNamed:imageName]];
+                NSString* imgData = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/images/%@", imageName]];
+                [iv setImage: [UIImage imageWithData:imgData]];
                 [WildCardConstructor followSizeFromFather:vv child:iv];
             }
         } else if ([layer objectForKey:(@"web")] != nil) {
