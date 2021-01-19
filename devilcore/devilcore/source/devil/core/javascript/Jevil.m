@@ -194,6 +194,8 @@
 
     id json = [NSJSONSerialization JSONObjectWithData:[param dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:json success:^(NSMutableDictionary *responseJsonObject) {
+        if(!responseJsonObject)
+            responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject, @YES]];
     }];
 }

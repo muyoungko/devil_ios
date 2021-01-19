@@ -292,7 +292,6 @@
         return CGSizeMake(collectionView.frame.size.width, h);
     } else {
         float w = [self mesureWidth:cloudJson data:_data[position]];
-        w = [WildCardConstructor convertSketchToPixel:w];
         return CGSizeMake(w, collectionView.frame.size.height);
     }
 }

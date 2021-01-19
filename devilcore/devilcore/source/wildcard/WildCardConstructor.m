@@ -1647,7 +1647,7 @@ static BOOL IS_TABLET = NO;
                     break;
                 }
             }
-            if(!atLeastOneSelected)
+            if(!atLeastOneSelected && [targetDataJson count] > 0)
                 targetDataJson[0][WC_SELECTED] = @"Y";
             
             adapter.cloudJsonGetter = ^NSDictionary *(int position) {
