@@ -15,16 +15,14 @@
 
 +(WildCardPagerTabStrip*)construct:(id)layer :(UIView*)vv{
     
-    //[[UICollectionView alloc] initWithFrame:containerRect collectionViewLayout:flowLayout];
-    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, 35, 0, 35);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     
     WildCardPagerTabStrip* strip = [[WildCardPagerTabStrip alloc] initWithFrame:CGRectMake(0, 0,
                                                                                            vv.frame.size.width,
                                                                                            vv.frame.size.height) collectionViewLayout:flowLayout];
-
+    
     id stripLayer = layer[@"strip"];
     NSString* offnodeName = stripLayer[@"offnode"];
     NSString* onnodeName = stripLayer[@"onnode"];
@@ -55,6 +53,9 @@
             strip.selectedTextSize = textSize;
             strip.selectedTextColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
         }
+        
+        CGRect onnodeRect = [WildCardConstructor getFrame:onnode:nil];
+        flowLayout.sectionInset = UIEdgeInsetsMake(0, onnodeRect.origin.x, 0, onnodeRect.origin.x);
     }
 
     if(onnode != nil){
@@ -112,6 +113,10 @@
     id list = [MappingSyntaxInterpreter getJsonWithPath:opt:listJson];
     strip.list = list;
     strip.jsonPath = textJson;
+    if([strip.list count] == 0)
+        [strip superview].hidden = YES;
+    else
+        [strip superview].hidden = NO;
     [strip reloadData];
 }
 

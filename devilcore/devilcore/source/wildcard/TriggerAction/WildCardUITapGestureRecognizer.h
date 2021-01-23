@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) WildCardMeta* meta;
 @property (nonatomic, retain) NSString* nodeName;
 @property (nonatomic, retain) NSDictionary* extensionForCheckBox;
+@property int tag;
 @end
 
 NS_ASSUME_NONNULL_END

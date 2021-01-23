@@ -26,6 +26,8 @@
 #import "WildCardPagerTabStrip.h"
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardCollectionViewAdapter.h"
+#import "WildCardUITapGestureRecognizer.h"
+
 @interface WildCardPagerTabStrip ()
 
 @property UIView * selectedBar;
@@ -254,8 +256,6 @@
         _viewPager = viewPager;
 }
 
-#pragma mark - Properties
-
 - (void)setSelectedBarHeight:(CGFloat)selectedBarHeight
 {
     _selectedBarHeight = selectedBarHeight;
@@ -272,9 +272,6 @@
     return _selectedBar;
 }
 
-
-
-#pragma mark - UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -302,33 +299,14 @@
     self.cachedCellWidths = nil;
     if([list count] > 0){
         int firstWidth = self.cachedCellWidths[0];
+        self.selectedBar.hidden = NO;
         [self updateSelectedBarPositionWithAnimation:NO swipeDirection:XLPagerTabStripDirectionNone pagerScroll:XLPagerScrollNO];
+    } else {
+        self.selectedBar.hidden = YES;
     }
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    //There's nothing to do if we select the current selected tab
-    if (indexPath.item == self.currentIndex)
-        return;
-    
-    [self moveToIndex:indexPath.item animated:YES swipeDirection:XLPagerTabStripDirectionNone pagerScroll:XLPagerScrollYES];
-    
-    WildCardPagerTabStripCell *oldCell = (WildCardPagerTabStripCell*)[self cellForItemAtIndexPath:[NSIndexPath indexPathForItem:self.currentIndex inSection:0]];
-    WildCardPagerTabStripCell *newCell = (WildCardPagerTabStripCell*)[self cellForItemAtIndexPath:[NSIndexPath indexPathForItem:indexPath.item inSection:0]];
-    if (self.isProgressiveIndicator) {
-        if (self.changeCurrentIndexProgressiveBlock) {
-            self.changeCurrentIndexProgressiveBlock(oldCell, newCell, 1, YES, YES);
-        }
-    }
-    else{
-        if (self.changeCurrentIndexBlock) {
-            self.changeCurrentIndexBlock(oldCell, newCell, YES);
-        }
-    }
-    
-    [self moveToViewControllerAtIndex:indexPath.item];
-}
+
 
 #pragma merk - UICollectionViewDataSource
 
@@ -340,10 +318,15 @@
         return 0;
 }
 
--(void)onClickButton:(id)sender{
-    int index = ((UIView*)sender).tag;
-    [self moveToViewControllerAtIndex:index];
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [self moveToViewControllerAtIndex:(int)indexPath.row];
 }
+
+-(void)onClickListener:(WildCardUITapGestureRecognizer *)recognizer
+{
+    [self moveToViewControllerAtIndex:(int)recognizer.tag];
+}
+
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -364,19 +347,11 @@
         buttonBarCell.label.textColor = self.textColor;
     }
     
-    [buttonBarCell.button addTarget:self action:@selector(onClickButton:) forControlEvents:UIControlEventTouchUpInside];
-    buttonBarCell.button.tag = indexPath.row;
-    
-    if (self.isProgressiveIndicator) {
-        if (self.changeCurrentIndexProgressiveBlock) {
-            self.changeCurrentIndexProgressiveBlock(self.currentIndex == indexPath.item ? nil : cell , self.currentIndex == indexPath.item ? cell : nil, 1, YES, NO);
-        }
-    }
-    else{
-        if (self.changeCurrentIndexBlock) {
-            self.changeCurrentIndexBlock(self.currentIndex == indexPath.item ? nil : cell , self.currentIndex == indexPath.item ? cell : nil, NO);
-        }
-    }
+    buttonBarCell.label.userInteractionEnabled = YES;
+    WildCardUITapGestureRecognizer *singleFingerTap =
+    [[WildCardUITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
+    singleFingerTap.tag = (int)indexPath.row;
+    [buttonBarCell.label addGestureRecognizer:singleFingerTap];
     
     return buttonBarCell;
 }
