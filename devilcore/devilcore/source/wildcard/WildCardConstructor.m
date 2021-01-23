@@ -18,6 +18,7 @@
 #import "ReplaceRuleExtension.h"
 #import "ReplaceRuleColor.h"
 #import "ReplaceWeb.h"
+#import "ReplaceRuleStrip.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -31,6 +32,8 @@
 #import "WildCardFunction.h"
 #import "DevilWebView.h"
 #import "WildCardTimer.h"
+#import "WildCardPagerTabStrip.h"
+#import "WildCardPagerTabStripMaker.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -364,6 +367,8 @@ static BOOL IS_TABLET = NO;
         if([layer objectForKey:@"hiddenCondition"] != nil)
         {
             [outRules addObject:ReplaceRuleHidden(vv,layer, [layer objectForKey:@"hiddenCondition"])];
+        } else if([layer objectForKey:@"showCondition"] != nil){
+            [outRules addObject:ReplaceRuleHidden(vv,layer, [layer objectForKey:@"showCondition"])];
         }
         
         //        if([name isEqualToString:@"starsgroup"])
@@ -691,6 +696,13 @@ static BOOL IS_TABLET = NO;
                 cc.userInteractionEnabled = YES;
                 cc = [cc superview];
             }
+        }
+        
+        if(layer[@"strip"]){
+            WildCardPagerTabStrip *strip = [WildCardPagerTabStripMaker construct:layer :vv];
+            [vv addSubview:strip];
+            [WildCardConstructor followSizeFromFather:vv child:strip];
+            [outRules addObject:ReplaceStrip(strip, layer, nil)];
         }
         
         if([@"text" isEqualToString:_class])
@@ -1118,6 +1130,18 @@ static BOOL IS_TABLET = NO;
         [wcMeta addNextChain:prevView next:nextView margin:vNextToMargin horizontal:NO depth:depth];
     }
     
+    NSString* name = layer[@"name"];
+    if(layer[@"strip"]){
+        id stripLayer = layer[@"strip"];
+        WildCardPagerTabStrip* strip = [[wcMeta.generatedViews objectForKey:name] subviews][0];
+        NSString* vpName = stripLayer[@"vp"];
+        UIView* maybeVp = [[wcMeta.generatedViews objectForKey:vpName] subviews][0];
+        if([[maybeVp class] isEqual:[UICollectionView class]]){
+            UICollectionView* vp = (UICollectionView*)maybeVp;
+            strip.viewPager = vp;
+        }
+    }
+    
     NSArray *layers = [layer objectForKey:@"layers"];
     
     NSString* arrayContentTargetNode = nil;
@@ -1374,6 +1398,7 @@ static BOOL IS_TABLET = NO;
                 layersByName[name] = arr[i];
                 if(item[@"hiddenCondition"] != nil)
                     hidden = [MappingSyntaxInterpreter ifexpression:item[@"hiddenCondition"] data:data];
+                
                 if(hidden)
                     rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, 0)];
                 else
@@ -1736,6 +1761,10 @@ static BOOL IS_TABLET = NO;
             [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
         }
     }
+    else if(rule.replaceType == RULE_TYPE_STRIP)
+    {
+        [WildCardPagerTabStripMaker update:rule:opt];
+    }
     else if(rule.replaceType == RULE_TYPE_COLOR)
     {
         NSMutableDictionary* colorMapping = rule.replaceJsonLayer;
@@ -1778,14 +1807,19 @@ static BOOL IS_TABLET = NO;
     }
     else if(rule.replaceType == RULE_TYPE_HIDDEN)
     {
-        if([MappingSyntaxInterpreter ifexpression:rule.replaceJsonKey data:opt defaultValue:YES])
-        {
-            rule.replaceView.hidden = YES;
-            //WildCardConstructor.parentVisible(replaceRule.replaceView, false);
-        }
-        else {
-            rule.replaceView.hidden = NO;
-            //WildCardConstructor.parentVisible(replaceRule.replaceView, true);
+        //WildCardConstructor.parentVisible(replaceRule.replaceView, true);
+        if(rule.replaceJsonLayer[@"hiddenCondition"]){
+            if([MappingSyntaxInterpreter ifexpression:rule.replaceJsonKey data:opt defaultValue:YES]) {
+                rule.replaceView.hidden = YES;
+            } else {
+                rule.replaceView.hidden = NO;
+            }
+        } else {
+            if([MappingSyntaxInterpreter ifexpression:rule.replaceJsonKey data:opt defaultValue:NO]) {
+                rule.replaceView.hidden = NO;
+            } else {
+                rule.replaceView.hidden = YES;
+            }
         }
     }
     else if(rule.replaceType == RULE_TYPE_EXTENSION)

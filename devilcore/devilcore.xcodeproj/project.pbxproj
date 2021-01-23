@@ -132,6 +132,14 @@
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E268025AA935800600978 /* WildCardUITextView.m */; };
+		6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */; };
+		6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */; };
+		6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */; };
+		6D9E2B1425BB41160027D16D /* WildCardPagerTabStripCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B1225BB41160027D16D /* WildCardPagerTabStripCell.m */; };
+		6D9E2B1925BB49540027D16D /* WildCardPagerTabStripMaker.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B1725BB49540027D16D /* WildCardPagerTabStripMaker.h */; };
+		6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B1825BB49540027D16D /* WildCardPagerTabStripMaker.m */; };
+		6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B1D25BB4A920027D16D /* ReplaceRuleStrip.h */; };
+		6D9E2B2025BB4A920027D16D /* ReplaceRuleStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 /* End PBXBuildFile section */
@@ -249,6 +257,14 @@
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
 		6D7E268025AA935800600978 /* WildCardUITextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextView.m; sourceTree = "<group>"; };
+		6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStrip.h; sourceTree = "<group>"; };
+		6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardPagerTabStrip.m; sourceTree = "<group>"; };
+		6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStripCell.h; sourceTree = "<group>"; };
+		6D9E2B1225BB41160027D16D /* WildCardPagerTabStripCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardPagerTabStripCell.m; sourceTree = "<group>"; };
+		6D9E2B1725BB49540027D16D /* WildCardPagerTabStripMaker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStripMaker.h; sourceTree = "<group>"; };
+		6D9E2B1825BB49540027D16D /* WildCardPagerTabStripMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardPagerTabStripMaker.m; sourceTree = "<group>"; };
+		6D9E2B1D25BB4A920027D16D /* ReplaceRuleStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleStrip.h; sourceTree = "<group>"; };
+		6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleStrip.m; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -409,6 +425,8 @@
 				6D467A59256AB07A006D57DD /* ReplaceRuleText.m */,
 				6DBFED3B259A27EB00813987 /* ReplaceWeb.h */,
 				6DBFED3C259A27EB00813987 /* ReplaceWeb.m */,
+				6D9E2B1D25BB4A920027D16D /* ReplaceRuleStrip.h */,
+				6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -492,6 +510,12 @@
 				6D7E267825A89AD400600978 /* DevilSelectDialog.m */,
 				6D09C3B225ADDD9100221A4C /* WildCardTimer.h */,
 				6D09C3B325ADDD9100221A4C /* WildCardTimer.m */,
+				6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */,
+				6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */,
+				6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */,
+				6D9E2B1225BB41160027D16D /* WildCardPagerTabStripCell.m */,
+				6D9E2B1725BB49540027D16D /* WildCardPagerTabStripMaker.h */,
+				6D9E2B1825BB49540027D16D /* WildCardPagerTabStripMaker.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -522,12 +546,14 @@
 				6D467A9D256AB07A006D57DD /* ReplaceRuleExtension.h in Headers */,
 				6D467A88256AB07A006D57DD /* MappingSyntaxInterpreter.h in Headers */,
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
+				6D9E2B1925BB49540027D16D /* WildCardPagerTabStripMaker.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
 				6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */,
 				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
 				6D467AC0256AB07A006D57DD /* WildCardAction.h in Headers */,
 				6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */,
 				6D467A87256AB07A006D57DD /* WildCardLayoutPathUnit.h in Headers */,
+				6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */,
 				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
@@ -538,6 +564,7 @@
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
 				6D467ABA256AB07A006D57DD /* WildCardUITapGestureRecognizer.h in Headers */,
+				6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */,
 				6D467A91256AB07A006D57DD /* ReplaceRule.h in Headers */,
 				6D467B78257A2FFC006D57DD /* DevilWebViewController.h in Headers */,
 				6D467B7E257A3010006D57DD /* DevilWebView.h in Headers */,
@@ -550,6 +577,7 @@
 				6D4433692588065400B0E616 /* JevilCtx.h in Headers */,
 				6D467AB1256AB07A006D57DD /* WildCardCollectionViewAdapter.h in Headers */,
 				6D4679E8256AA5EA006D57DD /* devilcore.h in Headers */,
+				6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */,
 				6D467B86257CD9F3006D57DD /* WildCardUIButton.h in Headers */,
 				6D44336F25881C3800B0E616 /* Jevil.h in Headers */,
 				6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */,
@@ -675,6 +703,7 @@
 				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,
 				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
+				6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */,
 				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,
 				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,
 				6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */,
@@ -682,6 +711,7 @@
 				6D467AB4256AB07A006D57DD /* WildCardCollectionViewAdapter.m in Sources */,
 				6D467B7F257A3010006D57DD /* DevilWebView.m in Sources */,
 				6D467A9B256AB07A006D57DD /* ReplaceRule.m in Sources */,
+				6D9E2B2025BB4A920027D16D /* ReplaceRuleStrip.m in Sources */,
 				6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */,
 				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
@@ -701,12 +731,14 @@
 				6D467B63257A268C006D57DD /* DevilHeader.m in Sources */,
 				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
 				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
+				6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */,
 				6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
 				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,
 				6D467AC6256AB07A006D57DD /* WildCardExtensionConstructor.m in Sources */,
+				6D9E2B1425BB41160027D16D /* WildCardPagerTabStripCell.m in Sources */,
 				6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */,
 				6D467AB6256AB07A006D57DD /* WildCardViewPagerRightAction.m in Sources */,
 				6D44337025881C3800B0E616 /* Jevil.m in Sources */,
