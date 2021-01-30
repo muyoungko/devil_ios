@@ -149,6 +149,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[NSUserDefaults standardUserDefaults] setObject:@"iphone" forKey:@"MODEL"];
     [[NSUserDefaults standardUserDefaults] setObject:@"iOS" forKey:@"OS"];
     [[NSUserDefaults standardUserDefaults] setObject:[[UIDevice currentDevice] systemVersion] forKey:@"OS_VERSION"];
+    [[NSUserDefaults standardUserDefaults] setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"APP_VERSION"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [KOSession sharedSession].clientSecret = @"d0c7657dc3cd93575cc590b87c0dc624";

@@ -11,6 +11,7 @@
 #import "Jevil.h"
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
+#import "JevilUtil.h"
 
 @interface JevilCtx ()
 
@@ -68,22 +69,19 @@
         }
     }
     self.jscontext[@"data"] = data;
-    if(meta != nil)
-        self.jscontext[@"thisData"] = meta.correspondData;
+    if(meta != nil){
+        NSString *d = [JevilUtil find:data :meta.correspondData];
+        d = [NSString stringWithFormat:@"thisData = data%@\n", d];
+        code = [d stringByAppendingString:code];
+    }
     
     JSValue* r = [self.jscontext evaluateScript:code];
     JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
     id newData = [dataJs toDictionary];
-    id allKey = [newData allKeys];
-    for(id k in allKey) {
-        data[k] = newData[k]; 
-    }
-    
-    if(meta != nil){
-        //TODO thisData의 sync를 맞춰야함
-        //meta.correspondData
-    }
+    [JevilUtil sync:newData :data];
         
     return [r toString];
 }
+
+
 @end

@@ -132,6 +132,8 @@
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E268025AA935800600978 /* WildCardUITextView.m */; };
+		6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9824AE25C5A91E0000BB12 /* JevilUtil.h */; };
+		6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9824AF25C5A91E0000BB12 /* JevilUtil.m */; };
 		6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */; };
 		6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -257,6 +259,8 @@
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
 		6D7E268025AA935800600978 /* WildCardUITextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextView.m; sourceTree = "<group>"; };
+		6D9824AE25C5A91E0000BB12 /* JevilUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilUtil.h; sourceTree = "<group>"; };
+		6D9824AF25C5A91E0000BB12 /* JevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilUtil.m; sourceTree = "<group>"; };
 		6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStrip.h; sourceTree = "<group>"; };
 		6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardPagerTabStrip.m; sourceTree = "<group>"; };
 		6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStripCell.h; sourceTree = "<group>"; };
@@ -308,6 +312,8 @@
 				6D44336E25881C3800B0E616 /* Jevil.m */,
 				6D09C3B825B07B3B00221A4C /* JevilInstance.h */,
 				6D09C3B925B07B3B00221A4C /* JevilInstance.m */,
+				6D9824AE25C5A91E0000BB12 /* JevilUtil.h */,
+				6D9824AF25C5A91E0000BB12 /* JevilUtil.m */,
 			);
 			path = javascript;
 			sourceTree = "<group>";
@@ -552,6 +558,7 @@
 				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
+				6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */,
 				6D467AB8256AB07A006D57DD /* WildCardCustomAction.h in Headers */,
 				6D467ACA256AB07A006D57DD /* WildCardScreenTableView.h in Headers */,
 				6D467A94256AB07A006D57DD /* ReplaceRuleLocalImage.h in Headers */,
@@ -721,6 +728,7 @@
 				6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */,
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,
 				6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */,
+				6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */,
 				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
 				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,
 				6D44336A2588065400B0E616 /* JevilCtx.m in Sources */,
