@@ -145,6 +145,12 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         [self preparePushToken:application];
     }
     
+    [[NSUserDefaults standardUserDefaults] setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:@"UDID"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"iphone" forKey:@"MODEL"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"iOS" forKey:@"OS"];
+    [[NSUserDefaults standardUserDefaults] setObject:[[UIDevice currentDevice] systemVersion] forKey:@"OS_VERSION"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     [KOSession sharedSession].clientSecret = @"d0c7657dc3cd93575cc590b87c0dc624";
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     

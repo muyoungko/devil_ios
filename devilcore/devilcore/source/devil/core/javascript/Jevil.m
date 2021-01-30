@@ -12,6 +12,7 @@
 #import "JevilAction.h"
 #import "DevilSelectDialog.h"
 #import "JevilInstance.h"
+#import "WildCardCollectionViewAdapter.h"
 
 @interface Jevil()
 
@@ -253,6 +254,14 @@
     id meta = [JevilInstance currentInstance].meta;
     WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
     [vv.tags[@"timer"] reset];
+}
+
++ (int)getViewPagerSelectedIndex:(NSString *)nodeName{
+    id meta = [JevilInstance currentInstance].meta;
+    WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
+    UICollectionView* cv = (UICollectionView*)[vv subviews][0];
+    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
+    return adapter.selectedIndex;
 }
 
 @end

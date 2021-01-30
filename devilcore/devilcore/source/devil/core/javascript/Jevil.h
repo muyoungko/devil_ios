@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)popup:(NSString*)screenName;
 + (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
++ (int)getViewPagerSelectedIndex:(NSString *)nodeName;
 
 @end
 

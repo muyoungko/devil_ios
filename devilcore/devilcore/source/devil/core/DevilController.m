@@ -200,6 +200,7 @@
 
 -(void)updateMeta {
     [self.tv reloadData];
+    [WildCardConstructor applyRule:self.footer withData:self.data];
 }
 
 -(void)popup:(NSString*)screenId{

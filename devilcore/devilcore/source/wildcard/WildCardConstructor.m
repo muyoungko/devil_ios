@@ -1397,7 +1397,9 @@ static BOOL IS_TABLET = NO;
 
                 layersByName[name] = arr[i];
                 if(item[@"hiddenCondition"] != nil)
-                    hidden = [MappingSyntaxInterpreter ifexpression:item[@"hiddenCondition"] data:data];
+                    hidden = [MappingSyntaxInterpreter ifexpression:item[@"hiddenCondition"] data:data defaultValue:YES];
+                else if(item[@"showCondition"] != nil)
+                    hidden = ![MappingSyntaxInterpreter ifexpression:item[@"showCondition"] data:data defaultValue:NO];
                 
                 if(hidden)
                     rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, 0)];

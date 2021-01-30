@@ -81,6 +81,7 @@
     
     if(meta != nil){
         //TODO thisData의 sync를 맞춰야함
+        //meta.correspondData
     }
         
     return [r toString];
