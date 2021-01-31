@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "WildCardMeta.h"
 #import "DevilSelectDialog.h"
+#import "DevilBlockDialog.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -25,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) JSValue* callbackFunction;
 @property (nonatomic, retain) UIViewController* vc;
 @property (nonatomic, retain) WildCardMeta* meta;
+@property (nonatomic, retain) DevilBlockDialog* devilBlockDialog;
 @property (nonatomic, retain) DevilSelectDialog* devilSelectDialog;
 
 @end

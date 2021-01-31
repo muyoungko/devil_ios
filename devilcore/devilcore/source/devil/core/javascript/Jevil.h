@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)get:(NSString *)url then:(JSValue *)callback;
 + (void)post:(NSString *)url :(NSString*)param then:(JSValue *)callback;
 + (void)update;
-+ (void)popup:(NSString*)screenName;
++ (void)popup:(NSString*)blockName :(NSString*)title :(NSString*)yes :(NSString*)no :(JSValue *)callback;
 + (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;

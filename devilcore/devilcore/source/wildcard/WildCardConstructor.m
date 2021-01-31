@@ -114,6 +114,16 @@ static NSString *default_project_id = nil;
     return _cloudJsonMap;
 }
 
+-(NSString*_Nullable) getBlockIdByName:(NSString*_Nonnull)blockName{
+    id keys = [_blockMap allKeys];
+    for(id k in keys) {
+        if([_blockMap[k][@"name"] isEqualToString:blockName]){
+            return k;
+        }
+    }
+    return nil;
+}
+
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey
 {
     if(_cloudJsonMap[blockKey] != nil)

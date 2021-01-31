@@ -86,6 +86,7 @@
 
 -(NSString*)getFirstScreenId;
 -(NSString*)getScreenIdByName:(NSString*)screenName;
+-(NSString*)getBlockIdByName:(NSString*)blockName;
 -(void)firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey withName:(NSString*)nodeName;
 -(NSMutableArray*)getScreenIfList:(NSString*)screen;

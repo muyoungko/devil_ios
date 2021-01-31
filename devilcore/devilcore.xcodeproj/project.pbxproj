@@ -32,6 +32,8 @@
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */; };
+		6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */; };
+		6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */; };
 		6D4433692588065400B0E616 /* JevilCtx.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4433672588065400B0E616 /* JevilCtx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D44336A2588065400B0E616 /* JevilCtx.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4433682588065400B0E616 /* JevilCtx.m */; };
 		6D44336F25881C3800B0E616 /* Jevil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D44336D25881C3800B0E616 /* Jevil.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -158,6 +160,8 @@
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
 		6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardScriptAction.m; sourceTree = "<group>"; };
+		6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBlockDialog.h; sourceTree = "<group>"; };
+		6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBlockDialog.m; sourceTree = "<group>"; };
 		6D4433672588065400B0E616 /* JevilCtx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilCtx.h; sourceTree = "<group>"; };
 		6D4433682588065400B0E616 /* JevilCtx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilCtx.m; sourceTree = "<group>"; };
 		6D44336D25881C3800B0E616 /* Jevil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Jevil.h; sourceTree = "<group>"; };
@@ -512,6 +516,8 @@
 		6D7E267625A89ABA00600978 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */,
+				6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */,
 				6D7E267725A89AD400600978 /* DevilSelectDialog.h */,
 				6D7E267825A89AD400600978 /* DevilSelectDialog.m */,
 				6D09C3B225ADDD9100221A4C /* WildCardTimer.h */,
@@ -558,6 +564,7 @@
 				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
+				6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */,
 				6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */,
 				6D467AB8256AB07A006D57DD /* WildCardCustomAction.h in Headers */,
 				6D467ACA256AB07A006D57DD /* WildCardScreenTableView.h in Headers */,
@@ -706,6 +713,7 @@
 				6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */,
 				6D467AAF256AB07A006D57DD /* WildCardLayoutPathUnit.m in Sources */,
 				6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */,
+				6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */,
 				6D467AA0256AB07A006D57DD /* ReplaceRuleLocalImage.m in Sources */,
 				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,
 				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,

@@ -11,6 +11,7 @@
 #import "JevilCtx.h"
 #import "JevilAction.h"
 #import "DevilSelectDialog.h"
+#import "DevilBlockDialog.h"
 #import "JevilInstance.h"
 #import "WildCardCollectionViewAdapter.h"
 
@@ -233,10 +234,14 @@
     [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
 }
 
-+ (void)popup:(NSString*)screenName{
++ (void)popup:(NSString*)blockName :(NSString*)title :(NSString*)yes :(NSString*)no :(JSValue *)callback{
     UIViewController*vc = [JevilInstance currentInstance].vc;
     id meta = [JevilInstance currentInstance].meta;
-    [JevilAction act:@"Jevil.popup" args:@[screenName] viewController:vc meta:meta];
+    DevilBlockDialog* d = [[DevilBlockDialog alloc] initWithViewController:vc];
+    [d popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no onselect:^(id _Nonnull res) {
+        [callback callWithArguments:@[res]];
+    }];
+    [JevilInstance currentInstance].devilBlockDialog = d;
 }
 
 + (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback {
