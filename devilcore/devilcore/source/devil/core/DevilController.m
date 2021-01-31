@@ -11,6 +11,7 @@
 #import "JevilInstance.h"
 #import "DevilExceptionHandler.h"
 #import "DevilDebugView.h"
+#import "Lottie/Lottie.h"
 
 @interface DevilController ()
 

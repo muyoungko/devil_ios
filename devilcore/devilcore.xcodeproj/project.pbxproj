@@ -885,6 +885,7 @@
 		6D467937256A16DB006D57DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = (
 					armv7,
 					armv7s,
@@ -910,6 +911,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.devilcore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -917,6 +919,7 @@
 		6D467938256A16DB006D57DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = (
 					armv7,
 					armv7s,
@@ -941,6 +944,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.devilcore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
