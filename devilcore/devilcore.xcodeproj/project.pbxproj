@@ -32,7 +32,7 @@
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */; };
-		6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */; };
+		6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */; };
 		6D3EBBE425C84EC30006ADD5 /* LOTRenderNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBB5825C84EC30006ADD5 /* LOTRenderNode.m */; };
 		6D3EBBE525C84EC30006ADD5 /* LOTAnimatorNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBB5925C84EC30006ADD5 /* LOTAnimatorNode.h */; };
@@ -156,7 +156,7 @@
 		6D3EBC5B25C84EC30006ADD5 /* LOTInterpolatorCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBDA25C84EC30006ADD5 /* LOTInterpolatorCallback.h */; };
 		6D3EBC5C25C84EC30006ADD5 /* LOTAnimatedSwitch.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBDB25C84EC30006ADD5 /* LOTAnimatedSwitch.h */; };
 		6D3EBC5D25C84EC30006ADD5 /* LOTAnimationCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBDC25C84EC30006ADD5 /* LOTAnimationCache.h */; };
-		6D3EBC5E25C84EC30006ADD5 /* Lottie.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBDD25C84EC30006ADD5 /* Lottie.h */; };
+		6D3EBC5E25C84EC30006ADD5 /* Lottie.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBDD25C84EC30006ADD5 /* Lottie.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D3EBC5F25C84EC30006ADD5 /* LOTComposition.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBDE25C84EC30006ADD5 /* LOTComposition.h */; };
 		6D3EBC6025C84EC30006ADD5 /* LOTAnimationTransitionController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBDF25C84EC30006ADD5 /* LOTAnimationTransitionController.h */; };
 		6D3EBC6125C84EC30006ADD5 /* LOTAnimationView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBE025C84EC30006ADD5 /* LOTAnimationView.h */; };
@@ -1038,6 +1038,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D3EBC5E25C84EC30006ADD5 /* Lottie.h in Headers */,
 				6D3EBC3825C84EC30006ADD5 /* LOTHelpers.h in Headers */,
 				6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */,
 				6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */,
@@ -1047,6 +1048,7 @@
 				6D467AC3256AB07A006D57DD /* WildCardTrigger.h in Headers */,
 				6D3EBC5A25C84EC30006ADD5 /* LOTKeypath.h in Headers */,
 				6D467A84256AB07A006D57DD /* WildCardCollectionViewHelper.h in Headers */,
+				6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */,
 				6D467AC4256AB07A006D57DD /* WildCardViewPagerLeftAction.h in Headers */,
 				6D3EBC1125C84EC30006ADD5 /* NSValue+Compat.h in Headers */,
 				6D3EBC6125C84EC30006ADD5 /* LOTAnimationView.h in Headers */,
@@ -1068,7 +1070,6 @@
 				6D3EBC6425C84EC30006ADD5 /* LOTBlockCallback.h in Headers */,
 				6D3EBC2825C84EC30006ADD5 /* LOTModels.h in Headers */,
 				6D3EBC6225C84EC30006ADD5 /* LOTAnimationView_Compat.h in Headers */,
-				6D3EBC5E25C84EC30006ADD5 /* Lottie.h in Headers */,
 				6D3EBBFF25C84EC30006ADD5 /* LOTPolystarAnimator.h in Headers */,
 				6D467A88256AB07A006D57DD /* MappingSyntaxInterpreter.h in Headers */,
 				6D3EBC2325C84EC30006ADD5 /* LOTShapeStroke.h in Headers */,
@@ -1090,7 +1091,6 @@
 				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
-				6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */,
 				6D3EBC5D25C84EC30006ADD5 /* LOTAnimationCache.h in Headers */,
 				6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */,
 				6D3EBBFD25C84EC30006ADD5 /* LOTRoundedRectAnimator.h in Headers */,
