@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(JevilInstance*)screenInstance;
 +(JevilInstance*)currentInstance;
 
+-(void)syncData;
+
 @property (nonatomic, retain) JSContext* jscontext;
 @property (nonatomic, retain) NSMutableDictionary* data;
 @property (nonatomic, retain) NSMutableDictionary* callbackData;

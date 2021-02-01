@@ -128,14 +128,16 @@
     [alertController addAction:[UIAlertAction actionWithTitle:yes
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction *action) {
-                                                    [callback callWithArguments:@[@YES]];
+        [callback callWithArguments:@[@YES]];
+        [[JevilInstance currentInstance] syncData];
                                                         
     }]];
     
     [alertController addAction:[UIAlertAction actionWithTitle:no
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
-                                                    [callback callWithArguments:@[@NO]];    
+        [callback callWithArguments:@[@NO]];
+        [[JevilInstance currentInstance] syncData];
     }]];
     [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
@@ -148,7 +150,8 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
-                                                    [callback callWithArguments:@[]];
+        [callback callWithArguments:@[]];
+        [[JevilInstance currentInstance] syncData];
                                                         
     }]];
     [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
@@ -180,6 +183,7 @@
 
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         [callback callWithArguments:@[responseJsonObject, @YES]];
+        [[JevilInstance currentInstance] syncData];
     }];
 }
 
@@ -199,6 +203,7 @@
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject, @YES]];
+        [[JevilInstance currentInstance] syncData];
     }];
 }
 
@@ -213,12 +218,7 @@
 
 + (void)update{
     
-    JSValue* dataJs = [[JevilInstance currentInstance].jscontext evaluateScript:@"data"];
-    id newData = [dataJs toDictionary];
-    id allKey = [newData allKeys];
-    for(id k in allKey) {
-        [JevilInstance currentInstance].data[k] = newData[k];
-    }
+    [[JevilInstance currentInstance] syncData];
     
     UIViewController*vc = [JevilInstance currentInstance].vc;
     if(vc != nil && 
@@ -240,6 +240,7 @@
     DevilBlockDialog* d = [[DevilBlockDialog alloc] initWithViewController:vc];
     [d popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no onselect:^(id _Nonnull res) {
         [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
     }];
     [JevilInstance currentInstance].devilBlockDialog = d;
 }
@@ -250,6 +251,7 @@
     id list = [NSJSONSerialization JSONObjectWithData:[arrayString dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
     [d popupSelect:list selectedKey:selectedKey onselect:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
     }];
     
     [JevilInstance currentInstance].devilSelectDialog = d;
