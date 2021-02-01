@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
   s.platform         = :ios
-  s.version          = '0.0.28'
+  s.version          = '0.0.29'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Core
@@ -14,8 +14,9 @@ Pod::Spec.new do |s|
   s.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*'
   
   s.subspec 'DevilCore' do |devilCore|
-    devilCore.dependency 'lottie-ios', '~> 2.5.3'
-    devilCore.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*' , 'devilcore/devilcore/source/devil/core/*.*' , 'devilcore/devilcore/source/devil/core/javascript/*.*', 'devilcore/devilcore/source/devil/core/debug/*.*', 'devilcore/devilcore/source/devil/core/view/*.*'
+    #devilCore.dependency 'lottie-ios', '~> 2.5.3'
+    devilCore.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*' , 'devilcore/devilcore/source/devil/core/*.*' , 'devilcore/devilcore/source/devil/core/javascript/*.*', 'devilcore/devilcore/source/devil/core/debug/*.*', 'devilcore/devilcore/source/devil/core/view/*.*',
+        'lottie-ios/Classes/**/*.{h,m}'
     devilCore.resources = 'devilcore/devilcore/source/resource/*'
   end
 

@@ -26,5 +26,5 @@ target 'devil' do
   pod 'lottie-ios', '~> 2.5.3'
   
   pod 'Google-Mobile-Ads-SDK'
-
 end
+
