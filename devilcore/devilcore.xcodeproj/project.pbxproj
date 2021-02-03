@@ -163,6 +163,8 @@
 		6D3EBC6225C84EC30006ADD5 /* LOTAnimationView_Compat.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBE125C84EC30006ADD5 /* LOTAnimationView_Compat.h */; };
 		6D3EBC6325C84EC30006ADD5 /* LOTValueCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBE225C84EC30006ADD5 /* LOTValueCallback.h */; };
 		6D3EBC6425C84EC30006ADD5 /* LOTBlockCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBBE325C84EC30006ADD5 /* LOTBlockCallback.h */; };
+		6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */; };
+		6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBCBF25CAACAC0006ADD5 /* DevilDebugController.m */; };
 		6D4433692588065400B0E616 /* JevilCtx.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4433672588065400B0E616 /* JevilCtx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D44336A2588065400B0E616 /* JevilCtx.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4433682588065400B0E616 /* JevilCtx.m */; };
 		6D44336F25881C3800B0E616 /* Jevil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D44336D25881C3800B0E616 /* Jevil.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -420,6 +422,8 @@
 		6D3EBBE125C84EC30006ADD5 /* LOTAnimationView_Compat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOTAnimationView_Compat.h; sourceTree = "<group>"; };
 		6D3EBBE225C84EC30006ADD5 /* LOTValueCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOTValueCallback.h; sourceTree = "<group>"; };
 		6D3EBBE325C84EC30006ADD5 /* LOTBlockCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LOTBlockCallback.h; sourceTree = "<group>"; };
+		6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDebugController.h; sourceTree = "<group>"; };
+		6D3EBCBF25CAACAC0006ADD5 /* DevilDebugController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDebugController.m; sourceTree = "<group>"; };
 		6D4433672588065400B0E616 /* JevilCtx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilCtx.h; sourceTree = "<group>"; };
 		6D4433682588065400B0E616 /* JevilCtx.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilCtx.m; sourceTree = "<group>"; };
 		6D44336D25881C3800B0E616 /* Jevil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Jevil.h; sourceTree = "<group>"; };
@@ -1008,6 +1012,8 @@
 				6D467B7D257A3010006D57DD /* DevilWebView.m */,
 				6D467B8A257CF2F7006D57DD /* JevilAction.h */,
 				6D467B8B257CF2F7006D57DD /* JevilAction.m */,
+				6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */,
+				6D3EBCBF25CAACAC0006ADD5 /* DevilDebugController.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1076,6 +1082,7 @@
 				6D3EBC2E25C84EC30006ADD5 /* LOTShapeStar.h in Headers */,
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
 				6D3EBC2625C84EC30006ADD5 /* LOTShapeTransform.h in Headers */,
+				6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
 				6D3EBBF025C84EC30006ADD5 /* LOTArrayInterpolator.h in Headers */,
 				6D3EBC0725C84EC30006ADD5 /* LOTStrokeRenderer.h in Headers */,
@@ -1319,6 +1326,7 @@
 				6D3EBC4D25C84EC30006ADD5 /* LOTKeyframe.m in Sources */,
 				6D3EBC3225C84EC30006ADD5 /* LOTShapeGroup.m in Sources */,
 				6D3EBC2725C84EC30006ADD5 /* LOTAsset.m in Sources */,
+				6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */,
 				6D3EBC3025C84EC30006ADD5 /* LOTShapeCircle.m in Sources */,
 				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,
 				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,
