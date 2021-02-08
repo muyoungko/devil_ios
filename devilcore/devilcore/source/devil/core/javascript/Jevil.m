@@ -237,9 +237,8 @@
 + (void)popup:(NSString*)blockName :(NSString*)title :(NSString*)yes :(NSString*)no :(JSValue *)callback{
     UIViewController*vc = [JevilInstance currentInstance].vc;
     id meta = [JevilInstance currentInstance].meta;
-    DevilBlockDialog* d = [[DevilBlockDialog alloc] initWithViewController:vc];
-    [d popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no onselect:^(id _Nonnull res) {
-        [callback callWithArguments:@[res]];
+    DevilBlockDialog* d = [DevilBlockDialog popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no onselect:^(BOOL yes) {
+        [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
         [[JevilInstance currentInstance] syncData];
     }];
     [JevilInstance currentInstance].devilBlockDialog = d;
