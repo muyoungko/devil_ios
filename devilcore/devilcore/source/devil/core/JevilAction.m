@@ -71,7 +71,7 @@
         screenName = [screenName stringByReplacingOccurrencesOfString:@"'" withString:@""];
         nvc.screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
         if([args count] > 1)
-            nvc.dataString = [MappingSyntaxInterpreter getJsonWithPath:args[1] :meta.correspondData];
+            nvc.data = meta.correspondData;
         
         if(!nvc.screenId)
             [NSException raise:@"Invalid ScreenName" format:@"Screen name '%@' is invalid", screenName];

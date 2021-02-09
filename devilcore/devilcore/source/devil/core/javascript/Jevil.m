@@ -26,27 +26,31 @@
     return true;
 }
 
-+ (void)go:(NSString*)screenName :(NSString*)dataString{
++ (void)go:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
-    if(![@"undefined" isEqualToString: dataString])
-        d.dataString = dataString;
+    if(!param)
+        d.startData = param;
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
 }
 
-+ (void)replaceScreen:(NSString*)screenName{
++ (void)replaceScreen:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
+    if(!param)
+        d.startData = param;
     d.screenId = screenId;
     UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
     [n popViewControllerAnimated:NO];
     [n pushViewController:d animated:NO];
 }
 
-+ (void)rootScreen:(NSString*)screenName{
++ (void)rootScreen:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
+    if(!param)
+        d.startData = param;
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];
 }
@@ -187,7 +191,7 @@
     }];
 }
 
-+ (void)post:(NSString *)url :(NSString*)param then:(JSValue *)callback {
++ (void)post:(NSString *)url :(id)param then:(JSValue *)callback {
 
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
@@ -198,8 +202,7 @@
         header[h[@"header"]] = h[@"content"];
     }
 
-    id json = [NSJSONSerialization JSONObjectWithData:[param dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
-    [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:json success:^(NSMutableDictionary *responseJsonObject) {
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject, @YES]];
@@ -234,7 +237,11 @@
     [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
 }
 
-+ (void)popup:(NSString*)blockName :(NSString*)title :(NSString*)yes :(NSString*)no :(JSValue *)callback{
++ (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback{
+    NSString* title = param[@"title"];
+    NSString* yes = param[@"yes"];
+    NSString* no = param[@"no"];
+    
     UIViewController*vc = [JevilInstance currentInstance].vc;
     id meta = [JevilInstance currentInstance].meta;
     DevilBlockDialog* d = [DevilBlockDialog popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no onselect:^(BOOL yes) {
@@ -244,10 +251,10 @@
     [JevilInstance currentInstance].devilBlockDialog = d;
 }
 
-+ (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback {
++ (void)popupSelect:(NSArray*)array :(NSString*)selectedKey :(JSValue *)callback {
     UIViewController*vc = [JevilInstance currentInstance].vc;
     DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:vc];
-    id list = [NSJSONSerialization JSONObjectWithData:[arrayString dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
+    id list = [array mutableCopy];
     [d popupSelect:list selectedKey:selectedKey onselect:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
         [[JevilInstance currentInstance] syncData];

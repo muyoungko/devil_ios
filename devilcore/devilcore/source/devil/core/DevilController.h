@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)tab:(NSString*)screenId;
 
 @property (nonatomic, retain) NSString* screenId;
-@property (nonatomic, retain) NSString* dataString;
+@property (nonatomic, retain) id startData;
 
 @property(nonatomic, retain) NSMutableDictionary* data;
 @property int viewHeight;

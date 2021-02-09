@@ -32,8 +32,8 @@
     _viewMain.userInteractionEnabled = YES;
     [self.view addSubview:_viewMain];
     
-    if(self.dataString) {
-        self.data = [NSJSONSerialization JSONObjectWithData:[self.dataString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    if(self.startData) {
+        self.data = self.startData;
     } else
         self.data = [@{} mutableCopy];
     self.offsetY = self.navigationController.navigationBar.frame.size.height 
@@ -73,8 +73,8 @@
 -(void)tab:(NSString*)screenId {
     [self.tv removeFromSuperview];
     
-    if(self.dataString) {
-        self.data = [NSJSONSerialization JSONObjectWithData:[self.dataString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+    if(self.startData) {
+        self.data = self.startData;
     } else
         self.data = [@{} mutableCopy];
     self.screenId = screenId;

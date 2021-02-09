@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
                         address:(NSString *)address;
 
 + (BOOL)isLogin;
-+ (void)go:(NSString*)screenName :(NSString*)dataString;
-+ (void)replaceScreen:(NSString*)screenName;
-+ (void)rootScreen:(NSString*)screenName;
++ (void)go:(NSString*)screenName :(id)param;
++ (void)replaceScreen:(NSString*)screenName :(id)param;
++ (void)rootScreen:(NSString*)screenName :(id)param;
 + (void)finish:(NSString*)callbackDataString;
 + (void)finishThen:(JSValue *)callback;
 + (void)back;
@@ -34,10 +34,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)remove:(NSString *)key;
 + (NSString*)get:(NSString *)key;
 + (void)get:(NSString *)url then:(JSValue *)callback;
-+ (void)post:(NSString *)url :(NSString*)param then:(JSValue *)callback;
++ (void)post:(NSString *)url :(id)param then:(JSValue *)callback;
 + (void)update;
-+ (void)popup:(NSString*)blockName :(NSString*)title :(NSString*)yes :(NSString*)no :(JSValue *)callback;
-+ (void)popupSelect:(NSString *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
++ (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback;
++ (void)popupSelect:(NSArray *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
 
