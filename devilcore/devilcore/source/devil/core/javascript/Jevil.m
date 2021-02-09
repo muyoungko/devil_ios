@@ -29,7 +29,7 @@
 + (void)go:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
-    if(!param)
+    if(param != nil)
         d.startData = param;
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
@@ -38,7 +38,7 @@
 + (void)replaceScreen:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
-    if(!param)
+    if(param != nil)
         d.startData = param;
     d.screenId = screenId;
     UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
@@ -49,7 +49,7 @@
 + (void)rootScreen:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
-    if(!param)
+    if(param != nil)
         d.startData = param;
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];

@@ -58,6 +58,7 @@
 -(void)onClickListener:(UITapGestureRecognizer *)recognizer{
     [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
         DevilController* d = [[DevilController alloc] init];
+        d.startData = ((DevilController*)self.vc.navigationController.topViewController).startData;
         d.screenId = ((DevilController*)self.vc.navigationController.topViewController).screenId;
         
         [self.vc.navigationController popViewControllerAnimated:YES];
