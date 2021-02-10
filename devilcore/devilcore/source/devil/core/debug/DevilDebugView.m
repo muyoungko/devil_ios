@@ -8,6 +8,7 @@
 #import "DevilDebugView.h"
 #import "WildCardConstructor.h"
 #import "DevilController.h"
+#import "DevilDebugController.h"
 
 @interface DevilDebugView()
 @property (nonatomic, retain) DevilController* vc;
@@ -67,7 +68,40 @@
 }
 
 -(void)onLongClickListener:(UITapGestureRecognizer *)recognizer{
-    //TODO log
+    if(![[self.vc.navigationController.topViewController class] isEqual:
+       [DevilDebugController class]]){
+        DevilDebugController*vc = [[DevilDebugController alloc] init];
+        [self.vc.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+
++(DevilDebugView*)sharedInstance{
+    static DevilDebugView *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[DevilDebugView alloc] init];
+        sharedInstance.logList = [@[] mutableCopy];
+    });
+    return sharedInstance;
+}
+
+- (void)log:(NSString*)type title:(NSString*)title log:(id)log {
+    id item = [@{
+        @"type":type,
+        @"title":title,
+    } mutableCopy];
+    if(log)
+        item[@"log"] = log;
+    [self.logList addObject:item];
+    
+    if([self.logList count] > 100){
+        [self.logList removeObjectAtIndex:0];
+    }
+}
+
+- (void)clearLog{
+    [self.logList removeAllObjects];
 }
 
 @end

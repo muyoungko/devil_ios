@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
   s.platform         = :ios
-  s.version          = '0.0.36'
+  s.version          = '0.0.37'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Core

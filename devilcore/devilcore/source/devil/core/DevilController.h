@@ -8,6 +8,7 @@
 #import <UIKit/UIKit.h>
 #import "DevilBaseController.h"
 #import "WildCardConstructor.h"
+@import JavaScriptCore;
 
 NS_ASSUME_NONNULL_BEGIN
 

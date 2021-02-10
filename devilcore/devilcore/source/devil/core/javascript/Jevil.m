@@ -14,6 +14,7 @@
 #import "DevilBlockDialog.h"
 #import "JevilInstance.h"
 #import "WildCardCollectionViewAdapter.h"
+#import "DevilDebugView.h"
 
 @interface Jevil()
 
@@ -33,6 +34,7 @@
         d.startData = param;
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
 }
 
 + (void)replaceScreen:(NSString*)screenName :(id)param{
@@ -44,6 +46,7 @@
     UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
     [n popViewControllerAnimated:NO];
     [n pushViewController:d animated:NO];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
 }
 
 + (void)rootScreen:(NSString*)screenName :(id)param{
@@ -53,6 +56,7 @@
         d.startData = param;
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
 }
 
 + (void)finish:(id)callbackData {
@@ -66,7 +70,6 @@
     [JevilInstance globalInstance].callbackFunction = callback;
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
-
 
 + (void)back{
     [Jevil finish:nil];
@@ -174,7 +177,7 @@
 }
 
 + (void)get:(NSString *)url then:(JSValue *)callback {
-
+    NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
 
@@ -183,8 +186,9 @@
     for(id h in header_list){
         header[h[@"header"]] = h[@"content"];
     }
-
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         [callback callWithArguments:@[responseJsonObject, @YES]];
         [[JevilInstance currentInstance] syncData];
     }];
@@ -192,6 +196,7 @@
 
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback {
 
+    NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
 
@@ -201,7 +206,10 @@
         header[h[@"header"]] = h[@"content"];
     }
 
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject, @YES]];

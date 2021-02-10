@@ -155,13 +155,17 @@
     
     NSIndexPath *selectedCellIndexPath = [NSIndexPath indexPathForItem:self.selectedOptionIndex inSection:0];
     UICollectionViewLayoutAttributes *attributes = [self layoutAttributesForItemAtIndexPath:selectedCellIndexPath];
-    CGRect selectedCellFrame = attributes.frame;
-    
-    [self updateContentOffsetAnimated:animation pagerScroll:pagerScroll toFrame:selectedCellFrame toIndex:selectedCellIndexPath.row];
-    
-    selectedBarFrame.size.width = selectedCellFrame.size.width;
-    selectedBarFrame.origin.x = selectedCellFrame.origin.x;
-    
+    if(attributes){
+        CGRect selectedCellFrame = attributes.frame;
+        
+        [self updateContentOffsetAnimated:animation pagerScroll:pagerScroll toFrame:selectedCellFrame toIndex:selectedCellIndexPath.row];
+        
+        selectedBarFrame.size.width = selectedCellFrame.size.width;
+        selectedBarFrame.origin.x = selectedCellFrame.origin.x;
+    } else {
+        UIEdgeInsets sectionInset = ((UICollectionViewFlowLayout *)self.collectionViewLayout).sectionInset;
+        selectedBarFrame = CGRectMake(sectionInset.left, selectedBarFrame.origin.y, [_cachedCellWidths[0] intValue], selectedBarFrame.size.height);
+    }
     if (animation){
         [UIView animateWithDuration:0.3 animations:^{
             self.selectedBar.frame = selectedBarFrame;
@@ -298,7 +302,7 @@
     
     self.cachedCellWidths = nil;
     if([list count] > 0){
-        int firstWidth = self.cachedCellWidths[0];
+        int firstWidth = [self.cachedCellWidths[0] intValue];
         self.selectedBar.hidden = NO;
         [self updateSelectedBarPositionWithAnimation:NO swipeDirection:XLPagerTabStripDirectionNone pagerScroll:XLPagerScrollNO];
     } else {

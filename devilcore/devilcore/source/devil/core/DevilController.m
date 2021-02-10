@@ -7,17 +7,18 @@
 
 #import "DevilController.h"
 #import "devilcore.h"
-#import "JevilCtx.h"
 #import "JevilInstance.h"
 #import "DevilExceptionHandler.h"
 #import "DevilDebugView.h"
 #import "Lottie.h"
+#import "JevilCtx.h"
 
 @interface DevilController ()
 
 @property (nonatomic, retain) DevilHeader* header;
 @property (nonatomic, retain) WildCardUIView* footer;
 @property (nonatomic, retain) JevilCtx* jevil;
+@property BOOL hasOnResume;
 
 @end
 
@@ -43,8 +44,11 @@
     
     
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    self.hasOnResume =false;
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
+        if([code rangeOfString:@"function onResume"].length > 0)
+            self.hasOnResume = true;
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 
@@ -112,6 +116,10 @@
         [JevilInstance globalInstance].callbackFunction = nil;
         NSString* acode = [NSString stringWithFormat:@"var a = %@()", c];
         [self.jevil code:acode viewController:self data:self.data meta:nil];
+    }
+    
+    if(self.hasOnResume){
+        [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
     }
 }
 
