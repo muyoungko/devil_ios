@@ -55,10 +55,9 @@
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];
 }
 
-+ (void)finish:(NSString*)callbackData {
++ (void)finish:(id)callbackData {
     if(callbackData){
-        id json = [NSJSONSerialization JSONObjectWithData:[callbackData dataUsingEncoding:NSUTF8StringEncoding] options:nil error:nil];
-        [JevilInstance globalInstance].callbackData = json;
+        [JevilInstance globalInstance].callbackData = callbackData;
     }
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
