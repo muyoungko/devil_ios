@@ -11,16 +11,17 @@
 +(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest {
     id srcKs = [src allKeys];
     for(id srcK in srcKs){
-        if([[src class] isKindOfClass: [NSDictionary class]] || [[src class] isSubclassOfClass:[NSArray class]]){
+        id srcValue = src[srcK];
+        if([[srcValue class] isKindOfClass: [NSDictionary class]] || [[srcValue class] isSubclassOfClass:[NSDictionary class]]){
             if(dest[srcK] == nil)
                 dest[srcK] = [@{} mutableCopy];
-            [JevilUtil sync:src[srcK] :dest[srcK]];
-        } else if([[src class] isKindOfClass:[NSArray class]] || [[src class] isSubclassOfClass:[NSArray class]]){
+            [JevilUtil sync:srcValue :dest[srcK]];
+        } else if([[srcValue class] isKindOfClass:[NSArray class]] || [[srcValue class] isSubclassOfClass:[NSArray class]]){
             if(dest[srcK] == nil)
                 dest[srcK] = [@[] mutableCopy];
-            [JevilUtil syncList:src[srcK] :dest[srcK]];
+            [JevilUtil syncList:srcValue :dest[srcK]];
         } else {
-            dest[srcK] = src[srcK];
+            dest[srcK] = srcValue;
         }
     }
 }

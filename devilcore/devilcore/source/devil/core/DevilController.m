@@ -49,6 +49,7 @@
         NSString* code = screen[@"javascript_on_create"];
         if([code rangeOfString:@"function onResume"].length > 0)
             self.hasOnResume = true;
+        [WildCardConstructor sharedInstance].loadingDelegate = self;
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 

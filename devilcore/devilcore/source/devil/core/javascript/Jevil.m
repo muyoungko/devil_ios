@@ -5,6 +5,7 @@
 //  Created by Mu Young Ko on 2020/12/15.
 //
 
+
 #import "Jevil.h"
 #import "WildCardConstructor.h"
 #import "DevilController.h"
@@ -15,6 +16,7 @@
 #import "JevilInstance.h"
 #import "WildCardCollectionViewAdapter.h"
 #import "DevilDebugView.h"
+#import "WifiManager.h"
 
 @interface Jevil()
 
@@ -282,6 +284,15 @@
     UICollectionView* cv = (UICollectionView*)[vv subviews][0];
     WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
     return adapter.selectedIndex;
+}
+
+
++ (void)wifiList:(JSValue *)callback {
+    WifiManager* wm = [[WifiManager alloc] init];
+    [wm getWifList:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
+    }];
 }
 
 @end

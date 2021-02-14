@@ -117,5 +117,10 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Please, allow access location information</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Please, allow access location information</string>
+    
 </dict>
 </plist>

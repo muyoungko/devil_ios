@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)popupSelect:(NSArray *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
-
++ (void)wifiList:(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>
