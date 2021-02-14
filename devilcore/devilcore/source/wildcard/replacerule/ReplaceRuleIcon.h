@@ -4,8 +4,8 @@
 //
 //  Created by Mu Young Ko on 2021/02/14.
 //
-
-#import <devilcore/devilcore.h>
+#import <UIKit/UIKit.h>
+#import "ReplaceRule.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
