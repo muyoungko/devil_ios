@@ -83,8 +83,11 @@
         self.data = [@{} mutableCopy];
     self.screenId = screenId;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    self.hasOnResume = false;
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
+        if([code rangeOfString:@"function onResume"].length > 0)
+            self.hasOnResume = true;
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 

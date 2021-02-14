@@ -19,6 +19,7 @@
 #import "ReplaceRuleColor.h"
 #import "ReplaceWeb.h"
 #import "ReplaceRuleStrip.h"
+#import "ReplaceRuleIcon.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -706,6 +707,9 @@ static BOOL IS_TABLET = NO;
                 cc.userInteractionEnabled = YES;
                 cc = [cc superview];
             }
+        } else if ([layer objectForKey:(@"icon")] != nil) {
+            NSString* replaceKey = layer[@"icon"];
+            [outRules addObject:[[ReplaceRuleIcon alloc] initWith:vv:layer:replaceKey]];
         }
         
         if(layer[@"strip"]){
@@ -1772,6 +1776,10 @@ static BOOL IS_TABLET = NO;
         if(url != nil){
             [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
         }
+    }
+    else if(rule.replaceType == RULE_TYPE_ICON)
+    {
+        [ReplaceRuleIcon update:rule :opt];
     }
     else if(rule.replaceType == RULE_TYPE_STRIP)
     {
