@@ -7,6 +7,9 @@
 
 #import <UIKit/UIKit.h>
 #import "WildCardScreenTableView.h"
+#import "DevilSelectDialog.h"
+#import "DevilBlockDialog.h"
+#import "WifiManager.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +19,10 @@ NS_ASSUME_NONNULL_BEGIN
     CGPoint editingPoint;
     UIView* editingView;
 }
+
+@property (nonatomic, retain) DevilBlockDialog* devilBlockDialog;
+@property (nonatomic, retain) DevilSelectDialog* devilSelectDialog;
+@property (nonatomic, retain) WifiManager* wifiManager;
 
 - (void)showIndicator;
 - (void)hideIndicator;

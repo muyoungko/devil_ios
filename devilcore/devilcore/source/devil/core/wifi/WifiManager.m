@@ -25,37 +25,50 @@
         self.locationManager.delegate = self;
     }
     
-    [self.locationManager requestWhenInUseAuthorization];
+    if(CLLocationManager.authorizationStatus == kCLAuthorizationStatusDenied ||
+       CLLocationManager.authorizationStatus == kCLAuthorizationStatusNotDetermined){
+        [self.locationManager requestWhenInUseAuthorization];
+    } else {
+        [self getWifiListCore];
+    }
+}
+
+- (void) getWifiListCore {
+    if(self.callback){
+        NSString *currentWifiSSID = nil;
+        NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
+        for (NSString *ifnam in ifs) {
+            NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
+            if (info[@"SSID"]) {
+                currentWifiSSID = info[@"SSID"];
+            }
+        }
+        
+        // Get the dictionary containing the captive network infomation
+        id r = [@{} mutableCopy];
+        r[@"list"] = [@[] mutableCopy];
+        
+        if(currentWifiSSID){
+            [r[@"list"] addObject:[@{
+                @"ssid":currentWifiSSID
+            } mutableCopy]];
+        }
+        
+        self.callback(r);
+        self.callback = nil;
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if(self.callback){
         
         if (status == kCLAuthorizationStatusDenied) {
-            self.callback(nil);
+            self.callback([NSNull null]);
+            self.callback = nil;
         }
         else if (status == kCLAuthorizationStatusAuthorized) {
-            NSString *wifiName = nil;
-            NSArray *ifs = (__bridge_transfer id)CNCopySupportedInterfaces();
-            for (NSString *ifnam in ifs) {
-                NSDictionary *info = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)ifnam);
-                if (info[@"SSID"]) {
-                    wifiName = info[@"SSID"];
-                }
-            }
-            
-            // Get the dictionary containing the captive network infomation
-            CFDictionaryRef captiveNtwrkDict = CNCopyCurrentNetworkInfo(kCNNetworkInfoKeySSID);
-
-            // Get the count of the key value pairs to test if it has worked
-            int count = CFDictionaryGetCount(captiveNtwrkDict);
-            
-            CFArrayRef myArray = CNCopySupportedInterfaces();
-            CFDictionaryRef myDict = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(myArray, 0));
-            self.callback(nil);
+            [self getWifiListCore];
         }
-        
-        self.callback = nil;
     }
     
 }

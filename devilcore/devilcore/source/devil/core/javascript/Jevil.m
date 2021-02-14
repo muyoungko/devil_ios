@@ -257,7 +257,14 @@
         [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
         [[JevilInstance currentInstance] syncData];
     }];
-    [JevilInstance currentInstance].devilBlockDialog = d;
+    
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;
+    
+    d.didFinishDismissingBlock = ^{
+        if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+            ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = nil;
+    };
 }
 
 + (void)popupSelect:(NSArray*)array :(NSString*)selectedKey :(JSValue *)callback {
@@ -269,7 +276,8 @@
         [[JevilInstance currentInstance] syncData];
     }];
     
-    [JevilInstance currentInstance].devilSelectDialog = d;
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        ((DevilController*)[JevilInstance currentInstance].vc).devilSelectDialog = d;
 }
 
 + (void)resetTimer:(NSString *)nodeName{
@@ -288,11 +296,15 @@
 
 
 + (void)wifiList:(JSValue *)callback {
+    
     WifiManager* wm = [[WifiManager alloc] init];
     [wm getWifList:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
         [[JevilInstance currentInstance] syncData];
     }];
+    
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        ((DevilController*)[JevilInstance currentInstance].vc).wifiManager = wm;
 }
 
 @end

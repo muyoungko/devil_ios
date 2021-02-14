@@ -171,7 +171,7 @@
 		6D3EBD4A25D4001A0006ADD5 /* DevilJsonViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBD4825D4001A0006ADD5 /* DevilJsonViewer.m */; };
 		6D3EBE7B25D9123F0006ADD5 /* ReplaceRuleIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBE7925D9123E0006ADD5 /* ReplaceRuleIcon.h */; };
 		6D3EBE7C25D9123F0006ADD5 /* ReplaceRuleIcon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBE7A25D9123E0006ADD5 /* ReplaceRuleIcon.m */; };
-		6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBE8125D92DB00006ADD5 /* WifiManager.h */; };
+		6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBE8125D92DB00006ADD5 /* WifiManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D3EBE8425D92DB00006ADD5 /* WifiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBE8225D92DB00006ADD5 /* WifiManager.m */; };
 		6D4433692588065400B0E616 /* JevilCtx.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D4433672588065400B0E616 /* JevilCtx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D44336A2588065400B0E616 /* JevilCtx.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4433682588065400B0E616 /* JevilCtx.m */; };
@@ -1076,6 +1076,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */,
 				6D3EBC5E25C84EC30006ADD5 /* Lottie.h in Headers */,
 				6D3EBC3825C84EC30006ADD5 /* LOTHelpers.h in Headers */,
 				6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */,
@@ -1119,7 +1120,6 @@
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
 				6D3EBBF025C84EC30006ADD5 /* LOTArrayInterpolator.h in Headers */,
 				6D3EBC0725C84EC30006ADD5 /* LOTStrokeRenderer.h in Headers */,
-				6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */,
 				6D3EBC3E25C84EC30006ADD5 /* CGGeometry+LOTAdditions.h in Headers */,
 				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
 				6D3EBC4725C84EC30006ADD5 /* LOTAnimationView_Internal.h in Headers */,

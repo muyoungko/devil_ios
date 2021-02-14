@@ -8,6 +8,7 @@
 #import "DevilBaseController.h"
 #import "Lottie.h"
 
+
 @interface DevilBaseController ()
 
 @property int originalY;
@@ -82,7 +83,7 @@
     editingPoint = [tf convertPoint:tf.frame.origin toView:self.view];
     if(editingView != tf)
     {
-        if(editingPoint.y > screenHeight/4)
+        if(self.devilBlockDialog == nil && editingPoint.y > screenHeight/4)
         {
             [UIView animateWithDuration:0.3f animations:^{
                 int toUp = screenHeight/4 - editingPoint.y;
@@ -107,7 +108,9 @@
 
 - (void)keyboardWillShow:(NSNotification*)noti
 {
-    if(editingPoint.y > screenHeight/4)
+    //
+    if(self.devilBlockDialog == nil &&
+       editingPoint.y > screenHeight/4)
     {
         int toUp = screenHeight/4 - editingPoint.y;
         self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);

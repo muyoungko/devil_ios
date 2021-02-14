@@ -10,6 +10,9 @@
 #import "Devil.h"
 #import "Lang.h"
 
+@interface MainController()
+
+@end
 @implementation MainController
 
 - (void)viewDidLoad {
@@ -20,6 +23,10 @@
     [self constructRightBackButton:@"refresh.png"];
     
     [self update];
+}
+
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager{
+    NSLog(@"locationManagerDidChangeAuthorization");
 }
 
 - (void)viewWillAppear:(BOOL)animated{
