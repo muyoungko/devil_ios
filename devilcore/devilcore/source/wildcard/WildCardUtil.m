@@ -181,8 +181,8 @@
     float y = [frame[@"y"] floatValue];
     float h = [frame[@"h"] floatValue];
 
-    if(y + h > height) {
-        h -= (y + h) - height;
+    if(offsety + y + h > height) {
+        h -= (offsety + y + h) - height;
         frame[@"h"] = [NSNumber numberWithFloat:h];
     }
 

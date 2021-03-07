@@ -53,26 +53,33 @@
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 
-    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
-        id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]; 
-        self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
-    } else
-        [self hideNavigationBar];
-        
-    if([[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId]){
-        id footerCloudJson = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId]; 
-        self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
-        [WildCardConstructor applyRule:self.footer withData:self.data];
-        
-        self.footer.frame = CGRectMake(0, screenHeight - self.footer.frame.size.height -30, self.footer.frame.size.width, self.footer.frame.size.height);
-        [self.view addSubview:self.footer];
-    }
-
+    [self constructHeaderAndFooter];
     [self createWildCardScreenListView:self.screenId];
     
     [JevilInstance globalInstance].callbackData = nil;
     [JevilInstance globalInstance].callbackFunction = nil;
     [DevilDebugView constructDebugViewIf:self];
+}
+
+-(void)constructHeaderAndFooter{
+    int header_sketch_height = 0;
+    int footer_sketch_height = 0;
+    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
+        id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
+        self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
+        header_sketch_height = 80;
+    } else
+        [self hideNavigationBar];
+        
+    if([[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId]){
+        id footerCloudJson = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
+        self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
+        [WildCardConstructor applyRule:self.footer withData:self.data];
+        footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 30;
+        self.footer.frame = CGRectMake(0, screenHeight - self.footer.frame.size.height -30, self.footer.frame.size.width, self.footer.frame.size.height);
+        [self.view addSubview:self.footer];
+    }
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:header_sketch_height + footer_sketch_height];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -174,11 +181,6 @@
 }
 
 - (void)createWildCardScreenListView:(NSString*)screenId{
-    int sketch_height_more = 0;
-    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
-        sketch_height_more = 80;
-    }
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:screenId sketch_height_more:sketch_height_more];
     self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;
