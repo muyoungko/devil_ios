@@ -309,9 +309,8 @@
     
     NSMutableDictionary* item = [_data objectAtIndex:position];
     NSString* type = _typeGetter(position);
-    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
-    
+     
     UIView* childUIView = cell;
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 14.0) {
         childUIView = cell;
@@ -323,7 +322,13 @@
         NSDictionary *cloudJson = _cloudJsonGetter(position);
         WildCardUIView* v = [WildCardConstructor constructLayer:childUIView withLayer:cloudJson withParentMeta:_meta depth:_depth instanceDelegate:_meta.wildCardConstructorInstanceDelegate];
         v.userInteractionEnabled = YES;
-        v.frame = CGRectMake(0, v.frame.origin.y, v.frame.size.width, v.frame.size.height);
+        
+        if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:self.repeatType])
+            v.frame = CGRectMake(v.frame.origin.x, 0, v.frame.size.width, v.frame.size.height);
+        else if([REPEAT_TYPE_GRID isEqualToString:self.repeatType] || [REPEAT_TYPE_VIEWPAGER isEqualToString:self.repeatType])
+                v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height);
+        else
+            v.frame = CGRectMake(0, v.frame.origin.y, v.frame.size.width, v.frame.size.height);
     }
     
     WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];

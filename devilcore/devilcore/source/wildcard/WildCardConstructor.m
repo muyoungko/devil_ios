@@ -1532,6 +1532,8 @@ static BOOL IS_TABLET = NO;
         NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
         NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
         NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
+        NSString* targetNodeSurfixIf = [arrayContent objectForKey:@"targetNodeSurfixIf"];
+        NSString* targetNodePrefixIf = [arrayContent objectForKey:@"targetNodePrefixIf"];
         
         NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
         NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
@@ -1718,9 +1720,9 @@ static BOOL IS_TABLET = NO;
             adapter.cloudJsonGetter = ^NSDictionary *(int position) {
                 if(targetNodeSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data: targetDataJson[position]])
                     return targetLayerSelected;
-                else if(targetLayerPrefix != nil && position == 0)
+                else if(targetLayerPrefix != nil && [MappingSyntaxInterpreter ifexpression:targetNodePrefixIf data: targetDataJson[position]])
                     return targetLayerPrefix;
-                else if(targetLayerSurfix != nil && position == [targetDataJson count]-1)
+                else if(targetLayerSurfix != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSurfixIf data: targetDataJson[position]])
                     return targetLayerSurfix;
                 return targetLayer;
             };
@@ -1728,9 +1730,9 @@ static BOOL IS_TABLET = NO;
             adapter.typeGetter = ^NSString *(int position) {
                 if(targetNodeSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data: targetDataJson[position]])
                     return @"3";
-                else if(targetLayerPrefix != nil && position == 0)
+                else if(targetLayerPrefix != nil && [MappingSyntaxInterpreter ifexpression:targetNodePrefixIf data: targetDataJson[position]])
                     return @"0";
-                else if(targetLayerSurfix != nil && position == [targetDataJson count]-1)
+                else if(targetLayerSurfix != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSurfixIf data: targetDataJson[position]])
                     return @"1";
                 return @"2";
             };
