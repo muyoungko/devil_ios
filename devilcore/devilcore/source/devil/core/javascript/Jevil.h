@@ -35,12 +35,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)get:(NSString *)key;
 + (void)get:(NSString *)url then:(JSValue *)callback;
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback;
++ (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback;
 + (void)update;
++ (void)updateThis;
 + (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback;
 + (void)popupSelect:(NSArray *)arrayString :(NSString*)selectedKey :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
 + (void)wifiList:(JSValue *)callback;
++ (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

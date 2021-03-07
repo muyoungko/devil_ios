@@ -75,6 +75,11 @@
     [DevilDebugView constructDebugViewIf:self];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if(self.wifiManager)
+        [self.wifiManager dismiss];
+}
 -(void)tab:(NSString*)screenId {
     [self.tv removeFromSuperview];
     

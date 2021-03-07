@@ -219,6 +219,24 @@
     }];
 }
 
++ (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback {
+
+    NSString* originalUrl = url;
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        
+        if(!responseJsonObject)
+            responseJsonObject = [@{} mutableCopy];
+        [callback callWithArguments:@[responseJsonObject, @YES]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+}
+
+
 + (void)startLoading{
     if([WildCardConstructor sharedInstance].loadingDelegate)
         [[WildCardConstructor sharedInstance].loadingDelegate startLoading];
@@ -238,6 +256,11 @@
         {
         [((DevilController*)vc) updateMeta];
     }
+}
+
++ (void)updateThis{
+    [[JevilInstance currentInstance] syncData];
+    [[JevilInstance currentInstance].meta update];
 }
 
 + (void)tab:(NSString*)screenName{
@@ -300,6 +323,20 @@
     WifiManager* wm = [[WifiManager alloc] init];
     [wm getWifList:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+    
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        ((DevilController*)[JevilInstance currentInstance].vc).wifiManager = wm;
+}
+
++ (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback{
+    WifiManager* wm = [[WifiManager alloc] init];
+    [wm connect:ssid :^(id  _Nonnull res) {
+        if([res[@"r"] boolValue])
+            [callback callWithArguments:@[@TRUE]];
+        else
+            [callback callWithArguments:@[@FALSE]];
         [[JevilInstance currentInstance] syncData];
     }];
     

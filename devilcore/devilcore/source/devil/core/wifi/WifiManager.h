@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WifiManager : NSObject<CLLocationManagerDelegate>
 
+-(void)connect:(NSString*)ssid :(void (^)(id res)) callback;
 -(void)getWifList:(void (^)(id res)) callback;
+-(void)dismiss;
 
 @end
 
