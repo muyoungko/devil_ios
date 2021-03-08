@@ -2,8 +2,7 @@
 //  devillogin.h
 //  devillogin
 //
-//  Created by Mu Young Ko on 2020/11/22.
-//  Copyright © 2020 Mu Young Ko. All rights reserved.
+//  Created by Mu Young Ko on 2021/03/07.
 //
 
 #import <Foundation/Foundation.h>

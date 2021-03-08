@@ -19,9 +19,9 @@ Pod::Spec.new do |s|
     devilCore.resources = 'devilcore/devilcore/source/resource/*'
   end
 
-  #s.subspec 'DevilLogin' do |devilLogin|
-  #  devilLogin.dependency 'devil/DevilCore'
-  #  devilLogin.source_files = 'devilcore/devillogin/*.*'
-  #end
+  s.subspec 'DevilLogin' do |devilLogin|
+    devilLogin.dependency 'devil/DevilCore'
+    devilLogin.source_files = 'devillogin/devillogin/source/*.*'
+  end
 
 end
