@@ -91,6 +91,7 @@
     if(self.wifiManager)
         [self.wifiManager dismiss];
 }
+
 -(void)tab:(NSString*)screenId {
     [self.tv removeFromSuperview];
     
@@ -98,6 +99,11 @@
         self.data = self.startData;
     } else
         self.data = [@{} mutableCopy];
+    
+    NSString* common_javascript =[WildCardConstructor sharedInstance].project[@"common_javascript"];
+    if(common_javascript)
+        [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
+    
     self.screenId = screenId;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
     self.hasOnResume = false;
