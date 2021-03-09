@@ -44,7 +44,7 @@
     
     
     NSString* common_javascript =[WildCardConstructor sharedInstance].project[@"common_javascript"];
-    if(common_javascript)
+    if(common_javascript != nil && common_javascript != [NSNull null])
         [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
     
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
@@ -101,7 +101,7 @@
         self.data = [@{} mutableCopy];
     
     NSString* common_javascript =[WildCardConstructor sharedInstance].project[@"common_javascript"];
-    if(common_javascript)
+    if(common_javascript != nil && common_javascript != [NSNull null])
         [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
     
     self.screenId = screenId;

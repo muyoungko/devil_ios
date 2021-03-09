@@ -43,4 +43,7 @@
     [JevilUtil sync:newData :self.data];
 }
 
+-(void)pushData{
+    self.jscontext[@"data"] = self.data;
+}
 @end

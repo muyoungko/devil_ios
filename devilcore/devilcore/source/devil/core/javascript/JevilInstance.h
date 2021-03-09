@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(JevilInstance*)currentInstance;
 
 -(void)syncData;
+-(void)pushData;
 
 @property (nonatomic, retain) JSContext* jscontext;
 @property (nonatomic, retain) NSMutableDictionary* data;
