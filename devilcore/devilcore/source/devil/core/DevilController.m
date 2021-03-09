@@ -43,8 +43,12 @@
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     
     
+    NSString* common_javascript =[WildCardConstructor sharedInstance].project[@"common_javascript"];
+    if(common_javascript)
+        [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
+    
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
-    self.hasOnResume =false;
+    self.hasOnResume = false;
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
         if([code rangeOfString:@"function onResume"].length > 0)
