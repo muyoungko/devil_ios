@@ -273,11 +273,11 @@
     NSString* title = param[@"title"];
     NSString* yes = param[@"yes"];
     NSString* no = param[@"no"];
-    
+    NSString* show = param[@"show"];
     [[JevilInstance currentInstance] syncData];
-    UIViewController*vc = [JevilInstance currentInstance].vc;
-    id meta = [JevilInstance currentInstance].meta;
-    DevilBlockDialog* d = [DevilBlockDialog popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no onselect:^(BOOL yes) {
+    DevilBlockDialog* d = [DevilBlockDialog popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no
+                                             show:show
+                                         onselect:^(BOOL yes) {
         [[JevilInstance currentInstance] pushData];
         [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
         [[JevilInstance currentInstance] syncData];

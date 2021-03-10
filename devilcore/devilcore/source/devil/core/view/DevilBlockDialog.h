@@ -282,7 +282,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) BOOL isShowing;
 @property (nonatomic, assign, readonly) BOOL isBeingDismissed;
 
-+ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)title yes:(NSString*)yes no:(NSString*)no onselect:(void (^)(BOOL yes))callback;
++ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)title yes:(NSString*)yes no:(NSString*)no show:(NSString*)show onselect:(void (^)(BOOL yes))callback;
 
 @end
 

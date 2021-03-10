@@ -130,7 +130,8 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 }
 
 #pragma mark - Public Class Methods
-+ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no onselect:(void (^)(BOOL yes))callback{
++ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no
+                       show:(NSString*)show onselect:(void (^)(BOOL yes))callback{
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
     WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj];
@@ -142,7 +143,9 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     int titleHeight = 60;
     if(titleText == nil)
         titleHeight = 0;
-    int buttonHeight = 60;
+    int buttonHeight = 0;
+    if(yes || no)
+        buttonHeight = 60;
     float buttonWidth = wc.frame.size.width;
     if(no)
         buttonWidth = wc.frame.size.width / 2.0f;
@@ -171,9 +174,6 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
         [b addSubview:button];
     }
     
-    if(yes == nil)
-        yes = @"확인";
-    
     if(yes){
         CGRect rect = CGRectMake(no?buttonWidth:0, titleHeight + wc.frame.size.height,
                                  buttonWidth, buttonHeight);
@@ -185,6 +185,10 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     
     popup.contentView = b;
     popup.showType = DevilBlockDialogShowType_GrowIn;
+    if([@"bottom" isEqualToString:show]){
+        popup.showType = DevilBlockDialogShowType_SlideInFromBottom;
+    } else if([@"top" isEqualToString:show])
+        popup.showType = DevilBlockDialogShowType_SlideInFromTop;
     
     popup.dismissType = DevilBlockDialogDismissType_GrowOut;
     popup.shouldDismissOnBackgroundTouch = YES;
@@ -514,6 +518,8 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
                 case DevilBlockDialogShowType_SlideInFromBottom: {
                     strongSelf.containerView.alpha = 1.0;
                     strongSelf.containerView.transform = CGAffineTransformIdentity;
+                    
+                    finalContainerFrame.origin.y = [UIScreen mainScreen].bounds.size.height - strongSelf.containerView.frame.size.height;
                     CGRect startFrame = finalContainerFrame;
                     startFrame.origin.y = CGRectGetHeight(self.bounds);
                     strongSelf.containerView.frame = startFrame;
