@@ -95,6 +95,7 @@
 -(void)tab:(NSString*)screenId {
     [self.tv removeFromSuperview];
     
+    self.jevil = [[JevilCtx alloc] init];
     if(self.startData) {
         self.data = self.startData;
     } else
