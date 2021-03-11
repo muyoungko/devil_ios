@@ -1034,6 +1034,7 @@ static BOOL IS_TABLET = NO;
                 container.dataSource = adapter;
                 
                 int minLeft = 1000000;
+                int minTop = 1000000;
                 for (int i = 0; layers != nil && i < [layers count]; i++) {
                     NSMutableDictionary* childLayer = layers[i];
                     NSString* childName = childLayer[@"name"];
@@ -1043,12 +1044,22 @@ static BOOL IS_TABLET = NO;
                         || [childName isEqualToString:arrayContentTargetNodeSelected]
                         )
                     {
-                        CGRect childLayoutParam = [WildCardConstructor getFrame:childLayer :nil];
-                        if(minLeft > childLayoutParam.origin.x)
-                            minLeft = childLayoutParam.origin.x;
+                        if([REPEAT_TYPE_HLIST isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType]){
+                            CGRect childLayoutParam = [WildCardConstructor getFrame:childLayer :nil];
+                            if(minLeft > childLayoutParam.origin.x)
+                                minLeft = childLayoutParam.origin.x;
+                        } else if([REPEAT_TYPE_VLIST isEqualToString:repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:repeatType]){
+                            CGRect childLayoutParam = [WildCardConstructor getFrame:childLayer :nil];
+                            if(minTop > childLayoutParam.origin.y)
+                                minTop = childLayoutParam.origin.y;
+                        }
                     }
                 }
-                container.contentInset = UIEdgeInsetsMake(0, minLeft, 0, 0);
+                if(minLeft == 1000000)
+                    minLeft = 0;
+                if(minTop == 1000000)
+                    minTop = 0;
+                container.contentInset = UIEdgeInsetsMake(minTop, minLeft, 0, 0);
                 
                 arrayContentContainer = replaceRule.createdContainer = container;
                 
