@@ -9,8 +9,16 @@
 
 @implementation JevilUtil
 +(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest {
+    id h = [@{} mutableCopy];
+    id dstKs = [dest allKeys];
+    for(id dstK in dstKs){
+        h[dstK] = dstK;
+    }
+    
     id srcKs = [src allKeys];
     for(id srcK in srcKs){
+        h[srcK] = srcK;
+        [h removeObjectForKey:srcK];
         id srcValue = src[srcK];
         if([[srcValue class] isKindOfClass: [NSDictionary class]] || [[srcValue class] isSubclassOfClass:[NSDictionary class]]){
             if(dest[srcK] == nil)
@@ -23,6 +31,11 @@
         } else {
             dest[srcK] = srcValue;
         }
+    }
+    
+    id hKs = [h allKeys];
+    for(id hK in hKs){
+        [dest removeObjectForKey:hK];
     }
 }
 
