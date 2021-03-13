@@ -42,16 +42,22 @@
 +(void)syncList:(NSMutableArray*)src :(NSMutableArray*)dest{
     NSUInteger srcLen = [src count];
     NSUInteger destLen = [dest count];
-    for(int i=0;i<srcLen && i<destLen;i++){
-        [JevilUtil sync:src[i] :dest[i]];
-    }
     
-    if(srcLen > destLen){
-        for(NSUInteger i=destLen;i<srcLen;i++)
-            [dest addObject:src[i]];
-    } else if(srcLen < destLen){
-        for(NSUInteger i=srcLen;i<destLen;i++)
-            [dest removeObjectAtIndex:srcLen];
+    if(srcLen > 0 && [src[0] isKindOfClass:[NSString class]] ){
+        [dest removeAllObjects];
+        [dest addObjectsFromArray:src];
+    } else {
+        for(int i=0;i<srcLen && i<destLen;i++){
+            [JevilUtil sync:src[i] :dest[i]];
+        }
+        
+        if(srcLen > destLen){
+            for(NSUInteger i=destLen;i<srcLen;i++)
+                [dest addObject:src[i]];
+        } else if(srcLen < destLen){
+            for(NSUInteger i=srcLen;i<destLen;i++)
+                [dest removeObjectAtIndex:srcLen];
+        }
     }
 }
 
