@@ -37,7 +37,7 @@
 
 
 - (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear];
+    [super viewDidAppear:animated];
     [WildCardConstructor sharedInstance:@"1605234988599"];
 }
 

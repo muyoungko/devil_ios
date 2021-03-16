@@ -1,4 +1,4 @@
-module Pods_devil {
+framework module Pods_devil {
   umbrella header "Pods-devil-umbrella.h"
 
   export *

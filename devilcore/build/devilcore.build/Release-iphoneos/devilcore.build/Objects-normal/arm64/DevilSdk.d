@@ -1,6 +1,24 @@
 dependencies: \
-  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/DevilSdk.m \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/DevilSdk.m \
   /Users/muyoungko/Documents/devil/devil_ios/devilcore/build/devilcore.build/Release-iphoneos/devilcore.build/module.modulemap \
-  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/DevilSdk.h \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.1.sdk/usr/include/mach-o/compact_unwind_encoding.modulemap \
-  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.1.sdk/usr/include/mach-o/dyld.modulemap
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/DevilSdk.h \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.3.sdk/usr/include/mach-o/compact_unwind_encoding.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.3.sdk/usr/include/mach-o/dyld.modulemap \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devilcore.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/DevilWebViewController.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/DevilBaseController.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/wildcard/WildCardScreenTableView.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/wildcard/WildCardMeta.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/view/DevilSelectDialog.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/view/DevilBlockDialog.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/wifi/WifiManager.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/DevilController.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/wildcard/WildCardConstructor.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/wildcard/WildCardUIView.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/wildcard/replacerule/ReplaceRule.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/DevilHeader.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/wildcard/view/WildCardDrawerView.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/JevilAction.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/javascript/JevilCtx.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/javascript/Jevil.h \
+  /Users/muyoungko/Documents/devil/devil_ios/devilcore/devilcore/source/devil/core/DevilWebView.h
