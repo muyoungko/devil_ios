@@ -27,10 +27,6 @@ target 'devil' do
   
   pod 'Google-Mobile-Ads-SDK'
   
-  target 'devillogin' do
-    project './devillogin/devillogin.xcodeproj'
-    workspace './devillogin/devillogin.xcworkspace'
-    pod 'KakaoSDK'
-  end
+  pod 'KakaoSDK'
 end
 

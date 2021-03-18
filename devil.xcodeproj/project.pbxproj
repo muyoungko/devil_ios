@@ -20,7 +20,6 @@
 		6D132BC5255E76F400004E1F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC3255E76F400004E1F /* loading.json */; };
 		6D132BC6255E76F400004E1F /* lang.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC4255E76F400004E1F /* lang.json */; };
 		6D22CF6725FFB2FC00A1CB25 /* Pods_devil_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22CF6625FFB2FC00A1CB25 /* Pods_devil_devillogin.framework */; };
-		6D22CF6825FFB2FC00A1CB25 /* Pods_devil_devillogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22CF6625FFB2FC00A1CB25 /* Pods_devil_devillogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678B62567B1E2006D57DD /* BaseController.m */; };
 		6D4678CD2567B1E2006D57DD /* MainController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678B92567B1E2006D57DD /* MainController.m */; };
 		6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BB2567B1E2006D57DD /* LoginController.m */; };
@@ -50,7 +49,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6D22CF6825FFB2FC00A1CB25 /* Pods_devil_devillogin.framework in Embed Frameworks */,
 				6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
