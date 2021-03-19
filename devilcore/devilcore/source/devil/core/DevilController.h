@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)updateMeta;
 -(void)tab:(NSString*)screenId;
 
+@property (nonatomic, retain) NSString* projectId;
 @property (nonatomic, retain) NSString* screenId;
 @property (nonatomic, retain) id startData;
 

@@ -26,6 +26,9 @@
 
 - (void)viewDidLoad{   
     [super viewDidLoad];
+    if(self.projectId){
+        [WildCardConstructor sharedInstance:self.projectId];
+    }
     
     self.jevil = [[JevilCtx alloc] init];
     
@@ -83,6 +86,7 @@
         self.footer.frame = CGRectMake(0, screenHeight - self.footer.frame.size.height -30, self.footer.frame.size.width, self.footer.frame.size.height);
         [self.view addSubview:self.footer];
     }
+    
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:header_sketch_height + footer_sketch_height];
 }
 

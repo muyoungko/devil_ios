@@ -1328,6 +1328,25 @@ static BOOL IS_TABLET = NO;
     {
         h = 0;
         //TODO 가변 텍스트에 의한 가변 높이는 성능상 이슈로 아직 구현 못함
+        if([@"text" isEqualToString:cloudJson[@"_class"]]){
+            NSString* textContent = cloudJson[@"textContent"];
+            NSString* text = [MappingSyntaxInterpreter interpret:textContent :data];
+            NSDictionary* textSpec = [cloudJson objectForKey:@"textSpec"];
+            float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
+            UIFont* font = nil;
+            if([[textSpec objectForKey:@"bold"] boolValue])
+                font = [UIFont boldSystemFontOfSize:textSize];
+            else
+                font = [UIFont systemFontOfSize:textSize];
+            float w = [cloudJson[@"frame"][@"w"] floatValue];
+            w = [WildCardConstructor convertSketchToPixel:w];
+            
+            NSDictionary *attributes = @{NSFontAttributeName: font};
+            CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+
+            h = rect.size.height;
+        }
+        
         //그리드 뷰 혹은 하향반복 일 경우
         if(cloudJson[@"arrayContent"] != nil && ([cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_GRID] || [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_BOTTOM]))
         {
@@ -1471,6 +1490,7 @@ static BOOL IS_TABLET = NO;
     }
     
     float padding = [self getPaddingTopBottomConverted:cloudJson];
+    NSLog(@"%@ %f %f", cloudJson[@"name"], h, padding);
     return h + padding;
 }
 

@@ -57,13 +57,18 @@
 }
 
 -(void)onClickListener:(UITapGestureRecognizer *)recognizer{
+    UINavigationController* nc = self.vc.navigationController;
     [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
-        DevilController* d = [[DevilController alloc] init];
-        d.startData = ((DevilController*)self.vc.navigationController.topViewController).startData;
-        d.screenId = ((DevilController*)self.vc.navigationController.topViewController).screenId;
-        
+        NSString* projectId = [WildCardConstructor sharedInstance].project_id;
+        id startData = ((DevilController*)self.vc.navigationController.topViewController).startData;
+        id screenId = ((DevilController*)self.vc.navigationController.topViewController).screenId;
         [self.vc.navigationController popViewControllerAnimated:YES];
-        [self.vc.navigationController pushViewController:d animated:YES];
+
+        DevilController* d = [[DevilController alloc] init];
+        d.startData = startData;
+        d.screenId = screenId;
+        d.projectId = projectId;
+        [nc pushViewController:d animated:YES];
     }];
 }
 

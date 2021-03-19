@@ -33,12 +33,12 @@
     [super viewWillAppear:animated];
     [self showNavigationBar];
     [self.navigationController.navigationBar setBarTintColor:UIColorFromRGB(0xffffff)];
+    [WildCardConstructor sharedInstance:@"1605234988599"];
 }
 
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [WildCardConstructor sharedInstance:@"1605234988599"];
 }
 
 
