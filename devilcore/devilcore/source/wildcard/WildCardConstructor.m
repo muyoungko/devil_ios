@@ -35,6 +35,7 @@
 #import "WildCardTimer.h"
 #import "WildCardPagerTabStrip.h"
 #import "WildCardPagerTabStripMaker.h"
+#import "Lottie.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -693,7 +694,6 @@ static BOOL IS_TABLET = NO;
                 [WildCardConstructor followSizeFromFather:vv child:iv];
             }
         } else if ([layer objectForKey:(@"web")] != nil) {
-        
             DevilWebView* web = [[DevilWebView alloc] init];
             [vv addSubview:web];
             [WildCardConstructor followSizeFromFather:vv child:web];
@@ -710,6 +710,37 @@ static BOOL IS_TABLET = NO;
         } else if ([layer objectForKey:(@"icon")] != nil) {
             NSString* replaceKey = layer[@"icon"];
             [outRules addObject:[[ReplaceRuleIcon alloc] initWith:vv:layer:replaceKey]];
+        } else if ([layer objectForKey:(@"lottie")] != nil) {
+            id lottie = layer[@"lottie"];
+            NSString* url = lottie[@"url"];
+            
+            [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* json) {
+                
+                float lw = [json[@"w"] floatValue];
+                float lh = [json[@"h"] floatValue];
+                float todow, todoh;
+                float w = vv.frame.size.width;
+                float h = vv.frame.size.height;
+                if(w/lw > h/lh){
+                    //높이에 맞춤
+                    todoh = h;
+                    todow = lw * h/lh;
+                } else {
+                    todow = w;
+                    todoh = lh * w/lw;
+                }
+                 
+                LOTAnimationView* lv = [LOTAnimationView animationFromJSON:json];
+                lv.frame = CGRectMake(0, 0, todow, todoh);
+                lv.center = CGPointMake(w/2.0f, h/2.0f);
+                [vv addSubview:lv];
+                
+                if([@"Y" isEqualToString:lottie[@"infinite"]])
+                    lv.loopAnimation = YES;
+                
+                if([@"Y" isEqualToString:lottie[@"autoStart"]])
+                    [lv play];
+            }];
         }
         
         if(layer[@"strip"]){
