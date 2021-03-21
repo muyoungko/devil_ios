@@ -731,6 +731,7 @@ static BOOL IS_TABLET = NO;
                 }
                  
                 LOTAnimationView* lv = [LOTAnimationView animationFromJSON:json];
+                lv.contentMode = UIViewContentModeScaleAspectFit;
                 lv.frame = CGRectMake(0, 0, todow, todoh);
                 lv.center = CGPointMake(w/2.0f, h/2.0f);
                 [vv addSubview:lv];
