@@ -20,12 +20,6 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.4.0)
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
-  - Bolts (1.9.1):
-    - Bolts/AppLinks (= 1.9.1)
-    - Bolts/Tasks (= 1.9.1)
-  - Bolts/AppLinks (1.9.1):
-    - Bolts/Tasks
-  - Bolts/Tasks (1.9.1)
   - FacebookSDK (8.2.0):
     - FacebookSDK/CoreKit (= 8.2.0)
   - FacebookSDK/CoreKit (8.2.0):
@@ -117,9 +111,9 @@ PODS:
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Reachability (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
-  - Google-Mobile-Ads-SDK (7.69.0):
+  - Google-Mobile-Ads-SDK (8.2.0.1):
     - GoogleAppMeasurement (~> 7.0)
-    - GoogleUserMessagingPlatform (~> 1.1)
+    - GoogleUserMessagingPlatform (>= 1.1)
   - GoogleAppMeasurement (7.3.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -190,7 +184,7 @@ PODS:
     - GoogleToolboxForMac/Defines (= 2.3.0)
     - "GoogleToolboxForMac/NSDictionary+URLArguments (= 2.3.0)"
     - "GoogleToolboxForMac/NSString+URLArguments (= 2.3.0)"
-  - GoogleUserMessagingPlatform (1.4.0)
+  - GoogleUserMessagingPlatform (2.0.0)
   - GoogleUtilities/AppDelegateSwizzler (7.2.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -263,7 +257,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
-  - Bolts
   - FacebookSDK
   - FacebookSDK/LoginKit
   - FacebookSDK/ShareKit
@@ -280,11 +273,14 @@ DEPENDENCIES:
   - lottie-ios (~> 2.5.3)
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Google-Mobile-Ads-SDK
+    - GoogleUserMessagingPlatform
+    - lottie-ios
   trunk:
     - AFNetworking
     - Alamofire
     - AppAuth
-    - Bolts
     - FacebookSDK
     - FBSDKCoreKit
     - FBSDKLoginKit
@@ -299,12 +295,10 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseInstanceID
     - FirebaseMessaging
-    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleSignIn
     - GoogleToolboxForMac
-    - GoogleUserMessagingPlatform
     - GoogleUtilities
     - GTMAppAuth
     - GTMSessionFetcher
@@ -317,7 +311,6 @@ SPEC REPOS:
     - KakaoSDKTalk
     - KakaoSDKTemplate
     - KakaoSDKUser
-    - lottie-ios
     - nanopb
     - PromisesObjC
 
@@ -325,7 +318,6 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Alamofire: 2291f7d21ca607c491dd17642e5d40fdcda0e65c
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
-  Bolts: 8c1e8aab2f603387b8b9924f57d1d64f43d3ffdc
   FacebookSDK: 7aa80d5e6eaf235f492328ad40c36dbc16440e52
   FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
   FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
@@ -340,12 +332,12 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 30646fc9a61c6f4ee3cd7a8b7231721842b40c95
   FirebaseInstanceID: 46d93d287108246fabbd85371ca27141d2c21ff9
   FirebaseMessaging: 68d1bcb14880189558a8ae57167abe0b7e417232
-  Google-Mobile-Ads-SDK: 2f288748a42920d1c744946a460896a95b0e9110
+  Google-Mobile-Ads-SDK: b48fb7dc45b2e442a217dd96875586fda7d5e553
   GoogleAppMeasurement: 8d3c0aeede16ab7764144b5a4ca8e1d4323841b7
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleToolboxForMac: 1350d40e86a76f7863928d63bcb0b89c84c521c5
-  GoogleUserMessagingPlatform: b168e8c46cd8f92aa3e34b584c4ca78a411ce367
+  GoogleUserMessagingPlatform: ab890ce5f6620f293a21b6bdd82e416a2c73aeca
   GoogleUtilities: d866834472f1324d080496bc67ab3ce5d0d46027
   GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
@@ -362,6 +354,6 @@ SPEC CHECKSUMS:
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: 1d8e43dd1033020cc8c5cf74259a515e49868c17
+PODFILE CHECKSUM: fc5641a1bdd620d0e027be6095f49da94cf0b324
 
 COCOAPODS: 1.10.1

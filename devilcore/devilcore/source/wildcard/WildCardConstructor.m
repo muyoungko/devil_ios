@@ -35,7 +35,7 @@
 #import "WildCardTimer.h"
 #import "WildCardPagerTabStrip.h"
 #import "WildCardPagerTabStripMaker.h"
-#import "Lottie.h"
+#import "Lottie/Lottie.h"
 
 //#import "UIImageView+AFNetworking.h"
 

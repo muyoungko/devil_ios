@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -21,11 +21,15 @@
 
 /* Begin PBXBuildFile section */
 		6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7EC31825F4A42F00FAE7D8 /* devillogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		98DDA187D50C23BB37DF5155 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20A9F8C3B711EEAD1C5BE71 /* Pods_devillogin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.debug.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.debug.xcconfig"; sourceTree = "<group>"; };
 		6D7EC30025F4A37D00FAE7D8 /* devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7EC31825F4A42F00FAE7D8 /* devillogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devillogin.h; sourceTree = "<group>"; };
+		F20A9F8C3B711EEAD1C5BE71 /* Pods_devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.release.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				98DDA187D50C23BB37DF5155 /* Pods_devillogin.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +49,8 @@
 			children = (
 				6D7EC30225F4A37D00FAE7D8 /* devillogin */,
 				6D7EC30125F4A37D00FAE7D8 /* Products */,
+				A8849A58C05FFF764C6B824F /* Pods */,
+				9F1645EDDEBFFD8ACCEAB80C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,6 +78,24 @@
 			path = source;
 			sourceTree = "<group>";
 		};
+		9F1645EDDEBFFD8ACCEAB80C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F20A9F8C3B711EEAD1C5BE71 /* Pods_devillogin.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A8849A58C05FFF764C6B824F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */,
+				FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -89,12 +114,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6D7EC30825F4A37D00FAE7D8 /* Build configuration list for PBXNativeTarget "devillogin" */;
 			buildPhases = (
-				9D0E43EE3C50E786ED797498 /* [CP] Check Pods Manifest.lock */,
+				AF79296554C86CCAD2C95827 /* [CP] Check Pods Manifest.lock */,
 				6D7EC2FB25F4A37D00FAE7D8 /* Headers */,
 				6D7EC2FC25F4A37D00FAE7D8 /* Sources */,
 				6D7EC2FD25F4A37D00FAE7D8 /* Frameworks */,
 				6D7EC2FE25F4A37D00FAE7D8 /* Resources */,
-				36041FD8F5421A0877C64B9A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -151,24 +175,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		36041FD8F5421A0877C64B9A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devil-devillogin/Pods-devil-devillogin-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devil-devillogin/Pods-devil-devillogin-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil-devillogin/Pods-devil-devillogin-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9D0E43EE3C50E786ED797498 /* [CP] Check Pods Manifest.lock */ = {
+		AF79296554C86CCAD2C95827 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -183,7 +190,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-devil-devillogin-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-devillogin-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -341,6 +348,7 @@
 		};
 		6D7EC30925F4A37D00FAE7D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -365,6 +373,7 @@
 		};
 		6D7EC30A25F4A37D00FAE7D8 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;

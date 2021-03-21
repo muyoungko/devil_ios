@@ -1,6 +1,0 @@
-framework module Pods_devil_devillogin {
-  umbrella header "Pods-devil-devillogin-umbrella.h"
-
-  export *
-  module * { export * }
-}
