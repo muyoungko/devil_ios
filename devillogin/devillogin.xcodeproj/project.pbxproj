@@ -20,10 +20,12 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		6D22D2002607C2EE00A1CB25 /* DevilLoginKakao.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D22D1FE2607C2EE00A1CB25 /* DevilLoginKakao.h */; };
+		6D22D2002607C2EE00A1CB25 /* DevilLoginKakao.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D22D1FE2607C2EE00A1CB25 /* DevilLoginKakao.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D22D2012607C2EE00A1CB25 /* DevilLoginKakao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D22D1FF2607C2EE00A1CB25 /* DevilLoginKakao.m */; };
 		6D22D2052607C38900A1CB25 /* KakaoWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D22D2042607C38900A1CB25 /* KakaoWrapper.swift */; };
 		6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7EC31825F4A42F00FAE7D8 /* devillogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D8DEF172608FBAE00024AFD /* JevilLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8DEF152608FBAE00024AFD /* JevilLogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D8DEF182608FBAE00024AFD /* JevilLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8DEF162608FBAE00024AFD /* JevilLogin.m */; };
 		98DDA187D50C23BB37DF5155 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20A9F8C3B711EEAD1C5BE71 /* Pods_devillogin.framework */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +36,8 @@
 		6D22D2042607C38900A1CB25 /* KakaoWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoWrapper.swift; sourceTree = "<group>"; };
 		6D7EC30025F4A37D00FAE7D8 /* devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7EC31825F4A42F00FAE7D8 /* devillogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devillogin.h; sourceTree = "<group>"; };
+		6D8DEF152608FBAE00024AFD /* JevilLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilLogin.h; sourceTree = "<group>"; };
+		6D8DEF162608FBAE00024AFD /* JevilLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilLogin.m; sourceTree = "<group>"; };
 		F20A9F8C3B711EEAD1C5BE71 /* Pods_devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.release.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -79,12 +83,22 @@
 		6D7EC31725F4A42F00FAE7D8 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6D8DEF142608FB9F00024AFD /* login */,
 				6D7EC31825F4A42F00FAE7D8 /* devillogin.h */,
 				6D22D1FE2607C2EE00A1CB25 /* DevilLoginKakao.h */,
 				6D22D1FF2607C2EE00A1CB25 /* DevilLoginKakao.m */,
 				6D22D2042607C38900A1CB25 /* KakaoWrapper.swift */,
 			);
 			path = source;
+			sourceTree = "<group>";
+		};
+		6D8DEF142608FB9F00024AFD /* login */ = {
+			isa = PBXGroup;
+			children = (
+				6D8DEF152608FBAE00024AFD /* JevilLogin.h */,
+				6D8DEF162608FBAE00024AFD /* JevilLogin.m */,
+			);
+			path = login;
 			sourceTree = "<group>";
 		};
 		9F1645EDDEBFFD8ACCEAB80C /* Frameworks */ = {
@@ -114,6 +128,7 @@
 			files = (
 				6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */,
 				6D22D2002607C2EE00A1CB25 /* DevilLoginKakao.h in Headers */,
+				6D8DEF172608FBAE00024AFD /* JevilLogin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +230,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D8DEF182608FBAE00024AFD /* JevilLogin.m in Sources */,
 				6D22D2012607C2EE00A1CB25 /* DevilLoginKakao.m in Sources */,
 				6D22D2052607C38900A1CB25 /* KakaoWrapper.swift in Sources */,
 			);

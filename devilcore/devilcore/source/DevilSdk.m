@@ -8,6 +8,12 @@
 #import "DevilSdk.h"
 #import "devilcore.h"
 
+@interface DevilSdk()
+
+@property (nonatomic, retain) id sharedCustomJevilList;
+
+@end
+
 @implementation DevilSdk
 
 +(DevilSdk*)sharedInstance{
@@ -28,5 +34,20 @@
         callback(success);
     }];
 }
+
+
+-(id)getCustomJevil{
+    if(self.sharedCustomJevilList == nil)
+        self.sharedCustomJevilList = [@[] mutableCopy];
+    return self.sharedCustomJevilList;
+}
+
+-(void)addCustomJevil:(Class)a{
+    if(self.sharedCustomJevilList == nil)
+        self.sharedCustomJevilList = [@[] mutableCopy];
+    [self.sharedCustomJevilList addObject:a];
+}
+
+
 
 @end

@@ -3,8 +3,10 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, '11.3'
 
-use_frameworks!
+#use_frameworks!
+use_modular_headers!
 inhibit_all_warnings!
+
 workspace 'devil'
 project 'devil.xcodeproj'
 project 'devilcore/devilcore.xcodeproj'

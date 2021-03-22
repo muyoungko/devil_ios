@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
   s.platform         = :ios
-  s.version          = '0.0.52'
+  s.version          = '0.0.54'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Core
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'DevilLogin' do |devilLogin|
-    devilLogin.source_files = 'devillogin/devillogin/source/*.*'
+    devilLogin.source_files = 'devillogin/devillogin/source/**/*.*'
     devilLogin.dependency 'devil/DevilCore'
     devilLogin.dependency 'KakaoSDK'
   end

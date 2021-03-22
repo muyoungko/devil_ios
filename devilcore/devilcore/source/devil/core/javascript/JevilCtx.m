@@ -12,6 +12,7 @@
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
 #import "JevilUtil.h"
+#import "DevilSdk.h"
 
 @interface JevilCtx ()
 
@@ -35,6 +36,7 @@
     if (self) {
         self.jscontext = [[JSContext alloc] init];
         self.jscontext[@"Jevil"] = [Jevil class];
+        
         [self.jscontext setExceptionHandler:^(JSContext *context, JSValue *exception) {
             NSLog(@"%@",exception); 
             NSString* msg = [NSString stringWithFormat:@"%@", exception];

@@ -14,4 +14,19 @@ import KakaoSDKUser
     @objc func run() {
         print("test function")
     }
+    
+    @objc func login() {
+        UserApi.shared.loginWithKakaoAccount(prompts:[.Login]) {(oauthToken, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("loginWithKakaoAccount() success.")
+
+                //do something
+                _ = oauthToken
+
+            }
+        }
+    }
 }
