@@ -20,12 +20,18 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		6D22D2002607C2EE00A1CB25 /* DevilLoginKakao.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D22D1FE2607C2EE00A1CB25 /* DevilLoginKakao.h */; };
+		6D22D2012607C2EE00A1CB25 /* DevilLoginKakao.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D22D1FF2607C2EE00A1CB25 /* DevilLoginKakao.m */; };
+		6D22D2052607C38900A1CB25 /* KakaoWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D22D2042607C38900A1CB25 /* KakaoWrapper.swift */; };
 		6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7EC31825F4A42F00FAE7D8 /* devillogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		98DDA187D50C23BB37DF5155 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F20A9F8C3B711EEAD1C5BE71 /* Pods_devillogin.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.debug.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.debug.xcconfig"; sourceTree = "<group>"; };
+		6D22D1FE2607C2EE00A1CB25 /* DevilLoginKakao.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLoginKakao.h; sourceTree = "<group>"; };
+		6D22D1FF2607C2EE00A1CB25 /* DevilLoginKakao.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLoginKakao.m; sourceTree = "<group>"; };
+		6D22D2042607C38900A1CB25 /* KakaoWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoWrapper.swift; sourceTree = "<group>"; };
 		6D7EC30025F4A37D00FAE7D8 /* devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7EC31825F4A42F00FAE7D8 /* devillogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devillogin.h; sourceTree = "<group>"; };
 		F20A9F8C3B711EEAD1C5BE71 /* Pods_devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +80,9 @@
 			isa = PBXGroup;
 			children = (
 				6D7EC31825F4A42F00FAE7D8 /* devillogin.h */,
+				6D22D1FE2607C2EE00A1CB25 /* DevilLoginKakao.h */,
+				6D22D1FF2607C2EE00A1CB25 /* DevilLoginKakao.m */,
+				6D22D2042607C38900A1CB25 /* KakaoWrapper.swift */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -104,6 +113,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */,
+				6D22D2002607C2EE00A1CB25 /* DevilLoginKakao.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +152,7 @@
 					};
 					6D7EC2FF25F4A37D00FAE7D8 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -204,6 +215,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D22D2012607C2EE00A1CB25 /* DevilLoginKakao.m in Sources */,
+				6D22D2052607C38900A1CB25 /* KakaoWrapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -367,6 +381,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.devil.devillogin;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -375,6 +391,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -392,6 +409,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.devil.devillogin;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
