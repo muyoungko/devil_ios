@@ -66,7 +66,6 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 @property (nonatomic, assign) BOOL isShowing;
 @property (nonatomic, assign) BOOL isBeingShown;
 @property (nonatomic, assign) BOOL isBeingDismissed;
-@property void (^callback)(BOOL yes);
 
 @end
 
@@ -130,8 +129,8 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 }
 
 #pragma mark - Public Class Methods
-+ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no
-                       show:(NSString*)show onselect:(void (^)(BOOL yes))callback{
++ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show onselect:(void (^)(BOOL yes, id res))callback{
+    
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
     WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj];
@@ -175,6 +174,10 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     }
     
     if(yes){
+        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, titleHeight+wc.frame.size.height, wc.frame.size.width, 1)];
+        line.backgroundColor =UIColorFromRGB(0xefefef);
+        [b addSubview:line];
+        
         CGRect rect = CGRectMake(no?buttonWidth:0, titleHeight + wc.frame.size.height,
                                  buttonWidth, buttonHeight);
         UIButton* button = [DevilBlockDialog getButton:rect :yes];
@@ -185,12 +188,15 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     
     popup.contentView = b;
     popup.showType = DevilBlockDialogShowType_GrowIn;
+    popup.dismissType = DevilBlockDialogDismissType_GrowOut;
     if([@"bottom" isEqualToString:show]){
         popup.showType = DevilBlockDialogShowType_SlideInFromBottom;
-    } else if([@"top" isEqualToString:show])
+        popup.dismissType = DevilBlockDialogDismissType_SlideOutToBottom;
+    } else if([@"top" isEqualToString:show]) {
         popup.showType = DevilBlockDialogShowType_SlideInFromTop;
+        popup.dismissType = DevilBlockDialogDismissType_SlideOutToTop;
+    }
     
-    popup.dismissType = DevilBlockDialogDismissType_GrowOut;
     popup.shouldDismissOnBackgroundTouch = YES;
     DevilBlockDialogLayout layout = DevilBlockDialogLayoutMake(DevilBlockDialogHorizontalLayout_Center, DevilBlockDialogVerticalLayout_Center);
     [popup showWithLayout:layout];
@@ -200,10 +206,10 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 
 - (void)buttonClick:(UIView*)sender {
     if(sender.tag == BUTTON_NO){
-        self.callback(false);
+        self.callback(false, nil);
         [self dismiss];
     } if(sender.tag == BUTTON_YES){
-        self.callback(true);
+        self.callback(true, nil);
         [self dismiss];
     }
     self.callback = nil;
@@ -507,6 +513,9 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
                 case DevilBlockDialogShowType_SlideInFromTop: {
                     strongSelf.containerView.alpha = 1.0;
                     strongSelf.transform = CGAffineTransformIdentity;
+                    
+                    finalContainerFrame.origin.y = -10;
+                    
                     CGRect startFrame = finalContainerFrame;
                     startFrame.origin.y = - CGRectGetHeight(finalContainerFrame);
                     strongSelf.containerView.frame = startFrame;
@@ -520,6 +529,7 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
                     strongSelf.containerView.transform = CGAffineTransformIdentity;
                     
                     finalContainerFrame.origin.y = [UIScreen mainScreen].bounds.size.height - strongSelf.containerView.frame.size.height;
+                    
                     CGRect startFrame = finalContainerFrame;
                     startFrame.origin.y = CGRectGetHeight(self.bounds);
                     strongSelf.containerView.frame = startFrame;

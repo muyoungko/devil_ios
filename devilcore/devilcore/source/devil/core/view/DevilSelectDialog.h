@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(id)initWithViewController:(UIViewController*)vc;
 @property (nonatomic, retain) UIViewController* vc;
 
--(void)popupSelect:(id)array selectedKey:(id)selectedKey onselect:(void (^)(id res))callback;
+-(void)popupSelect:(id)array selectedKey:(id)selectedKey title:(NSString*)title yes:(NSString*)yes show:(NSString*)show onselect:(void (^)(id res))callback;
 
 @end
 
