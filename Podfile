@@ -4,7 +4,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '11.3'
 
 #use_frameworks!
-use_modular_headers!
+#use_modular_headers!
+use_frameworks! :linkage => :static
+
 inhibit_all_warnings!
 
 workspace 'devil'

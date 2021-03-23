@@ -21,7 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2BE672FE5E345FFFE161FFE1 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B47ACED30BC9EB96E1CFA4DF /* Pods_devilcore.framework */; };
 		6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B225ADDD9100221A4C /* WildCardTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B325ADDD9100221A4C /* WildCardTimer.m */; };
 		6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B825B07B3B00221A4C /* JevilInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -157,6 +156,7 @@
 		6D9E2B2025BB4A920027D16D /* ReplaceRuleStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
+		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -300,7 +300,7 @@
 		6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleStrip.m; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
-		B47ACED30BC9EB96E1CFA4DF /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -309,7 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BE672FE5E345FFFE161FFE1 /* Pods_devilcore.framework in Frameworks */,
+				822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +351,7 @@
 				6D22CFF526079BB900A1CB25 /* Lottie.framework */,
 				6D22CFC026079B1400A1CB25 /* Lottie.framework */,
 				6D22CF9426079A0C00A1CB25 /* Lottie.framework */,
-				B47ACED30BC9EB96E1CFA4DF /* Pods_devilcore.framework */,
+				80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

@@ -16,7 +16,6 @@
 //  the License.
 //
 
-#define GTMREGEX_DEFINE_GLOBALS 1
 #import "GTMRegex.h"
 #import "GTMDefines.h"
 
@@ -24,6 +23,10 @@
 // Ignore all of the deprecation warnings for GTMRegex
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 #pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
+NSString *const kGTMRegexErrorDomain = @"com.google.mactoolbox.RegexDomain";
+NSString *const kGTMRegexPatternErrorPattern = @"pattern";
+NSString *const kGTMRegexPatternErrorErrorString = @"patternError";
 
 // This is the pattern to use for walking replacement text when doing
 // substitutions.
@@ -659,7 +662,7 @@ static NSString *const kReplacementPattern =
     [self class], self,
     regex_,
     (allSegments_ ? "YES" : "NO"),
-    (int)(MIN(len, 20)), [utf8StrBuf_ bytes],
+    (int)(MIN(len, 20)), (const char *)[utf8StrBuf_ bytes],
     (len > 20 ? "..." : "")];
 }
 
