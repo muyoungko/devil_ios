@@ -326,9 +326,10 @@
     [self moveToViewControllerAtIndex:(int)indexPath.row];
 }
 
--(void)onClickListener:(WildCardUITapGestureRecognizer *)recognizer
+-(void)onClickListener:(id)sender
 {
-    [self moveToViewControllerAtIndex:(int)recognizer.tag];
+    int index = (int)((UIButton*)sender).tag;
+    [self moveToViewControllerAtIndex:(int)index];
 }
 
 
@@ -343,6 +344,8 @@
     NSString* text = [MappingSyntaxInterpreter interpret:self.jsonPath:item];
     [buttonBarCell.label setText:text];
     
+    [buttonBarCell.button addTarget:self action:@selector(onClickListener:) forControlEvents:UIControlEventTouchUpInside];
+    buttonBarCell.button.tag = indexPath.row;
     if([indexPath row] == _currentIndex){
         buttonBarCell.label.font = [UIFont systemFontOfSize:self.selectedTextSize];
         buttonBarCell.label.textColor = self.selectedTextColor;
@@ -350,12 +353,6 @@
         buttonBarCell.label.font = [UIFont systemFontOfSize:self.textSize];
         buttonBarCell.label.textColor = self.textColor;
     }
-    
-    buttonBarCell.label.userInteractionEnabled = YES;
-    WildCardUITapGestureRecognizer *singleFingerTap =
-    [[WildCardUITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
-    singleFingerTap.tag = (int)indexPath.row;
-    [buttonBarCell.label addGestureRecognizer:singleFingerTap];
     
     return buttonBarCell;
 }

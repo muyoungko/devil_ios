@@ -57,54 +57,54 @@ alpha:1.0]
     if([array count]*55 < h)
         h = (int)[array count]*55;
     
-    int titleHeight = 50;
-    if(titleText == nil){
-        if([@"top" isEqualToString:show])
-            titleHeight = 50;
-        else
-            titleHeight = 10;
-    }
+    int offsetY = 10;
+    if([@"top" isEqualToString:show])
+        offsetY = 60;
+    
+    int titleHeight = 0;
+    if(titleText != nil)
+        titleHeight = 50;
     
     int buttonHeight = 10;
     if(yes){
-        if([@"top" isEqualToString:show])
-            buttonHeight = 110;
-        else
-            buttonHeight = 60;
-    } else {
-        if([@"bottom" isEqualToString:show])
-            buttonHeight = 0;
+        buttonHeight = 50;
     }
-
-    float buttonWidth = w;
     
-    UIView* b = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  w, titleHeight + h + buttonHeight)];
+    float buttonWidth = w;
+    UIView* b = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  w, offsetY + titleHeight + h + buttonHeight)];
     b.backgroundColor = [UIColor whiteColor];
     b.layer.cornerRadius = 10;
     
+    if(titleText != nil){
+        UILabel* title = [[UILabel alloc] initWithFrame:CGRectMake(20, offsetY, w-20, titleHeight-10)];
+        title.text = titleText;
+        title.textColor = UIColorFromRGB(0x333333);
+        title.textAlignment = UITextAlignmentLeft;
+        title.font = [UIFont systemFontOfSize:19.0f];
+        [b addSubview:title];
+        
+        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY + titleHeight-1, w, 1)];
+        line.backgroundColor =UIColorFromRGB(0xefefef);
+        [b addSubview:line];
+    }
+
     
-    self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, titleHeight, w, h) style:UITableViewStylePlain];
-    [self.tv setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY + titleHeight, w, h) style:UITableViewStylePlain];
+    [self.tv setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [self.tv setSeparatorColor:UIColorFromRGB(0xededed)];
+    self.tv.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tv.frame.size.width, 1)];
+    
     self.tv.delegate = self;
     self.tv.dataSource = self;
     [self.tv registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cell"];
     [b addSubview:self.tv];
     
-    if(titleText != nil){
-        UILabel* title = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, w, titleHeight-10)];
-        title.text = titleText;
-        title.textColor = UIColorFromRGB(0x333333);
-        title.textAlignment = UITextAlignmentCenter;
-        title.font = [UIFont systemFontOfSize:17.0f];
-        [b addSubview:title];
-    }
-    
     if(yes){
-        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, titleHeight+h, w, 1)];
+        UIView* line = [[UIView alloc] initWithFrame:CGRectMake(0, offsetY + titleHeight + h, w, 1)];
         line.backgroundColor =UIColorFromRGB(0xefefef);
         [b addSubview:line];
         
-        CGRect rect = CGRectMake(0, titleHeight + h,buttonWidth, buttonHeight);
+        CGRect rect = CGRectMake(0, offsetY + titleHeight + h,buttonWidth, buttonHeight);
         UIButton* button = [DevilBlockDialog getButton:rect :yes];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [b addSubview:button];

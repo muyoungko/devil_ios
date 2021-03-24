@@ -747,6 +747,7 @@ static BOOL IS_TABLET = NO;
         if(layer[@"strip"]){
             WildCardPagerTabStrip *strip = [WildCardPagerTabStripMaker construct:layer :vv];
             [vv addSubview:strip];
+            vv.userInteractionEnabled = YES;
             [WildCardConstructor followSizeFromFather:vv child:strip];
             [outRules addObject:ReplaceStrip(strip, layer, nil)];
         }
