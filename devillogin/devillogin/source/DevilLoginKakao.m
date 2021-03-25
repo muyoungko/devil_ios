@@ -6,7 +6,6 @@
 //
 
 #import "DevilLoginKakao.h"
-#import <devilcore/devilcore.h>
 
 @implementation DevilLoginKakao
 
