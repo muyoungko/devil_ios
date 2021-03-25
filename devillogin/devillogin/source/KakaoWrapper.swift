@@ -11,6 +11,14 @@ import KakaoSDKAuth
 import KakaoSDKUser
 
 @objc class KakaoWrapper: NSObject {
+    @objc override init() {
+        super.init()
+    }
+    
+    @objc class func create() -> KakaoWrapper {
+        return KakaoWrapper()
+    }
+    
     @objc func run() {
         print("test function")
     }

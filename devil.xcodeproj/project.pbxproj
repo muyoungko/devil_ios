@@ -39,6 +39,7 @@
 		6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; };
 		6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
+		6DDAC3B9260C89F400E76300 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDAC3B8260C89F400E76300 /* Test.swift */; };
 		8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D980CABA3AA49A94779F5B1B /* Pods_devil.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +111,7 @@
 		6D467A34256AAE12006D57DD /* Void.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Void.swift; sourceTree = "<group>"; };
 		6D467AED256AB1B0006D57DD /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D467B68257A2E17006D57DD /* refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@3x.png"; sourceTree = "<group>"; };
+		6DDAC3B8260C89F400E76300 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		D980CABA3AA49A94779F5B1B /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +223,7 @@
 				6D4678C92567B1E2006D57DD /* SubController.m */,
 				6D467A34256AAE12006D57DD /* Void.swift */,
 				6D467A33256AAE11006D57DD /* devil-Bridging-Header.h */,
+				6DDAC3B8260C89F400E76300 /* Test.swift */,
 			);
 			path = devil;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				6D4678CF2567B1E2006D57DD /* Devil.m in Sources */,
 				6D4679182567DDE3006D57DD /* WebController.m in Sources */,
 				6D467A35256AAE12006D57DD /* Void.swift in Sources */,
+				6DDAC3B9260C89F400E76300 /* Test.swift in Sources */,
 				6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */,
 				6D4678D62567B1E2006D57DD /* SubController.m in Sources */,
 				6D4678D52567B1E2006D57DD /* AppDelegate.m in Sources */,

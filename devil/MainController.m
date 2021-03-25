@@ -9,6 +9,11 @@
 #import "MainController.h"
 #import "Devil.h"
 #import "Lang.h"
+#import <devil-Swift.h>
+#import <devillogin/devillogin-Swift.h>
+
+@class Test;
+@class KakaoWrapper;
 
 @interface MainController()
 
@@ -25,6 +30,10 @@
     [self update];
     
     [[Devil sharedInstance] sendPush];
+    
+    Test* t = [[Test alloc] init];
+    [t run];
+    
 }
 
 - (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager{

@@ -6,6 +6,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <devillogin/devillogin-Swift.h>
+
+@class KakaoWrapper;
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,20 +6,6 @@
 	objectVersion = 50;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		6D4679AC256A5614006D57DD /* UniversalDevilCore */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 6D4679AD256A5614006D57DD /* Build configuration list for PBXAggregateTarget "UniversalDevilCore" */;
-			buildPhases = (
-				6D4679B2256A5638006D57DD /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = UniversalDevilCore;
-			productName = UniversalDevilCore;
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B225ADDD9100221A4C /* WildCardTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B325ADDD9100221A4C /* WildCardTimer.m */; };
@@ -711,9 +697,6 @@
 					6D46792D256A16DB006D57DD = {
 						CreatedOnToolsVersion = 12.1;
 					};
-					6D4679AC256A5614006D57DD = {
-						CreatedOnToolsVersion = 12.1;
-					};
 				};
 			};
 			buildConfigurationList = 6D467928256A16DB006D57DD /* Build configuration list for PBXProject "devilcore" */;
@@ -730,7 +713,6 @@
 			projectRoot = "";
 			targets = (
 				6D46792D256A16DB006D57DD /* devilcore */,
-				6D4679AC256A5614006D57DD /* UniversalDevilCore */,
 			);
 		};
 /* End PBXProject section */
@@ -748,23 +730,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6D4679B2256A5638006D57DD /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nPROJECT_NAME=\"devilcore\"\nUNIVERSAL_OUTPUTFOLDER=${BUILD_DIR}/${CONFIGURATION}-universal\n \n# Make sure the output directory exists\nmkdir -p \"${UNIVERSAL_OUTPUTFOLDER}\"\n \n# Next, work out if we're in SIM or DEVICE\nxcodebuild -target \"${PROJECT_NAME}\" -configuration ${CONFIGURATION} -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\nxcodebuild -target \"${PROJECT_NAME}\" ONLY_ACTIVE_ARCH=NO -configuration ${CONFIGURATION} -sdk iphoneos  BUILD_DIR=\"${BUILD_DIR}\" BUILD_ROOT=\"${BUILD_ROOT}\" clean build\n \ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework\" \"${UNIVERSAL_OUTPUTFOLDER}\"\ncp -R \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule/.\" \"${UNIVERSAL_OUTPUTFOLDER}/${PROJECT_NAME}.framework/Modules/${PROJECT_NAME}.swiftmodule\"\n \nlipo -create -output \"${BUILD_DIR}/${CONFIGURATION}-universal/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${PROJECT_NAME}.framework/${PROJECT_NAME}\" \"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${PROJECT_NAME}.framework/${PROJECT_NAME}\"\n \nopen \"${UNIVERSAL_OUTPUTFOLDER}\"\n\n";
-		};
 		E320C26C342F5B62C4CDCE46 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1043,39 +1008,6 @@
 			};
 			name = Release;
 		};
-		6D4679AE256A5614006D57DD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv7s,
-					arm64,
-					i386,
-					x86_64,
-				);
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3675B8UJSV;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		6D4679AF256A5614006D57DD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = (
-					armv7,
-					armv7s,
-					arm64,
-					i386,
-					x86_64,
-				);
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3675B8UJSV;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1093,15 +1025,6 @@
 			buildConfigurations = (
 				6D467937256A16DB006D57DD /* Debug */,
 				6D467938256A16DB006D57DD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6D4679AD256A5614006D57DD /* Build configuration list for PBXAggregateTarget "UniversalDevilCore" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6D4679AE256A5614006D57DD /* Debug */,
-				6D4679AF256A5614006D57DD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

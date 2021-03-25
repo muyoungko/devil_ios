@@ -6,14 +6,13 @@
 //
 
 #import "DevilLoginKakao.h"
-//#import <devillogin/devillogin-Swift.h>
-
-@class KakaoWrapper;
+#import <devilcore/devilcore.h>
 
 @implementation DevilLoginKakao
 
 -(void)loginKakao{
-    //KakaoWrapper* k;
+    //KakaoWrapper* k = [KakaoWrapper create];
+    
 }
 
 @end
