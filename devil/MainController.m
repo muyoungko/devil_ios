@@ -23,6 +23,8 @@
     [self constructRightBackButton:@"refresh.png"];
     
     [self update];
+    
+    [[Devil sharedInstance] sendPush];
 }
 
 - (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager{
