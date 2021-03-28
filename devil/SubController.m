@@ -81,7 +81,9 @@
 }
 
 - (void)constructBlockUnder:(NSString*)block{
+    int header_height = 0;
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
+    [WildCardUtil fitToScreen:cj sketch_height_more:header_height];
     self.mainWc = [WildCardConstructor constructLayer:self.viewMain withLayer:cj instanceDelegate:self];
     [WildCardConstructor applyRule:self.mainWc withData:_data];
 }

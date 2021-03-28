@@ -15,7 +15,9 @@
 
 + (void)loginKakao:(JSValue *)callback{
     KakaoWrapper* kakao = [[KakaoWrapper alloc] init];
-    [kakao login];
+    [kakao loginWithCompletion:^(id _Nullable user) {
+        
+    }];
 }
 + (void)loginFacebook:(JSValue *)callback{
     

@@ -67,10 +67,6 @@
 		6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		6D132B99255E6E0F00004E1F /* HttpUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = HttpUtil.mm; sourceTree = "<group>"; };
 		6D132B9A255E6E0F00004E1F /* DeepLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeepLink.m; sourceTree = "<group>"; };
-		6D132BB0255E71D200004E1F /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoLink.framework; path = frameworks/KakaoLink.framework; sourceTree = "<group>"; };
-		6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoMessageTemplate.framework; path = frameworks/KakaoMessageTemplate.framework; sourceTree = "<group>"; };
-		6D132BB2255E71D200004E1F /* KakaoCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoCommon.framework; path = frameworks/KakaoCommon.framework; sourceTree = "<group>"; };
-		6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KakaoOpenSDK.framework; path = frameworks/KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		6D132BBA255E751C00004E1F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6D132BC3255E76F400004E1F /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		6D132BC4255E76F400004E1F /* lang.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lang.json; sourceTree = "<group>"; };
@@ -130,10 +126,6 @@
 			children = (
 				6D22CF6125FFB25C00A1CB25 /* devillogin.framework */,
 				6D467AED256AB1B0006D57DD /* devilcore.framework */,
-				6D132BB2255E71D200004E1F /* KakaoCommon.framework */,
-				6D132BB0255E71D200004E1F /* KakaoLink.framework */,
-				6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */,
-				6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */,
 				D980CABA3AA49A94779F5B1B /* Pods_devil.framework */,
 			);
 			name = Frameworks;

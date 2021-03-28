@@ -157,7 +157,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[NSUserDefaults standardUserDefaults] setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"APP_VERSION"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [KOSession sharedSession].clientSecret = @"d0c7657dc3cd93575cc590b87c0dc624";
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     
     [GIDSignIn sharedInstance].clientID = [FIRApp defaultApp].options.clientID;
@@ -186,7 +185,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
      NSLog(@"app will enter foreground");
-    [KOSession handleDidEnterBackground];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -198,7 +196,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
      NSLog(@"app did become active");
-    [KOSession handleDidBecomeActive];
 }
 
 
@@ -239,10 +236,14 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [self.googleSigninMyDelegate callback:YES didSignInForUser:user];
 }
     
+    
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-                
+       
+    if([KakaoWrapper handleOpenUrl:url])
+        return true;
+     
     //NSURL *    @"kakaob973b140b9138a6cc08b0cb2693ce6c2://kakaolink?param1=ios"    0x0000000280210300
     if([[FBSDKApplicationDelegate sharedInstance] application:application
                                                                   openURL:url
@@ -270,9 +271,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         }
         return YES;
     }
-                
-    if ([KOSession isKakaoAccountLoginCallback:url])
-        return [KOSession handleOpenURL:url];
 
     //구글 딥링크가 발동했을 했을때
     //url    NSURL *    @"kr.co.trix.sticar://google/link/?deep_link_id=http%3A%2F%2Fwww%2Ecarmile%2Eco%2Ekr%2Finvitation%2Ehtml%3Fcode%3DMTU2Mjg0MTgyNzc5MA&match_type=unique&match_message=Link%20is%20uniquely%20matched%20for%20this%20device%2E"    0x00000002804b0b00

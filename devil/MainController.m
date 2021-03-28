@@ -66,7 +66,11 @@
     [[Devil sharedInstance] request:@"/front/api/project" postParam:nil complete:^(id  _Nonnull res) {
        [self hideIndicator];
        self.data[@"list"] = res[@"list"];
-       [self constructBlockUnder:@"1605324337776"]; 
+        if(self.mainWc)
+            [self reloadBlock];
+        else {
+            [self constructBlockUnder:@"1605324337776"];
+        }
     }];
 }
 
