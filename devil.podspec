@@ -20,8 +20,12 @@ Pod::Spec.new do |s|
 
   s.subspec 'DevilLogin' do |devilLogin|
     devilLogin.source_files = 'devillogin/devillogin/source/**/*.*'
+    devilLogin.public_header_files = 'Pod/Headers/*.h'
     devilLogin.dependency 'devil/DevilCore'
     devilLogin.dependency 'KakaoSDK'
+    devilLogin.swift_version = '5.3'
+    #devilLogin.pod_target_xcconfig = { 'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/mypod/module' }
+    #devilLogin.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2 $(PODS_ROOT)/mypod/module' }
   end
 
 end

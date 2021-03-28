@@ -36,6 +36,11 @@
     if (self) {
         self.jscontext = [[JSContext alloc] init];
         self.jscontext[@"Jevil"] = [Jevil class];
+        id customJevil = [[DevilSdk sharedInstance] getCustomJevil];
+        for(int i=0;i<[customJevil count];i++) {
+            NSString* jevilName = NSStringFromClass(customJevil[i]);
+            self.jscontext[jevilName] = customJevil[i];
+        }
         
         [self.jscontext setExceptionHandler:^(JSContext *context, JSValue *exception) {
             NSLog(@"%@",exception); 

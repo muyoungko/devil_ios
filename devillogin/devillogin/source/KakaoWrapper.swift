@@ -10,30 +10,39 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import KakaoSDKUser
 
-@objc class KakaoWrapper: NSObject {
-    @objc override init() {
+@objc
+public class KakaoWrapper: NSObject {
+    @objc public override init() {
         super.init()
     }
-    
-    @objc class func create() -> KakaoWrapper {
-        return KakaoWrapper()
+ 
+    @objc static public func initKakaoAppKey() {
+        KakaoSDKCommon.initSDK(appKey: "d0c7657dc3cd93575cc590b87c0dc624")
     }
     
-    @objc func run() {
-        print("test function")
+    @objc public func login() {
+        if (UserApi.isKakaoTalkLoginAvailable()) {
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                }
+                else {
+                    print("loginWithKakaoTalk() success.")
+
+                    //do something
+                    _ = oauthToken
+                }
+            }
+        }
     }
     
-    @objc func login() {
-        UserApi.shared.loginWithKakaoAccount(prompts:[.Login]) {(oauthToken, error) in
+    @objc public func logout() {
+        UserApi.shared.logout {(error) in
             if let error = error {
                 print(error)
             }
             else {
-                print("loginWithKakaoAccount() success.")
-
-                //do something
-                _ = oauthToken
-
+                print("logout() success.")
             }
         }
     }

@@ -26,6 +26,7 @@
 @import GoogleMobileAds;
 
 #import "AppDelegate.h"
+#import <devillogin/devillogin-Swift.h>
 
 @interface AppDelegate ()
 
@@ -143,6 +144,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLogin class]];
     
+    [KakaoWrapper initKakaoAppKey];
+    
     if(launchOptions == nil){
         [self preparePushToken:application];
     }
@@ -239,6 +242,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+                
     //NSURL *    @"kakaob973b140b9138a6cc08b0cb2693ce6c2://kakaolink?param1=ios"    0x0000000280210300
     if([[FBSDKApplicationDelegate sharedInstance] application:application
                                                                   openURL:url

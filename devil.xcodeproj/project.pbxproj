@@ -12,10 +12,6 @@
 		6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */; };
 		6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B99255E6E0F00004E1F /* HttpUtil.mm */; };
 		6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B9A255E6E0F00004E1F /* DeepLink.m */; };
-		6D132BB4255E71D300004E1F /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB0255E71D200004E1F /* KakaoLink.framework */; };
-		6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB1255E71D200004E1F /* KakaoMessageTemplate.framework */; };
-		6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB2255E71D200004E1F /* KakaoCommon.framework */; };
-		6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D132BB3255E71D200004E1F /* KakaoOpenSDK.framework */; };
 		6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BBA255E751C00004E1F /* GoogleService-Info.plist */; };
 		6D132BC5255E76F400004E1F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC3255E76F400004E1F /* loading.json */; };
 		6D132BC6255E76F400004E1F /* lang.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC4255E76F400004E1F /* lang.json */; };
@@ -104,8 +100,6 @@
 		6D4679172567DDE3006D57DD /* WebController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
 		6D46791A25680570006D57DD /* devil.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = devil.entitlements; sourceTree = "<group>"; };
 		6D46791D25699107006D57DD /* back_black@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_black@3x.png"; sourceTree = "<group>"; };
-		6D46798E256A174F006D57DD /* devillogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = devillogin.h; sourceTree = "<group>"; };
-		6D46798F256A174F006D57DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6D4679A9256A51B9006D57DD /* devil.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devil.podspec; sourceTree = "<group>"; };
 		6D467A33256AAE11006D57DD /* devil-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "devil-Bridging-Header.h"; sourceTree = "<group>"; };
 		6D467A34256AAE12006D57DD /* Void.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Void.swift; sourceTree = "<group>"; };
@@ -123,10 +117,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D132BB4255E71D300004E1F /* KakaoLink.framework in Frameworks */,
-				6D132BB6255E71D300004E1F /* KakaoCommon.framework in Frameworks */,
-				6D132BB7255E71D300004E1F /* KakaoOpenSDK.framework in Frameworks */,
-				6D132BB5255E71D300004E1F /* KakaoMessageTemplate.framework in Frameworks */,
 				6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */,
 				8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */,
 			);
@@ -253,15 +243,6 @@
 			path = image;
 			sourceTree = "<group>";
 		};
-		6D46798D256A174F006D57DD /* devillogin */ = {
-			isa = PBXGroup;
-			children = (
-				6D46798E256A174F006D57DD /* devillogin.h */,
-				6D46798F256A174F006D57DD /* Info.plist */,
-			);
-			path = devillogin;
-			sourceTree = "<group>";
-		};
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
@@ -271,7 +252,6 @@
 				6D4678B52567B1E2006D57DD /* devil */,
 				6D132BC2255E76F400004E1F /* assets */,
 				6D132B89255E6E0F00004E1F /* july */,
-				6D46798D256A174F006D57DD /* devillogin */,
 				6DF137F420D7469A00071B9F /* Products */,
 				1E05F4C7336AAD91274BEE67 /* Pods */,
 				0BCC150E47406F73DA50155A /* Frameworks */,

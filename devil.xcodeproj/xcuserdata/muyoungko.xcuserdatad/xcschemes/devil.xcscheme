@@ -14,10 +14,24 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6DF137F220D7469A00071B9F"
-               BuildableName = "CloudJsonViewer.app"
-               BlueprintName = "CloudJsonViewer"
-               ReferencedContainer = "container:CloudJsonViewer.xcodeproj">
+               BlueprintIdentifier = "6D46792D256A16DB006D57DD"
+               BuildableName = "devilcore.framework"
+               BlueprintName = "devilcore"
+               ReferencedContainer = "container:devilcore/devilcore.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6D7EC2FF25F4A37D00FAE7D8"
+               BuildableName = "devillogin.framework"
+               BlueprintName = "devillogin"
+               ReferencedContainer = "container:devillogin/devillogin.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -37,16 +51,6 @@
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6DEBBEBA221E6DC400994711"
-               BuildableName = "PUI 2.0UITests.xctest"
-               BlueprintName = "PUI 2.0UITests"
-               ReferencedContainer = "container:CloudJsonViewer.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -69,15 +73,6 @@
             ReferencedContainer = "container:devil.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6DF137F220D7469A00071B9F"
-            BuildableName = "CloudJsonViewer.app"
-            BlueprintName = "CloudJsonViewer"
-            ReferencedContainer = "container:CloudJsonViewer.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -85,16 +80,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6DF137F220D7469A00071B9F"
-            BuildableName = "CloudJsonViewer.app"
-            BlueprintName = "CloudJsonViewer"
-            ReferencedContainer = "container:CloudJsonViewer.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
