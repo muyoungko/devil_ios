@@ -17,6 +17,7 @@
 #import "WildCardCollectionViewAdapter.h"
 #import "DevilDebugView.h"
 #import "WifiManager.h"
+#import "devilcore/devilcore-Swift.h"
 
 @interface Jevil()
 
@@ -351,6 +352,19 @@
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
         ((DevilController*)[JevilInstance currentInstance].vc).wifiManager = wm;
+}
+
++(void)camera:(NSDictionary*)param :(JSValue *)callback{
+    UIViewController* cameraVc = [[UIViewController alloc] init];
+    DevilCamera* dc = [[DevilCamera alloc] init];
+    [dc capture:cameraVc];
+    
+    UIView* bg = [[UIView alloc] initWithFrame:CGRectMake( 0,0,300,300 )];
+    bg.backgroundColor = [UIColor redColor];
+    [cameraVc.view addSubview:bg];
+    [[JevilInstance currentInstance].vc presentViewController:cameraVc animated:YES completion:^{
+        
+    }];
 }
 
 @end

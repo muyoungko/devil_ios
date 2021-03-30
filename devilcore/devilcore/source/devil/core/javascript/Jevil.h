@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
 + (void)wifiList:(JSValue *)callback;
 + (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback;
++(void)camera:(NSDictionary*)param :(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

@@ -15,8 +15,9 @@ Pod::Spec.new do |s|
   s.subspec 'DevilCore' do |devilCore|
     devilCore.source_files = 'devilcore/devilcore/source/*.*', 'devilcore/devilcore/source/wildcard/*.*', 'devilcore/devilcore/source/wildcard/extensionview/*.*', 'devilcore/devilcore/source/wildcard/replacerule/*.*', 'devilcore/devilcore/source/wildcard/TriggerAction/*.*', 'devilcore/devilcore/source/wildcard/view/*.*' , 'devilcore/devilcore/source/devil/core/*.*' , 'devilcore/devilcore/source/devil/core/javascript/*.*', 'devilcore/devilcore/source/devil/core/debug/*.*', 'devilcore/devilcore/source/devil/core/view/*.*', 'devilcore/devilcore/source/devil/core/wifi/*.*'
     devilCore.resources = 'devilcore/devilcore/source/resource/*'
-    devilCore.dependency 'lottie-ios', '~> 2.5.3'
-    
+    devilCore.dependency 'lottie-ios', '~> 2.5.3'   
+    #devilCore.xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"${PROJECT_DIR}/.."/**' }
+    #devilCore.pod_target_xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"${PROJECT_DIR}/.."/**' }
   end
 
   s.subspec 'DevilLogin' do |devilLogin|
@@ -24,6 +25,8 @@ Pod::Spec.new do |s|
     devilLogin.public_header_files = 'Pod/Headers/*.h'
     devilLogin.dependency 'devil/DevilCore'
     devilLogin.dependency 'KakaoSDK'
+    #devilLogin.xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"${PROJECT_DIR}/.."/**' }
+    #devilLogin.pod_target_xcconfig = { 'USER_HEADER_SEARCH_PATHS' => '"${PROJECT_DIR}/.."/**' }
     #devilLogin.pod_target_xcconfig = { 'HEADER_SEARCH_PATHS' => '$(PODS_ROOT)/mypod/module' }
     #devilLogin.xcconfig = { 'HEADER_SEARCH_PATHS' => '$(SDKROOT)/usr/include/libxml2 $(PODS_ROOT)/mypod/module' }
   end

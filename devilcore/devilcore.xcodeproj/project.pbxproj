@@ -142,6 +142,7 @@
 		6D9E2B2025BB4A920027D16D /* ReplaceRuleStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
+		6DDAC6C426109A3B00E76300 /* DevilCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDAC6C326109A3B00E76300 /* DevilCamera.swift */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -286,6 +287,7 @@
 		6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleStrip.m; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
+		6DDAC6C326109A3B00E76300 /* DevilCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevilCamera.swift; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -396,6 +398,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DDAC6C226109A2B00E76300 /* camera */,
 				6D09C3C425B09C8800221A4C /* resource */,
 				6D467B29257A1470006D57DD /* devil */,
 				6D467A36256AB079006D57DD /* wildcard */,
@@ -587,6 +590,14 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		6DDAC6C226109A2B00E76300 /* camera */ = {
+			isa = PBXGroup;
+			children = (
+				6DDAC6C326109A3B00E76300 /* DevilCamera.swift */,
+			);
+			path = camera;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -696,6 +707,7 @@
 				TargetAttributes = {
 					6D46792D256A16DB006D57DD = {
 						CreatedOnToolsVersion = 12.1;
+						LastSwiftMigration = 1230;
 					};
 				};
 			};
@@ -807,6 +819,7 @@
 				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
 				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,
 				6D44336A2588065400B0E616 /* JevilCtx.m in Sources */,
+				6DDAC6C426109A3B00E76300 /* DevilCamera.swift in Sources */,
 				6D467AB9256AB07A006D57DD /* WildCardAction.m in Sources */,
 				6D467B6D257A2F16006D57DD /* DevilBaseController.m in Sources */,
 				6D467AA1256AB07A006D57DD /* ReplaceRuleImageResource.m in Sources */,
@@ -955,6 +968,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -975,6 +989,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -986,6 +1001,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
