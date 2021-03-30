@@ -27,4 +27,7 @@
 + (void)loginGoogle:(JSValue *)callback{
     
 }
++ (void)loginApple:(JSValue *)callback{
+    
+}
 @end

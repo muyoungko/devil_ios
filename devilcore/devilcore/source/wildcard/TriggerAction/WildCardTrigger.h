@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "WildCardUIView.h"
+#import "WildCardAction.h"
 
 #define WILDCARD_NODE_CLICKED @"nodeClicked"
 #define WILDCARD_NODE_IMPRESSED @"nodeImpressed"
@@ -16,8 +18,6 @@
 
 
 NS_ASSUME_NONNULL_BEGIN
-@class WildCardUIView;
-@class WildCardAction;
 
 @interface WildCardTrigger : NSObject
 
@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(id)initWithType:(NSString*)type nodeName:(NSString*)nodeName node:(WildCardUIView*)node;
 
--(void)addAction:(WildCardAction*)action;
+-(void)addAction:(id)action;
 -(void)addActions:(NSMutableArray*)actions;
 
 -(void)doAllAction;

@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WildCardTrigger.h"
+#import "WildCardMeta.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class WildCardTrigger;
-@class WildCardMeta;
 
 @interface WildCardAction : NSObject
 

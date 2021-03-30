@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WildCardMeta.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class WildCardMeta;
 
 @interface WildCardUITapGestureRecognizer : UITapGestureRecognizer
 @property (nonatomic, retain) WildCardMeta* meta;

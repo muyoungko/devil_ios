@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)loginKakao:(JSValue *)callback;
 + (void)loginFacebook:(JSValue *)callback;
 + (void)loginGoogle:(JSValue *)callback;
-
++ (void)loginApple:(JSValue *)callback;
 @end
 
 @interface JevilLogin : NSObject <JevilLogin>
