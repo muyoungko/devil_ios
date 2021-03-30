@@ -91,6 +91,16 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+    
+    <key>NSCameraUsageDescription</key>
+    <string>$(PRODUCT_NAME) camera description.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>$(PRODUCT_NAME)photos description.</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>$(PRODUCT_NAME) photos add description.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Allowing access to the microphone lets you record audio.</string>
+    
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -128,5 +138,6 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
+    
 </dict>
 </plist>
