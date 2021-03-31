@@ -9,7 +9,6 @@
 #import "DevilBlockDialog.h"
 #import "WildCardConstructor.h"
 #import "WildCardUIView.h"
-#import "CustomIOSAlertView.h"
 
 static const CGFloat kDefaultSpringDamping = 0.8;
 static const CGFloat kDefaultSpringVelocity = 10.0;

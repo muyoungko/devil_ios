@@ -22,8 +22,6 @@
 		6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */; };
 		6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */; };
 		6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBCBF25CAACAC0006ADD5 /* DevilDebugController.m */; };
-		6D3EBCCD25CB15D40006ADD5 /* CustomIOSAlertView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBCCB25CB15D40006ADD5 /* CustomIOSAlertView.h */; };
-		6D3EBCCE25CB15D40006ADD5 /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBCCC25CB15D40006ADD5 /* CustomIOSAlertView.m */; };
 		6D3EBD4925D4001A0006ADD5 /* DevilJsonViewer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBD4725D4001A0006ADD5 /* DevilJsonViewer.h */; };
 		6D3EBD4A25D4001A0006ADD5 /* DevilJsonViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EBD4825D4001A0006ADD5 /* DevilJsonViewer.m */; };
 		6D3EBE7B25D9123F0006ADD5 /* ReplaceRuleIcon.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBE7925D9123E0006ADD5 /* ReplaceRuleIcon.h */; };
@@ -162,8 +160,6 @@
 		6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBlockDialog.m; sourceTree = "<group>"; };
 		6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDebugController.h; sourceTree = "<group>"; };
 		6D3EBCBF25CAACAC0006ADD5 /* DevilDebugController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDebugController.m; sourceTree = "<group>"; };
-		6D3EBCCB25CB15D40006ADD5 /* CustomIOSAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomIOSAlertView.h; sourceTree = "<group>"; };
-		6D3EBCCC25CB15D40006ADD5 /* CustomIOSAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomIOSAlertView.m; sourceTree = "<group>"; };
 		6D3EBD4725D4001A0006ADD5 /* DevilJsonViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilJsonViewer.h; sourceTree = "<group>"; };
 		6D3EBD4825D4001A0006ADD5 /* DevilJsonViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilJsonViewer.m; sourceTree = "<group>"; };
 		6D3EBE7925D9123E0006ADD5 /* ReplaceRuleIcon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleIcon.h; sourceTree = "<group>"; };
@@ -562,8 +558,6 @@
 		6D7E267625A89ABA00600978 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				6D3EBCCB25CB15D40006ADD5 /* CustomIOSAlertView.h */,
-				6D3EBCCC25CB15D40006ADD5 /* CustomIOSAlertView.m */,
 				6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */,
 				6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */,
 				6D7E267725A89AD400600978 /* DevilSelectDialog.h */,
@@ -653,7 +647,6 @@
 				6D9E2B1925BB49540027D16D /* WildCardPagerTabStripMaker.h in Headers */,
 				6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */,
 				6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */,
-				6D3EBCCD25CB15D40006ADD5 /* CustomIOSAlertView.h in Headers */,
 				6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */,
 				6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */,
 				6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */,
@@ -770,7 +763,6 @@
 				6D09C3C125B08B2A00221A4C /* DevilDebugView.m in Sources */,
 				6D3EBD4A25D4001A0006ADD5 /* DevilJsonViewer.m in Sources */,
 				6D467AAB256AB07A006D57DD /* WildCardMeta.m in Sources */,
-				6D3EBCCE25CB15D40006ADD5 /* CustomIOSAlertView.m in Sources */,
 				6D467ABB256AB07A006D57DD /* WildCardViewPagerLeftAction.m in Sources */,
 				6D467AC7256AB07A006D57DD /* WildCardFunction.m in Sources */,
 				6D467ABD256AB07A006D57DD /* WildCardApplyAgainAction.m in Sources */,
