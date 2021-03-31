@@ -7,6 +7,8 @@
 
 #import "DevilSelectDialog.h"
 #import "DevilBlockDialog.h"
+#import "WildCardConstructor.h"
+#import "WildCardUtil.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -35,12 +37,32 @@ alpha:1.0]
 }
 
 -(void)popupSelect:(id)array selectedKey:(id)selectedKey title:(NSString*)titleText yes:(NSString*)yes show:(NSString*)show onselect:(void (^)(id res))callback{
+}
+
+-(void)popupSelect:(id)array param:param onselect:(void (^)(id res))callback{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
     
+    NSString* ws = param[@"w"];
+    NSString* hs = param[@"h"];
+    
     self.list = array;
-    self.selectedKey = selectedKey;
-    self.keyString = @"key";
-    self.valueString = @"value";
+    self.selectedKey = param[@"selectedKey"];
+    if(param[@"key"])
+        self.keyString = param[@"key"];
+    else
+        self.keyString = @"key";
+    
+    if(param[@"value"])
+        self.valueString = param[@"value"];
+    else
+        self.valueString = @"value";
+    NSString* titleText = param[@"title"];
+    NSString* yes = param[@"yes"];
+    
+    NSString* show = @"center";
+    if(param[@"show"])
+        show = param[@"show"];
+    
     self.callback = callback;
     
     DevilBlockDialog *popup = [[DevilBlockDialog alloc] init];
@@ -51,11 +73,19 @@ alpha:1.0]
     };
     
     int w = [UIScreen mainScreen].bounds.size.width * 0.7f, h= 300;
-    if([@"top" isEqualToString:show] || [@"bottom" isEqualToString:show])
-        w = [UIScreen mainScreen].bounds.size.width;
+    if(ws)
+        w = [WildCardConstructor convertSketchToPixel:[ws intValue]];
+    if(hs)
+        h = [WildCardConstructor convertSketchToPixel:[hs intValue]];
     
-    if([array count]*55 < h)
+    if([@"top" isEqualToString:show] || [@"bottom" isEqualToString:show]){
+        w = [UIScreen mainScreen].bounds.size.width;
+        if([array count]*55 < h)
+            h = (int)[array count]*55;
+    } else if([@"point" isEqualToString:show]){
+        w = [WildCardConstructor convertSketchToPixel:140];
         h = (int)[array count]*55;
+    }
     
     int offsetY = 10;
     if([@"top" isEqualToString:show])
@@ -120,7 +150,22 @@ alpha:1.0]
         popup.showType = DevilBlockDialogShowType_SlideInFromTop;
         popup.dismissType = DevilBlockDialogDismissType_SlideOutToTop;
     } else if([@"point" isEqualToString:show]) {
-        ;//TODO
+        popup.showType = DevilBlockDialogShowType_GrowFromPoint;
+        popup.dismissType = DevilBlockDialogDismissType_ShrinkToPoint;
+        if(param[@"view"]){
+            UIView* click = param[@"view"];
+            CGRect f = [WildCardUtil getGlobalFrame:click];
+            float x = f.origin.x + f.size.width / 2.0f;
+            float y = f.origin.y + f.size.height / 2.0f;
+            float sw = [UIScreen mainScreen].bounds.size.width;
+            float sh = [UIScreen mainScreen].bounds.size.height;
+            if(x > sw/2)
+                x = x - w;
+            if(y > sh/2)
+                y = y - h;
+            popup.px = x;
+            popup.py = y;
+        }
     }
     
     popup.shouldDismissOnBackgroundTouch = YES;

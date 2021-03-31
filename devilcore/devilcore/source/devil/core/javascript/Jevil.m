@@ -294,16 +294,13 @@
 
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback {
     
-    //:(NSArray*)array :(NSString*)selectedKey
-    NSString* title = param[@"title"];
-    NSString* yes = param[@"yes"];
-    NSString* show = param[@"show"];
-    NSString* selectedKey = param[@"selectedKey"];
-    
     UIViewController*vc = [JevilInstance currentInstance].vc;
     DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:vc];
     id list = [arrayString mutableCopy];
-    [d popupSelect:list selectedKey:selectedKey title:title yes:yes show:show onselect:^(id  _Nonnull res) {
+    id paramM = [param mutableCopy];
+    if([JevilInstance currentInstance].meta.lastClick)
+        paramM[@"view"] = [JevilInstance currentInstance].meta.lastClick;
+    [d popupSelect:list param:paramM onselect:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
         [[JevilInstance currentInstance] syncData];
     }];

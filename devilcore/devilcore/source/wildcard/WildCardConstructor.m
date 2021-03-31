@@ -280,6 +280,7 @@ static NSString *default_project_id = nil;
     WildCardUIView* vv = (WildCardUIView*)recognizer.view;
     NSString *action = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    trigger.node = vv;
     [WildCardAction parseAndConducts:trigger action:action meta:recognizer.meta];
 }
 
@@ -288,6 +289,7 @@ static NSString *default_project_id = nil;
     WildCardUIView* vv = (WildCardUIView*)recognizer.view;
     NSString *script = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    trigger.node = vv;
     [WildCardAction execute:trigger script:script meta:recognizer.meta];
 }
 

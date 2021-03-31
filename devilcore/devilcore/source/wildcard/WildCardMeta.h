@@ -23,6 +23,7 @@
 @interface WildCardMeta : NSObject
 
 @property (nonatomic, retain) WildCardUIView* rootView;
+@property (nonatomic, retain) WildCardUIView* lastClick;
 @property (nonatomic, retain) NSMutableArray* replaceRules;
 @property (nonatomic, retain) NSMutableDictionary* generatedViews;
 @property (nonatomic, retain) NSDictionary* cloudJson;

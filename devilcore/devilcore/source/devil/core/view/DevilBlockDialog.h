@@ -25,7 +25,8 @@ typedef NS_ENUM(NSUInteger, DevilBlockDialogShowType) {
     DevilBlockDialogShowType_BounceInFromTop NS_SWIFT_NAME(bounceInFromTop),
     DevilBlockDialogShowType_BounceInFromBottom NS_SWIFT_NAME(bounceInFromBottom),
     DevilBlockDialogShowType_BounceInFromLeft NS_SWIFT_NAME(bounceInFromLeft),
-    DevilBlockDialogShowType_BounceInFromRight NS_SWIFT_NAME(bounceInFromRight)
+    DevilBlockDialogShowType_BounceInFromRight NS_SWIFT_NAME(bounceInFromRight),
+    DevilBlockDialogShowType_GrowFromPoint NS_SWIFT_NAME(growFromPoint)
 } NS_SWIFT_NAME(DevilBlockDialog.ShowType);
 
 /**
@@ -45,7 +46,8 @@ typedef NS_ENUM(NSUInteger, DevilBlockDialogDismissType) {
     DevilBlockDialogDismissType_BounceOutToTop NS_SWIFT_NAME(bounceOutToTop),
     DevilBlockDialogDismissType_BounceOutToBottom NS_SWIFT_NAME(bounceOutToBottom),
     DevilBlockDialogDismissType_BounceOutToLeft NS_SWIFT_NAME(bounceOutToLeft),
-    DevilBlockDialogDismissType_BounceOutToRight NS_SWIFT_NAME(bounceOutToRight)
+    DevilBlockDialogDismissType_BounceOutToRight NS_SWIFT_NAME(bounceOutToRight),
+    DevilBlockDialogDismissType_ShrinkToPoint NS_SWIFT_NAME(shrinkToPoint)
 } NS_SWIFT_NAME(DevilBlockDialog.DismissType);
 
 /**
@@ -117,6 +119,8 @@ NS_ASSUME_NONNULL_BEGIN
  @discussion The default value is `DevilBlockDialogShowType_BounceInFromTop`.
  */
 @property (nonatomic, assign) DevilBlockDialogShowType showType;
+@property (nonatomic, assign) int px;
+@property (nonatomic, assign) int py;
 
 /**
  Animation transition for dismissing contentView.

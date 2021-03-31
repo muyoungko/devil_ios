@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)popupSelect:(id)array selectedKey:(id)selectedKey title:(NSString*)title yes:(NSString*)yes show:(NSString*)show onselect:(void (^)(id res))callback;
 
+-(void)popupSelect:(id)array param:param onselect:(void (^)(id res))callback;
+
 @end
 
 NS_ASSUME_NONNULL_END

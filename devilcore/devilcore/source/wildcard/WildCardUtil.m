@@ -194,4 +194,9 @@
     }
 }
 
++(CGRect)getGlobalFrame:(UIView*)v {
+    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+    return [v.superview convertRect:v.frame toView:rootView];
+}
+
 @end

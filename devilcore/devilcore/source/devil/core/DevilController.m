@@ -214,13 +214,16 @@
             NSString* code = args[0];
             code = [code substringFromIndex:1];
             code = [code substringToIndex:[code length]-1];
+            meta.lastClick = node;
             [self.jevil code:code viewController:self data:self.data meta:meta];
             return YES;
         } else if([functionName isEqualToString:@"script"]){
             NSString* code = args[0];
+            meta.lastClick = node;
             [self.jevil code:code viewController:self data:self.data meta:meta];
             return YES;
         } else if([functionName hasPrefix:@"Jevil"]) {
+            meta.lastClick = node;
             [JevilAction act:functionName args:args viewController:self meta:meta];
             return YES;
         }

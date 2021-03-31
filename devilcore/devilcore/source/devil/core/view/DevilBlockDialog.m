@@ -478,6 +478,23 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
             
             /// Animate contentView if needed.
             switch (strongSelf.showType) {
+                case DevilBlockDialogShowType_GrowFromPoint: {
+                    
+                    strongSelf.containerView.alpha = 0.0;
+                    strongSelf.transform = CGAffineTransformIdentity;
+                    
+                    finalContainerFrame.origin.x = self.px;
+                    finalContainerFrame.origin.y = self.py;
+                    
+                    CGRect startFrame = CGRectMake(self.px,self.py,0,0);
+                    strongSelf.containerView.frame = startFrame;
+                    CGFloat duration = strongSelf.showInDuration ?: kDefaultAnimateDuration;
+                    [UIView animateWithDuration:duration delay:0.0 options:kAnimationOptionCurve animations:^{
+                        strongSelf.containerView.frame = finalContainerFrame;
+                        strongSelf.containerView.alpha = 1.0;
+                    } completion:completionBlock];
+                    
+                }   break;
                 case DevilBlockDialogShowType_FadeIn: {
                     strongSelf.containerView.alpha = 0.0;
                     strongSelf.containerView.transform = CGAffineTransformIdentity;
@@ -672,6 +689,11 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
             if (animated) {
                 NSTimeInterval dismissOutDuration = strongSelf.dismissOutDuration ?: kDefaultAnimateDuration;
                 switch (strongSelf.dismissType) {
+                    case DevilBlockDialogDismissType_ShrinkToPoint: {
+                        [UIView animateWithDuration:dismissOutDuration delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+                            strongSelf.containerView.alpha = 0.0;
+                        } completion:completionBlock];
+                    }
                     case DevilBlockDialogDismissType_FadeOut: {
                         [UIView animateWithDuration:dismissOutDuration delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
                             strongSelf.containerView.alpha = 0.0;
