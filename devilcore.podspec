@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
-  s.name             = 'devil'
+  s.name             = 'devilcore'
   s.platform         = :ios
   s.version          = '0.0.60'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
-    This is Devil
+    This is Devil Login
                        DESC
   s.homepage         = 'https://github.com/muyoungko/devil_ios'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -16,12 +16,7 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
-  s.subspec 'DevilCore' do |ss|
-    ss.dependency 'devilcore'
-  end
-
-  s.subspec 'DevilLogin' do |ss|
-    ss.dependency 'devillogin'
-  end
-
+  s.source_files = 'devilcore/devilcore/source/**/*.*', 'devilcore/devilcore/header/**/*.h'
+  s.public_header_files = 'devilcore/devilcore/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.dependency 'lottie-ios', '~> 2.5.3'
 end

@@ -21,12 +21,14 @@
 #import "JulyUtil.h"
 #import "DeepLink.h"
 
+@import devilcore;
+@import devillogin;
+
 @import Firebase;
 @import CoreData;
 @import GoogleMobileAds;
 
 #import "AppDelegate.h"
-#import "devillogin/devillogin-Swift.h"
 
 @interface AppDelegate ()
 

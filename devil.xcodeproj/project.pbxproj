@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D0224EE2613959900634842 /* devillogin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224ED2613959900634842 /* devillogin.podspec */; };
+		6D0224F026143D8300634842 /* devilcore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224EF26143D8300634842 /* devilcore.podspec */; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
 		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
 		6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */; };
@@ -57,6 +59,8 @@
 /* Begin PBXFileReference section */
 		2582E74ED55CB817E103EB86 /* Pods-CloudJsonViewer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.release.xcconfig"; sourceTree = "<group>"; };
 		4B7679E8A3D66962E99E8A44 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Pods/Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
+		6D0224ED2613959900634842 /* devillogin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devillogin.podspec; sourceTree = "<group>"; };
+		6D0224EF26143D8300634842 /* devilcore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilcore.podspec; sourceTree = "<group>"; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
 		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
 		6D132B91255E6E0F00004E1F /* HttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUtil.h; sourceTree = "<group>"; };
@@ -239,6 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				6D4679A9256A51B9006D57DD /* devil.podspec */,
+				6D0224EF26143D8300634842 /* devilcore.podspec */,
+				6D0224ED2613959900634842 /* devillogin.podspec */,
 				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
 				6D46791C25699107006D57DD /* image */,
 				6D4678B52567B1E2006D57DD /* devil */,
@@ -329,8 +335,10 @@
 				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
 				6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */,
 				6D4679AA256A51B9006D57DD /* devil.podspec in Resources */,
+				6D0224EE2613959900634842 /* devillogin.podspec in Resources */,
 				6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */,
 				6D132BC6255E76F400004E1F /* lang.json in Resources */,
+				6D0224F026143D8300634842 /* devilcore.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

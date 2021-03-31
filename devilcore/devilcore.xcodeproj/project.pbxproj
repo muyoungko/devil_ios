@@ -158,9 +158,6 @@
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
 		6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardScriptAction.m; sourceTree = "<group>"; };
-		6D22CF9426079A0C00A1CB25 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D22CFC026079B1400A1CB25 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D22CFF526079BB900A1CB25 /* Lottie.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Lottie.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBlockDialog.h; sourceTree = "<group>"; };
 		6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBlockDialog.m; sourceTree = "<group>"; };
 		6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDebugController.h; sourceTree = "<group>"; };
@@ -334,9 +331,6 @@
 		6D22CF9326079A0C00A1CB25 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6D22CFF526079BB900A1CB25 /* Lottie.framework */,
-				6D22CFC026079B1400A1CB25 /* Lottie.framework */,
-				6D22CF9426079A0C00A1CB25 /* Lottie.framework */,
 				80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */,
 			);
 			name = Frameworks;
