@@ -16,8 +16,8 @@ public class KakaoWrapper: NSObject {
         super.init()
     }
  
-    @objc static public func initKakaoAppKey() {
-        KakaoSDKCommon.initSDK(appKey: "d0c7657dc3cd93575cc590b87c0dc624")
+    @objc static public func initKakaoAppKey(str : String) {
+        KakaoSDKCommon.initSDK(appKey: str)
     }
     
     @objc static public func handleOpenUrl(_ url:URL) -> Bool {
@@ -70,7 +70,6 @@ public class KakaoWrapper: NSObject {
 
                         //do something
                         _ = user?.id
-                    
                         
                         let r: NSMutableDictionary = NSMutableDictionary()
                         //r["id"] = String(describing:user?.id)

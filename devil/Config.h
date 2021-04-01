@@ -9,5 +9,6 @@
 #ifndef Config_h
 #define Config_h
 
+#define JEVIL_LOGIN_KAKAO_APP_KEY @"JEVIL_LOGIN_KAKAO_APP_KEY_VALUE"
 
 #endif /* Config_h */
