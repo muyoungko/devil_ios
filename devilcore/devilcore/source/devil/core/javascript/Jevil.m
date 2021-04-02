@@ -323,6 +323,9 @@
     return adapter.selectedIndex;
 }
 
++ (BOOL)wifiIsOn {
+    return YES;
+}
 
 + (void)wifiList:(JSValue *)callback {
     
