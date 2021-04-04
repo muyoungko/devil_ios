@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 
 #import "JevilLogin.h"
+#import "DevilLoginSdk.h"
 
 //! Project version number for devillogin.
 FOUNDATION_EXPORT double devilloginVersionNumber;

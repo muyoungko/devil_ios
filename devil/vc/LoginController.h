@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SubController.h"
 #import "AppDelegate.h"
 #import <AuthenticationServices/AuthenticationServices.h>
 
+@import devilcore;
+@import devillogin;
 @import GoogleSignIn;
 
 NS_ASSUME_NONNULL_BEGIN

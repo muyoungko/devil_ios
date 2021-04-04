@@ -13,7 +13,7 @@
 #import <devillogin/devillogin-Swift.h>
 
 @class Test;
-@class KakaoWrapper;
+@class DevilKakaoLogin;
 
 @interface MainController()
 

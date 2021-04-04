@@ -29,11 +29,9 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleURLName</key>
-			<string>fb462238384731129</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb462238384731129</string>
+				<string>fb755378721718919</string>
 			</array>
 		</dict>
 		<dict>
@@ -58,9 +56,10 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>462238384731129</string>
+	<string>755378721718919</string>
 	<key>FacebookDisplayName</key>
 	<string>Devil App Builder</string>
+    
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>http://m.deavil.com/share</string>

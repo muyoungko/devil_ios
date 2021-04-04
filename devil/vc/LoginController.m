@@ -11,7 +11,6 @@
 #import "JoinController.h"
 #import "Devil.h"
 #import "Lang.h"
-#import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
 
@@ -32,15 +31,15 @@
     
 }
 
-- (void)loginButton:(FBSDKLoginButton *)loginButton
-didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
-              error:(NSError *)error {
-    if (error == nil && !result.isCancelled) {
-        
-    } else {
-        NSLog(error.localizedDescription);
-    }
-}
+//- (void)loginButton:(FBSDKLoginButton *)loginButton
+//didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
+//              error:(NSError *)error {
+//    if (error == nil && !result.isCancelled) {
+//
+//    } else {
+//        NSLog(error.localizedDescription);
+//    }
+//}
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
 {
@@ -70,115 +69,57 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
         return YES;
     } else if([@"login_fb" isEqualToString:functionName]){
         [self showIndicator];
-        FBSDKLoginManager* m = [[FBSDKLoginManager alloc] init];
-        //프로필은 FB 검수 받고 받아와야한다.
-        [m logInWithPermissions:@[@"public_profile", @"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult * _Nullable result, NSError * _Nullable error) {
-            [self hideIndicator];
-            if(!error){
-                NSString* token = result.token.tokenString;
-                [self showIndicator];
-                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"id,name,email"}]
-                 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                     [self hideIndicator];
-                     if (!error) {
-                         NSLog(@"fetched user:%@", result);
-                         __block NSString* no = result[@"id"];
-                         __block NSString* name = result[@"name"];
-                         __block NSString* email = result[@"email"];
-                         [self showIndicator];
-                         [[Devil sharedInstance] checkMemeber:@"fb" identifier:no callback:^(id  _Nonnull res) {
-                             [self hideIndicator];
-                             if(res && token){
-                                 if([res[@"r"] boolValue]){
-                                     [[Devil sharedInstance] login:@"fb" email:@"noneed" passwordOrToken:token callback:^(id  _Nonnull res) {
-                                         if(res && [res[@"r"] boolValue])
-                                             [self finishLogin];
-                                         else
-                                             [self showAlert:res[@"msg"]];
-                                     }];
-                                 } else {
-                                     JoinController* vc = [[JoinController alloc] init];
-                                     vc.type = @"fb";
-                                     vc.email = email;
-                                     vc.name = name;
-                                     vc.identifier = no;
-                                     vc.token = token;
-                                     vc.sex = @"";
-                                     vc.age = @"";
-                                     vc.profile = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", no];
-                                     [self.navigationController pushViewController:vc animated:YES];
-                                 }
-                             }
-                         }];
-                     } else {
-                         [self showAlert:[NSString stringWithFormat:@"%@", error.localizedDescription]];
-                     }
-                 }];
-            }
-        }];
+//        FBSDKLoginManager* m = [[FBSDKLoginManager alloc] init];
+//        //프로필은 FB 검수 받고 받아와야한다.
+//        [m logInWithPermissions:@[@"public_profile", @"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult * _Nullable result, NSError * _Nullable error) {
+//            [self hideIndicator];
+//            if(!error){
+//                NSString* token = result.token.tokenString;
+//                [self showIndicator];
+//                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"id,name,email"}]
+//                 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+//                     [self hideIndicator];
+//                     if (!error) {
+//                         NSLog(@"fetched user:%@", result);
+//                         __block NSString* no = result[@"id"];
+//                         __block NSString* name = result[@"name"];
+//                         __block NSString* email = result[@"email"];
+//                         [self showIndicator];
+//                         [[Devil sharedInstance] checkMemeber:@"fb" identifier:no callback:^(id  _Nonnull res) {
+//                             [self hideIndicator];
+//                             if(res && token){
+//                                 if([res[@"r"] boolValue]){
+//                                     [[Devil sharedInstance] login:@"fb" email:@"noneed" passwordOrToken:token callback:^(id  _Nonnull res) {
+//                                         if(res && [res[@"r"] boolValue])
+//                                             [self finishLogin];
+//                                         else
+//                                             [self showAlert:res[@"msg"]];
+//                                     }];
+//                                 } else {
+//                                     JoinController* vc = [[JoinController alloc] init];
+//                                     vc.type = @"fb";
+//                                     vc.email = email;
+//                                     vc.name = name;
+//                                     vc.identifier = no;
+//                                     vc.token = token;
+//                                     vc.sex = @"";
+//                                     vc.age = @"";
+//                                     vc.profile = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", no];
+//                                     [self.navigationController pushViewController:vc animated:YES];
+//                                 }
+//                             }
+//                         }];
+//                     } else {
+//                         [self showAlert:[NSString stringWithFormat:@"%@", error.localizedDescription]];
+//                     }
+//                 }];
+//            }
+//        }];
         return YES;
     } else if([@"login_google" isEqualToString:functionName]){
         ((AppDelegate*)[UIApplication sharedApplication].delegate).googleSigninMyDelegate = self;
         [GIDSignIn sharedInstance].presentingViewController = self;
         [[GIDSignIn sharedInstance] signIn];
-        return YES;
-    } else if([@"login_kakao" isEqualToString:functionName]){
-        KOSession *session = [KOSession sharedSession];
-        if (session.isOpen)
-            [session close];
-        
-        [session openWithCompletionHandler:^(NSError *error) {
-            if (!session.isOpen) {
-                switch (error.code) {
-                    case KOErrorCancelled:
-                        break;
-                    default:
-                        [self showAlert:error.description];
-                        break;
-                }
-            } else {
-                __block NSString* token = [KOSession sharedSession].token.accessToken;
-                [KOSessionTask userMeTaskWithCompletion:^(NSError *error, KOUserMe *me) {
-                    if (error != nil){
-                        [self showAlert:[NSString stringWithFormat:@"%@", error]];
-                        return;
-                    }
-                    
-                    NSLog(@"사용자 아이디: %@", me.ID);
-                    NSLog(@"사용자 닉네임: %@", me.nickname);
-                    [self showIndicator];
-                    [[Devil sharedInstance] checkMemeber:@"kakao" identifier:me.ID callback:^(id  _Nonnull res) {
-                        [self hideIndicator];
-                        if(res){
-                            if([res[@"r"] boolValue]){
-                                [[Devil sharedInstance] login:@"kakao" email:@"noneed" passwordOrToken:token callback:^(id  _Nonnull res) {
-                                    if(res && [res[@"r"] boolValue])
-                                        [self finishLogin];
-                                    else
-                                        [self showAlert:res[@"msg"]];
-                                }];
-                            } else {
-                                JoinController* vc = [[JoinController alloc] init];
-                                vc.type = @"kakao";
-                                vc.email = me.account.email;
-                                vc.name = me.nickname;
-                                vc.identifier = me.ID;
-                                vc.token = token;
-                                vc.sex = me.account.gender == KOUserGenderMale ? @"M":(me.account.gender == KOUserGenderFemale?@"F":@"");
-                                vc.age = [NSString stringWithFormat:@"%lu", (unsigned long)me.account.ageRange];
-                                vc.profile = [me.profileImageURL absoluteString];
-                                [self.navigationController pushViewController:vc animated:YES];
-                            }
-                        } else
-                            [self showAlert:NETWORK_MSG];
-                    }];
-                    
-                }];
-                
-
-            }
-        }];
-        
         return YES;
     } else if([@"login_apple" isEqualToString:functionName]){
         [self haddleAppleLogin];

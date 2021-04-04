@@ -36,11 +36,6 @@ target 'devil' do
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
   
-  pod 'FacebookSDK'
-  pod 'FacebookSDK/LoginKit'
-  pod 'FacebookSDK/ShareKit'
-#  pod 'Bolts'
-  
   pod 'Google-Mobile-Ads-SDK'
 end
 
@@ -57,5 +52,7 @@ target 'devillogin' do
   lottie_libs
   
   pod 'KakaoSDK'
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKShareKit'
 end
   

@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback;
 -(id)getCustomJevil;
 -(void)addCustomJevil:(Class)a;
-
 @end
 
 NS_ASSUME_NONNULL_END

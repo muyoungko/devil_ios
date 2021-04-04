@@ -10,11 +10,11 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreMotion/CoreMotion.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "Firebase.h"
-#import <devilcore/devilcore.h>
-#import <devillogin/devillogin.h>
 #import <UserNotifications/UserNotifications.h>
 
+@import Firebase;
+@import devilcore;
+@import devillogin;
 @import GoogleSignIn;
 
 @protocol GoogleSigninMyDelegate <NSObject>

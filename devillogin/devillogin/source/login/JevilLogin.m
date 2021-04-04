@@ -7,22 +7,27 @@
 
 #import "JevilLogin.h"
 
-//#import "devillogin-Swift.h"
 #import <devillogin/devillogin-Swift.h>
-//@class KakaoWrapper;
+#import "DevilFacebook.h"
 
 @implementation JevilLogin
 
 + (void)loginKakao:(JSValue *)callback{
-    KakaoWrapper* kakao = [[KakaoWrapper alloc] init];
+    DevilKakaoLogin* kakao = [[DevilKakaoLogin alloc] init];
     [kakao loginWithCompletion:^(id _Nullable user) {
-        [callback callWithArguments:
-         @[@{@"user":user, @"r":@TRUE}]
-         ];
+        if(user != nil)
+            [callback callWithArguments:@[@{@"user":user, @"r":@TRUE}]];
+        else
+            [callback callWithArguments:@[@{@"r":@FALSE}]];
     }];
 }
 + (void)loginFacebook:(JSValue *)callback{
-    
+    [DevilFacebook loginWithComplete:^(id _Nullable user) {
+        if(user !=nil)
+            [callback callWithArguments:@[@{@"user":user, @"r":@TRUE}]];
+        else
+            [callback callWithArguments:@[@{@"r":@FALSE}]];
+    }];
 }
 + (void)loginGoogle:(JSValue *)callback{
     

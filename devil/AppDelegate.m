@@ -9,8 +9,6 @@
 #import <UserNotifications/UserNotifications.h>
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import <AFNetworking/AFNetworking.h>
 #import "UIImageView+AFNetworking.h"
 #import "Devil.h"
@@ -21,10 +19,6 @@
 #import "JulyUtil.h"
 #import "DeepLink.h"
 
-@import devilcore;
-@import devillogin;
-
-@import Firebase;
 @import CoreData;
 @import GoogleMobileAds;
 
@@ -146,7 +140,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLogin class]];
     
-    [KakaoWrapper initKakaoAppKey];
+    [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
     
     if(launchOptions == nil){
         [self preparePushToken:application];
@@ -167,7 +161,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
     
-    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     [WildCardConstructor sharedInstance:@"1605234988599"];
     [WildCardConstructor sharedInstance].delegate = self;
@@ -242,18 +235,13 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-       
-    if([KakaoWrapper handleOpenUrl:url])
+    
+    if([DevilLoginSdk application:(UIApplication *)application
+                               openURL:(NSURL *)url
+                       options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options])
         return true;
-     
-    //NSURL *    @"kakaob973b140b9138a6cc08b0cb2693ce6c2://kakaolink?param1=ios"    0x0000000280210300
-    if([[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                  openURL:url
-                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
-                    ])
-        return true;
-
+    
+                
     if([[GIDSignIn sharedInstance] handleURL:url])
         return true;
                 
