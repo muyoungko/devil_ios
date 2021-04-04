@@ -67,5 +67,4 @@ fastlane/test_output
 
 iOSInjectionProject/
 
-devil/Config.h
-
+devil/devil.plist

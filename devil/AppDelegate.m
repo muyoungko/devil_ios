@@ -20,7 +20,6 @@
 #import "Lang.h"
 #import "JulyUtil.h"
 #import "DeepLink.h"
-#import "Config.h"
 
 @import devilcore;
 @import devillogin;
@@ -147,7 +146,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLogin class]];
     
-    [KakaoWrapper initKakaoAppKeyWithStr:JEVIL_LOGIN_KAKAO_APP_KEY];
+    [KakaoWrapper initKakaoAppKey];
     
     if(launchOptions == nil){
         [self preparePushToken:application];

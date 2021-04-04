@@ -16,8 +16,10 @@ public class KakaoWrapper: NSObject {
         super.init()
     }
  
-    @objc static public func initKakaoAppKey(str : String) {
-        KakaoSDKCommon.initSDK(appKey: str)
+    @objc static public func initKakaoAppKey() {
+        let path = Bundle.main.path(forResource: "devil", ofType:"plist")!
+        let dict = NSDictionary(contentsOfFile: path)
+        KakaoSDKCommon.initSDK(appKey: dict!["KakaoAppKey"] as! String)
     }
     
     @objc static public func handleOpenUrl(_ url:URL) -> Bool {
