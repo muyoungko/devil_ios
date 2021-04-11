@@ -138,8 +138,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [FIRApp configure];
     
-    [[DevilSdk sharedInstance] addCustomJevil:[JevilLogin class]];
-    
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
     
     if(launchOptions == nil){

@@ -7,7 +7,6 @@
 
 #import "DevilFacebook.h"
 
-@import FBSDKCoreKit;
 @import FBSDKLoginKit;
 
 @implementation DevilFacebook

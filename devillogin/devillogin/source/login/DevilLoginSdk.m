@@ -8,12 +8,15 @@
 #import "DevilLoginSdk.h"
 #import "DevilFacebook.h"
 #import <devillogin/devillogin-Swift.h>
+#import "JevilLogin.h"
 
+@import devilcore;
 @import FBSDKLoginKit;
 
 @implementation DevilLoginSdk
 
 + (void)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[DevilSdk sharedInstance] addCustomJevil:[JevilLogin class]];
     NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
     id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
     if(devilConfig[@"hasKakaoLogin"]){
