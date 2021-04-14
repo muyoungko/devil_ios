@@ -116,32 +116,18 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic, getter=isSessionRunning) BOOL sessionRunning;
 @property (nonatomic) AVCaptureDeviceInput* videoDeviceInput;
 
-// Device configuration.
-@property (nonatomic, weak) IBOutlet UIButton* cameraButton;
-@property (nonatomic, weak) IBOutlet UILabel* cameraUnavailableLabel;
 @property (nonatomic) AVCaptureDeviceDiscoverySession* videoDeviceDiscoverySession;
 
 // Capturing photos.
-@property (nonatomic, weak) IBOutlet UIButton* photoButton;
-@property (nonatomic, weak) IBOutlet UIButton* livePhotoModeButton;
 @property (nonatomic) AVCamLivePhotoMode livePhotoMode;
-@property (nonatomic, weak) IBOutlet UILabel* capturingLivePhotoLabel;
-@property (nonatomic, weak) IBOutlet UIButton* depthDataDeliveryButton;
 @property (nonatomic) AVCamDepthDataDeliveryMode depthDataDeliveryMode;
-@property (nonatomic, weak) IBOutlet UIButton* portraitEffectsMatteDeliveryButton;
 @property (nonatomic) AVCamPortraitEffectsMatteDeliveryMode portraitEffectsMatteDeliveryMode;
-@property (nonatomic, weak) IBOutlet UISegmentedControl *photoQualityPrioritizationSegControl;
 @property (nonatomic) AVCapturePhotoQualityPrioritization photoQualityPrioritizationMode;
-@property (weak, nonatomic) IBOutlet UIButton *semanticSegmentationMatteDeliveryButton;
 
 @property (nonatomic) AVCapturePhotoOutput* photoOutput;
 @property (nonatomic) NSArray<AVSemanticSegmentationMatteType>* selectedSemanticSegmentationMatteTypes;
 @property (nonatomic) NSMutableDictionary<NSNumber* , DevilAVCamPhotoCaptureDelegate* >* inProgressPhotoCaptureDelegates;
 @property (nonatomic) NSInteger inProgressLivePhotoCapturesCount;
-
-// Recording movies.
-@property (nonatomic, weak) IBOutlet UIButton* recordButton;
-@property (nonatomic, weak) IBOutlet UIButton* resumeButton;
 
 @property (nonatomic, strong) AVCaptureMovieFileOutput* movieFileOutput;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundRecordingID;
@@ -492,6 +478,10 @@ typedef NS_ENUM(NSInteger, UIMode) {
         return;
     }
     
+    if(self.video) {
+        [self onClickVideo:nil];
+    }
+    
     self.backgroundRecordingID = UIBackgroundTaskInvalid;
     
     [self.session commitConfiguration];
@@ -515,8 +505,6 @@ typedef NS_ENUM(NSInteger, UIMode) {
      
      See the AVCaptureFileOutputRecordingDelegate methods.
     */
-    self.cameraButton.enabled = NO;
-    self.recordButton.enabled = NO;
     
     /*
      Retrieve the video preview layer's video orientation on the main queue
@@ -566,7 +554,6 @@ didStartRecordingToOutputFileAtURL:(NSURL*)fileURL
 {
     // Enable the Record button to let the user stop recording.
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.recordButton.enabled = YES;
         [self uiRecording];
     });
 }
@@ -634,9 +621,6 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
     dispatch_async(dispatch_get_main_queue(), ^{
         // Only enable the ability to change camera if the device has more than one camera.
         [self uiRecord];
-        self.cameraButton.enabled = (self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1);
-        self.recordButton.enabled = YES;
-        [self.recordButton setImage:[UIImage imageNamed:@"CaptureVideo"] forState:UIControlStateNormal];
     });
 }
 
@@ -682,14 +666,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // Only enable the ability to change camera if the device has more than one camera.
-            self.cameraButton.enabled = isSessionRunning && (self.videoDeviceDiscoverySession.uniqueDevicePositionsCount > 1);
-            self.recordButton.enabled = isSessionRunning;
-            self.photoButton.enabled = isSessionRunning;
-            self.livePhotoModeButton.enabled = isSessionRunning && livePhotoCaptureEnabled;
-            self.depthDataDeliveryButton.enabled = isSessionRunning && depthDataDeliveryEnabled;
-            self.portraitEffectsMatteDeliveryButton.enabled = isSessionRunning && portraitEffectsMatteDeliveryEnabled;
-            self.semanticSegmentationMatteDeliveryButton.enabled = isSessionRunning && semanticSegmentationMatteDeliveryEnabled;
-            self.photoQualityPrioritizationSegControl.enabled = isSessionRunning;
+            
         });
     }
     else if (context == SystemPressureContext) {
@@ -754,13 +731,13 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             }
             else {
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    self.resumeButton.hidden = NO;
+                    
                 });
             }
         });
     }
     else {
-        self.resumeButton.hidden = NO;
+        
     }
 }
 
@@ -805,10 +782,9 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     }
     else if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps) {
         // Fade-in a label to inform the user that the camera is unavailable.
-        self.cameraUnavailableLabel.alpha = 0.0;
-        self.cameraUnavailableLabel.hidden = NO;
+        
         [UIView animateWithDuration:0.25 animations:^{
-            self.cameraUnavailableLabel.alpha = 1.0;
+            
         }];
     }
     else if (reason == AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableDueToSystemPressure) {
@@ -817,10 +793,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     
     if (showResumeButton) {
         // Fade-in a button to enable the user to try to resume the session running.
-        self.resumeButton.alpha = 0.0;
-        self.resumeButton.hidden = NO;
         [UIView animateWithDuration:0.25 animations:^{
-            self.resumeButton.alpha = 1.0;
         }];
     }
 }
@@ -828,90 +801,9 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 - (void) sessionInterruptionEnded:(NSNotification*)notification
 {
     NSLog(@"Capture session interruption ended");
-    
-    if (!self.resumeButton.hidden) {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.resumeButton.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            self.resumeButton.hidden = YES;
-        }];
-    }
-    if (!self.cameraUnavailableLabel.hidden) {
-        [UIView animateWithDuration:0.25 animations:^{
-            self.cameraUnavailableLabel.alpha = 0.0;
-        } completion:^(BOOL finished) {
-            self.cameraUnavailableLabel.hidden = YES;
-        }];
-    }
+    [self uiRecord];
 }
 
-
--(void)bindVideo{
-//    AVCaptureSession *captureSession = [AVCaptureSession new];
-//    AVCaptureDeviceInput *cameraDeviceInput = …
-//    AVCaptureDeviceInput *micDeviceInput = …
-//    AVCaptureMovieFileOutput *movieFileOutput = …
-//    if ([captureSession canAddInput:cameraDeviceInput]) {
-//        [captureSession addInput:cameraDeviceInput];
-//    }
-//    if ([captureSession canAddInput:micDeviceInput]) {
-//        [captureSession addInput:micDeviceInput];
-//    }
-//    if ([captureSession canAddOutput:movieFileOutput]) {
-//        [captureSession addOutput:movieFileOutput];
-//    }
-//
-//    [captureSession startRunning];
-}
-
--(void)setPreviewWithCamera{
-//    [self.session stopRunning];
-//    WildCardUIView* previewParent = nil;
-//    if(self.currentStep == 3)
-//        previewParent = self.step3.meta.generatedViews[@"preview"];
-//    else
-//        previewParent = self.step4.meta.generatedViews[@"preview"];
-//    [[previewParent subviews] enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        [obj removeFromSuperview];
-//    }];
-//
-//    int w = previewParent.frame.size.width;
-//    UIView* preview = [[UIView alloc] initWithFrame:CGRectMake(0, 0, w, w*1920/1080)];
-//    [previewParent addSubview:preview];
-//    preview.center = CGPointMake(previewParent.frame.size.width/2, previewParent.frame.size.height/2);
-//
-//    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-//    self.session = session;
-//    session.sessionPreset = AVCaptureSessionPreset1920x1080;
-//
-//    AVCaptureVideoPreviewLayer *captureVideoPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-//    self.captureVideoPreviewLayer = captureVideoPreviewLayer;
-//    captureVideoPreviewLayer.frame = preview.bounds;
-//    [preview.layer addSublayer:captureVideoPreviewLayer];
-//
-//    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-//    NSError *error = nil;
-//    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:&error];
-//    if (!input) {
-//        // Handle the error appropriately.
-//        NSLog(@"ERROR: trying to open camera: %@", error);
-//    }
-//    [session addInput:input];
-//
-//
-//    AVCaptureVideoDataOutput *output = [[AVCaptureVideoDataOutput alloc] init];
-//    [session addOutput:output];
-//
-//    // Configure your output.
-//    dispatch_queue_t queue = dispatch_queue_create("myQueue", NULL);
-//    [output setSampleBufferDelegate:self queue:queue];
-//
-//    // Specify the pixel format
-//    output.videoSettings = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCVPixelFormatType_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey];
-//
-//
-//    [session startRunning];
-}
 
 - (void)hideNavigationBar{
     [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -991,15 +883,6 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
                 
                 NSInteger inProgressLivePhotoCapturesCount = self.inProgressLivePhotoCapturesCount;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    if (inProgressLivePhotoCapturesCount > 0) {
-                        self.capturingLivePhotoLabel.hidden = NO;
-                    }
-                    else if (inProgressLivePhotoCapturesCount == 0) {
-                        self.capturingLivePhotoLabel.hidden = YES;
-                    }
-                    else {
-                        NSLog(@"Error: In progress Live Photo capture count is less than 0.");
-                    }
                 });
             });
         } completionHandler:^(DevilAVCamPhotoCaptureDelegate* photoCaptureDelegate) {
@@ -1123,11 +1006,6 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 
 - (void)onClickVideo:(id)sender{
     
-    self.livePhotoModeButton.hidden = YES;
-    self.depthDataDeliveryButton.hidden = YES;
-    self.portraitEffectsMatteDeliveryButton.hidden = YES;
-    self.semanticSegmentationMatteDeliveryButton.hidden = YES;
-    self.photoQualityPrioritizationSegControl.hidden = YES;
     
     dispatch_async(self.sessionQueue, ^{
         AVCaptureMovieFileOutput* movieFileOutput = [[AVCaptureMovieFileOutput alloc] init];
@@ -1146,14 +1024,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             self.movieFileOutput = movieFileOutput;
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.recordButton.enabled = YES;
                 [self uiRecord];
-                /*
-                 For photo captures during movie recording, Speed quality photo processing is prioritized
-                 to avoid frame drops during recording.
-                 */
-                self.photoQualityPrioritizationSegControl.selectedSegmentIndex = 0;
-                [self.photoQualityPrioritizationSegControl sendActionsForControlEvents:UIControlEventValueChanged];
             });
         }
     });
@@ -1176,44 +1047,23 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
         if (self.photoOutput.livePhotoCaptureSupported) {
             self.photoOutput.livePhotoCaptureEnabled = YES;
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.livePhotoModeButton.enabled = YES;
-            });
         }
         
         if (self.photoOutput.depthDataDeliverySupported) {
             self.photoOutput.depthDataDeliveryEnabled = YES;
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.depthDataDeliveryButton.enabled = YES;
-            });
         }
         
         if (self.photoOutput.portraitEffectsMatteDeliverySupported) {
             self.photoOutput.portraitEffectsMatteDeliveryEnabled = YES;
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.portraitEffectsMatteDeliveryButton.enabled = YES;
-            });
         }
         
         if (self.photoOutput.availableSemanticSegmentationMatteTypes.count > 0) {
             self.photoOutput.enabledSemanticSegmentationMatteTypes = self.photoOutput.availableSemanticSegmentationMatteTypes;
             self.selectedSemanticSegmentationMatteTypes = self.photoOutput.availableSemanticSegmentationMatteTypes;
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.semanticSegmentationMatteDeliveryButton.enabled = (self.depthDataDeliveryMode == AVCamDepthDataDeliveryModeOn) ? YES : NO;
-            });
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.livePhotoModeButton.hidden = NO;
-            self.depthDataDeliveryButton.hidden = NO;
-            self.portraitEffectsMatteDeliveryButton.hidden = NO;
-            self.semanticSegmentationMatteDeliveryButton.hidden = NO;
-            self.photoQualityPrioritizationSegControl.hidden = NO;
-            self.photoQualityPrioritizationSegControl.enabled = YES;
-        });
         
         [self.session commitConfiguration];
     });
