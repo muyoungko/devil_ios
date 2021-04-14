@@ -45,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)wifiIsOn;
 + (void)wifiList:(JSValue *)callback;
 + (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback;
-+(void)camera:(NSDictionary*)param :(JSValue *)callback;
++ (void)camera:(NSDictionary*)param :(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

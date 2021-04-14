@@ -167,7 +167,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [WildCardConstructor sharedInstance].xButtonImageName = @"xbutton";
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
+    //UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
+    DevilCameraController* vc = [[DevilCameraController alloc] init];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     
     self.window.rootViewController = self.navigationController;

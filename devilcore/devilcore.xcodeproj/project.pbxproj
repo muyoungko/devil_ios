@@ -138,6 +138,26 @@
 		6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B1825BB49540027D16D /* WildCardPagerTabStripMaker.m */; };
 		6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B1D25BB4A920027D16D /* ReplaceRuleStrip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9E2B2025BB4A920027D16D /* ReplaceRuleStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */; };
+		6D9F7AA62622E93C003A70EC /* devil_camera_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7A9C2622E93C003A70EC /* devil_camera_cancel@3x.png */; };
+		6D9F7AA72622E93C003A70EC /* devil_camera_flash@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7A9D2622E93C003A70EC /* devil_camera_flash@3x.png */; };
+		6D9F7AA82622E93C003A70EC /* devil_camera_recording@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7A9E2622E93C003A70EC /* devil_camera_recording@3x.png */; };
+		6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7A9F2622E93C003A70EC /* devil_camera_front_back@3x.png */; };
+		6D9F7AAA2622E93C003A70EC /* devil_camera_picture@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7AA02622E93C003A70EC /* devil_camera_picture@3x.png */; };
+		6D9F7AAB2622E93C003A70EC /* devil_camera_record_start@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7AA12622E93C003A70EC /* devil_camera_record_start@3x.png */; };
+		6D9F7AAC2622E93C003A70EC /* devil_camera_video@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7AA22622E93C003A70EC /* devil_camera_video@3x.png */; };
+		6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7AA32622E93C003A70EC /* devil_camera_complete@3x.png */; };
+		6D9F7AAE2622E93C003A70EC /* devil_camera_shutter@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7AA42622E93C003A70EC /* devil_camera_shutter@3x.png */; };
+		6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7AA52622E93C003A70EC /* devil_camera_gallery@3x.png */; };
+		6D9F7AB32622EA46003A70EC /* DevilCameraController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AB12622EA46003A70EC /* DevilCameraController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D9F7AB42622EA46003A70EC /* DevilCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AB22622EA46003A70EC /* DevilCameraController.m */; };
+		6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AB62622EA57003A70EC /* DevilCamera.h */; };
+		6D9F7AB92622EA57003A70EC /* DevilCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AB72622EA57003A70EC /* DevilCamera.m */; };
+		6D9F7ABF262310D7003A70EC /* DevilAVCamPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7ABD262310D7003A70EC /* DevilAVCamPreviewView.h */; };
+		6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7ABE262310D7003A70EC /* DevilAVCamPreviewView.m */; };
+		6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AC526234431003A70EC /* DevilUtil.h */; };
+		6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AC626234431003A70EC /* DevilUtil.m */; };
+		6D9F7ACC26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7ACA26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h */; };
+		6D9F7ACD26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7ACB26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
@@ -277,6 +297,26 @@
 		6D9E2B1825BB49540027D16D /* WildCardPagerTabStripMaker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardPagerTabStripMaker.m; sourceTree = "<group>"; };
 		6D9E2B1D25BB4A920027D16D /* ReplaceRuleStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleStrip.h; sourceTree = "<group>"; };
 		6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleStrip.m; sourceTree = "<group>"; };
+		6D9F7A9C2622E93C003A70EC /* devil_camera_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_cancel@3x.png"; sourceTree = "<group>"; };
+		6D9F7A9D2622E93C003A70EC /* devil_camera_flash@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_flash@3x.png"; sourceTree = "<group>"; };
+		6D9F7A9E2622E93C003A70EC /* devil_camera_recording@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_recording@3x.png"; sourceTree = "<group>"; };
+		6D9F7A9F2622E93C003A70EC /* devil_camera_front_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_front_back@3x.png"; sourceTree = "<group>"; };
+		6D9F7AA02622E93C003A70EC /* devil_camera_picture@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_picture@3x.png"; sourceTree = "<group>"; };
+		6D9F7AA12622E93C003A70EC /* devil_camera_record_start@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_record_start@3x.png"; sourceTree = "<group>"; };
+		6D9F7AA22622E93C003A70EC /* devil_camera_video@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_video@3x.png"; sourceTree = "<group>"; };
+		6D9F7AA32622E93C003A70EC /* devil_camera_complete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_complete@3x.png"; sourceTree = "<group>"; };
+		6D9F7AA42622E93C003A70EC /* devil_camera_shutter@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_shutter@3x.png"; sourceTree = "<group>"; };
+		6D9F7AA52622E93C003A70EC /* devil_camera_gallery@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_gallery@3x.png"; sourceTree = "<group>"; };
+		6D9F7AB12622EA46003A70EC /* DevilCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilCameraController.h; sourceTree = "<group>"; };
+		6D9F7AB22622EA46003A70EC /* DevilCameraController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilCameraController.m; sourceTree = "<group>"; };
+		6D9F7AB62622EA57003A70EC /* DevilCamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilCamera.h; sourceTree = "<group>"; };
+		6D9F7AB72622EA57003A70EC /* DevilCamera.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilCamera.m; sourceTree = "<group>"; };
+		6D9F7ABD262310D7003A70EC /* DevilAVCamPreviewView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAVCamPreviewView.h; sourceTree = "<group>"; };
+		6D9F7ABE262310D7003A70EC /* DevilAVCamPreviewView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAVCamPreviewView.m; sourceTree = "<group>"; };
+		6D9F7AC526234431003A70EC /* DevilUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilUtil.h; sourceTree = "<group>"; };
+		6D9F7AC626234431003A70EC /* DevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilUtil.m; sourceTree = "<group>"; };
+		6D9F7ACA26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAVCamPhotoCaptureDelegate.h; sourceTree = "<group>"; };
+		6D9F7ACB26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAVCamPhotoCaptureDelegate.m; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -308,6 +348,16 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6D9F7A9C2622E93C003A70EC /* devil_camera_cancel@3x.png */,
+				6D9F7AA32622E93C003A70EC /* devil_camera_complete@3x.png */,
+				6D9F7A9D2622E93C003A70EC /* devil_camera_flash@3x.png */,
+				6D9F7A9F2622E93C003A70EC /* devil_camera_front_back@3x.png */,
+				6D9F7AA52622E93C003A70EC /* devil_camera_gallery@3x.png */,
+				6D9F7AA02622E93C003A70EC /* devil_camera_picture@3x.png */,
+				6D9F7AA12622E93C003A70EC /* devil_camera_record_start@3x.png */,
+				6D9F7A9E2622E93C003A70EC /* devil_camera_recording@3x.png */,
+				6D9F7AA42622E93C003A70EC /* devil_camera_shutter@3x.png */,
+				6D9F7AA22622E93C003A70EC /* devil_camera_video@3x.png */,
 				6D0224A026131F6500634842 /* devil_icon.png */,
 			);
 			path = resource;
@@ -393,6 +443,8 @@
 				6D4679E3256AA5E9006D57DD /* DevilSdk.h */,
 				6D4679E5256AA5E9006D57DD /* DevilSdk.m */,
 				6D4679E4256AA5E9006D57DD /* devilcore.h */,
+				6D9F7AC526234431003A70EC /* DevilUtil.h */,
+				6D9F7AC626234431003A70EC /* DevilUtil.m */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -579,6 +631,14 @@
 		6DDAC6C226109A2B00E76300 /* camera */ = {
 			isa = PBXGroup;
 			children = (
+				6D9F7AB12622EA46003A70EC /* DevilCameraController.h */,
+				6D9F7AB22622EA46003A70EC /* DevilCameraController.m */,
+				6D9F7AB62622EA57003A70EC /* DevilCamera.h */,
+				6D9F7AB72622EA57003A70EC /* DevilCamera.m */,
+				6D9F7ABD262310D7003A70EC /* DevilAVCamPreviewView.h */,
+				6D9F7ABE262310D7003A70EC /* DevilAVCamPreviewView.m */,
+				6D9F7ACA26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h */,
+				6D9F7ACB26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m */,
 			);
 			path = camera;
 			sourceTree = "<group>";
@@ -590,8 +650,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D9F7AB32622EA46003A70EC /* DevilCameraController.h in Headers */,
 				6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */,
 				6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */,
+				6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */,
 				6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */,
 				6D3EBE7B25D9123F0006ADD5 /* ReplaceRuleIcon.h in Headers */,
 				6D467A8F256AB07A006D57DD /* ReplaceRuleColor.h in Headers */,
@@ -617,6 +679,7 @@
 				6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */,
 				6D467A87256AB07A006D57DD /* WildCardLayoutPathUnit.h in Headers */,
 				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
+				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
 				6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */,
@@ -644,10 +707,12 @@
 				6D3EBD4925D4001A0006ADD5 /* DevilJsonViewer.h in Headers */,
 				6D09C3C025B08B2A00221A4C /* DevilDebugView.h in Headers */,
 				6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */,
+				6D9F7ABF262310D7003A70EC /* DevilAVCamPreviewView.h in Headers */,
 				6D9E2B1925BB49540027D16D /* WildCardPagerTabStripMaker.h in Headers */,
 				6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */,
 				6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */,
 				6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */,
+				6D9F7ACC26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h in Headers */,
 				6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */,
 				6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */,
 				6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */,
@@ -718,7 +783,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */,
+				6D9F7AAA2622E93C003A70EC /* devil_camera_picture@3x.png in Resources */,
+				6D9F7AA72622E93C003A70EC /* devil_camera_flash@3x.png in Resources */,
+				6D9F7AAB2622E93C003A70EC /* devil_camera_record_start@3x.png in Resources */,
+				6D9F7AAE2622E93C003A70EC /* devil_camera_shutter@3x.png in Resources */,
+				6D9F7AAC2622E93C003A70EC /* devil_camera_video@3x.png in Resources */,
+				6D9F7AA62622E93C003A70EC /* devil_camera_cancel@3x.png in Resources */,
 				6D4679A6256A4980006D57DD /* LICENSE in Resources */,
+				6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */,
+				6D9F7AA82622E93C003A70EC /* devil_camera_recording@3x.png in Resources */,
+				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -757,11 +832,14 @@
 			files = (
 				6D467AAA256AB07A006D57DD /* WildCardUIView.m in Sources */,
 				6D467AC8256AB07A006D57DD /* WildCardUtil.m in Sources */,
+				6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */,
 				6D467A8D256AB07A006D57DD /* WildCardIndicatorView.m in Sources */,
+				6D9F7ACD26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m in Sources */,
 				6D467ABC256AB07A006D57DD /* WildCardTrigger.m in Sources */,
 				6D467AAE256AB07A006D57DD /* MappingSyntaxInterpreter.m in Sources */,
 				6D09C3C125B08B2A00221A4C /* DevilDebugView.m in Sources */,
 				6D3EBD4A25D4001A0006ADD5 /* DevilJsonViewer.m in Sources */,
+				6D9F7AB42622EA46003A70EC /* DevilCameraController.m in Sources */,
 				6D467AAB256AB07A006D57DD /* WildCardMeta.m in Sources */,
 				6D467ABB256AB07A006D57DD /* WildCardViewPagerLeftAction.m in Sources */,
 				6D467AC7256AB07A006D57DD /* WildCardFunction.m in Sources */,
@@ -777,6 +855,7 @@
 				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,
 				6D3EBE8425D92DB00006ADD5 /* WifiManager.m in Sources */,
 				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,
+				6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */,
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
 				6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */,
 				6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */,
@@ -789,6 +868,7 @@
 				6D467A9B256AB07A006D57DD /* ReplaceRule.m in Sources */,
 				6D9E2B2025BB4A920027D16D /* ReplaceRuleStrip.m in Sources */,
 				6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */,
+				6D9F7AB92622EA57003A70EC /* DevilCamera.m in Sources */,
 				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
 				6D3EBE7C25D9123F0006ADD5 /* ReplaceRuleIcon.m in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
