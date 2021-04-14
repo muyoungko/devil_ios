@@ -12,9 +12,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DevilCameraController;
+
+@protocol DevilCameraControllerDelegate <NSObject>
+@optional
+- (void)completeCapture:(DevilCameraController *)controller result:(id)result;
+@end
+
 @interface DevilCameraController : UIViewController<AVCaptureVideoDataOutputSampleBufferDelegate, UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @property (nonatomic, retain) id param;
+@property (nonatomic, retain) id<DevilCameraControllerDelegate> delegate;
 
 @end
 

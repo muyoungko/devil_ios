@@ -24,6 +24,9 @@
 - (void)onNetworkRequestGet:(NSString*)url header:(NSDictionary*)header success:(void (^)(NSMutableDictionary* responseJsonObject))success;
 - (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success;
 
+@optional
+- (void)onNetworkRequestPut:(NSString*)url header:(NSDictionary*)header data:(NSData*)data success:(void (^)(NSMutableDictionary* responseJsonObject))success;
+
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension;
 
 -(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data;

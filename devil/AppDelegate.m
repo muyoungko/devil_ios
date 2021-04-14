@@ -167,8 +167,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [WildCardConstructor sharedInstance].xButtonImageName = @"xbutton";
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    //UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
-    DevilCameraController* vc = [[DevilCameraController alloc] init];
+    UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
+    //DevilCameraController* vc = [[DevilCameraController alloc] init];
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
     
     self.window.rootViewController = self.navigationController;
@@ -326,10 +326,18 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 - (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success{
+    
     [JulyUtil request:url header:header postParam:json complete:^(id  _Nonnull json) {
         success(json);
     }];
 }
+    
+- (void)onNetworkRequestPut:(NSString *)url header:(NSDictionary *)header data:(NSData *)data success:(void (^)(NSMutableDictionary *))success{
+    [JulyUtil requestPut:url header:header data:data complete:^(id  _Nonnull json) {
+        success(json);
+    }];
+}
+    
 
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension
 {

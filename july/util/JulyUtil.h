@@ -42,7 +42,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(void)request:(NSString*)url header:(id _Nullable)header complete:(void (^)(id res))callback;
 +(void)request:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback;
 +(void)request:(NSString*)url complete:(void (^)(id res))callback;
-
++(void)requestPut:(NSString*)url header:(id _Nullable)header data:(NSData*)data complete:(void (^)(id res))callback;
 +(void)share:(UIViewController*)vc text:(NSString*)textToShare;
 
 @end

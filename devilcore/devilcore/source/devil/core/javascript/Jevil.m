@@ -220,6 +220,71 @@
     }];
 }
 
++ (void)uploadS3:(NSArray*)paths :(JSValue *)callback{
+    id header = [@{} mutableCopy];
+    id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
+    for(id h in header_list){
+        header[h[@"header"]] = h[@"content"];
+    }
+
+    __block int s3index = 0;
+    __block int s3length = (int)[paths count];
+    __block id uploadedFile = [@[] mutableCopy];
+    __block id uploadedFileSuccess = [@[] mutableCopy];
+    
+    id result = [@{} mutableCopy];
+    result[@"r"] = @TRUE;
+    result[@"uploadedFile"] = [@[] mutableCopy];
+    for(int i=0;i<[paths count];i++){
+        NSString* path = paths[i];
+        id ss = [path componentsSeparatedByString:@"."];
+        NSString* ext = ss[[ss count]-1];
+        NSString* url = [NSString stringWithFormat:@"%@/api/media/url/put/%@", [WildCardConstructor sharedInstance].project[@"host"], ext];
+        [uploadedFile addObject:path];
+        [uploadedFileSuccess addObject:@FALSE];
+        __block int thisIndex = i;
+        [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *upload) {
+            if(upload == nil || !upload[@"upload_url"]){
+                s3index++;
+                result[@"r"] = @FALSE;
+                if(s3index == s3length){
+                    for(int j=0;j<[uploadedFile count];j++){
+                        [result[@"uploadedFile"] addObject:
+                         [@{@"key" : uploadedFile[j],
+                            @"success" : uploadedFileSuccess[j]
+                         } mutableCopy]];
+                    }
+                    [callback callWithArguments:@[result]];
+                    [[JevilInstance currentInstance] syncData];
+                }
+            } else {
+                NSString* upload_url = upload[@"upload_url"];
+                uploadedFile[thisIndex] = upload[@"key"];
+                NSData* data = [NSData dataWithContentsOfFile:path];
+                [[WildCardConstructor sharedInstance].delegate onNetworkRequestPut:upload_url header:header data:data success:^(NSMutableDictionary *responseJsonObject) {
+                    s3index++;
+                    if(responseJsonObject != nil)
+                        uploadedFileSuccess[thisIndex] = @TRUE;
+                    else
+                        result[@"r"] = @FALSE;
+                    
+                    if(s3index == s3length){
+                        for(int j=0;j<[uploadedFile count];j++){
+                            [result[@"uploadedFile"] addObject:
+                             [@{@"key" : uploadedFile[j],
+                                @"success" : uploadedFileSuccess[j]
+                             } mutableCopy]];
+                        }
+                        [callback callWithArguments:@[result]];
+                        [[JevilInstance currentInstance] syncData];
+                    }
+                }];
+            }
+        }];
+    }
+    
+}
+
 + (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback {
 
     NSString* originalUrl = url;

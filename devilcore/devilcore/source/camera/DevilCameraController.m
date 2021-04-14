@@ -96,6 +96,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) float ratio;
 
 @property (nonatomic) UIMode uiMode;
+@property (nonatomic, retain) UIButton* btnBack;
 @property (nonatomic, retain) UIButton* btnFlash;
 @property (nonatomic, retain) UIButton* btnFront;
 @property (nonatomic, retain) UIButton* btnVideo;
@@ -145,6 +146,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor blackColor];
     [self ui];
     
     self.session = [[AVCaptureSession alloc] init];
@@ -257,6 +259,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
                                                                                self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:self.previewView];
     
+    self.btnBack = [self createButton:CGPointMake(20, 80) :@"devil_camera_cancel" :30 :@selector(onClickBack:) :UIColorFromRGB(0xffffff) :nil];
     self.btnFlash = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff) :nil];
     self.btnFront = [self createButton:CGPointMake(sw-35, 80) :@"devil_camera_front_back" :30 :@selector(onClickFront:) :UIColorFromRGB(0xffffff) :nil];
     
@@ -277,8 +280,6 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [self.takenLayer addSubview:self.takenImageView];
     
     self.cropView = [[PECropView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
-    self.cropView.imageCropRect = CGRectMake(0,0,sw,sw);
-    self.cropView.keepingCropAspectRatio = YES;
     [self.takenLayer addSubview:self.cropView];
     
     self.btnBack1 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel1:) :UIColorFromRGB(0xff0000) :self.takenLayer];
@@ -486,12 +487,12 @@ typedef NS_ENUM(NSInteger, UIMode) {
         self.photoOutput.portraitEffectsMatteDeliveryEnabled = self.photoOutput.portraitEffectsMatteDeliverySupported;
         self.photoOutput.enabledSemanticSegmentationMatteTypes = self.photoOutput.availableSemanticSegmentationMatteTypes;
         self.selectedSemanticSegmentationMatteTypes = self.photoOutput.enabledSemanticSegmentationMatteTypes;
-        self.photoOutput.maxPhotoQualityPrioritization = AVCapturePhotoQualityPrioritizationQuality;
+        self.photoOutput.maxPhotoQualityPrioritization = AVCapturePhotoQualityPrioritizationSpeed;
         
         self.livePhotoMode = self.photoOutput.livePhotoCaptureSupported ? AVCamLivePhotoModeOn : AVCamLivePhotoModeOff;
         self.depthDataDeliveryMode = self.photoOutput.depthDataDeliverySupported ? AVCamDepthDataDeliveryModeOn : AVCamDepthDataDeliveryModeOff;
         self.portraitEffectsMatteDeliveryMode = self.photoOutput.portraitEffectsMatteDeliverySupported ? AVCamPortraitEffectsMatteDeliveryModeOn : AVCamPortraitEffectsMatteDeliveryModeOff;
-        self.photoQualityPrioritizationMode = AVCapturePhotoQualityPrioritizationBalanced;
+        self.photoQualityPrioritizationMode = AVCapturePhotoQualityPrioritizationSpeed;
         
         self.inProgressPhotoCaptureDelegates = [NSMutableDictionary dictionary];
         self.inProgressLivePhotoCapturesCount = 0;
@@ -921,7 +922,16 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self uiTaken];
                 UIImage* photo = [UIImage imageWithData: photoCaptureDelegate.photoData];
+                if(_front)
+                    photo = [UIImage imageWithCGImage:photo.CGImage scale:photo.scale orientation:UIImageOrientationLeftMirrored];
                 [self.cropView setImage:photo];
+//                CGFloat width = photo.size.width;
+//                CGFloat height = photo.size.height;
+//                CGFloat length = MIN(width, height);
+//                self.cropView.imageCropRect = CGRectMake((width - length) / 2,
+//                                                         (height - length) / 2,
+//                                                         length,
+//                                                         length);
             });
         } photoProcessingHandler:^(BOOL animate) {
             // Animates a spinner while photo is processing
@@ -1026,7 +1036,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             self.photoOutput.portraitEffectsMatteDeliveryEnabled = self.photoOutput.portraitEffectsMatteDeliverySupported;
             self.photoOutput.enabledSemanticSegmentationMatteTypes = self.photoOutput.availableSemanticSegmentationMatteTypes;
             self.selectedSemanticSegmentationMatteTypes = self.photoOutput.availableSemanticSegmentationMatteTypes;
-            self.photoOutput.maxPhotoQualityPrioritization = AVCapturePhotoQualityPrioritizationQuality;
+            self.photoOutput.maxPhotoQualityPrioritization = AVCapturePhotoQualityPrioritizationSpeed;
             
             [self.session commitConfiguration];
         }
@@ -1107,7 +1117,24 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     [self uiPicture];
 }
 -(void)onClickComplete1:(id)sender {
+    UIImage* image = self.cropView.croppedImage;
+    CGSize size = CGSizeMake(1024, 1024);
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"temp.jpeg"];
+    NSData *imageData = UIImageJPEGRepresentation(image, 0.6f);
+    [imageData writeToFile:filePath atomically:YES];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    if(self.delegate)
+        [self.delegate completeCapture:self result:[@{
+            @"image": filePath
+        } mutableCopy]];
 }
 
 -(void)onClickCancel2:(id)sender {
@@ -1116,4 +1143,11 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 -(void)onClickComplete2:(id)sender {
     
 }
+
+-(void)onClickBack:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+    if(self.delegate)
+        [self.delegate completeCapture:self result:nil];
+}
+
 @end
