@@ -158,6 +158,16 @@
 		6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AC626234431003A70EC /* DevilUtil.m */; };
 		6D9F7ACC26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7ACA26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h */; };
 		6D9F7ACD26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7ACB26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m */; };
+		6D9F7ADC2626B304003A70EC /* PECropViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AD22626B303003A70EC /* PECropViewController.h */; };
+		6D9F7ADD2626B304003A70EC /* PEResizeControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AD32626B303003A70EC /* PEResizeControl.h */; };
+		6D9F7ADE2626B304003A70EC /* UIImage+PECrop.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AD42626B303003A70EC /* UIImage+PECrop.m */; };
+		6D9F7ADF2626B304003A70EC /* PECropRectView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AD52626B304003A70EC /* PECropRectView.h */; };
+		6D9F7AE02626B304003A70EC /* UIImage+PECrop.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AD62626B304003A70EC /* UIImage+PECrop.h */; };
+		6D9F7AE12626B304003A70EC /* PECropView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AD72626B304003A70EC /* PECropView.m */; };
+		6D9F7AE22626B304003A70EC /* PEResizeControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AD82626B304003A70EC /* PEResizeControl.m */; };
+		6D9F7AE32626B304003A70EC /* PECropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AD92626B304003A70EC /* PECropViewController.m */; };
+		6D9F7AE42626B304003A70EC /* PECropView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7ADA2626B304003A70EC /* PECropView.h */; };
+		6D9F7AE52626B304003A70EC /* PECropRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7ADB2626B304003A70EC /* PECropRectView.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
@@ -317,6 +327,16 @@
 		6D9F7AC626234431003A70EC /* DevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilUtil.m; sourceTree = "<group>"; };
 		6D9F7ACA26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAVCamPhotoCaptureDelegate.h; sourceTree = "<group>"; };
 		6D9F7ACB26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAVCamPhotoCaptureDelegate.m; sourceTree = "<group>"; };
+		6D9F7AD22626B303003A70EC /* PECropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PECropViewController.h; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PECropViewController.h"; sourceTree = "<group>"; };
+		6D9F7AD32626B303003A70EC /* PEResizeControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PEResizeControl.h; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PEResizeControl.h"; sourceTree = "<group>"; };
+		6D9F7AD42626B303003A70EC /* UIImage+PECrop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+PECrop.m"; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/UIImage+PECrop.m"; sourceTree = "<group>"; };
+		6D9F7AD52626B304003A70EC /* PECropRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PECropRectView.h; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PECropRectView.h"; sourceTree = "<group>"; };
+		6D9F7AD62626B304003A70EC /* UIImage+PECrop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+PECrop.h"; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/UIImage+PECrop.h"; sourceTree = "<group>"; };
+		6D9F7AD72626B304003A70EC /* PECropView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PECropView.m; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PECropView.m"; sourceTree = "<group>"; };
+		6D9F7AD82626B304003A70EC /* PEResizeControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PEResizeControl.m; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PEResizeControl.m"; sourceTree = "<group>"; };
+		6D9F7AD92626B304003A70EC /* PECropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PECropViewController.m; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PECropViewController.m"; sourceTree = "<group>"; };
+		6D9F7ADA2626B304003A70EC /* PECropView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PECropView.h; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PECropView.h"; sourceTree = "<group>"; };
+		6D9F7ADB2626B304003A70EC /* PECropRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PECropRectView.m; path = "../../../../../../../../Downloads/PEPhotoCropEditor-master/Lib/PECropRectView.m"; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -628,9 +648,27 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		6D9F7AD12626B2FB003A70EC /* crop */ = {
+			isa = PBXGroup;
+			children = (
+				6D9F7AD52626B304003A70EC /* PECropRectView.h */,
+				6D9F7ADB2626B304003A70EC /* PECropRectView.m */,
+				6D9F7ADA2626B304003A70EC /* PECropView.h */,
+				6D9F7AD72626B304003A70EC /* PECropView.m */,
+				6D9F7AD22626B303003A70EC /* PECropViewController.h */,
+				6D9F7AD92626B304003A70EC /* PECropViewController.m */,
+				6D9F7AD32626B303003A70EC /* PEResizeControl.h */,
+				6D9F7AD82626B304003A70EC /* PEResizeControl.m */,
+				6D9F7AD62626B304003A70EC /* UIImage+PECrop.h */,
+				6D9F7AD42626B303003A70EC /* UIImage+PECrop.m */,
+			);
+			path = crop;
+			sourceTree = "<group>";
+		};
 		6DDAC6C226109A2B00E76300 /* camera */ = {
 			isa = PBXGroup;
 			children = (
+				6D9F7AD12626B2FB003A70EC /* crop */,
 				6D9F7AB12622EA46003A70EC /* DevilCameraController.h */,
 				6D9F7AB22622EA46003A70EC /* DevilCameraController.m */,
 				6D9F7AB62622EA57003A70EC /* DevilCamera.h */,
@@ -662,10 +700,13 @@
 				6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */,
 				6D467AC4256AB07A006D57DD /* WildCardViewPagerLeftAction.h in Headers */,
 				6D467AAD256AB07A006D57DD /* WildCardNextChain.h in Headers */,
+				6D9F7ADF2626B304003A70EC /* PECropRectView.h in Headers */,
 				6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */,
 				6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */,
+				6D9F7AE02626B304003A70EC /* UIImage+PECrop.h in Headers */,
 				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
+				6D9F7AE42626B304003A70EC /* PECropView.h in Headers */,
 				6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */,
 				6D467A85256AB07A006D57DD /* WildCardMeta.h in Headers */,
 				6D467A9F256AB07A006D57DD /* ReplaceRuleClick.h in Headers */,
@@ -708,6 +749,7 @@
 				6D09C3C025B08B2A00221A4C /* DevilDebugView.h in Headers */,
 				6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */,
 				6D9F7ABF262310D7003A70EC /* DevilAVCamPreviewView.h in Headers */,
+				6D9F7ADD2626B304003A70EC /* PEResizeControl.h in Headers */,
 				6D9E2B1925BB49540027D16D /* WildCardPagerTabStripMaker.h in Headers */,
 				6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */,
 				6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */,
@@ -718,6 +760,7 @@
 				6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */,
 				6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */,
 				6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */,
+				6D9F7ADC2626B304003A70EC /* PECropViewController.h in Headers */,
 				6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */,
 				6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,
@@ -838,6 +881,7 @@
 				6D467ABC256AB07A006D57DD /* WildCardTrigger.m in Sources */,
 				6D467AAE256AB07A006D57DD /* MappingSyntaxInterpreter.m in Sources */,
 				6D09C3C125B08B2A00221A4C /* DevilDebugView.m in Sources */,
+				6D9F7AE52626B304003A70EC /* PECropRectView.m in Sources */,
 				6D3EBD4A25D4001A0006ADD5 /* DevilJsonViewer.m in Sources */,
 				6D9F7AB42622EA46003A70EC /* DevilCameraController.m in Sources */,
 				6D467AAB256AB07A006D57DD /* WildCardMeta.m in Sources */,
@@ -859,6 +903,7 @@
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
 				6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */,
 				6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */,
+				6D9F7AE22626B304003A70EC /* PEResizeControl.m in Sources */,
 				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,
 				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,
 				6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */,
@@ -884,10 +929,13 @@
 				6D44336A2588065400B0E616 /* JevilCtx.m in Sources */,
 				6D467AB9256AB07A006D57DD /* WildCardAction.m in Sources */,
 				6D467B6D257A2F16006D57DD /* DevilBaseController.m in Sources */,
+				6D9F7ADE2626B304003A70EC /* UIImage+PECrop.m in Sources */,
 				6D467AA1256AB07A006D57DD /* ReplaceRuleImageResource.m in Sources */,
 				6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */,
 				6D467B63257A268C006D57DD /* DevilHeader.m in Sources */,
 				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
+				6D9F7AE12626B304003A70EC /* PECropView.m in Sources */,
+				6D9F7AE32626B304003A70EC /* PECropViewController.m in Sources */,
 				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
 				6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */,
 				6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */,

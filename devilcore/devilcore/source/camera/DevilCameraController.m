@@ -9,6 +9,7 @@
 #import "DevilAVCamPreviewView.h"
 #import "DevilAVCamPhotoCaptureDelegate.h"
 #import "DevilUtil.h"
+#import "PECropView.h"
 
 @import AVFoundation;
 @import Photos;
@@ -103,9 +104,13 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic, retain) UIButton* btnTake;
 @property (nonatomic, retain) UIButton* btnRecordStart;
 @property (nonatomic, retain) UIButton* btnRecordStop;
-@property (nonatomic, retain) UIButton* btnBack;
-@property (nonatomic, retain) UIButton* btnComplete;
+@property (nonatomic, retain) UIButton* btnBack1;
+@property (nonatomic, retain) UIButton* btnComplete1;
+@property (nonatomic, retain) UIButton* btnBack2;
+@property (nonatomic, retain) UIButton* btnComplete2;
 @property (nonatomic, retain) UIView* takenLayer;
+@property (nonatomic, retain) UIImageView* takenImageView;
+@property (nonatomic, retain) PECropView* cropView;
 @property (nonatomic, retain) UIView* recordLayer;
 
 @property (nonatomic, retain) DevilAVCamPreviewView* previewView;
@@ -222,7 +227,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [super viewDidDisappear:animated];
 }
 
-- (UIButton*)createButton:(CGPoint)point :(NSString*)imageName :(int)size :(SEL)sel :(UIColor*)color{
+- (UIButton*)createButton:(CGPoint)point :(NSString*)imageName :(int)size :(SEL)sel :(UIColor*)color :(UIView*)parent{
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     UIButton* r = [UIButton buttonWithType:UIButtonTypeCustom];
     r.frame = CGRectMake(0, 0, size, size);
@@ -237,7 +242,10 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [r setImage:image forState:UIControlStateNormal];
     r.center = point;
     [r addTarget:self action:sel forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:r];
+    if(parent)
+        [parent addSubview:r];
+    else
+        [self.view addSubview:r];
     return r;
 }
 
@@ -249,19 +257,36 @@ typedef NS_ENUM(NSInteger, UIMode) {
                                                                                self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:self.previewView];
     
-    self.btnFlash = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff)];
-    self.btnFront = [self createButton:CGPointMake(sw-35, 80) :@"devil_camera_front_back" :30 :@selector(onClickFront:) :UIColorFromRGB(0xffffff)];
+    self.btnFlash = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff) :nil];
+    self.btnFront = [self createButton:CGPointMake(sw-35, 80) :@"devil_camera_front_back" :30 :@selector(onClickFront:) :UIColorFromRGB(0xffffff) :nil];
     
-    self.btnTake = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_shutter" :70 :@selector(onClickTake:) :UIColorFromRGB(0x3cb043)];
-    self.btnRecordStart = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_record_start" :110 :@selector(onClickRecordStartOrStop:) :UIColorFromRGB(0xff0000)];
-    self.btnRecordStop = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_recording" :110 :@selector(onClickRecordStartOrStop:) : nil];
+    self.btnTake = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_shutter" :70 :@selector(onClickTake:) :UIColorFromRGB(0x3cb043) :nil];
+    self.btnRecordStart = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_record_start" :110 :@selector(onClickRecordStartOrStop:) :UIColorFromRGB(0xff0000) :nil];
+    self.btnRecordStop = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_recording" :110 :@selector(onClickRecordStartOrStop:) : nil :nil];
     
-    self.btnGallery = [self createButton:CGPointMake(sw/2 - 120, sh-100) :@"devil_camera_gallery" :30 :@selector(onClickGallery:) :UIColorFromRGB(0xffffff)];
+    self.btnGallery = [self createButton:CGPointMake(sw/2 - 120, sh-100) :@"devil_camera_gallery" :30 :@selector(onClickGallery:) :UIColorFromRGB(0xffffff) :nil];
     
-    self.btnPicture = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_picture" :35 :@selector(onClickPicture:) :UIColorFromRGB(0xffffff)];
-    self.btnVideo = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_video" :35 :@selector(onClickVideo:) :UIColorFromRGB(0xffffff)];
+    self.btnPicture = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_picture" :35 :@selector(onClickPicture:) :UIColorFromRGB(0xffffff) :nil];
+    self.btnVideo = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_video" :35 :@selector(onClickVideo:) :UIColorFromRGB(0xffffff) :nil];
     
-    self.startVideo = YES;
+    self.takenLayer = [[UIView alloc] initWithFrame:self.view.frame];
+    self.takenLayer.userInteractionEnabled = YES;
+    [self.view addSubview:self.takenLayer];
+    self.takenLayer.backgroundColor = [UIColor whiteColor];
+    self.takenImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+    [self.takenLayer addSubview:self.takenImageView];
+    
+    self.cropView = [[PECropView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+    self.cropView.imageCropRect = CGRectMake(0,0,sw,sw);
+    self.cropView.keepingCropAspectRatio = YES;
+    [self.takenLayer addSubview:self.cropView];
+    
+    self.btnBack1 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel1:) :UIColorFromRGB(0xff0000) :self.takenLayer];
+    self.btnComplete1 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete1:) :UIColorFromRGB(0x3cb043) :self.takenLayer];
+    
+    
+    
+    self.startVideo = NO;
     self.startFront = YES;
     self.startFlash = YES;
     self.hasPicture = YES;
@@ -801,7 +826,10 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 - (void) sessionInterruptionEnded:(NSNotification*)notification
 {
     NSLog(@"Capture session interruption ended");
-    [self uiRecord];
+    if(self.video)
+        [self uiRecord];
+    else
+        [self uiPicture];
 }
 
 
@@ -889,6 +917,11 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             // When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
             dispatch_async(self.sessionQueue, ^{
                 self.inProgressPhotoCaptureDelegates[@(photoCaptureDelegate.requestedPhotoSettings.uniqueID)] = nil;
+            });
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self uiTaken];
+                UIImage* photo = [UIImage imageWithData: photoCaptureDelegate.photoData];
+                [self.cropView setImage:photo];
             });
         } photoProcessingHandler:^(BOOL animate) {
             // Animates a spinner while photo is processing
@@ -1067,6 +1100,20 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
         
         [self.session commitConfiguration];
     });
+    
+}
+
+-(void)onClickCancel1:(id)sender {
+    [self uiPicture];
+}
+-(void)onClickComplete1:(id)sender {
+    
+}
+
+-(void)onClickCancel2:(id)sender {
+    [self uiRecord];
+}
+-(void)onClickComplete2:(id)sender {
     
 }
 @end

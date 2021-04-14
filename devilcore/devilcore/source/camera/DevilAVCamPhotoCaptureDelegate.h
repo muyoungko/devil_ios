@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithRequestedPhotoSettings:(AVCapturePhotoSettings *)requestedPhotoSettings willCapturePhotoAnimation:(void (^)(void))willCapturePhotoAnimation livePhotoCaptureHandler:(void (^)( BOOL capturing ))livePhotoCaptureHandler completionHandler:(void (^)( DevilAVCamPhotoCaptureDelegate *photoCaptureDelegate ))completionHandler photoProcessingHandler:(void (^)(BOOL))animate;
 
 @property (nonatomic, readonly) AVCapturePhotoSettings *requestedPhotoSettings;
+@property (nonatomic) NSData* photoData;
 
 @end
 

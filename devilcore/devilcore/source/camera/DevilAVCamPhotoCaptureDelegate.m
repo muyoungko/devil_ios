@@ -19,7 +19,6 @@
 @property (nonatomic) void (^completionHandler)(DevilAVCamPhotoCaptureDelegate* photoCaptureDelegate);
 @property (nonatomic) void (^photoProcessingHandler)(BOOL animate);
 
-@property (nonatomic) NSData* photoData;
 @property (nonatomic) NSURL* livePhotoCompanionMovieURL;
 @property (nonatomic) NSData* portraitEffectsMatteData;
 @property (nonatomic) NSMutableArray* semanticSegmentationMatteDataArray;
@@ -166,44 +165,10 @@
         [self didFinish];
         return;
     }
+
     
-    [PHPhotoLibrary requestAuthorization:^( PHAuthorizationStatus status ) {
-        if ( status == PHAuthorizationStatusAuthorized ) {
-            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                PHAssetResourceCreationOptions* options = [[PHAssetResourceCreationOptions alloc] init];
-                options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType;
-                PHAssetCreationRequest* creationRequest = [PHAssetCreationRequest creationRequestForAsset];
-                [creationRequest addResourceWithType:PHAssetResourceTypePhoto data:self.photoData options:options];
-                
-                if ( self.livePhotoCompanionMovieURL ) {
-                    PHAssetResourceCreationOptions* livePhotoCompanionMovieResourceOptions = [[PHAssetResourceCreationOptions alloc] init];
-                    livePhotoCompanionMovieResourceOptions.shouldMoveFile = YES;
-                    [creationRequest addResourceWithType:PHAssetResourceTypePairedVideo fileURL:self.livePhotoCompanionMovieURL options:livePhotoCompanionMovieResourceOptions];
-                }
-                
-                // Save Portrait Effects Matte to Photos Library only if it was generated
-                if ( self.portraitEffectsMatteData ) {
-                    PHAssetCreationRequest* creationRequest = [PHAssetCreationRequest creationRequestForAsset];
-                    [creationRequest addResourceWithType:PHAssetResourceTypePhoto data:self.portraitEffectsMatteData options:nil];
-                }
-                
-                for ( NSData* data in self.semanticSegmentationMatteDataArray ) {
-                    PHAssetCreationRequest* creationRequest = [PHAssetCreationRequest creationRequestForAsset];
-                    [creationRequest addResourceWithType:PHAssetResourceTypePhoto data:data options:nil];
-                }
-            } completionHandler:^( BOOL success, NSError* _Nullable error ) {
-                if ( ! success ) {
-                    NSLog( @"Error occurred while saving photo to photo library: %@", error );
-                }
-                
-                [self didFinish];
-            }];
-        }
-        else {
-            NSLog( @"Not authorized to save photo" );
-            [self didFinish];
-        }
-    }];
+    [self didFinish];
+    
 }
 
 
