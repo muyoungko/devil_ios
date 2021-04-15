@@ -55,6 +55,7 @@
         result[@"r"] = @TRUE;
         self.callback(result);
     } else {
+        result = [@{} mutableCopy];
         result[@"r"] = @FALSE;
         self.callback(result);
     }

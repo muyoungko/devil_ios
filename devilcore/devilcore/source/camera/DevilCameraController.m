@@ -259,7 +259,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
                                                                                self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:self.previewView];
     
-    self.btnBack = [self createButton:CGPointMake(20, 80) :@"devil_camera_cancel" :30 :@selector(onClickBack:) :UIColorFromRGB(0xffffff) :nil];
+    self.btnBack = [self createButton:CGPointMake(40, 80) :@"devil_camera_cancel" :30 :@selector(onClickBack:) :UIColorFromRGB(0xffffff) :nil];
     self.btnFlash = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff) :nil];
     self.btnFront = [self createButton:CGPointMake(sw-35, 80) :@"devil_camera_front_back" :30 :@selector(onClickFront:) :UIColorFromRGB(0xffffff) :nil];
     
@@ -972,10 +972,12 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             case AVCaptureDevicePositionFront:
                 preferredPosition = AVCaptureDevicePositionBack;
                 preferredDeviceType = AVCaptureDeviceTypeBuiltInDualCamera;
+                self.front = NO;
                 break;
             case AVCaptureDevicePositionBack:
                 preferredPosition = AVCaptureDevicePositionFront;
                 preferredDeviceType = AVCaptureDeviceTypeBuiltInTrueDepthCamera;
+                self.front = YES;
                 break;
         }
         
