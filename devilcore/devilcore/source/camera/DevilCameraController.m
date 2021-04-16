@@ -11,6 +11,8 @@
 #import "DevilUtil.h"
 #import "PECropView.h"
 
+#import <MobileCoreServices/UTCoreTypes.h>
+
 @import AVFoundation;
 @import Photos;
 
@@ -75,7 +77,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @end
 
 
-@interface DevilCameraController ()<AVCaptureFileOutputRecordingDelegate>
+@interface DevilCameraController ()<AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic) BOOL front;
 @property (nonatomic) BOOL flash;
@@ -925,13 +927,6 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
                 if(_front)
                     photo = [UIImage imageWithCGImage:photo.CGImage scale:photo.scale orientation:UIImageOrientationLeftMirrored];
                 [self.cropView setImage:photo];
-//                CGFloat width = photo.size.width;
-//                CGFloat height = photo.size.height;
-//                CGFloat length = MIN(width, height);
-//                self.cropView.imageCropRect = CGRectMake((width - length) / 2,
-//                                                         (height - length) / 2,
-//                                                         length,
-//                                                         length);
             });
         } photoProcessingHandler:^(BOOL animate) {
             // Animates a spinner while photo is processing
@@ -1150,6 +1145,43 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     [self.navigationController popViewControllerAnimated:YES];
     if(self.delegate)
         [self.delegate completeCapture:self result:nil];
+}
+
+
+
+-(void)onClickGallery:(id)sender {
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    if(self.video)
+        picker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeMovie, nil];
+    else
+        picker.mediaTypes = [[NSArray alloc] initWithObjects:(NSString *)kUTTypeImage, nil];
+
+    picker.delegate = self;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
+    UIImage* photo = info[UIImagePickerControllerOriginalImage];
+    if(photo.imageOrientation == UIImageOrientationRight)
+        photo = [DevilUtil rotateImage:photo degrees:90];
+    else if(photo.imageOrientation == UIImageOrientationLeft)
+        photo = [DevilUtil rotateImage:photo degrees:-90];
+    else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
+        photo = [DevilUtil rotateImage:photo degrees:180];
+    
+    [self uiTaken];
+    [self.cropView setImage:photo];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    NSLog(@"here");
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 @end

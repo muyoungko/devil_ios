@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -16,6 +17,8 @@ blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
 @interface DevilUtil : NSObject
+
++ (UIImage *)rotateImage:(UIImage *)image degrees:(CGFloat)degrees;
 
 @end
 
