@@ -19,6 +19,12 @@ alpha:1.0]
 @interface DevilUtil : NSObject
 
 + (UIImage *)rotateImage:(UIImage *)image degrees:(CGFloat)degrees;
++ (void) convertMovToMp4:(NSString*)path to:(NSString*)outputPath callback:(void (^)(id res))callback;
++ (NSString*) changeFileExt:(NSString*)path to:(NSString*)ext;
++ (NSString*) getFileExt:(NSString*)path;
++ (NSInteger)sizeOfFile:(NSString *)filePath;
++ (UIImage *) getThumbnail:(NSString*)path;
++ (int) getDuration:(NSString*)path;
 
 @end
 

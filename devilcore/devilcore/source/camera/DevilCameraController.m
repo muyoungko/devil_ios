@@ -10,6 +10,7 @@
 #import "DevilAVCamPhotoCaptureDelegate.h"
 #import "DevilUtil.h"
 #import "PECropView.h"
+#import "WildCardVideoView.h"
 
 #import <MobileCoreServices/UTCoreTypes.h>
 
@@ -85,7 +86,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 
 @property (nonatomic) NSString* targetImagePath;
 @property (nonatomic) NSString* targetPreviewPath;
-@property (nonatomic) NSString* targetVideoPath;
+@property (nonatomic) NSString* targetVideoPathMov;
+@property (nonatomic) NSString* targetVideoPathMp4;
 
 @property (nonatomic) BOOL startVideo;
 @property (nonatomic) BOOL startFront;
@@ -115,6 +117,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic, retain) UIImageView* takenImageView;
 @property (nonatomic, retain) PECropView* cropView;
 @property (nonatomic, retain) UIView* recordLayer;
+@property (nonatomic, retain) WildCardVideoView* videoView;
 
 @property (nonatomic, retain) DevilAVCamPreviewView* previewView;
 @property (nonatomic) AVCamSetupResult setupResult;
@@ -149,6 +152,13 @@ typedef NS_ENUM(NSInteger, UIMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
+    
+    NSString* outputFileName = [NSUUID UUID].UUIDString;
+    self.targetPreviewPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.jpg"];
+    self.targetVideoPathMov = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.mov"];
+    self.targetVideoPathMp4 = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.mp4"];
+    self.targetImagePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@".jpg"]];
+    
     [self ui];
     
     self.session = [[AVCaptureSession alloc] init];
@@ -288,8 +298,20 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.btnComplete1 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete1:) :UIColorFromRGB(0x3cb043) :self.takenLayer];
     
     
+    self.recordLayer = [[UIView alloc] initWithFrame:self.view.frame];
+    self.recordLayer.userInteractionEnabled = YES;
+    [self.view addSubview:self.recordLayer];
+    self.recordLayer.backgroundColor = [UIColor whiteColor];
     
-    self.startVideo = NO;
+    self.videoView = [[WildCardVideoView alloc] initWithFrame:CGRectMake(0, 0, sw, sw)];
+    self.videoView.playerViewController.showsPlaybackControls = YES;
+    self.videoView.center = CGPointMake(sw/2, sh/2);
+    [self.recordLayer addSubview:self.videoView];
+    
+    self.btnBack2 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel2:) :UIColorFromRGB(0xff0000) :self.recordLayer];
+    self.btnComplete2 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete2:) :UIColorFromRGB(0x3cb043) :self.recordLayer];
+    
+    self.startVideo = YES;
     self.startFront = YES;
     self.startFlash = YES;
     self.hasPicture = YES;
@@ -388,7 +410,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.btnPicture.hidden = YES;
 }
 
-- (void)uiRecored {
+- (void)uiRecorded {
     self.uiMode = UIModeRecorded;
     self.recordLayer.hidden = NO;
     self.takenLayer.hidden = YES;
@@ -565,12 +587,12 @@ typedef NS_ENUM(NSInteger, UIMode) {
             }
             
             // Start recording to a temporary file.
-            NSString* outputFileName = [NSUUID UUID].UUIDString;
-            NSString* outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
+            NSString* outputFilePath = self.targetVideoPathMov;
             NSURL* outputURL = [NSURL fileURLWithPath:outputFilePath];
             [self.movieFileOutput startRecordingToOutputFileURL:outputURL recordingDelegate:self];
         }
         else {
+            
             [self.movieFileOutput stopRecording];
         }
     });
@@ -620,36 +642,30 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
         success = [error.userInfo[AVErrorRecordingSuccessfullyFinishedKey] boolValue];
     }
     if (success) {
-        // Check authorization status.
-        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-            if (status == PHAuthorizationStatusAuthorized) {
-                // Save the movie file to the photo library and cleanup.
-                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                    PHAssetResourceCreationOptions* options = [[PHAssetResourceCreationOptions alloc] init];
-                    options.shouldMoveFile = YES;
-                    PHAssetCreationRequest* creationRequest = [PHAssetCreationRequest creationRequestForAsset];
-                    [creationRequest addResourceWithType:PHAssetResourceTypeVideo fileURL:outputFileURL options:options];
-                } completionHandler:^(BOOL success, NSError* error) {
-                    if (!success) {
-                        NSLog(@"AVCam couldn't save the movie to your photo library: %@", error);
-                    }
-                    cleanUp();
-                }];
-            }
-            else {
-                cleanUp();
-            }
-        }];
+        // Enable the Camera and Record buttons to let the user switch camera and start another recording.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // Only enable the ability to change camera if the device has more than one camera.
+            [self uiRecorded];
+            
+            UIImage* preview = [DevilUtil getThumbnail:self.targetVideoPathMov];
+            
+            NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
+            [imageData writeToFile:self.targetPreviewPath atomically:YES];
+            
+            [DevilUtil convertMovToMp4:self.targetVideoPathMov to:self.targetVideoPathMp4 callback:^(id  _Nonnull res) {
+                if([res[@"r"] boolValue]){
+                    [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4];
+                    [self.videoView play];
+                } else
+                    [self showAlert:@"Record Failed"];
+            }];
+            
+
+        });
     }
     else {
         cleanUp();
     }
-    
-    // Enable the Camera and Record buttons to let the user switch camera and start another recording.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // Only enable the ability to change camera if the device has more than one camera.
-        [self uiRecord];
-    });
 }
 
 - (void) addObservers
@@ -1054,7 +1070,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
         {
             [self.session beginConfiguration];
             [self.session addOutput:movieFileOutput];
-            self.session.sessionPreset = AVCaptureSessionPresetHigh;
+            self.session.sessionPreset = AVCaptureSessionPreset640x480;
             AVCaptureConnection* connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
             if (connection.isVideoStabilizationSupported) {
                 connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
@@ -1121,9 +1137,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"temp.jpeg"];
+    NSString* filePath = self.targetImagePath;
     NSData *imageData = UIImageJPEGRepresentation(image, 0.6f);
     [imageData writeToFile:filePath atomically:YES];
     
@@ -1138,7 +1152,12 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     [self uiRecord];
 }
 -(void)onClickComplete2:(id)sender {
-    
+    [self.navigationController popViewControllerAnimated:YES];
+    if(self.delegate)
+        [self.delegate completeCapture:self result:[@{
+            @"video": self.targetVideoPathMp4,
+            @"preview": self.targetPreviewPath
+        } mutableCopy]];
 }
 
 -(void)onClickBack:(id)sender {
@@ -1184,4 +1203,17 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     }];
 }
 
+-(void)showAlert:(NSString*)msg
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+                                                        
+    }]];
+    [self presentViewController:alertController animated:YES completion:^{}];
+}
 @end

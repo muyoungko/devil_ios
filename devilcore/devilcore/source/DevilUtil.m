@@ -6,6 +6,8 @@
 //
 
 #import "DevilUtil.h"
+
+@import AVKit;
 @import AVFoundation;
 
 @implementation DevilUtil
@@ -47,43 +49,79 @@
     return npath;
 }
 
++ (UIImage *) getThumbnail:(NSString*)path {
+    AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:path]];
+    AVAssetImageGenerator *imageGenerator = [[AVAssetImageGenerator alloc]initWithAsset:asset];
+    imageGenerator.appliesPreferredTrackTransform = YES;
+    CMTime time = CMTimeMake(1, 1);
+    CGImageRef imageRef = [imageGenerator copyCGImageAtTime:time actualTime:NULL error:NULL];
+    UIImage *thumbnail = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return thumbnail;
+}
+
++ (int) getDuration:(NSString*)path {
+    AVAsset *asset = [AVAsset assetWithURL:[NSURL fileURLWithPath:path]];
+    return CMTimeGetSeconds(asset.duration);
+}
+
 + (void) convertMovToMp4:(NSString*)path to:(NSString*)outputPath callback:(void (^)(id res))callback {
     NSString* oldExt = [DevilUtil getFileExt:path];
     if([oldExt isEqualToString:@"mov"]){
-        NSURL* videoURL = [NSURL URLWithString:path];
+        /**
+         po [[NSFileManager defaultManager] fileExistsAtPath:path]
+         
+         */
+        NSURL* videoURL = [NSURL fileURLWithPath:path];
         AVURLAsset *avAsset = [AVURLAsset URLAssetWithURL:videoURL options:nil];
         NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
-        AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetLowQuality];
-
-        exportSession.outputURL = [NSURL URLWithString:outputPath];
-        exportSession.outputFileType = AVFileTypeMPEG4;
-        exportSession.shouldOptimizeForNetworkUse = YES;
-
-        [exportSession exportAsynchronouslyWithCompletionHandler:^{
-        switch ([exportSession status])
+        if ([compatiblePresets containsObject:AVAssetExportPreset640x480])
         {
-            case AVAssetExportSessionStatusFailed:
-               NSLog(@"Export session failed");
-                callback(@{@"r":@FALSE});
-               break;
-            case AVAssetExportSessionStatusCancelled:
-               NSLog(@"Export canceled");
-                callback(@{@"r":@FALSE});
-               break;
-            case AVAssetExportSessionStatusCompleted:
-            {
-               //Video conversion finished
-               NSLog(@"Successful!");
-                callback(@{@"r":@TRUE});
-            }
-               break;
-            default:
-               break;
+            AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetPassthrough];
+            
+            if([[NSFileManager defaultManager] fileExistsAtPath:outputPath])
+                [[NSFileManager defaultManager]removeItemAtPath:outputPath error:nil];
+            
+            exportSession.outputURL = [NSURL fileURLWithPath:outputPath];
+            exportSession.outputFileType = AVFileTypeMPEG4;
+            exportSession.shouldOptimizeForNetworkUse = YES;
+
+            [exportSession exportAsynchronouslyWithCompletionHandler:^{
+                switch ([exportSession status])
+                {
+                    case AVAssetExportSessionStatusFailed:{
+                        NSLog(@"Export session failed");
+                        dispatch_async(dispatch_get_main_queue(), ^{callback(@{@"r":@FALSE});});
+                    }
+                        break;
+                    case AVAssetExportSessionStatusCancelled:{
+                        NSLog(@"Export canceled");
+                        dispatch_async(dispatch_get_main_queue(), ^{callback(@{@"r":@FALSE});});
+                    }
+                        break;
+                    case AVAssetExportSessionStatusCompleted:
+                    {
+                        //Video conversion finished
+                        NSLog(@"Successful!");
+                        dispatch_async(dispatch_get_main_queue(), ^{callback(@{@"r":@TRUE});});
+                    }
+                       break;
+                    default:
+                       break;
+                }
+            }];
         }
-        }];
+        
     } else {
-        callback(@{@"r":@FALSE});
+        dispatch_async(dispatch_get_main_queue(), ^{callback(@{@"r":@FALSE});});
     }
 }
 
++(NSInteger)sizeOfFile:(NSString *)filePath {
+    NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+    NSInteger fileSize = [[fileAttributes objectForKey:NSFileSize] integerValue];
+
+    return fileSize;
+
+}
 @end
