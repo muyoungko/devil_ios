@@ -67,7 +67,7 @@
 
 + (void) convertMovToMp4:(NSString*)path to:(NSString*)outputPath callback:(void (^)(id res))callback {
     NSString* oldExt = [DevilUtil getFileExt:path];
-    if([oldExt isEqualToString:@"mov"]){
+    if([oldExt isEqualToString:@"mov"] || [oldExt isEqualToString:@"MOV"]){
         /**
          po [[NSFileManager defaultManager] fileExistsAtPath:path]
          

@@ -100,6 +100,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) float ratio;
 
 @property (nonatomic) UIMode uiMode;
+@property (nonatomic, retain) UILabel* topTitle;
+@property (nonatomic) int recordSec;
 @property (nonatomic, retain) UIButton* btnBack;
 @property (nonatomic, retain) UIButton* btnFlash;
 @property (nonatomic, retain) UIButton* btnFront;
@@ -113,6 +115,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic, retain) UIButton* btnComplete1;
 @property (nonatomic, retain) UIButton* btnBack2;
 @property (nonatomic, retain) UIButton* btnComplete2;
+@property (nonatomic, retain) UIView* capTop;
+@property (nonatomic, retain) UIView* capBottom;
 @property (nonatomic, retain) UIView* takenLayer;
 @property (nonatomic, retain) UIImageView* takenImageView;
 @property (nonatomic, retain) PECropView* cropView;
@@ -159,6 +163,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.targetVideoPathMp4 = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.mp4"];
     self.targetImagePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@".jpg"]];
     
+    [self initParam];
     [self ui];
     
     self.session = [[AVCaptureSession alloc] init];
@@ -263,6 +268,43 @@ typedef NS_ENUM(NSInteger, UIMode) {
     return r;
 }
 
+- (void)initParam {
+    self.startVideo = NO;
+    self.startFront = YES;
+    self.startFlash = YES;
+    self.hasPicture = YES;
+    self.hasVideo = YES;
+    self.hasGallery = YES;
+    self.minSec = 3;
+    self.maxSec = 10;
+    self.ratio = 1.0f;
+    if(self.param) {
+        if(self.param[@"startVideo"])
+            self.startVideo = [self.param[@"startVideo"] boolValue];
+        if(self.param[@"startFront"])
+            self.startFront = [self.param[@"startFront"] boolValue];
+        if(self.param[@"startFlash"])
+            self.startFlash = [self.param[@"startFlash"] boolValue];
+        if(self.param[@"hasPicture"])
+            self.hasPicture = [self.param[@"hasPicture"] boolValue];
+        if(self.param[@"hasVideo"])
+            self.hasVideo = [self.param[@"hasVideo"] boolValue];
+        if(self.param[@"hasGallery"])
+            self.hasGallery = [self.param[@"hasGallery"] boolValue];
+        
+        if(self.param[@"minSec"])
+            self.minSec = [self.param[@"minSec"] intValue];
+        if(self.param[@"maxSec"])
+            self.maxSec = [self.param[@"maxSec"] intValue];
+        if(self.param[@"ratio"])
+            self.ratio = [self.param[@"ratio"] floatValue];
+    }
+    
+    self.front = self.startFront;
+    self.flash = self.startFlash;
+    self.video = self.startVideo;
+}
+
 - (void)ui{
     float sw = [UIScreen mainScreen].bounds.size.width;
     float sh = [UIScreen mainScreen].bounds.size.height;
@@ -270,6 +312,22 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.previewView = [[DevilAVCamPreviewView alloc] initWithFrame:CGRectMake(0, 0,
                                                                                self.view.frame.size.width, self.view.frame.size.height)];
     [self.view addSubview:self.previewView];
+    
+    float capH = (sh - (_ratio * sw)) / 2.0f;
+    self.capTop = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, sw, capH)];
+    self.capTop.backgroundColor = UIColorFromRGBA(0xFF000000);
+    [self.view addSubview:self.capTop];
+    self.capBottom = [[UILabel alloc] initWithFrame:CGRectMake(0, sh-capH, sw, capH)];
+    self.capBottom.backgroundColor = UIColorFromRGBA(0xFF000000);
+    [self.view addSubview:self.capBottom];
+    
+    self.topTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, sw, 50)];
+    self.topTitle.center = CGPointMake(sw/2, 80);
+    self.topTitle.textColor = [UIColor whiteColor];
+    self.topTitle.font = [UIFont systemFontOfSize:18];
+    self.topTitle.textAlignment = NSTextAlignmentCenter;
+    
+    [self.view addSubview:self.topTitle];
     
     self.btnBack = [self createButton:CGPointMake(40, 80) :@"devil_camera_cancel" :30 :@selector(onClickBack:) :UIColorFromRGB(0xffffff) :nil];
     self.btnFlash = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff) :nil];
@@ -311,41 +369,6 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.btnBack2 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel2:) :UIColorFromRGB(0xff0000) :self.recordLayer];
     self.btnComplete2 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete2:) :UIColorFromRGB(0x3cb043) :self.recordLayer];
     
-    self.startVideo = YES;
-    self.startFront = YES;
-    self.startFlash = YES;
-    self.hasPicture = YES;
-    self.hasVideo = YES;
-    self.hasGallery = YES;
-    self.minSec = 3;
-    self.maxSec = 10;
-    self.ratio = 1.0f;
-    if(self.param) {
-        if(self.param[@"startVideo"])
-            self.startVideo = [self.param[@"startVideo"] boolValue];
-        if(self.param[@"startFront"])
-            self.startFront = [self.param[@"startFront"] boolValue];
-        if(self.param[@"startFlash"])
-            self.startFlash = [self.param[@"startFlash"] boolValue];
-        if(self.param[@"hasPicture"])
-            self.hasPicture = [self.param[@"hasPicture"] boolValue];
-        if(self.param[@"hasVideo"])
-            self.hasVideo = [self.param[@"hasVideo"] boolValue];
-        if(self.param[@"hasGallery"])
-            self.hasGallery = [self.param[@"hasGallery"] boolValue];
-        
-        if(self.param[@"minSec"])
-            self.minSec = [self.param[@"minSec"] intValue];
-        if(self.param[@"maxSec"])
-            self.maxSec = [self.param[@"maxSec"] intValue];
-        if(self.param[@"ratio"])
-            self.ratio = [self.param[@"ratio"] floatValue];
-    }
-    
-    self.front = self.startFront;
-    self.flash = self.startFlash;
-    self.video = self.startVideo;
-    
     if(_hasVideo && _startVideo){
         self.video = YES;
         [self uiRecord];
@@ -358,10 +381,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 
 - (void)uiPicture {
     self.uiMode = UIModePicture;
-    
-//    findViewById(R.id.capTop).setVisibility(View.GONE);
-//    findViewById(R.id.capBottom).setVisibility(View.GONE);
-    
+    self.topTitle.text = @"";
     self.recordLayer.hidden = YES;
     self.takenLayer.hidden = YES;
     self.btnTake.hidden = NO;
@@ -375,6 +395,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 }
 
 - (void)uiTaken {
+    self.topTitle.text = @"";
     self.uiMode = UIModeTaken;
     self.recordLayer.hidden = YES;
     self.takenLayer.hidden = NO;
@@ -382,7 +403,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 
 - (void)uiRecord {
     self.uiMode = UIModeRecord;
-    
+    self.topTitle.text = @"동영상";
+    self.recordSec = 0;
     self.recordLayer.hidden = YES;
     self.takenLayer.hidden = YES;
     self.btnTake.hidden = YES;
@@ -395,9 +417,23 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.btnPicture.hidden = self.hasPicture?NO:YES;
 }
 
+- (void)tick {
+    if(self.uiMode == UIModeRecording){
+        self.recordSec++;
+        NSString* t = @"";
+        if(self.recordSec >= 3600)
+            t = [NSString stringWithFormat:@"%02d:%02d:%02d", self.recordSec/3600, (self.recordSec%3600)/60, self.recordSec % 60];
+        else
+            t = [NSString stringWithFormat:@"%02d:%02d", (self.recordSec%3600)/60, self.recordSec % 60];
+        self.topTitle.text =t;
+        [self performSelector:@selector(tick) withObject:nil afterDelay:1];
+    }
+}
+
 - (void)uiRecording {
     self.uiMode = UIModeRecording;
-    
+    self.topTitle.text = @"00:00";
+    [self performSelector:@selector(tick) withObject:nil afterDelay:1];
     self.recordLayer.hidden = YES;
     self.takenLayer.hidden = YES;
     self.btnTake.hidden = YES;
@@ -411,6 +447,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 }
 
 - (void)uiRecorded {
+    self.topTitle.text = @"동영상";
     self.uiMode = UIModeRecorded;
     self.recordLayer.hidden = NO;
     self.takenLayer.hidden = YES;
@@ -1181,23 +1218,39 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
-    UIImage* photo = info[UIImagePickerControllerOriginalImage];
-    if(photo.imageOrientation == UIImageOrientationRight)
-        photo = [DevilUtil rotateImage:photo degrees:90];
-    else if(photo.imageOrientation == UIImageOrientationLeft)
-        photo = [DevilUtil rotateImage:photo degrees:-90];
-    else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
-        photo = [DevilUtil rotateImage:photo degrees:180];
+    if(self.video){
+        NSURL* fileURL = info[UIImagePickerControllerMediaURL];
+        NSString* path = [fileURL absoluteString];
+        UIImage* preview = [DevilUtil getThumbnail:path];
+        NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
+        [imageData writeToFile:self.targetPreviewPath atomically:YES];
+        [DevilUtil convertMovToMp4:path to:self.targetVideoPathMp4 callback:^(id  _Nonnull res) {
+            if([res[@"r"] boolValue]){
+                [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4];
+                [self.videoView play];
+            } else
+                [self showAlert:@"Record Failed"];
+        }];
+        [self uiRecorded];
+    } else {
+        UIImage* photo = info[UIImagePickerControllerOriginalImage];
+        if(photo.imageOrientation == UIImageOrientationRight)
+            photo = [DevilUtil rotateImage:photo degrees:90];
+        else if(photo.imageOrientation == UIImageOrientationLeft)
+            photo = [DevilUtil rotateImage:photo degrees:-90];
+        else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
+            photo = [DevilUtil rotateImage:photo degrees:180];
+        
+        [self uiTaken];
+        [self.cropView setImage:photo];
     
-    [self uiTaken];
-    [self.cropView setImage:photo];
+    }
     [picker dismissViewControllerAnimated:YES completion:^{
         
     }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    NSLog(@"here");
     [picker dismissViewControllerAnimated:YES completion:^{
         
     }];
