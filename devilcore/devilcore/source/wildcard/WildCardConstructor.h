@@ -80,6 +80,8 @@
 +(void) applyRuleCore:(WildCardMeta*)meta rule:(ReplaceRule*)rule withData:(NSMutableDictionary*)opt;
 +(float) convertSketchToPixel:(float)p;
 +(float) convertTextSize:(int)sketchTextSize;
++(void) followSizeFromFather:(UIView*)vv child:(UIView*)tv;
++(void) userInteractionEnableToParentPath:(UIView*)vv depth:(int)depth;
 +(CGRect)getFrame:(NSDictionary*) layer : (WildCardUIView*)parentForPadding;
 
 -(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete;

@@ -7,9 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#define WC_SELECTED @"WC_SELECTED"
-#define WC_INDEX @"WC_INDEX"
-#define WC_LENGTH @"WC_LENGTH"
+
 @interface WildCardFunctionManager : NSObject
 
 + (id)sharedInstance;

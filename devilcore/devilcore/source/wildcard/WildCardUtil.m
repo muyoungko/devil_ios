@@ -9,6 +9,9 @@
 #import "WildCardUtil.h"
 #import "WildCardUIView.h"
 
+static float SKETCH_WIDTH = 360;
+static BOOL IS_TABLET = NO;
+
 @implementation WildCardUtil
 
 +(float) alphaWithHexString: (NSString *) hexString{
@@ -197,6 +200,12 @@
 +(CGRect)getGlobalFrame:(UIView*)v {
     UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     return [v.superview convertRect:v.frame toView:rootView];
+}
+
++(float) convertSketchToPixel:(float)p {
+    int screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    float scaleAdjust = screenWidth / SKETCH_WIDTH;
+    return p * scaleAdjust;
 }
 
 @end

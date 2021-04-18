@@ -10,7 +10,6 @@
 #import "WildCardUIView.h"
 
 
-#define RULE_TYPE_NETWORK_IMAGE 1
 #define RULE_TYPE_TEXT 2
 #define RULE_TYPE_CLICK 3
 #define RULE_TYPE_REPEAT 4
@@ -21,7 +20,6 @@
 #define RULE_TYPE_REPLACE_URL 9
 #define RULE_TYPE_EXTENSION 10
 #define RULE_TYPE_COLOR 11
-#define RULE_TYPE_IMAGE_RESOURCE 12
 #define RULE_TYPE_WEB 13
 #define RULE_TYPE_STRIP 14
 #define RULE_TYPE_ICON 15
@@ -33,9 +31,14 @@
              :(NSDictionary*)replaceJsonLayer
              :(NSString*)replaceJsonKey;
 
+- (id)initWithRuleJson:(NSDictionary *)replaceJsonLayer;
+
 @property(nonatomic, retain) UIView* replaceView;
 @property int replaceType;
 @property(nonatomic, retain) NSMutableDictionary* replaceJsonLayer;
 @property(nonatomic, retain) NSString* replaceJsonKey;
+
+-(void)constructRule:(WildCardMeta*)wcMeta parent:(UIView*)parent vv:(WildCardUIView*)vv layer:(id)layer depth:(int)depth result:(id)result;
+-(void)updateRule:(WildCardMeta*)meta data:(id)opt;
 
 @end

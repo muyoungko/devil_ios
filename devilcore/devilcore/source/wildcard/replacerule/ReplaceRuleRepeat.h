@@ -11,6 +11,9 @@
 #define ReplaceRuleRepeat(replaceView, replaceJsonLayer, replaceJsonKey) [[ReplaceRuleRepeat alloc] initWith:replaceView:replaceJsonLayer:replaceJsonKey]
 
 
+#define WC_SELECTED @"WC_SELECTED"
+#define WC_INDEX @"WC_INDEX"
+#define WC_LENGTH @"WC_LENGTH"
 
 #define REPEAT_TYPE_RIGHT @"0"
 #define REPEAT_TYPE_BOTTOM @"1"

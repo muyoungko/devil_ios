@@ -172,6 +172,8 @@
 		6D9F7B1826298930003A70EC /* WildCardVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7B1626298930003A70EC /* WildCardVideoView.m */; };
 		6D9F7B1C26298952003A70EC /* WildCardProgressBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7B1A26298952003A70EC /* WildCardProgressBar.h */; };
 		6D9F7B1D26298952003A70EC /* WildCardProgressBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7B1B26298952003A70EC /* WildCardProgressBar.m */; };
+		6D9F7B91262C8380003A70EC /* ReplaceRuleVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7B8F262C8380003A70EC /* ReplaceRuleVideo.h */; };
+		6D9F7B92262C8380003A70EC /* ReplaceRuleVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7B90262C8380003A70EC /* ReplaceRuleVideo.m */; };
 		6DBFED3D259A27EB00813987 /* ReplaceWeb.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DBFED3B259A27EB00813987 /* ReplaceWeb.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DBFED3C259A27EB00813987 /* ReplaceWeb.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
@@ -345,6 +347,8 @@
 		6D9F7B1626298930003A70EC /* WildCardVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardVideoView.m; sourceTree = "<group>"; };
 		6D9F7B1A26298952003A70EC /* WildCardProgressBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardProgressBar.h; sourceTree = "<group>"; };
 		6D9F7B1B26298952003A70EC /* WildCardProgressBar.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardProgressBar.m; sourceTree = "<group>"; };
+		6D9F7B8F262C8380003A70EC /* ReplaceRuleVideo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleVideo.h; sourceTree = "<group>"; };
+		6D9F7B90262C8380003A70EC /* ReplaceRuleVideo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleVideo.m; sourceTree = "<group>"; };
 		6DBFED3B259A27EB00813987 /* ReplaceWeb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceWeb.h; sourceTree = "<group>"; };
 		6DBFED3C259A27EB00813987 /* ReplaceWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceWeb.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -556,6 +560,8 @@
 				6D9E2B1E25BB4A920027D16D /* ReplaceRuleStrip.m */,
 				6D3EBE7925D9123E0006ADD5 /* ReplaceRuleIcon.h */,
 				6D3EBE7A25D9123E0006ADD5 /* ReplaceRuleIcon.m */,
+				6D9F7B8F262C8380003A70EC /* ReplaceRuleVideo.h */,
+				6D9F7B90262C8380003A70EC /* ReplaceRuleVideo.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -726,6 +732,7 @@
 				6D467A88256AB07A006D57DD /* MappingSyntaxInterpreter.h in Headers */,
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
 				6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */,
+				6D9F7B91262C8380003A70EC /* ReplaceRuleVideo.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
 				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
 				6D467AC0256AB07A006D57DD /* WildCardAction.h in Headers */,
@@ -953,6 +960,7 @@
 				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
 				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
 				6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */,
+				6D9F7B92262C8380003A70EC /* ReplaceRuleVideo.m in Sources */,
 				6DBFED3E259A27EB00813987 /* ReplaceWeb.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
 				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,

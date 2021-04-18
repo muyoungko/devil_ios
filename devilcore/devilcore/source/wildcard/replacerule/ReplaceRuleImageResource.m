@@ -7,15 +7,30 @@
 //
 
 #import "ReplaceRuleImageResource.h"
+#import "WildCardConstructor.h"
+#import "MappingSyntaxInterpreter.h"
 
 @implementation ReplaceRuleImageResource
 
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey
-{
-    self = [super initWith:replaceView :RULE_TYPE_IMAGE_RESOURCE :replaceJsonLayer :replaceJsonKey];
-    return self;
+
+- (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+    
+    UIImageView* iv = [[UIImageView alloc] init];
+    self.replaceView = iv;
+    iv.contentMode = UIViewContentModeScaleToFill;
+    [vv addSubview:iv];
+    [WildCardConstructor followSizeFromFather:vv child:iv];
+}
+
+- (void)updateRule:(WildCardMeta *)meta data:(id)opt{
+    NSString* imageName = nil;
+    if([[opt class] isSubclassOfClass:[NSString class]])
+        imageName = (NSString*)opt;
+    else {
+        NSString* jsonPath = self.replaceJsonLayer[@"imageContentResource"];
+        imageName = [MappingSyntaxInterpreter interpret:jsonPath:opt];
+    }
+    [((UIImageView*)self.replaceView) setImage:[UIImage imageNamed:imageName]];
 }
 
 @end

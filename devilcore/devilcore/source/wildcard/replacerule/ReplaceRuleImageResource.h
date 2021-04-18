@@ -10,13 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define ReplaceRuleImageResource(replaceView, replaceJsonLayer, replaceJsonKey) [[ReplaceRuleImageResource alloc] initWith:replaceView:replaceJsonLayer:replaceJsonKey]
-
 @interface ReplaceRuleImageResource : ReplaceRule
-
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey;
 
 @end
 

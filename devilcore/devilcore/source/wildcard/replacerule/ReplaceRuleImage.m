@@ -7,15 +7,31 @@
 //
 
 #import "ReplaceRuleImage.h"
+#import "WildCardConstructor.h"
+#import "MappingSyntaxInterpreter.h"
 
 @implementation ReplaceRuleImage
 
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey
-{
-    self = [super initWith:replaceView :RULE_TYPE_NETWORK_IMAGE :replaceJsonLayer :replaceJsonKey];
-    return self;
+- (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+    
+    UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
+    self.replaceView = iv;
+    iv.contentMode = UIViewContentModeScaleToFill;
+    [vv addSubview:iv];
+    [WildCardConstructor followSizeFromFather:vv child:iv];
+    
+}
+
+- (void)updateRule:(WildCardMeta *)meta data:(id)opt{
+    NSString* url = nil;
+    if([[opt class] isSubclassOfClass:[NSString class]])
+        url = (NSString*)opt;
+    else {
+        NSString* jsonPath = self.replaceJsonLayer[@"imageContent"];
+        url = [MappingSyntaxInterpreter interpret:jsonPath:opt];
+    }
+    
+    [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.replaceView withUrl:url];
 }
 
 @end

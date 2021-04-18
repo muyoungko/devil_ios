@@ -8,6 +8,7 @@
 
 #import "WildCardFunction.h"
 #import "MappingSyntaxInterpreter.h"
+#import "ReplaceRuleRepeat.h"
 
 @implementation WildCardFunctionManager
 + (id)sharedInstance {

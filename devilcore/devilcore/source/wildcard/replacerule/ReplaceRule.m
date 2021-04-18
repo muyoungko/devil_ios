@@ -25,4 +25,18 @@
     return self;
 }
 
+- (id)initWithRuleJson:(NSDictionary *)replaceJsonLayer{
+    self = [super init];
+    self.replaceJsonLayer = replaceJsonLayer;
+    return self;
+}
+
+-(void)constructRule:(WildCardMeta*)wcMeta parent:(UIView*)parent vv:(WildCardUIView*)vv layer:(id)layer depth:(int)depth result:(id)result{
+    
+}
+
+-(void)updateRule:(WildCardMeta*)meta data:(id)opt {
+    
+}
+
 @end
