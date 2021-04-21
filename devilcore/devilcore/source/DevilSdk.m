@@ -27,6 +27,8 @@
 
 +(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback{
     [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:^(BOOL success) {
+        [[NSUserDefaults standardUserDefaults] setObject:project_id forKey:@"PROJECT_ID"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         DevilController* d = [[DevilController alloc] init];
         NSString* firstScreenId = [[WildCardConstructor sharedInstance] getFirstScreenId];
         d.screenId = firstScreenId; 

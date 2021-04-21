@@ -7,15 +7,26 @@
 //
 
 #import "ReplaceRuleText.h"
+#import "MappingSyntaxInterpreter.h"
+#import "WildCardConstructor.h"
 
 @implementation ReplaceRuleText
 
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey
-{
-    self = [super initWith:replaceView :RULE_TYPE_TEXT :replaceJsonLayer :replaceJsonKey];
-    return self;
+
+- (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+    self.replaceJsonKey = layer[@"textContent"];
+}
+
+- (void)updateRule:(WildCardMeta *)meta data:(id)opt {
+    UILabel* lv = (UILabel*)self.replaceView;
+    NSString* text = [MappingSyntaxInterpreter interpret:self.replaceJsonKey:opt];
+    if(text == nil)
+        text = self.replaceJsonLayer[@"textSpec"][@"text"];
+
+    if([WildCardConstructor sharedInstance].textTransDelegate != nil )
+        text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
+    
+    [lv setText:text];
 }
 
 @end

@@ -8,9 +8,6 @@
 
 #import "ReplaceRule.h"
 
-#define ReplaceRuleRepeat(replaceView, replaceJsonLayer, replaceJsonKey) [[ReplaceRuleRepeat alloc] initWith:replaceView:replaceJsonLayer:replaceJsonKey]
-
-
 #define WC_SELECTED @"WC_SELECTED"
 #define WC_INDEX @"WC_INDEX"
 #define WC_LENGTH @"WC_LENGTH"
@@ -24,11 +21,6 @@
 
 
 @interface ReplaceRuleRepeat : ReplaceRule
-
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey;
-
 
 @property(nonatomic, retain) UIView *createdContainer;
 @property(nonatomic, retain) NSObject* adapterForRetain;

@@ -7,14 +7,36 @@
 //
 
 #import "ReplaceRuleClick.h"
+#import "WildCardConstructor.h"
+#import "MappingSyntaxInterpreter.h"
+#import "WildCardUITapGestureRecognizer.h"
 
 @implementation ReplaceRuleClick
 
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey
-{
-    self = [super initWith:replaceView :RULE_TYPE_CLICK :replaceJsonLayer :replaceJsonKey];
-    return self;
+- (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+
+    vv.userInteractionEnabled = YES;
+    [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
+
+    self.replaceView = vv;
+    
+    if(layer[@"clickContent"]) {
+        WildCardUITapGestureRecognizer *singleFingerTap =
+        [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(onClickListener:)];
+        singleFingerTap.meta = wcMeta;
+        [vv addGestureRecognizer:singleFingerTap];
+        ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickContent"];
+    } else if(layer[@"clickJavascript"]) {
+        WildCardUITapGestureRecognizer *singleFingerTap =
+        [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(script:)];
+        singleFingerTap.meta = wcMeta;
+        [vv addGestureRecognizer:singleFingerTap];
+        ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
+    }
 }
+
+- (void)updateRule:(WildCardMeta *)meta data:(id)opt{
+    
+}
+
 @end

@@ -18,17 +18,9 @@
 
 @implementation ReplaceRuleRepeat
 
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey
-{
-    self = [super initWith:replaceView :RULE_TYPE_REPEAT :replaceJsonLayer :replaceJsonKey];
+-(void)constructRule:(WildCardMeta*)wcMeta parent:(UIView*)parent vv:(WildCardUIView*)vv layer:(id)layer depth:(int)depth result:(id)result{
     self.createdRepeatView = [[NSMutableArray alloc] init];
     
-    return self;
-}
-
--(void)constructRule:(WildCardMeta*)wcMeta parent:(UIView*)parent vv:(WildCardUIView*)vv layer:(id)layer depth:(int)depth result:(id)result{
     id layers = layer[@"layers"];
     NSDictionary* triggerMap = layer[@"trigger"];
     

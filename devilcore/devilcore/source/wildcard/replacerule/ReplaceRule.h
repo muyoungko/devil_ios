@@ -9,10 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "WildCardUIView.h"
 
-
-#define RULE_TYPE_TEXT 2
-#define RULE_TYPE_CLICK 3
-#define RULE_TYPE_REPEAT 4
 #define RULE_TYPE_LOCAL_IMAGE 5
 #define RULE_TYPE_IMPRESSION 6
 #define RULE_TYPE_HIDDEN 7

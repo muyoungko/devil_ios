@@ -9,13 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "ReplaceRule.h"
 
-#define ReplaceRuleClick(replaceView, replaceJsonLayer, replaceJsonKey) [[ReplaceRuleClick alloc] initWith:replaceView:replaceJsonLayer:replaceJsonKey]
-
 @interface ReplaceRuleClick : ReplaceRule
-
-
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey;
 
 @end

@@ -175,8 +175,13 @@
             [icon_asset_image.imageAsset registerImage:icon_image withTraitCollection:[UITraitCollection traitCollectionWithDisplayScale:3.0]];
           
             [leftButton setImage:icon_asset_image forState:UIControlStateNormal];
-            [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
-            leftButton.stringTag = icon_layer[@"clickContent"]; 
+            if(icon_layer[@"clickJavascript"]){
+                [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];
+                leftButton.stringTag = icon_layer[@"clickJavascript"];
+            } else if(icon_layer[@"clickContent"]) {
+                [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
+                leftButton.stringTag = icon_layer[@"clickContent"];
+            }
             leftButton.imageView.contentMode = UIViewContentModeCenter;
             
 //            i++;
@@ -223,7 +228,12 @@
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
 }
-
+-(void)scriptClick:(id)sender{
+    WildCardUIButton* vv = (WildCardUIButton*)sender;
+    NSString *script = vv.stringTag;
+    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    [WildCardAction execute:trigger script:script meta:self.meta];
+}
 
 - (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
     UIGraphicsBeginImageContext(size);

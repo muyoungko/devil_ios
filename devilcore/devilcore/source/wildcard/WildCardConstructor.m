@@ -483,6 +483,10 @@ static BOOL IS_TABLET = NO;
         if(parent != nil)
             [parent addSubview:vv];
         
+        NSArray *layers = [layer objectForKey:@"layers"];
+        id shouldContinueChild = @[];
+        id result = [@{} mutableCopy];
+        
         if(extension != nil)
         {
             UIView* extensionView = [WildCardExtensionConstructor construct:vv:layer:wcMeta];
@@ -500,33 +504,13 @@ static BOOL IS_TABLET = NO;
             _class = @"extension";
         }
         
-        if([layer objectForKey:@"clickContent"] != nil)
+        if([layer objectForKey:@"clickContent"] || [layer objectForKey:@"clickJavascript"])
         {
-            [outRules addObject:ReplaceRuleClick(vv,layer, [layer objectForKey:@"clickContent"])];
-            vv.userInteractionEnabled = YES;
+            ReplaceRuleClick* rule = [[ReplaceRuleClick alloc] initWithRuleJson:layer];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
             
-            [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
-            
-            WildCardUITapGestureRecognizer *singleFingerTap =
-            [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance]
-                                                            action:@selector(onClickListener:)];
-            singleFingerTap.meta = wcMeta;
-            [vv addGestureRecognizer:singleFingerTap];
-        } else if([layer objectForKey:@"clickJavascript"] != nil)
-        {
-            [outRules addObject:ReplaceRuleClick(vv,layer, [layer objectForKey:@"clickJavascript"])];
-            vv.userInteractionEnabled = YES;
-            
-            [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
-            
-            WildCardUITapGestureRecognizer *singleFingerTap =
-            [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance]
-                                                            action:@selector(script:)];
-            singleFingerTap.meta = wcMeta;
-            [vv addGestureRecognizer:singleFingerTap];
-        }
-        else if(extension == nil)
-        {
+        } else if(extension == nil) {
             vv.userInteractionEnabled = NO;
         }
         
@@ -645,10 +629,6 @@ static BOOL IS_TABLET = NO;
             }
         }
         
-        NSArray *layers = [layer objectForKey:@"layers"];
-        id shouldContinueChild = @[];
-        id result = [@{} mutableCopy];
-        
         if ([layer objectForKey:(@"colorMapping")] != nil)
         {
             [outRules addObject:ReplaceRuleColor(vv ,[layer objectForKey:@"colorMapping"], @"")];
@@ -664,13 +644,17 @@ static BOOL IS_TABLET = NO;
             ReplaceRuleImage* rule = [[ReplaceRuleImage alloc] initWithRuleJson:layer];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
-        } else if ([layer objectForKey:(@"imageContentResource")] != nil && ![_class isEqualToString:@"extension"])
-        {
+        } else if ([layer objectForKey:(@"imageContentResource")] != nil && ![_class isEqualToString:@"extension"]) {
             ReplaceRuleImageResource* rule = [[ReplaceRuleImageResource alloc] initWithRuleJson:layer];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
-        } else if ([layer objectForKey:(@"localImageContent")] != nil &&  ![_class isEqualToString:@"extension"])
-        {
+        } else if ([layer objectForKey:(@"localImageContent")] != nil &&  ![_class isEqualToString:@"extension"]) {
+            
+            ReplaceRuleLocalImage* rule = [[ReplaceRuleLocalImage alloc] initWithRuleJson:layer];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            
+            
             if([WildCardConstructor sharedInstance].onLineMode)
             {
                 UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
@@ -853,8 +837,10 @@ static BOOL IS_TABLET = NO;
             tv.textColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
             
             if ([layer objectForKey:@"textContent"]) {
-                NSString* textContent = [layer objectForKey:@"textContent"];
-                [outRules addObject:ReplaceRuleText(tv, layer, textContent)];
+                ReplaceRuleText* rule = [[ReplaceRuleText alloc] initWithRuleJson:layer];
+                [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+                rule.replaceView = tv;
+                [outRules addObject:rule];
             }
             else
             {
@@ -877,7 +863,7 @@ static BOOL IS_TABLET = NO;
 
         if([layer objectForKey:@"arrayContent"])
         {
-            ReplaceRuleRepeat* replaceRule = ReplaceRuleRepeat(vv, layer, nil);
+            ReplaceRuleRepeat* replaceRule = [[ReplaceRuleRepeat alloc] initWithRuleJson:layer];
             [replaceRule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
             if(result[@"shouldContinueChild"])
                 shouldContinueChild = result[@"shouldContinueChild"];
@@ -1358,23 +1344,7 @@ static BOOL IS_TABLET = NO;
 {
     [rule updateRule:meta data:opt];
     
-    if(rule.replaceType == RULE_TYPE_CLICK) {
-        ((WildCardUIView*)rule.replaceView).stringTag = rule.replaceJsonKey;
-    }
-    else if(rule.replaceType == RULE_TYPE_TEXT)
-    {
-        UILabel* lv = (UILabel*)rule.replaceView;
-        NSString* text = [MappingSyntaxInterpreter interpret:rule.replaceJsonKey:opt];
-        if(text == nil)
-            text = rule.replaceJsonLayer[@"textSpec"][@"text"];
-
-        if([WildCardConstructor sharedInstance].textTransDelegate != nil )
-            text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
-        
-        [lv setText:text];
-        //NSLog(@"%@ -> %@", rule.replaceJsonKey , text!=nil? text:@"nil");
-    }
-    else if(rule.replaceType == RULE_TYPE_WEB)
+    if(rule.replaceType == RULE_TYPE_WEB)
     {
         WKWebView* web = (WKWebView*)rule.replaceView;
         NSString* url = [MappingSyntaxInterpreter interpret:rule.replaceJsonKey:opt];

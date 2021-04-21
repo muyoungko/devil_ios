@@ -15,9 +15,12 @@
 + (void)loginKakao:(JSValue *)callback{
     DevilKakaoLogin* kakao = [[DevilKakaoLogin alloc] init];
     [kakao loginWithCompletion:^(id _Nullable user) {
-        if(user != nil)
-            [callback callWithArguments:@[@{@"user":user, @"r":@TRUE}]];
-        else
+        if(user != nil) {
+            user[@"r"] = @TRUE;
+            user[@"type"] = @"kakao";
+            user[@"identifier"] = user[@"id"];
+            [callback callWithArguments:@[user]];
+        } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];
     }];
 }

@@ -189,10 +189,14 @@
     for(id h in header_list){
         header[h[@"header"]] = h[@"content"];
     }
+    
+    if([Jevil get:@"x-access-token"])
+        header[@"x-access-token"] = [Jevil get:@"x-access-token"];
+    
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
-        [callback callWithArguments:@[responseJsonObject, @YES]];
+        [callback callWithArguments:@[responseJsonObject]];
         [[JevilInstance currentInstance] syncData];
     }];
 }
@@ -209,13 +213,16 @@
         header[h[@"header"]] = h[@"content"];
     }
 
+    if([Jevil get:@"x-access-token"])
+        header[@"x-access-token"] = [Jevil get:@"x-access-token"];
+    
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
-        [callback callWithArguments:@[responseJsonObject, @YES]];
+        [callback callWithArguments:@[responseJsonObject]];
         [[JevilInstance currentInstance] syncData];
     }];
 }
