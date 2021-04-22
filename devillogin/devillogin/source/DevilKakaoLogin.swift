@@ -76,7 +76,7 @@ public class DevilKakaoLogin: NSObject {
                         //r["id"] = String(describing:user?.id)
                         r["id"] = String(format: "%d", user?.id as! CVarArg)
                         r["name"] = user?.kakaoAccount?.profile?.nickname
-                        r["profile"] = user?.kakaoAccount?.profile?.thumbnailImageUrl
+                        r["profile"] = user?.kakaoAccount?.profile?.thumbnailImageUrl?.absoluteString
                         r["email"] = user?.kakaoAccount?.email
                         r["age_range"] = user?.kakaoAccount?.ageRange?.rawValue
                         r["gender"] = user?.kakaoAccount?.gender?.rawValue

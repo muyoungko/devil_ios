@@ -18,6 +18,7 @@
 #import "DevilDebugView.h"
 #import "WifiManager.h"
 #import "DevilCamera.h"
+#import "DevilUtil.h"
 
 @interface Jevil()
 
@@ -190,8 +191,9 @@
         header[h[@"header"]] = h[@"content"];
     }
     
-    if([Jevil get:@"x-access-token"])
-        header[@"x-access-token"] = [Jevil get:@"x-access-token"];
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
@@ -213,8 +215,9 @@
         header[h[@"header"]] = h[@"content"];
     }
 
-    if([Jevil get:@"x-access-token"])
-        header[@"x-access-token"] = [Jevil get:@"x-access-token"];
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
@@ -289,6 +292,28 @@
             }
         }];
     }
+    
+}
+
++ (void)sendPushKeyWithDevilServer {
+    NSString* fcm = [[NSUserDefaults standardUserDefaults] objectForKey:@"FCM"];
+    if(fcm == nil)
+        return;
+    
+    UIDevice *device = [UIDevice currentDevice];
+    NSString* udid = [[device identifierForVendor] UUIDString];
+    NSString* url = [NSString stringWithFormat:@"/push/key?fcm=%@&udid=%@&os=iOS", urlencode(fcm), urlencode(udid)];
+    url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+    
+    id header = [@{} mutableCopy];
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
+    
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:@"/push/key" log:nil];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:@"/push/key" log:responseJsonObject];
+    }];
     
 }
 

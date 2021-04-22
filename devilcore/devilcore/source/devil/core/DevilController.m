@@ -46,7 +46,9 @@
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     
     
-    NSString* common_javascript =[WildCardConstructor sharedInstance].project[@"common_javascript"];
+    NSString* common_javascript = [WildCardConstructor sharedInstance].project[@"common_javascript"];
+    NSString* embed_code =[WildCardConstructor sharedInstance].project[@"embed_code"];
+    common_javascript = [common_javascript stringByAppendingString:embed_code];
     if(common_javascript != nil && common_javascript != [NSNull null])
         [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
     

@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)get:(NSString *)url then:(JSValue *)callback;
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback;
 + (void)uploadS3:(NSArray*)file :(JSValue *)callback;
++ (void)sendPushKeyWithDevilServer;
 + (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback;
 + (void)update;
 + (void)updateThis;

@@ -26,7 +26,7 @@ target 'devil' do
  
   pod 'GoogleSignIn', '~> 5.0'
   pod 'GoogleToolboxForMac'
-  pod 'AFNetworking','~>4.0'
+  pod 'AFNetworking','~>4.0.1'
   
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'

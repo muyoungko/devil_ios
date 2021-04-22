@@ -244,7 +244,7 @@ PODS:
   - PromisesObjC (1.2.12)
 
 DEPENDENCIES:
-  - AFNetworking (~> 4.0)
+  - AFNetworking (~> 4.0.1)
   - FBSDKLoginKit
   - FBSDKShareKit
   - Firebase/Analytics
@@ -338,6 +338,6 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: 8cb16fe76db6fc96fc1bce0ee81657321f10c53d
+PODFILE CHECKSUM: ad125c98e7ce252ad4c818cbd9bbd6c304afc151
 
 COCOAPODS: 1.10.1
