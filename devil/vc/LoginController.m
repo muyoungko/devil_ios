@@ -68,53 +68,6 @@
         
         return YES;
     } else if([@"login_fb" isEqualToString:functionName]){
-        [self showIndicator];
-//        FBSDKLoginManager* m = [[FBSDKLoginManager alloc] init];
-//        //프로필은 FB 검수 받고 받아와야한다.
-//        [m logInWithPermissions:@[@"public_profile", @"email"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult * _Nullable result, NSError * _Nullable error) {
-//            [self hideIndicator];
-//            if(!error){
-//                NSString* token = result.token.tokenString;
-//                [self showIndicator];
-//                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{@"fields":@"id,name,email"}]
-//                 startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-//                     [self hideIndicator];
-//                     if (!error) {
-//                         NSLog(@"fetched user:%@", result);
-//                         __block NSString* no = result[@"id"];
-//                         __block NSString* name = result[@"name"];
-//                         __block NSString* email = result[@"email"];
-//                         [self showIndicator];
-//                         [[Devil sharedInstance] checkMemeber:@"fb" identifier:no callback:^(id  _Nonnull res) {
-//                             [self hideIndicator];
-//                             if(res && token){
-//                                 if([res[@"r"] boolValue]){
-//                                     [[Devil sharedInstance] login:@"fb" email:@"noneed" passwordOrToken:token callback:^(id  _Nonnull res) {
-//                                         if(res && [res[@"r"] boolValue])
-//                                             [self finishLogin];
-//                                         else
-//                                             [self showAlert:res[@"msg"]];
-//                                     }];
-//                                 } else {
-//                                     JoinController* vc = [[JoinController alloc] init];
-//                                     vc.type = @"fb";
-//                                     vc.email = email;
-//                                     vc.name = name;
-//                                     vc.identifier = no;
-//                                     vc.token = token;
-//                                     vc.sex = @"";
-//                                     vc.age = @"";
-//                                     vc.profile = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", no];
-//                                     [self.navigationController pushViewController:vc animated:YES];
-//                                 }
-//                             }
-//                         }];
-//                     } else {
-//                         [self showAlert:[NSString stringWithFormat:@"%@", error.localizedDescription]];
-//                     }
-//                 }];
-//            }
-//        }];
         return YES;
     } else if([@"login_google" isEqualToString:functionName]){
         ((AppDelegate*)[UIApplication sharedApplication].delegate).googleSigninMyDelegate = self;

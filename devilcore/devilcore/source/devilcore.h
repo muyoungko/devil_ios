@@ -32,3 +32,4 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "DevilSelectDialog.h"
 #import "WildCardUtil.h"
 #import "DevilCameraController.h"
+#import "JevilInstance.h"

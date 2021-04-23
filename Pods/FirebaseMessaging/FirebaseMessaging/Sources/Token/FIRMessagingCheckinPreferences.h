@@ -16,13 +16,15 @@
 
 #import <Foundation/Foundation.h>
 
+FOUNDATION_EXPORT const NSTimeInterval kFIRMessagingDefaultCheckinInterval;
+
 /**
  *  The preferences InstanceID loads from checkin server. The deviceID and secret that checkin
  *  provides is used to authenticate all future requests to the server. Besides the deviceID
  *  and secret the other information that checkin provides is stored in a plist on the device.
  *  The deviceID and secret are persisted in the device keychain.
  */
-@interface FIRInstanceIDCheckinPreferences : NSObject
+@interface FIRMessagingCheckinPreferences : NSObject
 
 /**
  *  DeviceID and secretToken are the checkin auth credentials and are stored in the Keychain.
@@ -58,5 +60,51 @@
  *  @return YES if valid checkin preferences else NO.
  */
 - (BOOL)hasValidCheckinInfo;
+
+- (BOOL)hasPreCachedAuthCredentials;
+- (void)setHasPreCachedAuthCredentials:(BOOL)hasPreCachedAuthCredentials;
+
+/**
+ *  Parse the checkin auth credentials saved in the Keychain to initialize checkin
+ *  preferences.
+ *
+ *  @param keychainContent The checkin auth credentials saved in the Keychain.
+ *
+ *  @return A valid checkin preferences object if the checkin auth credentials in the
+ *          keychain can be parsed successfully else nil.
+ */
++ (FIRMessagingCheckinPreferences *)preferencesFromKeychainContents:(NSString *)keychainContent;
+
+/**
+ *  Default initializer for InstanceID checkin preferences.
+ *
+ *  @param deviceID    The deviceID for the app.
+ *  @param secretToken The secret token the app uses to authenticate with the server.
+ *
+ *  @return A checkin preferences object with given deviceID and secretToken.
+ */
+- (instancetype)initWithDeviceID:(NSString *)deviceID secretToken:(NSString *)secretToken;
+
+/**
+ *  Update checkin preferences from the preferences dict persisted as a plist. The dict contains
+ *  all the checkin preferences retrieved from the server except the deviceID and secret which
+ *  are stored in the Keychain.
+ *
+ *  @param checkinPlistContent The checkin preferences saved in a plist on the disk.
+ */
+- (void)updateWithCheckinPlistContents:(NSDictionary *)checkinPlistContent;
+
+/**
+ *  Reset the current checkin preferences object.
+ */
+- (void)reset;
+
+/**
+ *  The string that contains the checkin auth credentials i.e. deviceID and secret. This
+ *  needs to be stored in the Keychain.
+ *
+ *  @return The checkin auth credential string containing the deviceID and secret.
+ */
+- (NSString *)checkinKeychainContent;
 
 @end

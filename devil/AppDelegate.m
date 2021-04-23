@@ -154,7 +154,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     
     [GIDSignIn sharedInstance].clientID = [FIRApp defaultApp].options.clientID;
-    //@"687771278429-9nph2n6eh4e7jeh1ai1jqiif0i4ivbte.apps.googleusercontent.com";
     [GIDSignIn sharedInstance].delegate = self;
     
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;

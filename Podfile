@@ -24,8 +24,6 @@ target 'devil' do
   
   lottie_libs
  
-  pod 'GoogleSignIn', '~> 5.0'
-  pod 'GoogleToolboxForMac'
   pod 'AFNetworking','~>4.0.1'
   
   pod 'Firebase/Core'
@@ -36,6 +34,8 @@ target 'devil' do
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Analytics'
   
+  pod 'GoogleSignIn', '~> 5.0'
+  pod 'GoogleToolboxForMac'
   pod 'Google-Mobile-Ads-SDK'
 end
 
@@ -54,5 +54,7 @@ target 'devillogin' do
   pod 'KakaoSDK'
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
+  pod 'GoogleSignIn', '~> 5.0'
+  pod 'GoogleToolboxForMac'
 end
   

@@ -12,6 +12,7 @@
 
 @import devilcore;
 @import FBSDKLoginKit;
+@import GoogleSignIn;
 
 @implementation DevilLoginSdk
 
@@ -43,6 +44,9 @@
                                                                   openURL:url
                                                         sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
                                                                annotation:options[UIApplicationOpenURLOptionsAnnotationKey]])
+        return true;
+    
+    if(devilConfig[@"hasGoogleLogin"] && [[GIDSignIn sharedInstance] handleURL:url])
         return true;
     return false;
 }

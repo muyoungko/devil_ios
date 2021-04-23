@@ -14,4 +14,18 @@
  * limitations under the License.
  */
 
-#import "FIRInstanceID.h"
+#import "FirebaseMessaging/Sources/Token/FIRMessagingTokenOperation.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface FIRMessagingTokenDeleteOperation : FIRMessagingTokenOperation
+
+- (instancetype)initWithAuthorizedEntity:(nullable NSString *)authorizedEntity
+                                   scope:(nullable NSString *)scope
+                      checkinPreferences:(FIRMessagingCheckinPreferences *)checkinPreferences
+                              instanceID:(nullable NSString *)instanceID
+                                  action:(FIRMessagingTokenAction)action;
+
+@end
+
+NS_ASSUME_NONNULL_END

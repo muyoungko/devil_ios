@@ -16,6 +16,8 @@
 		6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7EC31825F4A42F00FAE7D8 /* devillogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D8DEF172608FBAE00024AFD /* JevilLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8DEF152608FBAE00024AFD /* JevilLogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D8DEF182608FBAE00024AFD /* JevilLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8DEF162608FBAE00024AFD /* JevilLogin.m */; platformFilter = ios; };
+		6D9F7BFA263315D0003A70EC /* DevilGoogleLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7BF8263315CF003A70EC /* DevilGoogleLogin.h */; };
+		6D9F7BFB263315D0003A70EC /* DevilGoogleLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7BF9263315D0003A70EC /* DevilGoogleLogin.m */; };
 		6DDAC3BF260C8BA400E76300 /* TestSwiftLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDAC3BE260C8BA400E76300 /* TestSwiftLogin.swift */; platformFilter = ios; };
 		C52473C7347AC74072B7E891 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
@@ -32,6 +34,8 @@
 		6D7EC31825F4A42F00FAE7D8 /* devillogin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devillogin.h; sourceTree = "<group>"; };
 		6D8DEF152608FBAE00024AFD /* JevilLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilLogin.h; sourceTree = "<group>"; };
 		6D8DEF162608FBAE00024AFD /* JevilLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilLogin.m; sourceTree = "<group>"; };
+		6D9F7BF8263315CF003A70EC /* DevilGoogleLogin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGoogleLogin.h; sourceTree = "<group>"; };
+		6D9F7BF9263315D0003A70EC /* DevilGoogleLogin.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGoogleLogin.m; sourceTree = "<group>"; };
 		6DDAC3BE260C8BA400E76300 /* TestSwiftLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSwiftLogin.swift; sourceTree = "<group>"; };
 		85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.release.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.release.xcconfig"; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				6D52E6402619C7CD00935D3A /* DevilFacebook.m */,
 				6D52E6442619CAB400935D3A /* DevilLoginSdk.h */,
 				6D52E6452619CAB400935D3A /* DevilLoginSdk.m */,
+				6D9F7BF8263315CF003A70EC /* DevilGoogleLogin.h */,
+				6D9F7BF9263315D0003A70EC /* DevilGoogleLogin.m */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -128,6 +134,7 @@
 			files = (
 				6D52E6462619CAB400935D3A /* DevilLoginSdk.h in Headers */,
 				6D52E6412619C7CD00935D3A /* DevilFacebook.h in Headers */,
+				6D9F7BFA263315D0003A70EC /* DevilGoogleLogin.h in Headers */,
 				6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */,
 				6D8DEF172608FBAE00024AFD /* JevilLogin.h in Headers */,
 			);
@@ -250,6 +257,7 @@
 				6DDAC3BF260C8BA400E76300 /* TestSwiftLogin.swift in Sources */,
 				6D22D2052607C38900A1CB25 /* DevilKakaoLogin.swift in Sources */,
 				6D52E6472619CAB400935D3A /* DevilLoginSdk.m in Sources */,
+				6D9F7BFB263315D0003A70EC /* DevilGoogleLogin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

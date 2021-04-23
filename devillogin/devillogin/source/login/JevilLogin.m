@@ -8,6 +8,8 @@
 #import "JevilLogin.h"
 #import <devillogin/devillogin-Swift.h>
 #import "DevilFacebook.h"
+#import "DevilGoogleLogin.h"
+
 @import devilcore;
 
 @implementation JevilLogin
@@ -33,14 +35,26 @@
             user[@"r"] = @TRUE;
             user[@"type"] = @"fb";
             user[@"identifier"] = user[@"id"];
+            [user removeObjectForKey:@"id"];
             [callback callWithArguments:@[user]];
         } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];
     }];
 }
+
 + (void)loginGoogle:(JSValue *)callback{
-    
+    [[DevilGoogleLogin sharedInstance] loginWithComplete:[JevilInstance currentInstance].vc callback:^(id  _Nonnull user) {
+        if(user !=nil) {
+            user[@"r"] = @TRUE;
+            user[@"type"] = @"google";
+            user[@"identifier"] = user[@"id"];
+            [user removeObjectForKey:@"id"];
+            [callback callWithArguments:@[user]];
+        } else
+            [callback callWithArguments:@[@{@"r":@FALSE}]];
+    }];
 }
+
 + (void)loginApple:(JSValue *)callback{
     
 }
