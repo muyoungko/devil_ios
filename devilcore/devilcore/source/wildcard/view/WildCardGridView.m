@@ -143,7 +143,6 @@
         [remove removeFromSuperview];
     }
     
-    
     self.frame = CGRectMake(self.frame.origin.x,
                             self.frame.origin.y,
                             self.frame.size.width,

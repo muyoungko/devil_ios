@@ -29,11 +29,7 @@
 {
     self = [super init];
     
-    if(cj[@"backgroundColor"]){
-        UIColor* bgColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
-        [vc.navigationController.navigationBar setBarTintColor:bgColor];
-        [vc.navigationController.navigationBar setBackgroundColor:bgColor]; 
-    }
+    
     
     
     WildCardMeta* meta = [[WildCardMeta alloc] init];
@@ -50,6 +46,11 @@
     [self initHeader];
     [self update];
     
+    if(cj[@"backgroundColor"]){
+        UIColor* bgColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
+        [vc.navigationController.navigationBar setBarTintColor:bgColor];
+        [vc.navigationController.navigationBar setBackgroundColor:bgColor];
+    }
     return self;
 }
 
@@ -57,6 +58,7 @@
 
     id layers = self.cj[@"layers"];
     if(layers){
+        BOOL hasline = false;
         for(int i=0;i<[layers count];i++){
             id layer = layers[i];
             id layer_name = layer[@"name"];
@@ -98,8 +100,16 @@
                 self.vc.navigationController.navigationBar.titleTextAttributes = @{
                     NSForegroundColorAttributeName : textColor,
                 };
+            } else if([@"line" isEqualToString:layer_name]){
+//                UINavigationBarAppearance* n = [UINavigationBarAppearance new];
+//                n.shadowColor = [UIColor clearColor];
+//                self.vc.navigationController.navigationBar.scrollEdgeAppearance = n;
+                hasline = true;
             }
         }
+        
+        if(!hasline)
+            self.vc.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     }
 }
 
