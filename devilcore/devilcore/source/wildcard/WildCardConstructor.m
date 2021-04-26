@@ -1150,7 +1150,6 @@ static BOOL IS_TABLET = NO;
             NSString* targetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
             NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
             NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
-            NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
             NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
             NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
                                                   getJsonWithPath:data : targetJsonString];

@@ -9,6 +9,7 @@
 #import <devillogin/devillogin-Swift.h>
 #import "DevilFacebook.h"
 #import "DevilGoogleLogin.h"
+#import "DevilAppleLogin.h"
 
 @import devilcore;
 
@@ -56,7 +57,16 @@
 }
 
 + (void)loginApple:(JSValue *)callback{
-    
+    [[DevilAppleLogin sharedInstance] loginWithComplete:[JevilInstance currentInstance].vc callback:^(id  _Nonnull user) {
+        if(user !=nil) {
+            user[@"r"] = @TRUE;
+            user[@"type"] = @"apple";
+            user[@"identifier"] = user[@"id"];
+            [user removeObjectForKey:@"id"];
+            [callback callWithArguments:@[user]];
+        } else
+            [callback callWithArguments:@[@{@"r":@FALSE}]];
+    }];
 }
 
 + (BOOL)isLogin{

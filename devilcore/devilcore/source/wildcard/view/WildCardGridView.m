@@ -64,7 +64,8 @@
     }
     [_lineViews removeAllObjects];
     
-    for(int i=0;i<len;i++)
+    int i=0;
+    for(i=0;i<len;i++)
     {
         NSMutableDictionary* item = [_data objectAtIndex:i];
         
@@ -136,6 +137,12 @@
         
         [WildCardConstructor applyRule:(WildCardUIView*)thisView withData:item];
     }
+    
+    for(;i<[[self subviews] count];i++) {
+        UIView* remove = [self subviews][i];
+        [remove removeFromSuperview];
+    }
+    
     
     self.frame = CGRectMake(self.frame.origin.x,
                             self.frame.origin.y,

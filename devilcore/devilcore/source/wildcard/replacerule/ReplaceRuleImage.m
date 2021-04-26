@@ -30,8 +30,11 @@
         NSString* jsonPath = self.replaceJsonLayer[@"imageContent"];
         url = [MappingSyntaxInterpreter interpret:jsonPath:opt];
     }
-    
-    [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.replaceView withUrl:url];
+    if([url hasPrefix:@"/"]) {
+        [(UIImageView*)self.replaceView setImage:[UIImage imageWithContentsOfFile:url]];
+    } else {
+        [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.replaceView withUrl:url];
+    }
 }
 
 @end
