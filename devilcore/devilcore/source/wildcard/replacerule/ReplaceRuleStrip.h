@@ -9,13 +9,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define ReplaceStrip(replaceView, replaceJsonLayer, replaceJsonKey) [[ReplaceRuleStrip alloc] initWith:replaceView:replaceJsonLayer:replaceJsonKey]
-
 @interface ReplaceRuleStrip : ReplaceRule
 
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey;
 
 @end
 

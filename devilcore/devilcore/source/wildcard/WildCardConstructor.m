@@ -690,11 +690,9 @@ static BOOL IS_TABLET = NO;
         }
         
         if(layer[@"strip"]){
-            WildCardPagerTabStrip *strip = [WildCardPagerTabStripMaker construct:layer :vv];
-            [vv addSubview:strip];
-            vv.userInteractionEnabled = YES;
-            [WildCardConstructor followSizeFromFather:vv child:strip];
-            [outRules addObject:ReplaceStrip(strip, layer, nil)];
+            ReplaceRuleStrip* rule = [[ReplaceRuleStrip alloc] init];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            [outRules addObject:rule];
         } else if(layer[@"video"]){
             ReplaceRuleVideo* replaceRuleVideo = [[ReplaceRuleVideo alloc] initWithRuleJson:layer[@"video"]];
             [replaceRuleVideo constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
@@ -1303,11 +1301,7 @@ static BOOL IS_TABLET = NO;
 {
     [rule updateRule:meta data:opt];
     
-    if(rule.replaceType == RULE_TYPE_STRIP)
-    {
-        [WildCardPagerTabStripMaker update:rule:opt];
-    }
-    else if(rule.replaceType == RULE_TYPE_EXTENSION)
+    if(rule.replaceType == RULE_TYPE_EXTENSION)
     {
         [WildCardExtensionConstructor update:meta extensionRule:(ReplaceRuleExtension*)rule data:opt];
     }

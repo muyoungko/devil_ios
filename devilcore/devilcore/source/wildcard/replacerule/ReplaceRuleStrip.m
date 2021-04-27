@@ -6,15 +6,25 @@
 //
 
 #import "ReplaceRuleStrip.h"
+#import "WildCardPagerTabStrip.h"
+#import "WildCardConstructor.h"
+#import "WildCardPagerTabStripMaker.h"
 
 @implementation ReplaceRuleStrip
 
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey
-{
-    self = [super initWith:replaceView :RULE_TYPE_STRIP :replaceJsonLayer :replaceJsonKey];
-    return self;
+- (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+    self.replaceJsonLayer = layer;
+    
+    WildCardPagerTabStrip *strip = [WildCardPagerTabStripMaker construct:layer :vv];
+    self.replaceView = strip;
+    [vv addSubview:strip];
+    vv.userInteractionEnabled = YES;
+    [WildCardConstructor followSizeFromFather:vv child:strip];
+    
+}
+
+- (void)updateRule:(WildCardMeta *)meta data:(id)opt{
+    [WildCardPagerTabStripMaker update:self :opt];
 }
 
 @end
