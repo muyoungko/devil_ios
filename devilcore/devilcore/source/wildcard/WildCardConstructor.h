@@ -82,6 +82,7 @@
 +(float) convertTextSize:(int)sketchTextSize;
 +(void) followSizeFromFather:(UIView*)vv child:(UIView*)tv;
 +(void) userInteractionEnableToParentPath:(UIView*)vv depth:(int)depth;
++(NSData*)getLocalFile:(NSString*)path;
 +(CGRect)getFrame:(NSDictionary*) layer : (WildCardUIView*)parentForPadding;
 
 -(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete;

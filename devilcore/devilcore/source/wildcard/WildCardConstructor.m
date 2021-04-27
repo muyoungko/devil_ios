@@ -17,10 +17,10 @@
 #import "ReplaceRuleReplaceUrl.h"
 #import "ReplaceRuleExtension.h"
 #import "ReplaceRuleColor.h"
-#import "ReplaceWeb.h"
 #import "ReplaceRuleStrip.h"
 #import "ReplaceRuleIcon.h"
 #import "ReplaceRuleVideo.h"
+#import "ReplaceRuleWeb.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -379,21 +379,14 @@ static BOOL IS_TABLET = NO;
         
         [wcMeta.generatedViews setObject:vv forKey:name];
         
-        if([layer objectForKey:@"hiddenCondition"] != nil)
+        if([layer objectForKey:@"hiddenCondition"] != nil || [layer objectForKey:@"showCondition"] != nil)
         {
-            [outRules addObject:ReplaceRuleHidden(vv,layer, [layer objectForKey:@"hiddenCondition"])];
-        } else if([layer objectForKey:@"showCondition"] != nil){
-            [outRules addObject:ReplaceRuleHidden(vv,layer, [layer objectForKey:@"showCondition"])];
+            ReplaceRuleHidden* rule = [[ReplaceRuleHidden alloc] initWithRuleJson:layer];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:nil];
         }
         
-        //        if([name isEqualToString:@"starsgroup"])
-        //            vv.backgroundColor = [UIColor redColor];
-        
         if([layer objectForKey:@"padding"] != nil) {
-            
-            //            if([name isEqualToString:@"stargroup"])
-            //                vv.backgroundColor = [UIColor greenColor];
-            
             NSDictionary* padding = [layer objectForKey:@"padding"];
             if([padding objectForKey:@"paddingLeft"] != nil) {
                 float paddingLeft = [[padding objectForKey:@"paddingLeft"] floatValue];
@@ -631,7 +624,9 @@ static BOOL IS_TABLET = NO;
         
         if ([layer objectForKey:(@"colorMapping")] != nil)
         {
-            [outRules addObject:ReplaceRuleColor(vv ,[layer objectForKey:@"colorMapping"], @"")];
+            ReplaceRuleColor* rule = [[ReplaceRuleColor alloc] initWithRuleJson:layer];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         }
         
         if ([layer objectForKey:(@"replaceUrl")] != nil)
@@ -649,52 +644,17 @@ static BOOL IS_TABLET = NO;
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         } else if ([layer objectForKey:(@"localImageContent")] != nil &&  ![_class isEqualToString:@"extension"]) {
-            
             ReplaceRuleLocalImage* rule = [[ReplaceRuleLocalImage alloc] initWithRuleJson:layer];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
-            
-            
-            if([WildCardConstructor sharedInstance].onLineMode)
-            {
-                UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
-                iv.contentMode = UIViewContentModeScaleToFill;
-                [vv addSubview:iv];
-                [WildCardConstructor followSizeFromFather:vv child:iv];
-                //[outRules addObject:ReplaceRuleLocalImage(iv, layer, [layer objectForKey:@"localImageContent"])];
-                [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:iv withUrl:[layer objectForKey:(@"localImageContent")]];
-            }
-            else
-            {
-                UIImageView* iv = [[UIImageView alloc] init];
-                iv.clipsToBounds = YES;
-                iv.contentMode = UIViewContentModeScaleToFill;
-                [vv addSubview:iv];
-                
-                NSString* imageName = [layer objectForKey:@"localImageContent"];
-                NSUInteger index = [imageName rangeOfString:@"/" options:NSBackwardsSearch].location;
-                imageName = [imageName substringFromIndex:index+1];
-                NSString* imgData = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/images/%@", imageName]];
-                [iv setImage: [UIImage imageWithData:imgData]];
-                [WildCardConstructor followSizeFromFather:vv child:iv];
-            }
         } else if ([layer objectForKey:(@"web")] != nil) {
-            DevilWebView* web = [[DevilWebView alloc] init];
-            [vv addSubview:web];
-            [WildCardConstructor followSizeFromFather:vv child:web];
-            
-            NSString* url = layer[@"web"][@"url"];
-            [outRules addObject:ReplaceWeb(web, layer, url)];
-                
-            UIView* cc = [vv superview];
-            vv.userInteractionEnabled = YES;
-            while([[cc class] isEqual:[WildCardUIView class]]){
-                cc.userInteractionEnabled = YES;
-                cc = [cc superview];
-            }
+            ReplaceRuleWeb* rule = [[ReplaceRuleWeb alloc] init];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         } else if ([layer objectForKey:(@"icon")] != nil) {
-            NSString* replaceKey = layer[@"icon"];
-            [outRules addObject:[[ReplaceRuleIcon alloc] initWith:vv:layer:replaceKey]];
+            ReplaceRuleIcon* rule = [[ReplaceRuleIcon alloc] init];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         } else if ([layer objectForKey:(@"lottie")] != nil) {
             id lottie = layer[@"lottie"];
             NSString* url = lottie[@"url"];
@@ -1343,78 +1303,9 @@ static BOOL IS_TABLET = NO;
 {
     [rule updateRule:meta data:opt];
     
-    if(rule.replaceType == RULE_TYPE_WEB)
-    {
-        WKWebView* web = (WKWebView*)rule.replaceView;
-        NSString* url = [MappingSyntaxInterpreter interpret:rule.replaceJsonKey:opt];
-        if(url != nil){
-            [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-        }
-    }
-    else if(rule.replaceType == RULE_TYPE_ICON)
-    {
-        [ReplaceRuleIcon update:rule :opt];
-    }
-    else if(rule.replaceType == RULE_TYPE_STRIP)
+    if(rule.replaceType == RULE_TYPE_STRIP)
     {
         [WildCardPagerTabStripMaker update:rule:opt];
-    }
-    else if(rule.replaceType == RULE_TYPE_COLOR)
-    {
-        NSMutableDictionary* colorMapping = rule.replaceJsonLayer;
-        if(colorMapping[@"b"] != nil) {
-            NSString* jsonpath = colorMapping[@"b"];
-            NSString* colorCode = [MappingSyntaxInterpreter interpret:jsonpath :opt];
-            UIColor *c = [WildCardUtil colorWithHexString:colorCode];
-            rule.replaceView.backgroundColor = c;
-            WildCardUIView* v = (WildCardUIView*)rule.replaceView;
-            if(v.layer.borderWidth > 0 && colorMapping[@"f"] == nil)
-                v.layer.borderColor = [c CGColor];
-        }
-        if(colorMapping[@"f"] != nil) {
-            NSString* jsonpath = colorMapping[@"f"];
-            NSString* colorCode = [MappingSyntaxInterpreter interpret:jsonpath :opt];
-            if(colorCode != nil){
-                UIColor *c = [WildCardUtil colorWithHexString:colorCode];
-                if([rule.replaceView class] == [WildCardUIView class])
-                {
-                    WildCardUIView* v = (WildCardUIView*)rule.replaceView;
-                    if([[v subviews] count] == 1 && [[v subviews][0] class] == [WildCardUILabel class])
-                    {
-                        WildCardUILabel* tv = (WildCardUILabel*)[v subviews][0];
-                        [tv setTextColor:c];
-                    } else if([[v subviews] count] == 1 && [[v subviews][0] class] == [UIImageView class]) {
-                        UIImageView* iv = (UIImageView*)[v subviews][0];
-                        iv.image = [iv.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-                        iv.tintColor = c;
-                    } else if(v.layer.borderWidth > 0)
-                    {
-                        v.layer.borderColor = [c CGColor];
-                    }
-                    else
-                        [rule.replaceView setBackgroundColor:c];
-                }
-                else
-                    [rule.replaceView setBackgroundColor:c];
-            }
-        }
-    }
-    else if(rule.replaceType == RULE_TYPE_HIDDEN)
-    {
-        //WildCardConstructor.parentVisible(replaceRule.replaceView, true);
-        if(rule.replaceJsonLayer[@"hiddenCondition"]){
-            if([MappingSyntaxInterpreter ifexpression:rule.replaceJsonKey data:opt defaultValue:YES]) {
-                rule.replaceView.hidden = YES;
-            } else {
-                rule.replaceView.hidden = NO;
-            }
-        } else {
-            if([MappingSyntaxInterpreter ifexpression:rule.replaceJsonKey data:opt defaultValue:NO]) {
-                rule.replaceView.hidden = NO;
-            } else {
-                rule.replaceView.hidden = YES;
-            }
-        }
     }
     else if(rule.replaceType == RULE_TYPE_EXTENSION)
     {

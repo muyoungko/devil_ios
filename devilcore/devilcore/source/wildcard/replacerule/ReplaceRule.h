@@ -9,16 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "WildCardUIView.h"
 
-#define RULE_TYPE_LOCAL_IMAGE 5
-#define RULE_TYPE_IMPRESSION 6
-#define RULE_TYPE_HIDDEN 7
-
 #define RULE_TYPE_REPLACE_URL 9
 #define RULE_TYPE_EXTENSION 10
-#define RULE_TYPE_COLOR 11
-#define RULE_TYPE_WEB 13
 #define RULE_TYPE_STRIP 14
-#define RULE_TYPE_ICON 15
 
 @interface ReplaceRule : NSObject
 

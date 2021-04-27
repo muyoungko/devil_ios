@@ -8,13 +8,6 @@
 
 #import "ReplaceRule.h"
 
-#define ReplaceRuleHidden(replaceView, replaceJsonLayer, replaceJsonKey) [[ReplaceRuleHidden alloc] initWith:replaceView:replaceJsonLayer:replaceJsonKey]
-
 @interface ReplaceRuleHidden : ReplaceRule
-
-
--(id)initWith:(UIView*)replaceView
-             :(NSDictionary*)replaceJsonLayer
-             :(NSString*)replaceJsonKey;
 
 @end
