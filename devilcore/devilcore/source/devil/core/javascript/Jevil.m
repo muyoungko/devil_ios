@@ -19,6 +19,7 @@
 #import "WifiManager.h"
 #import "DevilCamera.h"
 #import "DevilUtil.h"
+#import "DevilToast.h"
 
 @interface Jevil()
 
@@ -102,6 +103,10 @@
     JSValue *value = [jsFunction callWithArguments:@[ phone ]];
     
     return [value toBool];
+}
+
++ (void)toast:(NSString*)msg{
+    [[DevilToast makeText:msg] show];
 }
 
 + (void)alert:(NSString*)msg{

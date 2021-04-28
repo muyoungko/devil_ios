@@ -101,6 +101,9 @@
     
     tf.delegate = tf;
     
+    tf.showsVerticalScrollIndicator = YES;
+    tf.showsHorizontalScrollIndicator = NO;
+    
     return tf;
 }
 
