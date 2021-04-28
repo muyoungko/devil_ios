@@ -15,6 +15,12 @@
 #import "WildCardUIView.h"
 #import "WildCardTrigger.h"
 #import "WildCardAction.h"
+#import <UIKit/UIKit.h>
+
+@interface ReplaceRuleRepeat()
+@property int tagOffsetX;
+@property int tagOffsetY;
+@end
 
 @implementation ReplaceRuleRepeat
 
@@ -251,6 +257,29 @@
         
         vv.userInteractionEnabled = YES;
         [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
+    } else if([REPEAT_TYPE_TAG isEqualToString:repeatType]) {
+        int minLeft = 1000000;
+        int minTop = 1000000;
+        for (int i = 0; layers != nil && i < [layers count]; i++) {
+            NSMutableDictionary* childLayer = layers[i];
+            NSString* childName = childLayer[@"name"];
+            if ([childName isEqualToString:arrayContentTargetNode]
+                || [childName isEqualToString:arrayContentTargetNodeSurfix]
+                || [childName isEqualToString:arrayContentTargetNodePrefix]
+                || [childName isEqualToString:arrayContentTargetNodeSelected]
+                )
+            {
+                CGRect childLayoutParam = [WildCardConstructor getFrame:childLayer :nil];
+                if(minLeft > childLayoutParam.origin.x)
+                    minLeft = childLayoutParam.origin.x;
+                if(minTop > childLayoutParam.origin.y)
+                    minTop = childLayoutParam.origin.y;
+            }
+        }
+        
+        self.tagOffsetX = minLeft;
+        self.tagOffsetY = minTop;
+        self.createdContainer = vv;
     }
     
     if(arrayContentContainer != nil)
@@ -472,7 +501,113 @@
         };
         
         [cv reloadData];
+    } else if([REPEAT_TYPE_TAG isEqualToString:repeatType]) {
+        int i;
+        float offsetX = self.tagOffsetX;
+        float offsetY = self.tagOffsetY;
+        float containerWidth = [self getLayerWidth:self.replaceJsonLayer];
+        float containerHeight = [self getLayerHeight:self.replaceJsonLayer ];
+        int dpMargin = [WildCardConstructor convertSketchToPixel:margin];
+        for(i=0;i<[targetDataJson count];i++)
+        {
+            WildCardUIView* thisNode = nil;
+            NSDictionary* thisLayer = targetLayer;
+            int thisType = CREATED_VIEW_TYPE_NORMAL;
+            NSMutableDictionary* thisData = [targetDataJson objectAtIndex:i];
+            if(targetLayerSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data:thisData]){
+                thisLayer = targetLayerSelected;
+                thisType = CREATED_VIEW_TYPE_SELECTED;
+            }
+            
+            if (i < [repeatRule.createdRepeatView count] && thisType == ((CreatedViewInfo*)repeatRule.createdRepeatView[i]).type)
+                thisNode = (WildCardUIView*)((CreatedViewInfo*)repeatRule.createdRepeatView[i]).view;
+            else
+            {
+                int containerDepth = ((WildCardUIView*)repeatRule.createdContainer).depth;
+                thisNode = [WildCardConstructor constructLayer:nil withLayer : thisLayer withParentMeta:meta  depth:containerDepth+1 instanceDelegate:meta.wildCardConstructorInstanceDelegate];
+                
+                if (i < [repeatRule.createdRepeatView count] ){
+                    [[repeatRule.createdContainer subviews][i] removeFromSuperview];
+                    [repeatRule.createdRepeatView removeObjectAtIndex:i];
+                }
+                [repeatRule.createdContainer insertSubview:thisNode atIndex:i];
+                CreatedViewInfo* createdViewInfo = [[CreatedViewInfo alloc] initWithView:thisNode type:thisType];
+                [repeatRule.createdRepeatView insertObject:createdViewInfo atIndex:i];
+            }
+            
+            thisNode.frame = CGRectMake((int)offsetX, (int)offsetY, thisNode.frame.size.width, thisNode.frame.size.height);
+            thisNode.hidden = NO;
+            [WildCardConstructor userInteractionEnableToParentPath:repeatRule.createdContainer depth:10];
+            repeatRule.createdContainer.userInteractionEnabled = true;
+            thisNode.userInteractionEnabled = YES;
+            [WildCardConstructor applyRule:thisNode withData:[targetDataJson objectAtIndex:i]];
+            
+            float thisWidth = [self measureTagWidth:thisNode];
+            [self fitTagWidth:thisNode :thisWidth];
+            
+            float thisHeight = [self getLayerHeight:thisLayer];
+            offsetX += dpMargin;
+
+            if(offsetX + thisWidth < containerWidth)
+                offsetX += thisWidth;
+            else {
+                if(offsetY + thisHeight  + dpMargin < containerHeight) {
+                    offsetY += thisHeight + dpMargin;
+                    offsetX = self.tagOffsetX;
+                    
+                    thisNode.frame = CGRectMake((int)offsetX, (int)offsetY, thisNode.frame.size.width, thisNode.frame.size.height);
+                    offsetX += thisWidth;
+                    offsetX += dpMargin;
+                } else {
+                    break;
+                }
+            }
+        }
+        
+        for (; i < [repeatRule.createdRepeatView count]; i++) {
+            ((CreatedViewInfo*)repeatRule.createdRepeatView[i]).view.hidden = YES;
+        }
     }
+}
+
+-(void)fitTagWidth:(UIView*)vv :(int)width {
+    vv.frame = CGRectMake(vv.frame.origin.x, vv.frame.origin.y, width, vv.frame.size.height);
+    for(int i=0;i<[[vv subviews] count];i++){
+        UIView* child = [vv subviews][i];
+        [self fitTagWidth:child:width];
+    }
+}
+
+-(float)measureTagWidth:(UIView*)vv {
+    float textWidth = 0;
+    if([vv isKindOfClass:[UILabel class]]) {
+        UILabel* tv = (UILabel*)vv;
+        UIFont* font = tv.font;
+        NSDictionary *attributes = @{NSFontAttributeName: font};
+        CGRect size = [tv.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        textWidth = 17 + size.size.width + 17;
+    }
+    
+    for(int i=0;i<[[vv subviews] count];i++){
+        UIView* child = [vv subviews][i];
+        float thisTextWidth = [self measureTagWidth:child];
+        if(thisTextWidth > textWidth)
+            textWidth = thisTextWidth;
+    }
+
+    return textWidth;
+}
+
+-(float)getLayerWidth:(id)layer {
+    id frame = layer[@"frame"];
+    float w = [frame[@"w"] floatValue];
+    return [WildCardConstructor convertSketchToPixel:w];
+}
+
+-(float)getLayerHeight:(id)layer {
+    id frame = layer[@"frame"];
+    float h = [frame[@"h"] floatValue];
+    return [WildCardConstructor convertSketchToPixel:h];
 }
 
 @end

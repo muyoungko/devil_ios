@@ -23,5 +23,6 @@
 +(void)fitToScreenRecur:(id)layer offsety:(float)offsety theight:(float)height;
 +(CGRect)getGlobalFrame:(UIView*)v;
 +(float) convertSketchToPixel:(float)p;
++(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
 
 @end

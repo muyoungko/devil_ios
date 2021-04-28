@@ -70,8 +70,6 @@
 @property (nonatomic, retain) NSMutableDictionary* _Nullable project;
 @property (nonatomic, retain) NSString* _Nullable xButtonImageName;
 
-+(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
-
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer;
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer instanceDelegate:(id)delegate;
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer withParentMeta:(WildCardMeta*)parentMeta depth:(int)depth instanceDelegate:(id)delegate;
@@ -84,6 +82,7 @@
 +(void) userInteractionEnableToParentPath:(UIView*)vv depth:(int)depth;
 +(NSData*)getLocalFile:(NSString*)path;
 +(CGRect)getFrame:(NSDictionary*) layer : (WildCardUIView*)parentForPadding;
++ (float)getPaddingTopBottomConverted:(id)layer;
 
 -(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete;
 -(void) initWithOnlineOnComplete:(void (^_Nonnull)(BOOL success))complete;

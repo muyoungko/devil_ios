@@ -9,6 +9,7 @@
 #import "WildCardScreenTableView.h"
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
+#import "WildCardUtil.h"
 
 @implementation WildCardScreenTableView
 
@@ -163,7 +164,7 @@
     NSString* key = [_list objectAtIndex:[indexPath row]];
     NSMutableDictionary* item = [_listData objectAtIndex:[indexPath row]];
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:key];
-    float height = [WildCardConstructor mesureHeight:cj data:item];
+    float height = [WildCardUtil mesureHeight:cj data:item];
     
     //NSLog(@"h %d %f", [indexPath row], height);
     return height;

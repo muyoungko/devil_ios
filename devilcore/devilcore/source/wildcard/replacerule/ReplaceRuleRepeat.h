@@ -18,6 +18,7 @@
 #define REPEAT_TYPE_VIEWPAGER @"3"
 #define REPEAT_TYPE_HLIST @"4"
 #define REPEAT_TYPE_VLIST @"5"
+#define REPEAT_TYPE_TAG @"6"
 
 
 @interface ReplaceRuleRepeat : ReplaceRule

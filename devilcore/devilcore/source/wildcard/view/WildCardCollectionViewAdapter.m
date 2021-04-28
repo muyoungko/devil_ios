@@ -10,6 +10,7 @@
 #import "WildCardConstructor.h"
 #import "ReplaceRuleRepeat.h"
 #import "MappingSyntaxInterpreter.h"
+#import "WildCardUtil.h"
 
 @implementation WildCardCollectionViewAdapter
 
@@ -288,7 +289,7 @@
     NSDictionary *cloudJson = _cloudJsonGetter(position);
     
     if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
-        float h = [WildCardConstructor mesureHeight:cloudJson data:_data[position]];
+        float h = [WildCardUtil mesureHeight:cloudJson data:_data[position]];
         return CGSizeMake(collectionView.frame.size.width, h);
     } else {
         float w = [self mesureWidth:cloudJson data:_data[position]];
