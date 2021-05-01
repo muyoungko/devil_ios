@@ -124,4 +124,31 @@
     return fileSize;
 
 }
+
+
++(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType data:(NSData*)data complete:(void (^)(id res))callback{
+    
+
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:url]];
+    [request setHTTPMethod:@"PUT"];
+    if(contentType)
+        [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:data];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSError *err;
+        NSURLResponse *response;
+        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+        NSString *res = [[NSString alloc]initWithData:responseData encoding:NSASCIIStringEncoding];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(err)
+                callback(nil);
+            else
+                callback(@{@"r":@TRUE});
+        });
+        
+    });
+}
 @end

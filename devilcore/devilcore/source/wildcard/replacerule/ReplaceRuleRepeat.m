@@ -286,6 +286,23 @@
         [vv addSubview:arrayContentContainer];
 }
 
+-(id)getReferenceBlock:(NSString*)blockName :(id)childLayers{
+    
+    if([blockName hasPrefix:@"#"]) {
+        blockName = [blockName stringByReplacingOccurrencesOfString:@"#" withString:@""];
+        NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
+        return  [[WildCardConstructor sharedInstance] getBlockJson:blockId];
+    } else {
+        for(int i=0;i<[childLayers count];i++) {
+            NSDictionary* childLayer = [childLayers objectAtIndex:i];
+            if([blockName isEqualToString:[childLayer objectForKey:@"name"]]) {
+                return childLayer;
+            }
+        }
+    }
+    return nil;
+}
+
 -(void)updateRule:(WildCardMeta*)meta data:(id)opt {
     ReplaceRuleRepeat* repeatRule = self;
     
@@ -326,26 +343,11 @@
         targetDataJson[i][WC_LENGTH] = [NSString stringWithFormat:@"%lu", [targetDataJson count]];
     }
     
-    for(int i=0;i<[childLayers count];i++)
-    {
-        NSDictionary* childLayer = [childLayers objectAtIndex:i];
-        if([targetNode isEqualToString:[childLayer objectForKey:@"name"]])
-        {
-            targetLayer = childLayer;
-        }
-        else if(targetNodePrefix == nil && [targetNodePrefix isEqualToString:[childLayer objectForKey:@"name"]])
-        {
-            targetLayerPrefix = childLayer;
-        }
-        else if(targetNodeSurfix != nil && [targetNodeSurfix isEqualToString:[childLayer objectForKey:@"name"]])
-        {
-            targetLayerSurfix = childLayer;
-        }
-        else if(targetNodeSelected != nil && [targetNodeSelected isEqualToString:[childLayer objectForKey:@"name"]])
-        {
-            targetLayerSelected = childLayer;
-        }
-    }
+    
+    targetLayer = [self getReferenceBlock:targetNode :childLayers];
+    targetLayerPrefix = [self getReferenceBlock:targetNodePrefix :childLayers];
+    targetLayerSurfix = [self getReferenceBlock:targetNodeSurfix :childLayers];
+    targetLayerSelected = [self getReferenceBlock:targetNodeSelected :childLayers];
     
     if([REPEAT_TYPE_BOTTOM isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType])
     {

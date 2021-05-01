@@ -20,6 +20,7 @@
 #import "DevilCamera.h"
 #import "DevilUtil.h"
 #import "DevilToast.h"
+#import "DevilUtil.h"
 
 @interface Jevil()
 
@@ -241,6 +242,9 @@
     for(id h in header_list){
         header[h[@"header"]] = h[@"content"];
     }
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
 
     __block int s3index = 0;
     __block int s3length = (int)[paths count];
@@ -251,7 +255,7 @@
     result[@"r"] = @TRUE;
     result[@"uploadedFile"] = [@[] mutableCopy];
     for(int i=0;i<[paths count];i++){
-        NSString* path = paths[i];
+        __block NSString* path = paths[i];
         id ss = [path componentsSeparatedByString:@"."];
         NSString* ext = ss[[ss count]-1];
         NSString* url = [NSString stringWithFormat:@"%@/api/media/url/put/%@", [WildCardConstructor sharedInstance].project[@"host"], ext];
@@ -276,9 +280,17 @@
                 NSString* upload_url = upload[@"upload_url"];
                 uploadedFile[thisIndex] = upload[@"key"];
                 NSData* data = [NSData dataWithContentsOfFile:path];
-                [[WildCardConstructor sharedInstance].delegate onNetworkRequestPut:upload_url header:header data:data success:^(NSMutableDictionary *responseJsonObject) {
+                
+                NSString* contentType = nil;
+                if([path hasSuffix:@"jpg"] || [path hasSuffix:@"jpeg"])
+                    contentType = @"image/jpeg";
+                else if([path hasSuffix:@"png"])
+                    contentType = @"image/png";
+                else if([path hasSuffix:@"mp4"])
+                    contentType = @"video/mp4";
+                [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
                     s3index++;
-                    if(responseJsonObject != nil)
+                    if(res != nil)
                         uploadedFileSuccess[thisIndex] = @TRUE;
                     else
                         result[@"r"] = @FALSE;
@@ -286,8 +298,10 @@
                     if(s3index == s3length){
                         for(int j=0;j<[uploadedFile count];j++){
                             [result[@"uploadedFile"] addObject:
-                             [@{@"key" : uploadedFile[j],
-                                @"success" : uploadedFileSuccess[j]
+                             [@{
+                                 @"original" : paths[j],
+                                 @"key" : uploadedFile[j],
+                                 @"success" : uploadedFileSuccess[j]
                              } mutableCopy]];
                         }
                         [callback callWithArguments:@[result]];

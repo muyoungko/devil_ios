@@ -84,8 +84,8 @@
         id footerCloudJson = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
         self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
         [WildCardConstructor applyRule:self.footer withData:self.data];
-        footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 30;
-        self.footer.frame = CGRectMake(0, screenHeight - self.footer.frame.size.height -30, self.footer.frame.size.width, self.footer.frame.size.height);
+        footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 20; //5정도 차이가 난다(왜일까...)
+        self.footer.frame = CGRectMake(0, screenHeight - self.footer.frame.size.height - 25, self.footer.frame.size.width, self.footer.frame.size.height);
         [self.view addSubview:self.footer];
     }
     

@@ -130,6 +130,10 @@
                 WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
                 adapter.pageControl = [[rule.replaceView subviews] objectAtIndex:0];
                 adapter.pageControl.numberOfPages = [adapter.data count];
+                if([adapter.data count] == 1)
+                    adapter.pageControl.hidden = YES;
+                else
+                    adapter.pageControl.hidden = NO;
                 [adapter addViewPagerSelected:^(int index) {
                     adapter.pageControl.currentPage = index;
                 }];
