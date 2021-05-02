@@ -18,6 +18,8 @@
 @property (nonatomic, retain) DevilHeader* header;
 @property (nonatomic, retain) WildCardUIView* footer;
 @property (nonatomic, retain) JevilCtx* jevil;
+@property int header_sketch_height;
+@property int footer_sketch_height;
 @property BOOL hasOnResume;
 
 @end
@@ -71,25 +73,28 @@
 }
 
 -(void)constructHeaderAndFooter{
-    int header_sketch_height = 0;
-    int footer_sketch_height = 0;
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
-        header_sketch_height = 80;
+        _header_sketch_height = 80;
     } else
         [self hideNavigationBar];
         
     if([[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId]){
         id footerCloudJson = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
         self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
+        
         [WildCardConstructor applyRule:self.footer withData:self.data];
-        footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 20; //5정도 차이가 난다(왜일까...)
-        self.footer.frame = CGRectMake(0, screenHeight - self.footer.frame.size.height - 25, self.footer.frame.size.width, self.footer.frame.size.height);
+        _footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 20; //5정도 차이가 난다(왜일까...)
+        
+        
+        int footerY = screenHeight - self.footer.frame.size.height - 25;
+        int footerHeight = screenHeight - self.footer.frame.size.height;
+        self.footer.frame = CGRectMake(0, footerY, self.footer.frame.size.width, footerHeight);
         [self.view addSubview:self.footer];
     }
     
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:header_sketch_height + footer_sketch_height];
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + _footer_sketch_height];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -124,6 +129,8 @@
     [WildCardConstructor applyRule:self.footer withData:self.data];
 
     [self createWildCardScreenListView:self.screenId];
+    
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + _footer_sketch_height];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

@@ -21,7 +21,7 @@
     UILabel* lv = (UILabel*)self.replaceView;
     NSString* text = [MappingSyntaxInterpreter interpret:self.replaceJsonKey:opt];
     if(text == nil)
-        text = self.replaceJsonLayer[@"textSpec"][@"text"];
+        text = @"";//self.replaceJsonLayer[@"textSpec"][@"text"];
 
     if([WildCardConstructor sharedInstance].textTransDelegate != nil )
         text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
