@@ -84,6 +84,8 @@ alpha:1.0]
             h = (int)[array count]*55;
     } else if([@"point" isEqualToString:show]){
         w = [WildCardConstructor convertSketchToPixel:140];
+        if(ws)
+            w = [WildCardConstructor convertSketchToPixel:[ws intValue]];
         h = (int)[array count]*55;
     }
     

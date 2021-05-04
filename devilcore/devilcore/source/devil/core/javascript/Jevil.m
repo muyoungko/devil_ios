@@ -204,6 +204,8 @@
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        if(!responseJsonObject)
+            responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject]];
         [[JevilInstance currentInstance] syncData];
     }];

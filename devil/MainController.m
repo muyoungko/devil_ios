@@ -12,6 +12,8 @@
 #import <devil-Swift.h>
 #import <devillogin/devillogin-Swift.h>
 
+@import devilcore;
+
 @class Test;
 @class DevilKakaoLogin;
 
@@ -74,17 +76,68 @@
     }];
 }
 
+-(void)startProject:(NSString*) project_id{
+    
+    AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    [WildCardConstructor sharedInstance:project_id].delegate = appDelegate;
+    [WildCardConstructor sharedInstance:project_id].textConvertDelegate = appDelegate;
+    [WildCardConstructor sharedInstance:project_id].textTransDelegate = appDelegate;
+    [DevilSdk start:project_id viewController:self complete:^(BOOL res) {
+        
+        NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
+        NSString *selectedKey = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
+        if(selectedKey) {
+            [WildCardConstructor sharedInstance:project_id].project[@"host"] = selectedKey;
+        }
+        
+        [self hideIndicator];
+    }];
+}
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
     if([functionName isEqualToString:@"start"]){
         [self showIndicator];
         NSString* project_id = [NSString stringWithFormat:@"%@", meta.correspondData[@"id"]];
-        AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        [WildCardConstructor sharedInstance:project_id].delegate = appDelegate;
-        [WildCardConstructor sharedInstance:project_id].textConvertDelegate = appDelegate;
-        [WildCardConstructor sharedInstance:project_id].textTransDelegate = appDelegate;
-        [DevilSdk start:project_id viewController:self complete:^(BOOL res) {
+        [self startProject:project_id];
+        return true;
+    } else if([functionName isEqualToString:@"more"]){
+        
+        NSString *project_id = [meta.correspondData[@"id"] stringValue];
+        
+        [self showIndicator];
+        NSString* path = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", project_id];
+        NSString* url = [NSString stringWithFormat:path, project_id];
+        [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* res) {
             [self hideIndicator];
+            if(res != nil)
+            {
+                id list = res[@"project"][@"dev_host_list"];
+                list = [list mutableCopy];
+                [list insertObject:@{@"host": res[@"project"][@"host"]}atIndex:0];
+                
+                NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
+                NSString *selectedKey = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
+                
+                id param = [@{@"key":@"host",
+                               @"value":@"host",
+                               @"view": node,
+                               @"show": @"point",
+                               @"w" : @250,
+                               @"title" : @"Host Select"
+                } mutableCopy];
+                
+                if(selectedKey){
+                    param[@"selectedKey"] = selectedKey;
+                }
+                
+                DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:self];
+                [d popupSelect:list param:param onselect:^(id  _Nonnull res) {
+                    [[NSUserDefaults standardUserDefaults] setObject:res forKey:hostKey];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [self startProject:project_id];
+                }];
+            }
         }];
+        
         return true;
     }
     else 
