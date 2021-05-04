@@ -52,6 +52,15 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    if(self.data[@"list"]){
+        self.data[@"list"] = [self.data[@"list"] sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+            return [b[@"lastClick"] doubleValue] - [a[@"lastClick"] doubleValue];
+        }];
+    }
+    
+    if(self.mainWc)
+        [self reloadBlock];
 }
 
 
@@ -63,11 +72,27 @@
     [self update];
 }
 
+
 -(void)update{
     [self showIndicator];
     [[Devil sharedInstance] request:@"/front/api/project" postParam:nil complete:^(id  _Nonnull res) {
-       [self hideIndicator];
-       self.data[@"list"] = res[@"list"];
+        [self hideIndicator];
+        self.data[@"list"] = res[@"list"];
+        
+        for(int i=(int)[self.data[@"list"] count]-1;i>=0;i--) {
+            id p = self.data[@"list"][i];
+            NSString* lastProjectKey = [NSString stringWithFormat:@"%@_LAST", p[@"id"]];
+            NSNumber* lastClick = [[NSUserDefaults standardUserDefaults] objectForKey:lastProjectKey];
+            
+            if(!lastClick){
+                NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+                NSNumber* now = [NSNumber numberWithDouble: timeStamp];
+                [[NSUserDefaults standardUserDefaults] setObject:now forKey:lastProjectKey];
+            }
+            
+            p[@"lastClick"] = lastClick;
+        }
+        
         if(self.mainWc)
             [self reloadBlock];
         else {
@@ -82,6 +107,12 @@
     [WildCardConstructor sharedInstance:project_id].delegate = appDelegate;
     [WildCardConstructor sharedInstance:project_id].textConvertDelegate = appDelegate;
     [WildCardConstructor sharedInstance:project_id].textTransDelegate = appDelegate;
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    NSNumber* now = [NSNumber numberWithDouble: timeStamp];
+    NSString* lastProjectKey = [NSString stringWithFormat:@"%@_LAST", project_id];
+    [[NSUserDefaults standardUserDefaults] setObject:now forKey:lastProjectKey];
+    
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [DevilSdk start:project_id viewController:self complete:^(BOOL res) {
         
         NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
