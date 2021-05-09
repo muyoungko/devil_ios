@@ -177,7 +177,7 @@
         
         BOOL (^empty)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
             NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
-            if(value == nil || [value isEqualToString:@""] || [value isEqualToString:@"{\n}"] || [value isEqualToString:@"(\n)"])
+            if(value == nil || [value isEqualToString:@"<null>"] || [value isEqualToString:@""] || [value isEqualToString:@"{\n}"] || [value isEqualToString:@"(\n)"])
                 return YES;
             else
                 return NO;

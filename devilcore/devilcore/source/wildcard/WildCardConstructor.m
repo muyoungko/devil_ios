@@ -162,7 +162,7 @@ static NSString *default_project_id = nil;
     if([list count] > 0) {
         id block_id = [list[0][@"block_id"] stringValue];
         id block = _blockMap[block_id];
-        if(block[@"fit_to_screen"] != [NSNull null] && [block[@"fit_to_screen"] boolValue])
+        if(block && block[@"fit_to_screen"] != [NSNull null] && [block[@"fit_to_screen"] boolValue])
             [WildCardUtil fitToScreen:_cloudJsonMap[block_id] sketch_height_more:height];
     }
 }
@@ -902,6 +902,13 @@ static BOOL IS_TABLET = NO;
     }
     
     NSString* name = layer[@"name"];
+    if([@"01_게시물" isEqualToString:name])
+       NSLog(@"here");
+    if([@"게시물" isEqualToString:name])
+       NSLog(@"here");
+    if([@"feed_count" isEqualToString:name])
+       NSLog(@"here");
+       
     if(layer[@"strip"]){
         id stripLayer = layer[@"strip"];
         WildCardPagerTabStrip* strip = [[wcMeta.generatedViews objectForKey:name] subviews][0];

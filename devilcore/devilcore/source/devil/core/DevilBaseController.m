@@ -23,7 +23,7 @@
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     screenWidth = screenRect.size.width;
     screenHeight = screenRect.size.height;
-    
+    self.keyboard_height = 0;
     UITapGestureRecognizer *singleFingerTap2 =
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(handleSingleTap:)];
@@ -34,6 +34,7 @@
 {
     [super viewWillAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
 }
@@ -77,23 +78,6 @@
     [self.view addSubview:loading];
 }
 
-- (void)textEditing:(NSNotification*)noti
-{
-    UIView* tf = (UIView*)noti.object;
-    editingPoint = [tf convertPoint:tf.frame.origin toView:self.view];
-    if(editingView != tf)
-    {
-        if(self.devilBlockDialog == nil && editingPoint.y > screenHeight/4)
-        {
-            [UIView animateWithDuration:0.3f animations:^{
-                int toUp = screenHeight/4 - editingPoint.y;
-                self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
-            }];
-        }
-    }
-    editingView = tf;
-}
-
 - (void)hideIndicator
 {
     while([self.view viewWithTag:2243] != nil)
@@ -108,7 +92,6 @@
 
 - (void)keyboardWillShow:(NSNotification*)noti
 {
-    //
     if(self.devilBlockDialog == nil &&
        editingPoint.y > screenHeight/4)
     {
@@ -117,9 +100,55 @@
     }
 }
 
-- (void)keyboardWillHide:(NSNotification*)noti
-{
-    self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
+- (void)keyboardDidShow:(NSNotification*)noti {
+    if(editingInFooter) {
+        NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+        CGRect rect = [keyboardFrameBegin CGRectValue];
+        
+        [UIView animateWithDuration:0.15f animations:^{
+            int toUp = screenHeight - rect.size.height - self.original_footer_height;
+            self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
+        }];
+    }
 }
+
+- (void)textEditing:(NSNotification*)noti
+{
+    UIView* tf = (UIView*)noti.object;
+    
+    editingInFooter = NO;
+    UIView* parent = [tf superview];
+    for(int i=0;parent!= nil && i<10;i++) {
+        if(parent == self.footer) {
+            editingInFooter = YES;
+            break;
+        }
+        parent = [parent superview];
+    }
+    
+    if(editingInFooter) {
+    } else {
+        editingPoint = [tf convertPoint:tf.frame.origin toView:self.view];
+        if(editingView != tf)
+        {
+            if(self.devilBlockDialog == nil && editingPoint.y > screenHeight/4)
+            {
+                [UIView animateWithDuration:0.3f animations:^{
+                    int toUp = screenHeight/4 - editingPoint.y;
+                    self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
+                }];
+            }
+        }
+        editingView = tf;
+    }
+}
+
+- (void)keyboardWillHide:(NSNotification*)noti {
+    if(editingInFooter)
+        self.footer.frame = CGRectMake(self.footer.frame.origin.x, self.original_footer_y, self.footer.frame.size.width, self.footer.frame.size.height);
+    else
+        self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
+}
+
 
 @end

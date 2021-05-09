@@ -49,16 +49,17 @@
     [WildCardConstructor sharedInstance:@"1605234988599"];
 }
 
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
+- (void)sort{
     if(self.data[@"list"]){
         self.data[@"list"] = [self.data[@"list"] sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
             return [b[@"lastClick"] doubleValue] - [a[@"lastClick"] doubleValue];
         }];
     }
-    
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self sort];
     if(self.mainWc)
         [self reloadBlock];
 }
@@ -92,6 +93,8 @@
             
             p[@"lastClick"] = lastClick;
         }
+        
+        [self sort];
         
         if(self.mainWc)
             [self reloadBlock];
@@ -135,8 +138,7 @@
         NSString *project_id = [meta.correspondData[@"id"] stringValue];
         
         [self showIndicator];
-        NSString* path = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", project_id];
-        NSString* url = [NSString stringWithFormat:path, project_id];
+        NSString* url = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", project_id];
         [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* res) {
             [self hideIndicator];
             if(res != nil)

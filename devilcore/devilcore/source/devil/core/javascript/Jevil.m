@@ -239,6 +239,7 @@
 }
 
 + (void)uploadS3:(NSArray*)paths :(JSValue *)callback{
+    
     id header = [@{} mutableCopy];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
@@ -256,6 +257,10 @@
     id result = [@{} mutableCopy];
     result[@"r"] = @TRUE;
     result[@"uploadedFile"] = [@[] mutableCopy];
+    if([paths count] == 0) {
+        [callback callWithArguments:@[result]];
+        return;
+    }
     for(int i=0;i<[paths count];i++){
         __block NSString* path = paths[i];
         id ss = [path componentsSeparatedByString:@"."];
@@ -479,4 +484,14 @@
     }];
 }
 
++ (void)share:(NSString*)url{
+    NSArray *activityItems = @[[NSURL URLWithString:url]];
+    UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    activityViewControntroller.excludedActivityTypes = @[];
+    [[JevilInstance currentInstance].vc presentViewController:activityViewControntroller animated:true completion:nil];
+}
+
++ (void)out:(NSString*)url{
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
+}
 @end

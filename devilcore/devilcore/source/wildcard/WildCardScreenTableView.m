@@ -47,15 +47,11 @@
             if([type isEqualToString:@"sketch"] || [type isEqualToString:@"list"]){
                 [self registerClass:[UITableViewCell class] forCellReuseIdentifier:key];
             } else if([type isEqualToString:@"combinedList"]){
-                NSString* key1 = ifListItem[@"key"];
-                NSString* key2 = ifListItem[@"key2"];
-                NSString* key3 = ifListItem[@"key3"];
-                if(key1 != nil)
+                id combined_block_list = ifListItem[@"combined_block_list"];
+                for(id c in combined_block_list){
+                    NSString* key = [c[@"block_id"] stringValue];
                     [self registerClass:[UITableViewCell class] forCellReuseIdentifier:key];
-                if(key2 != nil)
-                    [self registerClass:[UITableViewCell class] forCellReuseIdentifier:key2];
-                if(key3 != nil)
-                    [self registerClass:[UITableViewCell class] forCellReuseIdentifier:key3];
+                }
             }
         }
     }
@@ -108,37 +104,19 @@
             }
         } else if([type isEqualToString:@"combinedList"]) {
             NSString *targetArray = [ifListItem objectForKey:@"targetArray"];
-            NSMutableArray* array = (NSMutableArray*) [MappingSyntaxInterpreter getJsonWithPath:_data :targetArray];
-            NSString* key1 = ifListItem[@"key"];
-            NSString* key2 = ifListItem[@"key2"];
-            NSString* key3 = ifListItem[@"key3"];
-            NSString* ifCondition1 = ifListItem[@"ifcondition"];
-            NSString* ifCondition2 = ifListItem[@"ifcondition2"];
-            NSString* ifCondition3 = ifListItem[@"ifcondition3"];
+            id combined_block_list = ifListItem[@"combined_block_list"];
             
+            NSMutableArray* array = (NSMutableArray*) [MappingSyntaxInterpreter getJsonWithPath:_data :targetArray];
             for(int j=0;j<[array count];j++)
             {
-                NSMutableDictionary* thisArray = array[j];
-                if(ifCondition1 == nil
-                   || [ifCondition1 isEqualToString:@""]
-                   || [MappingSyntaxInterpreter ifexpression:ifCondition1 data:thisArray])
-                {
-                    [_list addObject:key1];
-                    [_listData addObject:thisArray];
-                }
-                else if(ifCondition2 == nil
-                        || [ifCondition2 isEqualToString:@""]
-                        || [MappingSyntaxInterpreter ifexpression:ifCondition2 data:thisArray])
-                {
-                    [_list addObject:key2];
-                    [_listData addObject:thisArray];
-                }
-                else if(ifCondition3 == nil
-                        || [ifCondition3 isEqualToString:@""]
-                        || [MappingSyntaxInterpreter ifexpression:ifCondition3 data:thisArray])
-                {
-                    [_list addObject:key3];
-                    [_listData addObject:thisArray];
+                id item = array[j];
+                for(id blockIdAndIfCondition in combined_block_list) {
+                    NSString* ifCondition = blockIdAndIfCondition[@"ifcondition"];
+                    if([MappingSyntaxInterpreter ifexpression:ifCondition data:item]){
+                        [_list addObject:[blockIdAndIfCondition[@"block_id"] stringValue]];
+                        [_listData addObject:item];
+                        break;
+                    }
                 }
             }
         }
