@@ -101,12 +101,13 @@
 }
 
 - (void)keyboardDidShow:(NSNotification*)noti {
-    if(editingInFooter) {
+    if(self.footer) {
         NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
         CGRect rect = [keyboardFrameBegin CGRectValue];
         
         [UIView animateWithDuration:0.15f animations:^{
-            int toUp = screenHeight - rect.size.height - self.original_footer_height;
+            float viewGap = self.view.frame.origin.y - self.originalY;
+            int toUp = screenHeight - rect.size.height - self.original_footer_height - viewGap;
             self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
         }];
     }
@@ -144,10 +145,10 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)noti {
-    if(editingInFooter)
+    if(self.footer)
         self.footer.frame = CGRectMake(self.footer.frame.origin.x, self.original_footer_y, self.footer.frame.size.width, self.footer.frame.size.height);
-    else
-        self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
+    
+    self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
 }
 
 
