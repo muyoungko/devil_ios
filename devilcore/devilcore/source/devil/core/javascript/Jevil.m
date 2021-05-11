@@ -21,6 +21,7 @@
 #import "DevilUtil.h"
 #import "DevilToast.h"
 #import "DevilUtil.h"
+#import "WildCardUITextField.h"
 
 @interface Jevil()
 
@@ -380,6 +381,12 @@
         {
         [((DevilController*)vc) updateMeta];
     }
+}
+
++ (void)focus:(NSString*)nodeName {
+    id meta = [JevilInstance currentInstance].meta;
+    WildCardUITextField* tf = (WildCardUITextField*)[meta getTextView:nodeName];
+    [tf becomeFirstResponder];
 }
 
 + (void)updateThis{

@@ -6,6 +6,7 @@
 //
 
 #import "WildCardVideoView.h"
+#import "WildCardConstructor.h"
 
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
@@ -25,45 +26,57 @@
     _playerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self addSubview:_playerViewController.view];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didStartPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     
-    _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+    _imageView = (UIImageView*)[[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.imageView.hidden = YES;
     [self addSubview:_imageView];
+    [WildCardConstructor followSizeFromFather:self child:self.imageView];
+    
+    
     
     return self;
 }
 
 - (void)setPreview:(NSString*)ppath video:(NSString*)vpath{
     _playerViewController.player = nil;
-    _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
+    if(vpath != nil) {
+        _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
+        _playerViewController.view.hidden = NO;
+        [_playerViewController.player play];
+    } else {
+        _playerViewController.view.hidden = YES;
+        self.imageView.hidden = NO;
+    }
     
     self.previewPath = ppath;
     self.videoPath = vpath;
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:ppath]];
-    UIImage *image = [UIImage imageWithData:imageData];
-    [self.imageView setImage:image];
     
-    _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
-
+    if([ppath hasPrefix:@"http"]) {
+        [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.imageView withUrl:ppath];
+    } else {
+        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:ppath]];
+        UIImage *image = [UIImage imageWithData:imageData];
+        [self.imageView setImage:image];
+    }
 }
 
--(void)didStartPlaying{
-    NSLog(@"didStartPlaying");
-}
 -(void)didFinishPlaying{
     NSLog(@"didFinishPlaying");
 }
 
 -(void)play{
-    [_playerViewController.player play];
+    self.imageView.hidden = YES;
+    if(_playerViewController.player != nil)
+        [_playerViewController.player play];
 }
 
 -(void)stop{
-    [_playerViewController.player pause];
+    self.imageView.hidden = NO;
+    if(_playerViewController.player != nil)
+        [_playerViewController.player pause];
 }
 
 @end

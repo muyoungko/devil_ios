@@ -110,16 +110,18 @@
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [self doneClick];
+    return YES;
+}
+
+- (void)doneClick {
     if(self.doneClickAction != nil)
     {
         WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
         [WildCardAction parseAndConducts:trigger action:self.doneClickAction meta:self.meta];
-        textField.text = @"";
-        [_meta.correspondData setObject:@"" forKey:_holder];
     }
-        
-    return YES;
 }
+
 - (void)textChanged:(UITextField *)textField{
     UIView* p = [self superview];
     if(self.showXButton)

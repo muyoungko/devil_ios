@@ -371,6 +371,7 @@ static BOOL IS_TABLET = NO;
     WildCardUIView* vv = [[WildCardUIView alloc] init];
     vv.name = name;
     vv.depth = depth;
+    vv.isAccessibilityElement = NO;
     
     NSDictionary* extension = layer[@"extension"];
     NSDictionary* triggerMap = layer[@"trigger"];
@@ -502,6 +503,9 @@ static BOOL IS_TABLET = NO;
             ReplaceRuleClick* rule = [[ReplaceRuleClick alloc] initWithRuleJson:layer];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            vv.isAccessibilityElement = YES;
+            vv.accessibilityTraits = UIAccessibilityTraitButton;
+            vv.accessibilityLabel = name;
             
         } else if(extension == nil) {
             vv.userInteractionEnabled = NO;
@@ -643,6 +647,10 @@ static BOOL IS_TABLET = NO;
             ReplaceRuleImageResource* rule = [[ReplaceRuleImageResource alloc] initWithRuleJson:layer];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+        } else if(layer[@"video"]){
+            ReplaceRuleVideo* replaceRuleVideo = [[ReplaceRuleVideo alloc] initWithRuleJson:layer[@"video"]];
+            [replaceRuleVideo constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            [outRules addObject:replaceRuleVideo];
         } else if ([layer objectForKey:(@"localImageContent")] != nil &&  ![_class isEqualToString:@"extension"]) {
             ReplaceRuleLocalImage* rule = [[ReplaceRuleLocalImage alloc] initWithRuleJson:layer];
             [outRules addObject:rule];
@@ -693,15 +701,12 @@ static BOOL IS_TABLET = NO;
             ReplaceRuleStrip* rule = [[ReplaceRuleStrip alloc] init];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
             [outRules addObject:rule];
-        } else if(layer[@"video"]){
-            ReplaceRuleVideo* replaceRuleVideo = [[ReplaceRuleVideo alloc] initWithRuleJson:layer[@"video"]];
-            [replaceRuleVideo constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
-            [outRules addObject:replaceRuleVideo];
         }
         
         if([@"text" isEqualToString:_class])
         {
             WildCardUILabel* tv = [[WildCardUILabel alloc] init];
+            tv.isAccessibilityElement = YES;
             [vv addSubview:tv];
             
             tv.frame = CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);

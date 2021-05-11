@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback;
 + (void)update;
 + (void)updateThis;
++ (void)focus:(NSString*)nodeName;
 + (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback;
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;

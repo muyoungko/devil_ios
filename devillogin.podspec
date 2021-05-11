@@ -18,9 +18,12 @@ Pod::Spec.new do |s|
   
   s.source_files = 'devillogin/devillogin/source/**/*.*', 'devillogin/devillogin/header/**/*.h'
   s.public_header_files = 'devillogin/devillogin/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.static_framework = true
   s.dependency 'devilcore', '~> 0.0.66'
   s.dependency 'KakaoSDK'
   s.dependency 'FBSDKLoginKit'
   s.dependency 'FBSDKShareKit'
+  s.dependency 'GoogleSignIn'
+  #s.dependency 'GoogleToolboxForMac'
 
 end

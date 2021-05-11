@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL showXButton;
 @property (nonatomic, retain) NSString* doneClickAction;
 
+-(void)doneClick;
 
 @end
 

@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
     CGPoint editingPoint;
     UIView* editingView;
     BOOL editingInFooter;
+    BOOL editingNumberKey;
+    UIReturnKeyType numberKeyType;
 }
 
 @property (nonatomic, retain) DevilBlockDialog* devilBlockDialog;

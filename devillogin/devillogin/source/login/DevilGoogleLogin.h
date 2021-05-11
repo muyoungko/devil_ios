@@ -8,11 +8,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@import GoogleSignIn;
-
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilGoogleLogin : NSObject<GIDSignInDelegate>
+@interface DevilGoogleLogin : NSObject
 
 + (id)sharedInstance;
 + (BOOL)application:(UIApplication *)application

@@ -7,12 +7,13 @@
 
 #import "DevilLoginSdk.h"
 #import "DevilFacebook.h"
+#import "DevilGoogleLogin.h"
 #import <devillogin/devillogin-Swift.h>
 #import "JevilLogin.h"
 
+
 @import devilcore;
 @import FBSDKLoginKit;
-@import GoogleSignIn;
 
 @implementation DevilLoginSdk
 
@@ -46,7 +47,9 @@
                                                                annotation:options[UIApplicationOpenURLOptionsAnnotationKey]])
         return true;
     
-    if(devilConfig[@"hasGoogleLogin"] && [[GIDSignIn sharedInstance] handleURL:url])
+    
+    if(devilConfig[@"hasGoogleLogin"] &&
+       [DevilGoogleLogin application:application openURL:url options:options])
         return true;
     return false;
 }

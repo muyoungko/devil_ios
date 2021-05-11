@@ -7,11 +7,14 @@
 
 #import "DevilBaseController.h"
 #import "Lottie.h"
-
+#import "WildCardUITextField.h"
 
 @interface DevilBaseController ()
 
 @property int originalY;
+@property (retain, nonatomic) UIView* keypadTop;
+@property (retain, nonatomic) UIButton* keypadTopButton;
+@property (retain, nonatomic) WildCardUITextField* editingTextField;
 
 @end
 
@@ -111,11 +114,52 @@
             self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
         }];
     }
+    
+    if(editingNumberKey) {
+        if(self.keypadTop == nil) {
+            CGRect screenRect = [[UIScreen mainScreen] bounds];
+            int sw = screenRect.size.width;
+            int sh = screenRect.size.height;
+            int h = 45;
+            int bw = 70;
+            self.keypadTop = [[UIView alloc] initWithFrame:CGRectMake(0,sh, sw, h)];
+            self.keypadTop.backgroundColor = [UIColor lightGrayColor];
+            [self.view addSubview:self.keypadTop];
+            
+            self.keypadTopButton = [[UIButton alloc] initWithFrame:CGRectMake(sw-bw-10, 5, bw, h-10)];
+            NSString* text = @"확인";
+            if(self.editingTextField.returnKeyType == UIReturnKeySearch)
+                text = @"검색";
+            else if(self.editingTextField.returnKeyType == UIReturnKeyNext)
+                text = @"다음";
+            
+            [self.keypadTopButton setTitle:text forState:UIControlStateNormal];
+            [self.keypadTopButton addTarget:self.editingTextField  action:@selector(doneClick) forControlEvents:UIControlEventTouchUpInside];
+            [self.keypadTop addSubview:self.keypadTopButton];
+            
+        }
+        
+        NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+        CGRect rect = [keyboardFrameBegin CGRectValue];
+        self.keypadTop.hidden = NO;
+        float viewGap = self.view.frame.origin.y - self.originalY;
+        int toUp = screenHeight - rect.size.height - self.keypadTop.frame.size.height - viewGap;
+        self.keypadTop.frame = CGRectMake(self.keypadTop.frame.origin.x, toUp, self.keypadTop.frame.size.width, self.keypadTop.frame.size.height);
+    }
 }
 
 - (void)textEditing:(NSNotification*)noti
 {
     UIView* tf = (UIView*)noti.object;
+    editingNumberKey = NO;
+    numberKeyType = nil;
+    if([tf isKindOfClass:[WildCardUITextField class]]) {
+        self.editingTextField = (WildCardUITextField*)tf;
+        if(self.editingTextField.keyboardType == UIKeyboardTypeNumberPad ) {
+            editingNumberKey = YES;
+            numberKeyType = self.editingTextField.returnKeyType;
+        }
+    }
     
     editingInFooter = NO;
     UIView* parent = [tf superview];
@@ -145,6 +189,7 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)noti {
+    self.keypadTop.hidden = YES;
     if(self.footer)
         self.footer.frame = CGRectMake(self.footer.frame.origin.x, self.original_footer_y, self.footer.frame.size.width, self.footer.frame.size.height);
     
