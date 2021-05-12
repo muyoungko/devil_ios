@@ -21,6 +21,7 @@
 #import "ReplaceRuleIcon.h"
 #import "ReplaceRuleVideo.h"
 #import "ReplaceRuleWeb.h"
+#import "ReplaceRuleAccessibility.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -506,6 +507,12 @@ static BOOL IS_TABLET = NO;
             vv.isAccessibilityElement = YES;
             vv.accessibilityTraits = UIAccessibilityTraitButton;
             vv.accessibilityLabel = name;
+            
+            if(layer[@"accessibility"]){
+                ReplaceRuleAccessibility* rule2 = [[ReplaceRuleAccessibility alloc] initWithRuleJson:layer];
+                [outRules addObject:rule2];
+                [rule2 constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            }
             
         } else if(extension == nil) {
             vv.userInteractionEnabled = NO;

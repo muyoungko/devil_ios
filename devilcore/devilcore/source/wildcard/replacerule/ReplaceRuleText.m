@@ -14,6 +14,7 @@
 
 
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+    
     self.replaceJsonKey = layer[@"textContent"];
 }
 
