@@ -73,6 +73,7 @@
         ((AppDelegate*)[UIApplication sharedApplication].delegate).googleSigninMyDelegate = self;
         [GIDSignIn sharedInstance].presentingViewController = self;
         [[GIDSignIn sharedInstance] signIn];
+        
         return YES;
     } else if([@"login_apple" isEqualToString:functionName]){
         [self haddleAppleLogin];
@@ -201,8 +202,7 @@
 
 -(void)finishLogin{
     [self.navigationController popViewControllerAnimated:YES];
-    if(self.callback)
-        self.callback(YES);
+    [self.navigationController pushViewController:[[MainController alloc] init] animated:YES];
 }
 
 @end

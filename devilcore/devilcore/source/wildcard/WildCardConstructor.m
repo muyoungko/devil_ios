@@ -84,10 +84,8 @@ static NSString *default_project_id = nil;
     NSData *data = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/json/%@.json", self.project_id]];
 
     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-    _cloudJsonMap = json[@"cloudJsonMap"];
-    _screenMap = json[@"screenMap"];
-    _blockMap = json[@"block"];
-    _project = json[@"project"];
+    [self initWithProject:self.project_id json:json];
+    
     complete(YES);
 }
 
@@ -100,10 +98,8 @@ static NSString *default_project_id = nil;
     [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* responseJsonObject) {
         if(responseJsonObject != nil)
         {
-            _cloudJsonMap = responseJsonObject[@"cloudJsonMap"] ;
-            _screenMap = responseJsonObject[@"screenMap"];
-            _blockMap = responseJsonObject[@"block"];
-            _project = responseJsonObject[@"project"];
+            [self initWithProject:self.project_id json:responseJsonObject];
+            
             complete(YES);
         }
         else
@@ -111,6 +107,27 @@ static NSString *default_project_id = nil;
             complete(NO);
         }
     }];
+}
+
+-(void)initWithProject:(NSString*)projectId json:(id)projectJson {
+    NSString* project_id = self.project_id;
+    _cloudJsonMap = projectJson[@"cloudJsonMap"] ;
+    _screenMap = projectJson[@"screenMap"];
+    _blockMap = projectJson[@"block"];
+    _project = projectJson[@"project"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:
+     [NSString stringWithFormat:@"UDID_%@", project_id]
+     ];
+    [[NSUserDefaults standardUserDefaults] setObject:@"iphone" forKey:
+     [NSString stringWithFormat:@"MODEL_%@", project_id]];
+    [[NSUserDefaults standardUserDefaults] setObject:@"iOS" forKey:
+     [NSString stringWithFormat:@"OS_%@", project_id]];
+     
+    [[NSUserDefaults standardUserDefaults] setObject:[[UIDevice currentDevice] systemVersion] forKey:
+     [NSString stringWithFormat:@"OS_VERSION_%@", project_id]];
+    [[NSUserDefaults standardUserDefaults] setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:[NSString stringWithFormat:@"APP_VERSION_%@", project_id]];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(NSMutableDictionary*_Nullable) getAllBlockJson

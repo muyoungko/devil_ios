@@ -70,13 +70,11 @@
 }
 
 + (BOOL)isLogin{
-    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
-    return [Jevil get:x_access_token_key] != nil;
+    return [Jevil get:@"x_access_token_key"] != nil;
 }
 
 + (void)logout{
-    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
-    [Jevil remove:x_access_token_key];
+    [Jevil remove:@"x_access_token_key"];
 }
 
 @end

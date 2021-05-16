@@ -14,34 +14,61 @@
 
 @implementation DevilGoogleLogin
 
-+ (id)sharedInstance {
++ (DevilGoogleLogin*)sharedInstance {
     static DevilGoogleLogin *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
     });
     return sharedInstance;
-}
+} 
 
-//-(void)loginWithComplete:(UIViewController*)vc callback:(void (^)(id user))callback{
-//
-//    NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
-//    id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
-//
+-(void)loginWithComplete:(UIViewController*)vc callback:(void (^)(id user))callback{
+
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
+    id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
+    self.callback = callback;
+    if([DevilGoogleLogin sharedInstance].delegate)
+        [[DevilGoogleLogin sharedInstance].delegate login:vc clientId:devilConfig[@"GoogleLoginClientId"]];
+    
+    
 //    [GIDSignIn sharedInstance].clientID = devilConfig[@"GoogleLoginClientId"];
 //    [GIDSignIn sharedInstance].delegate = [DevilGoogleLogin sharedInstance];
 //    self.callback = callback;
 //    [GIDSignIn sharedInstance].presentingViewController = vc;
 //    [[GIDSignIn sharedInstance] signIn];
-//}
-//
-//+ (BOOL)application:(UIApplication *)application
-//            openURL:(NSURL *)url
-//            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-//    return [[GIDSignIn sharedInstance] handleURL:url];
-//}
-//
-//
+}
+
++ (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    if([DevilGoogleLogin sharedInstance].delegate){
+        return [[DevilGoogleLogin sharedInstance].delegate handleUrl:url];
+    }
+    
+    //return [[GIDSignIn sharedInstance] handleURL:url];
+    return NO;
+}
+
+- (void)googleSignInSuccess:(BOOL)success userId:(NSString*)userId name:(NSString*)name profile:(NSString*)profile email:(NSString*)email token:(NSString*)token{
+    if(success){
+        id r = [@{} mutableCopy];
+        r[@"id"] = userId;
+        r[@"name"] = name;
+        r[@"profile"] = profile;
+        r[@"email"] = email;
+        r[@"token"] = token;
+        r[@"gender"] = @"";
+        r[@"age"] = @"";
+        self.callback(r);
+        self.callback = nil;
+    } else {
+        self.callback(nil);
+        self.callback = nil;
+    }
+}
+
+
 //- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
 //    if(user == nil){
 //        self.callback(nil);

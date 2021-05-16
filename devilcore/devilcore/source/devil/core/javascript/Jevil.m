@@ -198,7 +198,7 @@
         header[h[@"header"]] = h[@"content"];
     }
     
-    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
@@ -223,8 +223,8 @@
     for(id h in header_list){
         header[h[@"header"]] = h[@"content"];
     }
-
-    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
@@ -246,7 +246,7 @@
     for(id h in header_list){
         header[h[@"header"]] = h[@"content"];
     }
-    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
 
@@ -333,7 +333,7 @@
     url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
     id header = [@{} mutableCopy];
-    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token-%@", [Jevil get:@"PROJECT_ID"]];
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     

@@ -16,9 +16,9 @@
 		6D7EC31925F4A42F00FAE7D8 /* devillogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7EC31825F4A42F00FAE7D8 /* devillogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D8DEF172608FBAE00024AFD /* JevilLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8DEF152608FBAE00024AFD /* JevilLogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D8DEF182608FBAE00024AFD /* JevilLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8DEF162608FBAE00024AFD /* JevilLogin.m */; platformFilter = ios; };
-		6D9F7BFA263315D0003A70EC /* DevilGoogleLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7BF8263315CF003A70EC /* DevilGoogleLogin.h */; };
+		6D9F7BFA263315D0003A70EC /* DevilGoogleLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7BF8263315CF003A70EC /* DevilGoogleLogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9F7BFB263315D0003A70EC /* DevilGoogleLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7BF9263315D0003A70EC /* DevilGoogleLogin.m */; };
-		6D9F7C7D263324E4003A70EC /* DevilAppleLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7C7B263324E4003A70EC /* DevilAppleLogin.h */; };
+		6D9F7C7D263324E4003A70EC /* DevilAppleLogin.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7C7B263324E4003A70EC /* DevilAppleLogin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9F7C7E263324E4003A70EC /* DevilAppleLogin.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7C7C263324E4003A70EC /* DevilAppleLogin.m */; };
 		6DDAC3BF260C8BA400E76300 /* TestSwiftLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDAC3BE260C8BA400E76300 /* TestSwiftLogin.swift */; platformFilter = ios; };
 		C52473C7347AC74072B7E891 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */; platformFilter = ios; };
