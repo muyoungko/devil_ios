@@ -931,12 +931,6 @@ static BOOL IS_TABLET = NO;
     }
     
     NSString* name = layer[@"name"];
-    if([@"01_게시물" isEqualToString:name])
-       NSLog(@"here");
-    if([@"게시물" isEqualToString:name])
-       NSLog(@"here");
-    if([@"feed_count" isEqualToString:name])
-       NSLog(@"here");
        
     if(layer[@"strip"]){
         id stripLayer = layer[@"strip"];

@@ -70,11 +70,11 @@
 }
 
 + (BOOL)isLogin{
-    return [Jevil get:@"x_access_token_key"] != nil;
+    return [Jevil get:@"x-access-token"] != nil;
 }
 
 + (void)logout{
-    [Jevil remove:@"x_access_token_key"];
+    [Jevil remove:@"x-access-token"];
 }
 
 @end

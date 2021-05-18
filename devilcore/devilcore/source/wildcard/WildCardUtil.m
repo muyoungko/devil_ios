@@ -360,17 +360,53 @@ static BOOL IS_TABLET = NO;
                 NSString* name = arr[i][@"name"];
                 float thisy = [rects[name] CGRectValue].origin.y;
                 float thish = [rects[name] CGRectValue].size.height;
+                
+                //NSLog(@"%@ %f %f", name, thisy, thish);
+                
                 if(rootLayers[name]){
+                    /**
+                     A1 hidden처리된된 자식중에 thisy 때문에 부모의 높이를 늘려버리는 경우가 있다.
+                     이 thisy는 히든처리된 자식 뒤에 바로 붙기위해서 필요하긴 하다.
+                     next 체인에서 특정 노드 이상은 hidden 처리되어 y좌표도 반영되면 안된다.
+                     혹은 hidden 처리되었더라도 그 노드의 next체인이 hidden이 아니라면, 이 노드의 y좌표는 높이에 반영되어야한다.
+                     따라서 어떤 노드부터 y좌표에 반영되어야하는지 먼저 확보해야한다
+                     TODO : MeasureWidth도 같은 방식으로 처리해야함
+                     */
+                    NSString* cutNodeName = nil;
+                    NSString* cursorNodeName = name;
+                    id nextChainList = [@[name] mutableCopy];
+                    while(nextLayers[cursorNodeName]){
+                        NSString* nextName = nextLayers[name];
+                        [nextChainList addObject:nextName];
+                        cursorNodeName = nextLayers[cursorNodeName];
+                    }
+                    for(int j=(int)[nextChainList count]-1;j>=0;j--){
+                        NSString* nodeName = nextChainList[j];
+                        float h = [rects[nodeName] CGRectValue].size.height;
+                        if(h == 0)
+                            cutNodeName = nodeName;
+                        else
+                            break;
+                    }
+                    
+                    if([name isEqualToString:cutNodeName])
+                        continue;
+                    
                     if(thisy + thish > h)
                         h = thisy + thish;
                     
                     while(nextLayers[name]){
                         NSString* nextName = nextLayers[name];
+                        if([nextName isEqualToString:cutNodeName])
+                            break;
                         float margin = [layersByName[nextName][@"vNextToMargin"] floatValue];
                         float nexty = thisy + thish + [WildCardConstructor convertSketchToPixel:margin];
                         float nexth = [rects[nextName] CGRectValue].size.height;
-                        if(nexty + nexth > h)
+                        //A1 경우를 검사해서 h에 영향을 주지 않도록 해야한다
+                        if(nexty + nexth > h) {
                             h = nexty + nexth;
+                        }
+                            
                         thisy = nexty;
                         thish = nexth;
                         name = nextName;
@@ -388,7 +424,6 @@ static BOOL IS_TABLET = NO;
     }
     
     float padding = [WildCardConstructor getPaddingTopBottomConverted:cloudJson];
-    NSLog(@"%@ %f %f", cloudJson[@"name"], h, padding);
     return h + padding;
 }
 

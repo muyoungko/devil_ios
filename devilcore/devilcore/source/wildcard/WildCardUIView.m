@@ -24,7 +24,7 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSString* instanceKey = [NSString stringWithFormat:@"%lx", (long)self];
-    NSLog(@"WC - touchesBegan %@ %@", _name , instanceKey);
+    //NSLog(@"WC - touchesBegan %@ %@", _name , instanceKey);
     return ;
 }
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

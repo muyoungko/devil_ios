@@ -34,7 +34,6 @@
 		6D46791E25699108006D57DD /* back_black@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D46791D25699107006D57DD /* back_black@3x.png */; };
 		6D4679AA256A51B9006D57DD /* devil.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D4679A9256A51B9006D57DD /* devil.podspec */; };
 		6D467A35256AAE12006D57DD /* Void.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A34256AAE12006D57DD /* Void.swift */; };
-		6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; };
 		6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
@@ -119,7 +118,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D467AF3256AB3DF006D57DD /* devilcore.framework in Frameworks */,
 				8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

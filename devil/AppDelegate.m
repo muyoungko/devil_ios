@@ -332,7 +332,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [((UIImageView*)networkImageView) setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil];
     if([[networkImageView superview] isKindOfClass:[WildCardUIView class]]){
         WildCardUIView* f = (WildCardUIView*)[networkImageView superview];
-        if([f.name isEqualToString:@"profile"])
+        if([f.name hasPrefix:@"profile"])
             networkImageView.layer.cornerRadius = f.frame.size.width/2;
     }
 }

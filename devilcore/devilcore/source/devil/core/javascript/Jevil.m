@@ -175,14 +175,18 @@
 }
 
 + (void)save:(NSString *)key :(NSString *)value{
+    key = [NSString stringWithFormat:@"%@_%@", key, [WildCardConstructor sharedInstance].project_id];
+    
     [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 + (void)remove:(NSString *)key{
+    key = [NSString stringWithFormat:@"%@_%@", key, [WildCardConstructor sharedInstance].project_id];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 + (NSString*)get:(NSString *)key{
+    key = [NSString stringWithFormat:@"%@_%@", key, [WildCardConstructor sharedInstance].project_id];
     NSString* r = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     return r;
 }
@@ -387,6 +391,36 @@
     id meta = [JevilInstance currentInstance].meta;
     WildCardUITextField* tf = (WildCardUITextField*)[meta getTextView:nodeName];
     [tf becomeFirstResponder];
+}
+
++ (void)hideKeyboard {
+    [[JevilInstance currentInstance].vc.view endEditing:YES];
+}
+
++ (void)scrollTo:(NSString*)nodeName :(int)index {
+    UICollectionView* list;
+    if(nodeName && ![@"null" isEqualToString:nodeName] ) {
+        id meta = [JevilInstance currentInstance].meta;
+        list = [[meta getView:nodeName] subviews][0];
+        [list scrollToItemAtIndexPath:[NSIndexPath indexPathWithIndex:index] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+    } else {
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        if(vc.tv != nil)
+            [vc.tv scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+    }
+    
+}
+
++ (void)scrollUp:(NSString*)nodeName {
+    if(nodeName && ![@"null" isEqualToString:nodeName]) {
+        id meta = [JevilInstance currentInstance].meta;
+        UICollectionView* list = [[meta getView:nodeName] subviews][0];
+        [list scrollsToTop];
+    } else {
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        if(vc.tv != nil)
+            [vc.tv scrollsToTop];
+    }
 }
 
 + (void)updateThis{

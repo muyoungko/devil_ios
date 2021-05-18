@@ -87,7 +87,7 @@
         self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 20; //5정도 차이가 난다(왜일까...)
         
         int footerY = screenHeight - self.footer.frame.size.height - 25;
-        int footerHeight = screenHeight - self.footer.frame.size.height;
+        int footerHeight = self.footer.frame.size.height + 25;
         self.footer.frame = CGRectMake(0, footerY, self.footer.frame.size.width, footerHeight);
         self.original_footer_y = footerY;
         [self.view addSubview:self.footer];
@@ -208,7 +208,8 @@
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;
     self.tv.tableViewDelegate = self;
-    self.tv.frame =  CGRectMake(0, 0, self.viewMain.frame.size.width, self.viewMain.frame.size.height);
+    int footerHeight = self.footer.frame.size.height;
+    self.tv.frame =  CGRectMake(0, 0, self.viewMain.frame.size.width, self.viewMain.frame.size.height - footerHeight);
     [self.viewMain addSubview:self.tv];
 }
 
