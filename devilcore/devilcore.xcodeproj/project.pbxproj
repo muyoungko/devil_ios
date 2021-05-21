@@ -182,6 +182,8 @@
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
+		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
+		6DF53B682657F854001FB1D6 /* DevilSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B662657F854001FB1D6 /* DevilSpeech.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -363,6 +365,8 @@
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
+		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
+		6DF53B662657F854001FB1D6 /* DevilSpeech.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSpeech.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -481,6 +485,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DF53B642657F846001FB1D6 /* speech */,
 				6DF53B5D2657CFE9001FB1D6 /* sound */,
 				6DDAC6C226109A2B00E76300 /* camera */,
 				6D467B29257A1470006D57DD /* devil */,
@@ -725,6 +730,15 @@
 			path = sound;
 			sourceTree = "<group>";
 		};
+		6DF53B642657F846001FB1D6 /* speech */ = {
+			isa = PBXGroup;
+			children = (
+				6DF53B652657F854001FB1D6 /* DevilSpeech.h */,
+				6DF53B662657F854001FB1D6 /* DevilSpeech.m */,
+			);
+			path = speech;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -754,6 +768,7 @@
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
 				6D9F7B0D2629658F003A70EC /* PEResizeControl.h in Headers */,
 				6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */,
+				6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */,
 				6D467A85256AB07A006D57DD /* WildCardMeta.h in Headers */,
 				6D467A9F256AB07A006D57DD /* ReplaceRuleClick.h in Headers */,
 				6D467A9D256AB07A006D57DD /* ReplaceRuleExtension.h in Headers */,
@@ -945,6 +960,7 @@
 				6D467A90256AB07A006D57DD /* ReplaceRuleExtension.m in Sources */,
 				6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */,
 				6D467AAF256AB07A006D57DD /* WildCardLayoutPathUnit.m in Sources */,
+				6DF53B682657F854001FB1D6 /* DevilSpeech.m in Sources */,
 				6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */,
 				6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */,
 				6D467AA0256AB07A006D57DD /* ReplaceRuleLocalImage.m in Sources */,

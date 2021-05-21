@@ -105,6 +105,8 @@
 	<string>Please, allow access location information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
+    <key>NSSpeechRecognitionUsageDescription</key>
+    <string>Please, allow access for speech recognition</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

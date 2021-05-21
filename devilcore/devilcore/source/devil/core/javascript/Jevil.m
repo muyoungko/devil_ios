@@ -23,6 +23,7 @@
 #import "DevilUtil.h"
 #import "WildCardUITextField.h"
 #import "DevilSound.h"
+#import "DevilSpeech.h"
 
 @interface Jevil()
 
@@ -566,7 +567,9 @@
     [[DevilSound sharedInstance] speed:[speed floatValue]];
 }
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback{
-    
+    [[DevilSpeech sharedInstance] listen:param :^(id  _Nonnull text) {
+        [callback callWithArguments:@[ text ]];
+    }];
 }
 + (void)getLocation:(NSDictionary*)param :(JSValue*)callback{
     
