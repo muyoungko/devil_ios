@@ -231,7 +231,7 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
         [self.navigationController popViewControllerAnimated:YES];
@@ -245,7 +245,7 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
                                                         

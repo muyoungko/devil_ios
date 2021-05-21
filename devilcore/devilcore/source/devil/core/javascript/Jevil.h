@@ -55,6 +55,15 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)camera:(NSDictionary*)param :(JSValue *)callback;
 + (void)share:(NSString*)url;
 + (void)out:(NSString*)url;
++ (void)sound:(NSDictionary*)param;
++ (void)soundTick:(JSValue*)callback;
++ (void)soundPause;
++ (void)soundStop;
++ (void)soundResume;
++ (void)soundMove:(int)sec;
++ (void)soundSpeed:(NSString*)speed;
++ (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback;
++ (void)getLocation:(NSDictionary*)param :(JSValue*)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

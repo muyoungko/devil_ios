@@ -12,6 +12,7 @@
 #import "DevilDebugView.h"
 #import "Lottie.h"
 #import "JevilCtx.h"
+#import "DevilSound.h"
 
 @interface DevilController ()
 
@@ -19,6 +20,7 @@
 @property (nonatomic, retain) JevilCtx* jevil;
 @property int header_sketch_height;
 @property BOOL hasOnResume;
+@property BOOL hasOnFinish;
 
 @end
 
@@ -53,11 +55,13 @@
         [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
     
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
-    self.hasOnResume = false;
+    self.hasOnFinish = self.hasOnResume = false;
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
         if([code rangeOfString:@"function onResume"].length > 0)
             self.hasOnResume = true;
+        if([code rangeOfString:@"function onFinish"].length > 0)
+            self.hasOnFinish = true;
         [WildCardConstructor sharedInstance].loadingDelegate = self;
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
@@ -100,6 +104,8 @@
     [super viewWillDisappear:animated];
     if(self.wifiManager)
         [self.wifiManager dismiss];
+    [[DevilSound sharedInstance] setTickCallback:nil];
+    [[DevilSound sharedInstance] stop];
 }
 
 -(void)tab:(NSString*)screenId {
@@ -117,11 +123,13 @@
     
     self.screenId = screenId;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
-    self.hasOnResume = false;
+    self.hasOnFinish = self.hasOnResume = false;
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
         if([code rangeOfString:@"function onResume"].length > 0)
             self.hasOnResume = true;
+        if([code rangeOfString:@"function onFinish"].length > 0)
+            self.hasOnFinish = true;
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 
@@ -250,6 +258,10 @@
     [WildCardConstructor applyRule:self.footer withData:self.data];
 }
 
-
+-(void)finish {
+    if(self.hasOnFinish){
+        [self.jevil code:@"onFinish()" viewController:self data:self.data meta:nil];
+    }
+}
 
 @end

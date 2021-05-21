@@ -180,6 +180,8 @@
 		6D9F7C8926396318003A70EC /* DevilToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7C8726396318003A70EC /* DevilToast.m */; };
 		6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */; };
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
+		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
+		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -359,6 +361,8 @@
 		6D9F7C8726396318003A70EC /* DevilToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilToast.m; sourceTree = "<group>"; };
 		6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleAccessibility.h; sourceTree = "<group>"; };
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
+		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
+		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -477,6 +481,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DF53B5D2657CFE9001FB1D6 /* sound */,
 				6DDAC6C226109A2B00E76300 /* camera */,
 				6D467B29257A1470006D57DD /* devil */,
 				6D467A36256AB079006D57DD /* wildcard */,
@@ -711,6 +716,15 @@
 			path = camera;
 			sourceTree = "<group>";
 		};
+		6DF53B5D2657CFE9001FB1D6 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				6DF53B5E2657D005001FB1D6 /* DevilSound.h */,
+				6DF53B5F2657D005001FB1D6 /* DevilSound.m */,
+			);
+			path = sound;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -749,6 +763,7 @@
 				6D9F7B91262C8380003A70EC /* ReplaceRuleVideo.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
 				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
+				6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */,
 				6D467AC0256AB07A006D57DD /* WildCardAction.h in Headers */,
 				6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */,
 				6D467A87256AB07A006D57DD /* WildCardLayoutPathUnit.h in Headers */,
@@ -937,6 +952,7 @@
 				6D9F7B122629658F003A70EC /* UIImage+PECrop.m in Sources */,
 				6D3EBE8425D92DB00006ADD5 /* WifiManager.m in Sources */,
 				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,
+				6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */,
 				6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */,
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
 				6D9F7B1D26298952003A70EC /* WildCardProgressBar.m in Sources */,

@@ -99,7 +99,6 @@
     <string>$(PRODUCT_NAME) photos add description.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>Allowing access to the microphone lets you record audio.</string>
-    
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSLocationAlwaysUsageDescription</key>

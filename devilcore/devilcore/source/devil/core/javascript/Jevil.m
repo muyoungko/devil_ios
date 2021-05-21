@@ -22,6 +22,7 @@
 #import "DevilToast.h"
 #import "DevilUtil.h"
 #import "WildCardUITextField.h"
+#import "DevilSound.h"
 
 @interface Jevil()
 
@@ -45,6 +46,7 @@
 }
 
 + (void)replaceScreen:(NSString*)screenName :(id)param{
+    [((DevilController*)[JevilInstance currentInstance].vc) finish];
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     if(param != nil)
@@ -70,10 +72,12 @@
     if(callbackData){
         [JevilInstance globalInstance].callbackData = callbackData;
     }
+    [((DevilController*)[JevilInstance currentInstance].vc) finish];
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)finishThen:(JSValue *)callback {
+    [((DevilController*)[JevilInstance currentInstance].vc) finish];
     [JevilInstance globalInstance].callbackFunction = callback;
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
@@ -116,7 +120,7 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
                                                         
@@ -129,7 +133,7 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Ok"
+    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
        [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
@@ -533,6 +537,38 @@
 }
 
 + (void)out:(NSString*)url{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+        
+    }];
+}
+
++ (void)sound:(NSDictionary*)param{
+    [[DevilSound sharedInstance] sound:param];
+}
++ (void)soundTick:(JSValue*)callback{
+    [[DevilSound sharedInstance] setTickCallback:^(int sec, int totalSeconds) {
+        [callback callWithArguments:@[ [NSNumber numberWithInt:sec], [NSNumber numberWithInt:totalSeconds]]];
+    }];
+}
++ (void)soundPause{
+    [[DevilSound sharedInstance] pause];
+}
++ (void)soundStop{
+    [[DevilSound sharedInstance] stop];
+}
++ (void)soundResume{
+    [[DevilSound sharedInstance] resume];
+}
++ (void)soundMove:(int)sec{
+    [[DevilSound sharedInstance] move:sec];
+}
++ (void)soundSpeed:(NSString*)speed{
+    [[DevilSound sharedInstance] speed:[speed floatValue]];
+}
++ (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback{
+    
+}
++ (void)getLocation:(NSDictionary*)param :(JSValue*)callback{
+    
 }
 @end
