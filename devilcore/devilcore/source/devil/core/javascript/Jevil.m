@@ -574,4 +574,11 @@
 + (void)getLocation:(NSDictionary*)param :(JSValue*)callback{
     
 }
+
++ (void)setText:(NSString*)node :(NSString*)text {
+    id meta = [JevilInstance currentInstance].meta;
+    WildCardUIView* vv = (WildCardUIView*)[meta getView:node];
+    UILabel* l = [vv subviews][0];
+    l.text = text;
+}
 @end
