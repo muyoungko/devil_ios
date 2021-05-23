@@ -65,6 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback;
 + (void)getLocation:(NSDictionary*)param :(JSValue*)callback;
 + (void)setText:(NSString*)node :(NSString*)text;
++ (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback;
++ (void)getCurrentPlace:(NSDictionary*)param :(JSValue*)callback;
++ (void)searchPlace:(NSDictionary*)param :(JSValue*)callback;
+
 @end
 
 @interface Jevil : NSObject <Jevil>

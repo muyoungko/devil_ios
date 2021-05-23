@@ -24,6 +24,7 @@
 #import "WildCardUITextField.h"
 #import "DevilSound.h"
 #import "DevilSpeech.h"
+#import "DevilLocation.h"
 
 @interface Jevil()
 
@@ -571,9 +572,6 @@
         [callback callWithArguments:@[ text ]];
     }];
 }
-+ (void)getLocation:(NSDictionary*)param :(JSValue*)callback{
-    
-}
 
 + (void)setText:(NSString*)node :(NSString*)text {
     id meta = [JevilInstance currentInstance].meta;
@@ -581,4 +579,24 @@
     UILabel* l = [vv subviews][0];
     l.text = text;
 }
+
++ (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback{
+    [[DevilLocation sharedInstance] getCurrentLocation:^(id  _Nonnull result) {
+        [callback callWithArguments:@[ result ]];
+    }];
+}
+
++ (void)getCurrentPlace:(NSDictionary*)param :(JSValue*)callback {
+    [[DevilLocation sharedInstance] getCurrentPlace:^(id  _Nonnull result) {
+        [callback callWithArguments:@[ result ]];
+    }];
+}
+
++ (void)searchPlace:(NSDictionary*)param :(JSValue*)callback {
+    [[DevilLocation sharedInstance] search:param[@"keyword"] :^(id  _Nonnull result) {
+        [callback callWithArguments:@[ result ]];
+    }];
+}
+
+
 @end

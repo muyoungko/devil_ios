@@ -184,6 +184,8 @@
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
 		6DF53B682657F854001FB1D6 /* DevilSpeech.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B662657F854001FB1D6 /* DevilSpeech.m */; };
+		6DF53B6E2658F3D3001FB1D6 /* DevilLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B6C2658F3D3001FB1D6 /* DevilLocation.h */; };
+		6DF53B6F2658F3D3001FB1D6 /* DevilLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B6D2658F3D3001FB1D6 /* DevilLocation.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -367,6 +369,8 @@
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
 		6DF53B662657F854001FB1D6 /* DevilSpeech.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSpeech.m; sourceTree = "<group>"; };
+		6DF53B6C2658F3D3001FB1D6 /* DevilLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLocation.h; sourceTree = "<group>"; };
+		6DF53B6D2658F3D3001FB1D6 /* DevilLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLocation.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -485,6 +489,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DF53B6B2658F3C5001FB1D6 /* location */,
 				6DF53B642657F846001FB1D6 /* speech */,
 				6DF53B5D2657CFE9001FB1D6 /* sound */,
 				6DDAC6C226109A2B00E76300 /* camera */,
@@ -739,6 +744,15 @@
 			path = speech;
 			sourceTree = "<group>";
 		};
+		6DF53B6B2658F3C5001FB1D6 /* location */ = {
+			isa = PBXGroup;
+			children = (
+				6DF53B6C2658F3D3001FB1D6 /* DevilLocation.h */,
+				6DF53B6D2658F3D3001FB1D6 /* DevilLocation.m */,
+			);
+			path = location;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -764,6 +778,7 @@
 				6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */,
 				6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */,
 				6D9F7B102629658F003A70EC /* UIImage+PECrop.h in Headers */,
+				6DF53B6E2658F3D3001FB1D6 /* DevilLocation.h in Headers */,
 				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
 				6D9F7B0D2629658F003A70EC /* PEResizeControl.h in Headers */,
@@ -1020,6 +1035,7 @@
 				6D9F7B0F2629658F003A70EC /* PECropRectView.m in Sources */,
 				6D467AB6256AB07A006D57DD /* WildCardViewPagerRightAction.m in Sources */,
 				6D44337025881C3800B0E616 /* Jevil.m in Sources */,
+				6DF53B6F2658F3D3001FB1D6 /* DevilLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
