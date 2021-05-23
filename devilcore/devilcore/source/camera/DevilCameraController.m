@@ -350,6 +350,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [self.takenLayer addSubview:self.takenImageView];
     
     self.cropView = [[PECropView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+    self.cropView.ratio = self.ratio;
+    self.cropView.keepingCropAspectRatio = YES;
     [self.takenLayer addSubview:self.cropView];
     
     self.btnBack1 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel1:) :UIColorFromRGB(0xff0000) :self.takenLayer];

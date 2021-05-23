@@ -26,12 +26,12 @@
             if([param[@"hasVideo"] boolValue]){
                 [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL recordGranted) {
                     if(recordGranted)
-                        [DevilCamera goCamera:vc callback:callback];
+                        [DevilCamera goCamera:vc param:param callback:callback];
                     else
                         callback(nil);
                 }];
             } else {
-                [DevilCamera goCamera:vc callback:callback];
+                [DevilCamera goCamera:vc param:param callback:callback];
             }
         } else {
             callback(nil);
@@ -39,10 +39,11 @@
     }];
 }
 
-+ (void)goCamera:(UIViewController*)vc callback:(void (^)(id res))callback {
++ (void)goCamera:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback {
     dispatch_async(dispatch_get_main_queue(), ^{
         DevilCameraController* dc = [[DevilCameraController alloc] init];
         DevilCamera *c = [[DevilCamera alloc] init];
+        dc.param = param;
         c.callback = callback;
         dc.delegate = c;
         

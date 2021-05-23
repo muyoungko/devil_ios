@@ -12,6 +12,8 @@
 
 @interface PECropView : UIView
 
+@property (nonatomic) CGFloat ratio;
+
 @property (nonatomic) UIImage *image;
 @property (nonatomic, readonly) UIImage *croppedImage;
 @property (nonatomic, readonly) CGRect zoomedCropRect;

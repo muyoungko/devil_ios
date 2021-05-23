@@ -188,7 +188,7 @@ static const CGFloat MarginLeft = 0.0f;
     CGRect cropRect = AVMakeRectWithAspectRatioInsideRect(self.image.size, self.insetRect);
     
     float sw = [UIScreen mainScreen].bounds.size.width;
-    cropRect = CGRectMake(0,self.frame.size.height/2 - sw/2, sw, sw);
+    cropRect = CGRectMake(0,self.frame.size.height/2 - (sw*self.ratio)/2, sw, sw*self.ratio);
     self.scrollView.frame = cropRect;
     
 //    float contentH = sw * self.image.size.height / self.image.size.width;
@@ -218,11 +218,11 @@ static const CGFloat MarginLeft = 0.0f;
     [self.zoomingView addSubview:self.imageView];
     
     float zoomScale = 1;
-    if(self.image.size.width > self.image.size.height){
-        zoomScale = self.image.size.width / self.image.size.height;
-    } else {
-        zoomScale = self.image.size.height / self.image.size.width;
-    }
+//    if(self.image.size.width > self.image.size.height){
+//        zoomScale = self.image.size.width / self.image.size.height;
+//    } else {
+//        zoomScale = self.image.size.height / self.image.size.width;
+//    }
     
     self.scrollView.zoomScale = zoomScale;
     self.scrollView.minimumZoomScale = zoomScale;
@@ -355,7 +355,7 @@ static const CGFloat MarginLeft = 0.0f;
     CGRect cropRect = [self convertRect:self.scrollView.frame toView:self.zoomingView];
     CGSize size = self.image.size;
     
-    CGFloat ratio = 1.0f;
+    CGFloat ratio = self.ratio;
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad || UIInterfaceOrientationIsPortrait(orientation)) {
         ratio = CGRectGetWidth(AVMakeRectWithAspectRatioInsideRect(self.image.size, self.insetRect)) / size.width;
@@ -534,10 +534,10 @@ static const CGFloat MarginLeft = 0.0f;
     return YES;
 }
 
-//- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
-//{
-//    return self.zoomingView;
-//}
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.zoomingView;
+}
 
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
@@ -548,21 +548,21 @@ static const CGFloat MarginLeft = 0.0f;
 {
     float imageRatio = self.image.size.height / self.image.size.width;
     
-    if(imageRatio > 1.0f) {
-        float sw = [UIScreen mainScreen].bounds.size.width;
-        float contentH = sw * self.image.size.height / self.image.size.width;
-        float limitX = (contentH - sw) / 2.0f;
-        CGPoint contentOffset = scrollView.contentOffset;
-        contentOffset.x = limitX;
-        *targetContentOffset = contentOffset;
-    } else if(imageRatio < 1.0f){
-        float sw = [UIScreen mainScreen].bounds.size.width;
-        float contentW = sw * self.image.size.width / self.image.size.height;
-        float limitY = (contentW - sw) / 2.0f;
-        CGPoint contentOffset = scrollView.contentOffset;
-        contentOffset.y = limitY;
-        *targetContentOffset = contentOffset;
-    }
+//    if(imageRatio > 1.0f) {
+//        float sw = [UIScreen mainScreen].bounds.size.width;
+//        float contentH = sw * self.image.size.height / self.image.size.width;
+//        float limitX = (contentH - sw) / 2.0f;
+//        CGPoint contentOffset = scrollView.contentOffset;
+//        contentOffset.x = limitX;
+//        *targetContentOffset = contentOffset;
+//    } else if(imageRatio < 1.0f){
+//        float sw = [UIScreen mainScreen].bounds.size.width;
+//        float contentW = sw * self.image.size.width / self.image.size.height;
+//        float limitY = (contentW - sw) / 2.0f;
+//        CGPoint contentOffset = scrollView.contentOffset;
+//        contentOffset.y = limitY;
+//        *targetContentOffset = contentOffset;
+//    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
