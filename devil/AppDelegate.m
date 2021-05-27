@@ -18,6 +18,7 @@
 #import "Lang.h"
 #import "JulyUtil.h"
 #import "DeepLink.h"
+#import "DevilNaverLoginCallback.h"
 
 @import CoreData;
 @import GoogleMobileAds;
@@ -28,6 +29,7 @@
 @interface AppDelegate ()<DevilGoogleLoginDelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
+@property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
 
 @end
 
@@ -170,6 +172,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [self.window makeKeyAndVisible];
         
     [DevilGoogleLogin sharedInstance].delegate = self;
+    self.devilNaverLoginCallback = [[DevilNaverLoginCallback alloc] init];
+    [DevilNaverLogin sharedInstance].delegate = self.devilNaverLoginCallback;
+    
     return YES;
 }
 

@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)loginFacebook:(JSValue *)callback;
 + (void)loginGoogle:(JSValue *)callback;
 + (void)loginApple:(JSValue *)callback;
++ (void)loginNaver:(JSValue *)callback;
 + (BOOL)isLogin;
 + (void)logout;
 @end

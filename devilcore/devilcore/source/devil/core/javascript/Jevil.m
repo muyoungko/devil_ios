@@ -545,7 +545,11 @@
 }
 
 + (void)sound:(NSDictionary*)param{
-    [[DevilSound sharedInstance] sound:param];
+    @try {
+        [[DevilSound sharedInstance] sound:param];
+    } @catch (NSException *exception) {
+        //TODO
+    }
 }
 + (void)soundTick:(JSValue*)callback{
     [[DevilSound sharedInstance] setTickCallback:^(int sec, int totalSeconds) {

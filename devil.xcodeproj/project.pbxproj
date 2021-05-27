@@ -37,6 +37,7 @@
 		6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
+		6DAAD9DE265FF8BA00FE5682 /* DevilNaverLoginCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */; };
 		6DDAC3B9260C89F400E76300 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDAC3B8260C89F400E76300 /* Test.swift */; };
 		8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D980CABA3AA49A94779F5B1B /* Pods_devil.framework */; };
 /* End PBXBuildFile section */
@@ -106,6 +107,8 @@
 		6D467AED256AB1B0006D57DD /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D467B68257A2E17006D57DD /* refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@3x.png"; sourceTree = "<group>"; };
 		6D52E6102619988700935D3A /* devil.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = devil.plist; sourceTree = "<group>"; };
+		6DAAD9DC265FF8BA00FE5682 /* DevilNaverLoginCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNaverLoginCallback.h; sourceTree = "<group>"; };
+		6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNaverLoginCallback.m; sourceTree = "<group>"; };
 		6DDAC3B8260C89F400E76300 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -211,6 +214,8 @@
 				6D467A33256AAE11006D57DD /* devil-Bridging-Header.h */,
 				6DDAC3B8260C89F400E76300 /* Test.swift */,
 				6D52E6102619988700935D3A /* devil.plist */,
+				6DAAD9DC265FF8BA00FE5682 /* DevilNaverLoginCallback.h */,
+				6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */,
 			);
 			path = devil;
 			sourceTree = "<group>";
@@ -278,6 +283,7 @@
 				6DF137F120D7469A00071B9F /* Resources */,
 				6D467998256A174F006D57DD /* Embed Frameworks */,
 				90C1459DF985B60673C2E7E4 /* [CP] Copy Pods Resources */,
+				92F52C5A9793923DD09FA825 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -383,6 +389,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		92F52C5A9793923DD09FA825 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
+				"${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -404,6 +428,7 @@
 				6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */,
 				6D4678CD2567B1E2006D57DD /* MainController.m in Sources */,
 				6D132BA0255E6E0F00004E1F /* HttpUtil.mm in Sources */,
+				6DAAD9DE265FF8BA00FE5682 /* DevilNaverLoginCallback.m in Sources */,
 				6D4678E12567D46D006D57DD /* FirstController.m in Sources */,
 				6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */,
 				6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */,
@@ -540,6 +565,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
+					"$(PROJECT_DIR)/naver/thirdPartyModule",
 				);
 				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
@@ -576,6 +602,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
+					"$(PROJECT_DIR)/naver/thirdPartyModule",
 				);
 				MARKETING_VERSION = 0.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;

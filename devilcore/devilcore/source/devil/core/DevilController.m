@@ -88,7 +88,7 @@
         self.original_footer_height = self.footer.frame.size.height;
         
         [WildCardConstructor applyRule:self.footer withData:self.data];
-        self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 20; //5정도 차이가 난다(왜일까...)
+        self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 22; //5정도 차이가 난다(왜일까...)
         
         int footerY = screenHeight - self.footer.frame.size.height - 25;
         int footerHeight = self.footer.frame.size.height + 25;

@@ -34,6 +34,12 @@
 				<string>fb755378721718919</string>
 			</array>
 		</dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>naver0ZBWpGRYSDKcn6mJCNXF</string>
+            </array>
+        </dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
@@ -82,6 +88,8 @@
 		<string>kakaolink</string>
 		<string>kakaotalk-5.9.7</string>
 		<string>storylink</string>
+        <string>naversearchapp</string>
+        <string>naversearchthirdlogin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

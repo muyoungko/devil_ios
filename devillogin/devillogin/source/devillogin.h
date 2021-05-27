@@ -10,6 +10,7 @@
 #import "JevilLogin.h"
 #import "DevilLoginSdk.h"
 #import "DevilGoogleLogin.h"
+#import "DevilNaverLogin.h"
 
 //! Project version number for devillogin.
 FOUNDATION_EXPORT double devilloginVersionNumber;

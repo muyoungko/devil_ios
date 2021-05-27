@@ -267,6 +267,7 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - naveridlogin-sdk-ios (4.1.3)
   - PromisesObjC (1.2.12)
 
 DEPENDENCIES:
@@ -284,6 +285,7 @@ DEPENDENCIES:
   - GoogleToolboxForMac
   - KakaoSDK
   - lottie-ios (~> 2.5.3)
+  - naveridlogin-sdk-ios
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -323,6 +325,7 @@ SPEC REPOS:
     - KakaoSDKUser
     - lottie-ios
     - nanopb
+    - naveridlogin-sdk-ios
     - PromisesObjC
 
 SPEC CHECKSUMS:
@@ -362,8 +365,9 @@ SPEC CHECKSUMS:
   KakaoSDKUser: 11955811d99d1ff1f1dfd5428afe69937e31ccef
   lottie-ios: a50d5c0160425cd4b01b852bb9578963e6d92d31
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  naveridlogin-sdk-ios: b9d7c20677981177ed994ecb1c8c2b49f223277d
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
 
-PODFILE CHECKSUM: 8d735698705efdb69bf8681381d33ec599734710
+PODFILE CHECKSUM: 13d70165e33d149901aa477a6b527b9fc7a23803
 
 COCOAPODS: 1.10.1

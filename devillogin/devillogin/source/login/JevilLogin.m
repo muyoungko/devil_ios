@@ -10,6 +10,7 @@
 #import "DevilFacebook.h"
 #import "DevilGoogleLogin.h"
 #import "DevilAppleLogin.h"
+#import "DevilNaverLogin.h"
 
 @import devilcore;
 
@@ -67,6 +68,20 @@
         } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];
     }];
+}
+
++ (void)loginNaver:(JSValue *)callback{
+    [[DevilNaverLogin sharedInstance] loginWithComplete:[JevilInstance currentInstance].vc callback:^(id  _Nonnull user) {
+        if(user !=nil) {
+            user[@"r"] = @TRUE;
+            user[@"type"] = @"naver";
+            user[@"identifier"] = user[@"id"];
+            [user removeObjectForKey:@"id"];
+            [callback callWithArguments:@[user]];
+        } else
+            [callback callWithArguments:@[@{@"r":@FALSE}]];
+    }];
+    
 }
 
 + (BOOL)isLogin{

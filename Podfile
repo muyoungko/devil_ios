@@ -37,6 +37,7 @@ target 'devil' do
   pod 'GoogleSignIn', '~> 5.0'
   pod 'GoogleToolboxForMac'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'naveridlogin-sdk-ios'
 end
 
 

@@ -8,6 +8,7 @@
 #import "DevilLoginSdk.h"
 #import "DevilFacebook.h"
 #import "DevilGoogleLogin.h"
+#import "DevilNaverLogin.h"
 #import <devillogin/devillogin-Swift.h>
 #import "JevilLogin.h"
 
@@ -51,6 +52,11 @@
     if(devilConfig[@"hasGoogleLogin"] &&
        [DevilGoogleLogin application:application openURL:url options:options])
         return true;
+    
+    if(devilConfig[@"hasNaverLogin"] &&
+       [DevilNaverLogin application:application openURL:url options:options])
+        return true;
+    
     return false;
 }
 

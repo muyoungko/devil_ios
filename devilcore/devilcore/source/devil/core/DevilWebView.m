@@ -41,6 +41,15 @@
     NSLog(@"%@",navigationAction.request.URL.absoluteString);
     NSString* url = navigationAction.request.URL.absoluteString;
     NSString* scheme = navigationAction.request.URL.scheme;
+    
+    if([navigationAction.request.URL.absoluteString hasPrefix:@"itms-apps"]){
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+        decisionHandler(WKNavigationActionPolicyCancel);
+        return;
+    }
+
     decisionHandler(WKNavigationActionPolicyAllow+2);
 }
 
