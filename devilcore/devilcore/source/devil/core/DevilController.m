@@ -168,6 +168,10 @@
     if(self.hasOnResume){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
     }
+    
+    [JevilInstance currentInstance].vc = self;
+//    [JevilInstance currentInstance].data = self.data;
+//    [JevilInstance currentInstance].jscontext = self.jevil;
 }
 
 - (void)startLoading{
@@ -222,7 +226,7 @@
 }
 
 - (void)cellUpdated:(int)index view:(WildCardUIView *)v{
-    
+    _mainWc = v;
 }
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{

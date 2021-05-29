@@ -11,6 +11,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilWebView : WKWebView< WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
 
+@property BOOL (^shouldOverride)(NSString* url);
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -48,9 +48,14 @@
         }];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
-    }
-
-    decisionHandler(WKNavigationActionPolicyAllow+2);
+    } else if(self.shouldOverride != nil){
+        BOOL r = self.shouldOverride(url);
+        if(r)
+            decisionHandler(WKNavigationActionPolicyCancel);
+        else
+            decisionHandler(WKNavigationActionPolicyAllow+2);
+    } else
+        decisionHandler(WKNavigationActionPolicyAllow+2);
 }
 
 

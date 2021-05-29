@@ -25,6 +25,7 @@
 #import "DevilSound.h"
 #import "DevilSpeech.h"
 #import "DevilLocation.h"
+#import "DevilWebView.h"
 
 @interface Jevil()
 
@@ -250,6 +251,10 @@
 }
 
 + (void)uploadS3:(NSArray*)paths :(JSValue *)callback{
+    if([paths count] == 0) {
+        [callback callWithArguments:@[@{@"r":@TRUE, @"uploadedFile":@[]}]];
+        return;
+    }
     
     id header = [@{} mutableCopy];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
@@ -582,6 +587,22 @@
     WildCardUIView* vv = (WildCardUIView*)[meta getView:node];
     UILabel* l = [vv subviews][0];
     l.text = text;
+}
+
++ (void)webLoad:(NSString*)node :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(vc.mainWc != nil) {
+        WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+        DevilWebView* web = [vv subviews][0];
+        web.shouldOverride = ^BOOL(NSString * _Nonnull url) {
+            JSValue* r = [callback callWithArguments:@[url]];
+            return [r toBool];
+        };
+    }
+}
+
++ (void)isWifi:(JSValue *)callback {
+    [callback callWithArguments:@[@TRUE]];
 }
 
 + (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback{

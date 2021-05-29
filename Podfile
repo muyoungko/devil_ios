@@ -24,7 +24,7 @@ target 'devil' do
   
   lottie_libs
  
-  pod 'AFNetworking','~>4.0.1'
+  pod 'AFNetworking','~>4.0'
   
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
