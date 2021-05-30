@@ -334,8 +334,18 @@
     
     WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];
     [WildCardConstructor applyRule:v withData:item];
+    
+    if(self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
+        self.lastItemCallback(nil);
+    }
+    
     return cell;
 }
 
 
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if(self.draggedCallback != nil) {
+        self.draggedCallback(nil);
+    }
+}
 @end

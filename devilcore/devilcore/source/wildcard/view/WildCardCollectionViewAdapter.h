@@ -34,10 +34,13 @@ typedef void (^ ViewPagerSelected)(int);
 @property (nonatomic, retain) UIPageControl* pageControl;
 
 @property (nonatomic, retain) NSMutableDictionary* cachedViewByType;
-
 @property (nonatomic, retain) NSString* repeatType;
 
+@property void (^lastItemCallback)(id res);
+@property void (^draggedCallback)(id res);
+
 -(void)addViewPagerSelected:(ViewPagerSelected)func;
+
 -(int)getIndex;
 -(int)getCount;
 -(void)scrollToIndex:(int)index view:(UICollectionView*)c;

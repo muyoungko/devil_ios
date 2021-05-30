@@ -41,6 +41,7 @@
 }
 
 - (void)setPreview:(NSString*)ppath video:(NSString*)vpath{
+    NSLog(@"ppath - %@", ppath);
     _playerViewController.player = nil;
     if(vpath != nil) {
         _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];

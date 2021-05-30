@@ -544,7 +544,10 @@
             thisNode.userInteractionEnabled = YES;
             [WildCardConstructor applyRule:thisNode withData:[targetDataJson objectAtIndex:i]];
             
-            float thisWidth = [self measureTagWidth:thisNode];
+            int padding = 0;
+            if(arrayContent[@"tagPadding"])
+                padding = [WildCardConstructor convertSketchToPixel:[arrayContent[@"tagPadding"] intValue]];
+            float thisWidth = padding + [self measureTagWidth:thisNode] + padding;
             [self fitTagWidth:thisNode :thisWidth];
             
             float thisHeight = [self getLayerHeight:thisLayer];
@@ -574,6 +577,8 @@
 
 -(void)fitTagWidth:(UIView*)vv :(int)width {
     vv.frame = CGRectMake(vv.frame.origin.x, vv.frame.origin.y, width, vv.frame.size.height);
+    if([vv isMemberOfClass:[UILabel class]])
+        ((UILabel*)vv).textAlignment = UITextAlignmentCenter;
     for(int i=0;i<[[vv subviews] count];i++){
         UIView* child = [vv subviews][i];
         [self fitTagWidth:child:width];
@@ -587,7 +592,7 @@
         UIFont* font = tv.font;
         NSDictionary *attributes = @{NSFontAttributeName: font};
         CGRect size = [tv.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-        textWidth = 17 + size.size.width + 17;
+        textWidth = size.size.width;
     }
     
     for(int i=0;i<[[vv subviews] count];i++){

@@ -601,6 +601,32 @@
     }
 }
 
++ (void)scrollDragged:(NSString*)node :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(vc.mainWc != nil) {
+        WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+        UICollectionView* c = [vv subviews][0];
+        WildCardCollectionViewAdapter* adapter = c.delegate;
+        [adapter setDraggedCallback:^(id res) {
+            [callback callWithArguments:@[]];
+        }];
+    }
+}
+
++ (void)scrollEnd:(NSString*)node :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(vc.mainWc != nil) {
+        WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+        UICollectionView* c = [vv subviews][0];
+        WildCardCollectionViewAdapter* adapter = c.delegate;
+        [adapter setLastItemCallback:^(id res) {
+            [callback callWithArguments:@[]];
+        }];
+    }
+}
+
+
+
 + (void)isWifi:(JSValue *)callback {
     [callback callWithArguments:@[@TRUE]];
 }
