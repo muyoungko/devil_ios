@@ -165,13 +165,19 @@
         [self.jevil code:acode viewController:self data:self.data meta:nil];
     }
     
+    [JevilInstance currentInstance].vc = self;
+    
+    [self performSelector:@selector(onResume) withObject:nil afterDelay:0.01f];
+    
+    
+//    [JevilInstance currentInstance].data = self.data;
+//    [JevilInstance currentInstance].jscontext = self.jevil;
+}
+
+-(void)onResume {
     if(self.hasOnResume){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
     }
-    
-    [JevilInstance currentInstance].vc = self;
-//    [JevilInstance currentInstance].data = self.data;
-//    [JevilInstance currentInstance].jscontext = self.jevil;
 }
 
 - (void)startLoading{

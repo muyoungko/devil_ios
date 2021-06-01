@@ -43,7 +43,7 @@
 - (void)naverLoginSuccess:(BOOL)success userId:(NSString*)userId name:(NSString*)name profile:(NSString*)profile email:(NSString*)email token:(NSString*)token{
     if(success){
         id r = [@{} mutableCopy];
-        r[@"id"] = userId;
+        r[@"identifier"] = userId;
         r[@"name"] = name;
         r[@"profile"] = profile;
         r[@"email"] = email;

@@ -48,7 +48,7 @@
         NSString *token = [NSString stringWithFormat:@"%@", appleIDCredential.identityToken];
         
         id r = [@{} mutableCopy];
-        r[@"id"] = identifier;
+        r[@"identifier"] = identifier;
         r[@"name"] = appleIDCredential.fullName.familyName? appleIDCredential.fullName.familyName:@"apple";
         r[@"profile"] = @"";
         r[@"email"] = appleIDCredential.email? appleIDCredential.email : @"";

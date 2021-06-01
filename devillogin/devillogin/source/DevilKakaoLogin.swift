@@ -74,7 +74,7 @@ public class DevilKakaoLogin: NSObject {
                         
                         let r: NSMutableDictionary = NSMutableDictionary()
                         //r["id"] = String(describing:user?.id)
-                        r["id"] = String(format: "%d", user?.id as! CVarArg)
+                        r["identifier"] = String(format: "%d", user?.id as! CVarArg)
                         r["name"] = user?.kakaoAccount?.profile?.nickname
                         r["profile"] = user?.kakaoAccount?.profile?.thumbnailImageUrl?.absoluteString
                         r["email"] = user?.kakaoAccount?.email

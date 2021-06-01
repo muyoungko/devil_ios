@@ -22,7 +22,7 @@
                  if (!error) {
                      __block NSString* no = result[@"id"];
                      id r = [@{} mutableCopy];
-                     r[@"id"] = result[@"id"];
+                     r[@"identifier"] = result[@"id"];
                      r[@"name"] = result[@"name"];
                      r[@"profile"] = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture?type=square", no];
                      r[@"email"] = result[@"email"];

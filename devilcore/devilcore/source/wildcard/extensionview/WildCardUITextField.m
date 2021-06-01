@@ -19,6 +19,10 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+@interface WildCardUITextField()
+@property (nonatomic, retain) NSString* lastText;
+@end
+
 @implementation WildCardUITextField
 
 +(WildCardUITextField*)create:(id)layer meta:(WildCardMeta*)meta {
@@ -150,6 +154,11 @@
             b.hidden = YES;
     }
     [_meta.correspondData setObject:[textField text] forKey:_holder];
+    
+    if(self.textChangedCallback != nil && ![[textField text] isEqualToString:self.lastText]) {
+        self.lastText = [textField text];
+        self.textChangedCallback([textField text]);
+    }
 }
 
 -(void)clearAll:(id)sender
@@ -172,13 +181,24 @@
     [_meta.correspondData setObject:[textField text] forKey:_holder];
     return YES;
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    if(self.textFocusChangedCallback != nil) {
+        self.textFocusChangedCallback(true);
+    }
+}
+
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [_meta.correspondData setObject:[textField text] forKey:_holder];
+    if(self.textFocusChangedCallback != nil) {
+        self.textFocusChangedCallback(false);
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     NSLog(@"touches begin - TextField input");
 }
+
 @end

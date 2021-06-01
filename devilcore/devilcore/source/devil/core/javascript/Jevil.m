@@ -26,6 +26,7 @@
 #import "DevilSpeech.h"
 #import "DevilLocation.h"
 #import "DevilWebView.h"
+#import "WildCardUITextView.h"
 
 @interface Jevil()
 
@@ -622,6 +623,44 @@
         [adapter setLastItemCallback:^(id res) {
             [callback callWithArguments:@[]];
         }];
+    }
+}
+
++ (void)textChanged:(NSString*)node :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(vc.mainWc != nil) {
+        WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+        id o = [vv subviews][0];
+        if([o isMemberOfClass:[WildCardUITextField class]]) {
+            WildCardUITextField* c = o;
+            c.textChangedCallback = ^(NSString * _Nonnull text) {
+                [JevilInstance currentInstance].meta = vc.mainWc.meta;
+                [[JevilInstance currentInstance] pushData];
+                [callback callWithArguments:@[text]];
+            };
+        } else {
+            WildCardUITextView* c = o;
+            //TODO
+        }
+    }
+}
+
++ (void)textFocusChanged:(NSString*)node :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(vc.mainWc != nil) {
+        WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+        id o = [vv subviews][0];
+        if([o isMemberOfClass:[WildCardUITextField class]]) {
+            WildCardUITextField* c = o;
+            c.textFocusChangedCallback = ^(BOOL focus) {
+                [JevilInstance currentInstance].meta = vc.mainWc.meta;
+                [[JevilInstance currentInstance] pushData];
+                [callback callWithArguments:@[(focus?@TRUE:@FALSE)]];
+            };
+        } else {
+            WildCardUITextView* c = o;
+            //TODO
+        }
     }
 }
 

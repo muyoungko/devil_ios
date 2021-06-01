@@ -22,10 +22,8 @@
         if(user != nil) {
             user[@"r"] = @TRUE;
             user[@"type"] = @"kakao";
-            user[@"identifier"] = user[@"id"];
             user[@"age"] = user[@"age_range"];
             [user removeObjectForKey:@"age_ranage"];
-            [user removeObjectForKey:@"id"];
             [callback callWithArguments:@[user]];
         } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];
@@ -36,8 +34,7 @@
         if(user !=nil) {
             user[@"r"] = @TRUE;
             user[@"type"] = @"fb";
-            user[@"identifier"] = user[@"id"];
-            [user removeObjectForKey:@"id"];
+            user[@"identifier"] = user[@"identifier"];
             [callback callWithArguments:@[user]];
         } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];
@@ -49,8 +46,7 @@
         if(user !=nil) {
             user[@"r"] = @TRUE;
             user[@"type"] = @"google";
-            user[@"identifier"] = user[@"id"];
-            [user removeObjectForKey:@"id"];
+            user[@"identifier"] = user[@"identifier"];
             [callback callWithArguments:@[user]];
         } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];
@@ -62,8 +58,7 @@
         if(user !=nil) {
             user[@"r"] = @TRUE;
             user[@"type"] = @"apple";
-            user[@"identifier"] = user[@"id"];
-            [user removeObjectForKey:@"id"];
+            user[@"identifier"] = user[@"identifier"];
             [callback callWithArguments:@[user]];
         } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];
@@ -75,8 +70,6 @@
         if(user !=nil) {
             user[@"r"] = @TRUE;
             user[@"type"] = @"naver";
-            user[@"identifier"] = user[@"id"];
-            [user removeObjectForKey:@"id"];
             [callback callWithArguments:@[user]];
         } else
             [callback callWithArguments:@[@{@"r":@FALSE}]];

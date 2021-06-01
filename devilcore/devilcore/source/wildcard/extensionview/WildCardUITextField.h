@@ -25,6 +25,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)doneClick;
 
+@property void (^textChangedCallback)(NSString* text);
+@property void (^textFocusChangedCallback)(BOOL focus);
+
 @end
 
 NS_ASSUME_NONNULL_END

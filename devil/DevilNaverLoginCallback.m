@@ -67,7 +67,7 @@
         @"Authorization": [NSString stringWithFormat:@"Bearer %@",token]
     };
     [JulyUtil request:@"https://openapi.naver.com/v1/nid/me" header:header complete:^(id  _Nonnull json) {
-        id r = r[@"response"];
+        id r = json[@"response"];
         __block NSString* email = r[@"email"];
         __block NSString* no = r[@"id"];
         __block NSString* name = r[@"name"];

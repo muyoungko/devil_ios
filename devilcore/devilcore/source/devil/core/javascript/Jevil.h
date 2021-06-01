@@ -68,6 +68,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)webLoad:(NSString*)node :(JSValue *)callback;
 + (void)scrollDragged:(NSString*)node :(JSValue *)callback;
 + (void)scrollEnd:(NSString*)node :(JSValue *)callback;
++ (void)textChanged:(NSString*)node :(JSValue *)callback;
++ (void)textFocusChanged:(NSString*)node :(JSValue *)callback;
 + (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback;
 + (void)getCurrentPlace:(NSDictionary*)param :(JSValue*)callback;
 + (void)searchPlace:(NSDictionary*)param :(JSValue*)callback;

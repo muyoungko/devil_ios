@@ -162,7 +162,9 @@
             }
             WildCardUITextField* dt = (WildCardUITextField*)[rule.replaceView subviews][0];
             NSString* select3 = extension[@"select3"];
-            dt.text = opt[select3];
+            NSString* text = opt[select3];
+            if(![dt.text isEqualToString:text])
+                dt.text = text;
             break;
         }
         case WILDCARD_EXTENSION_TYPE_STAR_RATING:
