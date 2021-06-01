@@ -40,13 +40,71 @@
     return self;
 }
 
++ (id)sharedMap {
+    static id sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [@{} mutableCopy];
+    });
+    return sharedInstance;
+}
+
++(void)registView:(WildCardVideoView*)v {
+    NSString* key = [NSString stringWithFormat:@"%@", v];
+    key = [key componentsSeparatedByString:@" "][1];
+    [WildCardVideoView sharedMap][key] = v;
+}
+
++(void)unregistView:(WildCardVideoView*)v {
+    NSString* key = [NSString stringWithFormat:@"%@", v];
+    key = [key componentsSeparatedByString:@" "][1];
+    [[WildCardVideoView sharedMap] removeObjectForKey:key];
+}
+
++(void)autoPlay {
+    id m = [WildCardVideoView sharedMap];
+    id d = [m allKeys];
+    CGRect s = [[UIScreen mainScreen] bounds];
+    int sw = s.size.width;
+    int sh = s.size.height;
+    int fy = (sh - sw)/2;
+    int ty = (sh + sw)/2;
+    NSString* activeKey = nil;
+    for(id k in d) {
+        WildCardVideoView* v = m[k];
+        if(v.autoPlay && v.videoPath != nil){
+            CGRect r = [v.superview convertRect:v.frame toView:nil];
+            int y = r.origin.y + r.size.height/2;
+            if(fy < y & y < ty) {
+                [v play];
+                activeKey = k;
+                break;
+            }
+        }
+    }
+    
+    for(id k in d) {
+        WildCardVideoView* v = m[k];
+        if(![k isEqualToString:activeKey])
+            [v stop];
+    }
+}
+
+- (void)didMoveToWindow {
+    if (self.window == nil) {
+        [WildCardVideoView unregistView:self];
+    }
+}
+
 - (void)setPreview:(NSString*)ppath video:(NSString*)vpath{
     NSLog(@"ppath - %@", ppath);
     _playerViewController.player = nil;
     if(vpath != nil) {
         _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
-        _playerViewController.view.hidden = NO;
-        [_playerViewController.player play];
+        if(self.autoPlay){
+            [WildCardVideoView registView:self];
+        }
+            
     } else {
         _playerViewController.view.hidden = YES;
         self.imageView.hidden = NO;
@@ -70,8 +128,10 @@
 
 -(void)play{
     self.imageView.hidden = YES;
-    if(_playerViewController.player != nil)
+    if(_playerViewController.player != nil) {
+        _playerViewController.view.hidden = NO;
         [_playerViewController.player play];
+    }
 }
 
 -(void)stop{

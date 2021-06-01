@@ -27,6 +27,7 @@
 #import "DevilLocation.h"
 #import "DevilWebView.h"
 #import "WildCardUITextView.h"
+#import "WildCardVideoView.h"
 
 @interface Jevil()
 
@@ -664,7 +665,9 @@
     }
 }
 
-
++ (void)videoViewAutoPlay {
+    [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
+}
 
 + (void)isWifi:(JSValue *)callback {
     [callback callWithArguments:@[@TRUE]];

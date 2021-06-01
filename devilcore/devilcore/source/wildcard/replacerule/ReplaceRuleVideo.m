@@ -27,8 +27,8 @@
     NSString* previewUrl = [MappingSyntaxInterpreter interpret:previewUrlJsonPath :opt];
     NSString* videoUrl = [MappingSyntaxInterpreter interpret:videoUrlJsonPath :opt];
     WildCardVideoView* videoView = (WildCardVideoView*)self.replaceView;
-    [videoView setPreview:previewUrl video:videoUrl];
     [videoView setAutoPlay:[@"Y" isEqualToString:autoPlay]];
+    [videoView setPreview:previewUrl video:videoUrl];
 }
 
 @end

@@ -371,6 +371,10 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.btnBack2 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel2:) :UIColorFromRGB(0xff0000) :self.recordLayer];
     self.btnComplete2 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete2:) :UIColorFromRGB(0x3cb043) :self.recordLayer];
     
+    if(_hasVideo && !_hasPicture) {
+        self.startVideo = YES;
+    }
+        
     if(_hasVideo && _startVideo){
         self.video = YES;
         [self uiRecord];

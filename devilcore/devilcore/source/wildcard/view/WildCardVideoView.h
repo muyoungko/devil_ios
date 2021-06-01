@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)setPreview:(NSString*)path video:(NSString*)path;
 -(void)play;
++(void)autoPlay;
 @property BOOL autoPlay;
 @property (nonatomic, retain) AVPlayerViewController *playerViewController;
 

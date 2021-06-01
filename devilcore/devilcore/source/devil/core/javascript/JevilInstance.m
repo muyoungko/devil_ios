@@ -7,6 +7,7 @@
 
 #import "JevilInstance.h"
 #import "JevilUtil.h"
+#import "WildCardVideoView.h"
 
 @implementation JevilInstance
 
@@ -46,4 +47,9 @@
 -(void)pushData{
     self.jscontext[@"data"] = self.data;
 }
+
+-(void)videoViewAutoPlay{
+    [WildCardVideoView autoPlay];
+}
+
 @end
