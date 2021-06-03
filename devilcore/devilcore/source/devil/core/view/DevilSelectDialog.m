@@ -206,6 +206,7 @@ alpha:1.0]
     n = item[_valueString];
     
     cell.textLabel.text = n;
+    cell.textLabel.numberOfLines = 2;
     if([k isEqualToString:self.selectedKey])
         cell.textLabel.textColor = UIColorFromRGB(0x5596E0);
     else

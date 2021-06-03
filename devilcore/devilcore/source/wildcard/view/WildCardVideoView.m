@@ -35,8 +35,6 @@
     [self addSubview:_imageView];
     [WildCardConstructor followSizeFromFather:self child:self.imageView];
     
-    
-    
     return self;
 }
 

@@ -23,19 +23,21 @@
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{
     NSMutableDictionary* colorMapping = self.replaceJsonLayer;
-    if(colorMapping[@"b"] != nil) {
+    if(colorMapping[@"b"] != nil && [colorMapping[@"b"] length] > 0) {
         NSString* jsonpath = colorMapping[@"b"];
         NSString* colorCode = [MappingSyntaxInterpreter interpret:jsonpath :opt];
-        UIColor *c = [WildCardUtil colorWithHexString:colorCode];
-        self.replaceView.backgroundColor = c;
-        WildCardUIView* v = (WildCardUIView*)self.replaceView;
-        if(v.layer.borderWidth > 0 && colorMapping[@"f"] == nil)
-            v.layer.borderColor = [c CGColor];
+        if(colorCode != nil && [colorCode length] > 0){
+            UIColor *c = [WildCardUtil colorWithHexString:colorCode];
+            self.replaceView.backgroundColor = c;
+            WildCardUIView* v = (WildCardUIView*)self.replaceView;
+            if(v.layer.borderWidth > 0 && colorMapping[@"f"] == nil)
+                v.layer.borderColor = [c CGColor];
+        }
     }
-    if(colorMapping[@"f"] != nil) {
+    if(colorMapping[@"f"] != nil && [colorMapping[@"f"] length] > 0) {
         NSString* jsonpath = colorMapping[@"f"];
         NSString* colorCode = [MappingSyntaxInterpreter interpret:jsonpath :opt];
-        if(colorCode != nil){
+        if(colorCode != nil && [colorCode length] > 0){
             UIColor *c = [WildCardUtil colorWithHexString:colorCode];
             if([self.replaceView class] == [WildCardUIView class])
             {
