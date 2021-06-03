@@ -265,6 +265,8 @@
 
 -(void)updateMeta {
     [self.tv reloadData];
+    if(self.header)
+        [self.header update];
     [WildCardConstructor applyRule:self.footer withData:self.data];
 }
 

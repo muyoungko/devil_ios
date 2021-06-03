@@ -138,7 +138,9 @@
             } else if([@"right" isEqualToString:layer_name]){
                 id layer2 = layer[@"layers"];
                 id barbuttons = [@[] mutableCopy];
-                for(id icon_layer in layer2){
+                
+                for(int j=(int)[layer2 count]-1;j>=0;j--) {
+                    id icon_layer = layer2[j];
                     NSString* name = icon_layer[@"name"];
                     if(self.barButtonByName[name] 
                         && self.meta.correspondData[@"right"] 
@@ -165,34 +167,37 @@
         NSString* name = icon_layer[@"name"];
         NSString* url = icon_layer[@"localImageContent"];
         [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
-            CGRect rect = [WildCardConstructor getFrame:icon_layer:nil];
-            WildCardUIButton *leftButton = [WildCardUIButton buttonWithType:UIButtonTypeCustom];
-            int bw = 40;
-            leftButton.frame = CGRectMake(0,0, bw, bw);
             UIImage* icon_image = [UIImage imageWithData:byte];
+            CGRect rect = [WildCardConstructor getFrame:icon_layer:nil];
+            rect.origin.y = rect.origin.x = 0;
             
-            if(rect.size.width<rect.size.height){
-                icon_image = [self imageWithImage:icon_image convertToSize:CGSizeMake(
-                    64*rect.size.width/rect.size.height, 64
-                )];
-            } else {
-                icon_image = [self imageWithImage:icon_image convertToSize:CGSizeMake(
-                    64, 64*rect.size.height/rect.size.width
-                )];
-            }
+            WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];
+            [leftButton setImage:icon_image forState:UIControlStateNormal];
+            UIBarButtonItem* menuBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+            NSLayoutConstraint* a = [menuBarItem.customView.widthAnchor constraintEqualToConstant:rect.size.width];
+            [a setActive:YES];
+            NSLayoutConstraint* b = [menuBarItem.customView.heightAnchor constraintEqualToConstant:rect.size.height];
+            [b setActive:YES];
+            self.barButtonByName[name] = menuBarItem;
             
-            UIImage* icon_asset_image = icon_image;//[[UIImage alloc] initWithIm];             
-            [icon_asset_image.imageAsset registerImage:icon_image withTraitCollection:[UITraitCollection traitCollectionWithDisplayScale:3.0]];
-          
-            [leftButton setImage:icon_asset_image forState:UIControlStateNormal];
-            if(icon_layer[@"clickJavascript"]){
-                [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];
-                leftButton.stringTag = icon_layer[@"clickJavascript"];
-            } else if(icon_layer[@"clickContent"]) {
-                [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
-                leftButton.stringTag = icon_layer[@"clickContent"];
-            }
-            leftButton.imageView.contentMode = UIViewContentModeCenter;
+//            WildCardUIButton *leftButton = [WildCardUIButton buttonWithType:UIButtonTypeCustom];
+//            int bw = 40;
+//            leftButton.frame = CGRectMake(0,0, bw, bw);
+//
+//            if(rect.size.width<rect.size.height){
+//                icon_image = [self imageWithImage:icon_image convertToSize:CGSizeMake(
+//                    64*rect.size.width/rect.size.height, 64
+//                )];
+//            } else {
+//                icon_image = [self imageWithImage:icon_image convertToSize:CGSizeMake(
+//                    64, 64*rect.size.height/rect.size.width
+//                )];
+//            }
+//
+//            UIImage* icon_asset_image = icon_image;//[[UIImage alloc] initWithIm];
+//            [icon_asset_image.imageAsset registerImage:icon_image withTraitCollection:[UITraitCollection traitCollectionWithDisplayScale:3.0]];
+//            [leftButton setImage:icon_asset_image forState:UIControlStateNormal];
+//            leftButton.imageView.contentMode = UIViewContentModeCenter;
             
 //            i++;
 //            if(i%3 == 0)
@@ -209,7 +214,7 @@
 //                    (bw - rect.size.width) /2,
 //                    bw - rect.size.width
 //                );
-                self.barButtonByName[name] = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+                
             } else {
                 //top left bototm right
 //                leftButton.imageEdgeInsets = UIEdgeInsetsMake(
@@ -218,9 +223,18 @@
 //                    bw - rect.size.height /2,
 //                    0
 //                );
-                
-                self.barButtonByName[name] = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
             }
+//            self.barButtonByName[name] = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+            
+            if(icon_layer[@"clickJavascript"]){
+                [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];
+                leftButton.stringTag = icon_layer[@"clickJavascript"];
+            } else if(icon_layer[@"clickContent"]) {
+                [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
+                leftButton.stringTag = icon_layer[@"clickContent"];
+            }
+
+            
             [self update];
         }];
     }

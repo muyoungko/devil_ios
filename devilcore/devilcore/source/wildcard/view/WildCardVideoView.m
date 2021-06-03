@@ -58,6 +58,8 @@
 +(void)unregistView:(WildCardVideoView*)v {
     NSString* key = [NSString stringWithFormat:@"%@", v];
     key = [key componentsSeparatedByString:@" "][1];
+    if(v)
+       [v stop];
     [[WildCardVideoView sharedMap] removeObjectForKey:key];
 }
 
