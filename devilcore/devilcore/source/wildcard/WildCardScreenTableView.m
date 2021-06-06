@@ -172,6 +172,8 @@
         if(self.tableViewDelegate != nil)
             [self.tableViewDelegate cellUpdated:[indexPath row] view:v];
         
+        if(self.lastItemCallback != nil)
+            self.lastItemCallback(nil);
     }
     @catch(NSException * e){
         NSLog(@"%@",e);
@@ -239,7 +241,11 @@
 
 
 
-
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if(self.draggedCallback != nil) {
+        self.draggedCallback(nil);
+    }
+}
 
 
 

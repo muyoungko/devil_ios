@@ -34,12 +34,12 @@
 				<string>fb755378721718919</string>
 			</array>
 		</dict>
-        <dict>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>naver0ZBWpGRYSDKcn6mJCNXF</string>
-            </array>
-        </dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>naver0ZBWpGRYSDKcn6mJCNXF</string>
+			</array>
+		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
@@ -65,7 +65,6 @@
 	<string>755378721718919</string>
 	<key>FacebookDisplayName</key>
 	<string>Devil App Builder</string>
-    
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>http://m.deavil.com/share</string>
@@ -88,8 +87,8 @@
 		<string>kakaolink</string>
 		<string>kakaotalk-5.9.7</string>
 		<string>storylink</string>
-        <string>naversearchapp</string>
-        <string>naversearchthirdlogin</string>
+		<string>naversearchapp</string>
+		<string>naversearchthirdlogin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -98,23 +97,22 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-    
-    <key>NSCameraUsageDescription</key>
-    <string>$(PRODUCT_NAME) camera description.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>$(PRODUCT_NAME)photos description.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>$(PRODUCT_NAME) photos add description.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Allowing access to the microphone lets you record audio.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) camera description.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
-    <key>NSSpeechRecognitionUsageDescription</key>
-    <string>Please, allow access for speech recognition</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allowing access to the microphone lets you record audio.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) photos add description.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME)photos description.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Please, allow access for speech recognition</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
@@ -146,6 +144,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-    
 </dict>
 </plist>

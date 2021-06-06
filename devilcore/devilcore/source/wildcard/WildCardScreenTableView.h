@@ -32,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSMutableArray* list;
 @property (nonatomic, retain) NSMutableArray* listData;
 @property (nonatomic, retain) NSArray* ifList;
-
+@property void (^lastItemCallback)(id res);
+@property void (^draggedCallback)(id res);
 
 @end
 
