@@ -38,6 +38,7 @@
 #import "WildCardPagerTabStrip.h"
 #import "WildCardPagerTabStripMaker.h"
 #import "Lottie/Lottie.h"
+#import "WildCardUITextView.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -505,9 +506,13 @@ static BOOL IS_TABLET = NO;
             if(extensionView != nil) {
                 CGRect containerRect = [WildCardConstructor getFrame:layer:parent];
                 containerRect.origin.x = containerRect.origin.y = 0;
+                if([extensionView isMemberOfClass:[WildCardUITextView class]]) {
+                    containerRect.size.height = extensionView.frame.size.height;
+                }
                 
                 extensionView.frame = containerRect;
                 [vv addSubview:extensionView];
+                
             }
             [outRules addObject:ReplaceRuleExtension(vv ,layer, @"")];
             

@@ -209,7 +209,6 @@
     {
         UIView *child = [childs objectAtIndex:i];
         //TODO check childs aligment is right or bottom
-        
         if(!child.hidden)
         {
             int childW = child.frame.origin.x + child.frame.size.width;

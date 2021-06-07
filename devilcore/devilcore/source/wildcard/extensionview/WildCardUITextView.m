@@ -104,6 +104,15 @@
     tf.showsVerticalScrollIndicator = YES;
     tf.showsHorizontalScrollIndicator = NO;
     
+    if(extension[@"select8"] != nil) {
+        tf.maxLine = [extension[@"select8"] intValue];
+    } else
+        tf.maxLine = 5;
+    
+    NSDictionary *attributes = @{NSFontAttributeName: tf.font};
+    CGRect rect = [@"line1" boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    tf.lineHeight = rect.size.height;
+    tf.frame = CGRectMake(0, 0, 0,tf.lineHeight);
     return tf;
 }
 
@@ -174,6 +183,17 @@
 
 - (void)textChanged:(UITextField *)textField{
     [_meta.correspondData setObject:self.text forKey:_holder];
+    id lines = [self.text componentsSeparatedByString:@"\n"];
+    
+    
+    int len = (int)[lines count];
+    if(len > self.maxLine)
+        len = self.maxLine;
+    
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y,
+                                      self.frame.size.width,
+                                    len*self.lineHeight);
+    [self.meta requestLayout];
 }
 
 

@@ -346,7 +346,9 @@
     
     UIDevice *device = [UIDevice currentDevice];
     NSString* udid = [[device identifierForVendor] UUIDString];
-    NSString* url = [NSString stringWithFormat:@"/push/key?fcm=%@&udid=%@&os=iOS", urlencode(fcm), urlencode(udid)];
+    NSString* url = [NSString stringWithFormat:@"/push/key?fcm=%@&udid=%@&os=iOS&package=", urlencode(fcm), urlencode(udid),
+                     [[NSBundle mainBundle] bundleIdentifier]
+                     ];
     url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
     id header = [@{} mutableCopy];

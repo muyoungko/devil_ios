@@ -149,7 +149,7 @@
                 if(tf.placeholderLabel == nil){
                     UILabel* ppp = [[UILabel alloc] initWithFrame:tf.frame];
                     ppp.frame =
-                        CGRectMake(ppp.frame.origin.x, ppp.frame.origin.y+11,
+                        CGRectMake(ppp.frame.origin.x, ppp.frame.origin.y,
                                ppp.frame.size.width, ppp.frame.size.height
                                );
                     ppp.text = tf.placeholderText;

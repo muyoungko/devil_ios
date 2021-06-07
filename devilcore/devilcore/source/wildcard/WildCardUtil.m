@@ -226,7 +226,6 @@ static BOOL IS_TABLET = NO;
     if(h == -2)
     {
         h = 0;
-        //TODO 가변 텍스트에 의한 가변 높이는 성능상 이슈로 아직 구현 못함
         if([@"text" isEqualToString:cloudJson[@"_class"]]){
             NSString* textContent = cloudJson[@"textContent"];
             NSString* text = [MappingSyntaxInterpreter interpret:textContent :data];

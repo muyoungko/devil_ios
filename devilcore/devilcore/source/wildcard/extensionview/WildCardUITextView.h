@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) UILabel* placeholderLabel;
 @property BOOL emtpy;
 @property UIColor* originalTextColor;
+@property int maxLine;
+@property float lineHeight;
 
 @end
 
