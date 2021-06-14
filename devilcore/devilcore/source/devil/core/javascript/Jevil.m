@@ -50,6 +50,16 @@
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
 }
 
++ (void)tab:(NSString*)screenName{
+    @try {
+        UIViewController*vc = [JevilInstance currentInstance].vc;
+        id meta = [JevilInstance currentInstance].meta;
+        [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
+    } @catch (NSException *exception) {
+        [Jevil alert:[NSString stringWithFormat:@"%@", exception]];
+    }
+}
+
 + (void)replaceScreen:(NSString*)screenName :(id)param{
     [((DevilController*)[JevilInstance currentInstance].vc) finish];
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
@@ -208,7 +218,15 @@
     id header = [@{} mutableCopy];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
-        header[h[@"header"]] = h[@"content"];
+        NSString* content = h[@"content"];
+        if([content hasPrefix:@"{"]){
+            content = [content stringByReplacingOccurrencesOfString:@"{" withString:@""];
+            content = [content stringByReplacingOccurrencesOfString:@"}" withString:@""];
+            NSString* value = [Jevil get:content];
+            if(value)
+                header[h[@"header"]] = value;
+        } else
+            header[h[@"header"]] = content;
     }
     
     NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
@@ -217,9 +235,15 @@
     
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
-        [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
-        if(!responseJsonObject)
+        
+        if(responseJsonObject == nil)
             responseJsonObject = [@{} mutableCopy];
+        else if([responseJsonObject isMemberOfClass:[NSError class]]){
+            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
+        } else
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        
         [callback callWithArguments:@[responseJsonObject]];
         [[JevilInstance currentInstance] syncData];
     }];
@@ -234,7 +258,15 @@
     id header = [@{} mutableCopy];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
-        header[h[@"header"]] = h[@"content"];
+        NSString* content = h[@"content"];
+        if([content hasPrefix:@"{"]){
+            content = [content stringByReplacingOccurrencesOfString:@"{" withString:@""];
+            content = [content stringByReplacingOccurrencesOfString:@"}" withString:@""];
+            NSString* value = [Jevil get:content];
+            if(value)
+                header[h[@"header"]] = value;
+        } else
+            header[h[@"header"]] = content;
     }
     
     NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
@@ -243,7 +275,14 @@
     
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
-        [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        
+        if(responseJsonObject == nil)
+            responseJsonObject = [@{} mutableCopy];
+        else if([responseJsonObject isMemberOfClass:[NSError class]]){
+            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
+        } else
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
@@ -441,12 +480,6 @@
 + (void)updateThis{
     [[JevilInstance currentInstance] syncData];
     [[JevilInstance currentInstance].meta update];
-}
-
-+ (void)tab:(NSString*)screenName{
-    UIViewController*vc = [JevilInstance currentInstance].vc;
-    id meta = [JevilInstance currentInstance].meta;
-    [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
 }
 
 + (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback{

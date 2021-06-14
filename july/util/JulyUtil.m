@@ -81,7 +81,7 @@
         }
              failure:^(NSURLSessionTask *operation, NSError *error)
         {
-            callback(nil);
+            callback(error);
         }];
     }
 }
@@ -105,7 +105,7 @@
     }
          failure:^(NSURLSessionTask *operation, NSError *error)
     {
-        callback(nil);
+        callback(error);
     }];
 }
 
@@ -127,7 +127,7 @@
     }
          failure:^(NSURLSessionTask *operation, NSError *error)
     {
-        callback(nil);
+        callback(error);
     }];
 }
 
@@ -143,7 +143,7 @@
     }
          failure:^(NSURLSessionTask *operation, NSError *error)
     {
-        callback(nil);
+        callback(error);
     }];
 }
 

@@ -128,6 +128,7 @@
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E268025AA935800600978 /* WildCardUITextView.m */; };
+		6D8A40EB2674B77E006999FC /* play_pause.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D8A40EA2674B77E006999FC /* play_pause.json */; };
 		6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9824AE25C5A91E0000BB12 /* JevilUtil.h */; };
 		6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9824AF25C5A91E0000BB12 /* JevilUtil.m */; };
 		6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -313,6 +314,7 @@
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
 		6D7E268025AA935800600978 /* WildCardUITextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextView.m; sourceTree = "<group>"; };
+		6D8A40EA2674B77E006999FC /* play_pause.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = play_pause.json; sourceTree = "<group>"; };
 		6D9824AE25C5A91E0000BB12 /* JevilUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilUtil.h; sourceTree = "<group>"; };
 		6D9824AF25C5A91E0000BB12 /* JevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilUtil.m; sourceTree = "<group>"; };
 		6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStrip.h; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6D8A40EA2674B77E006999FC /* play_pause.json */,
 				6D9F7A9C2622E93C003A70EC /* devil_camera_cancel@3x.png */,
 				6D9F7AA32622E93C003A70EC /* devil_camera_complete@3x.png */,
 				6D9F7A9D2622E93C003A70EC /* devil_camera_flash@3x.png */,
@@ -912,6 +915,7 @@
 				6D9F7AAB2622E93C003A70EC /* devil_camera_record_start@3x.png in Resources */,
 				6D9F7AAE2622E93C003A70EC /* devil_camera_shutter@3x.png in Resources */,
 				6D9F7AAC2622E93C003A70EC /* devil_camera_video@3x.png in Resources */,
+				6D8A40EB2674B77E006999FC /* play_pause.json in Resources */,
 				6D9F7AA62622E93C003A70EC /* devil_camera_cancel@3x.png in Resources */,
 				6D4679A6256A4980006D57DD /* LICENSE in Resources */,
 				6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */,

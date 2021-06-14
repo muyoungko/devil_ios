@@ -193,7 +193,7 @@ static BOOL IS_TABLET = NO;
     }
 
     id layers = layer[@"layers"];
-    if(layers != nil){
+    if(layers != nil && layer[@"arrayContent"] == nil){
         for(int i=0;i<[layers count];i++){
             [WildCardUtil fitToScreenRecur:layers[i] offsety:(offsety + y) height:height];
         }

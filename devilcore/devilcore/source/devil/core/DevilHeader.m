@@ -174,6 +174,7 @@
             WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];
             [leftButton setImage:icon_image forState:UIControlStateNormal];
             UIBarButtonItem* menuBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+            
             NSLayoutConstraint* a = [menuBarItem.customView.widthAnchor constraintEqualToConstant:rect.size.width];
             [a setActive:YES];
             NSLayoutConstraint* b = [menuBarItem.customView.heightAnchor constraintEqualToConstant:rect.size.height];

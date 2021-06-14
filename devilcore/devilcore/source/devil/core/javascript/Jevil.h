@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)go:(NSString*)screenName :(id)param;
 + (void)replaceScreen:(NSString*)screenName :(id)param;
 + (void)rootScreen:(NSString*)screenName :(id)param;
++ (void)tab:(NSString*)screenName;
 + (void)finish:(id)callbackData;
 + (void)finishThen:(JSValue *)callback;
 + (void)back;

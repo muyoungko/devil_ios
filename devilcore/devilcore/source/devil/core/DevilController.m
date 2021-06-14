@@ -172,7 +172,13 @@
     
 //    [JevilInstance currentInstance].data = self.data;
 //    [JevilInstance currentInstance].jscontext = self.jevil;
+    
+    //[self setNeedsStatusBarAppearanceUpdate];
 }
+
+//- (UIStatusBarStyle)preferredStatusBarStyle{
+//    return UIStatusBarStyleLightContent;
+//}
 
 -(void)onResume {
     if(self.hasOnResume){

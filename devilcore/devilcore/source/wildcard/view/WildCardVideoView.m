@@ -7,11 +7,14 @@
 
 #import "WildCardVideoView.h"
 #import "WildCardConstructor.h"
+#import "Lottie.h"
 
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
 @property (nonatomic, retain) NSString* videoPath;
 @property (nonatomic, retain) UIImageView* imageView;
+@property (nonatomic, retain) LOTAnimationView* playPause;
+@property BOOL finished;
 @end
 
 @implementation WildCardVideoView
@@ -35,7 +38,57 @@
     [self addSubview:_imageView];
     [WildCardConstructor followSizeFromFather:self child:self.imageView];
     
+    
+    CGRect s = [[UIScreen mainScreen] bounds];
+    int sw = s.size.width;
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    LOTAnimationView* loading = [LOTAnimationView animationNamed:@"play_pause" inBundle:bundle];
+    int w = 240;
+    int h = 170;
+    loading.frame = CGRectMake( (sw-w)/2, (sw-h)/2 , w, h);
+    loading.userInteractionEnabled = NO;
+    loading.tag = 5123;
+    loading.loopAnimation = NO;
+    loading.alpha = 0.5;
+    loading.hidden = YES;
+    [self addSubview:loading];
+    self.playPause = loading;
+    
+    self.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer* singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickVideoView:)];
+    [self addGestureRecognizer:singleFingerTap];
+    
     return self;
+}
+
+-(void)onClickVideoView:(id)sender {
+    if(self.videoPath != nil) {
+        if(self.playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPlaying) {
+            [self stop];
+            [self blinkPause];
+        } else {
+            [self play];
+            [self blinkPlay];
+        }
+    }
+}
+
+-(void)blinkPlay {
+    [self.playPause stop];
+    self.playPause.hidden = NO;
+    [self.playPause playFromFrame:[NSNumber numberWithInt:30] toFrame:[NSNumber numberWithInt:60] withCompletion:^(BOOL animationFinished) {
+        self.playPause.hidden = YES;
+    }];
+}
+
+-(void)blinkPause {
+    [self.playPause stop];
+    self.playPause.hidden = NO;
+    [self.playPause playFromFrame:[NSNumber numberWithInt:0] toFrame:[NSNumber numberWithInt:30] withCompletion:^(BOOL animationFinished) {
+        self.playPause.hidden = YES;
+    }];
 }
 
 + (id)sharedMap {
@@ -101,14 +154,15 @@
     _playerViewController.player = nil;
     if(vpath != nil) {
         _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
-        if(self.autoPlay){
+        if(self.autoPlay)
             [WildCardVideoView registView:self];
-        }
-            
+        self.finished = NO;
     } else {
         _playerViewController.view.hidden = YES;
-        self.imageView.hidden = NO;
     }
+    
+    if(ppath != nil)
+        self.imageView.hidden = NO;
     
     self.previewPath = ppath;
     self.videoPath = vpath;
@@ -124,18 +178,23 @@
 
 -(void)didFinishPlaying{
     NSLog(@"didFinishPlaying");
+    self.finished = YES;
 }
 
 -(void)play{
     self.imageView.hidden = YES;
     if(_playerViewController.player != nil) {
         _playerViewController.view.hidden = NO;
+        
+        if(self.finished)
+            [_playerViewController.player seekToTime:CMTimeMakeWithSeconds(0, 6000)];
+        self.finished = NO;
         [_playerViewController.player play];
     }
 }
 
 -(void)stop{
-    self.imageView.hidden = NO;
+    //self.imageView.hidden = YES;
     if(_playerViewController.player != nil)
         [_playerViewController.player pause];
 }

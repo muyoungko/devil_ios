@@ -41,6 +41,13 @@ alpha:1.0]
     [self showNavigationBar];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    int index = (int)[[DevilDebugView sharedInstance].logList count]-1;
+    if(index >= 0)
+        [self.tv scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+}
+
 - (void)showNavigationBar{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     int offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;

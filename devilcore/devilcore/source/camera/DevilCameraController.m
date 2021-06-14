@@ -161,7 +161,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.targetPreviewPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.jpg"];
     self.targetVideoPathMov = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.mov"];
     self.targetVideoPathMp4 = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.mp4"];
-    self.targetImagePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@".jpg"]];
+    self.targetImagePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
     
     [self initParam];
     [self ui];
