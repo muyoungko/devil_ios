@@ -41,6 +41,8 @@ static BOOL IS_TABLET = NO;
 }
 
 + (UIColor *) colorWithHexString: (NSString *) hexString {
+    if(hexString == [NSNull null])
+        return nil;
     NSString *colorString = [[hexString stringByReplacingOccurrencesOfString: @"#" withString: @""] uppercaseString];
     CGFloat alpha, red, blue, green;
     switch ([colorString length]) {

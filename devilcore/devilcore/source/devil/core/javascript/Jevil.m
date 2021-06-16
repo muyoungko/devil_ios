@@ -632,8 +632,12 @@
         WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
         DevilWebView* web = [vv subviews][0];
         web.shouldOverride = ^BOOL(NSString * _Nonnull url) {
-            JSValue* r = [callback callWithArguments:@[url]];
-            return [r toBool];
+            @try{
+                JSValue* r = [callback callWithArguments:@[url]];
+                return [r toBool];
+            }@catch (NSException *exception) {
+                [Jevil alert:[NSString stringWithFormat:@"%@", exception]];
+            }
         };
     }
 }
@@ -734,5 +738,9 @@
     }];
 }
 
++ (JSValue*)parseUrl:(NSString*)url{
+    id r = [DevilUtil parseUrl:url];
+    return r;
+}
 
 @end

@@ -75,6 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback;
 + (void)getCurrentPlace:(NSDictionary*)param :(JSValue*)callback;
 + (void)searchPlace:(NSDictionary*)param :(JSValue*)callback;
++ (JSValue*)parseUrl:(NSString*)url;
 
 @end
 

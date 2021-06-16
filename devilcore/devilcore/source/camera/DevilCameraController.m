@@ -687,23 +687,27 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
     if (success) {
         // Enable the Camera and Record buttons to let the user switch camera and start another recording.
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Only enable the ability to change camera if the device has more than one camera.
-            [self uiRecorded];
             
-            UIImage* preview = [DevilUtil getThumbnail:self.targetVideoPathMov];
-            
-            NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
-            [imageData writeToFile:self.targetPreviewPath atomically:YES];
-            
-            [DevilUtil convertMovToMp4:self.targetVideoPathMov to:self.targetVideoPathMp4 callback:^(id  _Nonnull res) {
-                if([res[@"r"] boolValue]){
-                    [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4];
-                    [self.videoView play];
-                } else
-                    [self showAlert:@"Record Failed"];
-            }];
-            
-
+            float duration = [DevilUtil getDuration:self.targetVideoPathMov];
+            if(duration > self.maxSec) {
+                [self showAlert:[NSString stringWithFormat:@"%d초 미만의 동영상을 올려주세요", self.maxSec]];
+                [self uiRecord];
+            } else if(duration < self.minSec) {
+                [self showAlert:[NSString stringWithFormat:@"%d초 이상의 동영상을 올려주세요", self.minSec]];
+                [self uiRecord];
+            } else {
+                UIImage* preview = [DevilUtil getThumbnail:self.targetVideoPathMov];
+                NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
+                [imageData writeToFile:self.targetPreviewPath atomically:YES];
+                [self uiRecorded];
+                [DevilUtil convertMovToMp4:self.targetVideoPathMov to:self.targetVideoPathMp4 callback:^(id  _Nonnull res) {
+                    if([res[@"r"] boolValue]){
+                        [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4];
+                        [self.videoView play];
+                    } else
+                        [self showAlert:@"Record Failed"];
+                }];
+            }
         });
     }
     else {

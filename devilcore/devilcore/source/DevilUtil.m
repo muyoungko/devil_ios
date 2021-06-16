@@ -151,4 +151,21 @@
         
     });
 }
+
++(id) parseUrl:(NSString*)url {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:[NSURL URLWithString:url] resolvingAgainstBaseURL:NO];
+    NSArray *queryItems = [components queryItems];
+
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+
+    for (NSURLQueryItem *item in queryItems){
+        [dict setObject:[item value] forKey:[item name]];
+    }
+    
+    dict[@"path"] = [components path];
+    dict[@"host"] = [components host];
+    dict[@"scheme"] = [components scheme];
+    
+    return dict;
+}
 @end

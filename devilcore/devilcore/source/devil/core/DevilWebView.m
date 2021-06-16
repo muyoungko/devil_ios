@@ -6,6 +6,12 @@
 //
 
 #import "DevilWebView.h"
+#import "JevilInstance.h"
+
+@interface DevilWebView ()
+@property (copy, nonatomic) WKWebViewActionHandler actionHandler;
+@end
+
 
 @implementation DevilWebView
 
@@ -48,6 +54,12 @@
         }];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
+    } else if([scheme hasPrefix:@"tauthlink://"] || [scheme hasPrefix:@"ktauthexternalcall://"]
+              || [scheme hasPrefix:@"upluscorporation://"]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+        decisionHandler(WKNavigationActionPolicyCancel);
     } else if(self.shouldOverride != nil){
         BOOL r = self.shouldOverride(url);
         if(r)
@@ -74,10 +86,11 @@
     [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
                                                         style:UIAlertActionStyleCancel
                                                       handler:^(UIAlertAction *action) {
-                                                          completionHandler();
+                                                
                                                       }]];
-    
-    //[self presentViewController:alertController animated:YES completion:^{}];
+    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{
+        completionHandler();
+    }];
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
@@ -97,8 +110,82 @@
                                                           completionHandler(true);
                                                       }]];
     
-    //[self presentViewController:alertController animated:YES completion:^{}];
+    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
 }
 
 
+
+//WKWebView 설정. 개발업체에 맞게 개발자가 설정
+- (WKWebViewConfiguration *)getWKWebViewConfigration {
+    WKWebViewConfiguration  *wkWebViewConfiguration =  [[WKWebViewConfiguration alloc] init];
+    WKUserContentController *kuserContentController = [[WKUserContentController alloc] init];
+    WKPreferences           *kwebviewPreference     = [[WKPreferences alloc] init];
+    
+    //Message 핸들러 설정
+    //[kuserContentController addScriptMessageHandler:self.scriptMessageHandler name:@"bridge"];
+    wkWebViewConfiguration.userContentController = kuserContentController;
+    
+    // 메모리에서 랜더링 후 보여줌 Defalt = false
+    // true 일경우 랜더링 시간동안 Black 스크린이 나옴
+    wkWebViewConfiguration.suppressesIncrementalRendering = false;
+    
+    // 기본값 : Dynamic (텍스트 선택시 정밀도 설정)
+    wkWebViewConfiguration.selectionGranularity = WKSelectionGranularityDynamic;
+    
+    // 기본값 false : HTML5 Video 형태로 플레이
+    // true  : native full-screen play
+    wkWebViewConfiguration.allowsInlineMediaPlayback = false;
+    
+    if (@available(iOS 9.0, *)) {
+        // whether AirPlay is allowed.
+        wkWebViewConfiguration.allowsAirPlayForMediaPlayback = false;
+        
+        // 기본값 : true;
+        // whether HTML5 videos can play picture-in-picture.
+        wkWebViewConfiguration.allowsPictureInPictureMediaPlayback = true;
+        
+        //LocalStorage 사용하도록 설정
+        wkWebViewConfiguration.websiteDataStore = [WKWebsiteDataStore defaultDataStore];
+        
+        if (@available(iOS 10.0, *)) {
+            // 기본값 : true
+            // true : 사용자가 시작 , false : 자동시작
+            wkWebViewConfiguration.mediaTypesRequiringUserActionForPlayback = true;
+        }
+        
+    }
+    
+    // WKPreference 셋팅
+    kwebviewPreference.minimumFontSize = 0;                                   // 기본값 = 0
+    kwebviewPreference.javaScriptCanOpenWindowsAutomatically = true;         // 기본값 = false
+    kwebviewPreference.javaScriptEnabled = true;                              // 기본값 = true
+    
+    wkWebViewConfiguration.preferences = kwebviewPreference;
+    
+    return wkWebViewConfiguration;
+}
+
+- (void)setWKWebViewAction:(WKWebViewActionHandler)actionHandler {
+    if (actionHandler != nil)
+        self.actionHandler = actionHandler;
+}
+
+
+- (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    //DLog(@"didFailNavigation error - %@", [error description]);
+    if (self.actionHandler != nil)
+        self.actionHandler(WKWebViewActionDidFailNavigation, error);
+
+}
+
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation withError:(NSError *)error {
+    //DLog(@"didFailProvisionalNavigation error - %@", [error description]);
+    if (self.actionHandler != nil)
+        self.actionHandler(WKWebViewActionDidFailNavigation, error);
+   
+}
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
+    //message.name
+}
 @end

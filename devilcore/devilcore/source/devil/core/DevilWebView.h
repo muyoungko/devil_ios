@@ -6,12 +6,26 @@
 //
 
 #import <WebKit/WebKit.h>
+#import <WebKit/WKUIDelegate.h>
+#import <WebKit/WKNavigationDelegate.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+//웹과 뷰사이에 필요한 동작
+typedef NS_ENUM(NSInteger, WKWebViewAction) {
+    WKWebViewActionDidFinishNavigation = 0,
+    WKWebViewActionDidStartProvisionalNavigation,
+    WKWebViewActionDidFailNavigation
+};
+
+typedef void(^WKWebViewActionHandler)(WKWebViewAction action, id result);
+
+@class WKWebViewConfiguration;
 
 @interface DevilWebView : WKWebView< WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
 
 @property BOOL (^shouldOverride)(NSString* url);
+- (void)setWKWebViewAction:(WKWebViewActionHandler)actionHandler;
 
 @end
 
