@@ -261,8 +261,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         }
     }
     
-    if(self.googleSigninMyDelegate != nil)
+    if(self.googleSigninMyDelegate != nil){
         [self.googleSigninMyDelegate callback:YES didSignInForUser:user];
+        self.googleSigninMyDelegate = nil;
+    }
 }
     
     

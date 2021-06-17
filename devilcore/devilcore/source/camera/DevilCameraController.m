@@ -420,7 +420,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.btnRecordStart.hidden = NO;
     self.btnRecordStop.hidden = YES;
     self.btnFront.hidden = NO;
-    self.btnFlash.hidden = YES;
+    self.btnFlash.hidden = NO;
     self.btnGallery.hidden = self.hasGallery?NO:YES;
     self.btnVideo.hidden = YES;
     self.btnPicture.hidden = self.hasPicture?NO:YES;
@@ -1011,6 +1011,30 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     });
 }
 
+-(void)onClickFlash:(id)sender {
+    Class captureDeviceClass = NSClassFromString(@"AVCaptureDevice");
+    if (captureDeviceClass != nil) {
+        AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+        if ([device hasTorch] && [device hasFlash]){
+
+            [device lockForConfiguration:nil];
+            if (device.torchMode == AVCaptureTorchModeOff)
+            {
+                [device setTorchMode:AVCaptureTorchModeOn];
+                [device setFlashMode:AVCaptureFlashModeOn];
+                self.flash = YES;
+            }
+            else
+            {
+                [device setTorchMode:AVCaptureTorchModeOff];
+                [device setFlashMode:AVCaptureFlashModeOff];
+                self.flash= NO;
+            }
+            [device unlockForConfiguration];
+        }
+    }
+}
+
 -(void)onClickFront:(id)sender {
     dispatch_async(self.sessionQueue, ^{
         AVCaptureDevice* currentVideoDevice = self.videoDeviceInput.device;
@@ -1022,16 +1046,26 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
         switch (currentPosition)
         {
             case AVCaptureDevicePositionUnspecified:
-            case AVCaptureDevicePositionFront:
+            case AVCaptureDevicePositionFront: {
                 preferredPosition = AVCaptureDevicePositionBack;
                 preferredDeviceType = AVCaptureDeviceTypeBuiltInDualCamera;
                 self.front = NO;
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.btnFlash.hidden = NO;
+                });
                 break;
-            case AVCaptureDevicePositionBack:
+            }
+            case AVCaptureDevicePositionBack: {
                 preferredPosition = AVCaptureDevicePositionFront;
                 preferredDeviceType = AVCaptureDeviceTypeBuiltInTrueDepthCamera;
                 self.front = YES;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.btnFlash.hidden = YES;
+                });
+                
                 break;
+            }
         }
         
         NSArray<AVCaptureDevice* >* devices = self.videoDeviceDiscoverySession.devices;
@@ -1054,6 +1088,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
                 }
             }
         }
+        
         
         if (newVideoDevice) {
             AVCaptureDeviceInput* videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:newVideoDevice error:NULL];
@@ -1095,10 +1130,6 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             
             [self.session commitConfiguration];
         }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            
-        });
     });
 }
 
