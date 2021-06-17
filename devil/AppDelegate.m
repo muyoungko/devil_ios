@@ -256,7 +256,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         }
     } else {
         if(self.devilGoogleLogin) {
-            [[DevilGoogleLogin sharedInstance] googleSignInSuccess:YES userId:nil name:nil profile:nil email:nil token:nil];
+            [[DevilGoogleLogin sharedInstance] googleSignInSuccess:NO userId:nil name:nil profile:nil email:nil token:nil];
             self.devilGoogleLogin = nil;
         }
     }

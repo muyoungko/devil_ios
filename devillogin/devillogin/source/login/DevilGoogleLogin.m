@@ -51,7 +51,7 @@
 }
 
 - (void)googleSignInSuccess:(BOOL)success userId:(NSString*)userId name:(NSString*)name profile:(NSString*)profile email:(NSString*)email token:(NSString*)token{
-    if(success){
+    if(success && token != nil){
         id r = [@{} mutableCopy];
         r[@"identifier"] = userId;
         r[@"name"] = name;
