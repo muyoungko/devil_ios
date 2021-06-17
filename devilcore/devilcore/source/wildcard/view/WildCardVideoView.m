@@ -148,16 +148,24 @@
         [WildCardVideoView unregistView:self];
     }
 }
+- (void)setPreview:(NSString*)ppath video:(NSString*)vpath {
+    [self setPreview:ppath video:vpath force:NO];
+}
 
-- (void)setPreview:(NSString*)ppath video:(NSString*)vpath{
+- (void)setPreview:(NSString*)ppath video:(NSString*)vpath force:(BOOL)force{
     NSLog(@"ppath - %@", ppath);
     _playerViewController.player = nil;
     if(vpath != nil) {
-        _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
+        if(force) {
+            _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
+        } else if(self.videoPath == nil || ![self.videoPath isEqualToString:vpath]){
+            _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
+        }
         if(self.autoPlay)
             [WildCardVideoView registView:self];
         self.finished = NO;
     } else {
+        [_playerViewController.player pause];
         _playerViewController.view.hidden = YES;
     }
     

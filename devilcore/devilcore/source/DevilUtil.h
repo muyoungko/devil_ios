@@ -36,6 +36,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (int) getDuration:(NSString*)path;
 +(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType data:(NSData*)data complete:(void (^)(id res))callback;
 +(id) parseUrl:(NSString*)url;
++ (void)clearTmpDirectory;
 
 @end
 

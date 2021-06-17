@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WildCardVideoView : UIView
 
 -(void)setPreview:(NSString*)path video:(NSString*)path;
+- (void)setPreview:(NSString*)ppath video:(NSString*)vpath force:(BOOL)force;
+
 -(void)play;
 +(void)autoPlay;
 @property BOOL autoPlay;

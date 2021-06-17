@@ -6,6 +6,7 @@
 //
 
 #import "DevilUtil.h"
+#import <CoreServices/UTType.h>
 
 @import AVKit;
 @import AVFoundation;
@@ -65,6 +66,7 @@
     return CMTimeGetSeconds(asset.duration);
 }
 
+
 + (void) convertMovToMp4:(NSString*)path to:(NSString*)outputPath callback:(void (^)(id res))callback {
     NSString* oldExt = [DevilUtil getFileExt:path];
     if([oldExt isEqualToString:@"mov"] || [oldExt isEqualToString:@"MOV"]){
@@ -77,7 +79,8 @@
         NSArray *compatiblePresets = [AVAssetExportSession exportPresetsCompatibleWithAsset:avAsset];
         if ([compatiblePresets containsObject:AVAssetExportPreset640x480])
         {
-            AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:AVAssetExportPresetPassthrough];
+            AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:avAsset presetName:
+                                                   AVAssetExportPresetPassthrough];
             
             if([[NSFileManager defaultManager] fileExistsAtPath:outputPath])
                 [[NSFileManager defaultManager]removeItemAtPath:outputPath error:nil];
@@ -85,7 +88,7 @@
             exportSession.outputURL = [NSURL fileURLWithPath:outputPath];
             exportSession.outputFileType = AVFileTypeMPEG4;
             exportSession.shouldOptimizeForNetworkUse = YES;
-
+            
             [exportSession exportAsynchronouslyWithCompletionHandler:^{
                 switch ([exportSession status])
                 {
@@ -167,5 +170,13 @@
     dict[@"scheme"] = [components scheme];
     
     return dict;
+}
+
++ (void)clearTmpDirectory
+{
+    NSArray* tmpDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:NULL];
+    for (NSString *file in tmpDirectory) {
+        [[NSFileManager defaultManager] removeItemAtPath:[NSString stringWithFormat:@"%@%@", NSTemporaryDirectory(), file] error:NULL];
+    }
 }
 @end

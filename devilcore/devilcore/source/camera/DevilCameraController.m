@@ -87,6 +87,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) NSString* targetImagePath;
 @property (nonatomic) NSString* targetPreviewPath;
 @property (nonatomic) NSString* targetVideoPathMov;
+@property (nonatomic) NSString* targetVideoPathMovCopy;
 @property (nonatomic) NSString* targetVideoPathMp4;
 
 @property (nonatomic) BOOL startVideo;
@@ -156,11 +157,13 @@ typedef NS_ENUM(NSInteger, UIMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    
+    [DevilUtil clearTmpDirectory];
     NSString* outputFileName = [NSUUID UUID].UUIDString;
-    self.targetPreviewPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.jpg"];
-    self.targetVideoPathMov = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.mov"];
-    self.targetVideoPathMp4 = [NSTemporaryDirectory() stringByAppendingPathComponent:@"temp.mp4"];
+    
+    self.targetPreviewPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
+    self.targetVideoPathMov = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
+    self.targetVideoPathMovCopy = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingString:@"_copy.mov"]];
+    self.targetVideoPathMp4 = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mp4"]];
     self.targetImagePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
     
     [self initParam];
@@ -687,22 +690,14 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
     if (success) {
         // Enable the Camera and Record buttons to let the user switch camera and start another recording.
         dispatch_async(dispatch_get_main_queue(), ^{
-            
-            float duration = [DevilUtil getDuration:self.targetVideoPathMov];
-            if(duration > self.maxSec) {
-                [self showAlert:[NSString stringWithFormat:@"%d초 미만의 동영상을 올려주세요", self.maxSec]];
-                [self uiRecord];
-            } else if(duration < self.minSec) {
-                [self showAlert:[NSString stringWithFormat:@"%d초 이상의 동영상을 올려주세요", self.minSec]];
-                [self uiRecord];
-            } else {
+            if([self checkDuration:self.targetVideoPathMov]) {
                 UIImage* preview = [DevilUtil getThumbnail:self.targetVideoPathMov];
                 NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
                 [imageData writeToFile:self.targetPreviewPath atomically:YES];
                 [self uiRecorded];
                 [DevilUtil convertMovToMp4:self.targetVideoPathMov to:self.targetVideoPathMp4 callback:^(id  _Nonnull res) {
                     if([res[@"r"] boolValue]){
-                        [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4];
+                        [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4 force:YES];
                         [self.videoView play];
                     } else
                         [self showAlert:@"Record Failed"];
@@ -1227,36 +1222,63 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
-    if(self.video){
-        NSURL* fileURL = info[UIImagePickerControllerMediaURL];
-        NSString* path = [fileURL absoluteString];
-        UIImage* preview = [DevilUtil getThumbnail:path];
-        NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
-        [imageData writeToFile:self.targetPreviewPath atomically:YES];
-        [DevilUtil convertMovToMp4:path to:self.targetVideoPathMp4 callback:^(id  _Nonnull res) {
-            if([res[@"r"] boolValue]){
-                [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4];
-                [self.videoView play];
-            } else
-                [self showAlert:@"Record Failed"];
-        }];
-        [self uiRecorded];
-    } else {
-        UIImage* photo = info[UIImagePickerControllerOriginalImage];
-        if(photo.imageOrientation == UIImageOrientationRight)
-            photo = [DevilUtil rotateImage:photo degrees:90];
-        else if(photo.imageOrientation == UIImageOrientationLeft)
-            photo = [DevilUtil rotateImage:photo degrees:-90];
-        else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
-            photo = [DevilUtil rotateImage:photo degrees:180];
-        
-        [self uiTaken];
-        [self.cropView setImage:photo];
-    
+- (BOOL)checkDuration:(NSString*)path {
+    float duration = [DevilUtil getDuration:path];
+    if(duration > self.maxSec) {
+        [self showAlert:[NSString stringWithFormat:@"%d초 미만의 동영상을 올려주세요", self.maxSec]];
+        [self uiRecord];
+        return NO;
+    } else if(duration < self.minSec) {
+        [self showAlert:[NSString stringWithFormat:@"%d초 이상의 동영상을 올려주세요", self.minSec]];
+        [self uiRecord];
+        return NO;
     }
+    
+    return YES;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
     [picker dismissViewControllerAnimated:YES completion:^{
+        if(self.video){
+            NSURL* videoUrl = info[UIImagePickerControllerMediaURL];
+            [videoUrl startAccessingSecurityScopedResource];
+            NSString* path = videoUrl.path;
+            if(![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                [self showAlert:@"파일 없음"];
+                return ;
+            }
+            
+            if([self checkDuration:path]) {
+                if([[NSFileManager defaultManager] fileExistsAtPath:self.targetVideoPathMovCopy])
+                    [[NSFileManager defaultManager] removeItemAtPath:self.targetVideoPathMovCopy error:nil];
+                [[NSFileManager defaultManager] copyItemAtPath:path toPath:self.targetVideoPathMovCopy error:nil];
+                UIImage* preview = [DevilUtil getThumbnail:self.targetVideoPathMovCopy];
+                NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
+                [imageData writeToFile:self.targetPreviewPath atomically:YES];
+                [DevilUtil convertMovToMp4:self.targetVideoPathMovCopy to:self.targetVideoPathMp4 callback:^(id  _Nonnull res) {
+                    if([res[@"r"] boolValue]){
+                        [self.videoView setPreview:self.targetPreviewPath video:self.targetVideoPathMp4 force:YES];
+                        [self.videoView play];
+                    } else {
+                        [self showAlert:@"Record Failed"];
+                        [self uiRecord];
+                    }
+                }];
+                [self uiRecorded];
+            }
+        } else {
+            UIImage* photo = info[UIImagePickerControllerOriginalImage];
+            if(photo.imageOrientation == UIImageOrientationRight)
+                photo = [DevilUtil rotateImage:photo degrees:90];
+            else if(photo.imageOrientation == UIImageOrientationLeft)
+                photo = [DevilUtil rotateImage:photo degrees:-90];
+            else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
+                photo = [DevilUtil rotateImage:photo degrees:180];
+            
+            [self uiTaken];
+            [self.cropView setImage:photo];
         
+        }
     }];
 }
 
