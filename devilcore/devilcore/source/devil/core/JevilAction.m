@@ -37,7 +37,7 @@
             tv.wildCardConstructorInstanceDelegate = meta.wildCardConstructorInstanceDelegate;
             [tv setTag:87652];
             tv.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-            [d.viewMenu addSubview:tv];
+            [d constructContentView:tv show:@"left" offset:0];
             
             int statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
         }

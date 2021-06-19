@@ -76,7 +76,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)getCurrentPlace:(NSDictionary*)param :(JSValue*)callback;
 + (void)searchPlace:(NSDictionary*)param :(JSValue*)callback;
 + (JSValue*)parseUrl:(NSString*)url;
-
++ (void)menuReady:(NSString*)node :(NSDictionary*)param;
++ (void)menuOpen:(NSString*)node;
++ (void)menuClose;
 @end
 
 @interface Jevil : NSObject <Jevil>

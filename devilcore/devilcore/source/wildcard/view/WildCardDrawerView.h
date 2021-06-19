@@ -19,16 +19,22 @@ NS_ASSUME_NONNULL_BEGIN
     int naviStatus;
     int pointerId;
     float touchStartX;
+    float touchStartY;
     double touchTime;
     float uiMenuStartX;
+    float uiMenuStartY;
 }
-
+@property BOOL horizontal;
+@property BOOL left;
+@property BOOL top;
+@property float from;
+@property float to;
 @property (nonatomic, retain) UIView* viewModal;
-@property (nonatomic, retain) UIView* viewMenu;
+@property (nonatomic, retain) UIView* contentView;
 
 - (void)naviDown;
 - (void)naviUp;
-
+- (void)constructContentView:(UIView*)contentView show:(NSString*)show offset:(int)px_offset;
 @end
 
 NS_ASSUME_NONNULL_END

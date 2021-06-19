@@ -53,8 +53,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
     
-    if(self.d != nil)
-        self.d.viewMenu.hidden = NO;
     self.originalY = self.view.frame.origin.y;
 }
 - (void)viewWillDisappear:(BOOL)animated
@@ -87,28 +85,6 @@
     }
     else
         self.automaticallyAdjustsScrollViewInsets =NO;
-}
-
-- (void)createMenuView
-{
-    UIWindow* w = [UIApplication sharedApplication].keyWindow;
-    
-    WildCardDrawerView* d = [[WildCardDrawerView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
-    [w addSubview:d];
-    self.d = d;
-    
-    self.leftData = [[NSMutableDictionary alloc] init];
-    
-    NSMutableDictionary* leftCloudJson = [[WildCardConstructor sharedInstance] getBlockJson:@"C140F0A5-B13B-4DD3-B753-FBB329613607"];
-    self.leftWc = [WildCardConstructor constructLayer:d.viewMenu withLayer:leftCloudJson instanceDelegate:self];
-    self.leftWc.userInteractionEnabled = YES;
-    [WildCardConstructor applyRule:self.leftWc withData:self.leftData];
-    
-    d.viewMenu.frame = CGRectMake(-self.leftWc.frame.size.width, d.viewMenu.frame.origin.y, self.leftWc.frame.size.width, screenHeight);
-    d.viewMenu.backgroundColor = [UIColor whiteColor];
-    
-    int statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
-    self.leftWc.frame = CGRectMake(self.leftWc.frame.origin.x, statusBarHeight, self.leftWc.frame.size.width, screenHeight);
 }
 
 

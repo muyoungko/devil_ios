@@ -36,7 +36,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)openMenu;
 -(void)closeMenu;
--(void)createMenuView;
 -(void)createDrawerView;
 
 -(void)back:(id)sender;

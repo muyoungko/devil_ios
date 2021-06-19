@@ -181,6 +181,8 @@
 		6D9F7C8926396318003A70EC /* DevilToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7C8726396318003A70EC /* DevilToast.m */; };
 		6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */; };
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
+		6DCD33B9267DC69800784D91 /* DevilDrawer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DCD33B7267DC69800784D91 /* DevilDrawer.h */; };
+		6DCD33BA267DC69800784D91 /* DevilDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCD33B8267DC69800784D91 /* DevilDrawer.m */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
@@ -367,6 +369,8 @@
 		6D9F7C8726396318003A70EC /* DevilToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilToast.m; sourceTree = "<group>"; };
 		6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleAccessibility.h; sourceTree = "<group>"; };
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
+		6DCD33B7267DC69800784D91 /* DevilDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDrawer.h; sourceTree = "<group>"; };
+		6DCD33B8267DC69800784D91 /* DevilDrawer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDrawer.m; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
@@ -692,6 +696,8 @@
 				6D3EBD4825D4001A0006ADD5 /* DevilJsonViewer.m */,
 				6D9F7C8626396318003A70EC /* DevilToast.h */,
 				6D9F7C8726396318003A70EC /* DevilToast.m */,
+				6DCD33B7267DC69800784D91 /* DevilDrawer.h */,
+				6DCD33B8267DC69800784D91 /* DevilDrawer.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -796,6 +802,7 @@
 				6D9F7B91262C8380003A70EC /* ReplaceRuleVideo.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
 				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
+				6DCD33B9267DC69800784D91 /* DevilDrawer.h in Headers */,
 				6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */,
 				6D467AC0256AB07A006D57DD /* WildCardAction.h in Headers */,
 				6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */,
@@ -1026,6 +1033,7 @@
 				6D467B63257A268C006D57DD /* DevilHeader.m in Sources */,
 				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
 				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
+				6DCD33BA267DC69800784D91 /* DevilDrawer.m in Sources */,
 				6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */,
 				6D9F7B92262C8380003A70EC /* ReplaceRuleVideo.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,

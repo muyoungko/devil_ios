@@ -28,6 +28,7 @@
 #import "DevilWebView.h"
 #import "WildCardUITextView.h"
 #import "WildCardVideoView.h"
+#import "DevilDrawer.h"
 
 @interface Jevil()
 
@@ -741,6 +742,16 @@
 + (JSValue*)parseUrl:(NSString*)url{
     id r = [DevilUtil parseUrl:url];
     return r;
+}
+
++ (void)menuReady:(NSString*)blockName :(NSDictionary*)param{
+    [DevilDrawer menuReady:blockName :param];
+}
++ (void)menuOpen:(NSString*)blockName{
+    [DevilDrawer menuOpen:blockName];
+}
++ (void)menuClose{
+    [DevilDrawer menuClose];
 }
 
 @end
