@@ -87,6 +87,8 @@ alpha:1.0]
         if(ws)
             w = [WildCardConstructor convertSketchToPixel:[ws intValue]];
         h = (int)[array count]*55;
+    } else if([@"center" isEqualToString:show] && [array count] < 5){
+        h = (int)[array count]*55;
     }
     
     int offsetY = 10;
@@ -120,7 +122,6 @@ alpha:1.0]
         [b addSubview:line];
     }
 
-    
     self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY + titleHeight, w, h) style:UITableViewStylePlain];
     [self.tv setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
     [self.tv setSeparatorColor:UIColorFromRGB(0xededed)];

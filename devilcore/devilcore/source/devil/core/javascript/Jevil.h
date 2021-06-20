@@ -48,6 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)scrollUp:(NSString*)nodeName;
 + (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback;
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback;
++ (void)popupDate:(NSDictionary*)param :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
 + (BOOL)wifiIsOn;

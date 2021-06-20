@@ -27,6 +27,8 @@
     screenWidth = screenRect.size.width;
     screenHeight = screenRect.size.height;
     self.keyboard_height = 0;
+    
+    self.retainObject = [@[] mutableCopy];
     UITapGestureRecognizer *singleFingerTap2 =
     [[UITapGestureRecognizer alloc] initWithTarget:self
                                             action:@selector(handleSingleTap:)];

@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
     UIReturnKeyType numberKeyType;
 }
 
+@property (nonatomic, retain) id retainObject;
+
 @property (nonatomic, retain) DevilBlockDialog* devilBlockDialog;
 @property (nonatomic, retain) DevilSelectDialog* devilSelectDialog;
 @property (nonatomic, retain) WifiManager* wifiManager;

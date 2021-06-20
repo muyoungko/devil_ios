@@ -124,6 +124,8 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */; };
+		6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */; };
 		6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267725A89AD400600978 /* DevilSelectDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -312,6 +314,8 @@
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
 		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
+		6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDateTimePopup.h; sourceTree = "<group>"; };
+		6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDateTimePopup.m; sourceTree = "<group>"; };
 		6D7E267725A89AD400600978 /* DevilSelectDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSelectDialog.h; sourceTree = "<group>"; };
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
@@ -673,6 +677,8 @@
 				6D467B8B257CF2F7006D57DD /* JevilAction.m */,
 				6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */,
 				6D3EBCBF25CAACAC0006ADD5 /* DevilDebugController.m */,
+				6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */,
+				6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -788,6 +794,7 @@
 				6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */,
 				6D9F7B102629658F003A70EC /* UIImage+PECrop.h in Headers */,
 				6DF53B6E2658F3D3001FB1D6 /* DevilLocation.h in Headers */,
+				6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */,
 				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
 				6D9F7B0D2629658F003A70EC /* PEResizeControl.h in Headers */,
@@ -1014,6 +1021,7 @@
 				6D9F7AB92622EA57003A70EC /* DevilCamera.m in Sources */,
 				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
 				6D3EBE7C25D9123F0006ADD5 /* ReplaceRuleIcon.m in Sources */,
+				6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
 				6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */,
 				6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */,

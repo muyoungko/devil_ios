@@ -29,6 +29,7 @@
 #import "WildCardUITextView.h"
 #import "WildCardVideoView.h"
 #import "DevilDrawer.h"
+#import "DevilDateTimePopup.h"
 
 @interface Jevil()
 
@@ -521,6 +522,19 @@
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
         ((DevilController*)[JevilInstance currentInstance].vc).devilSelectDialog = d;
+}
+
++ (void)popupDate:(NSDictionary*)param :(JSValue *)callback {
+    UIViewController*vc = [JevilInstance currentInstance].vc;
+    DevilDateTimePopup* d = [[DevilDateTimePopup alloc] initWithViewController:vc];
+    id paramM = [param mutableCopy];
+    [d popup:paramM onselect:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+    
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:d];
 }
 
 + (void)resetTimer:(NSString *)nodeName{
