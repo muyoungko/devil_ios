@@ -100,6 +100,7 @@
         NSDateFormatter *df = [[NSDateFormatter alloc]init];
         [df setDateFormat:@"yyyyMMdd"];
         datepicker.date = [df dateFromString:selectedKey];
+        self.date = selectedKey;
     } else
         datepicker.date = [NSDate date];
     if (@available(iOS 13.4, *)) {
