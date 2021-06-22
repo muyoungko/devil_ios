@@ -33,6 +33,7 @@
         [self.player pause];
         [self.player removeTimeObserver:self.observer];
         self.player = nil;
+        self.observer = nil;
     }
     NSString* url = param[@"url"];
     int start = [param[@"start"] intValue];
@@ -50,6 +51,8 @@
 -(void)setTickCallback:(void (^)(int sec, int totalSeconds))callback{
     self.callback = callback;
     if(callback != nil && self.player != nil) {
+        if(self.observer != nil)
+            [self.player removeTimeObserver:self.observer];
         self.observer = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)
             queue:NULL // main queue
             usingBlock:^(CMTime time) {

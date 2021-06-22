@@ -9,7 +9,7 @@
 #import "Lottie.h"
 #import "WildCardUITextField.h"
 
-@interface DevilBaseController ()
+@interface DevilBaseController ()<UIGestureRecognizerDelegate>
 
 @property int originalY;
 @property (retain, nonatomic) UIView* keypadTop;
@@ -36,6 +36,10 @@
     
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveEvent:(UIEvent *)event{
+    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -203,5 +207,7 @@
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
 }
 
-
+- (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller{
+    return self;
+}
 @end

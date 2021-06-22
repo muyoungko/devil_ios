@@ -52,4 +52,10 @@
     [WildCardVideoView autoPlay];
 }
 
+-(void)timerFunction:(NSString*)key{
+    if(self.timerCallback != nil){
+        self.timerCallback(key);
+        self.timerCallback = nil;
+    }
+}
 @end

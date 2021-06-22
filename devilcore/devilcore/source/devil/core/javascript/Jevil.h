@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)camera:(NSDictionary*)param :(JSValue *)callback;
 + (void)share:(NSString*)url;
 + (void)out:(NSString*)url;
++ (void)download:(NSString*)url;
 + (void)sound:(NSDictionary*)param;
 + (void)soundTick:(JSValue*)callback;
 + (void)soundPause;
@@ -80,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)menuReady:(NSString*)node :(NSDictionary*)param;
 + (void)menuOpen:(NSString*)node;
 + (void)menuClose;
++ (void)setTimer:(NSString*)key :(int)milli_sec :(JSValue*)callback;
++ (void)removeTimer:(NSString*)key;
 @end
 
 @interface Jevil : NSObject <Jevil>

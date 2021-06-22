@@ -105,7 +105,6 @@
     if(self.wifiManager)
         [self.wifiManager dismiss];
     [[DevilSound sharedInstance] setTickCallback:nil];
-    [[DevilSound sharedInstance] stop];
     
 }
 

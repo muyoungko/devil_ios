@@ -601,6 +601,19 @@
     }];
 }
 
++ (void)download:(NSString*)url{
+    UIDocumentInteractionController * d = [[UIDocumentInteractionController alloc] init];
+    d.URL = [NSURL URLWithString:url];
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    d.delegate = vc;
+    //[d presentPreviewAnimated:YES];
+    [d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+//        
+//    }];
+}
+
+
 + (void)sound:(NSDictionary*)param{
     @try {
         [[DevilSound sharedInstance] sound:param];
@@ -766,6 +779,19 @@
 }
 + (void)menuClose{
     [DevilDrawer menuClose];
+}
+
++ (void)setTimer:(NSString*)key :(int)milli_sec :(JSValue*)callback {
+    
+    [NSObject cancelPreviousPerformRequestsWithTarget:[JevilInstance currentInstance] selector:@selector(timerFunction:) object:key];
+    [[JevilInstance currentInstance] performSelector:@selector(timerFunction:) withObject:key afterDelay:milli_sec/1000.0f];
+    [JevilInstance currentInstance].timerCallback = ^(id  _Nonnull res) {
+        [callback callWithArguments:@[]];
+    };
+}
+
++ (void)removeTimer:(NSString*)key {
+    [NSObject cancelPreviousPerformRequestsWithTarget:[JevilInstance currentInstance] selector:@selector(timerFunction:) object:key];
 }
 
 @end

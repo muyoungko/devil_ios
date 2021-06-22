@@ -47,6 +47,9 @@ alpha:1.0]
     
     self.list = array;
     self.selectedKey = param[@"selectedKey"];
+    if(self.selectedKey == [NSNull null])
+        self.selectedKey = nil;
+    
     if(param[@"key"])
         self.keyString = param[@"key"];
     else
@@ -104,8 +107,12 @@ alpha:1.0]
         buttonHeight = 50;
     }
     
+    int extraBottom = 0;
+    if([@"bottom" isEqualToString:show])
+        extraBottom += 20;
+    
     float buttonWidth = w;
-    UIView* b = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  w, offsetY + titleHeight + h + buttonHeight)];
+    UIView* b = [[UIView alloc] initWithFrame:CGRectMake(0, 0,  w, offsetY + titleHeight + h + buttonHeight + extraBottom)];
     b.backgroundColor = [UIColor whiteColor];
     b.layer.cornerRadius = 10;
     

@@ -14,7 +14,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilBaseController : UIViewController
+@interface DevilBaseController : UIViewController<UIDocumentInteractionControllerDelegate>
 {
     int screenWidth, screenHeight;
     CGPoint editingPoint;
