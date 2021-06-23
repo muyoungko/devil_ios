@@ -157,7 +157,6 @@ typedef NS_ENUM(NSInteger, UIMode) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
-    [DevilUtil clearTmpDirectory];
     NSString* outputFileName = [NSUUID UUID].UUIDString;
     
     self.targetPreviewPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
