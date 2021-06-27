@@ -54,6 +54,11 @@
         margin = [[arrayContent objectForKey:@"margin"] floatValue];
     margin = [WildCardConstructor convertSketchToPixel:margin];
     
+    float clipToPadding = 0;
+    if([arrayContent objectForKey:@"clipToPadding"] != nil)
+        clipToPadding = [[arrayContent objectForKey:@"clipToPadding"] floatValue];
+    clipToPadding = [WildCardConstructor convertSketchToPixel:clipToPadding];
+    
     id arrayContentContainer = nil;
     NSDictionary* arrayContentTargetLayer = nil;
     for( int i=0;i<[layers count];i++)
@@ -212,6 +217,7 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"1"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"2"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"3"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         [container setShowsHorizontalScrollIndicator:NO];
         [container setShowsVerticalScrollIndicator:NO];
@@ -221,6 +227,7 @@
         adapter.margin = margin;
         adapter.meta = wcMeta;
         adapter.depth = depth;
+        adapter.clipToPadding = clipToPadding;
         self.adapterForRetain = adapter;
         container.delegate = adapter;
         container.dataSource = adapter;

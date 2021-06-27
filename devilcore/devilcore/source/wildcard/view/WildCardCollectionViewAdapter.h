@@ -51,6 +51,7 @@ typedef void (^ ViewPagerSelected)(int);
 @property (nonatomic, weak) UICollectionView* collectionView;
 @property float viewPagerStartPaddingX;
 @property float viewPagerContentWidth;
+@property float clipToPadding;
 
 @end
 

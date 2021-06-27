@@ -30,12 +30,18 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if(_data == nil)
-        return 0;
-    return [_data count];
+    if(section == 0){
+        if(_data == nil)
+            return 0;
+        return [_data count];
+    } else {
+        return 1;
+    }
 }
 
-
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 2;
+}
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
@@ -285,15 +291,25 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    int position = (int)[indexPath row];
-    NSDictionary *cloudJson = _cloudJsonGetter(position);
-    
-    if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
-        float h = [WildCardUtil mesureHeight:cloudJson data:_data[position]];
-        return CGSizeMake(collectionView.frame.size.width, h);
+    if(indexPath.section == 0) {
+        int position = (int)[indexPath row];
+        NSDictionary *cloudJson = _cloudJsonGetter(position);
+        
+        if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
+            float h = [WildCardUtil mesureHeight:cloudJson data:_data[position]];
+            return CGSizeMake(collectionView.frame.size.width, h);
+        } else {
+            float w = [self mesureWidth:cloudJson data:_data[position]];
+            return CGSizeMake(w, collectionView.frame.size.height);
+        }
     } else {
-        float w = [self mesureWidth:cloudJson data:_data[position]];
-        return CGSizeMake(w, collectionView.frame.size.height);
+        if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
+            float h = self.clipToPadding;
+            return CGSizeMake(collectionView.frame.size.width, h);
+        } else {
+            float w = self.clipToPadding;
+            return CGSizeMake(w, collectionView.frame.size.height);
+        }
     }
 }
 
@@ -306,40 +322,45 @@
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    int position = (int)[indexPath row];
-    
-    NSMutableDictionary* item = [_data objectAtIndex:position];
-    NSString* type = _typeGetter(position);
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
-     
-    UIView* childUIView = cell;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 14.0) {
-        childUIView = cell;
-    } else {
-        childUIView = [[cell subviews] objectAtIndex:0];
-    }
-    if([[childUIView subviews] count] == 0)
-    {
-        NSDictionary *cloudJson = _cloudJsonGetter(position);
-        WildCardUIView* v = [WildCardConstructor constructLayer:childUIView withLayer:cloudJson withParentMeta:_meta depth:_depth instanceDelegate:_meta.wildCardConstructorInstanceDelegate];
-        v.userInteractionEnabled = YES;
+    if(indexPath.section == 0) {
+        int position = (int)[indexPath row];
         
-        if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:self.repeatType])
-            v.frame = CGRectMake(v.frame.origin.x, 0, v.frame.size.width, v.frame.size.height);
-        else if([REPEAT_TYPE_GRID isEqualToString:self.repeatType] || [REPEAT_TYPE_VIEWPAGER isEqualToString:self.repeatType])
-                v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height);
-        else
-            v.frame = CGRectMake(0, v.frame.origin.y, v.frame.size.width, v.frame.size.height);
+        NSMutableDictionary* item = [_data objectAtIndex:position];
+        NSString* type = _typeGetter(position);
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
+         
+        UIView* childUIView = cell;
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 14.0) {
+            childUIView = cell;
+        } else {
+            childUIView = [[cell subviews] objectAtIndex:0];
+        }
+        if([[childUIView subviews] count] == 0)
+        {
+            NSDictionary *cloudJson = _cloudJsonGetter(position);
+            WildCardUIView* v = [WildCardConstructor constructLayer:childUIView withLayer:cloudJson withParentMeta:_meta depth:_depth instanceDelegate:_meta.wildCardConstructorInstanceDelegate];
+            v.userInteractionEnabled = YES;
+            
+            if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:self.repeatType])
+                v.frame = CGRectMake(v.frame.origin.x, 0, v.frame.size.width, v.frame.size.height);
+            else if([REPEAT_TYPE_GRID isEqualToString:self.repeatType] || [REPEAT_TYPE_VIEWPAGER isEqualToString:self.repeatType])
+                    v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height);
+            else
+                v.frame = CGRectMake(0, v.frame.origin.y, v.frame.size.width, v.frame.size.height);
+        }
+        
+        WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];
+        [WildCardConstructor applyRule:v withData:item];
+        
+        if(self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
+            self.lastItemCallback(nil);
+        }
+        
+        return cell;
+    } else {
+        UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FOOTER" forIndexPath:indexPath];
+        return cell;
     }
-    
-    WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];
-    [WildCardConstructor applyRule:v withData:item];
-    
-    if(self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
-        self.lastItemCallback(nil);
-    }
-    
-    return cell;
 }
 
 
