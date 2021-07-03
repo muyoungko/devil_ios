@@ -52,6 +52,10 @@
         UILongPressGestureRecognizer *longClick = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongClickListener:)];
         [iv addGestureRecognizer:longClick];
         
+        iv.isAccessibilityElement = YES;
+        iv.accessibilityTraits = UIAccessibilityTraitButton;
+        iv.accessibilityLabel = @"Devil App Builder Icon";
+        
     }
     return self;
 }

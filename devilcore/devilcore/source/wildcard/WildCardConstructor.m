@@ -739,7 +739,7 @@ static BOOL IS_TABLET = NO;
             [vv addSubview:tv];
             
             tv.frame = CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);
-            
+            tv.lineBreakMode = NSLineBreakByTruncatingTail;
             //            tv.translatesAutoresizingMaskIntoConstraints = NO;
             //            [WildCardConstructor followSizeFromFather:vv child:tv];
             
