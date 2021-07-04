@@ -209,6 +209,12 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     NSLog(@"applicationWillEnterForeground");
 }
 
+- (void)applicationWillResignActive:(UIApplication *)application{
+    AVAudioSession *session=[AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayback  error:nil];
+    [session setActive:YES error:nil];
+}
+
 - (void)applicationDidBecomeActive:(UIApplication *)application{
      NSLog(@"app did become active");
 }

@@ -646,6 +646,9 @@
         [callback callWithArguments:@[ text ]];
     }];
 }
++ (void)stopSpeechRecognizer {
+    [[DevilSpeech sharedInstance] cancel];
+}
 
 + (void)setText:(NSString*)node :(NSString*)text {
     id meta = [JevilInstance currentInstance].meta;

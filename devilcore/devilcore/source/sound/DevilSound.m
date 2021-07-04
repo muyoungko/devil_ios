@@ -6,8 +6,6 @@
 //
 
 #import "DevilSound.h"
-#import <AudioToolbox/AudioToolbox.h>
-#import <AVFoundation/AVFoundation.h>
 @import UIKit;
 
 @interface DevilSound () <AVAudioPlayerDelegate>
@@ -41,6 +39,11 @@
     [self.player play];
     if(start > 0)
         [self.player seekToTime:CMTimeMake(start, 1)];
+    
+//    NSError *sessionError = nil;
+//    [[AVAudioSession sharedInstance] setDelegate:self];
+//    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord error:&sessionError];
+
 }
 
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{

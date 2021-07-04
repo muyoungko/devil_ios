@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (DevilSpeech*)sharedInstance;
 - (void)listen:(id)param :(void (^)(id text))callback;
+- (void)stop;
+- (void)cancel;
+
 
 @end
 

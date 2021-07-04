@@ -79,6 +79,11 @@
         self.callback(self.text);
     }
 }
+
+- (void) cancel {
+    self.callback = nil;
+    [self stop];
+}
 - (void) stop {
     if(self.audioEngine.isRunning) {
         [self.audioEngine stop];
