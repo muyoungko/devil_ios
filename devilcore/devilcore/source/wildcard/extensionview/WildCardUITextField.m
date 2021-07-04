@@ -39,11 +39,16 @@
         if([WildCardConstructor sharedInstance].textTransDelegate != nil )
             text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
         tf.placeholder = text;
+        
+        NSString *placeHolderTextColor = @"#777777";
+        if(extension[@"select9"] != nil)
+            placeHolderTextColor = extension[@"select9"];
+        
         if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
             tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textSpec[@"text"] attributes:@{NSForegroundColorAttributeName:
-                                                                                                                       [WildCardUtil colorWithHexString:@"#747474"]}];
+                                                                                                                       [WildCardUtil colorWithHexString:placeHolderTextColor]}];
         else
-            [tf setValue:[WildCardUtil colorWithHexString:@"#777777"] forKeyPath:@"_placeholderLabel.textColor"];
+            [tf setValue:[WildCardUtil colorWithHexString:placeHolderTextColor] forKeyPath:@"_placeholderLabel.textColor"];
         
         int halignment = 1;
         int valignment = 0;

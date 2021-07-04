@@ -30,7 +30,7 @@
             UIColor *c = [WildCardUtil colorWithHexString:colorCode];
             self.replaceView.backgroundColor = c;
             WildCardUIView* v = (WildCardUIView*)self.replaceView;
-            if(v.layer.borderWidth > 0 && colorMapping[@"f"] == nil)
+            if(v.layer.borderWidth > 0 && (colorMapping[@"f"] == nil || [@"" isEqualToString:colorMapping[@"f"]]))
                 v.layer.borderColor = [c CGColor];
         }
     }

@@ -9,6 +9,11 @@
 #import <UserNotifications/UserNotifications.h>
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
+@import CoreData;
+@import GoogleMobileAds;
+@import devilcore;
+@import devillogin;
+
 #import <AFNetworking/AFNetworking.h>
 #import "UIImageView+AFNetworking.h"
 #import "Devil.h"
@@ -19,10 +24,6 @@
 #import "JulyUtil.h"
 #import "DeepLink.h"
 #import "DevilNaverLoginCallback.h"
-
-@import CoreData;
-@import GoogleMobileAds;
-@import devillogin;
 
 #import "AppDelegate.h"
 
@@ -166,7 +167,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
     //DevilCameraController* vc = [[DevilCameraController alloc] init];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.navigationController = [[DevilNavigationController alloc] initWithRootViewController:vc];
     
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];

@@ -183,6 +183,8 @@
 		6D9F7C8926396318003A70EC /* DevilToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7C8726396318003A70EC /* DevilToast.m */; };
 		6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */; };
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
+		6DC162452691711000FD769C /* DevilNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC162432691711000FD769C /* DevilNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DC162462691711000FD769C /* DevilNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC162442691711000FD769C /* DevilNavigationController.m */; };
 		6DCD33B9267DC69800784D91 /* DevilDrawer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DCD33B7267DC69800784D91 /* DevilDrawer.h */; };
 		6DCD33BA267DC69800784D91 /* DevilDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCD33B8267DC69800784D91 /* DevilDrawer.m */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
@@ -373,6 +375,8 @@
 		6D9F7C8726396318003A70EC /* DevilToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilToast.m; sourceTree = "<group>"; };
 		6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleAccessibility.h; sourceTree = "<group>"; };
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
+		6DC162432691711000FD769C /* DevilNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNavigationController.h; sourceTree = "<group>"; };
+		6DC162442691711000FD769C /* DevilNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNavigationController.m; sourceTree = "<group>"; };
 		6DCD33B7267DC69800784D91 /* DevilDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDrawer.h; sourceTree = "<group>"; };
 		6DCD33B8267DC69800784D91 /* DevilDrawer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDrawer.m; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
@@ -679,6 +683,8 @@
 				6D3EBCBF25CAACAC0006ADD5 /* DevilDebugController.m */,
 				6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */,
 				6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */,
+				6DC162432691711000FD769C /* DevilNavigationController.h */,
+				6DC162442691711000FD769C /* DevilNavigationController.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -775,6 +781,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DC162452691711000FD769C /* DevilNavigationController.h in Headers */,
 				6D9F7C8826396318003A70EC /* DevilToast.h in Headers */,
 				6D9F7AB32622EA46003A70EC /* DevilCameraController.h in Headers */,
 				6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */,
@@ -973,6 +980,7 @@
 			files = (
 				6D467AAA256AB07A006D57DD /* WildCardUIView.m in Sources */,
 				6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */,
+				6DC162462691711000FD769C /* DevilNavigationController.m in Sources */,
 				6D467AC8256AB07A006D57DD /* WildCardUtil.m in Sources */,
 				6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */,
 				6D9F7B0B2629658F003A70EC /* PEResizeControl.m in Sources */,

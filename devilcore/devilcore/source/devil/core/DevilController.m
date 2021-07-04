@@ -21,8 +21,10 @@
 @property int header_sketch_height;
 @property BOOL hasOnResume;
 @property BOOL hasOnFinish;
-
 @end
+
+
+
 
 @implementation DevilController
 
@@ -46,7 +48,6 @@
         + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
-    
     
     NSString* common_javascript = [WildCardConstructor sharedInstance].project[@"common_javascript"];
     NSString* embed_code =[WildCardConstructor sharedInstance].project[@"embed_code"];
@@ -169,16 +170,7 @@
     
     [self performSelector:@selector(onResume) withObject:nil afterDelay:0.01f];
     
-    
-//    [JevilInstance currentInstance].data = self.data;
-//    [JevilInstance currentInstance].jscontext = self.jevil;
-    
-    //[self setNeedsStatusBarAppearanceUpdate];
 }
-
-//- (UIStatusBarStyle)preferredStatusBarStyle{
-//    return UIStatusBarStyleLightContent;
-//}
 
 -(void)onResume {
     if(self.hasOnResume){
@@ -200,18 +192,33 @@
         [self hideNavigationBar];
 }
 
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    if([[WildCardConstructor sharedInstance].project[@"status_bar_style_light_content"] boolValue])
+        return UIStatusBarStyleLightContent;
+    else
+        return UIStatusBarStyleDarkContent;
+}
+
 - (void)showNavigationBar{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)hideNavigationBar{
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
     self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [self setNeedsStatusBarAppearanceUpdate];
 }
 
 - (void)constructBlockUnder:(NSString*)block{

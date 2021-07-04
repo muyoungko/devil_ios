@@ -26,6 +26,10 @@ alpha:1.0]
 @property (nonatomic) NSString* valueString;
 @property (nonatomic) DevilBlockDialog *popup;
 @property void (^callback)(id res);
+
+@property (nonatomic) UIColor* textColorSelected;
+@property (nonatomic) UIColor* textColorNormal;
+@property (nonatomic) UIColor* yesButtonTextColor;
 @end
 
 @implementation DevilSelectDialog
@@ -65,6 +69,17 @@ alpha:1.0]
     NSString* show = @"center";
     if(param[@"show"])
         show = param[@"show"];
+    
+    self.textColorSelected = UIColorFromRGB(0x5596E0);
+    self.textColorNormal = UIColorFromRGB(0x000000);
+    self.yesButtonTextColor = UIColorFromRGB(0x5596E0);
+    if(param[@"textColorSelected"])
+        self.textColorSelected = [WildCardUtil colorWithHexString:param[@"textColorSelected"]];
+    if(param[@"textColorNormal"])
+        self.textColorNormal = [WildCardUtil colorWithHexString:param[@"textColorNormal"]];
+    if(param[@"yesButtonTextColor"])
+        self.yesButtonTextColor = [WildCardUtil colorWithHexString:param[@"yesButtonTextColor"]];
+    
     
     self.callback = callback;
     
@@ -146,6 +161,7 @@ alpha:1.0]
         
         CGRect rect = CGRectMake(0, offsetY + titleHeight + h,buttonWidth, buttonHeight);
         UIButton* button = [DevilBlockDialog getButton:rect :yes];
+        [button setTitleColor:self.yesButtonTextColor forState:UIControlStateNormal];
         [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [b addSubview:button];
     }
@@ -215,10 +231,11 @@ alpha:1.0]
     
     cell.textLabel.text = n;
     cell.textLabel.numberOfLines = 2;
+    
     if([k isEqualToString:self.selectedKey])
-        cell.textLabel.textColor = UIColorFromRGB(0x5596E0);
+        cell.textLabel.textColor = self.textColorSelected;
     else
-        cell.textLabel.textColor = UIColorFromRGB(0x000000);
+        cell.textLabel.textColor = self.textColorNormal;
     
     return cell;
 }
