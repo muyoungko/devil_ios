@@ -3,7 +3,7 @@
 
 pod trunk push devilcore.podspec --allow-warnings
 
-for i in {1..250}
+for i in {1..100}
 do
 echo 'devil login start'
 r=`pod trunk push devillogin.podspec --allow-warnings`
@@ -16,7 +16,7 @@ fi
 sleep 15
 done
 
-for i in {1..250}
+for i in {1..100}
 do
 echo 'devil total start'
 r=`pod trunk push devil.podspec --allow-warnings`

@@ -16,7 +16,7 @@
     
     UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
     self.replaceView = iv;
-    iv.contentMode = UIViewContentModeScaleToFill;
+    iv.contentMode = UIViewContentModeScaleAspectFill;
     [vv addSubview:iv];
     [WildCardConstructor followSizeFromFather:vv child:iv];
     

@@ -17,7 +17,7 @@
     if([WildCardConstructor sharedInstance].onLineMode)
     {
         UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
-        iv.contentMode = UIViewContentModeScaleToFill;
+        iv.contentMode = UIViewContentModeScaleAspectFill;
         [vv addSubview:iv];
         [WildCardConstructor followSizeFromFather:vv child:iv];
         //[outRules addObject:ReplaceRuleLocalImage(iv, layer, [layer objectForKey:@"localImageContent"])];
