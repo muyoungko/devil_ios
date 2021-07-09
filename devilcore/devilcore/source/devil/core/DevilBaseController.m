@@ -182,6 +182,7 @@
         parent = [parent superview];
     }
     
+    
     if(editingInFooter) {
     } else {
         editingPoint = [tf convertPoint:tf.frame.origin toView:self.view];
@@ -196,6 +197,10 @@
             }
         }
         editingView = tf;
+    }
+    
+    if(!editingNumberKey && self.keypadTop) {
+        self.keypadTop.hidden = YES;
     }
 }
 

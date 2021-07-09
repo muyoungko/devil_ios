@@ -25,4 +25,5 @@
 +(float) convertSketchToPixel:(float)p;
 +(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
 
+
 @end

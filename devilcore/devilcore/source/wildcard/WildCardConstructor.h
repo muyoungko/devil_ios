@@ -98,6 +98,7 @@
 -(NSMutableDictionary*)getScreen:(NSString*)screenId;
 -(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId;
 -(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId;
++(BOOL)isTablet;
 
 @end
 

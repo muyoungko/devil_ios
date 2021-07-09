@@ -471,7 +471,7 @@
     if(nodeName && ![@"null" isEqualToString:nodeName]) {
         id meta = [JevilInstance currentInstance].meta;
         UICollectionView* list = [[meta getView:nodeName] subviews][0];
-        [list scrollsToTop];
+        [list scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionMiddle animated:YES];
     } else {
         DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
         if(vc.tv != nil)

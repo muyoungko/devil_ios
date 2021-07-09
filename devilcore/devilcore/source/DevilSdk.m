@@ -37,7 +37,6 @@
     }];
 }
 
-
 -(id)getCustomJevil{
     if(self.sharedCustomJevilList == nil)
         self.sharedCustomJevilList = [@[] mutableCopy];

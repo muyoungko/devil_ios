@@ -215,15 +215,6 @@ static BOOL IS_TABLET = NO;
 
 +(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
 {
-    //    float w = [layer[@"frame"][@"w"] floatValue];
-    //    if(w > 360)
-    //        SKETCH_WIDTH = w;
-    //    else
-    //        SKETCH_WIDTH = 360;
-    
-    if(IS_TABLET)
-        SKETCH_WIDTH = 720;
-    
     float h = [cloudJson[@"frame"][@"h"] floatValue];
     if(h == -2)
     {

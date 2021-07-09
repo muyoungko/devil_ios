@@ -129,6 +129,9 @@ static NSString *default_project_id = nil;
      [NSString stringWithFormat:@"OS_VERSION_%@", project_id]];
     [[NSUserDefaults standardUserDefaults] setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:[NSString stringWithFormat:@"APP_VERSION_%@", project_id]];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [WildCardConstructor resetIsTablet];
+    [WildCardConstructor resetSketchWidth];
 }
 
 -(NSMutableDictionary*_Nullable) getAllBlockJson
@@ -317,6 +320,26 @@ static NSString *default_project_id = nil;
 
 static float SKETCH_WIDTH = 360;
 static BOOL IS_TABLET = NO;
+
++(void)resetSketchWidth{
+    NSString* screenId = [[WildCardConstructor sharedInstance] getFirstScreenId];
+    
+    id s = [WildCardConstructor sharedInstance].screenMap[screenId];
+    id list = s[@"list"];
+    if([list count] > 0) {
+        id block_id = [list[0][@"block_id"] stringValue];
+        id cloudJson = [[WildCardConstructor sharedInstance] getBlockJson:block_id];
+        SKETCH_WIDTH = [cloudJson[@"frame"][@"w"] intValue];
+    }
+}
++(void)resetIsTablet{
+    IS_TABLET = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
+}
+
++(BOOL)isTablet{
+    return IS_TABLET;
+}
+
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer
 {
     return [WildCardConstructor constructLayer:cell withLayer:layer withParentMeta:nil depth:0 instanceDelegate:nil];
@@ -329,14 +352,6 @@ static BOOL IS_TABLET = NO;
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer withParentMeta:(WildCardMeta*)parentMeta depth:(int)depth instanceDelegate:(id)delegate
 {
     float w = [layer[@"frame"][@"w"] floatValue];
-    if(w > 360)
-        SKETCH_WIDTH = w;
-    else
-        SKETCH_WIDTH = 360;
-    
-    if(IS_TABLET)
-        SKETCH_WIDTH *= 2;
-    
     double s = [[NSDate date] timeIntervalSince1970];
     WildCardMeta* meta = [[WildCardMeta alloc] init];
     meta.wildCardConstructorInstanceDelegate = delegate;
@@ -1063,26 +1078,19 @@ static BOOL IS_TABLET = NO;
         return [[WildCardConstructor sharedInstance].textConvertDelegate convertTextSize:sketchTextSize];
     
     float textSize = 0;
-    if(SKETCH_WIDTH >= 710)
+    switch(sketchTextSize)
     {
-        textSize =  sketchTextSize / 2.1f;
-    }
-    else
-    {
-        switch(sketchTextSize)
-        {
-            case 15:
-            case 14:
-                textSize = sketchTextSize + 2.0f;
-                break;
-            case 11:
-            case 12:
-            case 18:
-                textSize = sketchTextSize + 1.0f;
-                break;
-            default:
-                textSize = sketchTextSize + 1.0f;
-        }
+        case 15:
+        case 14:
+            textSize = sketchTextSize + 2.0f;
+            break;
+        case 11:
+        case 12:
+        case 18:
+            textSize = sketchTextSize + 1.0f;
+            break;
+        default:
+            textSize = sketchTextSize + 1.0f;
     }
     return textSize;
 }
