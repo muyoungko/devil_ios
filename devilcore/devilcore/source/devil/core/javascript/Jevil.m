@@ -471,7 +471,7 @@
     if(nodeName && ![@"null" isEqualToString:nodeName]) {
         id meta = [JevilInstance currentInstance].meta;
         UICollectionView* list = [[meta getView:nodeName] subviews][0];
-        [list scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionMiddle animated:YES];
+        [list scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     } else {
         DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
         if(vc.tv != nil)
@@ -602,15 +602,27 @@
 }
 
 + (void)download:(NSString*)url{
-    UIDocumentInteractionController * d = [[UIDocumentInteractionController alloc] init];
-    d.URL = [NSURL URLWithString:url];
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    d.delegate = vc;
-    //[d presentPreviewAnimated:YES];
-    [d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
+    
+    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    if(urlData) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString  *documentsDirectory = [paths objectAtIndex:0];
+
+        NSString* ext = [DevilUtil getFileExt:url];
+        NSString* name = [DevilUtil getFileName:url];
+        NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
+        [urlData writeToFile:path atomically:YES];
+        
+        UIDocumentInteractionController * d = [[UIDocumentInteractionController alloc] init];
+        d.URL = [NSURL URLWithString:path];
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        d.delegate = vc;
+        //[d presentPreviewAnimated:YES];
+        [d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
-//        
+//
 //    }];
+    }
 }
 
 

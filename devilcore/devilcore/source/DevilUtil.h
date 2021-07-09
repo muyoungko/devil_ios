@@ -31,6 +31,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (void) convertMovToMp4:(NSString*)path to:(NSString*)outputPath callback:(void (^)(id res))callback;
 + (NSString*) changeFileExt:(NSString*)path to:(NSString*)ext;
 + (NSString*) getFileExt:(NSString*)path;
++ (NSString*) getFileName:(NSString*)path;
 + (NSInteger)sizeOfFile:(NSString *)filePath;
 + (UIImage *) getThumbnail:(NSString*)path;
 + (int) getDuration:(NSString*)path;

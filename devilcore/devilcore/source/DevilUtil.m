@@ -43,6 +43,14 @@
     return ext;
 }
 
++ (NSString*) getFileName:(NSString*)path {
+    id ss = [path componentsSeparatedByString:@"."];
+    NSString* head = ss[[ss count]-2];
+    id hh = [head componentsSeparatedByString:@"/"];
+    NSString* name = hh[[hh count]-1];
+    return name;
+}
+
 + (NSString*) changeFileExt:(NSString*)path to:(NSString*)ext {
     id oldExt = [DevilUtil getFileExt:path];
     NSString* npath = [NSString stringWithFormat:@"%@%@",
