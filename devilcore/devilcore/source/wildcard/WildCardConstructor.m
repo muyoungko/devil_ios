@@ -216,7 +216,7 @@ static NSString *default_project_id = nil;
     id keys = [_screenMap allKeys];
     for(id k in keys) {
         if(_screenMap[k][@"splash"] != [NSNull null] && [_screenMap[k][@"splash"] boolValue]){
-            return [k stringValue];
+            return [NSString stringWithFormat:@"%@", k];
         }
     }
     return nil;
