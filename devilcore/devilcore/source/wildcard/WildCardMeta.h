@@ -40,6 +40,7 @@
 @property (nonatomic, retain) NSMutableDictionary* wrapContentNodes;
 
 @property (nonatomic, retain) WildCardMeta* parentMeta;
+@property (nonatomic, retain) id jevil;
 
 @property (nonatomic, weak, nullable) id <WildCardConstructorInstanceDelegate> wildCardConstructorInstanceDelegate;
 
@@ -61,6 +62,12 @@
 -(void)update;
 
 -(void)viewPagerMove:(NSString*)vp to:(int)distance;
+
+
+-(void)created;
+-(void)paused;
+-(void)resumed;
+-(void)destory;
 
 @end
 

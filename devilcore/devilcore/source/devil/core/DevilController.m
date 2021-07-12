@@ -21,6 +21,7 @@
 @property int header_sketch_height;
 @property BOOL hasOnResume;
 @property BOOL hasOnFinish;
+@property (nonatomic, retain) id thisMetas;
 @end
 
 
@@ -35,6 +36,7 @@
     }
     
     self.jevil = [[JevilCtx alloc] init];
+    self.thisMetas = [@{} mutableCopy];
     
     _viewMain = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
     _viewMain.userInteractionEnabled = YES;
@@ -246,6 +248,12 @@
 
 - (void)cellUpdated:(int)index view:(WildCardUIView *)v{
     _mainWc = v;
+    NSString* key = [NSString stringWithFormat:@"%@", v.meta];
+    if(self.thisMetas[key] == nil) {
+        v.meta.jevil = self.jevil;
+        [v.meta created];
+    }
+    self.thisMetas[key] = v.meta;
 }
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
@@ -288,5 +296,6 @@
         [self.jevil code:@"onFinish()" viewController:self data:self.data meta:nil];
     }
 }
+
 
 @end

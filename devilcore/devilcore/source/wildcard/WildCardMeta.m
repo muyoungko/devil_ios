@@ -13,6 +13,7 @@
 #import "WildCardTrigger.h"
 #import "WildCardConstructor.h"
 #import "WildCardCollectionViewAdapter.h"
+#import "ReplaceRuleMarket.h"
 
 @implementation WildCardMeta
 - (id) init
@@ -420,5 +421,37 @@
         return;
    
     [adapter scrollToIndex:index view:c];
+}
+
+-(void)created{
+    for(id rule in self.replaceRules) {
+        if([rule isKindOfClass:[ReplaceRuleMarket class]]) {
+            [((ReplaceRuleMarket*)rule).marketComponent created];
+        }
+    }
+}
+
+-(void)paused{
+    for(id rule in self.replaceRules) {
+        if([rule isKindOfClass:[ReplaceRuleMarket class]]) {
+            [((ReplaceRuleMarket*)rule).marketComponent pause];
+        }
+    }
+}
+
+-(void)resumed{
+    for(id rule in self.replaceRules) {
+        if([rule isKindOfClass:[ReplaceRuleMarket class]]) {
+            [((ReplaceRuleMarket*)rule).marketComponent resume];
+        }
+    }
+}
+
+-(void)destory{
+    for(id rule in self.replaceRules) {
+        if([rule isKindOfClass:[ReplaceRuleMarket class]]) {
+            [((ReplaceRuleMarket*)rule).marketComponent destory];
+        }
+    }
 }
 @end

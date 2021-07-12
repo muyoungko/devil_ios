@@ -21,6 +21,7 @@
 #import "ReplaceRuleIcon.h"
 #import "ReplaceRuleVideo.h"
 #import "ReplaceRuleWeb.h"
+#import "ReplaceRuleMarket.h"
 #import "ReplaceRuleAccessibility.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
@@ -534,6 +535,12 @@ static BOOL IS_TABLET = NO;
             vv.userInteractionEnabled = YES;
             [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
             _class = @"extension";
+        }
+        
+        if(layer[@"market"]) {
+            ReplaceRuleMarket* rule = [[ReplaceRuleMarket alloc] initWithRuleJson:layer];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         }
         
         if([layer objectForKey:@"clickContent"] || [layer objectForKey:@"clickJavascript"])
