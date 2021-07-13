@@ -132,6 +132,26 @@
 }
 
 
++(void)request:(NSString*)url header:(id _Nullable)header putParam:(id _Nullable)params complete:(void (^)(id res))callback{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    id headers = [@{@"Accept": @"application/json",
+        @"Content-Type": @"application/json",
+    } mutableCopy];
+    for(id k in [header allKeys]){
+        headers[k] = header[k];
+    }
+    [manager PUT:url parameters:params headers:headers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable res) {
+        NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+        callback(r);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        callback(error);
+    }];
+}
+
+
 +(void)request:(NSString*)url complete:(void (^)(id res))callback{
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -147,34 +167,7 @@
     }];
 }
 
-+(void)requestPut:(NSString*)url header:(id _Nullable)header data:(NSData*)data complete:(void (^)(id res))callback{
-    
-    id headers = [@{@"Accept": @"application/json"} mutableCopy];
-    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    if(token)
-        headers[@"x-access-token"] = token;
-    for(id k in [header allKeys])
-        headers[k] = header[k];
-    
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"PUT"];
-    [request setHTTPBody:data];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *err;
-        NSURLResponse *response;
-        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
-        NSString *res = [[NSString alloc]initWithData:responseData encoding:NSASCIIStringEncoding];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(err)
-                callback(nil);
-            else
-                callback(@{@"r":@TRUE});
-        });
-        
-    });
-}
+
 
 +(void)share:(UIViewController*)vc text:(NSString*)textToShare{
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:@[textToShare] applicationActivities:nil];

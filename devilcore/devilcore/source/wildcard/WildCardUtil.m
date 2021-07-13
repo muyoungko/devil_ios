@@ -21,6 +21,10 @@ static BOOL IS_TABLET = NO;
     SKETCH_WIDTH = w;
 }
 
++ (float)headerHeightInSketch {
+    return 80.0f / 360.0f * SKETCH_WIDTH;
+}
+
 +(float) alphaWithHexString: (NSString *) hexString{
     NSString *colorString = [[hexString stringByReplacingOccurrencesOfString: @"#" withString: @""] uppercaseString];
     CGFloat alpha, red, blue, green;

@@ -39,6 +39,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(int)getIndexFromList:(id)list col:(NSString*)col key:(NSString*)key;
 
 +(void)request:(NSString*)url header:(id _Nullable)header postParam:(id _Nullable)params complete:(void (^)(id res))callback;
++(void)request:(NSString*)url header:(id _Nullable)header putParam:(id _Nullable)params complete:(void (^)(id res))callback;
 +(void)request:(NSString*)url header:(id _Nullable)header complete:(void (^)(id res))callback;
 +(void)request:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback;
 +(void)request:(NSString*)url complete:(void (^)(id res))callback;

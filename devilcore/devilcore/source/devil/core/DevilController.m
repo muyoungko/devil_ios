@@ -82,7 +82,7 @@
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
-        _header_sketch_height = 80;
+        _header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
         [self hideNavigationBar];
         

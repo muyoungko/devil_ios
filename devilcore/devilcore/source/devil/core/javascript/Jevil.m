@@ -293,6 +293,47 @@
     }];
 }
 
++ (void)put:(NSString *)url :(id)param then:(JSValue *)callback {
+    NSString* originalUrl = url;
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    id header = [@{} mutableCopy];
+    id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
+    for(id h in header_list){
+        NSString* content = h[@"content"];
+        if([content hasPrefix:@"{"]){
+            content = [content stringByReplacingOccurrencesOfString:@"{" withString:@""];
+            content = [content stringByReplacingOccurrencesOfString:@"}" withString:@""];
+            NSString* value = [Jevil get:content];
+            if(value)
+                header[h[@"header"]] = value;
+        } else
+            header[h[@"header"]] = content;
+    }
+    
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
+    
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestPut:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
+        
+        if(responseJsonObject == nil)
+            responseJsonObject = [@{} mutableCopy];
+        else if([responseJsonObject isMemberOfClass:[NSError class]]){
+            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
+        } else
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        
+        if(!responseJsonObject)
+            responseJsonObject = [@{} mutableCopy];
+        [callback callWithArguments:@[responseJsonObject]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+}
+
 + (void)uploadS3:(NSArray*)paths :(JSValue *)callback{
     if([paths count] == 0) {
         [callback callWithArguments:@[@{@"r":@TRUE, @"uploadedFile":@[]}]];
@@ -420,6 +461,7 @@
         [[JevilInstance currentInstance] syncData];
     }];
 }
+
 
 
 + (void)startLoading{
