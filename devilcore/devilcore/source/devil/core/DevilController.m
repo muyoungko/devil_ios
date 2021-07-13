@@ -13,6 +13,7 @@
 #import "Lottie.h"
 #import "JevilCtx.h"
 #import "DevilSound.h"
+#import "DevilDrawer.h"
 
 @interface DevilController ()
 
@@ -103,14 +104,6 @@
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + self.footer_sketch_height];
 }
 
--(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    if(self.wifiManager)
-        [self.wifiManager dismiss];
-    [[DevilSound sharedInstance] setTickCallback:nil];
-    
-}
-
 -(void)tab:(NSString*)screenId {
     [self.tv removeFromSuperview];
     
@@ -170,8 +163,18 @@
     
     [JevilInstance currentInstance].vc = self;
     
+    [[DevilDrawer sharedInstance] show:self];
+    
     [self performSelector:@selector(onResume) withObject:nil afterDelay:0.01f];
     
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if(self.wifiManager)
+        [self.wifiManager dismiss];
+    [[DevilSound sharedInstance] setTickCallback:nil];
+    [[DevilDrawer sharedInstance] hide:self];
 }
 
 -(void)onResume {
@@ -183,6 +186,7 @@
 - (void)startLoading{
     [self showIndicator];
 }
+
 - (void)stopLoading{
     [self hideIndicator];
 }
@@ -287,7 +291,7 @@
 -(void)updateMeta {
     [self.tv reloadData];
     if(self.header)
-        [self.header update];
+        [self.header update:self.data];
     [WildCardConstructor applyRule:self.footer withData:self.data];
 }
 
@@ -296,6 +300,7 @@
         [self.jevil code:@"onFinish()" viewController:self data:self.data meta:nil];
     }
 }
+
 
 
 @end

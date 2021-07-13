@@ -16,13 +16,12 @@
 @interface DevilDrawer ()
 
 @property void (^callback)(id res);
-@property (nonatomic, retain) NSString* activeBlockName;
 
 @end
 
 @implementation DevilDrawer
 
-+ (id)sharedInstance {
++ (DevilDrawer*)sharedInstance {
     static DevilDrawer *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -33,7 +32,8 @@
 
 -(id)init {
     self = [super init];
-    self.activeBlockName = nil;
+    self.activeWildCardDrawerView = nil;
+    self.keep = [@{} mutableCopy];
     return self;
 }
 
@@ -42,9 +42,12 @@
     UIView* pv = w;
     
     UIViewController* vc = [JevilInstance currentInstance].vc;
+    NSString* vckey = [NSString stringWithFormat:@"%@", vc];
+    if([DevilDrawer sharedInstance].keep[vckey] == nil)
+        [DevilDrawer sharedInstance].keep[vckey] = [@{} mutableCopy];
+    
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
-    int intBlockId = [blockId intValue];
-    if([pv viewWithTag:intBlockId] == nil){
+    if([DevilDrawer sharedInstance].keep[vckey][blockId] == nil){
         
         NSString* show = param[@"show"];
         int offset = param[@"offset"] ? [param[@"offset"] intValue] : 0;
@@ -55,17 +58,16 @@
         int screenHeight = screenRect.size.height;
     
         WildCardDrawerView* d = [[WildCardDrawerView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
-        [d setTag:intBlockId];
         [pv addSubview:d];
             
         id cloudJson = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
         //TODO fitblock
         id contentView = [WildCardConstructor constructLayer:d withLayer:cloudJson instanceDelegate:vc];
         [d constructContentView:contentView show:show offset:px_offset];
-        int statusBarHeight = [[UIApplication sharedApplication] statusBarFrame].size.height;
+        [DevilDrawer sharedInstance].keep[vckey][blockId] = d;
     }
     
-    WildCardDrawerView* d = [w viewWithTag:intBlockId];
+    WildCardDrawerView* d = [DevilDrawer sharedInstance].keep[vckey][blockId];
     ((WildCardUIView*)d.contentView).meta.wildCardConstructorInstanceDelegate = vc;
     id data = [JevilInstance currentInstance].data;
     [WildCardConstructor applyRule:d.contentView withData:data];
@@ -74,28 +76,47 @@
 +(void)menuOpen:(NSString*)blockName{
     UIWindow* w = [UIApplication sharedApplication].keyWindow;
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
-    int intBlockId = [blockId intValue];
-    WildCardDrawerView* d = [w viewWithTag:intBlockId];
+    
+    UIViewController* vc = [JevilInstance currentInstance].vc;
+    NSString* vckey = [NSString stringWithFormat:@"%@", vc];
+    if([DevilDrawer sharedInstance].keep[vckey] == nil)
+        [DevilDrawer sharedInstance].keep[vckey] = [@{} mutableCopy];
+    
+    WildCardDrawerView* d = [DevilDrawer sharedInstance].keep[vckey][blockId];
     id data = [JevilInstance currentInstance].data;
     [[d superview] bringSubviewToFront:d];
     [WildCardConstructor applyRule:d.contentView withData:data];
     [d naviUp];
-    [[DevilDrawer sharedInstance] setActiveBlockName:blockName];
+    [[DevilDrawer sharedInstance] setActiveWildCardDrawerView:d];
 }
 
 +(void)menuClose{
-    UIWindow* w = [UIApplication sharedApplication].keyWindow;
-    NSString* blockName = [[DevilDrawer sharedInstance] getActiveBlockName];
-    if(blockName != nil) {
-        NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
-        int intBlockId = [blockId intValue];
-        WildCardDrawerView* d = [w viewWithTag:intBlockId];
+    WildCardDrawerView* d = [DevilDrawer sharedInstance].activeWildCardDrawerView;
+    if(d != nil) {
         [d naviDown];
-        [[DevilDrawer sharedInstance] setActiveBlockName:nil];
+        [[DevilDrawer sharedInstance] setActiveWildCardDrawerView:nil];
     }
 }
 
--(NSString*)getActiveBlockName{
-    return self.activeBlockName;
+-(void)hide:(UIViewController*)vc{
+    NSString* vckey = [NSString stringWithFormat:@"%@", vc];
+    id drawers = self.keep[vckey];
+    if(drawers != nil) {
+        for(id blockId in [drawers allKeys]) {
+            UIView* d = drawers[blockId];
+            d.hidden = YES;
+        }
+    }
+}
+
+-(void)show:(UIViewController*)vc{
+    NSString* vckey = [NSString stringWithFormat:@"%@", vc];
+    id drawers = self.keep[vckey];
+    if(drawers != nil) {
+        for(id blockId in [drawers allKeys]) {
+            UIView* d = drawers[blockId];
+            d.hidden = NO;
+        }
+    }
 }
 @end

@@ -6,16 +6,22 @@
 //
 
 #import <Foundation/Foundation.h>
+@import UIKit;
+#import "WildCardDrawerView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilDrawer : NSObject
 
-+(id)sharedInstance;
+@property (nonatomic, retain) NSMutableDictionary* keep;
+@property (nonatomic, retain) WildCardDrawerView* activeWildCardDrawerView;
+
++(DevilDrawer*)sharedInstance;
 +(void)menuReady:(NSString*)blockName :(id)param;
 +(void)menuOpen:(NSString*)blockName;
 +(void)menuClose;
--(void)test;
+-(void)hide:(UIViewController*)vc;
+-(void)show:(UIViewController*)vc;
 
 
 @end

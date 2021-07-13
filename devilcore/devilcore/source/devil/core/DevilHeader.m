@@ -29,9 +29,6 @@
 {
     self = [super init];
     
-    
-    
-    
     WildCardMeta* meta = [[WildCardMeta alloc] init];
     meta.wildCardConstructorInstanceDelegate = delegate;
     meta.parentMeta = nil;
@@ -112,8 +109,11 @@
             self.vc.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     }
 }
-
 -(void)update{
+    [self update:self.meta.correspondData];
+}
+-(void)update:(id)correspondData{
+    self.meta.correspondData = correspondData;
     id layers = self.cj[@"layers"];
     [self.vc.navigationItem setHidesBackButton:YES];
     
