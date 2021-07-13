@@ -11,6 +11,7 @@
 
 @interface WildCardUtil : NSObject
 
++(void)setSketchWidth:(float)w;
 +(UIColor*) colorWithHexString: (NSString *) hexString;
 +(UIColor*) colorWithHexStringWithoutAlpha: (NSString *) hexString;
 +(float) alphaWithHexString: (NSString *) hexString;

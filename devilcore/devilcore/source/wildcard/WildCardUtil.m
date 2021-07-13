@@ -17,6 +17,10 @@ static BOOL IS_TABLET = NO;
 
 @implementation WildCardUtil
 
++(void)setSketchWidth:(float)w {
+    SKETCH_WIDTH = w;
+}
+
 +(float) alphaWithHexString: (NSString *) hexString{
     NSString *colorString = [[hexString stringByReplacingOccurrencesOfString: @"#" withString: @""] uppercaseString];
     CGFloat alpha, red, blue, green;
@@ -180,7 +184,7 @@ static BOOL IS_TABLET = NO;
     float screenWidth = (float)screenRect.size.width;
     float screenHeight = (float)screenRect.size.height;
 
-    float sketch_height_of_screen = screenHeight * 360 / screenWidth;
+    float sketch_height_of_screen = screenHeight * SKETCH_WIDTH / screenWidth;
     [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen - sketch_height_more];
 }
 

@@ -331,6 +331,7 @@ static BOOL IS_TABLET = NO;
         id block_id = [list[0][@"block_id"] stringValue];
         id cloudJson = [[WildCardConstructor sharedInstance] getBlockJson:block_id];
         SKETCH_WIDTH = [cloudJson[@"frame"][@"w"] intValue];
+        [WildCardUtil setSketchWidth:SKETCH_WIDTH];
     }
 }
 +(void)resetIsTablet{
