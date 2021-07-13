@@ -23,7 +23,7 @@
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{
-    
+    [self.marketComponent update:opt];
 }
 
 @end

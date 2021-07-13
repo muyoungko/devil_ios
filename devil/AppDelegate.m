@@ -349,6 +349,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         if([f.name hasPrefix:@"profile"])
             networkImageView.layer.cornerRadius = f.frame.size.width/2;
         networkImageView.layer.cornerRadius = f.layer.cornerRadius;
+        f.layer.borderWidth = 0;
     }
 }
 

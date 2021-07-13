@@ -25,6 +25,8 @@
 #else
  #import "FBSDKCoreKit+Internal.h"
 #endif
+
+#import "FBSDKCoreKitBasicsImportForShareKit.h"
 #import "FBSDKShareConstants.h"
 #import "FBSDKShareLinkContent.h"
 
@@ -165,8 +167,9 @@
   if (hashtag.isValid) {
     return hashtag.stringRepresentation;
   } else {
+    NSString *msg = [NSString stringWithFormat:@"Invalid hashtag: '%@'", hashtag.stringRepresentation];
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                       formatString:@"Invalid hashtag: '%@'", hashtag.stringRepresentation];
+                           logEntry:msg];
     return nil;
   }
 }
@@ -263,19 +266,6 @@
   }
 }
 
-+ (BOOL)validateAssetLibraryURLsWithShareMediaContent:(FBSDKShareMediaContent *)mediaContent name:(NSString *)name error:(NSError *__autoreleasing *)errorRef
-{
-  for (id media in mediaContent.media) {
-    if ([media isKindOfClass:[FBSDKShareVideo class]]) {
-      FBSDKShareVideo *video = (FBSDKShareVideo *)media;
-      if (![self _validateAssetLibraryVideoURL:video.videoURL name:name error:errorRef]) {
-        return NO;
-      }
-    }
-  }
-  return YES;
-}
-
 + (BOOL)validateShareContent:(id<FBSDKSharingContent>)shareContent
                bridgeOptions:(FBSDKShareBridgeOptions)bridgeOptions
                        error:(NSError *__autoreleasing *)errorRef
@@ -346,7 +336,7 @@
       FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me/staging_resources"
                                                                      parameters:stagingParameters
                                                                      HTTPMethod:@"POST"];
-      [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+      [request startWithCompletion:^(id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
         NSString *photoStagedURI = result[@"uri"];
         if (photoStagedURI != nil) {
           [FBSDKTypeUtility array:stagedURIs addObject:photoStagedURI];

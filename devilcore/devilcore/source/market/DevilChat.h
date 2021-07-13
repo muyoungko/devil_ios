@@ -7,10 +7,16 @@
 
 #import <Foundation/Foundation.h>
 #import "MarketComponent.h"
+#import <MQTTClient/MQTTClient.h>
+#import <MQTTClient/MQTTSessionManager.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilChat : MarketComponent
+@interface DevilChat : MarketComponent<MQTTSessionDelegate>
+
+@property (strong, nonatomic) MQTTSessionManager *manager;
+@property MQTTSessionManagerState mainMqttClientState;
+@property (strong, nonatomic) NSString* chat_room_id;
 
 @end
 

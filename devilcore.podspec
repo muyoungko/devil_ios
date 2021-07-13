@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilcore'
   s.platform         = :ios
-  s.version          = '0.0.78'
+  s.version          = '0.0.79'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Login
@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
   s.source_files = 'devilcore/devilcore/source/**/*.*', 'devilcore/devilcore/header/**/*.h'
   s.public_header_files = 'devilcore/devilcore/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.dependency 'lottie-ios', '~> 2.5.3'
+  s.dependency 'MQTTClient'
   s.resources = 'devilcore/devilcore/resource/*'
 
 end

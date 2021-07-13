@@ -139,6 +139,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self checkHeader];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -165,6 +166,9 @@
     
     [[DevilDrawer sharedInstance] show:self];
     
+    for(NSString* key in [self.thisMetas allKeys])
+        [self.thisMetas[key] resumed];
+        
     [self performSelector:@selector(onResume) withObject:nil afterDelay:0.01f];
     
 }
@@ -175,6 +179,9 @@
         [self.wifiManager dismiss];
     [[DevilSound sharedInstance] setTickCallback:nil];
     [[DevilDrawer sharedInstance] hide:self];
+    
+    for(NSString* key in [self.thisMetas allKeys])
+        [self.thisMetas[key] paused];
 }
 
 -(void)onResume {
