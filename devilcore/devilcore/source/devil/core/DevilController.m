@@ -184,6 +184,18 @@
         [self.thisMetas[key] paused];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    
+    if(![self.navigationController.viewControllers containsObject:self]) {
+        [self finish];
+        
+        for(NSString* key in [self.thisMetas allKeys])
+            [self.thisMetas[key] destory];
+    }
+    
+    [super viewDidDisappear:animated];
+}
+
 -(void)onResume {
     if(self.hasOnResume){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];

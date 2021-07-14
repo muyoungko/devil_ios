@@ -63,7 +63,6 @@
 }
 
 + (void)replaceScreen:(NSString*)screenName :(id)param{
-    [((DevilController*)[JevilInstance currentInstance].vc) finish];
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     DevilController* d = [[DevilController alloc] init];
     if(param != nil)
@@ -89,12 +88,10 @@
     if(callbackData){
         [JevilInstance globalInstance].callbackData = callbackData;
     }
-    [((DevilController*)[JevilInstance currentInstance].vc) finish];
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)finishThen:(JSValue *)callback {
-    [((DevilController*)[JevilInstance currentInstance].vc) finish];
     [JevilInstance globalInstance].callbackFunction = callback;
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
