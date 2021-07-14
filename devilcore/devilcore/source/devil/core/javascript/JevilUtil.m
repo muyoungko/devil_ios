@@ -21,11 +21,11 @@
         [h removeObjectForKey:srcK];
         id srcValue = src[srcK];
         if([[srcValue class] isKindOfClass: [NSDictionary class]] || [[srcValue class] isSubclassOfClass:[NSDictionary class]]){
-            if(dest[srcK] == nil)
+            if(dest[srcK] == nil || dest[srcK] == [NSNull null])
                 dest[srcK] = [@{} mutableCopy];
             [JevilUtil sync:srcValue :dest[srcK]];
         } else if([[srcValue class] isKindOfClass:[NSArray class]] || [[srcValue class] isSubclassOfClass:[NSArray class]]){
-            if(dest[srcK] == nil)
+            if(dest[srcK] == nil || dest[srcK] == [NSNull null])
                 dest[srcK] = [@[] mutableCopy];
             [JevilUtil syncList:srcValue :dest[srcK]];
         } else {
