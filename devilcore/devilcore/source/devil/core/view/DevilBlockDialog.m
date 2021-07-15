@@ -9,6 +9,7 @@
 #import "DevilBlockDialog.h"
 #import "WildCardConstructor.h"
 #import "WildCardUIView.h"
+#import "JevilInstance.h"
 
 static const CGFloat kDefaultSpringDamping = 0.8;
 static const CGFloat kDefaultSpringVelocity = 10.0;
@@ -65,7 +66,7 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 @property (nonatomic, assign) BOOL isShowing;
 @property (nonatomic, assign) BOOL isBeingShown;
 @property (nonatomic, assign) BOOL isBeingDismissed;
-
+@property (nonatomic, retain) WildCardUIView* wc;
 @end
 
 @implementation DevilBlockDialog
@@ -128,15 +129,20 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 }
 
 #pragma mark - Public Class Methods
+- (void)update {
+    [self.wc.meta update];
+}
+
 + (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show onselect:(void (^)(BOOL yes, id res))callback{
     
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
-    WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj];
+    WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:[JevilInstance currentInstance].vc];
     [WildCardConstructor applyRule:wc withData:data];
     
     DevilBlockDialog *popup = [[[self class] alloc] init];
     popup.callback = callback;
+    popup.wc = wc;
     
     int titleHeight = 60;
     if(titleText == nil)

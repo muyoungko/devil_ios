@@ -476,9 +476,10 @@
     
     UIViewController*vc = [JevilInstance currentInstance].vc;
     if(vc != nil && 
-        ([[vc class] isKindOfClass:[DevilController class]] || [[vc class] isEqual:[DevilController class]]))
-        {
+        ([[vc class] isKindOfClass:[DevilController class]] || [[vc class] isEqual:[DevilController class]])) {
         [((DevilController*)vc) updateMeta];
+        if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
+            [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog update];
     }
 }
 
@@ -544,6 +545,11 @@
         if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
             ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = nil;
     };
+}
+
++ (void)popupClose {
+    if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
+        [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismiss];
 }
 
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback {

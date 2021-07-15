@@ -44,11 +44,14 @@
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
-    NSLog(@"%@",navigationAction.request.URL.absoluteString);
+    NSLog(@"url - %@",navigationAction.request.URL.absoluteString);
     NSString* url = navigationAction.request.URL.absoluteString;
     NSString* scheme = navigationAction.request.URL.scheme;
     
-    if([navigationAction.request.URL.absoluteString hasPrefix:@"itms-apps"]){
+    if([navigationAction.request.URL.absoluteString hasPrefix:@"itms-apps"] ||
+       [navigationAction.request.URL.absoluteString hasPrefix:@"https://itunes.apple.com"] ||
+       [navigationAction.request.URL.absoluteString hasPrefix:@"https://www.sktpass.com/applink"]
+       ){
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
             
         }];
@@ -65,9 +68,9 @@
         if(r)
             decisionHandler(WKNavigationActionPolicyCancel);
         else
-            decisionHandler(WKNavigationActionPolicyAllow+2);
+            decisionHandler(WKNavigationActionPolicyAllow);
     } else
-        decisionHandler(WKNavigationActionPolicyAllow+2);
+        decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 
