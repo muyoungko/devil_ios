@@ -30,6 +30,7 @@
 #import "WildCardVideoView.h"
 #import "DevilDrawer.h"
 #import "DevilDateTimePopup.h"
+#import "JevilFunctionUtil.h"
 
 @interface Jevil()
 
@@ -210,6 +211,7 @@
 }
 
 + (void)get:(NSString *)url then:(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
@@ -243,13 +245,14 @@
         } else
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
-        [callback callWithArguments:@[responseJsonObject]];
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[responseJsonObject]];
         [[JevilInstance currentInstance] syncData];
     }];
 }
 
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback {
 
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
@@ -285,7 +288,8 @@
         
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
-        [callback callWithArguments:@[responseJsonObject]];
+        
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[responseJsonObject]];
         [[JevilInstance currentInstance] syncData];
     }];
 }

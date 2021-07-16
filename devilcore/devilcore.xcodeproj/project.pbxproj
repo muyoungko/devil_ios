@@ -197,6 +197,8 @@
 		6DD09448269C8054000A913A /* ReplaceRuleMarket.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD09446269C8054000A913A /* ReplaceRuleMarket.m */; };
 		6DD0944C269C85A8000A913A /* MarketInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD0944A269C85A8000A913A /* MarketInstance.h */; };
 		6DD0944D269C85A8000A913A /* MarketInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0944B269C85A8000A913A /* MarketInstance.m */; };
+		6DD097DD26A1AE29000A913A /* JevilFunctionUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD097DB26A1AE29000A913A /* JevilFunctionUtil.h */; };
+		6DD097DE26A1AE29000A913A /* JevilFunctionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
@@ -399,6 +401,8 @@
 		6DD09446269C8054000A913A /* ReplaceRuleMarket.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleMarket.m; sourceTree = "<group>"; };
 		6DD0944A269C85A8000A913A /* MarketInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketInstance.h; sourceTree = "<group>"; };
 		6DD0944B269C85A8000A913A /* MarketInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarketInstance.m; sourceTree = "<group>"; };
+		6DD097DB26A1AE29000A913A /* JevilFunctionUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilFunctionUtil.h; sourceTree = "<group>"; };
+		6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilFunctionUtil.m; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
@@ -489,6 +493,8 @@
 				6D09C3B925B07B3B00221A4C /* JevilInstance.m */,
 				6D9824AE25C5A91E0000BB12 /* JevilUtil.h */,
 				6D9824AF25C5A91E0000BB12 /* JevilUtil.m */,
+				6DD097DB26A1AE29000A913A /* JevilFunctionUtil.h */,
+				6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */,
 			);
 			path = javascript;
 			sourceTree = "<group>";
@@ -835,6 +841,7 @@
 				6DD0943D269C7A1A000A913A /* DevilChat.h in Headers */,
 				6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */,
 				6D467AC4256AB07A006D57DD /* WildCardViewPagerLeftAction.h in Headers */,
+				6DD097DD26A1AE29000A913A /* JevilFunctionUtil.h in Headers */,
 				6D9F7B0C2629658F003A70EC /* PECropView.h in Headers */,
 				6D467AAD256AB07A006D57DD /* WildCardNextChain.h in Headers */,
 				6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */,
@@ -1101,6 +1108,7 @@
 				6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */,
 				6D9F7B92262C8380003A70EC /* ReplaceRuleVideo.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
+				6DD097DE26A1AE29000A913A /* JevilFunctionUtil.m in Sources */,
 				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,

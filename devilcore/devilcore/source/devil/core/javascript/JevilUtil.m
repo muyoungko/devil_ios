@@ -8,6 +8,7 @@
 #import "JevilUtil.h"
 
 @implementation JevilUtil
+
 +(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest {
     id h = [@{} mutableCopy];
     id dstKs = [dest allKeys];
