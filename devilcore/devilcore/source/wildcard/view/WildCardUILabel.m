@@ -33,7 +33,7 @@
     {
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         NSDictionary *attributes = @{NSFontAttributeName: self.font};
-        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.max_width?self.max_width - parent.paddingLeft - parent.paddingRight + 4 :CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
         self.frame = CGRectMake(parent.paddingLeft, parent.paddingTop, textSize.size.width, textSize.size.height);
         CGRect superFrame = parent.frame;
         parent.frame = CGRectMake(superFrame.origin.x, superFrame.origin.y, parent.paddingLeft + self.frame.size.width + parent.paddingRight, parent.paddingTop + self.frame.size.height + parent.paddingBottom);

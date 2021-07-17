@@ -237,9 +237,21 @@ static BOOL IS_TABLET = NO;
                 font = [UIFont boldSystemFontOfSize:textSize];
             else
                 font = [UIFont systemFontOfSize:textSize];
-            float w = [cloudJson[@"frame"][@"w"] floatValue];
-            w = [WildCardConstructor convertSketchToPixel:w];
+            float w = [cloudJson[@"frame"][@"w"] intValue];
+            float paddingLeft = 0;
+            float paddingRight = 0;
+            if(cloudJson[@"padding"]) {
+                if(cloudJson[@"paddingLeft"])
+                    paddingLeft = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingLeft"] intValue]];
+                if(cloudJson[@"paddingRight"])
+                    paddingRight = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingRight"] intValue]];
+            }
             
+            if(w == -2)
+                w = [WildCardUtil convertSketchToPixel:[cloudJson[@"frame"][@"max_width"] intValue]] - paddingLeft - paddingRight;
+            else
+                w = [WildCardUtil convertSketchToPixel:w];
+                
             NSDictionary *attributes = @{NSFontAttributeName: font};
             CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
 

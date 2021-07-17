@@ -845,6 +845,9 @@ static BOOL IS_TABLET = NO;
                 tv.wrap_height = YES;
             }
             
+            if(frame[@"max_width"])
+                tv.max_width = [WildCardUtil convertSketchToPixel:[frame[@"max_width"] intValue]];
+            
             NSString* text = [textSpec objectForKey:@"text"];
             if(text == nil)
                 text = name;

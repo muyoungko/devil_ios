@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(id)initWithScreenId:(NSString*)screenKey;
 -(void)dragEnable:(BOOL)enable;
 -(void)reloadData;
+-(void)asyncScrollTo:(int)index;
 
 @property (nonatomic, weak, nullable) id <WildCardConstructorInstanceDelegate> wildCardConstructorInstanceDelegate;
 @property (nonatomic, weak, nullable) id <WildCardScreenTableViewDelegate> tableViewDelegate;

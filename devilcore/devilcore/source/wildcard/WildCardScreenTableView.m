@@ -247,6 +247,13 @@
     }
 }
 
+-(void)asyncScrollTo:(int)index{
+    [self performSelector:@selector(scrollToCore:) withObject:[NSNumber numberWithInt:index] afterDelay:0.1f];
+}
+
+-(void)scrollToCore:(NSNumber*)index{
+    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
 
 
 @end

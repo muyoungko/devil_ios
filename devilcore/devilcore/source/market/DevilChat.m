@@ -29,6 +29,7 @@
         
     MQTTSession *session = [[MQTTSession alloc] init];
     self.session = session;
+    session.keepAliveInterval = 10;
     session.delegate = self;
     session.transport = transport;
     [session connectAndWaitTimeout:10];

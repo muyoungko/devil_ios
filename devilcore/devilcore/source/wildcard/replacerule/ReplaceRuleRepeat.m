@@ -16,6 +16,7 @@
 #import "WildCardTrigger.h"
 #import "WildCardAction.h"
 #import <UIKit/UIKit.h>
+#import "WildCardUICollectionView.h"
 
 @interface ReplaceRuleRepeat()
 @property int tagOffsetX;
@@ -212,7 +213,7 @@
         CGRect containerRect = [WildCardConstructor getFrame:layer:parent];
         containerRect.origin.x = containerRect.origin.y = 0;
         
-        UICollectionView *container = [[UICollectionView alloc] initWithFrame:containerRect collectionViewLayout:flowLayout];
+        WildCardUICollectionView *container = [[WildCardUICollectionView alloc] initWithFrame:containerRect collectionViewLayout:flowLayout];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"0"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"1"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"2"];
