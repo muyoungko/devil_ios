@@ -939,8 +939,26 @@ static BOOL IS_TABLET = NO;
             hNextToMargin = [[[NSNumber alloc] initWithFloat:a] floatValue];
         }
         
-        //[WildCardConstructor hNextTo:[prevView superview] preview:prevView next:nextView margin:hNextToMargin];
-        [wcMeta addNextChain:prevView next:nextView margin:hNextToMargin horizontal:YES depth:depth];
+        [wcMeta addNextChain:prevView next:nextView margin:hNextToMargin nextType:WC_NEXT_TYPE_HORIZONTAL depth:depth];
+    }
+    
+    if([layer objectForKey:@"hPrevTo"] != nil)
+    {
+        NSString* prevName = [layer objectForKey:@"hPrevTo"];
+        NSString* nextName = [layer objectForKey:@"name"];
+        WildCardUIView* prevView = [wcMeta.generatedViews objectForKey:prevName];
+        WildCardUIView* nextView = [wcMeta.generatedViews objectForKey:nextName];
+        
+        float hPrevToMargin = 0;
+        
+        if([layer objectForKey:@"hPrevToMargin"] != nil)
+        {
+            float a = [[layer objectForKey:@"hPrevToMargin"] floatValue];
+            a = [WildCardConstructor convertSketchToPixel:a];
+            hPrevToMargin = [[[NSNumber alloc] initWithFloat:a] floatValue];
+        }
+        
+        [wcMeta addNextChain:prevView next:nextView margin:hPrevToMargin nextType:WC_NEXT_TYPE_HORIZONTAL_PREV depth:depth];
     }
     
     if([layer objectForKey:@"vNextTo"] != nil)
@@ -957,8 +975,7 @@ static BOOL IS_TABLET = NO;
             vNextToMargin = [[[NSNumber alloc] initWithFloat:a] floatValue];
         }
         
-        //[WildCardConstructor vNextTo:[prevView superview] preview:prevView next:nextView margin:vNextToMargin];
-        [wcMeta addNextChain:prevView next:nextView margin:vNextToMargin horizontal:NO depth:depth];
+        [wcMeta addNextChain:prevView next:nextView margin:vNextToMargin nextType:WC_NEXT_TYPE_VERTICAL depth:depth];
     }
     
     NSString* name = layer[@"name"];

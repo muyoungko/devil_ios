@@ -386,12 +386,12 @@
                 CreatedViewInfo* createdViewInfo = [[CreatedViewInfo alloc] initWithView:thisNode type:thisType];
                 [repeatRule.createdRepeatView insertObject:createdViewInfo atIndex:i];
                 
-                BOOL horizontal = [REPEAT_TYPE_RIGHT isEqualToString:repeatType];
+                int nextType = [REPEAT_TYPE_RIGHT isEqualToString:repeatType] ? WC_NEXT_TYPE_HORIZONTAL : WC_NEXT_TYPE_VERTICAL;
                 if(i > 0) {
                     WildCardUIView* prevView = (WildCardUIView*)((CreatedViewInfo*)[repeatRule.createdRepeatView objectAtIndex:i-1]).view;
-                    [meta addNextChain:prevView next:thisNode margin:margin horizontal:horizontal depth:containerDepth];
+                    [meta addNextChain:prevView next:thisNode margin:margin nextType:nextType depth:containerDepth];
                 } else {
-                    if(horizontal)
+                    if(nextType = WC_NEXT_TYPE_HORIZONTAL)
                         thisNode.frame = CGRectMake([(WildCardUIView*)[thisNode superview] paddingLeft] , thisNode.frame.origin.y, thisNode.frame.size.width, thisNode.frame.size.height);
                     else
                         thisNode.frame = CGRectMake(thisNode.frame.origin.x, [(WildCardUIView*)[thisNode superview] paddingTop] , thisNode.frame.size.width, thisNode.frame.size.height);

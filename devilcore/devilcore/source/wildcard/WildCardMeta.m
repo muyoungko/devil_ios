@@ -33,7 +33,7 @@
     return self;
 }
 
--(void)addNextChain:(UIView*)prev next:(UIView*)next margin:(int)margin horizontal:(BOOL)horizontal depth:(int)depth
+-(void)addNextChain:(UIView*)prev next:(UIView*)next margin:(int)margin nextType:(int)nextType depth:(int)depth
 {
     //NSLog(@"addNextChain : %@ - %@", ((WildCardUIView*)prev).name, ((WildCardUIView*)next).name);
     [self initNextChainIfNeed];
@@ -51,7 +51,7 @@
     WildCardNextChain *node = [[WildCardNextChain alloc] init];
     node.view = next;
     node.margin = margin;
-    node.horizontal = horizontal;
+    node.nextType = nextType;
     [chain addObject:node];
 
     [_nextChainChildNodes setObject:next forKey:nextKey];
@@ -242,6 +242,9 @@
 
 -(void) fireOnLayout:(WildCardUIView*)prevView offsetX:(float)offsetX offsetY:(float)offsetY outSize:(CGSize)size
 {
+    /**
+        PREV여부에 따라 사이즈가 다르게 처리되어야한다.
+     */
     if(prevView.hidden == YES)
     {
         if(size.width < offsetX)
@@ -269,32 +272,42 @@
         
         WildCardUIView* nextView = (WildCardUIView*)nextNode.view;
         float fHNextToMargin = nextNode.margin;
-        BOOL horizontal = nextNode.horizontal;
+        int nextType = nextNode.nextType;
         float newOffset = 0;
-        if(horizontal) {
+        if(nextType == WC_NEXT_TYPE_HORIZONTAL) {
             if (prevView.hidden == YES)
                 newOffset = offsetX + fHNextToMargin;
             else
                 newOffset = offsetX + prevView.frame.size.width + prevView.rightMargin + fHNextToMargin;
         }
-        else {
+        else if(nextType == WC_NEXT_TYPE_VERTICAL) {
             //NSLog(@"%@ %f %f", prevView.name, prevView.frame.size.width, prevView.frame.size.height);
             if (prevView.hidden == YES)
                 newOffset = offsetY + fHNextToMargin;
             else
                 newOffset = offsetY + prevView.frame.size.height + prevView.bottomMargin +fHNextToMargin;
+        } else if(nextType == WC_NEXT_TYPE_HORIZONTAL_PREV) {
+            if (prevView.hidden == YES)
+                newOffset = offsetX - fHNextToMargin;
+            else
+                newOffset = offsetX - nextView.frame.size.width - fHNextToMargin;
         }
-        if(horizontal) {
+        
+        if(nextType == WC_NEXT_TYPE_HORIZONTAL) {
             //NSLog(@"%@ %f %f", nextView.name, newOffset, nextView.frame.origin.y);
             nextView.frame = CGRectMake(newOffset, nextView.frame.origin.y, nextView.frame.size.width, nextView.frame.size.height);
             [self fireOnLayout:nextView offsetX:newOffset offsetY:offsetY outSize:size];
         }
-        else
+        else if(nextType == WC_NEXT_TYPE_VERTICAL)
         {
             //NSLog(@"%@ y=%f parentH=%f", nextView.name, newOffset, [nextView superview].frame.size.height);
             //[nextView superview].backgroundColor = [UIColor redColor];
             nextView.frame = CGRectMake(nextView.frame.origin.x, newOffset, nextView.frame.size.width, nextView.frame.size.height);
             [self fireOnLayout:nextView offsetX:offsetX offsetY:newOffset outSize:size];
+        } else if(nextType == WC_NEXT_TYPE_HORIZONTAL_PREV) {
+            //NSLog(@"%@ %f %f", nextView.name, newOffset, nextView.frame.origin.y);
+            nextView.frame = CGRectMake(newOffset, nextView.frame.origin.y, nextView.frame.size.width, nextView.frame.size.height);
+            [self fireOnLayout:nextView offsetX:newOffset offsetY:offsetY outSize:size];
         }
     }
 }

@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @property float margin;
-@property BOOL horizontal;
+@property int nextType;
 @property (nonatomic, weak) UIView* view;
 
 @end

@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+
+#define WC_NEXT_TYPE_HORIZONTAL 0
+#define WC_NEXT_TYPE_VERTICAL 1
+#define WC_NEXT_TYPE_HORIZONTAL_PREV 2
+#define WC_NEXT_TYPE_VERTICAL_PREV 3
+
 @class WildCardUIView;
 @class WildCardTrigger;
 @class WildCardMeta;
@@ -44,7 +50,7 @@
 
 @property (nonatomic, weak, nullable) id <WildCardConstructorInstanceDelegate> wildCardConstructorInstanceDelegate;
 
--(void)addNextChain:(UIView*)prevView next:(UIView*)nextView margin:(int)margin horizontal:(BOOL)horizontal depth:(int)depth;
+-(void)addNextChain:(UIView*)prevView next:(UIView*)nextView margin:(int)margin nextType:(int)nextType depth:(int)depth;
 
 -(void)addGravity:(UIView*)view depth:(int)depth;
 -(void)addWrapContent:(UIView*)view depth:(int)depth;
@@ -62,7 +68,6 @@
 -(void)update;
 
 -(void)viewPagerMove:(NSString*)vp to:(int)distance;
-
 
 -(void)created;
 -(void)paused;
