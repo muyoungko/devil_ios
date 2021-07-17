@@ -103,7 +103,10 @@
     if(extension[@"select8"] != nil) {
         tf.maxLine = [extension[@"select8"] intValue];
     } else
-        tf.maxLine = 5;
+        tf.maxLine = 1;
+    
+    tf.minHeight = [WildCardConstructor getFrame:layer:nil].size.height;
+    tf.variableHeight = [extension[@"select10"] isEqualToString:@"Y"];
     
     NSString *placeHolderTextColor = @"#777777";
     if(extension[@"select9"] != nil)
@@ -115,9 +118,12 @@
         [tf setValue:[WildCardUtil colorWithHexString:placeHolderTextColor] forKeyPath:@"_placeholderLabel.textColor"];
     
     NSDictionary *attributes = @{NSFontAttributeName: tf.font};
-    CGRect rect = [@"line1" boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    CGRect rect = [@"sample text" boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    
     tf.lineHeight = rect.size.height;
-    tf.frame = CGRectMake(0, 0, 0,tf.lineHeight);
+    tf.topInset = tf.minHeight/2-tf.lineHeight/2;
+    tf.textContainerInset = UIEdgeInsetsMake(tf.topInset, 0, 0, 0);
+    
     return tf;
 }
 
@@ -135,14 +141,18 @@
     return self;
 }
 
-- (void)setText:(NSString *)text{
-    [super setText:text];
+- (void)updatePlaceHolderVisible {
     if(self.placeholderLabel != nil){
-        if(text == nil || [@"" isEqualToString:text])
+        if(self.text == nil || [@"" isEqualToString:self.text])
             self.placeholderLabel.hidden = NO;
         else
             self.placeholderLabel.hidden = YES;
     }
+}
+
+- (void)setText:(NSString *)text{
+    [super setText:text];
+    [self updatePlaceHolderVisible];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
@@ -154,23 +164,13 @@
 - (void)textViewDidEndEditing:(UITextView *)textView{
     NSString* text = [textView text];
     [_meta.correspondData setObject:[textView text] forKey:_holder];
-    if(self.placeholderLabel != nil){
-        if(text == nil || [@"" isEqualToString:text])
-            self.placeholderLabel.hidden = NO;
-        else
-            self.placeholderLabel.hidden = YES;
-    }
+    [self updatePlaceHolderVisible];
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
     NSString* text = self.text;
     [_meta.correspondData setObject:self.text forKey:_holder];
-    if(self.placeholderLabel != nil){
-        if(text == nil || [@"" isEqualToString:text])
-            self.placeholderLabel.hidden = NO;
-        else
-            self.placeholderLabel.hidden = YES;
-    }
+    [self updatePlaceHolderVisible];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -186,19 +186,29 @@
     return YES;
 }
 
+- (void)updateHeight {
+    if(self.variableHeight) {
+        id lines = [self.text componentsSeparatedByString:@"\n"];
+        int len = (int)[lines count];
+        if(len > self.maxLine)
+            len = self.maxLine;
+        
+        float h = len*self.lineHeight + self.topInset;
+        if(h < self.minHeight)
+            h = self.minHeight;
+        
+        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y,
+                                          self.frame.size.width, h);
+        
+        self.superview.frame = CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y,
+                                          self.superview.frame.size.width, h);
+        [self.meta requestLayout];
+    }
+}
+
 - (void)textChanged:(UITextField *)textField{
     [_meta.correspondData setObject:self.text forKey:_holder];
-    id lines = [self.text componentsSeparatedByString:@"\n"];
-    
-    
-    int len = (int)[lines count];
-    if(len > self.maxLine)
-        len = self.maxLine;
-    
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y,
-                                      self.frame.size.width,
-                                    len*self.lineHeight);
-    [self.meta requestLayout];
+    [self updateHeight];
 }
 
 

@@ -24,8 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL emtpy;
 @property UIColor* originalTextColor;
 @property int maxLine;
+@property int minHeight;
+@property BOOL variableHeight;
 @property float lineHeight;
-
+@property float topInset;
 @end
 
 NS_ASSUME_NONNULL_END

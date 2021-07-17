@@ -523,8 +523,8 @@ static BOOL IS_TABLET = NO;
             if(extensionView != nil) {
                 CGRect containerRect = [WildCardConstructor getFrame:layer:parent];
                 containerRect.origin.x = containerRect.origin.y = 0;
-                if([extensionView isMemberOfClass:[WildCardUITextView class]]) {
-                    containerRect.size.height = extensionView.frame.size.height;
+                if([extensionView isMemberOfClass:[WildCardUITextView class]] && ((WildCardUITextView*)extensionView).variableHeight ) {
+                    [wcMeta addWrapContent:vv depth:depth];
                 }
                 
                 extensionView.frame = containerRect;

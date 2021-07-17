@@ -70,7 +70,8 @@
         case WILDCARD_EXTENSION_TYPE_INPUT:
         {
             if([@"multiline" isEqualToString:extension[@"select7"]]){
-                return [WildCardUITextView create:layer meta:meta];
+                WildCardUITextView *r = [WildCardUITextView create:layer meta:meta];
+                return r;
             } else {
                 return [WildCardUITextField create:layer meta:meta];
             }
@@ -148,14 +149,9 @@
                 WildCardUITextView* tf = (WildCardUITextView*)[rule.replaceView subviews][0];
                 if(tf.placeholderLabel == nil){
                     UILabel* ppp = [[UILabel alloc] initWithFrame:tf.frame];
-                    ppp.frame =
-                        CGRectMake(ppp.frame.origin.x, ppp.frame.origin.y,
-                               ppp.frame.size.width, ppp.frame.size.height
-                               );
                     ppp.text = tf.placeholderText;
                     ppp.font = tf.font;
                     ppp.textColor = [UIColor lightGrayColor];
-                    [ppp sizeToFit];
                     tf.placeholderLabel = ppp;
                     [[tf superview] addSubview:ppp];
                 }
