@@ -69,10 +69,13 @@
         [self.vc.navigationController popViewControllerAnimated:YES];
 
         NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
-        NSString *selectedKey = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
-        if(selectedKey) {
-            [WildCardConstructor sharedInstance:project_id].project[@"host"] = selectedKey;
-        }
+        NSString* webHostKey = [NSString stringWithFormat:@"%@_WEB_HOST", project_id];
+        NSString *savedHost = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
+        NSString *savedWebHost = [[NSUserDefaults standardUserDefaults] objectForKey:webHostKey];
+        if(savedHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"host"] = savedHost;
+        if(savedWebHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"web_host"] = savedWebHost;
         
         DevilController* d = [[DevilController alloc] init];
         d.startData = startData;

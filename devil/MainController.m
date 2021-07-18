@@ -119,10 +119,14 @@
     [DevilSdk start:project_id viewController:self complete:^(BOOL res) {
         
         NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
-        NSString *selectedKey = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
-        if(selectedKey) {
-            [WildCardConstructor sharedInstance:project_id].project[@"host"] = selectedKey;
-        }
+        NSString* webHostKey = [NSString stringWithFormat:@"%@_WEB_HOST", project_id];
+        NSString *savedHost = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
+        if(savedHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"host"] = savedHost;
+        
+        NSString *savedWebHost = [[NSUserDefaults standardUserDefaults] objectForKey:webHostKey];
+        if(savedWebHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"web_host"] = savedWebHost;
         
         [self hideIndicator];
     }];
@@ -148,6 +152,7 @@
                 [list insertObject:@{@"host": res[@"project"][@"host"]}atIndex:0];
                 
                 NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
+                NSString* webHostKey = [NSString stringWithFormat:@"%@_WEB_HOST", project_id];
                 NSString *selectedKey = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
                 
                 id param = [@{@"key":@"host",
@@ -163,8 +168,13 @@
                 }
                 
                 DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:self];
-                [d popupSelect:list param:param onselect:^(id  _Nonnull res) {
-                    [[NSUserDefaults standardUserDefaults] setObject:res forKey:hostKey];
+                [d popupSelect:list param:param onselect:^(id  _Nonnull host) {
+                    for(id m in list) {
+                        if([m[@"host"] isEqualToString:host]) {
+                            [[NSUserDefaults standardUserDefaults] setObject:host forKey:hostKey];
+                            [[NSUserDefaults standardUserDefaults] setObject:m[@"web_host"] forKey:webHostKey];
+                        }
+                    }
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     [self startProject:project_id];
                 }];

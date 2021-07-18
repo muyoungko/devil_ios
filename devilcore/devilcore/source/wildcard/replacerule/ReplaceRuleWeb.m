@@ -29,7 +29,7 @@
     WKWebView* web = (WKWebView*)self.replaceView;
     NSString* url = [MappingSyntaxInterpreter interpret:self.replaceJsonKey:opt];
     if([url hasPrefix:@"/"])
-        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"web_host"], url];
     if(url != nil){
         [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     }
