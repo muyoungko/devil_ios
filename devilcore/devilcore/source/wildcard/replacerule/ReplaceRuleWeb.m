@@ -8,6 +8,10 @@
 #import "ReplaceRuleWeb.h"
 #import "MappingSyntaxInterpreter.h"
 
+@interface ReplaceRuleWeb()
+@property (nonatomic, retain) NSString* lastUrl;
+@end
+
 @implementation ReplaceRuleWeb
 
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
@@ -30,7 +34,8 @@
     NSString* url = [MappingSyntaxInterpreter interpret:self.replaceJsonKey:opt];
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"web_host"], url];
-    if(url != nil){
+    if(url != nil && ![url isEqualToString:self.lastUrl]){
+        self.lastUrl = url;
         [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     }
 }

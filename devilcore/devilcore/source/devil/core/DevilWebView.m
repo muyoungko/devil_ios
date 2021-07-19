@@ -7,6 +7,9 @@
 
 #import "DevilWebView.h"
 #import "JevilInstance.h"
+#import "Jevil.h"
+#import "DevilBlockDialog.h"
+#import "DevilController.h"
 
 @interface DevilWebView ()
 @property (copy, nonatomic) WKWebViewActionHandler actionHandler;
@@ -57,8 +60,42 @@
         }];
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
-    } else if([scheme hasPrefix:@"tauthlink://"] || [scheme hasPrefix:@"ktauthexternalcall://"]
-              || [scheme hasPrefix:@"upluscorporation://"]) {
+    } else if([url hasPrefix:@"tauthlink://"] || [url hasPrefix:@"ktauthexternalcall://"]
+              || [url hasPrefix:@"upluscorporation://"]) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else if([url hasPrefix:@"jevil://devil.com/popupAddress"]) {
+        
+        [JevilInstance currentInstance].data[@"address_step"] = @"1";
+        [JevilInstance currentInstance].data[@"address_input1"] = @"";
+        [JevilInstance currentInstance].data[@"address_input2"] = @"";
+        [JevilInstance currentInstance].data[@"address_list"] = [@[] mutableCopy];
+        [JevilInstance currentInstance].data[@"address_no_result"] = @"";
+        [[JevilInstance currentInstance] pushData];
+        
+        DevilBlockDialog* d = [DevilBlockDialog popup:@"address-devil-template" data:[JevilInstance currentInstance].data title:nil yes:nil no:nil
+                                                 show:@"bottom"
+                                             onselect:^(BOOL yes, id res) {
+            [[JevilInstance currentInstance] syncData];
+            if(yes) {
+                NSString* s = [NSString stringWithFormat:@"javascript:addressPopupCallback('%@', '%@', '%@', '%@')",
+                               [JevilInstance currentInstance].data[@"address_name"],
+                               [JevilInstance currentInstance].data[@"road_address_name"],
+                               [JevilInstance currentInstance].data[@"address_detail"],
+                               [JevilInstance currentInstance].data[@"address_post"]
+                               ];
+                [self evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
+                    
+                }];
+            }
+        }];
+        [d show];
+        
+        ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else if(![url hasPrefix:@"http://"] && ![url hasPrefix:@"https://"]) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
             
         }];

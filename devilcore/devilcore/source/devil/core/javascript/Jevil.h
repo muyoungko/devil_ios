@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)put:(NSString *)url :(id)param then:(JSValue *)callback;
 + (void)uploadS3:(NSArray*)file :(JSValue *)callback;
 + (void)sendPushKeyWithDevilServer;
++ (void)getThenWithHeader:(NSString *)url :(id)header :(JSValue *)callback;
 + (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback;
 + (void)update;
 + (void)updateThis;
@@ -48,7 +49,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)scrollTo:(NSString*)nodeName :(int)index;
 + (void)scrollUp:(NSString*)nodeName;
 + (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback;
-+ (void)popupClose;
++ (void)popupClose:(BOOL)yes;
++ (void)popupAddress:(NSDictionary*)param :(JSValue *)callback;
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback;
 + (void)popupDate:(NSDictionary*)param :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;

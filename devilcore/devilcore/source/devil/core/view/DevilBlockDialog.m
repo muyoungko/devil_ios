@@ -220,6 +220,14 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     self.callback = nil;
 }
 
+- (void)dismissWithCallback:(BOOL)yes {
+    if(self.callback!= nil) {
+        self.callback(yes, nil);
+        self.callback = nil;
+    }
+    [self dismiss:YES];
+}
+
 + (UIButton*)getButton:(CGRect)rect :(NSString*)name {
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeButton setFrame:rect];

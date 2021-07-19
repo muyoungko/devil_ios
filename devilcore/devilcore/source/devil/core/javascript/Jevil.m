@@ -446,6 +446,23 @@
     
 }
 
++ (void)getThenWithHeader:(NSString *)url :(id)header :(JSValue *)callback {
+
+    NSString* originalUrl = url;
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        
+        if(!responseJsonObject)
+            responseJsonObject = [@{} mutableCopy];
+        [callback callWithArguments:@[responseJsonObject, @YES]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+}
+
 + (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback {
 
     NSString* originalUrl = url;
@@ -553,9 +570,32 @@
     };
 }
 
-+ (void)popupClose {
++ (void)popupAddress:(NSDictionary*)param :(JSValue *)callback {
+    NSString* title = param[@"title"];
+    NSString* yes = param[@"yes"];
+    NSString* no = param[@"no"];
+    NSString* show = param[@"show"];
+    [[JevilInstance currentInstance] syncData];
+    DevilBlockDialog* d = [DevilBlockDialog popup:@"address" data:[JevilInstance currentInstance].data title:title yes:yes no:no
+                                             show:show
+                                         onselect:^(BOOL yes, id res) {
+        [[JevilInstance currentInstance] pushData];
+        [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+    
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;
+    
+    d.didFinishDismissingBlock = ^{
+        if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+            ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = nil;
+    };
+}
+
++ (void)popupClose:(BOOL)yes {
     if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
-        [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismiss];
+        [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismissWithCallback:yes];
 }
 
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback {

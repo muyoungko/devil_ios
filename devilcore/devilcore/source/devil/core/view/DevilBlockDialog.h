@@ -288,6 +288,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (UIButton*)getButton:(CGRect)rect :(NSString*)name;
 - (void)dismiss;
+- (void)dismissWithCallback:(BOOL)yes;
 - (void)update;
 
 + (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)title yes:(NSString*)yes no:(NSString*)no show:(NSString*)show onselect:(void (^)(BOOL yes, id res))callback;
