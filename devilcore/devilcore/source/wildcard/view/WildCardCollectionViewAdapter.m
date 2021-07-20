@@ -11,6 +11,13 @@
 #import "ReplaceRuleRepeat.h"
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardUtil.h"
+#import "WildCardUICollectionView.h"
+
+@interface WildCardCollectionViewAdapter()
+
+@property (nonatomic, retain) WildCardUICollectionView* c;
+
+@end
 
 @implementation WildCardCollectionViewAdapter
 
@@ -30,6 +37,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
+    self.c = (WildCardUICollectionView*)collectionView;
     if(section == 0){
         if(_data == nil)
             return 0;
@@ -339,7 +347,7 @@
         {
             NSDictionary *cloudJson = _cloudJsonGetter(position);
             WildCardUIView* v = [WildCardConstructor constructLayer:childUIView withLayer:cloudJson withParentMeta:_meta depth:_depth instanceDelegate:_meta.wildCardConstructorInstanceDelegate];
-            v.userInteractionEnabled = YES;
+            //v.userInteractionEnabled = YES;
             
             if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:self.repeatType])
                 v.frame = CGRectMake(v.frame.origin.x, 0, v.frame.size.width, v.frame.size.height);
@@ -369,4 +377,24 @@
         self.draggedCallback(nil);
     }
 }
+
+- (BOOL)accessibilityScroll:(UIAccessibilityScrollDirection)direction
+{
+    if(direction == UIAccessibilityScrollDirectionUp){
+        [self.c asyncScrollTo:0];
+        [self accessibilityDecrement];
+        NSLog(@"Accessibility Scroll Captured YES");
+        return YES;
+    } else if(direction == UIAccessibilityScrollDirectionDown){
+        [self.c asyncScrollTo:[self.data count]-1];
+        [self accessibilityIncrement];
+        NSLog(@"Accessibility Scroll Captured YES");
+        return YES;
+    } else {
+        NSLog(@"Accessibility Scroll Captured NO");
+        return NO;
+    }
+}
+
 @end
+ 

@@ -214,14 +214,15 @@
         containerRect.origin.x = containerRect.origin.y = 0;
         
         WildCardUICollectionView *container = [[WildCardUICollectionView alloc] initWithFrame:containerRect collectionViewLayout:flowLayout];
+        
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"0"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"1"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"2"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"3"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
-        [container setShowsHorizontalScrollIndicator:NO];
-        [container setShowsVerticalScrollIndicator:NO];
+        [container setShowsHorizontalScrollIndicator:[REPEAT_TYPE_HLIST isEqualToString:repeatType]];
+        [container setShowsVerticalScrollIndicator:[REPEAT_TYPE_VLIST isEqualToString:repeatType]];
         container.backgroundColor = [UIColor clearColor];
         WildCardCollectionViewAdapter* adapter = [[WildCardCollectionViewAdapter alloc] init];
         adapter.repeatType = repeatType;

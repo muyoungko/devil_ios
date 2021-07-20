@@ -92,10 +92,12 @@
 }
 
 - (void) finish {
-    [self stop];
+    
     if(self.callback != nil) {
         self.callback(self.text);
     }
+    
+    [self stop];
 }
 
 - (void) cancel {
@@ -107,7 +109,7 @@
         [self.audioEngine stop];
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.5f];
+            [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.2f];
         });
     }
     
@@ -120,6 +122,8 @@
     self.recognitionTask = nil;
     self.recognitionRequest = nil;
     self.audioEngine = nil;
+    
+    [[AVAudioSession sharedInstance] setActive:NO error:nil];
 }
 - (void)speechRecognitionDidDetectSpeech:(SFSpeechRecognitionTask *)task{
     NSLog(@"speechRecognitionDidDetectSpeech");
@@ -143,12 +147,17 @@
         self.recognitionTask = nil;
         self.recognitionRequest = nil;
     }
+    
+    if([self.text length] >= 4) {
+        [self finish];
+    }
 }
 
 - (void)speechRecognitionTask:(SFSpeechRecognitionTask *)task didHypothesizeTranscription:(SFTranscription *)transcription{
     NSLog(@"didHypothesizeTranscription");
     self.text = [transcription formattedString];
     NSLog(@"%@", self.text);
+    
 }
 
 @end
