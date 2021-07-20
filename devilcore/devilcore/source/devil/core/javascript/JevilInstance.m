@@ -38,6 +38,14 @@
     return sharedInstance;
 }
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.forRetain = [@{} mutableCopy];
+    }
+    return self;
+}
 -(void)syncData{
     JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
     id newData = [dataJs toDictionary];

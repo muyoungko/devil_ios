@@ -556,7 +556,6 @@
     DevilBlockDialog* d = [DevilBlockDialog popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no
                                              show:show
                                          onselect:^(BOOL yes, id res) {
-        [[JevilInstance currentInstance] pushData];
         [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
         [[JevilInstance currentInstance] syncData];
     }];
@@ -703,16 +702,13 @@
         NSString* name = [DevilUtil getFileName:url];
         NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
         [urlData writeToFile:path atomically:YES];
-        
-        UIDocumentInteractionController * d = [[UIDocumentInteractionController alloc] init];
-        d.URL = [NSURL URLWithString:path];
+        path = [NSString stringWithFormat:@"file:/%@", path];
+        UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:path]];
         DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
         d.delegate = vc;
-        //[d presentPreviewAnimated:YES];
-        [d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
-//
-//    }];
+        [d presentPreviewAnimated:YES];
+        //[d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
+        [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
     }
 }
 

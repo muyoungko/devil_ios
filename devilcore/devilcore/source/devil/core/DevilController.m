@@ -320,6 +320,12 @@
     }
 }
 
+- (UIView *)documentInteractionControllerViewForPreview:(UIDocumentInteractionController *)controller{
+    return self.view;
+}
 
+- (void)documentInteractionControllerDidEndPreview:(UIDocumentInteractionController *)controller{
+    
+}
 
 @end

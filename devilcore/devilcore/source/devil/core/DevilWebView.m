@@ -66,6 +66,9 @@
             
         }];
         decisionHandler(WKNavigationActionPolicyCancel);
+    } else if([url hasPrefix:@"jevil://devil.com/replaceScreen"]) {
+        id q = navigationAction.request.URL.query;
+        //TODO
     } else if([url hasPrefix:@"jevil://devil.com/popupAddress"]) {
         
         [JevilInstance currentInstance].data[@"address_step"] = @"1";

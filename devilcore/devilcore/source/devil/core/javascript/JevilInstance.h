@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) JSValue* callbackFunction;
 @property (nonatomic, retain) UIViewController* vc;
 @property (nonatomic, retain) WildCardMeta* meta;
+@property (nonatomic, retain) NSMutableDictionary* forRetain;
 @property void (^timerCallback)(id res);
 -(void)videoViewAutoPlay;
 @end
