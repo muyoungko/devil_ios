@@ -46,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)updateThis;
 + (void)focus:(NSString*)nodeName;
 + (void)hideKeyboard;
-+ (void)scrollTo:(NSString*)nodeName :(int)index;
++ (void)scrollTo:(NSString*)nodeName :(int)index :(BOOL)noani;
 + (void)scrollUp:(NSString*)nodeName;
 + (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback;
 + (void)popupClose:(BOOL)yes;

@@ -7,6 +7,12 @@
 
 #import "WildCardUICollectionView.h"
 
+@interface WildCardUICollectionView()
+
+@property BOOL reservedAni;
+
+@end
+
 @implementation WildCardUICollectionView
 
 /*
@@ -17,12 +23,13 @@
 }
 */
 
--(void)asyncScrollTo:(int)index{
+-(void)asyncScrollTo:(int)index :(BOOL)ani{
+    self.reservedAni = ani;
     [self performSelector:@selector(scrollToCore:) withObject:[NSNumber numberWithInt:index] afterDelay:0.1f];
 }
 
 -(void)scrollToCore:(NSNumber*)index{
-    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:YES];
+    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:self.reservedAni];
 }
 
 @end

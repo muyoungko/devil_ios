@@ -381,12 +381,12 @@
 - (BOOL)accessibilityScroll:(UIAccessibilityScrollDirection)direction
 {
     if(direction == UIAccessibilityScrollDirectionUp){
-        [self.c asyncScrollTo:0];
+        [self.c asyncScrollTo:0:true];
         [self accessibilityDecrement];
         NSLog(@"Accessibility Scroll Captured YES");
         return YES;
     } else if(direction == UIAccessibilityScrollDirectionDown){
-        [self.c asyncScrollTo:[self.data count]-1];
+        [self.c asyncScrollTo:[self.data count]-1:true];
         [self accessibilityIncrement];
         NSLog(@"Accessibility Scroll Captured YES");
         return YES;

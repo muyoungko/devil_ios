@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WildCardUICollectionView : UICollectionView
 
--(void)asyncScrollTo:(int)index;
+-(void)asyncScrollTo:(int)index :(BOOL)ani;
 
 @end
 

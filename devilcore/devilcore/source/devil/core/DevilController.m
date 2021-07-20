@@ -106,7 +106,10 @@
 }
 
 -(void)tab:(NSString*)screenId {
-    [self.tv removeFromSuperview];
+    if(self.tv)
+        [self.tv removeFromSuperview];
+    if(self.mainWc)
+        [self.mainWc removeFromSuperview];
     
     self.jevil = [[JevilCtx alloc] init];
     if(self.startData) {
@@ -132,7 +135,7 @@
 
     [WildCardConstructor applyRule:self.footer withData:self.data];
 
-    [self createWildCardScreenListView:self.screenId];
+    [self construct];
     
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + self.footer_sketch_height];
 }
@@ -251,10 +254,15 @@
     id list = [WildCardConstructor sharedInstance].screenMap[self.screenId][@"list"];
     if([list count] > 1 || ![list[0][@"type"] isEqualToString:@"sketch"])
         [self createWildCardScreenListView:self.screenId];
-    else if([[WildCardConstructor sharedInstance] isFirstBlockFitScreen:self.screenId])
+    else if([[WildCardConstructor sharedInstance] isFirstBlockFitScreen:self.screenId]) {
         [self constructBlockUnder:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
-    else
+        _mainWc.meta.jevil = self.jevil;
+        [_mainWc.meta created];
+    } else {
         [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
+        _mainWc.meta.jevil = self.jevil;
+        [_mainWc.meta created];
+    }
 }
 
 - (void)constructBlockUnder:(NSString*)block{

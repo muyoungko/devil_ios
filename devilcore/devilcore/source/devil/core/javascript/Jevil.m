@@ -514,14 +514,14 @@
     [[JevilInstance currentInstance].vc.view endEditing:YES];
 }
 
-+ (void)scrollTo:(NSString*)nodeName :(int)index {
++ (void)scrollTo:(NSString*)nodeName :(int)index :(BOOL)noani {
     
     [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
     
     if(nodeName && ![@"null" isEqualToString:nodeName] ) {
         id meta = [JevilInstance currentInstance].meta;
         WildCardUICollectionView* list = [[meta getView:nodeName] subviews][0];
-        [list asyncScrollTo:index];
+        [list asyncScrollTo:index:!noani];
     } else {
         DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
         if(vc.tv != nil)
