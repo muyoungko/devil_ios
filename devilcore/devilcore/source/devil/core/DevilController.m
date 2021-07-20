@@ -71,9 +71,8 @@
     }
 
     [self constructHeaderAndFooter];
-    //[self createWildCardScreenListView:self.screenId];
-    
-    [self constructBlockUnder:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
+
+    [self construct];
     
     [JevilInstance globalInstance].callbackData = nil;
     [JevilInstance globalInstance].callbackFunction = nil;
@@ -246,6 +245,16 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setNeedsStatusBarAppearanceUpdate];
+}
+
+- (void)construct {
+    id list = [WildCardConstructor sharedInstance].screenMap[self.screenId][@"list"];
+    if([list count] > 1 || ![list[0][@"type"] isEqualToString:@"sketch"])
+        [self createWildCardScreenListView:self.screenId];
+    else if([[WildCardConstructor sharedInstance] isFirstBlockFitScreen:self.screenId])
+        [self constructBlockUnder:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
+    else
+        [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
 }
 
 - (void)constructBlockUnder:(NSString*)block{

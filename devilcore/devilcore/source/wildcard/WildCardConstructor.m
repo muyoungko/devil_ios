@@ -190,6 +190,18 @@ static NSString *default_project_id = nil;
     return nil;
 }
 
+- (BOOL) isFirstBlockFitScreen:(NSString*)screenId {
+    id s = _screenMap[screenId];
+    id list = s[@"list"];
+    if([list count] > 0) {
+        id block_id = [list[0][@"block_id"] stringValue];
+        id block = _blockMap[block_id];
+        if(block && block[@"fit_to_screen"] != [NSNull null] && [block[@"fit_to_screen"] boolValue])
+            return YES;
+    }
+    return NO;
+}
+
 - (void) firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height {
     id s = _screenMap[screenId];
     id list = s[@"list"];
@@ -769,7 +781,7 @@ static BOOL IS_TABLET = NO;
         if([@"text" isEqualToString:_class])
         {
             WildCardUILabel* tv = [[WildCardUILabel alloc] init];
-            tv.isAccessibilityElement = YES;
+            //tv.isAccessibilityElement = YES;
             [vv addSubview:tv];
             
             tv.frame = CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);
