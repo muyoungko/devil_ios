@@ -203,6 +203,7 @@
 		6DD097E326A28924000A913A /* WildCardUICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD097E126A28924000A913A /* WildCardUICollectionView.m */; };
 		6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */; };
 		6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */; };
+		6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DD0987626A6AAEF000A913A /* devil_camera_record.wav */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
@@ -411,6 +412,7 @@
 		6DD097E126A28924000A913A /* WildCardUICollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUICollectionView.m; sourceTree = "<group>"; };
 		6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleQrcode.h; sourceTree = "<group>"; };
 		6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleQrcode.m; sourceTree = "<group>"; };
+		6DD0987626A6AAEF000A913A /* devil_camera_record.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = devil_camera_record.wav; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6DD0987626A6AAEF000A913A /* devil_camera_record.wav */,
 				6D8A40EA2674B77E006999FC /* play_pause.json */,
 				6D9F7A9C2622E93C003A70EC /* devil_camera_cancel@3x.png */,
 				6D9F7AA32622E93C003A70EC /* devil_camera_complete@3x.png */,
@@ -1003,6 +1006,7 @@
 				6D8A40EB2674B77E006999FC /* play_pause.json in Resources */,
 				6D9F7AA62622E93C003A70EC /* devil_camera_cancel@3x.png in Resources */,
 				6D4679A6256A4980006D57DD /* LICENSE in Resources */,
+				6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */,
 				6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */,
 				6D9F7AA82622E93C003A70EC /* devil_camera_recording@3x.png in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,

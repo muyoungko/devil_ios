@@ -16,6 +16,7 @@
 @property (nonatomic, strong) SFSpeechRecognitionTask* recognitionTask;
 @property (nonatomic, strong) AVAudioEngine* audioEngine;
 @property (nonatomic, strong) AVAudioInputNode* inputNode;
+@property (nonatomic, strong) AVAudioPlayer* beepPlayer;
 @property (nonatomic, strong) NSString* text;
 @end
 
@@ -30,47 +31,64 @@
     return sharedInstance;
 }
 
+- (void)playBeep{
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *path = [bundle pathForResource:@"devil_camera_record" ofType:@"wav"];
+    
+    NSError *error;
+    self.beepPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
+    self.beepPlayer.numberOfLoops = 1;
+    [self.beepPlayer play];
+}
+
 - (void)listen:(id)param :(void (^)(id text))callback {
     self.audioEngine = [[AVAudioEngine alloc] init];
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         if(status == SFSpeechRecognizerAuthorizationStatusAuthorized){
-            
-            self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ko-KR"] ];
-            self.speechRecognizer.delegate = self;
-            
-            if(self.recognitionTask != nil) {
-                [self.recognitionTask cancel];
-                self.recognitionTask = nil;
-            }
-            if(self.inputNode != nil)
-                self.inputNode = nil;
-            
-            AVAudioSession* session = [AVAudioSession sharedInstance];
-            [session setCategory:AVAudioSessionCategoryRecord error:nil];
-            [session setMode:AVAudioSessionModeMeasurement error:nil];
-            [session setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
-            
-            self.recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
-            self.inputNode = self.audioEngine.inputNode;
-            
-            self.recognitionRequest.shouldReportPartialResults = YES;
-            
-            self.recognitionTask = [self.speechRecognizer recognitionTaskWithRequest:self.recognitionRequest delegate:self];
-            
-            [self.inputNode installTapOnBus:0 bufferSize:1024 format:[self.inputNode outputFormatForBus:0] block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
-                [self.recognitionRequest appendAudioPCMBuffer:buffer];
-            }];
-            
-            [self.audioEngine prepare];
-            [self.audioEngine startAndReturnError:nil];
-            
             self.callback = callback;
-            self.text = @"";
+            
+            [self playBeep];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self performSelector:@selector(finish) withObject:nil afterDelay:4];
+                [self performSelector:@selector(listenCore:) withObject:param afterDelay:0.5f];
             });
         }
     }];
+}
+
+- (void)listenCore:(id)param {
+    self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ko-KR"] ];
+    self.speechRecognizer.delegate = self;
+    
+    if(self.recognitionTask != nil) {
+        [self.recognitionTask cancel];
+        self.recognitionTask = nil;
+    }
+    if(self.inputNode != nil)
+        self.inputNode = nil;
+    
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryRecord error:nil];
+    [session setMode:AVAudioSessionModeMeasurement error:nil];
+    [session setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    
+    self.recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
+    self.inputNode = self.audioEngine.inputNode;
+    
+    self.recognitionRequest.shouldReportPartialResults = YES;
+    
+    self.recognitionTask = [self.speechRecognizer recognitionTaskWithRequest:self.recognitionRequest delegate:self];
+    
+    [self.inputNode installTapOnBus:0 bufferSize:1024 format:[self.inputNode outputFormatForBus:0] block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
+        [self.recognitionRequest appendAudioPCMBuffer:buffer];
+    }];
+    
+    [self.audioEngine prepare];
+    [self.audioEngine startAndReturnError:nil];
+    
+    self.text = @"";
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self performSelector:@selector(finish) withObject:nil afterDelay:4];
+    });
 }
 
 - (void) finish {
@@ -85,13 +103,23 @@
     [self stop];
 }
 - (void) stop {
-    if(self.audioEngine.isRunning) {
+    if(self.audioEngine != nil && self.audioEngine.isRunning) {
         [self.audioEngine stop];
-        [self.recognitionRequest endAudio];
-        [self.inputNode removeTapOnBus:0];
-        self.recognitionTask = nil;
-        self.recognitionRequest = nil;
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.5f];
+        });
     }
+    
+    if(self.recognitionRequest)
+        [self.recognitionRequest endAudio];
+    if(self.inputNode)
+        [self.inputNode removeTapOnBus:0];
+    
+    self.inputNode = nil;
+    self.recognitionTask = nil;
+    self.recognitionRequest = nil;
+    self.audioEngine = nil;
 }
 - (void)speechRecognitionDidDetectSpeech:(SFSpeechRecognitionTask *)task{
     NSLog(@"speechRecognitionDidDetectSpeech");

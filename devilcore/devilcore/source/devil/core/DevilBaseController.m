@@ -216,4 +216,17 @@
     return self;
 }
 
+-(BOOL)accessibilityScroll:(UIAccessibilityScrollDirection)direction {
+
+    if (direction == UIAccessibilityScrollDirectionRight) {
+      //Previous Page
+
+    } else if (direction == UIAccessibilityScrollDirectionLeft) {
+     //Next Page
+    }
+
+    return YES;
+}
+
+
 @end

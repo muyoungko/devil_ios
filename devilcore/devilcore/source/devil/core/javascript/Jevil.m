@@ -741,8 +741,9 @@
     [[DevilSound sharedInstance] speed:[speed floatValue]];
 }
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [[DevilSpeech sharedInstance] listen:param :^(id  _Nonnull text) {
-        [callback callWithArguments:@[ text ]];
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ text ]];
     }];
 }
 + (void)stopSpeechRecognizer {

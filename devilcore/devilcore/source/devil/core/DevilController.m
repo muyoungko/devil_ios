@@ -71,7 +71,9 @@
     }
 
     [self constructHeaderAndFooter];
-    [self createWildCardScreenListView:self.screenId];
+    //[self createWildCardScreenListView:self.screenId];
+    
+    [self constructBlockUnder:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
     
     [JevilInstance globalInstance].callbackData = nil;
     [JevilInstance globalInstance].callbackFunction = nil;
@@ -308,7 +310,10 @@
 
 
 -(void)updateMeta {
-    [self.tv reloadData];
+    if(self.tv != nil)
+        [self.tv reloadData];
+    else if(_mainWc != nil)
+        [_mainWc.meta update];
     if(self.header)
         [self.header update:self.data];
     [WildCardConstructor applyRule:self.footer withData:self.data];
@@ -316,7 +321,13 @@
 
 -(void)finish {
     if(self.hasOnFinish){
-        [self.jevil code:@"onFinish()" viewController:self data:self.data meta:nil];
+        /**
+         이 문제는 replaceScreen 혹은 rootScreen 에서 발생한다
+         새로운 화면의 code가 실행되고, 나서야 이 코드가 실행되는데 이렇게 되면 [JevilInstance currentInstance].vc 가 self로 되어
+         이미 죽은 viewController가 셋 된다 그래서 아래의 hide true하여
+         죽어가는 meta, viewcontroler, data가 현행으로 세팅하는것을 방지해야한다
+         */
+        [self.jevil code:@"onFinish()" viewController:self data:self.data meta:nil hide:true];
     }
 }
 

@@ -11,6 +11,7 @@
 #import "WildCardUIButton.h"
 #import "WildCardTrigger.h"
 #import "WildCardAction.h"
+#import "MappingSyntaxInterpreter.h"
 
 @interface DevilHeader ()
 
@@ -131,8 +132,14 @@
                     NSString* name = icon_layer[@"name"];
                     if(self.barButtonByName[name] 
                         && self.meta.correspondData[@"left"] 
-                        && [self.meta.correspondData[@"left"][name] boolValue])
+                       && [self.meta.correspondData[@"left"][name] boolValue]) {
                         [barbuttons addObject:self.barButtonByName[name]];
+                        
+                        if(icon_layer[@"accessibility"]){
+                            NSString* text = [MappingSyntaxInterpreter interpret:icon_layer[@"accessibility"]:correspondData];
+                            ((UIBarButtonItem*)self.barButtonByName[name]).accessibilityLabel = text;
+                        }
+                    }
                 }
                 self.vc.navigationItem.leftBarButtonItems = barbuttons;
             } else if([@"right" isEqualToString:layer_name]){
@@ -226,6 +233,9 @@
 //                );
             }
 //            self.barButtonByName[name] = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+            
+            leftButton.isAccessibilityElement = YES;
+            leftButton.accessibilityTraits = UIAccessibilityTraitButton;
             
             if(icon_layer[@"clickJavascript"]){
                 [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];

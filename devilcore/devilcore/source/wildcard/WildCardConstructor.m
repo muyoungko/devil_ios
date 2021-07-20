@@ -180,6 +180,16 @@ static NSString *default_project_id = nil;
     return nil;
 }
 
+- (NSString*) getFirstBlock:(NSString*)screenId {
+    id s = _screenMap[screenId];
+    id list = s[@"list"];
+    if([list count] > 0) {
+        id block_id = [list[0][@"block_id"] stringValue];
+        return block_id;
+    }
+    return nil;
+}
+
 - (void) firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height {
     id s = _screenMap[screenId];
     id list = s[@"list"];

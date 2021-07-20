@@ -61,11 +61,17 @@
     return self;
 }
 
--(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta{
-    [JevilInstance currentInstance].vc = vc;
-    [JevilInstance currentInstance].meta = meta;
-    [JevilInstance currentInstance].data = data;
-    [JevilInstance currentInstance].jscontext = self.jscontext;
+-(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta {
+    return [self code:code viewController:vc data:data meta:meta hide:false];
+}
+
+-(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta hide:(BOOL)hide{
+    if(!hide) {
+        [JevilInstance currentInstance].vc = vc;
+        [JevilInstance currentInstance].meta = meta;
+        [JevilInstance currentInstance].data = data;
+        [JevilInstance currentInstance].jscontext = self.jscontext;
+    }
     
     id config_list = [WildCardConstructor sharedInstance].project[@"config_list"];
     if(config_list != nil && config_list != [NSNull null]){
