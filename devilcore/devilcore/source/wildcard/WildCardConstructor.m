@@ -22,6 +22,7 @@
 #import "ReplaceRuleVideo.h"
 #import "ReplaceRuleWeb.h"
 #import "ReplaceRuleMarket.h"
+#import "ReplaceRuleQrcode.h"
 #import "ReplaceRuleAccessibility.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
@@ -685,12 +686,12 @@ static BOOL IS_TABLET = NO;
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         }
         
-        if ([layer objectForKey:(@"replaceUrl")] != nil)
+        if ([layer objectForKey:(@"qrcode")] != nil)
         {
-            [outRules addObject:ReplaceRuleReplaceUrl(vv ,[layer objectForKey:@"replaceUrl"], @"")];
-        }
-        
-        if ([layer objectForKey:(@"imageContent")] != nil && ![_class isEqualToString:@"extension"])
+            ReplaceRuleQrcode* rule = [[ReplaceRuleQrcode alloc] initWithRuleJson:layer];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+        } else if ([layer objectForKey:(@"imageContent")] != nil && ![_class isEqualToString:@"extension"])
         {
             ReplaceRuleImage* rule = [[ReplaceRuleImage alloc] initWithRuleJson:layer];
             [outRules addObject:rule];

@@ -201,6 +201,8 @@
 		6DD097DE26A1AE29000A913A /* JevilFunctionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */; };
 		6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD097E026A28924000A913A /* WildCardUICollectionView.h */; };
 		6DD097E326A28924000A913A /* WildCardUICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD097E126A28924000A913A /* WildCardUICollectionView.m */; };
+		6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */; };
+		6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
@@ -407,6 +409,8 @@
 		6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilFunctionUtil.m; sourceTree = "<group>"; };
 		6DD097E026A28924000A913A /* WildCardUICollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUICollectionView.h; sourceTree = "<group>"; };
 		6DD097E126A28924000A913A /* WildCardUICollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUICollectionView.m; sourceTree = "<group>"; };
+		6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleQrcode.h; sourceTree = "<group>"; };
+		6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleQrcode.m; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
@@ -637,6 +641,8 @@
 				6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */,
 				6DD09445269C8054000A913A /* ReplaceRuleMarket.h */,
 				6DD09446269C8054000A913A /* ReplaceRuleMarket.m */,
+				6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */,
+				6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -886,6 +892,7 @@
 				6D9F7B1C26298952003A70EC /* WildCardProgressBar.h in Headers */,
 				6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */,
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
+				6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */,
 				6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */,
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
@@ -1041,6 +1048,7 @@
 				6D467AC8256AB07A006D57DD /* WildCardUtil.m in Sources */,
 				6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */,
 				6D9F7B0B2629658F003A70EC /* PEResizeControl.m in Sources */,
+				6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */,
 				6D467A8D256AB07A006D57DD /* WildCardIndicatorView.m in Sources */,
 				6D9F7ACD26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m in Sources */,
 				6D467ABC256AB07A006D57DD /* WildCardTrigger.m in Sources */,

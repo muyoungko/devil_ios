@@ -46,6 +46,7 @@ target 'devilcore' do
   # pod "NextLevel", "~> 0.16.3"
   lottie_libs
   pod 'MQTTClient'
+  pod 'ZXingObjC', '~> 3.2.1'
 end
 
 target 'devillogin' do
