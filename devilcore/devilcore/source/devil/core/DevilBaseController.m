@@ -126,7 +126,7 @@
         }];
     }
     
-    if(editingNumberKey) {
+    if(editingNumberKey && self.footer == nil) {
         if(self.keypadTop == nil) {
             CGRect screenRect = [[UIScreen mainScreen] bounds];
             int sw = screenRect.size.width;

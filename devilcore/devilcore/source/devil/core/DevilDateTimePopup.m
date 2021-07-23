@@ -103,9 +103,14 @@
         self.date = selectedKey;
     } else
         datepicker.date = [NSDate date];
+    
+    if([param[@"future"] boolValue])
+        datepicker.minimumDate = [NSDate date];
+        
     if (@available(iOS 13.4, *)) {
         [datepicker setPreferredDatePickerStyle:UIDatePickerStyleWheels];
     }
+    
     datepicker.locale = [NSLocale localeWithLocaleIdentifier:[[NSLocale preferredLanguages] firstObject]];
     datepicker.datePickerMode = UIDatePickerModeDate;
     

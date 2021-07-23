@@ -272,6 +272,11 @@
 }
 
 - (void)constructBlockUnderScrollView:(NSString*)block{
+    if(self.scrollView == nil) {
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+        [_viewMain addSubview:self.scrollView];
+        [WildCardConstructor followSizeFromFather:self.viewMain child:self.scrollView];
+    }
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
     self.mainWc = [WildCardConstructor constructLayer:self.scrollView withLayer:cj instanceDelegate:self];
     [WildCardConstructor applyRule:self.mainWc withData:_data];

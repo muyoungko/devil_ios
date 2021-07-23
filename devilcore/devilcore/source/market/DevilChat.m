@@ -17,9 +17,7 @@
 
 - (void)created {
     [super created];
-    NSString* script = self.marketJson[@"created"];
-    [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
-    
+
     NSString* mqtt_uri = self.marketJson[@"mqtt_uri"];
     NSURL* uri = [NSURL URLWithString:mqtt_uri];
     
@@ -33,15 +31,6 @@
     session.delegate = self;
     session.transport = transport;
     [session connectAndWaitTimeout:10];
-//    [session connectWithConnectHandler:^(NSError *error) {
-//        if(error == nil && self.chat_room_id) {
-//            [self.session subscribeToTopic:self.chat_room_id atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
-//
-//            }];
-//        }
-//    }];
-    
-    
 }
 
 - (void)connect {

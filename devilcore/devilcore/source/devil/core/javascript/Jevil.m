@@ -569,6 +569,9 @@
     };
 }
 
+/**
+ TODO : 템플릿으로 구현해야함
+ */
 + (void)popupAddress:(NSDictionary*)param :(JSValue *)callback {
     NSString* title = param[@"title"];
     NSString* yes = param[@"yes"];
@@ -590,6 +593,10 @@
         if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
             ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = nil;
     };
+}
+
++ (void)popupClose {
+    [Jevil popupClose:NO];
 }
 
 + (void)popupClose:(BOOL)yes {
@@ -619,8 +626,10 @@
     DevilDateTimePopup* d = [[DevilDateTimePopup alloc] initWithViewController:vc];
     id paramM = [param mutableCopy];
     [d popup:paramM onselect:^(id  _Nonnull res) {
-        [callback callWithArguments:@[res]];
-        [[JevilInstance currentInstance] syncData];
+        if(res) {
+            [callback callWithArguments:@[res]];
+            [[JevilInstance currentInstance] syncData];
+        }
     }];
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])

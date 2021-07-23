@@ -70,6 +70,7 @@
         [JevilInstance currentInstance].vc = vc;
         [JevilInstance currentInstance].meta = meta;
         [JevilInstance currentInstance].data = data;
+        [JevilInstance currentInstance].jevil = self;
         [JevilInstance currentInstance].jscontext = self.jscontext;
     }
     

@@ -6,6 +6,8 @@
 //
 
 #import "MarketComponent.h"
+#import "JevilCtx.h"
+#import "JevilInstance.h"
 
 @implementation MarketComponent
 
@@ -17,7 +19,8 @@
 }
 
 -(void)created{
-    
+    NSString* script = self.marketJson[@"created"];
+    [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
 }
 -(void)update:(id)opt{
     

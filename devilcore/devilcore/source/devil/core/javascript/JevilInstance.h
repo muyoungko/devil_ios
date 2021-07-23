@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "WildCardMeta.h"
-
 NS_ASSUME_NONNULL_BEGIN
+
+@class JevilCtx;
 
 @interface JevilInstance : NSObject
 
@@ -26,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSMutableDictionary* callbackData;
 @property (nonatomic, retain) JSValue* callbackFunction;
 @property (nonatomic, retain) UIViewController* vc;
+@property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) WildCardMeta* meta;
 @property (nonatomic, retain) NSMutableDictionary* forRetain;
 @property void (^timerCallback)(id res);

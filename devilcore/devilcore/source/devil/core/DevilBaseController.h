@@ -30,11 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) DevilSelectDialog* devilSelectDialog;
 @property (nonatomic, retain) WifiManager* wifiManager;
 
-@property (nonatomic, retain) WildCardUIView* footer;
 @property int original_footer_height;
 @property int original_footer_y;
 @property int keyboard_height;
 @property int footer_sketch_height;
+@property (nonatomic, retain) WildCardUIView* footer;
 
 - (void)showIndicator;
 - (void)hideIndicator;

@@ -18,6 +18,7 @@
 @class WildCardUIView;
 @class WildCardTrigger;
 @class WildCardMeta;
+@class JevilCtx;
 
 @protocol WildCardConstructorInstanceDelegate<NSObject>
 @required
@@ -46,7 +47,7 @@
 @property (nonatomic, retain) NSMutableDictionary* wrapContentNodes;
 
 @property (nonatomic, retain) WildCardMeta* parentMeta;
-@property (nonatomic, retain) id jevil;
+@property (nonatomic, retain) JevilCtx* jevil;
 
 @property (nonatomic, weak, nullable) id <WildCardConstructorInstanceDelegate> wildCardConstructorInstanceDelegate;
 

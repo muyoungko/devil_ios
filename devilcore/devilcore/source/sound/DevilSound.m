@@ -137,6 +137,7 @@
         [self.player removeTimeObserver:self.observer];
         self.observer = nil;
         self.player = nil;
+        [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
         [[AVAudioSession sharedInstance] setActive:NO error:nil];
     }
 }

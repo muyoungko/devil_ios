@@ -138,6 +138,9 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
     WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:[JevilInstance currentInstance].vc];
+    wc.meta.correspondData = data;
+    wc.meta.jevil = [JevilInstance currentInstance].jevil;
+    [wc.meta created];
     [WildCardConstructor applyRule:wc withData:data];
     
     DevilBlockDialog *popup = [[[self class] alloc] init];
