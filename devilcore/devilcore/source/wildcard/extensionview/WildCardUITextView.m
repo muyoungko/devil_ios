@@ -24,6 +24,7 @@
 +(WildCardUITextView*)create:(id)layer meta:(WildCardMeta*)meta {
     NSDictionary* extension = [layer objectForKey:@"extension"];
     WildCardUITextView* tf = [[WildCardUITextView alloc] init];
+    tf.backgroundColor = [UIColor clearColor];
     NSMutableDictionary* textSpec = [layer objectForKey:@"textSpec"];
     if(textSpec != nil)
     {
@@ -38,6 +39,7 @@
             text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
         tf.placeholderText = text;
         
+        tf.verticalAlignTop = [extension[@"select11"] isEqualToString:@"Y"];
         
         int halignment = 1;
         int valignment = 0;
@@ -121,7 +123,14 @@
     CGRect rect = [@"sample text" boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
     
     tf.lineHeight = rect.size.height;
-    tf.topInset = tf.minHeight/2-tf.lineHeight/2;
+    
+    /**
+     한줄부터 variable하게 높이가 결정되는 멀티라인 텍스트는 다음과 같이 top패딩을구하여 vcenter를 맞춘다.
+     그런데 이미 여러줄이 상태에서 위에서 부터 쌓이는 텍스트 인풋은 topInset이 거의 없어야한다
+     즉 valign이 필요하다
+     */
+    if(tf.verticalAlignTop == NO)
+        tf.topInset = tf.minHeight/2-tf.lineHeight/2;
     tf.textContainerInset = UIEdgeInsetsMake(tf.topInset, 0, 0, 0);
     
     return tf;

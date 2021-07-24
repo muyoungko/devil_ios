@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL variableHeight;
 @property float lineHeight;
 @property float topInset;
+@property BOOL verticalAlignTop;
 @end
 
 NS_ASSUME_NONNULL_END

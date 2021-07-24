@@ -259,19 +259,40 @@
         _mainWc.meta.jevil = self.jevil;
         [_mainWc.meta created];
     } else {
-        [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
-        _mainWc.meta.jevil = self.jevil;
-        [_mainWc.meta created];
+        [self createWildCardScreenListView:self.screenId];
+//        [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
+//        _mainWc.meta.jevil = self.jevil;
+//        [_mainWc.meta created];
+    }
+}
+
+- (void)releaseScreen {
+    if(self.mainWc != nil) {
+        [self.mainWc removeFromSuperview];
+        self.mainWc = nil;
+    }
+    if(self.scrollView != nil) {
+        [self.scrollView removeFromSuperview];
+        self.scrollView = nil;
+    }
+    if(self.tv != nil) {
+        [self.tv removeFromSuperview];
+        self.tv = nil;
     }
 }
 
 - (void)constructBlockUnder:(NSString*)block{
+    [self releaseScreen];
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
     self.mainWc = [WildCardConstructor constructLayer:self.viewMain withLayer:cj instanceDelegate:self];
     [WildCardConstructor applyRule:self.mainWc withData:_data];
 }
 
 - (void)constructBlockUnderScrollView:(NSString*)block{
+    /**
+     TODO : 스크롤뷰를 사용안하고 listview를 사용해도된다. 스크롤뷰를 사용하려면 푸터 해더 높이 반영해야한다
+     */
+    [self releaseScreen];
     if(self.scrollView == nil) {
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,0,0)];
         [_viewMain addSubview:self.scrollView];
@@ -284,6 +305,7 @@
 }
 
 - (void)createWildCardScreenListView:(NSString*)screenId{
+    [self releaseScreen];
     self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;

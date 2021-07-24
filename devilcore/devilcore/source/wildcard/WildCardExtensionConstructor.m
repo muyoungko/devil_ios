@@ -89,7 +89,6 @@
             NSString* inactiveCircleBorderColor = extension[@"select8"];
             
             
-            
             UIPageControl* pc = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, extensionContainer.frame.size.width, extensionContainer.frame.size.height)];
             if(inactiveCircleBorderColor)
                 pc.pageIndicatorTintColor = [WildCardUtil colorWithHexString:inactiveCircleBorderColor];
@@ -145,9 +144,12 @@
         }
         case WILDCARD_EXTENSION_TYPE_INPUT:
         {
+            BOOL verticalAlignTop = [extension[@"select11"] isEqualToString:@"Y"];
             if([[[rule.replaceView subviews][0] class] isEqual:[WildCardUITextView class]]){
                 WildCardUITextView* tf = (WildCardUITextView*)[rule.replaceView subviews][0];
                 if(tf.placeholderLabel == nil){
+                    if(verticalAlignTop)
+                        ;
                     UILabel* ppp = [[UILabel alloc] initWithFrame:tf.frame];
                     ppp.text = tf.placeholderText;
                     ppp.font = tf.font;

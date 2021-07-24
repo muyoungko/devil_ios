@@ -99,16 +99,16 @@
         ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;
         decisionHandler(WKNavigationActionPolicyCancel);
     } else if(![url hasPrefix:@"http://"] && ![url hasPrefix:@"https://"]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
-            
-        }];
-        decisionHandler(WKNavigationActionPolicyCancel);
-    } else if(self.shouldOverride != nil){
-        BOOL r = self.shouldOverride(url);
-        if(r)
+        
+        if(self.shouldOverride != nil && self.shouldOverride(url)){
             decisionHandler(WKNavigationActionPolicyCancel);
-        else
-            decisionHandler(WKNavigationActionPolicyAllow);
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+                
+            }];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
+        
     } else
         decisionHandler(WKNavigationActionPolicyAllow);
 }

@@ -324,6 +324,11 @@ static BOOL IS_TABLET = NO;
             NSMutableDictionary* rootLayers = [@{} mutableCopy];
             NSMutableDictionary* layersByName = [@{} mutableCopy];
             NSMutableDictionary* rects = [@{} mutableCopy];
+            /**
+             일단 자식들 각자의 고유 높이를 구해 rects에 넣어놓고
+             또한 루트레이어를 구해 rootlayer에 넣고
+             nextLayer도 구한다
+             */
             for(int i=0;i<[arr count];i++)
             {
                 BOOL hidden = false;
@@ -367,14 +372,20 @@ static BOOL IS_TABLET = NO;
                     [rootLayers setObject:name forKey:name];
             }
             
+            /**
+             각 루트레이어 nextChain을 따라가면서 각 루트레이어의 최종 높이를 구한다
+             */
             for(int i=0;i<[arr count];i++)
             {
                 NSString* name = arr[i][@"name"];
                 float thisy = [rects[name] CGRectValue].origin.y;
                 float thish = [rects[name] CGRectValue].size.height;
                 
-                //NSLog(@"%@ %f %f", name, thisy, thish);
+                //NSLog(@"%@ y-%f h-%f", name, thisy, thish);
                 
+                /**
+                 루트레이어는 다른 레이어에의 크기나 내용에 영향 받지 않는 절대 위치를 가진 레이어들이다.
+                 */
                 if(rootLayers[name]){
                     /**
                      A1 hidden처리된된 자식중에 thisy 때문에 부모의 높이를 늘려버리는 경우가 있다.
@@ -392,32 +403,53 @@ static BOOL IS_TABLET = NO;
                         [nextChainList addObject:nextName];
                         cursorNodeName = nextLayers[cursorNodeName];
                     }
-                    for(int j=(int)[nextChainList count]-1;j>=0;j--){
-                        NSString* nodeName = nextChainList[j];
-                        float h = [rects[nodeName] CGRectValue].size.height;
-                        if(h == 0)
-                            cutNodeName = nodeName;
-                        else
-                            break;
+                    
+                    /**
+                     컷노드란?
+                     Next chiain을 끊어버리는 과정인데, 이것이 어떨때 필요하고 왜 h가 0이면 컷되어야하는지
+                     가변 높이의 textView의 높이 값이 0이 되면서 컷되고 이때문에 높이가 이상해진다
+                     markt하면서 주석처리 0725
+                     */
+//                    for(int j=(int)[nextChainList count]-1;j>=0;j--){
+//                        NSString* nodeName = nextChainList[j];
+//                        float h = [rects[nodeName] CGRectValue].size.height;
+//                        if(h == 0)
+//                            cutNodeName = nodeName;
+//                        else
+//                            break;
+//                    }
+                    
+                    if([name isEqualToString:cutNodeName]) {
+//                        NSLog(@"cut by %@" , cutNodeName);
+                        continue;
                     }
                     
-                    if([name isEqualToString:cutNodeName])
-                        continue;
-                    
-                    if(thisy + thish > h)
+                    /**
+                     h를 확대해간다
+                     */
+                    if(thisy + thish > h){
+//                        NSLog(@"%@ expended by %@ %d %d", cloudJson[@"name"], name, (int)thisy , (int)thish);
                         h = thisy + thish;
+                    }
                     
                     while(nextLayers[name]){
                         NSString* nextName = nextLayers[name];
-                        if([nextName isEqualToString:cutNodeName])
+                        if([nextName isEqualToString:cutNodeName]) {
+                            NSLog(@"cut by %@" , cutNodeName);
                             break;
+                        }
                         float margin = [layersByName[nextName][@"vNextToMargin"] floatValue];
                         float nexty = thisy + thish + [WildCardConstructor convertSketchToPixel:margin];
                         float nexth = [rects[nextName] CGRectValue].size.height;
                         //A1 경우를 검사해서 h에 영향을 주지 않도록 해야한다
+                        /**
+                         역시 h를 확대해간다
+                         */
                         if(nexty + nexth > h) {
+//                            NSLog(@"%@ expended by %@ %d %d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth);
                             h = nexty + nexth;
                         }
+                        
                             
                         thisy = nexty;
                         thish = nexth;
@@ -436,6 +468,7 @@ static BOOL IS_TABLET = NO;
     }
     
     float padding = [WildCardConstructor getPaddingTopBottomConverted:cloudJson];
+//    NSLog(@"%@ - %f", cloudJson[@"name"], h + padding);
     return h + padding;
 }
 

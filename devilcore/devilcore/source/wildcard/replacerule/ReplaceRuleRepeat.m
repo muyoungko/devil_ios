@@ -325,7 +325,7 @@
     NSString* targetNodeSurfixIf = [arrayContent objectForKey:@"targetNodeSurfixIf"];
     NSString* targetNodePrefixIf = [arrayContent objectForKey:@"targetNodePrefixIf"];
     
-    NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
+    NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"]; 
     NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
     float margin = [[arrayContent objectForKey:@"margin"] floatValue];
     margin = [WildCardUtil convertSketchToPixel:margin];
