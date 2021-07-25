@@ -22,7 +22,16 @@ static BOOL IS_TABLET = NO;
 }
 
 + (float)headerHeightInSketch {
-    return 80.0f / 360.0f * SKETCH_WIDTH;
+    float r = 0;
+    CGFloat topPadding = 0;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+        topPadding = window.safeAreaInsets.top;
+    }
+    r+=topPadding;
+    
+    return [WildCardUtil convertPixcelToSketch:r+44];
+    //return 80.0f / 360.0f * SKETCH_WIDTH;
 }
 
 +(float) alphaWithHexString: (NSString *) hexString{
@@ -213,6 +222,12 @@ static BOOL IS_TABLET = NO;
 +(CGRect)getGlobalFrame:(UIView*)v {
     UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     return [v.superview convertRect:v.frame toView:rootView];
+}
+
++(float) convertPixcelToSketch:(float)p {
+    int screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    float scaleAdjust = SKETCH_WIDTH / screenWidth;
+    return p * scaleAdjust;
 }
 
 +(float) convertSketchToPixel:(float)p {

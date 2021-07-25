@@ -24,6 +24,7 @@
 +(void)fitToScreen:(id)layer sketch_height_more:(int)sketch_height_more;
 +(void)fitToScreenRecur:(id)layer offsety:(float)offsety theight:(float)height;
 +(CGRect)getGlobalFrame:(UIView*)v;
++(float) convertPixcelToSketch:(float)p;
 +(float) convertSketchToPixel:(float)p;
 +(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
 

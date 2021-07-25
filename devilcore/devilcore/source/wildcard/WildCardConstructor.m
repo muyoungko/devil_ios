@@ -115,6 +115,7 @@ static NSString *default_project_id = nil;
 -(void)initWithProject:(NSString*)projectId json:(id)projectJson {
     NSString* project_id = self.project_id;
     _cloudJsonMap = projectJson[@"cloudJsonMap"] ;
+    _tabletCloudJsonMap = projectJson[@"tabletCloudJsonMap"] ;
     _screenMap = projectJson[@"screenMap"];
     _blockMap = projectJson[@"block"];
     _project = projectJson[@"project"];
@@ -153,6 +154,8 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey
 {
+    if(IS_TABLET && _tabletCloudJsonMap[blockKey] != nil)
+        return _tabletCloudJsonMap[blockKey];
     if(_cloudJsonMap[blockKey] != nil)
         return _cloudJsonMap[blockKey];
     else
@@ -209,7 +212,7 @@ static NSString *default_project_id = nil;
         id block_id = [list[0][@"block_id"] stringValue];
         id block = _blockMap[block_id];
         if(block && block[@"fit_to_screen"] != [NSNull null] && [block[@"fit_to_screen"] boolValue])
-            [WildCardUtil fitToScreen:_cloudJsonMap[block_id] sketch_height_more:height];
+            [WildCardUtil fitToScreen: [self getBlockJson:block_id] sketch_height_more:height];
     }
 }
 
@@ -268,7 +271,7 @@ static NSString *default_project_id = nil;
     id h = _screenMap[screenId][@"footer_block_id"];
     if(h != nil && h != [NSNull null]){
         NSString* footer_block_id =  [_screenMap[screenId][@"footer_block_id"] stringValue];
-        return _cloudJsonMap[footer_block_id];
+        return [self getBlockJson:footer_block_id];
     } else
         return nil;
 }
@@ -354,6 +357,8 @@ static BOOL IS_TABLET = NO;
         id block_id = [list[0][@"block_id"] stringValue];
         id cloudJson = [[WildCardConstructor sharedInstance] getBlockJson:block_id];
         SKETCH_WIDTH = [cloudJson[@"frame"][@"w"] intValue];
+        if(IS_TABLET)
+            SKETCH_WIDTH *= 2;
         [WildCardUtil setSketchWidth:SKETCH_WIDTH];
     }
 }

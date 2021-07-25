@@ -65,6 +65,7 @@
 @property (nonatomic, weak, nullable) id <WildCardConstructorLoading> loadingDelegate;
 
 @property (nonatomic, retain) NSMutableDictionary* _Nullable cloudJsonMap;
+@property (nonatomic, retain) NSMutableDictionary* _Nullable tabletCloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable screenMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable blockMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable project;

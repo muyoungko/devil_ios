@@ -83,6 +83,7 @@
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
+        float a = self.navigationController.navigationBar.frame.size.height;
         _header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
         [self hideNavigationBar];
@@ -93,12 +94,23 @@
         self.original_footer_height = self.footer.frame.size.height;
         
         [WildCardConstructor applyRule:self.footer withData:self.data];
-        self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] + 21; //5정도 차이가 난다(왜일까...)
         
-        int footerY = screenHeight - self.footer.frame.size.height - 25;
-        int footerHeight = self.footer.frame.size.height + 25;
+        CGFloat topPadding = 0;
+        CGFloat bottomPadding = 0;
+        if (@available(iOS 11.0, *)) {
+            UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+            topPadding = window.safeAreaInsets.top;
+            bottomPadding = window.safeAreaInsets.bottom;
+        }
+        
+        int footerY = screenHeight - self.footer.frame.size.height - bottomPadding;
+        int footerHeight = self.footer.frame.size.height + bottomPadding;
         self.footer.frame = CGRectMake(0, footerY, self.footer.frame.size.width, footerHeight);
         self.original_footer_y = footerY;
+        
+        self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] +
+            [WildCardUtil convertPixcelToSketch:bottomPadding ];
+        
         [self.view addSubview:self.footer];
     }
     
