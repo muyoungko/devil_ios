@@ -47,7 +47,18 @@ public class DevilKakaoLogin: NSObject {
                 }
             }
         } else {
-            completion(nil)
+            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+               if let error = error {
+                 print(error)
+               }
+               else {
+                print("loginWithKakaoAccount() success.")
+                _ = oauthToken
+                self.getProfile { (user) in
+                    completion(user)
+                }
+               }
+            }
         }
     }
     
