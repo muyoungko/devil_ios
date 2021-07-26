@@ -32,6 +32,8 @@
 #import "DevilDateTimePopup.h"
 #import "JevilFunctionUtil.h"
 #import "WildCardUICollectionView.h"
+#import "DevilSdk.h"
+
 @interface Jevil()
 
 
@@ -45,7 +47,9 @@
 
 + (void)go:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
-    DevilController* d = [[DevilController alloc] init];
+    
+    Class a = [[DevilSdk sharedInstance] getRegisteredScreenClassOrDevil:screenName];
+    DevilController* d = [[a alloc] init];
     if(param != nil)
         d.startData = param;
     d.screenId = screenId;

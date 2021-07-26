@@ -7,6 +7,7 @@
 
 #import "DevilSdk.h"
 #import "devilcore.h"
+#import "DevilController.h"
 
 @interface DevilSdk()
 
@@ -49,5 +50,17 @@
     [self.sharedCustomJevilList addObject:a];
 }
 
+-(void)registScreenController:(NSString*)screenName class:(Class)class {
+    if(self.registeredClass == nil)
+        self.registeredClass = [@{} mutableCopy];
+    self.registeredClass[screenName] = class;
+}
+
+-(Class)getRegisteredScreenClassOrDevil:(NSString*)screenName {
+    Class r = self.registeredClass[screenName];
+    if(r != nil)
+        return r;
+    return [DevilController class];
+}
 
 @end

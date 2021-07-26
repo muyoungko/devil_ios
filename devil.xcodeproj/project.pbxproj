@@ -39,6 +39,7 @@
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
 		6DAAD9DE265FF8BA00FE5682 /* DevilNaverLoginCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */; };
 		6DC1624A26917AC900FD769C /* c.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6DC1624926917AC900FD769C /* c.sh */; };
+		6DD47A9E26AE946600F4B3E4 /* MyDevilController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD47A9D26AE946600F4B3E4 /* MyDevilController.m */; };
 		6DDAC3B9260C89F400E76300 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDAC3B8260C89F400E76300 /* Test.swift */; };
 		8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D980CABA3AA49A94779F5B1B /* Pods_devil.framework */; };
 /* End PBXBuildFile section */
@@ -111,6 +112,8 @@
 		6DAAD9DC265FF8BA00FE5682 /* DevilNaverLoginCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNaverLoginCallback.h; sourceTree = "<group>"; };
 		6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNaverLoginCallback.m; sourceTree = "<group>"; };
 		6DC1624926917AC900FD769C /* c.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = c.sh; sourceTree = "<group>"; };
+		6DD47A9C26AE946600F4B3E4 /* MyDevilController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyDevilController.h; sourceTree = "<group>"; };
+		6DD47A9D26AE946600F4B3E4 /* MyDevilController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDevilController.m; sourceTree = "<group>"; };
 		6DDAC3B8260C89F400E76300 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				6D4679122567DD61006D57DD /* JoinController.m */,
 				6D4679162567DDE3006D57DD /* WebController.h */,
 				6D4679172567DDE3006D57DD /* WebController.m */,
+				6DD47A9C26AE946600F4B3E4 /* MyDevilController.h */,
+				6DD47A9D26AE946600F4B3E4 /* MyDevilController.m */,
 			);
 			path = vc;
 			sourceTree = "<group>";
@@ -422,6 +427,7 @@
 				6D4678CF2567B1E2006D57DD /* Devil.m in Sources */,
 				6D4679182567DDE3006D57DD /* WebController.m in Sources */,
 				6D467A35256AAE12006D57DD /* Void.swift in Sources */,
+				6DD47A9E26AE946600F4B3E4 /* MyDevilController.m in Sources */,
 				6DDAC3B9260C89F400E76300 /* Test.swift in Sources */,
 				6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */,
 				6D4678D62567B1E2006D57DD /* SubController.m in Sources */,

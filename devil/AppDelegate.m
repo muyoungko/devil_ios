@@ -26,6 +26,7 @@
 #import "DevilNaverLoginCallback.h"
 
 #import "AppDelegate.h"
+#import "MyDevilController.h"
 
 @interface AppDelegate ()<DevilGoogleLoginDelegate>
 
@@ -145,6 +146,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [FIRApp configure];
     
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
+    [[DevilSdk sharedInstance] registScreenController:@"view" class:[MyDevilController class]];
     
     if(launchOptions == nil){
         [self preparePushToken:application];

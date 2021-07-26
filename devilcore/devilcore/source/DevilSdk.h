@@ -19,11 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DevilSdk : NSObject
 
 @property (nonatomic, weak, nullable) id <DevilSdkDelegate> devilSdkDelegate;
+@property (nonatomic, retain) NSMutableDictionary* registeredClass;
 
 +(DevilSdk*)sharedInstance;
 +(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback;
 -(id)getCustomJevil;
 -(void)addCustomJevil:(Class)a;
+-(void)registScreenController:(NSString*)screenName class:(Class)class;
+-(Class)getRegisteredScreenClassOrDevil:(NSString*)screenName;
 @end
 
 NS_ASSUME_NONNULL_END

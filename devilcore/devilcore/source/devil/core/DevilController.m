@@ -39,6 +39,10 @@
     self.jevil = [[JevilCtx alloc] init];
     self.thisMetas = [@{} mutableCopy];
     
+    _viewExtend = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
+    _viewExtend.userInteractionEnabled = YES;
+    [self.view addSubview:_viewExtend];
+    
     _viewMain = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
     _viewMain.userInteractionEnabled = YES;
     [self.view addSubview:_viewMain];
