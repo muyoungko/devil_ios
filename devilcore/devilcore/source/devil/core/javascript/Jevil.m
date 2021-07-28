@@ -345,84 +345,89 @@
         return;
     }
     
-    id header = [@{} mutableCopy];
-    id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
-    for(id h in header_list){
-        header[h[@"header"]] = h[@"content"];
-    }
-    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
-    if([Jevil get:x_access_token_key])
-        header[@"x-access-token"] = [Jevil get:x_access_token_key];
+    /**
+     혹시 phasset path가 있을수 있으니 일단 컨버팅한다
+     */
+    [DevilCamera changePhAssetToUrlPath:paths callback:^(id  _Nonnull paths) {
+        id header = [@{} mutableCopy];
+        id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
+        for(id h in header_list){
+            header[h[@"header"]] = h[@"content"];
+        }
+        NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
+        if([Jevil get:x_access_token_key])
+            header[@"x-access-token"] = [Jevil get:x_access_token_key];
 
-    __block int s3index = 0;
-    __block int s3length = (int)[paths count];
-    __block id uploadedFile = [@[] mutableCopy];
-    __block id uploadedFileSuccess = [@[] mutableCopy];
-    
-    id result = [@{} mutableCopy];
-    result[@"r"] = @TRUE;
-    result[@"uploadedFile"] = [@[] mutableCopy];
-    if([paths count] == 0) {
-        [callback callWithArguments:@[result]];
-        return;
-    }
-    for(int i=0;i<[paths count];i++){
-        __block NSString* path = paths[i];
-        id ss = [path componentsSeparatedByString:@"."];
-        NSString* ext = ss[[ss count]-1];
-        NSString* url = [NSString stringWithFormat:@"%@/api/media/url/put/%@", [WildCardConstructor sharedInstance].project[@"host"], ext];
-        [uploadedFile addObject:path];
-        [uploadedFileSuccess addObject:@FALSE];
-        __block int thisIndex = i;
-        [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *upload) {
-            if(upload == nil || !upload[@"upload_url"]){
-                s3index++;
-                result[@"r"] = @FALSE;
-                if(s3index == s3length){
-                    for(int j=0;j<[uploadedFile count];j++){
-                        [result[@"uploadedFile"] addObject:
-                         [@{@"key" : uploadedFile[j],
-                            @"success" : uploadedFileSuccess[j]
-                         } mutableCopy]];
-                    }
-                    [callback callWithArguments:@[result]];
-                    [[JevilInstance currentInstance] syncData];
-                }
-            } else {
-                NSString* upload_url = upload[@"upload_url"];
-                uploadedFile[thisIndex] = upload[@"key"];
-                NSData* data = [NSData dataWithContentsOfFile:path];
-                
-                NSString* contentType = nil;
-                if([path hasSuffix:@"jpg"] || [path hasSuffix:@"jpeg"])
-                    contentType = @"image/jpeg";
-                else if([path hasSuffix:@"png"])
-                    contentType = @"image/png";
-                else if([path hasSuffix:@"mp4"])
-                    contentType = @"video/mp4";
-                [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
+        __block int s3index = 0;
+        __block int s3length = (int)[paths count];
+        __block id uploadedFile = [@[] mutableCopy];
+        __block id uploadedFileSuccess = [@[] mutableCopy];
+        
+        id result = [@{} mutableCopy];
+        result[@"r"] = @TRUE;
+        result[@"uploadedFile"] = [@[] mutableCopy];
+        if([paths count] == 0) {
+            [callback callWithArguments:@[result]];
+            return;
+        }
+        for(int i=0;i<[paths count];i++){
+            __block NSString* path = paths[i];
+            id ss = [path componentsSeparatedByString:@"."];
+            NSString* ext = ss[[ss count]-1];
+            NSString* url = [NSString stringWithFormat:@"%@/api/media/url/put/%@", [WildCardConstructor sharedInstance].project[@"host"], ext];
+            [uploadedFile addObject:path];
+            [uploadedFileSuccess addObject:@FALSE];
+            __block int thisIndex = i;
+            [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *upload) {
+                if(upload == nil || !upload[@"upload_url"]){
                     s3index++;
-                    if(res != nil)
-                        uploadedFileSuccess[thisIndex] = @TRUE;
-                    else
-                        result[@"r"] = @FALSE;
-                    
+                    result[@"r"] = @FALSE;
                     if(s3index == s3length){
                         for(int j=0;j<[uploadedFile count];j++){
                             [result[@"uploadedFile"] addObject:
-                             [@{
-                                 @"original" : paths[j],
-                                 @"key" : uploadedFile[j],
-                                 @"success" : uploadedFileSuccess[j]
+                             [@{@"key" : uploadedFile[j],
+                                @"success" : uploadedFileSuccess[j]
                              } mutableCopy]];
                         }
                         [callback callWithArguments:@[result]];
                         [[JevilInstance currentInstance] syncData];
                     }
-                }];
-            }
-        }];
-    }
+                } else {
+                    NSString* upload_url = upload[@"upload_url"];
+                    uploadedFile[thisIndex] = upload[@"key"];
+                    NSData* data = [NSData dataWithContentsOfFile:path];
+                    
+                    NSString* contentType = nil;
+                    if([path hasSuffix:@"jpg"] || [path hasSuffix:@"jpeg"])
+                        contentType = @"image/jpeg";
+                    else if([path hasSuffix:@"png"])
+                        contentType = @"image/png";
+                    else if([path hasSuffix:@"mp4"])
+                        contentType = @"video/mp4";
+                    [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
+                        s3index++;
+                        if(res != nil)
+                            uploadedFileSuccess[thisIndex] = @TRUE;
+                        else
+                            result[@"r"] = @FALSE;
+                        
+                        if(s3index == s3length){
+                            for(int j=0;j<[uploadedFile count];j++){
+                                [result[@"uploadedFile"] addObject:
+                                 [@{
+                                     @"original" : paths[j],
+                                     @"key" : uploadedFile[j],
+                                     @"success" : uploadedFileSuccess[j]
+                                 } mutableCopy]];
+                            }
+                            [callback callWithArguments:@[result]];
+                            [[JevilInstance currentInstance] syncData];
+                        }
+                    }];
+                }
+            }];
+        }
+    }];
     
 }
 
@@ -683,6 +688,14 @@
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
         ((DevilController*)[JevilInstance currentInstance].vc).wifiManager = wm;
 }
+
++ (void)gallery:(NSDictionary*)param :(JSValue *)callback {
+    [DevilCamera getGelleryList:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+}
+
 
 + (void)camera:(NSDictionary*)param :(JSValue *)callback {
     [DevilCamera camera:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {

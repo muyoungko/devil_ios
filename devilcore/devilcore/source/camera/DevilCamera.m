@@ -8,16 +8,81 @@
 #import "DevilCamera.h"
 #import "DevilCameraController.h"
 
+
 @import AVKit;
 @import AVFoundation;
+@import Photos;
 
 @interface DevilCamera ()<DevilCameraControllerDelegate>
 
 @property void (^callback)(id res);
-
 @end
 
 @implementation DevilCamera
+
++(void)changePhAssetToUrlPath:(id)list callback:(void (^)(id res))callback {
+    
+    PHImageRequestOptions* requestOptions = [[PHImageRequestOptions alloc] init];
+    requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
+    requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+    // this one is key
+    requestOptions.synchronous = YES;
+
+    PHImageManager *manager = [PHImageManager defaultManager];
+
+
+    id r = [@[] mutableCopy];
+    for(NSString* url in list) {
+        if([url hasPrefix:@"phasset://"]) {
+            NSString* phurl = [url stringByReplacingOccurrencesOfString:@"phasset://" withString:@""];
+            PHFetchResult *results = [PHAsset fetchAssetsWithLocalIdentifiers:@[phurl] options:nil];
+            [results enumerateObjectsUsingBlock:^(PHAsset *asset, NSUInteger idx, BOOL * _Nonnull stop) {
+                [manager requestImageDataForAsset:asset
+                                          options:requestOptions
+                                    resultHandler:^(NSData *data, NSString *dataUTI,
+                                                    UIImageOrientation orientation,
+                                                    NSDictionary *info) {
+                    
+                    UIImage* preview = [UIImage imageWithData:data];
+                    NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
+                    NSString* outputFileName = [NSUUID UUID].UUIDString;
+                    NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
+                    [imageData writeToFile:targetPath atomically:YES];
+                    [r addObject:targetPath];
+                }];
+                *stop = true;
+            }];
+        } else {
+            [r addObject:url];
+        }
+    }
+    
+    callback(r);
+}
+
++(void)getGelleryList:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
+    [DevilCamera requestCameraPermission:^(BOOL granted) {
+        if(granted) {
+            PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+            id r = [@[] mutableCopy];
+            int end = 100;
+            [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                [r addObject:[@{
+                    @"url":[NSString stringWithFormat:@"phasset://%@", obj.localIdentifier]
+                } mutableCopy]];
+                if(idx < end)
+                    *stop = false;
+                else
+                    *stop = true;
+            }];
+            
+            
+            callback([@{@"r":@TRUE, @"list":r} mutableCopy]);
+        } else {
+            callback([@{@"r":@FALSE} mutableCopy]);
+        }
+    }];
+}
 
 +(void)camera:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     

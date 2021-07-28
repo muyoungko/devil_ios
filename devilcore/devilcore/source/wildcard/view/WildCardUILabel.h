@@ -14,6 +14,7 @@
 @property int alignment;
 @property BOOL wrap_width;
 @property float max_width;
+@property float max_height;
 @property BOOL wrap_height;
 
 @property CGRect strokeRect;

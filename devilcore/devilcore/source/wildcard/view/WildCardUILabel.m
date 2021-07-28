@@ -21,8 +21,13 @@
         self.wrap_height = NO;
         self.lineBreakMode = NSLineBreakByCharWrapping;
         self.alignment = GRAVITY_LEFT_TOP;
+        self.max_height = -1;
     }
     return self;
+}
+
+- (void)setFrame:(CGRect)frame{
+    [super setFrame:frame];
 }
 
 - (void)setText:(NSString *)text
@@ -60,6 +65,9 @@
     }
     else
     {
+        if(self.max_height == -1)
+            self.max_height = self.frame.size.height;
+        
         if([WildCardUtil hasGravityCenterVertical:_alignment] ||
            [WildCardUtil hasGravityBottom:_alignment])
         {
@@ -75,7 +83,7 @@
             }
             else
             {
-                CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, self.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+                CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, self.max_height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
                 self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
             }
         }
