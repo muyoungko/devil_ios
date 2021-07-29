@@ -219,6 +219,8 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"1"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"2"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"3"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"4"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"5"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         [container setShowsHorizontalScrollIndicator:[REPEAT_TYPE_HLIST isEqualToString:repeatType]];
@@ -321,9 +323,13 @@
     NSString* targetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
     NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
     NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
+    NSString* targetNode4 = [arrayContent objectForKey:@"targetNode4"];
+    NSString* targetNode5 = [arrayContent objectForKey:@"targetNode5"];
     NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
     NSString* targetNodeSurfixIf = [arrayContent objectForKey:@"targetNodeSurfixIf"];
     NSString* targetNodePrefixIf = [arrayContent objectForKey:@"targetNodePrefixIf"];
+    NSString* targetNode4If = [arrayContent objectForKey:@"targetNode4If"];
+    NSString* targetNode5If = [arrayContent objectForKey:@"targetNode5If"];
     
     NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"]; 
     NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
@@ -339,6 +345,8 @@
     NSDictionary* targetLayerSurfix = nil;
     NSDictionary* targetLayerPrefix = nil;
     NSDictionary* targetLayerSelected = nil;
+    NSDictionary* targetLayer4 = nil;
+    NSDictionary* targetLayer5 = nil;
     
     for(int i=0;i<[targetDataJson count];i++)
     {
@@ -357,6 +365,8 @@
     targetLayerPrefix = [self getReferenceBlock:targetNodePrefix :childLayers];
     targetLayerSurfix = [self getReferenceBlock:targetNodeSurfix :childLayers];
     targetLayerSelected = [self getReferenceBlock:targetNodeSelected :childLayers];
+    targetLayer4 = [self getReferenceBlock:targetNode4 :childLayers];
+    targetLayer5 = [self getReferenceBlock:targetNode5 :childLayers];
     
     if([REPEAT_TYPE_BOTTOM isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType])
     {
@@ -498,6 +508,10 @@
                 return targetLayerPrefix;
             else if(targetLayerSurfix != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSurfixIf data: targetDataJson[position]])
                 return targetLayerSurfix;
+            else if(targetLayer4 != nil && [MappingSyntaxInterpreter ifexpression:targetNode4If data: targetDataJson[position]])
+                return targetLayer4;
+            else if(targetLayer5 != nil && [MappingSyntaxInterpreter ifexpression:targetNode5If data: targetDataJson[position]])
+                return targetLayer5;
             return targetLayer;
         };
         
@@ -508,6 +522,10 @@
                 return @"0";
             else if(targetLayerSurfix != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSurfixIf data: targetDataJson[position]])
                 return @"1";
+            else if(targetLayer4 != nil && [MappingSyntaxInterpreter ifexpression:targetNode4If data: targetDataJson[position]])
+                return @"4";
+            else if(targetLayer5 != nil && [MappingSyntaxInterpreter ifexpression:targetNode5If data: targetDataJson[position]])
+                return @"5";
             return @"2";
         };
         
