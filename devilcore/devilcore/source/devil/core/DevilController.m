@@ -190,7 +190,6 @@
         [self.thisMetas[key] resumed];
         
     [self performSelector:@selector(onResume) withObject:nil afterDelay:0.01f];
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -217,7 +216,7 @@
 }
 
 -(void)onResume {
-    if(self.hasOnResume){
+    if(self.hasOnResume && self.navigationController.topViewController == self){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
     }
 }
