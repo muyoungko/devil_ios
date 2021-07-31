@@ -188,4 +188,17 @@
     }
 }
 
+
++ (UIImage *)resizeImageProperly:(UIImage *)image {
+    if(image.size.width > 512) {
+        float x = image.size.width / image.size.height * 512.0f;
+        CGSize newSize = CGSizeMake(x, 512);
+        UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+        [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return newImage;
+    } else
+        return image;
+}
 @end

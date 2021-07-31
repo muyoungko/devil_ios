@@ -39,7 +39,7 @@
     
     if([url hasPrefix:@"/"]) {
         [(UIImageView*)self.replaceView setImage:[UIImage imageWithContentsOfFile:url]];
-    } else if([url hasPrefix:@"phasset://"]) {
+    } else if([url hasPrefix:@"gallery://"]) {
         if(![url isEqualToString:self.currentUrl]) {
             PHImageRequestOptions* requestOptions = [[PHImageRequestOptions alloc] init];
             requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
@@ -49,7 +49,7 @@
 
             PHImageManager *manager = [PHImageManager defaultManager];
 
-            PHFetchResult *results = [PHAsset fetchAssetsWithLocalIdentifiers:@[[url stringByReplacingOccurrencesOfString:@"phasset://" withString:@""]] options:nil];
+            PHFetchResult *results = [PHAsset fetchAssetsWithLocalIdentifiers:@[[url stringByReplacingOccurrencesOfString:@"gallery://" withString:@""]] options:nil];
             
             CGRect rect = [WildCardConstructor getFrame:self.replaceJsonLayer:nil];
             [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {

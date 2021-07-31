@@ -7,7 +7,7 @@
 
 #import "DevilCamera.h"
 #import "DevilCameraController.h"
-
+#import "DevilUtil.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -33,8 +33,8 @@
 
     id r = [@[] mutableCopy];
     for(NSString* url in list) {
-        if([url hasPrefix:@"phasset://"]) {
-            NSString* phurl = [url stringByReplacingOccurrencesOfString:@"phasset://" withString:@""];
+        if([url hasPrefix:@"gallery://"]) {
+            NSString* phurl = [url stringByReplacingOccurrencesOfString:@"gallery://" withString:@""];
             PHFetchResult *results = [PHAsset fetchAssetsWithLocalIdentifiers:@[phurl] options:nil];
             [results enumerateObjectsUsingBlock:^(PHAsset *asset, NSUInteger idx, BOOL * _Nonnull stop) {
                 [manager requestImageDataForAsset:asset
@@ -44,6 +44,7 @@
                                                     NSDictionary *info) {
                     
                     UIImage* preview = [UIImage imageWithData:data];
+                    preview = [DevilUtil resizeImageProperly:preview];
                     NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
                     NSString* outputFileName = [NSUUID UUID].UUIDString;
                     NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
@@ -68,7 +69,7 @@
             int end = 100;
             [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [r addObject:[@{
-                    @"url":[NSString stringWithFormat:@"phasset://%@", obj.localIdentifier]
+                    @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier]
                 } mutableCopy]];
                 if(idx < end)
                     *stop = false;
