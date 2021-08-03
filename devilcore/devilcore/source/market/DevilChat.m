@@ -44,8 +44,25 @@
           retained:(BOOL)retained
                mid:(unsigned int)mid {
     NSLog(@"%@", topic);
-    NSString* script = self.marketJson[@"message"];
-    [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
+    NSString* command = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if([command hasPrefix:@"/chat/read"]) {
+        id cc = [command componentsSeparatedByString:@"/"];
+        NSString* who = cc[3];
+        BOOL itsMe = [who isEqualToString:self.chat_room_me];
+        if(!itsMe) {
+            NSString* script = self.marketJson[@"read"];
+            [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
+        }
+    } else if([command hasPrefix:@"/chat"]) {
+        id cc = [command componentsSeparatedByString:@"/"];
+        NSString* who = cc[2];
+        BOOL itsMe = [who isEqualToString:self.chat_room_me];
+        if(!itsMe) {
+            NSString* script = self.marketJson[@"message"];
+            [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
+        }
+    }
+    
 }
 
 -(NSString*)generateId{
@@ -59,6 +76,7 @@
 - (void)update:(id)opt {
     [super update:opt];
     self.chat_room_id = opt[@"chat_room_id"];
+    self.chat_room_me = opt[@"chat_room_me"];
     [self.session subscribeToTopic:self.chat_room_id atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
         
     }];

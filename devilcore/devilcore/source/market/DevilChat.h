@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) MQTTSessionManager *manager;
 @property MQTTSessionManagerState mainMqttClientState;
 @property (strong, nonatomic) NSString* chat_room_id;
+@property (strong, nonatomic) NSString* chat_room_me;
 
 @end
 
