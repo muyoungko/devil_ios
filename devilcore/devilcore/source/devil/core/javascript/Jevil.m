@@ -514,8 +514,10 @@
 }
 
 + (void)focus:(NSString*)nodeName {
-    id meta = [JevilInstance currentInstance].meta;
-    WildCardUITextField* tf = (WildCardUITextField*)[meta getTextView:nodeName];
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    
+    WildCardUITextField* tf = (WildCardUITextField*)[[vc findView:nodeName] subviews][0];
+    
     [tf becomeFirstResponder];
 }
 

@@ -398,4 +398,18 @@
     
 }
 
+-(WildCardUIView*)findView:(NSString*) name {
+    WildCardUIView* a = [self.mainWc.meta getView:name];
+    if(a)
+        return a;
+    
+    for(WildCardMeta* a in self.thisMetas) {
+        WildCardUIView* r = (WildCardUIView*) [a getView:name];
+        if(r != nil)
+            return r;
+    }
+
+    return nil;
+}
+
 @end

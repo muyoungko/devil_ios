@@ -22,6 +22,7 @@ UIDocumentInteractionControllerDelegate>
 -(void)updateMeta;
 -(void)tab:(NSString*)screenId;
 -(void)finish;
+-(WildCardUIView*)findView:(NSString*)name;
 
 @property (nonatomic, retain) NSString* projectId;
 @property (nonatomic, retain) NSString* screenId;
