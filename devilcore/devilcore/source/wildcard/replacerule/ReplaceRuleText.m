@@ -21,7 +21,7 @@
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt {
     UILabel* lv = (UILabel*)self.replaceView;
     NSString* text = [MappingSyntaxInterpreter interpret:self.replaceJsonKey:opt];
-    if(text == nil)
+    if(text == nil || [@"<null>" isEqualToString:text] )
         text = @"";//self.replaceJsonLayer[@"textSpec"][@"text"];
 
     if([WildCardConstructor sharedInstance].textTransDelegate != nil )

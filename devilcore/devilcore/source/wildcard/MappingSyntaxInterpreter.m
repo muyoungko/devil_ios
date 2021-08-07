@@ -91,7 +91,10 @@
                 }
                 else
                 {
-                    NSString* s = [NSString stringWithFormat:@"%@" ,[MappingSyntaxInterpreter getJsonWithPath:data :r]];
+                    id ss = [MappingSyntaxInterpreter getJsonWithPath:data :r];
+                    if(ss == nil || ss == [NSNull null])
+                        ss = @"";
+                    NSString* s = [NSString stringWithFormat:@"%@" ,ss];
                     text = [text stringByAppendingString:s];
                 }
             }

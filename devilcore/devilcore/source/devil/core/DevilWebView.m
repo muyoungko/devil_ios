@@ -66,9 +66,9 @@
             
         }];
         decisionHandler(WKNavigationActionPolicyCancel);
-    } else if([url hasPrefix:@"jevil://devil.com/replaceScreen"]) {
-        id q = navigationAction.request.URL.query;
-        //TODO
+    } else if([url hasPrefix:@"jevil://devil.com/back"]) {
+        [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+        decisionHandler(WKNavigationActionPolicyCancel);
     } else if([url hasPrefix:@"jevil://devil.com/popupAddress"]) {
         
         [JevilInstance currentInstance].data[@"address_step"] = @"1";
@@ -83,11 +83,14 @@
                                              onselect:^(BOOL yes, id res) {
             [[JevilInstance currentInstance] syncData];
             if(yes) {
-                NSString* s = [NSString stringWithFormat:@"javascript:addressPopupCallback('%@', '%@', '%@', '%@')",
+                NSString* s = [NSString stringWithFormat:@"javascript:addressPopupCallback('%@', '%@', '%@', '%@', '%@', '%@', '%@')",
                                [JevilInstance currentInstance].data[@"address_name"],
                                [JevilInstance currentInstance].data[@"road_address_name"],
+                               [JevilInstance currentInstance].data[@"address_place_name"],
                                [JevilInstance currentInstance].data[@"address_detail"],
-                               [JevilInstance currentInstance].data[@"address_post"]
+                               [JevilInstance currentInstance].data[@"address_post"],
+                               [JevilInstance currentInstance].data[@"address_x"],
+                               [JevilInstance currentInstance].data[@"address_y"]
                                ];
                 [self evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
                     
