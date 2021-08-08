@@ -376,6 +376,8 @@
     if(self.header)
         [self.header update:self.data];
     [WildCardConstructor applyRule:self.footer withData:self.data];
+    
+    [[DevilDrawer sharedInstance] update:self];
 }
 
 -(void)finish {

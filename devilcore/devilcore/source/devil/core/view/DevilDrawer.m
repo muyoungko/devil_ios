@@ -119,4 +119,17 @@
         }
     }
 }
+
+-(void)update:(UIViewController*) vc {
+    NSString* vckey = [NSString stringWithFormat:@"%@", vc];
+    id drawers = self.keep[vckey];
+    if(drawers != nil) {
+        id data = [JevilInstance currentInstance].data;
+        for(id blockId in [drawers allKeys]) {
+            WildCardDrawerView* d = drawers[blockId];
+            [WildCardConstructor applyRule:d.contentView withData:data];
+        }
+    }
+}
+
 @end
