@@ -173,6 +173,19 @@ static NSString *default_project_id = nil;
         return nil;
 }
 
+-(NSString*) getDeclaredCode
+{
+    id declared = self.project[@"declared"];
+    id ks = [declared allKeys];
+    NSString* r = @"";
+    for(id k in ks) {
+        NSString* s = declared[k];
+        r = [r stringByAppendingFormat:@"%@\n", s];
+    }
+    return r;
+}
+
+
 -(NSString*) getScreenIdByName:(NSString*)screenName {
     id keys = [_screenMap allKeys];
     for(id k in keys) {

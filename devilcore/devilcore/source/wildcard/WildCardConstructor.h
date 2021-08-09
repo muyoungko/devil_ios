@@ -88,6 +88,7 @@
 -(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete;
 -(void) initWithOnlineOnComplete:(void (^_Nonnull)(BOOL success))complete;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey;
+-(NSString*) getDeclaredCode;
 -(NSMutableDictionary*_Nullable) getAllBlockJson;
 
 -(NSString*)getFirstScreenId;
