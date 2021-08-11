@@ -284,7 +284,12 @@ static NSString *default_project_id = nil;
     id h = _screenMap[screenId][@"footer_block_id"];
     if(h != nil && h != [NSNull null]){
         NSString* footer_block_id =  [_screenMap[screenId][@"footer_block_id"] stringValue];
-        return [self getBlockJson:footer_block_id];
+        id n = _screenMap[screenId][@"fix_footer"];
+        BOOL fix_footer = n == [NSNull null] || [n boolValue] == false ? false : true;
+        id r = [@{} mutableCopy];
+        r[@"fix_footer"] = fix_footer?@TRUE:@FALSE;
+        r[@"cloudJson"] = [self getBlockJson:footer_block_id];
+        return r;
     } else
         return nil;
 }

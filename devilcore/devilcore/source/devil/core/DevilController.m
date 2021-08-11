@@ -22,6 +22,7 @@
 @property int header_sketch_height;
 @property BOOL hasOnResume;
 @property BOOL hasOnFinish;
+@property BOOL hasOnCreated;
 @property (nonatomic, retain) id thisMetas;
 @end
 
@@ -65,16 +66,7 @@
         [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
     
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
-    self.hasOnFinish = self.hasOnResume = false;
-    if(screen[@"javascript_on_create"]){
-        NSString* code = screen[@"javascript_on_create"];
-        if([code rangeOfString:@"function onResume"].length > 0)
-            self.hasOnResume = true;
-        if([code rangeOfString:@"function onFinish"].length > 0)
-            self.hasOnFinish = true;
-        [WildCardConstructor sharedInstance].loadingDelegate = self;
-        [self.jevil code:code viewController:self data:self.data meta:nil];
-    }
+    [self updateHasFunction];
 
     [self constructHeaderAndFooter];
 
@@ -85,6 +77,22 @@
     [DevilDebugView constructDebugViewIf:self];
 }
 
+-(void)updateHasFunction {
+    self.hasOnCreated = self.hasOnFinish = self.hasOnResume = false;
+    id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    if(screen[@"javascript_on_create"]){
+        NSString* code = screen[@"javascript_on_create"];
+        
+        if([code rangeOfString:@"function onCreated"].length > 0)
+            self.hasOnCreated = true;
+        if([code rangeOfString:@"function onResume"].length > 0)
+            self.hasOnResume = true;
+        if([code rangeOfString:@"function onFinish"].length > 0)
+            self.hasOnFinish = true;
+        [WildCardConstructor sharedInstance].loadingDelegate = self;
+        [self.jevil code:code viewController:self data:self.data meta:nil];
+    }
+}
 -(void)constructHeaderAndFooter{
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
@@ -93,9 +101,11 @@
         _header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
         [self hideNavigationBar];
-        
-    if([[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId]){
-        id footerCloudJson = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
+       
+    id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
+    if(footer){
+        id footerCloudJson = footer[@"cloudJson"];
+        self.fix_footer = [footer[@"fix_footer"] boolValue];
         self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
         self.original_footer_height = self.footer.frame.size.height;
         
@@ -146,16 +156,11 @@
     
     self.screenId = screenId;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
-    self.hasOnFinish = self.hasOnResume = false;
-    if(screen[@"javascript_on_create"]){
-        NSString* code = screen[@"javascript_on_create"];
-        if([code rangeOfString:@"function onResume"].length > 0)
-            self.hasOnResume = true;
-        if([code rangeOfString:@"function onFinish"].length > 0)
-            self.hasOnFinish = true;
-        [self.jevil code:code viewController:self data:self.data meta:nil];
-    }
+    [self updateHasFunction];
 
+    id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
+    if(footer)
+        self.fix_footer = [footer[@"fix_footer"] boolValue];
     [WildCardConstructor applyRule:self.footer withData:self.data];
 
     [self construct];
@@ -222,6 +227,12 @@
     [super viewDidDisappear:animated];
 }
 
+-(void)onCreated {
+    if(self.hasOnCreated && self.navigationController.topViewController == self){
+        [self.jevil code:@"onCreated()" viewController:self data:self.data meta:nil];
+    }
+}
+
 -(void)onResume {
     if(self.hasOnResume && self.navigationController.topViewController == self){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
@@ -280,11 +291,13 @@
         [self constructBlockUnder:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
         _mainWc.meta.jevil = self.jevil;
         [_mainWc.meta created];
+        [self onCreated];
     } else {
         [self createWildCardScreenListView:self.screenId];
 //        [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
 //        _mainWc.meta.jevil = self.jevil;
 //        [_mainWc.meta created];
+//        [self onCreated];
     }
 }
 
@@ -343,6 +356,8 @@
     if(self.thisMetas[key] == nil) {
         v.meta.jevil = self.jevil;
         [v.meta created];
+        if(index == 0)
+            [self onCreated];
     }
     self.thisMetas[key] = v.meta;
 }

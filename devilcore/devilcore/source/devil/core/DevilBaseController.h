@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int original_footer_y;
 @property int keyboard_height;
 @property int footer_sketch_height;
+@property BOOL fix_footer;
 @property (nonatomic, retain) WildCardUIView* footer;
 
 - (void)showIndicator;

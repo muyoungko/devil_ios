@@ -115,7 +115,7 @@
 }
 
 - (void)keyboardDidShow:(NSNotification*)noti {
-    if(self.footer) {
+    if(self.footer && !self.fix_footer) {
         NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
         CGRect rect = [keyboardFrameBegin CGRectValue];
         
