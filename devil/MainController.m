@@ -62,6 +62,8 @@
     [self sort];
     if(self.mainWc)
         [self reloadBlock];
+    
+    [[Devil sharedInstance] consumeReservedUrl];
 }
 
 

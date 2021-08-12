@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MainController : SubController<CLLocationManagerDelegate>
 
+-(void)startProject:(NSString*) project_id;
+
 @end
 
 NS_ASSUME_NONNULL_END

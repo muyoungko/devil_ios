@@ -223,8 +223,10 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"5"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
-        [container setShowsHorizontalScrollIndicator:[REPEAT_TYPE_HLIST isEqualToString:repeatType]];
-        [container setShowsVerticalScrollIndicator:[REPEAT_TYPE_VLIST isEqualToString:repeatType]];
+        [container setShowsHorizontalScrollIndicator:false];
+        //[container setShowsHorizontalScrollIndicator:[REPEAT_TYPE_HLIST isEqualToString:repeatType]];
+        //[container setShowsVerticalScrollIndicator:[REPEAT_TYPE_VLIST isEqualToString:repeatType]];
+        
         container.backgroundColor = [UIColor clearColor];
         WildCardCollectionViewAdapter* adapter = [[WildCardCollectionViewAdapter alloc] init];
         adapter.repeatType = repeatType;

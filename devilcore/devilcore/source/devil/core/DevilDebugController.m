@@ -8,6 +8,7 @@
 #import "DevilDebugController.h"
 #import "DevilDebugView.h"
 #import "DevilJsonViewer.h"
+#import "Jevil.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -15,8 +16,13 @@ green:((float)((rgbValue & 0x00FF00) >>  8))/255.0 \
 blue:((float)((rgbValue & 0x0000FF) >>  0))/255.0 \
 alpha:1.0]
 
+#define TOP_HEIGHT 70
+
 @interface DevilDebugController()
+
+@property (nonatomic) UIView *top;
 @property (nonatomic) UITableView *tv;
+
 @end
 
 @implementation DevilDebugController
@@ -27,7 +33,18 @@ alpha:1.0]
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     int sw = screenRect.size.width;
     int sh = screenRect.size.height;
-    self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, sw, sh) style:UITableViewStylePlain];
+    
+    self.top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sw, TOP_HEIGHT)];
+    self.top.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.top];
+    
+    UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
+    button.frame = CGRectMake(15, 5, 120, TOP_HEIGHT-10);
+    [button setTitle:@"My Login Link" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(link:) forControlEvents:UIControlEventTouchUpInside];
+    [self.top addSubview:button];
+    
+    self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, self.top.frame.size.height, sw, sh-self.top.frame.size.height) style:UITableViewStylePlain];
     self.tv.allowsMultipleSelection = NO;
     self.tv.allowsSelection = YES;
     self.tv.delegate = self;
@@ -52,7 +69,8 @@ alpha:1.0]
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     int offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
     int viewHeight = screenHeight - offsetY;
-    self.tv.frame = CGRectMake(0, offsetY, screenWidth, viewHeight);
+    self.top.frame = CGRectMake(0, offsetY , screenWidth, self.top.frame .size.height);
+    self.tv.frame = CGRectMake(0, offsetY + self.top.frame .size.height, screenWidth, viewHeight - self.top.frame .size.height);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -135,4 +153,15 @@ alpha:1.0]
     [self.tv reloadData];
 }
 
+- (void)link:(id)sender {
+    NSString* link = [NSString stringWithFormat:@"devil-app-builder://project/login/%@/%@",
+                      [WildCardConstructor sharedInstance].project_id,
+                      [Jevil get:@"x-access-token"]
+                      ];
+    
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    pasteboard.string = link;
+    
+    [Jevil toast:@"My Login Link Copied at clipboard"];
+}
 @end

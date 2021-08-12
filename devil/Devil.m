@@ -9,6 +9,9 @@
 #import "Devil.h"
 #import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
+#import "AppDelegate.h"
+#import "MainController.h"
+@import devilcore;
 
 @interface Devil ()
 
@@ -138,5 +141,36 @@
         NSLog(@"%@",res);
     }];
 }
+
+- (void)consumeReservedUrl {
+    if(self.reservedUrl) {
+        AppDelegate* app = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        MainController* mainVc = nil;
+        for(id vc in app.navigationController.viewControllers ){
+            if([vc isKindOfClass:[MainController class]]) {
+                mainVc = vc;
+                break;
+            }
+        }
+        if(mainVc) {
+            NSURL* url = self.reservedUrl;
+            self.reservedUrl = nil;
+            if([@"project" isEqualToString:url.host]) {
+                id ss = [url.path componentsSeparatedByString:@"/"];
+                NSString* command = ss[1];
+                if([@"login" isEqualToString:command]) {
+                    NSString* project_id = ss[2];
+                    NSString* xAccessToken = ss[3];
+                    [WildCardConstructor sharedInstance:project_id];
+                    [Jevil save:@"x-access-token" : xAccessToken];
+                    [app.navigationController popToViewController:mainVc animated:NO];
+                    [mainVc startProject:project_id];
+                }
+            }
+        }
+    }
+}
+
+
 
 @end

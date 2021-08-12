@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) NSMutableDictionary* member;
 @property (nonatomic, retain) NSString* udid;
+@property (nonatomic, retain) NSURL* reservedUrl;
+
+-(void)consumeReservedUrl;
 
 -(NSString*)getName;
 
