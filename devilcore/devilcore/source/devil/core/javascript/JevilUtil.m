@@ -44,7 +44,10 @@
     NSUInteger srcLen = [src count];
     NSUInteger destLen = [dest count];
     
-    if(srcLen > 0 && [src[0] isKindOfClass:[NSString class]] ){
+    if(srcLen > 0 && (
+                      [src[0] isKindOfClass:[NSString class]] ||
+                      [src[0] isKindOfClass:[NSNumber class]]
+                      ) ){
         [dest removeAllObjects];
         [dest addObjectsFromArray:src];
     } else {
