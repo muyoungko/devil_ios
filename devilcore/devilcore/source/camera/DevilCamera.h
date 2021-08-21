@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -14,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)changePhAssetToUrlPath:(id)list callback:(void (^)(id res))callback;
 +(void)getGelleryList:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback;
 +(void)camera:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback;
++(void)cameraQr:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback;
+-(void)captureResult:(id)result;
+
 @end
 
 NS_ASSUME_NONNULL_END

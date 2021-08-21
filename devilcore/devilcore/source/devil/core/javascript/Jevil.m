@@ -706,6 +706,13 @@
     }];
 }
 
++ (void)cameraQr:(NSDictionary*)param :(JSValue *)callback {
+    [DevilCamera cameraQr:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+}
+
 + (void)share:(NSString*)url{
     NSArray *activityItems = @[[NSURL URLWithString:url]];
     UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];

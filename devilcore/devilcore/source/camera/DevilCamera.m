@@ -8,6 +8,7 @@
 #import "DevilCamera.h"
 #import "DevilCameraController.h"
 #import "DevilUtil.h"
+#import "DevilQrCameraController.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -103,6 +104,36 @@
             callback(nil);
         }
     }];
+}
+
+
+
++(void)cameraQr:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback {
+    [DevilCamera requestCameraPermission:^(BOOL granted) {
+        if(granted) {
+            DevilQrCameraController* dc = [[DevilQrCameraController alloc] init];
+            
+            if(param[@"blockName"]) {
+                dc.blockName = param[@"blockName"];
+            }
+            
+            DevilCamera *c = [[DevilCamera alloc] init];
+            c.callback = callback;
+            dc.delegate = c;
+            [vc.navigationController presentViewController:dc animated:YES completion:^{
+
+            }];
+        } else {
+            callback(nil);
+        }
+    }];
+}
+
+- (void)captureResult:(id)result{
+    if(self.callback) {
+        self.callback(result);
+        self.callback = nil;
+    }
 }
 
 + (void)goCamera:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback {
