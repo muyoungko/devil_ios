@@ -212,6 +212,7 @@
 		6DF53B6F2658F3D3001FB1D6 /* DevilLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B6D2658F3D3001FB1D6 /* DevilLocation.m */; };
 		6DF5779026D00C1D009D41A1 /* DevilQrCameraController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF5778E26D00C1D009D41A1 /* DevilQrCameraController.h */; };
 		6DF5779126D00C1D009D41A1 /* DevilQrCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5778F26D00C1D009D41A1 /* DevilQrCameraController.m */; };
+		6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -423,6 +424,7 @@
 		6DF53B6D2658F3D3001FB1D6 /* DevilLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLocation.m; sourceTree = "<group>"; };
 		6DF5778E26D00C1D009D41A1 /* DevilQrCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilQrCameraController.h; sourceTree = "<group>"; };
 		6DF5778F26D00C1D009D41A1 /* DevilQrCameraController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilQrCameraController.m; sourceTree = "<group>"; };
+		6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevilQrCameraController.xib; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -465,6 +467,7 @@
 				6D9F7AA42622E93C003A70EC /* devil_camera_shutter@3x.png */,
 				6D9F7AA22622E93C003A70EC /* devil_camera_video@3x.png */,
 				6D0224A026131F6500634842 /* devil_icon.png */,
+				6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */,
 			);
 			path = resource;
 			sourceTree = "<group>";
@@ -1016,6 +1019,7 @@
 				6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */,
 				6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */,
 				6D9F7AA82622E93C003A70EC /* devil_camera_recording@3x.png in Resources */,
+				6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
 			);

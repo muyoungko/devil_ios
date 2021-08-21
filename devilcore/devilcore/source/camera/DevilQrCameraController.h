@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface DevilQrCameraController : UIViewController<ZXCaptureDelegate>
+@interface DevilQrCameraController : UIViewController<ZXCaptureDelegate, UIGestureRecognizerDelegate>
 {
     CGAffineTransform _captureSizeTransform;
     Boolean callbacked;

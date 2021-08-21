@@ -116,7 +116,7 @@
             if(param[@"blockName"]) {
                 dc.blockName = param[@"blockName"];
             }
-            
+            [dc construct];
             DevilCamera *c = [[DevilCamera alloc] init];
             c.callback = callback;
             dc.delegate = c;

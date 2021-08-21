@@ -15,6 +15,7 @@
 @property (nonatomic, strong) ZXCapture *capture;
 @property (nonatomic, weak) IBOutlet UIView *scanRectView;
 @property (nonatomic, weak) IBOutlet UILabel *decodedLabel;
+@property BOOL front;
 
 @end
 
@@ -28,6 +29,8 @@
     
     self.capture = [[ZXCapture alloc] init];
     self.capture.camera = self.capture.back;
+    self.front = NO;
+    
     self.capture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
     
     [self.view.layer addSublayer:self.capture.layer];
@@ -43,9 +46,45 @@
         id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
         self.mainVc = [WildCardConstructor constructLayer:self.view withLayer:cj instanceDelegate:self];
         [WildCardConstructor applyRule:self.mainVc withData:[@{} mutableCopy]];
-    } else {
+        WildCardMeta* meta = self.mainVc.meta;
+        UIView* front = [meta getView:@"front"];
+        UITapGestureRecognizer *buttonFrontRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonFrontBack:)];
+        [WildCardConstructor userInteractionEnableToParentPath:front depth:10];
+        front.userInteractionEnabled = YES;
+        [front addGestureRecognizer:buttonFrontRecognizer];
         
+        UIView* cancel = [meta getView:@"cancel"];
+        UITapGestureRecognizer *buttonCancelRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonCancel:)];
+        [WildCardConstructor userInteractionEnableToParentPath:cancel depth:10];
+        cancel.userInteractionEnabled = YES;
+        [cancel addGestureRecognizer:buttonCancelRecognizer];
+        
+    } else {
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        UIView *rootView = [[bundle loadNibNamed:@"DevilQrCameraController" owner:self options:nil] objectAtIndex:0];
+        [self.view addSubview:rootView];
+        
+        UIButton* cancel = [rootView viewWithTag:333];
+        [cancel addTarget:self action:@selector(buttonCancel:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton* front = [rootView viewWithTag:34];
+        [front addTarget:self action:@selector(buttonFrontBack:) forControlEvents:UIControlEventTouchUpInside];
     }
+}
+
+-(void)buttonCancel:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)buttonFrontBack:(id)sender {
+    if(self.front) {
+        self.front = NO;
+        self.capture.camera = self.capture.back;
+    } else {
+        self.front = YES;
+        self.capture.camera = self.capture.front;
+    }
+    
 }
 
 /*
