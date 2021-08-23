@@ -163,9 +163,8 @@
         self.fix_footer = [footer[@"fix_footer"] boolValue];
     [WildCardConstructor applyRule:self.footer withData:self.data];
 
-    [self construct];
-    
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + self.footer_sketch_height];
+    [self construct];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

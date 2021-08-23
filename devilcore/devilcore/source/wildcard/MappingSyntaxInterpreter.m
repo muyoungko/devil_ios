@@ -161,10 +161,10 @@
     
     int depth = 0;
     int cursor = 0;
-    char previous = 0;
+    unichar previous = 0;
     for(int i=0;i<[str length];i++)
     {
-        char c = [str characterAtIndex:i];
+        unichar c = [str characterAtIndex:i];
         switch(c)
         {
             case '(':

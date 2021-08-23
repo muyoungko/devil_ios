@@ -36,3 +36,4 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "DevilToast.h"
 #import "DevilNavigationController.h"
 #import "MarketComponent.h"
+#import "MappingSyntaxInterpreter.h"

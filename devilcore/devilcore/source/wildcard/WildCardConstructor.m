@@ -319,6 +319,9 @@ static NSString *default_project_id = nil;
     
     check = !check;
     
+    id layer = recognizer.rule.replaceJsonLayer;
+    recognizer.rule.replaceView.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", layer[@"name"], check?@"선택됨":@"선택안됨"];
+    
     if(check)
     {
         onNodeView.hidden = NO;

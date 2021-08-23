@@ -114,6 +114,7 @@
     NSMutableDictionary* extension = layer[@"extension"];
     NSString* typeStr = extension[@"type"];
     int type = [WildCardExtensionConstructor fromString:typeStr];
+    NSString* name = layer[@"name"];
     switch (type) {
         case WILDCARD_EXTENSION_TYPE_CUSTOM:
         {
@@ -202,8 +203,8 @@
                 singleFingerTap.meta = meta;
                 singleFingerTap.nodeName = ((WildCardUIView*)rule.replaceView).name;
                 singleFingerTap.extensionForCheckBox = extension;
+                singleFingerTap.rule = rule;
                 [rule.replaceView addGestureRecognizer:singleFingerTap];
-                
             }
             
             
@@ -224,6 +225,9 @@
                 check = NO;
             }
             
+            rule.replaceView.isAccessibilityElement = YES;
+            rule.replaceView.accessibilityTraits = UIAccessibilityTraitButton;
+            rule.replaceView.accessibilityLabel = [NSString stringWithFormat:@"%@ %@", layer[@"name"], check?@"선택됨":@"선택안됨"];
             if(check)
             {
                 onNodeView.hidden = NO;
