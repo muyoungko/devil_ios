@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (retain, nonatomic) id<DevilQrCameraControllerDelegate> delegate;
 @property (retain, nonatomic) NSString* blockName;
+@property BOOL front;
+@property BOOL finish;
 - (void)construct;
 
 @end

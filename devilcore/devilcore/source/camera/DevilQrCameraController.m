@@ -15,7 +15,8 @@
 @property (nonatomic, strong) ZXCapture *capture;
 @property (nonatomic, weak) IBOutlet UIView *scanRectView;
 @property (nonatomic, weak) IBOutlet UILabel *decodedLabel;
-@property BOOL front;
+@property NSTimeInterval lastCaptureTime;
+@property (nonatomic, strong) AVAudioPlayer* beepPlayer;
 
 @end
 
@@ -28,8 +29,10 @@
     callbacked = NO;
     
     self.capture = [[ZXCapture alloc] init];
-    self.capture.camera = self.capture.back;
-    self.front = NO;
+    if(self.front)
+        self.capture.camera = self.capture.front;
+    else
+        self.capture.camera = self.capture.back;
     
     self.capture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
     
@@ -251,10 +254,14 @@
 - (void)captureResult:(ZXCapture *)capture result:(ZXResult *)result {
     if (!result) return;
     
-    if(!callbacked)
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    if(now - self.lastCaptureTime > 2)
     {
+        self.lastCaptureTime = now;
         callbacked = YES;
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if(self.finish)
+            [self dismissViewControllerAnimated:YES completion:nil];
+        [self playBeep];
         [_delegate captureResult:@{@"r":@TRUE, @"code":result.text}];
     }
     return;
@@ -285,6 +292,17 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self.capture start];
     });
+}
+
+
+- (void)playBeep{
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *path = [bundle pathForResource:@"devil_camera_record" ofType:@"wav"];
+    
+    NSError *error;
+    self.beepPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
+    self.beepPlayer.numberOfLoops = 1;
+    [self.beepPlayer play];
 }
 
 @end

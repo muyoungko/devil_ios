@@ -116,6 +116,17 @@
             if(param[@"blockName"]) {
                 dc.blockName = param[@"blockName"];
             }
+            
+            if(param[@"startFront"]) {
+                dc.front = [param[@"startFront"] boolValue];
+            } else
+                dc.front = false;
+            
+            if(param[@"finish"]) {
+                dc.finish = [param[@"finish"] boolValue];
+            } else
+                dc.finish = YES;
+            
             [dc construct];
             DevilCamera *c = [[DevilCamera alloc] init];
             c.callback = callback;
@@ -132,7 +143,6 @@
 - (void)captureResult:(id)result{
     if(self.callback) {
         self.callback(result);
-        self.callback = nil;
     }
 }
 
