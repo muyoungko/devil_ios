@@ -28,6 +28,8 @@
 }
 
 -(void)registFunction:(JSValue*)function{
+    if(function == nil)
+        return;
     NSString* vcKey = [NSString stringWithFormat:@"%ul", [JevilInstance currentInstance].vc];
     NSString* functionKey = [NSString stringWithFormat:@"%ul", function];
     
@@ -39,6 +41,9 @@
 }
 
 -(void)callFunction:(JSValue*)function params:(id)params{
+    if(function == nil)
+        return;
+    
     NSString* vcKey = [NSString stringWithFormat:@"%ul", [JevilInstance currentInstance].vc];
     NSString* functionKey = [NSString stringWithFormat:@"%ul", function];
     

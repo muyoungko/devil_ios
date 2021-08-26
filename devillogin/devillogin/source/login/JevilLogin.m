@@ -29,6 +29,18 @@
             [callback callWithArguments:@[@{@"r":@FALSE}]];
     }];
 }
+
++ (void)kakaoProfileUpdateIfNeedWithDevilServer {
+    DevilKakaoLogin* kakao = [[DevilKakaoLogin alloc] init];
+    [kakao updateProfileWithCompletion:^(id _Nullable user) {
+        if(user != nil) {
+            user[@"r"] = @TRUE;
+            NSString* profile = user[@"profile"];
+            [Jevil post:@"/member/change/profile" :@{@"profile":profile} then:nil];
+        }
+    }];
+}
+
 + (void)loginFacebook:(JSValue *)callback{
     [DevilFacebook loginWithComplete:^(id _Nullable user) {
         if(user !=nil) {
@@ -64,6 +76,8 @@
             [callback callWithArguments:@[@{@"r":@FALSE}]];
     }];
 }
+
+
 
 + (void)loginNaver:(JSValue *)callback{
     [[DevilNaverLogin sharedInstance] loginWithComplete:[JevilInstance currentInstance].vc callback:^(id  _Nonnull user) {

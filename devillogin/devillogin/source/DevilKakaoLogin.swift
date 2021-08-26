@@ -29,6 +29,24 @@ public class DevilKakaoLogin: NSObject {
        return false
     }
     
+    @objc public func updateProfile(completion:@escaping (Any?)->()) {
+        UserApi.shared.me() {(user, error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("me() success.")
+
+                //do something
+                _ = user?.id
+                
+                let r: NSMutableDictionary = NSMutableDictionary()
+                r["profile"] = user?.kakaoAccount?.profile?.thumbnailImageUrl?.absoluteString
+                completion(r)
+            }
+        }
+    }
+    
     @objc public func login(completion:@escaping (Any?)->()) {
         if (UserApi.isKakaoTalkLoginAvailable()) {
             UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in

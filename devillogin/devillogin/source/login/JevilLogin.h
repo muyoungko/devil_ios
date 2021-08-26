@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JevilLogin <JSExport>
 
 + (void)loginKakao:(JSValue *)callback;
++ (void)kakaoProfileUpdateIfNeedWithDevilServer;
 + (void)loginFacebook:(JSValue *)callback;
 + (void)loginGoogle:(JSValue *)callback;
 + (void)loginApple:(JSValue *)callback;
