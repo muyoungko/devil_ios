@@ -18,6 +18,7 @@
 #import "DevilDebugView.h"
 #import "WifiManager.h"
 #import "DevilCamera.h"
+#import "DevilBeacon.h"
 #import "DevilUtil.h"
 #import "DevilToast.h"
 #import "DevilUtil.h"
@@ -33,6 +34,7 @@
 #import "JevilFunctionUtil.h"
 #import "WildCardUICollectionView.h"
 #import "DevilSdk.h"
+
 
 @interface Jevil()
 
@@ -930,6 +932,20 @@
 
 + (void)removeTimer:(NSString*)key {
     [NSObject cancelPreviousPerformRequestsWithTarget:[JevilInstance currentInstance] selector:@selector(timerFunction:) object:key];
+}
+
++ (void)beaconScan:(NSDictionary*)param :(JSValue*)callback :(JSValue*)foundCallback {
+    
+    [JevilInstance currentInstance].devilBeacon = [DevilBeacon sharedInstance];
+    [[DevilBeacon sharedInstance] scan:param complete:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+    } found:^(id  _Nonnull res) {
+        [foundCallback callWithArguments:@[res]];
+    }];
+}
+
++ (void)beaconStop{
+    [[DevilBeacon sharedInstance] stop];
 }
 
 @end

@@ -667,7 +667,13 @@ static BOOL IS_TABLET = NO;
             borderWidth = [WildCardConstructor convertSketchToPixel:borderWidth];
             
             vv.layer.borderColor = [borderColor CGColor];
-            vv.layer.borderWidth = borderWidth;
+            
+            // 2021.08.29 하프 라운드의 경우 찌그러지는 현상이 있어서 색이 같으면 border를 없앤다
+            if([layer[@"borderColor"] isEqualToString:layer[@"backgroundColor"]])
+                vv.layer.borderWidth = 0;
+            else
+                vv.layer.borderWidth = borderWidth;
+            
             
             if ([layer objectForKey:@"borderRound"] && [[layer objectForKey:@"borderRound"] boolValue]) {
                 

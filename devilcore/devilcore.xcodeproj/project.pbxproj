@@ -213,6 +213,8 @@
 		6DF5779026D00C1D009D41A1 /* DevilQrCameraController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF5778E26D00C1D009D41A1 /* DevilQrCameraController.h */; };
 		6DF5779126D00C1D009D41A1 /* DevilQrCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF5778F26D00C1D009D41A1 /* DevilQrCameraController.m */; };
 		6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */; };
+		6DF579A826D8D27F009D41A1 /* DevilBeacon.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF579A626D8D27F009D41A1 /* DevilBeacon.h */; };
+		6DF579A926D8D27F009D41A1 /* DevilBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF579A726D8D27F009D41A1 /* DevilBeacon.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -425,6 +427,8 @@
 		6DF5778E26D00C1D009D41A1 /* DevilQrCameraController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilQrCameraController.h; sourceTree = "<group>"; };
 		6DF5778F26D00C1D009D41A1 /* DevilQrCameraController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilQrCameraController.m; sourceTree = "<group>"; };
 		6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevilQrCameraController.xib; sourceTree = "<group>"; };
+		6DF579A626D8D27F009D41A1 /* DevilBeacon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBeacon.h; sourceTree = "<group>"; };
+		6DF579A726D8D27F009D41A1 /* DevilBeacon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBeacon.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -548,6 +552,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DF579A526D8D1F9009D41A1 /* beacon */,
 				6DD09434269C79CC000A913A /* market */,
 				6DF53B6B2658F3C5001FB1D6 /* location */,
 				6DF53B642657F846001FB1D6 /* speech */,
@@ -842,6 +847,15 @@
 			path = location;
 			sourceTree = "<group>";
 		};
+		6DF579A526D8D1F9009D41A1 /* beacon */ = {
+			isa = PBXGroup;
+			children = (
+				6DF579A626D8D27F009D41A1 /* DevilBeacon.h */,
+				6DF579A726D8D27F009D41A1 /* DevilBeacon.m */,
+			);
+			path = beacon;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -945,6 +959,7 @@
 				6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,
 				6D9F7B1726298930003A70EC /* WildCardVideoView.h in Headers */,
+				6DF579A826D8D27F009D41A1 /* DevilBeacon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1061,6 +1076,7 @@
 				6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */,
 				6DC162462691711000FD769C /* DevilNavigationController.m in Sources */,
 				6D467AC8256AB07A006D57DD /* WildCardUtil.m in Sources */,
+				6DF579A926D8D27F009D41A1 /* DevilBeacon.m in Sources */,
 				6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */,
 				6D9F7B0B2629658F003A70EC /* PEResizeControl.m in Sources */,
 				6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */,

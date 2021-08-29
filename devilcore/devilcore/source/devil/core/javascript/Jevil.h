@@ -92,6 +92,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)menuClose;
 + (void)setTimer:(NSString*)key :(int)milli_sec :(JSValue*)callback;
 + (void)removeTimer:(NSString*)key;
++ (void)beaconScan:(NSDictionary*)param :(JSValue*)callback :(JSValue*)foundCallback;
++ (void)beaconStop;
 @end
 
 @interface Jevil : NSObject <Jevil>

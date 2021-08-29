@@ -145,9 +145,8 @@
                 text = @"다음";
             
             [self.keypadTopButton setTitle:text forState:UIControlStateNormal];
-            [self.keypadTopButton addTarget:self.editingTextField  action:@selector(doneClick) forControlEvents:UIControlEventTouchUpInside];
+            [self.keypadTopButton addTarget:self  action:@selector(doneClick) forControlEvents:UIControlEventTouchUpInside];
             [self.keypadTop addSubview:self.keypadTopButton];
-            
         }
         
         NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
@@ -157,6 +156,13 @@
         int toUp = screenHeight - rect.size.height - self.keypadTop.frame.size.height - viewGap;
         self.keypadTop.frame = CGRectMake(self.keypadTop.frame.origin.x, toUp, self.keypadTop.frame.size.width, self.keypadTop.frame.size.height);
     }
+}
+
+- (void)doneClick {
+    if(self.editingTextField) {
+        [self.editingTextField doneClick];
+    }
+    [self.view endEditing:YES];
 }
 
 - (void)textEditing:(NSNotification*)noti

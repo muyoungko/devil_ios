@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class JevilCtx;
+@class DevilBeacon;
 
 @interface JevilInstance : NSObject
 
@@ -31,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) WildCardMeta* meta;
 @property (nonatomic, retain) NSMutableDictionary* forRetain;
 @property void (^timerCallback)(id res);
+@property (nonatomic, retain) DevilBeacon* devilBeacon;
 -(void)videoViewAutoPlay;
 @end
 

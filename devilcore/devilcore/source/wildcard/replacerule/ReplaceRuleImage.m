@@ -37,6 +37,7 @@
         url = [MappingSyntaxInterpreter interpret:jsonPath:opt];
     }
     
+    [(UIImageView*)self.replaceView setImage:nil];
     if([url hasPrefix:@"/"]) {
         [(UIImageView*)self.replaceView setImage:[UIImage imageWithContentsOfFile:url]];
     } else if([url hasPrefix:@"gallery://"]) {

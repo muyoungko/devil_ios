@@ -119,6 +119,9 @@
 	<string>$(PRODUCT_NAME)photos description.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please, allow access for speech recognition</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>Please, allow access for bluetooth</string>
+    
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
