@@ -62,12 +62,26 @@
     callback(r);
 }
 
++ (void)reverse:(NSMutableArray*)array {
+    if ([array count] <= 1)
+        return;
+    NSUInteger i = 0;
+    NSUInteger j = [array count] - 1;
+    while (i < j) {
+        [array exchangeObjectAtIndex:i
+                  withObjectAtIndex:j];
+
+        i++;
+        j--;
+    }
+}
+
 +(void)getGelleryList:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     [DevilCamera requestCameraPermission:^(BOOL granted) {
         if(granted) {
             PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
             id r = [@[] mutableCopy];
-            int end = 100;
+            int end = 1000;
             [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 [r addObject:[@{
                     @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier]
@@ -78,6 +92,7 @@
                     *stop = true;
             }];
             
+            [self reverse:r];
             
             callback([@{@"r":@TRUE, @"list":r} mutableCopy]);
         } else {
