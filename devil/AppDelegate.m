@@ -353,15 +353,18 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     __block UIImageView* nv = ((UIImageView*)networkImageView);
     NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [nv setImageWithURLRequest:req placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+
         WildCardUIView* f = (WildCardUIView*)[networkImageView superview];
-        if([f.name hasPrefix:@"profile"])
+        if([f isMemberOfClass:[WildCardUIView class]] && [f.name hasPrefix:@"profile"])
             networkImageView.layer.cornerRadius = f.frame.size.width/2;
         networkImageView.layer.cornerRadius = f.layer.cornerRadius;
         f.layer.borderWidth = 0;
-        
-        [UIView transitionWithView:nv duration:0.3f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
-            [nv setImage:image];
-        } completion:nil];
+
+        [nv setImage:image];
+        [nv setAlpha:0];
+        [UIView animateWithDuration:0.5 animations:^{
+            [nv setAlpha:1.0];
+        }];
     } failure:nil];
 }
 
