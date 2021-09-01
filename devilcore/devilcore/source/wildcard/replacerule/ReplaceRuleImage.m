@@ -38,6 +38,9 @@
     }
     
     [(UIImageView*)self.replaceView setImage:nil];
+    [(UIImageView*)self.replaceView setNeedsDisplay];
+    self.replaceView.layer.cornerRadius = self.replaceView.superview.layer.cornerRadius;
+    
     if([url hasPrefix:@"/"]) {
         [(UIImageView*)self.replaceView setImage:[UIImage imageWithContentsOfFile:url]];
     } else if([url hasPrefix:@"gallery://"]) {

@@ -229,7 +229,7 @@
         
         container.backgroundColor = [UIColor clearColor];
         WildCardCollectionViewAdapter* adapter = [[WildCardCollectionViewAdapter alloc] init];
-        adapter.repeatType = repeatType;
+        container.repeatType = adapter.repeatType = repeatType;
         adapter.margin = margin;
         adapter.meta = wcMeta;
         adapter.depth = depth;

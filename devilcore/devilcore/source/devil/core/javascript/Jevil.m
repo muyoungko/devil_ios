@@ -532,9 +532,13 @@
     [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
     
     if(nodeName && ![@"null" isEqualToString:nodeName] ) {
-        id meta = [JevilInstance currentInstance].meta;
+        WildCardMeta* meta = [JevilInstance currentInstance].meta;
         WildCardUICollectionView* list = [[meta getView:nodeName] subviews][0];
-        [list asyncScrollTo:index:!noani];
+        if(list == nil && meta.parentMeta)
+            list = [[meta.parentMeta getView:nodeName] subviews][0];
+                
+        if(list != nil)
+            [list asyncScrollTo:index:!noani];
     } else {
         DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
         if(vc.tv != nil)

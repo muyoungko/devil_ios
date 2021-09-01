@@ -5,6 +5,7 @@
 //  Created by Mu Young Ko on 2021/07/17.
 //
 
+#import "ReplaceRuleRepeat.h"
 #import "WildCardUICollectionView.h"
 
 @interface WildCardUICollectionView()
@@ -29,7 +30,11 @@
 }
 
 -(void)scrollToCore:(NSNumber*)index{
-    [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:self.reservedAni];
+    
+    if([REPEAT_TYPE_HLIST isEqualToString:self.repeatType])
+        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:self.reservedAni];
+    else
+        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:self.reservedAni];
 }
 
 @end

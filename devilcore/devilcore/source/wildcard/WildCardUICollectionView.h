@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WildCardUICollectionView : UICollectionView
 
+@property (nonatomic, retain) NSString* repeatType;
 -(void)asyncScrollTo:(int)index :(BOOL)ani;
 
 @end
