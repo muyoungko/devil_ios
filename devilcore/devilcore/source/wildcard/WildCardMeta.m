@@ -204,16 +204,16 @@
 -(void) wrapContent:(WildCardUIView*)parent
 {
     NSArray* childs = [parent subviews];
-    int maxW = 0;
-    int maxH = 0;
+    float maxW = 0;
+    float maxH = 0;
     for(int i=0;i<[childs count];i++)
     {
         UIView *child = [childs objectAtIndex:i];
         //TODO check childs aligment is right or bottom
         if(!child.hidden)
         {
-            int childW = child.frame.origin.x + child.frame.size.width;
-            int childH = child.frame.origin.y + child.frame.size.height;
+            float childW = child.frame.origin.x + child.frame.size.width;
+            float childH = child.frame.origin.y + child.frame.size.height;
             if(maxW < childW)
                 maxW = childW;
             if(maxH < childH)
