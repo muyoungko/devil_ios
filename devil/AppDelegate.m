@@ -362,7 +362,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
         [nv setImage:image];
         [nv setAlpha:0];
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             [nv setAlpha:1.0];
         }];
     } failure:nil];

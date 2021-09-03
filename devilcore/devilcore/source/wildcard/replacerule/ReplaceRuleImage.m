@@ -37,6 +37,13 @@
         url = [MappingSyntaxInterpreter interpret:jsonPath:opt];
     }
     
+    
+    if(url == nil)
+        return;
+    
+    if([url isEqualToString:self.currentUrl])
+        return;
+    
     [(UIImageView*)self.replaceView setImage:nil];
     [(UIImageView*)self.replaceView setNeedsDisplay];
     self.replaceView.layer.cornerRadius = self.replaceView.superview.layer.cornerRadius;
