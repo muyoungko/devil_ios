@@ -661,7 +661,7 @@ static BOOL IS_TABLET = NO;
             vv.alpha =[[layer objectForKey:@"alpha"] floatValue];
         }
         
-        if([layer objectForKey:@"borderColor"] != nil && [layer objectForKey:@"borderWidth"] != nil)
+        if(layer[@"borderColor"] != nil && [layer objectForKey:@"borderWidth"] != nil)
         {
             UIColor* borderColor = [WildCardUtil colorWithHexString:[layer objectForKey:@"borderColor"]];
             float borderWidth =[[layer objectForKey:@"borderWidth"] floatValue];
@@ -670,7 +670,7 @@ static BOOL IS_TABLET = NO;
             vv.layer.borderColor = [borderColor CGColor];
             
             // 2021.08.29 하프 라운드의 경우 찌그러지는 현상이 있어서 색이 같으면 border를 없앤다
-            if([layer[@"borderColor"] isEqualToString:layer[@"backgroundColor"]])
+            if(layer[@"borderColor"] != [NSNull null] && [layer[@"borderColor"] isEqualToString:layer[@"backgroundColor"]])
                 vv.layer.borderWidth = 0;
             else
                 vv.layer.borderWidth = borderWidth;
