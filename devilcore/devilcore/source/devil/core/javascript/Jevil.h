@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)remove:(NSString *)key;
 + (NSString*)get:(NSString *)key;
 + (void)get:(NSString *)url then:(JSValue *)callback;
++ (void)getMany:(NSArray *)url then:(JSValue *)callback;
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback;
 + (void)put:(NSString *)url :(id)param then:(JSValue *)callback;
 + (void)uploadS3:(NSArray*)file :(JSValue *)callback;
@@ -66,10 +67,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)out:(NSString*)url;
 + (void)download:(NSString*)url;
 + (void)sound:(NSDictionary*)param;
++ (void)soundCallback:(JSValue*)callback;
 + (void)soundTick:(JSValue*)callback;
 + (void)soundPause;
 + (void)soundStop;
 + (void)soundResume;
++ (BOOL)soundIsPlaying;
 + (void)soundMove:(int)sec;
 + (void)soundSpeed:(NSString*)speed;
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback;

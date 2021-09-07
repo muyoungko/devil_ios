@@ -197,6 +197,8 @@ alpha:1.0]
     popup.shouldDismissOnBackgroundTouch = YES;
     DevilBlockDialogLayout layout = DevilBlockDialogLayoutMake(DevilBlockDialogHorizontalLayout_Center, DevilBlockDialogVerticalLayout_Center);
     [popup showWithLayout:layout];
+    
+    UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.tv);
 }
 
 - (void)buttonClick:(UIView*)sender {

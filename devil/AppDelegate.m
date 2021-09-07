@@ -164,7 +164,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [WildCardConstructor sharedInstance].delegate = self;
     [WildCardConstructor sharedInstance].textConvertDelegate = self;
     [WildCardConstructor sharedInstance].textTransDelegate = self;
-    [WildCardConstructor sharedInstance].xButtonImageName = @"xbutton";
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
@@ -424,4 +423,17 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     return trans(text);
 }
 
+/**
+ 두손가락 더블탭으로 사운드 멈추거나 재생하기
+ */
+- (BOOL)accessibilityPerformMagicTap {
+    
+    if([Jevil soundIsPlaying])
+        [Jevil soundPause];
+    else
+        [Jevil soundResume];
+    
+    return YES;
+}
+    
 @end

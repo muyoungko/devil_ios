@@ -147,6 +147,7 @@
             b.tag = 5192837;
             b.imageEdgeInsets = UIEdgeInsetsMake(inset, inset, inset, inset);
             [b setImage:[UIImage imageNamed:_xbuttonImageName] forState:UIControlStateNormal];
+            b.accessibilityLabel = @"지우기";
             [b addTarget:self action:@selector(clearAll:) forControlEvents:UIControlEventTouchUpInside];
             [p addSubview:b];
         }

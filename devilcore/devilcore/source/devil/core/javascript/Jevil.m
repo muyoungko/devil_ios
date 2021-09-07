@@ -216,6 +216,88 @@
     return r;
 }
 
+id result[10];
+BOOL complete[10];
+BOOL httpOk[10];
+
++ (void)getMany:(NSArray *)paths then:(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    __block int len = (int)[paths count];
+    
+    for(int i=0;i<len;i++) {
+        result[i] = nil;
+        complete[i] = false;
+        httpOk[i] = false;
+    }
+    
+    for(int j=0;j<[paths count];j++) {
+        NSString* url = paths[j];
+        NSString* originalUrl = url;
+        if([url hasPrefix:@"/"])
+            url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+        id header = [@{} mutableCopy];
+        id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
+        for(id h in header_list){
+            NSString* content = h[@"content"];
+            if([content hasPrefix:@"{"]){
+                content = [content stringByReplacingOccurrencesOfString:@"{" withString:@""];
+                content = [content stringByReplacingOccurrencesOfString:@"}" withString:@""];
+                NSString* value = [Jevil get:content];
+                if(value)
+                    header[h[@"header"]] = value;
+            } else
+                header[h[@"header"]] = content;
+        }
+        
+        NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
+        if([Jevil get:x_access_token_key])
+            header[@"x-access-token"] = [Jevil get:x_access_token_key];
+        
+        __block int findex = j;
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+        [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
+            result[findex] = responseJsonObject;
+            complete[findex] = true;
+            httpOk[findex] = responseJsonObject != nil && !([responseJsonObject isMemberOfClass:[NSError class]]) ;
+            BOOL allComplete = true;
+            BOOL allOk = true;
+            for(int i=0;i<len;i++) {
+                if(!complete[i]) {
+                    allComplete = false;
+                    break;
+                }
+            }
+            
+            for(int i=0;i<len;i++) {
+                if(!httpOk[i]) {
+                    allOk = false;
+                    break;
+                }
+            }
+            
+            if(responseJsonObject == nil)
+                responseJsonObject = [@{} mutableCopy];
+            else if([responseJsonObject isMemberOfClass:[NSError class]]){
+                NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+                [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
+            } else
+                [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+            
+            if(allComplete) {
+                id r = [@{} mutableCopy];
+                r[@"r"] = allOk?@TRUE:@FALSE;
+                r[@"res"] = [@[] mutableCopy];
+                
+                for(int i=0;i<len;i++)
+                    [r[@"res"] addObject:result[i]];
+                [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[r]];
+                [[JevilInstance currentInstance] syncData];
+            }
+        }];
+    }
+}
+
 + (void)get:(NSString *)url then:(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     NSString* originalUrl = url;
@@ -761,6 +843,21 @@
         //TODO
     }
 }
+
++ (BOOL)soundIsPlaying{
+    @try {
+        return [[DevilSound sharedInstance] isPlaying];
+    } @catch (NSException *exception) {
+        //TODO
+    }
+}
+
++ (void)soundCallback:(JSValue*)callback{
+    [[DevilSound sharedInstance] setSoundCallback:^(id res) {
+        [callback callWithArguments:@[ res ]];
+    }];
+}
+
 + (void)soundTick:(JSValue*)callback{
     [[DevilSound sharedInstance] setTickCallback:^(int sec, int totalSeconds) {
         [callback callWithArguments:@[ [NSNumber numberWithInt:sec], [NSNumber numberWithInt:totalSeconds]]];

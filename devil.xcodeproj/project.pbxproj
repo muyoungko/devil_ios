@@ -39,6 +39,7 @@
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
 		6DAAD9DE265FF8BA00FE5682 /* DevilNaverLoginCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */; };
 		6DC1624A26917AC900FD769C /* c.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6DC1624926917AC900FD769C /* c.sh */; };
+		6DC6783226E76CDC0005728A /* xbutton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DC6783126E76CDC0005728A /* xbutton@3x.png */; };
 		6DD47A9E26AE946600F4B3E4 /* MyDevilController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD47A9D26AE946600F4B3E4 /* MyDevilController.m */; };
 		6DDAC3B9260C89F400E76300 /* Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDAC3B8260C89F400E76300 /* Test.swift */; };
 		8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D980CABA3AA49A94779F5B1B /* Pods_devil.framework */; };
@@ -112,6 +113,7 @@
 		6DAAD9DC265FF8BA00FE5682 /* DevilNaverLoginCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNaverLoginCallback.h; sourceTree = "<group>"; };
 		6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNaverLoginCallback.m; sourceTree = "<group>"; };
 		6DC1624926917AC900FD769C /* c.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = c.sh; sourceTree = "<group>"; };
+		6DC6783126E76CDC0005728A /* xbutton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xbutton@3x.png"; sourceTree = "<group>"; };
 		6DD47A9C26AE946600F4B3E4 /* MyDevilController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyDevilController.h; sourceTree = "<group>"; };
 		6DD47A9D26AE946600F4B3E4 /* MyDevilController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDevilController.m; sourceTree = "<group>"; };
 		6DDAC3B8260C89F400E76300 /* Test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 		6D46791C25699107006D57DD /* image */ = {
 			isa = PBXGroup;
 			children = (
+				6DC6783126E76CDC0005728A /* xbutton@3x.png */,
 				6D467B68257A2E17006D57DD /* refresh@3x.png */,
 				6D46791D25699107006D57DD /* back_black@3x.png */,
 			);
@@ -344,6 +347,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DC6783226E76CDC0005728A /* xbutton@3x.png in Resources */,
 				6D4678E22567D46D006D57DD /* FirstController.xib in Resources */,
 				6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */,
 				6D46791E25699108006D57DD /* back_black@3x.png in Resources */,

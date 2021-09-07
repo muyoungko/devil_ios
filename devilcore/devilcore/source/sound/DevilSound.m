@@ -13,7 +13,10 @@
 @property (nonatomic,retain) AVPlayer *player;
 @property (nonatomic,retain) id observer;
 @property void (^callback)(int sec, int totalSec);
+@property void (^callbackSound)(id res);
 @property (nonatomic,retain) id lockScreenInfo;
+@property BOOL isPlaying;
+@property (nonatomic,retain) AVPlayer *recentAvPlayerCompleteCalled;
 @end
 
 
@@ -24,6 +27,9 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
+        sharedInstance.isPlaying = NO;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:sharedInstance selector:@selector(audioPlayerDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:sharedInstance.player.currentItem];
     });
     return sharedInstance;
 }
@@ -48,17 +54,46 @@
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     [[AVAudioSession sharedInstance] setMode:AVAudioSessionModeMoviePlayback error:nil];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-    
-    [self setUpRemoteCommandCenter:param[@"title"]];
+
+    [self setUpRemoteCommandCenter:param];
 }
 
--(void)setUpRemoteCommandCenter:(NSString*)title {
+-(void)audioPlayerDidFinishPlaying:(id)notification{
+    if(self.callbackSound && self.recentAvPlayerCompleteCalled != self.player) {
+        self.recentAvPlayerCompleteCalled = self.player;
+        id r = [@{} mutableCopy];
+        r[@"command"] = @"complete";
+        self.callbackSound(r);
+    }
+}
+
+-(void)setUpRemoteCommandCenter:(id)param {
+    NSString* title = param[@"title"];
     // Provides all audio data to be displayed to user in lock screen
     self.lockScreenInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
        title==nil?@"player":title, MPMediaItemPropertyTitle,
        [NSNumber numberWithDouble:CMTimeGetSeconds(self.player.currentItem.duration)], MPMediaItemPropertyPlaybackDuration,
        [NSNumber numberWithDouble:CMTimeGetSeconds(self.player.currentItem.currentTime)], MPNowPlayingInfoPropertyElapsedPlaybackTime,
-       [NSNumber numberWithDouble:1], MPNowPlayingInfoPropertyPlaybackRate, nil];
+       [NSNumber numberWithDouble:1], MPNowPlayingInfoPropertyPlaybackRate,
+                           nil];
+    
+    if(param[@"artist"])
+        self.lockScreenInfo[MPMediaItemPropertyArtist] = param[@"artist"];
+    
+    if(param[@"artwork"]) {
+        NSString* url = param[@"artwork"];
+        NSURLSessionDataTask* task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]] completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+            if(data) {
+                __block UIImage* img = [UIImage imageWithData:data];
+                self.lockScreenInfo[MPMediaItemPropertyArtwork] = [[MPMediaItemArtwork alloc] initWithBoundsSize:img.size  requestHandler:^UIImage * _Nonnull(CGSize size) {
+                    return img;
+                }];
+                [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:self.lockScreenInfo];
+            }
+        }];
+        [task resume];
+    }
+    
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:self.lockScreenInfo];
 
     // For lock screen & remote audio controls
@@ -70,6 +105,15 @@
         return MPRemoteCommandHandlerStatusSuccess;
     }];
 
+    [remoteCommandCenter.togglePlayPauseCommand setEnabled:YES];
+    [remoteCommandCenter.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        if([self isPlaying])
+            [self pause];
+        else
+            [self resume];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    
     [remoteCommandCenter.pauseCommand setEnabled:YES];
     [remoteCommandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self pause];
@@ -103,9 +147,8 @@
 }
 
 
--(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
-    NSLog(@"%d",flag);
-
+- (void)setSoundCallback:(void (^)(id res))callback{
+    self.callbackSound = callback;
 }
 
 -(void)setTickCallback:(void (^)(int sec, int totalSeconds))callback{
@@ -141,16 +184,26 @@
         [[AVAudioSession sharedInstance] setActive:NO error:nil];
     }
 }
+
+- (BOOL)isPlaying{
+    if(self.player != nil) {
+        return self.player.timeControlStatus == AVPlayerTimeControlStatusPlaying;
+    }
+    return false;
+}
+
 - (void)pause{
     if(self.player != nil) {
         [self.player pause];
     }
 }
+
 - (void)resume{
     if(self.player != nil) {
         [self.player play];
     }
 }
+
 - (void)move:(int)sec{
     if(self.player != nil){
         CMTime cur = self.player.currentItem.currentTime;
