@@ -48,14 +48,17 @@
 }
 
 -(void)setReserveUrl:(NSString*)url{
-    
+    [[NSUserDefaults standardUserDefaults] setObject:url forKey:@"DEVIL_LINK"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(NSString*)getReserveUrl{
-    return @"";
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"DEVIL_LINK"];
 }
 
 -(NSString*)popReserveUrl{
-    return @"";
+    NSString* r = [[NSUserDefaults standardUserDefaults] objectForKey:@"DEVIL_LINK"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"DEVIL_LINK"];
+    return r;
 }
 @end
