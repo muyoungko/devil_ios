@@ -37,3 +37,4 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "DevilNavigationController.h"
 #import "MarketComponent.h"
 #import "MappingSyntaxInterpreter.h"
+#import "DevilLink.h"

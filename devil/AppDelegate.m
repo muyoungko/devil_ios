@@ -28,7 +28,7 @@
 #import "AppDelegate.h"
 #import "MyDevilController.h"
 
-@interface AppDelegate ()<DevilGoogleLoginDelegate>
+@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
 @property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
@@ -176,6 +176,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [DevilGoogleLogin sharedInstance].delegate = self;
     self.devilNaverLoginCallback = [[DevilNaverLoginCallback alloc] init];
     [DevilNaverLogin sharedInstance].delegate = self.devilNaverLoginCallback;
+    [DevilLink sharedInstance].delegate = self;
     
     return YES;
 }
@@ -434,6 +435,45 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         [Jevil soundResume];
     
     return YES;
+}
+    
+- (void)createFirebaseDynamicLink:(id)param callback:(void (^)(id res))callback {
+    NSString* url = param[@"url"];
+    NSString* dynamicLinksDomainURIPrefix = param[@"prefix"];
+    NSString* package = [[NSBundle mainBundle] bundleIdentifier];
+    NSString* title = param[@"title"];
+    NSString* desc = param[@"desc"];
+    NSString* imageUrl = param[@"image"];
+    
+    NSURL *link = [[NSURL alloc] initWithString:url];
+    
+    FIRDynamicLinkComponents *linkBuilder = [[FIRDynamicLinkComponents alloc]
+                                             initWithLink:link
+                                             domainURIPrefix:dynamicLinksDomainURIPrefix];
+    linkBuilder.iOSParameters = [[FIRDynamicLinkIOSParameters alloc]
+                                 initWithBundleID:package];
+    linkBuilder.androidParameters = [[FIRDynamicLinkAndroidParameters alloc]
+                                     initWithPackageName:package];
+    
+    //linkBuilder.analyticsParameters = [[FIRDynamicLinkGoogleAnalyticsParameters alloc] initWithSource:@"invite" medium:@"invite" campaign:@"invite"];
+    
+    FIRDynamicLinkSocialMetaTagParameters* social = [[FIRDynamicLinkSocialMetaTagParameters alloc] init];
+    social.title = title;
+    social.descriptionText = desc;
+    if(imageUrl)
+        social.imageURL = [NSURL URLWithString:imageUrl];
+    linkBuilder.socialMetaTagParameters = social;
+
+    [linkBuilder shortenWithCompletion:^(NSURL * _Nullable shortURL,
+                                         NSArray<NSString *> * _Nullable warnings,
+                                         NSError * _Nullable error) {
+        if (error || shortURL == nil) {
+            callback(@{@"r":@FALSE, @"msg":[error localizedDescription]});
+        } else {
+            NSString* url = [shortURL absoluteString];
+            callback(@{@"r":@TRUE, @"url":url});
+        }
+    }];
 }
     
 @end

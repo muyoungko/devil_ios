@@ -185,6 +185,8 @@
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
 		6DC162452691711000FD769C /* DevilNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC162432691711000FD769C /* DevilNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DC162462691711000FD769C /* DevilNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC162442691711000FD769C /* DevilNavigationController.m */; };
+		6DC6789E26EA29840005728A /* DevilLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC6789C26EA29830005728A /* DevilLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DC6789F26EA29840005728A /* DevilLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6789D26EA29830005728A /* DevilLink.m */; };
 		6DCD33B9267DC69800784D91 /* DevilDrawer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DCD33B7267DC69800784D91 /* DevilDrawer.h */; };
 		6DCD33BA267DC69800784D91 /* DevilDrawer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DCD33B8267DC69800784D91 /* DevilDrawer.m */; };
 		6DD09437269C79E8000A913A /* MarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD09435269C79E8000A913A /* MarketComponent.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -399,6 +401,8 @@
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
 		6DC162432691711000FD769C /* DevilNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNavigationController.h; sourceTree = "<group>"; };
 		6DC162442691711000FD769C /* DevilNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNavigationController.m; sourceTree = "<group>"; };
+		6DC6789C26EA29830005728A /* DevilLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLink.h; sourceTree = "<group>"; };
+		6DC6789D26EA29830005728A /* DevilLink.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLink.m; sourceTree = "<group>"; };
 		6DCD33B7267DC69800784D91 /* DevilDrawer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDrawer.h; sourceTree = "<group>"; };
 		6DCD33B8267DC69800784D91 /* DevilDrawer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDrawer.m; sourceTree = "<group>"; };
 		6DD09435269C79E8000A913A /* MarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarketComponent.h; sourceTree = "<group>"; };
@@ -719,6 +723,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6DC6789B26EA296A0005728A /* link */,
 				6D3EBE8025D92D970006ADD5 /* wifi */,
 				6D7E267625A89ABA00600978 /* view */,
 				6D0EE1672590BF5200C89D38 /* debug */,
@@ -785,6 +790,15 @@
 				6D9F7B082629658F003A70EC /* UIImage+PECrop.m */,
 			);
 			path = crop;
+			sourceTree = "<group>";
+		};
+		6DC6789B26EA296A0005728A /* link */ = {
+			isa = PBXGroup;
+			children = (
+				6DC6789C26EA29830005728A /* DevilLink.h */,
+				6DC6789D26EA29830005728A /* DevilLink.m */,
+			);
+			path = link;
 			sourceTree = "<group>";
 		};
 		6DD09434269C79CC000A913A /* market */ = {
@@ -863,6 +877,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
 				6DD09437269C79E8000A913A /* MarketComponent.h in Headers */,
 				6DC162452691711000FD769C /* DevilNavigationController.h in Headers */,
 				6D9F7C8826396318003A70EC /* DevilToast.h in Headers */,
@@ -1138,6 +1153,7 @@
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,
 				6DD0944D269C85A8000A913A /* MarketInstance.m in Sources */,
 				6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */,
+				6DC6789F26EA29840005728A /* DevilLink.m in Sources */,
 				6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */,
 				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
 				6D9F7B1826298930003A70EC /* WildCardVideoView.m in Sources */,

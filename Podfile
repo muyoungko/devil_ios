@@ -55,8 +55,8 @@ target 'devillogin' do
   lottie_libs
   
   pod 'KakaoSDK'
-  pod 'FBSDKLoginKit'
-  pod 'FBSDKShareKit'
+  pod 'FBSDKLoginKit', '~> 9.3.0'
+  pod 'FBSDKShareKit', '~> 9.3.0'
   pod 'GoogleSignIn', '~> 5.0'
   pod 'GoogleToolboxForMac'
 end

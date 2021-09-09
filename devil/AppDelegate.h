@@ -23,7 +23,7 @@
 
 @end
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, CBCentralManagerDelegate,
+@interface AppDelegate : UIResponder <UIApplicationDelegate,
 FIRMessagingDelegate,
 UNUserNotificationCenterDelegate,
 WildCardConstructorGlobalDelegate,

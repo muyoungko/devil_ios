@@ -26,6 +26,7 @@
 #import "DevilSound.h"
 #import "DevilSpeech.h"
 #import "DevilLocation.h"
+#import "DevilLink.h"
 #import "DevilWebView.h"
 #import "WildCardUITextView.h"
 #import "WildCardVideoView.h"
@@ -1047,6 +1048,13 @@ BOOL httpOk[10];
 
 + (void)beaconStop{
     [[DevilBeacon sharedInstance] stop];
+}
+
++ (void)linkCreate:(NSDictionary*)param :(JSValue*)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilLink sharedInstance] create:param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
 }
 
 @end
