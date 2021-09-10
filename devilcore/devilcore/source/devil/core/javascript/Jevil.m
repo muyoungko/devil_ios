@@ -1050,7 +1050,7 @@ BOOL httpOk[10];
     [[DevilBeacon sharedInstance] stop];
 }
 
-+ (void)linkCreate:(NSDictionary*)param :(JSValue*)callback {
++ (void)createDeepLink:(NSDictionary*)param :(JSValue*)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [[DevilLink sharedInstance] create:param callback:^(id  _Nonnull res) {
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];

@@ -28,6 +28,7 @@
 
 +(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback{
     [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:^(BOOL success) {
+        [WildCardConstructor sharedInstance:project_id];
         [[NSUserDefaults standardUserDefaults] setObject:project_id forKey:@"PROJECT_ID"];
         [[NSUserDefaults standardUserDefaults] synchronize];
         DevilController* d = [[DevilController alloc] init];

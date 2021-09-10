@@ -440,7 +440,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (void)createFirebaseDynamicLink:(id)param callback:(void (^)(id res))callback {
     NSString* url = param[@"url"];
     NSString* dynamicLinksDomainURIPrefix = param[@"prefix"];
-    NSString* package = [[NSBundle mainBundle] bundleIdentifier];
+    NSString* package_android = [[NSBundle mainBundle] bundleIdentifier];
     NSString* title = param[@"title"];
     NSString* desc = param[@"desc"];
     NSString* imageUrl = param[@"image"];
@@ -451,9 +451,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                              initWithLink:link
                                              domainURIPrefix:dynamicLinksDomainURIPrefix];
     linkBuilder.iOSParameters = [[FIRDynamicLinkIOSParameters alloc]
-                                 initWithBundleID:package];
+                                 initWithBundleID:@"kr.co.july.CloudJsonViewer"];
     linkBuilder.androidParameters = [[FIRDynamicLinkAndroidParameters alloc]
-                                     initWithPackageName:package];
+                                     initWithPackageName:@"kr.co.july.cloudjsonviewer"];
     
     //linkBuilder.analyticsParameters = [[FIRDynamicLinkGoogleAnalyticsParameters alloc] initWithSource:@"invite" medium:@"invite" campaign:@"invite"];
     

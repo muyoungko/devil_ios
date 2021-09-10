@@ -28,6 +28,9 @@
     NSString* dynamicLinksDomainURIPrefix = param[@"prefix"];
     NSString* title = param[@"title"];
     NSString* desc = param[@"desc"];
+    NSString* package_android = param[@"package_android"];
+    NSString* package_ios = param[@"package_ios"];
+    
     if(!url) {
         callback(@{@"r":@FALSE, @"msg":@"url is missing"});
     } else if(!dynamicLinksDomainURIPrefix) {
@@ -36,15 +39,25 @@
         callback(@{@"r":@FALSE, @"msg":@"title is missing"});
     } else if(!desc) {
         callback(@{@"r":@FALSE, @"msg":@"desc is missing"});
+    } else if(!package_android) {
+        callback(@{@"r":@FALSE, @"msg":@"package_android is missing"});
+    } else if(!package_ios) {
+        callback(@{@"r":@FALSE, @"msg":@"package_ios is missing"});
     } else if(self.delegate) {
+        
+        NSString *bundle = [[NSBundle mainBundle] bundleIdentifier];
+        if([bundle isEqualToString:@"kr.co.july.CloudJsonViewer"]) {
+            param[@"package_android"] = @"kr.co.july.cloudjsonviewer";
+            param[@"package_ios"] = @"kr.co.july.CloudJsonViewer";
+            param[@"prefix"] = @"https://sketchtoapp.page.link";
+        }
+        
         [self.delegate createFirebaseDynamicLink:param callback:^(id  _Nonnull res) {
             callback(res);
         }];
     } else {
         callback(@{@"r":@FALSE, @"msg":@"DevilLink delegate is not set"});
     }
-    
-    
 }
 
 -(void)setReserveUrl:(NSString*)url{
