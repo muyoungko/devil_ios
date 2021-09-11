@@ -83,7 +83,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     NSLog(@"%@", userInfo);
     
     [[DevilLink sharedInstance] setReserveUrl:userInfo[@"url"]];
-    
+    [[DevilLink sharedInstance] consumeStandardReserveUrl];
     completionHandler();
 }
 
@@ -160,7 +160,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }
     
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
-    
+
     [GIDSignIn sharedInstance].clientID = [FIRApp defaultApp].options.clientID;
     [GIDSignIn sharedInstance].delegate = self;
     
@@ -184,6 +184,14 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     self.devilNaverLoginCallback = [[DevilNaverLoginCallback alloc] init];
     [DevilNaverLogin sharedInstance].delegate = self.devilNaverLoginCallback;
     [DevilLink sharedInstance].delegate = self;
+    
+    
+    if(launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]){
+        NSLog(@"launchOptions %@", launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]);
+        [[DevilLink sharedInstance] setReserveUrl:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][@"url"]];
+        NSString* project_id = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][@"project_id"];
+        [Devil sharedInstance].reservedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"devil-app-builder://project/start/%@", project_id]];
+    }
     
     return YES;
 }
@@ -216,6 +224,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 - (void)applicationWillEnterForeground:(UIApplication *)application{
     NSLog(@"applicationWillEnterForeground");
+    if([self.navigationController.topViewController isMemberOfClass:[DevilController class]]) {
+        [((DevilController*)self.navigationController.topViewController) onResume];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application{
@@ -329,7 +340,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         }
         return true;
     }
-       
+    
     [[DevilLink sharedInstance] setReserveUrl:url];
                 
     return false;

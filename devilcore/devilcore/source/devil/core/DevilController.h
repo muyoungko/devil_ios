@@ -21,6 +21,7 @@ UIDocumentInteractionControllerDelegate>
 -(void)hideNavigationBar;
 -(void)updateMeta;
 -(void)tab:(NSString*)screenId;
+-(void)onResume;
 -(void)finish;
 -(WildCardUIView*)findView:(NSString*)name;
 

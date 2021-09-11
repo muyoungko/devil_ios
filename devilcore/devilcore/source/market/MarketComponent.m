@@ -23,7 +23,7 @@
     [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
 }
 -(void)update:(id)opt{
-    
+    self.meta.correspondData = opt;
 }
 -(void)pause{
     

@@ -615,11 +615,8 @@ BOOL httpOk[10];
     [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
     
     if(nodeName && ![@"null" isEqualToString:nodeName] ) {
-        WildCardMeta* meta = [JevilInstance currentInstance].meta;
-        WildCardUICollectionView* list = [[meta getView:nodeName] subviews][0];
-        if(list == nil && meta.parentMeta)
-            list = [[meta.parentMeta getView:nodeName] subviews][0];
-                
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        WildCardUICollectionView* list = (WildCardUICollectionView*)[[vc findView:nodeName] subviews][0];        
         if(list != nil)
             [list asyncScrollTo:index:!noani];
     } else {

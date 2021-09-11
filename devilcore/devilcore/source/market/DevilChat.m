@@ -11,13 +11,22 @@
 
 @interface DevilChat()
 @property (nonatomic, retain) MQTTSession *session;
+@property BOOL connected;
 @end
 
 @implementation DevilChat
 
 - (void)created {
     [super created];
+}
 
+
+- (void)connect {
+    
+    if(self.session) {
+        [self.session disconnect];
+        self.session = nil;
+    }
     NSString* mqtt_uri = self.marketJson[@"mqtt_uri"];
     NSURL* uri = [NSURL URLWithString:mqtt_uri];
     
@@ -30,9 +39,25 @@
     session.keepAliveInterval = 10;
     session.delegate = self;
     session.transport = transport;
+    self.connected = false;
+    
+    [session connect];
 }
 
-- (void)connect {
+- (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error{
+    if(eventCode == MQTTSessionEventConnected) {
+        self.connected = true;
+        self.chat_room_id = self.meta.correspondData[@"chat_room_id"];
+        self.chat_room_me = self.meta.correspondData[@"chat_room_me"];
+        [self.session subscribeToTopic:self.chat_room_id atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
+            
+        }];
+    } else {
+        self.connected = false;
+    }
+}
+
+- (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID{
     
 }
 
@@ -74,11 +99,6 @@
 
 - (void)update:(id)opt {
     [super update:opt];
-    self.chat_room_id = opt[@"chat_room_id"];
-    self.chat_room_me = opt[@"chat_room_me"];
-    [self.session subscribeToTopic:self.chat_room_id atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
-        
-    }];
 }
 
 - (void)pause {
@@ -88,7 +108,8 @@
 
 - (void)resume {
     [super resume];
-    [self.session connectAndWaitTimeout:1];
+    if(!self.connected)
+       [self connect];
 }
 
 - (void)destory {

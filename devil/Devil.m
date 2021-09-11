@@ -165,6 +165,10 @@
                     [Jevil save:@"x-access-token" : xAccessToken];
                     [app.navigationController popToViewController:mainVc animated:NO];
                     [mainVc startProject:project_id];
+                } else if([@"start" isEqualToString:command]) {
+                    NSString* project_id = ss[2];
+                    [app.navigationController popToViewController:mainVc animated:NO];
+                    [mainVc startProject:project_id];
                 }
             }
         }

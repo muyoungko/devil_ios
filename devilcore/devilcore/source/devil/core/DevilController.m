@@ -199,9 +199,6 @@
     
     [[DevilDrawer sharedInstance] show:self];
     
-    for(NSString* key in [self.thisMetas allKeys])
-        [self.thisMetas[key] resumed];
-        
     [self performSelector:@selector(onResume) withObject:nil afterDelay:0.01f];
 }
 
@@ -235,6 +232,9 @@
 }
 
 -(void)onResume {
+    for(NSString* key in [self.thisMetas allKeys])
+        [self.thisMetas[key] resumed];
+    
     if(self.hasOnResume && self.navigationController.topViewController == self){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
     }
