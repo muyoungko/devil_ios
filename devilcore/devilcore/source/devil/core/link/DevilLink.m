@@ -7,6 +7,11 @@
 
 #import "DevilLink.h"
 #import "WildCardConstructor.h"
+#import "JevilInstance.h"
+#import "DevilController.h"
+#import "MappingSyntaxInterpreter.h"
+#import "Jevil.h"
+#import "DevilUtil.h"
 
 @implementation DevilLink
 
@@ -73,5 +78,68 @@
     NSString* r = [[NSUserDefaults standardUserDefaults] objectForKey:@"DEVIL_LINK"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"DEVIL_LINK"];
     return r;
+}
+
+-(void)consumeStandardReserveUrl{
+    NSString* urls = [self popReserveUrl];
+    if(urls) {
+        NSURL* url = [NSURL URLWithString:urls];
+        NSString* path = [url path];
+        id pp = [path componentsSeparatedByString:@"/"];
+        NSString* command = pp[1];
+        if([@"screen" isEqualToString:command]){
+            NSString* screenName = pp[2];
+            id data = [DevilUtil queryToJson:url];
+            [Jevil go:screenName :data];
+        }
+    }
+}
+
+-(BOOL)checkCond:(id)cond {
+    BOOL r = true;
+    if(cond[@"screen_name"]) {
+        if([JevilInstance currentInstance] && [JevilInstance currentInstance].vc) {
+            UIViewController* a = [JevilInstance currentInstance].vc;
+            if([a isMemberOfClass:[DevilController class]]) {
+                NSString* screenName = ((DevilController*) a).screenName;
+                if(![screenName isEqualToString:cond[@"screen_name"]])
+                    r = false;
+            } else
+                r = false;
+        } else
+            r = false;
+    }
+
+    if(cond[@"data_condition"]){
+        if([JevilInstance currentInstance] && [JevilInstance currentInstance].data) {
+            BOOL ifr = [MappingSyntaxInterpreter ifexpression:cond[@"data_condition"] data:[JevilInstance currentInstance].data];
+            if(!ifr)
+                r = false;
+        } else
+            r = false;
+    }
+    return r;
+}
+
+-(BOOL)checkNotificationShouldShow:(NSDictionary*)data {
+    NSString* show = @"force";
+    if(data[@"show"])
+        show = data[@"show"];
+    id cond = @{};
+    if(data[@"cond"]) {
+        NSString* condString = data[@"cond"];
+        cond = [NSJSONSerialization JSONObjectWithData:[condString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    }
+    if([show isEqualToString:@"force"])
+        return true;
+    else if([show isEqualToString:@"hide"]){
+        return false;
+    } else if([show isEqualToString:@"cond_show"]) {
+        return [self checkCond:cond];
+    } else if([show isEqualToString:@"cond_hide"]) {
+        return ![self checkCond:cond];
+    }
+    
+    return true;
 }
 @end

@@ -80,6 +80,8 @@
 -(void)updateHasFunction {
     self.hasOnCreated = self.hasOnFinish = self.hasOnResume = false;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    self.screenName = screen[@"name"];
+    self.projectId = screen[@"project_id"];
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
         
@@ -319,6 +321,8 @@
     [self releaseScreen];
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
     self.mainWc = [WildCardConstructor constructLayer:self.viewMain withLayer:cj instanceDelegate:self];
+    NSString* key = [NSString stringWithFormat:@"%@", self.mainWc.meta];
+    self.thisMetas[key] = self.mainWc.meta;
     [WildCardConstructor applyRule:self.mainWc withData:_data];
 }
 
@@ -334,6 +338,8 @@
     }
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
     self.mainWc = [WildCardConstructor constructLayer:self.scrollView withLayer:cj instanceDelegate:self];
+    NSString* key = [NSString stringWithFormat:@"%@", self.mainWc.meta];
+    self.thisMetas[key] = self.mainWc.meta;
     [WildCardConstructor applyRule:self.mainWc withData:_data];
     self.scrollView.contentSize = CGSizeMake(screenWidth, self.mainWc.frame.size.height);
 }

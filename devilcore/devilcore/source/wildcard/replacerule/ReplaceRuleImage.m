@@ -38,8 +38,11 @@
     }
     
     
-    if(url == nil)
+    if(url == nil){
+        [(UIImageView*)self.replaceView setImage:nil];
+        [(UIImageView*)self.replaceView setNeedsDisplay];
         return;
+    }
     
     if([url isEqualToString:self.currentUrl])
         return;

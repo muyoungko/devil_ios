@@ -45,6 +45,9 @@
 }
 
 
+/**
+ 앱이 전면인데 푸시가 왔을때
+ */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
@@ -58,15 +61,17 @@
         NSLog(@"Message ID: %@", userInfo[kGCMMessageIDKey]);
     }
     
-    // Print full message.
-    NSLog(@"%@", userInfo);
-    
     // Change this to your preferred presentation option
-    completionHandler(UNNotificationPresentationOptionAlert);
+    if([[DevilLink sharedInstance] checkNotificationShouldShow:userInfo])
+        completionHandler(UNNotificationPresentationOptionAlert);
+    else
+        completionHandler(UNNotificationPresentationOptionNone);
 }
 
 NSString *const kGCMMessageIDKey = @"gcm.message_id";
-//알림을 클릭했을 때
+/**
+ 앱이 전면인데 푸시를 클릭했을떄
+ */
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response
          withCompletionHandler:(void(^)(void))completionHandler {
     NSDictionary *userInfo = response.notification.request.content.userInfo;
@@ -76,6 +81,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     // Print full message.
     NSLog(@"%@", userInfo);
+    
+    [[DevilLink sharedInstance] setReserveUrl:userInfo[@"url"]];
     
     completionHandler();
 }
@@ -282,7 +289,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     if([url.scheme isEqualToString:@"devil-app-builder"]){
         [Devil sharedInstance].reservedUrl = url;
-        [[Devil sharedInstance] consumeReservedUrl];
         return true;
     }
                 
@@ -296,19 +302,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         return true;
                 
     FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
-    if (dynamicLink) {
-        if (dynamicLink.url) {
-            // Handle the deep link. For example, show the deep-linked content,
-            // apply a promotional offer to the user's account or show customized onboarding view.
-            // ...
-            [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
-            [[DeepLink sharedInstance] consumeDeepLink];
-        } else {
-            // Dynamic link has empty deep link. This situation will happens if
-            // Firebase Dynamic Links iOS SDK tried to retrieve pending dynamic link,
-            // but pending link is not available for this device/App combination.
-            // At this point you may display default onboarding view.
-        }
+    if (dynamicLink && dynamicLink.url) {
+        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+        [[DeepLink sharedInstance] consumeDeepLink];
+        
+        [[DevilLink sharedInstance] setReserveUrl:[NSString stringWithFormat:@"%@", dynamicLink.url]];
         return YES;
     }
 
@@ -332,6 +330,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         return true;
     }
        
+    [[DevilLink sharedInstance] setReserveUrl:url];
+                
     return false;
 }
 
@@ -440,7 +440,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (void)createFirebaseDynamicLink:(id)param callback:(void (^)(id res))callback {
     NSString* url = param[@"url"];
     NSString* dynamicLinksDomainURIPrefix = param[@"prefix"];
-    NSString* package_android = [[NSBundle mainBundle] bundleIdentifier];
+    NSString* package_android = param[@"package_android"];
+    NSString* package_ios = param[@"package_ios"];
     NSString* title = param[@"title"];
     NSString* desc = param[@"desc"];
     NSString* imageUrl = param[@"image"];
@@ -451,9 +452,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                              initWithLink:link
                                              domainURIPrefix:dynamicLinksDomainURIPrefix];
     linkBuilder.iOSParameters = [[FIRDynamicLinkIOSParameters alloc]
-                                 initWithBundleID:@"kr.co.july.CloudJsonViewer"];
+                                 initWithBundleID:package_ios];
     linkBuilder.androidParameters = [[FIRDynamicLinkAndroidParameters alloc]
-                                     initWithPackageName:@"kr.co.july.cloudjsonviewer"];
+                                     initWithPackageName:package_android];
     
     //linkBuilder.analyticsParameters = [[FIRDynamicLinkGoogleAnalyticsParameters alloc] initWithSource:@"invite" medium:@"invite" campaign:@"invite"];
     

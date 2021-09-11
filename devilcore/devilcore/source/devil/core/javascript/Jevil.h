@@ -98,6 +98,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)beaconScan:(NSDictionary*)param :(JSValue*)callback :(JSValue*)foundCallback;
 + (void)beaconStop;
 + (void)createDeepLink:(NSDictionary*)param :(JSValue*)callback;
++ (NSString*)getReserveUrl;
++ (NSString*)popReserveUrl;
++ (void)consumeStandardReserveUrl;
++ (void)localPush:(id)param;
 
 @end
 

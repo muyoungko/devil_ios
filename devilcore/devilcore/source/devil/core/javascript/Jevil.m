@@ -1057,4 +1057,21 @@ BOOL httpOk[10];
     }];
 }
 
++ (NSString*)getReserveUrl {
+    return [[DevilLink sharedInstance] getReserveUrl];
+}
+
++ (NSString*)popReserveUrl {
+    return [[DevilLink sharedInstance] popReserveUrl];
+}
+
++ (void)localPush:(id)param {
+    
+}
+
++ (void)consumeStandardReserveUrl {
+    [[DevilLink sharedInstance] consumeStandardReserveUrl];
+}
+
+
 @end

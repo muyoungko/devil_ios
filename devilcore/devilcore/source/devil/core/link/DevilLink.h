@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setReserveUrl:(NSString*)url;
 -(NSString*)getReserveUrl;
 -(NSString*)popReserveUrl;
+-(void)consumeStandardReserveUrl;
+-(BOOL)checkNotificationShouldShow:(NSDictionary*)data;
+
 @end
 
 NS_ASSUME_NONNULL_END

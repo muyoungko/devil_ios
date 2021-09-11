@@ -26,6 +26,7 @@ UIDocumentInteractionControllerDelegate>
 
 @property (nonatomic, retain) NSString* projectId;
 @property (nonatomic, retain) NSString* screenId;
+@property (nonatomic, retain) NSString* screenName;
 @property (nonatomic, retain) id startData;
 
 @property(nonatomic, retain) NSMutableDictionary* data;

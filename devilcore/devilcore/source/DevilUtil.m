@@ -180,6 +180,19 @@
     return dict;
 }
 
++(id) queryToJson:(NSURL*)url {
+    NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO];
+    NSArray *queryItems = [components queryItems];
+
+    NSMutableDictionary *dict = [NSMutableDictionary new];
+
+    for (NSURLQueryItem *item in queryItems){
+        [dict setObject:[item value] forKey:[item name]];
+    }
+    
+    return dict;
+}
+
 + (void)clearTmpDirectory
 {
     NSArray* tmpDirectory = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:NSTemporaryDirectory() error:NULL];

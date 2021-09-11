@@ -30,7 +30,6 @@
     session.keepAliveInterval = 10;
     session.delegate = self;
     session.transport = transport;
-    [session connectAndWaitTimeout:10];
 }
 
 - (void)connect {
@@ -89,10 +88,11 @@
 
 - (void)resume {
     [super resume];
-    //[self.session connectAndWaitTimeout:10];
+    [self.session connectAndWaitTimeout:1];
 }
 
 - (void)destory {
+    [self.session disconnect];
     [super destory];
 }
 
