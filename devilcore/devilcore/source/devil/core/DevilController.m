@@ -294,11 +294,11 @@
         [_mainWc.meta created];
         [self onCreated];
     } else {
-        [self createWildCardScreenListView:self.screenId];
-//        [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
-//        _mainWc.meta.jevil = self.jevil;
-//        [_mainWc.meta created];
-//        [self onCreated];
+        //[self createWildCardScreenListView:self.screenId];
+        [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
+        _mainWc.meta.jevil = self.jevil;
+        [_mainWc.meta created];
+        [self onCreated];
     }
 }
 
@@ -332,7 +332,7 @@
      */
     [self releaseScreen];
     if(self.scrollView == nil) {
-        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,0,0)];
+        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
         [_viewMain addSubview:self.scrollView];
         [WildCardConstructor followSizeFromFather:self.viewMain child:self.scrollView];
     }
@@ -341,7 +341,16 @@
     NSString* key = [NSString stringWithFormat:@"%@", self.mainWc.meta];
     self.thisMetas[key] = self.mainWc.meta;
     [WildCardConstructor applyRule:self.mainWc withData:_data];
+    self.scrollView.contentOffset = CGPointMake(0, 0);
+    float toBeHeight = screenHeight;
+    if(_header_sketch_height > 0)
+        toBeHeight -= [WildCardUtil headerHeightInSketch];
+    if(self.footer)
+        toBeHeight -= self.footer.frame.size.height;
+    self.scrollView.frame = CGRectMake(0,0,screenWidth, toBeHeight);
     self.scrollView.contentSize = CGSizeMake(screenWidth, self.mainWc.frame.size.height);
+    self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    self.scrollView.bounces = NO;
 }
 
 - (void)createWildCardScreenListView:(NSString*)screenId{

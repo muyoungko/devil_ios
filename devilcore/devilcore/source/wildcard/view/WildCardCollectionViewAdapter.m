@@ -16,7 +16,7 @@
 @interface WildCardCollectionViewAdapter()
 
 @property (nonatomic, retain) WildCardUICollectionView* c;
-
+@property (nonatomic, retain) NSTimer *timer;
 @end
 
 @implementation WildCardCollectionViewAdapter
@@ -394,6 +394,28 @@
         NSLog(@"Accessibility Scroll Captured NO");
         return NO;
     }
+}
+
+-(void)autoSwipe:(BOOL)s{
+    if(s) {
+        if(self.timer)
+            self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(swipe) userInfo:nil repeats:YES];
+    } else {
+        if(self.timer)
+            [self.timer invalidate];
+        self.timer = nil;
+    }
+        
+}
+
+- (void)swipe {
+    int count = [self getCount];
+    int index = [self getIndex];
+    index ++;
+    if(index >= count)
+        index = 0;
+    
+    [self scrollToIndex:index view:self.collectionView];
 }
 
 @end

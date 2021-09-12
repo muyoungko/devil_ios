@@ -165,7 +165,7 @@
                 break;
             }
         }
-                
+        
         adapter.repeatType = repeatType;
         adapter.margin = margin;
         container.contentInset = UIEdgeInsetsMake(0, adapter.viewPagerStartPaddingX, 0, adapter.viewPagerStartPaddingX);
@@ -466,6 +466,9 @@
         WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)repeatRule.adapterForRetain;
         
         adapter.data = targetDataJson;
+        
+        
+        [adapter autoSwipe:[@"Y" isEqualToString:arrayContent[@"autoSwipe"]]];
         
         BOOL atLeastOneSelected = false;
         for(int i=0;i<[targetDataJson count];i++)

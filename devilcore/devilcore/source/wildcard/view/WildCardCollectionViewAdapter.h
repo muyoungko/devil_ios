@@ -39,6 +39,8 @@ typedef void (^ ViewPagerSelected)(int);
 @property void (^lastItemCallback)(id res);
 @property void (^draggedCallback)(id res);
 
+@property BOOL autoSwipeViewPager;
+-(void)autoSwipe:(BOOL)s;
 -(void)addViewPagerSelected:(ViewPagerSelected)func;
 
 -(int)getIndex;

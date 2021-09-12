@@ -21,6 +21,17 @@ static BOOL IS_TABLET = NO;
     SKETCH_WIDTH = w;
 }
 
++ (float)headerHeightInPixcel {
+    float r = 0;
+    CGFloat topPadding = 0;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+        topPadding = window.safeAreaInsets.top;
+    }
+    r+=topPadding;
+    return r+44;
+}
+
 + (float)headerHeightInSketch {
     float r = 0;
     CGFloat topPadding = 0;
