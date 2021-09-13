@@ -407,8 +407,13 @@
 -(void)updateMeta {
     if(self.tv != nil)
         [self.tv reloadData];
-    else if(_mainWc != nil)
+    else if(_mainWc != nil) {
         [_mainWc.meta update];
+        if(self.scrollView) {
+            self.scrollView.contentSize = CGSizeMake(screenWidth, self.mainWc.frame.size.height);
+        }
+    }
+    
     if(self.header)
         [self.header update:self.data];
     [WildCardConstructor applyRule:self.footer withData:self.data];
