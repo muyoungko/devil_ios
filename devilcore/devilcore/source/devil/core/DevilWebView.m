@@ -102,10 +102,17 @@
         ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;
         decisionHandler(WKNavigationActionPolicyCancel);
     } else if(![url hasPrefix:@"http://"] && ![url hasPrefix:@"https://"]) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+        /**    jevil://markt/auth?name=%ED%99%8D%EC%9D%80%ED%9D%AC&birth=19801015&gender=0&mobile=...
+         와 같은 커스텀 url도 있는데 이걸 self.shouldOverride에 물어봐야한다
+         */
+        if(self.shouldOverride != nil && self.shouldOverride(url))
+            decisionHandler(WKNavigationActionPolicyCancel);
+        else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
             
-        }];
-        decisionHandler(WKNavigationActionPolicyCancel);
+            }];
+            decisionHandler(WKNavigationActionPolicyCancel);
+        }
     } else if(self.shouldOverride != nil && self.shouldOverride(url)){
         decisionHandler(WKNavigationActionPolicyCancel);
     } else {
