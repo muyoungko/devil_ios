@@ -441,8 +441,8 @@
     if(a)
         return a;
     
-    for(WildCardMeta* a in self.thisMetas) {
-        WildCardUIView* r = (WildCardUIView*) [a getView:name];
+    for(NSString* a in self.thisMetas) {
+        WildCardUIView* r = (WildCardUIView*) [self.thisMetas[a] getView:name];
         if(r != nil)
             return r;
     }
