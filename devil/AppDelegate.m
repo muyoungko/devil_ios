@@ -340,8 +340,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         }
         return true;
     }
-    
-    [[DevilLink sharedInstance] setReserveUrl:url];
                 
     return false;
 }

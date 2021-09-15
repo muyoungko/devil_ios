@@ -31,6 +31,8 @@
         typeString = @"NEXT_VIEW";
     else if(_type == WC_LAYOUT_TYPE_GRAVITY)
         typeString = @"GRAVITY";
+    else if(_type == WC_LAYOUT_TYPE_MATCH_PARENT)
+        typeString = @"MATCH_PARENT";
     return [NSString stringWithFormat:@"%@ type:%@ depth:%d %@", s, typeString, _depth, _optionalViewName];
 }
 @end

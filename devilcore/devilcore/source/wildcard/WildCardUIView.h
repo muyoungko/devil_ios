@@ -36,6 +36,7 @@
 @property (retain, nonatomic) NSString* stringTag;
 @property BOOL wrap_width;
 @property BOOL wrap_height;
+@property BOOL match_height;
 
 @property int alignment;
 

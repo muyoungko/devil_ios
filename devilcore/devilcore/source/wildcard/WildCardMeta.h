@@ -45,6 +45,7 @@
 @property (nonatomic, retain) NSMutableDictionary* gravityNodes;
 
 @property (nonatomic, retain) NSMutableDictionary* wrapContentNodes;
+@property (nonatomic, retain) NSMutableDictionary* matchParentNodes;
 
 @property (nonatomic, retain) WildCardMeta* parentMeta;
 @property (nonatomic, retain) JevilCtx* jevil;
@@ -55,7 +56,7 @@
 
 -(void)addGravity:(UIView*)view depth:(int)depth;
 -(void)addWrapContent:(UIView*)view depth:(int)depth;
-
+-(void)addMatchParent:(UIView*)view depth:(int)depth;
 -(void) requestLayout;
 
 -(void)addTriggerAction:(WildCardTrigger*)trigger;

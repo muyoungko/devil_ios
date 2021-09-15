@@ -122,8 +122,9 @@
         }
         
         int footerY = screenHeight - self.footer.frame.size.height - bottomPadding;
-        int footerHeight = self.footer.frame.size.height + bottomPadding;
-        self.footer.frame = CGRectMake(0, footerY, self.footer.frame.size.width, footerHeight);
+        self.original_footer_height_plus_bottom_padding = self.footer.frame.size.height + bottomPadding;
+        self.footer.frame= CGRectMake(0, footerY, self.footer.frame.size.width,
+                                      self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
         self.original_footer_y = footerY;
         
         self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] +
@@ -334,7 +335,6 @@
     if(self.scrollView == nil) {
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
         [_viewMain addSubview:self.scrollView];
-        [WildCardConstructor followSizeFromFather:self.viewMain child:self.scrollView];
     }
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
     self.mainWc = [WildCardConstructor constructLayer:self.scrollView withLayer:cj instanceDelegate:self];
@@ -346,7 +346,7 @@
     if(_header_sketch_height > 0)
         toBeHeight -= [WildCardUtil headerHeightInSketch];
     if(self.footer)
-        toBeHeight -= self.footer.frame.size.height;
+        toBeHeight -= self.original_footer_height_plus_bottom_padding;
     self.scrollView.frame = CGRectMake(0,0,screenWidth, toBeHeight);
     self.scrollView.contentSize = CGSizeMake(screenWidth, self.mainWc.frame.size.height);
     self.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -359,7 +359,7 @@
     self.tv.data = self.data;
     self.tv.wildCardConstructorInstanceDelegate = self;
     self.tv.tableViewDelegate = self;
-    int footerHeight = self.footer.frame.size.height;
+    int footerHeight = self.original_footer_height_plus_bottom_padding;
     self.tv.frame =  CGRectMake(0, 0, self.viewMain.frame.size.width, self.viewMain.frame.size.height - footerHeight);
     [self.viewMain addSubview:self.tv];
 }

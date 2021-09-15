@@ -89,6 +89,17 @@
     }
 }
 
+/**
+ match_parent에 대한 구현
+ child1~child Match Parent(이하child M) ~ child N
+ 스캐치 UI에서 child N이 최상단에 있으므로 child N부터 역순으로 그린다
+ child N이 먼저 자리를 차지하고 남은 영역을 match_parent Node가 차지한다
+ 
+ 현재 상태 :
+  headers, wrapContentNodes, gravityNodes 를보고 layout순서를 정한다.
+  가장 먼저
+ -
+ */
 -(void) requestLayout
 {
     double s = [[NSDate date] timeIntervalSince1970];
@@ -118,6 +129,11 @@
             WildCardUIView* headerView = [_gravityNodes objectForKey:unit.viewKey];
             //NSLog(@"path(%d) gravity - %@", unit.depth,headerView.name);
             [self gravityView:headerView];
+        } else if(unit.type == WC_LAYOUT_TYPE_MATCH_PARENT)
+        {
+            WildCardUIView* headerView = [_matchParentNodes objectForKey:unit.viewKey];
+            //NSLog(@"path(%d) match_parent - %@", unit.depth,headerView.name);
+            [self matchParentView:headerView];
         }
     }
     
@@ -138,6 +154,21 @@
     [self initWrapContentIfNeed];
     NSString* viewKey = [NSString stringWithFormat:@"%lx", (long)view];
     [_wrapContentNodes setObject:view forKey:viewKey];
+}
+
+-(void)initMatchParentIfNeed
+{
+    if(_matchParentNodes == nil)
+    {
+        _matchParentNodes = [[NSMutableDictionary alloc] init];
+    }
+}
+
+-(void)addMatchParent:(UIView*)view depth:(int)depth
+{
+    [self initMatchParentIfNeed];
+    NSString* viewKey = [NSString stringWithFormat:@"%lx", (long)view];
+    [_matchParentNodes setObject:view forKey:viewKey];
 }
 
 
@@ -312,6 +343,33 @@
     }
 }
 
+-(void) matchParentView:(WildCardUIView*)view {
+    UIView* parent = [view superview];
+    id childs = [[view superview] subviews];
+    int maxTopY = 0;
+    int minBottomY = parent.frame.size.height;
+    
+    /**
+     Sketch의 노드 순서는 위에서부터고 실제 add되는건 아래서부터다
+     따라서 순차적으로 하단을 구하고 그다음에 상단을 구한다
+     */
+    BOOL bottom = true;
+    for(UIView* c in childs) {
+        if(c == view){
+            bottom = false;
+            continue;
+        }
+        if(bottom) {
+            if(minBottomY > c.frame.origin.y )
+                minBottomY = c.frame.origin.y;
+        } else {
+            if(maxTopY < c.frame.origin.y + c.frame.size.height )
+                maxTopY = c.frame.origin.y + c.frame.size.height;
+        }
+    }
+    
+    view.frame = CGRectMake(view.frame.origin.x, maxTopY, view.frame.size.width, minBottomY-maxTopY);
+}
 
 -(void)createLayoutPath
 {
@@ -353,6 +411,21 @@
         }
     }
     
+    if(_matchParentNodes != nil)
+    {
+        NSArray* keys = [_gravityNodes allKeys];
+        for(int i=0;i<[keys count];i++)
+        {
+            WildCardUIView* headerView = (WildCardUIView*)[_matchParentNodes objectForKey:[keys objectAtIndex:i]];
+            
+            NSString* headerViewKey = [NSString stringWithFormat:@"%lx", (long)headerView];
+            [temp addObject:[[WildCardLayoutPathUnit alloc] initWithType:WC_LAYOUT_TYPE_MATCH_PARENT depth:headerView.depth viewKey:headerViewKey viewName:headerView.name]];
+        }
+    }
+    
+    /**
+     순서 - Gravity, 깊은 depth, wrap_content , Match_Prent, nextView,
+     */
     _layoutPath = [temp sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         WildCardLayoutPathUnit* aa = (WildCardLayoutPathUnit*)a;
         WildCardLayoutPathUnit* bb = (WildCardLayoutPathUnit*)b;
@@ -374,6 +447,9 @@
                 if(bb.type == WC_LAYOUT_TYPE_WRAP_CONTENT)
                     return true;
                 if(bb.type == WC_LAYOUT_TYPE_NEXT_VIEW)
+                    return true;
+                // warp과 next로 정리가 된 다음 나머지를 가져간다
+                if(bb.type == WC_LAYOUT_TYPE_MATCH_PARENT)
                     return true;
                 
                 return false;

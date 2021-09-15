@@ -44,6 +44,11 @@
         if(extension[@"select9"] != nil)
             placeHolderTextColor = extension[@"select9"];
         
+        if(extension[@"select12"])
+            tf.maxLength = [extension[@"select12"] intValue];
+        else
+            tf.maxLength = -1;
+            
         if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
             tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textSpec[@"text"] attributes:@{NSForegroundColorAttributeName:
                                                                                                                        [WildCardUtil colorWithHexString:placeHolderTextColor]}];
@@ -200,6 +205,13 @@
     if(self.textFocusChangedCallback != nil) {
         self.textFocusChangedCallback(false);
     }
+}
+
+- (BOOL)shouldChangeTextInRange:(UITextRange *)range replacementText:(NSString *)text {
+    if(self.maxLength > 0 && [text length] <= self.maxLength)
+        return true;
+    else
+        return true;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

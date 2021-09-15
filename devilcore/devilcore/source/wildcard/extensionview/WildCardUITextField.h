@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSString* xbuttonImageName;
 @property BOOL showXButton;
 @property (nonatomic, retain) NSString* doneClickAction;
+@property int maxLength;
 
 -(void)doneClick;
 

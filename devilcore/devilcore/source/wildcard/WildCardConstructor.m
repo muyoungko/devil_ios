@@ -547,12 +547,14 @@ static BOOL IS_TABLET = NO;
         }
         
         if(vv.frame.size.width == 0)
-        {
             vv.wrap_width = YES;
-        }
+        
         if(vv.frame.size.height == 0)
-        {
             vv.wrap_height = YES;
+        
+        if([layer[@"match_h"] boolValue]) {
+            vv.match_height = YES;
+            [wcMeta addMatchParent:vv depth:depth];
         }
         
         if(vv.wrap_width || vv.wrap_height)
