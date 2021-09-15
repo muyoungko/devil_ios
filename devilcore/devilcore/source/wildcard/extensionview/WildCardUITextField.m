@@ -183,10 +183,19 @@
     }
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text
 {
-    return YES;
+    
+    if(self.maxLength == -1)
+        return true;
+    else if(range.location == self.maxLength-1)
+        return true;
+    else if(self.maxLength > 0 && [self.text length] < self.maxLength)
+        return true;
+    else
+        return false;
 }
+
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     [_meta.correspondData setObject:[textField text] forKey:_holder];
@@ -207,12 +216,6 @@
     }
 }
 
-- (BOOL)shouldChangeTextInRange:(UITextRange *)range replacementText:(NSString *)text {
-    if(self.maxLength > 0 && [text length] <= self.maxLength)
-        return true;
-    else
-        return true;
-}
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
