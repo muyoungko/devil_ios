@@ -102,6 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)popReserveUrl;
 + (void)consumeStandardReserveUrl;
 + (void)localPush:(id)param;
++ (void)toJpg:(NSString*)node :(JSValue*)callback;
 
 @end
 

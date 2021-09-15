@@ -1070,5 +1070,21 @@ BOOL httpOk[10];
     [[DevilLink sharedInstance] consumeStandardReserveUrl];
 }
 
++ (void)toJpg:(NSString*)nodeName :(JSValue*)callback
+{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    UIView* view = [vc findView:nodeName];
+    
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0f);
+    [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:NO];
+    UIImage * snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImageWriteToSavedPhotosAlbum(snapshotImage,nil,nil,nil);
+    
+    [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[@{@"r":@TRUE}]];
+}
+
 
 @end
