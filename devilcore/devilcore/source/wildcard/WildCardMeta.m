@@ -430,6 +430,11 @@
         WildCardLayoutPathUnit* aa = (WildCardLayoutPathUnit*)a;
         WildCardLayoutPathUnit* bb = (WildCardLayoutPathUnit*)b;
         
+        if(aa.type == WC_LAYOUT_TYPE_MATCH_PARENT)
+            return true;
+        if(bb.type == WC_LAYOUT_TYPE_MATCH_PARENT)
+            return false;
+        
         if(aa.type == WC_LAYOUT_TYPE_GRAVITY)
             return true;
         if(bb.type == WC_LAYOUT_TYPE_GRAVITY)
@@ -447,9 +452,6 @@
                 if(bb.type == WC_LAYOUT_TYPE_WRAP_CONTENT)
                     return true;
                 if(bb.type == WC_LAYOUT_TYPE_NEXT_VIEW)
-                    return true;
-                // warp과 next로 정리가 된 다음 나머지를 가져간다
-                if(bb.type == WC_LAYOUT_TYPE_MATCH_PARENT)
                     return true;
                 
                 return false;
