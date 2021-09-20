@@ -451,6 +451,12 @@
         if(r != nil)
             return r;
     }
+    
+    if(self.footer) {
+        WildCardUIView* r = [self.footer.meta getView:name];
+        if(r != nil)
+            return r;
+    }
 
     return nil;
 }

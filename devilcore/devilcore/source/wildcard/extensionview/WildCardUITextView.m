@@ -19,6 +19,10 @@
 #define SYSTEM_VERSION_LESS_THAN(v)                 ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedAscending)
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
+@interface WildCardUITextView()
+@property (nonatomic, retain) NSString* lastText;
+@end
+
 @implementation WildCardUITextView
 
 +(WildCardUITextView*)create:(id)layer meta:(WildCardMeta*)meta {
@@ -218,6 +222,11 @@
 - (void)textChanged:(UITextField *)textField{
     [_meta.correspondData setObject:self.text forKey:_holder];
     [self updateHeight];
+    
+    if(self.textChangedCallback != nil && ![self.text isEqualToString:self.lastText]) {
+        self.lastText = self.text;
+        self.textChangedCallback(self.text);
+    }
 }
 
 
