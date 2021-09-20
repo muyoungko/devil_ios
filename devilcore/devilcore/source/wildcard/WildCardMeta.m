@@ -413,7 +413,7 @@
     
     if(_matchParentNodes != nil)
     {
-        NSArray* keys = [_gravityNodes allKeys];
+        NSArray* keys = [_matchParentNodes allKeys];
         for(int i=0;i<[keys count];i++)
         {
             WildCardUIView* headerView = (WildCardUIView*)[_matchParentNodes objectForKey:[keys objectAtIndex:i]];

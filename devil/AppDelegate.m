@@ -300,6 +300,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
     if([url.scheme isEqualToString:@"devil-app-builder"]){
         [Devil sharedInstance].reservedUrl = url;
+        [[Devil sharedInstance] consumeReservedUrl];
         return true;
     }
                 

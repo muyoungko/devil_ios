@@ -270,6 +270,7 @@
         
         vv.userInteractionEnabled = YES;
         [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
+        
     } else if([REPEAT_TYPE_TAG isEqualToString:repeatType]) {
         int minLeft = 1000000;
         int minTop = 1000000;
@@ -295,8 +296,10 @@
         self.createdContainer = vv;
     }
     
-    if(arrayContentContainer != nil)
+    if(arrayContentContainer != nil) {
         [vv addSubview:arrayContentContainer];
+        [WildCardConstructor followSizeFromFather:vv child:arrayContentContainer];
+    }
 }
 
 -(id)getReferenceBlock:(NSString*)blockName :(id)childLayers{
