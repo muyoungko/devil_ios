@@ -163,7 +163,7 @@
             NSString* select3 = extension[@"select3"];
             NSString* text = @"";
             if(opt[select3] != [NSNull null])
-                text = opt[select3];
+                text = [NSString stringWithFormat:@"%@", opt[select3]]; //숫자가 나올때가 있다
             if(![dt.text isEqualToString:text])
                 dt.text = text;
             break;
