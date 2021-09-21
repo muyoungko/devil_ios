@@ -17,8 +17,7 @@ typedef NSDictionary* (^ CloudJsonGetter)(int);
 
 @interface WildCardGridView : UIView
 @property (retain, nonatomic) UIColor* lineColor;
-@property int lineWidth;
-@property int outerWidth;
+
 
 @property (nonatomic, retain) NSMutableDictionary* cachedFreeViewByType;
 @property (nonatomic, retain) NSMutableDictionary* typeByUsedView;
@@ -38,7 +37,7 @@ typedef NSDictionary* (^ CloudJsonGetter)(int);
 - (id)initWithFrame:(CGRect)frame;
 - (CGRect) reloadData;
 - (void)setInnerLine:(BOOL)line;
-
+- (void)setOuterLine:(BOOL)line;
 
 @end
 

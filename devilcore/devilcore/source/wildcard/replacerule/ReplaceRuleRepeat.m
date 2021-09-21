@@ -130,6 +130,15 @@
         
         vv.userInteractionEnabled = YES;
         [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
+        
+        BOOL innerLine = [@"Y" isEqualToString:[arrayContent objectForKey:@"innerLine"]];
+        [container setInnerLine:innerLine];
+        
+        BOOL outerLine = [@"Y" isEqualToString:[arrayContent objectForKey:@"outerLine"]];
+        [container setOuterLine:outerLine];
+        
+        if(arrayContent[@"lineColor"])
+            container.lineColor =[WildCardUtil colorWithHexString:arrayContent[@"lineColor"]];
     }
     else if([REPEAT_TYPE_VIEWPAGER isEqualToString:repeatType])
     {
@@ -340,7 +349,6 @@
     NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
     float margin = [[arrayContent objectForKey:@"margin"] floatValue];
     margin = [WildCardUtil convertSketchToPixel:margin];
-    BOOL innerLine = [@"Y" isEqualToString:[arrayContent objectForKey:@"innerLine"]];
     
     NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
                                           getJsonWithPath:opt : targetJsonString];
@@ -435,7 +443,6 @@
             col ++;
         gv.col = col;
         gv.data = targetDataJson;
-        [gv setInnerLine:innerLine];
         
         gv.cloudJsonGetter = ^NSDictionary *(int position) {
             if(targetNodeSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data: targetDataJson[position]])
@@ -456,10 +463,6 @@
                 return @"1";
             return @"0";
         };
-        
-        //gv.lineColor = [UIColor redColor];
-        //gv.lineWidth = 1;
-        //gv.outerWidth = 1;
         
         [gv reloadData];
     }
