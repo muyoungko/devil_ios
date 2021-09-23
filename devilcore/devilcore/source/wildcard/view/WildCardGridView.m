@@ -77,15 +77,26 @@
     outerLine = line;
 }
 
+- (void)clearLineInfo {
+    for(int i=0;i<_row+1;i++) {
+        for(int j=0;j<_col+1;j++) {
+            lineCol[i][j] = lineRow[i][j] = false;
+        }
+    }
+}
+
 - (CGRect) reloadData
 {
     int len = (int)[_data count];
     int selfWidth = self.frame.size.width;
     float w = selfWidth / _col;
-    _row = 0;
+    _row = len / _col +  (len%_col > 0 ? 1 : 0);
     colW = 0;
     rowH = 0;
     
+    if(innerLine || outerLine)
+        [self clearLineInfo];
+        
     for(UIView* line in _lineViews)
     {
         [line removeFromSuperview];
@@ -120,12 +131,6 @@
                 [cacheList addObject:thisChildView];
                 [thisChildView removeFromSuperview];
             }
-        }
-        
-        //first col
-        if(i % _col == 0)
-        {
-            _row++;
         }
         
         if(thisView == nil)
@@ -183,9 +188,14 @@
                             rowH*_row);
 
     for(int i=0;i<_row+1;i++){
-        for(int j=0;j<_col+1;j++){
+        for(int j=0;j<_col;j++){
             if(lineRow[i][j])
                 [self drawLineRow:i:j];
+        }
+    }
+    
+    for(int i=0;i<_row;i++){
+        for(int j=0;j<_col+1;j++){
             if(lineCol[i][j])
                 [self drawLineCol:i:j];
         }
