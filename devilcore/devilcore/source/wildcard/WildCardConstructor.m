@@ -1190,22 +1190,6 @@ static BOOL IS_TABLET = NO;
 
 
 
-+ (float)getPaddingTopBottomConverted:(id)layer{
-    float paddingTop = 0 , paddingBottom = 0;
-    if([layer objectForKey:@"padding"] != nil) {
-        NSDictionary* padding = [layer objectForKey:@"padding"];
-        if([padding objectForKey:@"paddingTop"] != nil) {
-            paddingTop = [[padding objectForKey:@"paddingTop"] floatValue];
-            paddingTop = [WildCardConstructor convertSketchToPixel:paddingTop];
-        }
-        
-        if([padding objectForKey:@"paddingBottom"] != nil) {
-            paddingBottom = [[padding objectForKey:@"paddingBottom"] floatValue];
-            paddingBottom = [WildCardConstructor convertSketchToPixel:paddingBottom];
-        }
-    }
-    return paddingTop + paddingBottom;
-}
 
 +(void) applyRuleMeta:(WildCardMeta*)meta withData:(NSMutableDictionary*)opt
 {

@@ -153,7 +153,6 @@
 }
 
 - (void)setPreview:(NSString*)ppath video:(NSString*)vpath force:(BOOL)force{
-    NSLog(@"ppath - %@", ppath);
     _playerViewController.player = nil;
     if(vpath != nil) {
         if(force) {

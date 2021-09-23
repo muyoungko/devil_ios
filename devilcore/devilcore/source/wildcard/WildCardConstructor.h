@@ -83,7 +83,6 @@
 +(void) userInteractionEnableToParentPath:(UIView*)vv depth:(int)depth;
 +(NSData*)getLocalFile:(NSString*)path;
 +(CGRect)getFrame:(NSDictionary*) layer : (WildCardUIView*)parentForPadding;
-+ (float)getPaddingTopBottomConverted:(id)layer;
 
 -(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete;
 -(void) initWithOnlineOnComplete:(void (^_Nonnull)(BOOL success))complete;

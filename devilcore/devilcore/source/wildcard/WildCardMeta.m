@@ -108,8 +108,12 @@
         [self createLayoutPath];
     }
     
+//    NSLog(@"%@", self.correspondData[@"text"]);
+//    NSLog(@"%@", _layoutPath);
+          
     for(int i=0;i<[_layoutPath count];i++)
     {
+        
         WildCardLayoutPathUnit *unit = [_layoutPath objectAtIndex:i];
         if(unit.type == WC_LAYOUT_TYPE_WRAP_CONTENT)
         {

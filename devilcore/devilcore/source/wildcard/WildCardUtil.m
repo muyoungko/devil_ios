@@ -247,258 +247,289 @@ static BOOL IS_TABLET = NO;
     return p * scaleAdjust;
 }
 
+
+
 +(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
 {
     float h = [cloudJson[@"frame"][@"h"] floatValue];
-    if(h == -2)
-    {
-        h = 0;
-        if([@"text" isEqualToString:cloudJson[@"_class"]]){
-            NSString* textContent = cloudJson[@"textContent"];
-            NSString* text = [MappingSyntaxInterpreter interpret:textContent :data];
-            NSDictionary* textSpec = [cloudJson objectForKey:@"textSpec"];
-            float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
-            UIFont* font = nil;
-            if([[textSpec objectForKey:@"bold"] boolValue])
-                font = [UIFont boldSystemFontOfSize:textSize];
-            else
-                font = [UIFont systemFontOfSize:textSize];
-            float w = [cloudJson[@"frame"][@"w"] intValue];
-            float paddingLeft = 0;
-            float paddingRight = 0;
-            if(cloudJson[@"padding"]) {
-                if(cloudJson[@"paddingLeft"])
-                    paddingLeft = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingLeft"] intValue]];
-                if(cloudJson[@"paddingRight"])
-                    paddingRight = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingRight"] intValue]];
-            }
-            
-            if(w == -2)
-                w = [WildCardUtil convertSketchToPixel:[cloudJson[@"frame"][@"max_width"] intValue]] - paddingLeft - paddingRight;
-            else
-                w = [WildCardUtil convertSketchToPixel:w];
-                
-            NSDictionary *attributes = @{NSFontAttributeName: font};
-            CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-
-            h = rect.size.height;
+    /**
+     TODO : match_h 구현해야함(관련성부터 파악)
+     */
+    if(h != -2)
+        return [WildCardConstructor convertSketchToPixel:h];
+    
+    h = 0;
+    if([@"text" isEqualToString:cloudJson[@"_class"]]){
+        NSString* textContent = cloudJson[@"textContent"];
+        NSString* text = [MappingSyntaxInterpreter interpret:textContent :data];
+        NSDictionary* textSpec = [cloudJson objectForKey:@"textSpec"];
+        float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
+        UIFont* font = nil;
+        if([[textSpec objectForKey:@"bold"] boolValue])
+            font = [UIFont boldSystemFontOfSize:textSize];
+        else
+            font = [UIFont systemFontOfSize:textSize];
+        float w = [cloudJson[@"frame"][@"w"] intValue];
+        float paddingLeft = 0;
+        float paddingRight = 0;
+        if(cloudJson[@"padding"]) {
+            if(cloudJson[@"paddingLeft"])
+                paddingLeft = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingLeft"] intValue]];
+            if(cloudJson[@"paddingRight"])
+                paddingRight = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingRight"] intValue]];
         }
         
-        //그리드 뷰 혹은 하향반복 일 경우
-        if(cloudJson[@"arrayContent"] != nil && ([cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_GRID] || [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_BOTTOM]))
-        {
-            NSMutableDictionary* arrayContent = cloudJson[@"arrayContent"];
-            NSString* repeatType = arrayContent[@"repeatType"];
-            NSString* targetNode = [arrayContent objectForKey:@"targetNode"];
-            NSArray* childLayers = [cloudJson objectForKey:@"layers"];
-            NSDictionary* targetLayer = nil;
-            NSDictionary* targetLayerSurfix = nil;
-            NSDictionary* targetLayerPrefix = nil;
-            NSDictionary* targetLayerSelected = nil;
-            NSString* targetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
-            NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
-            NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
-            NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
-            NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
-                                                  getJsonWithPath:data : targetJsonString];
-            long targetDataJsonLen = [targetDataJson count];
-            
-            for(int i=0;i<[childLayers count];i++)
-            {
-                NSDictionary* childLayer = [childLayers objectAtIndex:i];
-                if([targetNode isEqualToString:[childLayer objectForKey:@"name"]])
-                {
-                    targetLayer = childLayer;
-                }
-                else if(targetNodePrefix == nil && [targetNodePrefix isEqualToString:[childLayer objectForKey:@"name"]])
-                {
-                    targetLayerPrefix = childLayer;
-                }
-                else if(targetNodeSurfix != nil && [targetNodeSurfix isEqualToString:[childLayer objectForKey:@"name"]])
-                {
-                    targetLayerSurfix = childLayer;
-                }
-                else if(targetNodeSelected != nil && [targetNodeSelected isEqualToString:[childLayer objectForKey:@"name"]])
-                {
-                    targetLayerSelected = childLayer;
-                }
-            }
-            
-            if([repeatType isEqualToString:REPEAT_TYPE_GRID])
-            {
-                float w = [[[targetLayer objectForKey:@"frame"] objectForKey:@"w"] floatValue];
-                float containerWidth = [[[cloudJson objectForKey:@"frame"] objectForKey:@"w"] floatValue];
-                int col = (int)(containerWidth / w);
-                if( (containerWidth / w) - col > 0.7f)
-                    col ++;
-                long row = targetDataJsonLen / col + (targetDataJsonLen % col > 0 ? 1 : 0);
-                h = row * [WildCardUtil mesureHeight:targetLayer data:data];
-            } else if([repeatType isEqualToString:REPEAT_TYPE_BOTTOM])
-            {
-                //TODO margin 계산해야함 첫 셀의 start도 계산해야함
-                float thisH = [[[targetLayer objectForKey:@"frame"] objectForKey:@"h"] floatValue];
-                thisH = [WildCardConstructor convertSketchToPixel:thisH];
-                float margin = [WildCardConstructor convertSketchToPixel:[arrayContent[@"margin"] floatValue]];
-                h = targetDataJsonLen * thisH + margin*(targetDataJsonLen-1);
-            }
-            
-        }
+        if(w == -2)
+            w = [WildCardUtil convertSketchToPixel:[cloudJson[@"frame"][@"max_width"] intValue]] - paddingLeft - paddingRight;
         else
-        {
-            NSMutableArray* arr = cloudJson[@"layers"];
-            NSMutableDictionary* nextLayers = [@{} mutableCopy];
-            NSMutableDictionary* rootLayers = [@{} mutableCopy];
-            NSMutableDictionary* layersByName = [@{} mutableCopy];
-            NSMutableDictionary* rects = [@{} mutableCopy];
-            /**
-             일단 자식들 각자의 고유 높이를 구해 rects에 넣어놓고
-             또한 루트레이어를 구해 rootlayer에 넣고
-             nextLayer도 구한다
-             */
-            for(int i=0;i<[arr count];i++)
-            {
-                BOOL hidden = false;
-                NSMutableDictionary* item = arr[i];
-                NSString* name = arr[i][@"name"];
-                float thisy = [arr[i][@"frame"][@"y"] floatValue];
-                thisy = [WildCardConstructor convertSketchToPixel:thisy];
-                
-                float thish = 0;
-                if(cloudJson[@"arrayContent"] != nil) {
-                    NSMutableDictionary* arrayContent = cloudJson[@"arrayContent"];
-                    NSDictionary* targetLayer = nil;
-                    NSDictionary* targetLayerSurfix = nil;
-                    NSDictionary* targetLayerPrefix = nil;
-                    NSDictionary* targetLayerSelected = nil;
-                    NSString* targetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
-                    NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
-                    NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
-                    NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
-                    NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
-                    NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter getJsonWithPath:data : targetJsonString];
-                    thish = [WildCardUtil mesureHeight:item data:targetDataJson[0]];
-                } else
-                    thish = [WildCardUtil mesureHeight:item data:data];
-
-                layersByName[name] = arr[i];
-                if(item[@"hiddenCondition"] != nil)
-                    hidden = [MappingSyntaxInterpreter ifexpression:item[@"hiddenCondition"] data:data defaultValue:YES];
-                else if(item[@"showCondition"] != nil)
-                    hidden = ![MappingSyntaxInterpreter ifexpression:item[@"showCondition"] data:data defaultValue:NO];
-                
-                if(hidden)
-                    rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, 0)];
-                else
-                    rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, thish)];
-                
-                NSString* nextTo = arr[i][@"vNextTo"];
-                if( nextTo != nil)
-                    [nextLayers setObject:name forKey:nextTo];
-                else
-                    [rootLayers setObject:name forKey:name];
-            }
+            w = [WildCardUtil convertSketchToPixel:w];
             
-            /**
-             각 루트레이어 nextChain을 따라가면서 각 루트레이어의 최종 높이를 구한다
-             */
-            for(int i=0;i<[arr count];i++)
+        NSDictionary *attributes = @{NSFontAttributeName: font};
+        /**
+         wrap_content 텍스트의 경우 높이가 text가 nil이면 0이 나오고, @"" 이면 한 줄만큼나온다.
+         실제 meta에서 그릴때는 한줄로 취급된다
+         */
+        if(text == nil)
+            text = @"";
+        CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+
+        h = rect.size.height;
+    } else if(cloudJson[@"arrayContent"] != nil && ([cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_GRID] || [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_BOTTOM]))
+    {
+        NSMutableDictionary* arrayContent = cloudJson[@"arrayContent"];
+        NSString* repeatType = arrayContent[@"repeatType"];
+        NSString* targetNode = [arrayContent objectForKey:@"targetNode"];
+        NSArray* childLayers = [cloudJson objectForKey:@"layers"];
+        NSDictionary* targetLayer = nil;
+        NSDictionary* targetLayerSurfix = nil;
+        NSDictionary* targetLayerPrefix = nil;
+        NSDictionary* targetLayerSelected = nil;
+        NSString* targetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
+        NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
+        NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
+        NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
+        NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
+                                              getJsonWithPath:data : targetJsonString];
+        long targetDataJsonLen = [targetDataJson count];
+        
+        for(int i=0;i<[childLayers count];i++)
+        {
+            NSDictionary* childLayer = [childLayers objectAtIndex:i];
+            if([targetNode isEqualToString:[childLayer objectForKey:@"name"]])
             {
-                NSString* name = arr[i][@"name"];
-                float thisy = [rects[name] CGRectValue].origin.y;
-                float thish = [rects[name] CGRectValue].size.height;
-                
-                //NSLog(@"%@ y-%f h-%f", name, thisy, thish);
-                
-                /**
-                 루트레이어는 다른 레이어에의 크기나 내용에 영향 받지 않는 절대 위치를 가진 레이어들이다.
-                 */
-                if(rootLayers[name]){
-                    /**
-                     A1 hidden처리된된 자식중에 thisy 때문에 부모의 높이를 늘려버리는 경우가 있다.
-                     이 thisy는 히든처리된 자식 뒤에 바로 붙기위해서 필요하긴 하다.
-                     next 체인에서 특정 노드 이상은 hidden 처리되어 y좌표도 반영되면 안된다.
-                     혹은 hidden 처리되었더라도 그 노드의 next체인이 hidden이 아니라면, 이 노드의 y좌표는 높이에 반영되어야한다.
-                     따라서 어떤 노드부터 y좌표에 반영되어야하는지 먼저 확보해야한다
-                     TODO : MeasureWidth도 같은 방식으로 처리해야함
-                     */
-                    NSString* cutNodeName = nil;
-                    NSString* cursorNodeName = name;
-                    id nextChainList = [@[name] mutableCopy];
-                    while(nextLayers[cursorNodeName]){
-                        NSString* nextName = nextLayers[name];
-                        [nextChainList addObject:nextName];
-                        cursorNodeName = nextLayers[cursorNodeName];
-                    }
-                    
-                    /**
-                     컷노드란?
-                     Next chiain을 끊어버리는 과정인데, 이것이 어떨때 필요하고 왜 h가 0이면 컷되어야하는지
-                     가변 높이의 textView의 높이 값이 0이 되면서 컷되고 이때문에 높이가 이상해진다
-                     markt하면서 주석처리 0725
-                     */
-//                    for(int j=(int)[nextChainList count]-1;j>=0;j--){
-//                        NSString* nodeName = nextChainList[j];
-//                        float h = [rects[nodeName] CGRectValue].size.height;
-//                        if(h == 0)
-//                            cutNodeName = nodeName;
-//                        else
-//                            break;
-//                    }
-                    
-                    if([name isEqualToString:cutNodeName]) {
-//                        NSLog(@"cut by %@" , cutNodeName);
-                        continue;
-                    }
-                    
-                    /**
-                     h를 확대해간다
-                     */
-                    if(thisy + thish > h){
-//                        NSLog(@"%@ expended by %@ %d %d", cloudJson[@"name"], name, (int)thisy , (int)thish);
-                        h = thisy + thish;
-                    }
-                    
-                    while(nextLayers[name]){
-                        NSString* nextName = nextLayers[name];
-                        if([nextName isEqualToString:cutNodeName]) {
-                            NSLog(@"cut by %@" , cutNodeName);
-                            break;
-                        }
-                        float margin = [layersByName[nextName][@"vNextToMargin"] floatValue];
-                        float nexty = thisy + thish + [WildCardConstructor convertSketchToPixel:margin];
-                        float nexth = [rects[nextName] CGRectValue].size.height;
-                        //A1 경우를 검사해서 h에 영향을 주지 않도록 해야한다
-                        /**
-                         역시 h를 확대해간다
-                         */
-                        if(nexty + nexth > h) {
-//                            NSLog(@"%@ expended by %@ %d %d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth);
-                            h = nexty + nexth;
-                        }
-                        
-                            
-                        thisy = nexty;
-                        thish = nexth;
-                        name = nextName;
-                    }
-                }
+                targetLayer = childLayer;
+            }
+            else if(targetNodePrefix == nil && [targetNodePrefix isEqualToString:[childLayer objectForKey:@"name"]])
+            {
+                targetLayerPrefix = childLayer;
+            }
+            else if(targetNodeSurfix != nil && [targetNodeSurfix isEqualToString:[childLayer objectForKey:@"name"]])
+            {
+                targetLayerSurfix = childLayer;
+            }
+            else if(targetNodeSelected != nil && [targetNodeSelected isEqualToString:[childLayer objectForKey:@"name"]])
+            {
+                targetLayerSelected = childLayer;
             }
         }
+        
+        if([repeatType isEqualToString:REPEAT_TYPE_GRID])
+        {
+            float w = [[[targetLayer objectForKey:@"frame"] objectForKey:@"w"] floatValue];
+            float containerWidth = [[[cloudJson objectForKey:@"frame"] objectForKey:@"w"] floatValue];
+            int col = (int)(containerWidth / w);
+            if( (containerWidth / w) - col > 0.7f)
+                col ++;
+            long row = targetDataJsonLen / col + (targetDataJsonLen % col > 0 ? 1 : 0);
+            h = row * [WildCardUtil mesureHeight:targetLayer data:data];
+        } else if([repeatType isEqualToString:REPEAT_TYPE_BOTTOM])
+        {
+            //TODO margin 계산해야함 첫 셀의 start도 계산해야함
+            float thisH = [[[targetLayer objectForKey:@"frame"] objectForKey:@"h"] floatValue];
+            thisH = [WildCardConstructor convertSketchToPixel:thisH];
+            float margin = [WildCardConstructor convertSketchToPixel:[arrayContent[@"margin"] floatValue]];
+            h = targetDataJsonLen * thisH + margin*(targetDataJsonLen-1);
+        }
+        
     }
     else
     {
-        h = [WildCardConstructor convertSketchToPixel:h];
-        BOOL tableH = IS_TABLET ? [@"Y" isEqualToString:cloudJson[@"tabletH"]] : false;
-        if(tableH)
-            h *= 2;
+        NSMutableArray* arr = cloudJson[@"layers"];
+        NSMutableDictionary* nextLayers = [@{} mutableCopy];
+        NSMutableDictionary* rootLayers = [@{} mutableCopy];
+        NSMutableDictionary* hiddenByChildName = [@{} mutableCopy];
+        NSMutableDictionary* layersByName = [@{} mutableCopy];
+        NSMutableDictionary* rects = [@{} mutableCopy];
+        /**
+         일단 자식들의 정보를 구축한다.
+         일단 자식들 각자의 고유 높이를 구해 rects에 넣어놓고
+         또한 루트레이어를 구해 rootlayer에 넣고
+         nextLayer도 구한다
+         */
+        for(int i=0;i<[arr count];i++)
+        {
+            BOOL hidden = false;
+            NSMutableDictionary* child = arr[i];
+            NSString* name = arr[i][@"name"];
+            float thisy = [arr[i][@"frame"][@"y"] floatValue];
+            thisy = [WildCardConstructor convertSketchToPixel:thisy];
+            
+            float thish = 0;
+            if(cloudJson[@"arrayContent"] != nil) {
+                NSMutableDictionary* arrayContent = cloudJson[@"arrayContent"];
+                NSDictionary* targetLayer = nil;
+                NSDictionary* targetLayerSurfix = nil;
+                NSDictionary* targetLayerPrefix = nil;
+                NSDictionary* targetLayerSelected = nil;
+                NSString* targetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
+                NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
+                NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
+                NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
+                NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
+                NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter getJsonWithPath:data : targetJsonString];
+                thish = [WildCardUtil mesureHeight:child data:targetDataJson[0]];
+            } else
+                thish = [WildCardUtil mesureHeight:child data:data];
+
+            layersByName[name] = arr[i];
+            if(child[@"hiddenCondition"] != nil)
+                hidden = [MappingSyntaxInterpreter ifexpression:child[@"hiddenCondition"] data:data defaultValue:YES];
+            else if(child[@"showCondition"] != nil)
+                hidden = ![MappingSyntaxInterpreter ifexpression:child[@"showCondition"] data:data defaultValue:NO];
+            
+            
+            if(hidden) {
+                hiddenByChildName[name] = name;
+                rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, 0)];
+            } else {
+                rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, thish)];
+            }
+            
+            NSString* nextTo = arr[i][@"vNextTo"];
+            if( nextTo != nil)
+                [nextLayers setObject:name forKey:nextTo];
+            else
+                [rootLayers setObject:name forKey:name];
+        }
+        
+        /**
+         각 루트레이어 nextChain을 따라가면서 각 루트레이어의 최종 높이를 구한다
+         */
+        for(int i=0;i<[arr count];i++)
+        {
+            NSString* name = arr[i][@"name"];
+            
+            /**
+             루트레이어는 다른 레이어에의 크기나 내용에 영향 받지 않는 절대 위치를 가진 레이어들이다.
+             이 레이어가 히든이라도 넥스트 레이어들이 이어나가야하기 때문에  hiddenLayer는 높이 0으로 취급한다
+             */
+            if(!rootLayers[name])
+                continue;
+            
+            float thisy = [rects[name] CGRectValue].origin.y;
+            float thish = [rects[name] CGRectValue].size.height;
+            
+            //NSLog(@"%@ y-%f h-%f", name, thisy, thish);
+            
+            /**
+             A1 hidden처리된된 자식중에 thisy 때문에 부모의 높이를 늘려버리는 경우가 있다.
+             이 thisy는 히든처리된 자식 뒤에 바로 붙기위해서 필요하긴 하다.
+             next 체인에서 특정 노드 이상은 hidden 처리되어 y좌표도 반영되면 안된다.
+             혹은 hidden 처리되었더라도 그 노드의 next체인이 hidden이 아니라면, 이 노드의 y좌표는 높이에 반영되어야한다.
+             따라서 어떤 노드부터 y좌표에 반영되어야하는지 먼저 확보해야한다
+             TODO : MeasureWidth도 같은 방식으로 처리해야함
+             */
+            NSString* cursorNodeName = name;
+            id nextChainList = [@[name] mutableCopy];
+            while(nextLayers[cursorNodeName]){
+                NSString* nextName = nextLayers[name];
+                [nextChainList addObject:nextName];
+                cursorNodeName = nextLayers[cursorNodeName];
+            }
+            
+            
+            /**
+             h를 확대해간다
+             */
+            BOOL thisHidden = hiddenByChildName[name] != nil;
+            if(thisy + thish > h){
+                NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
+                h = thisy + thish;
+            }
+            
+            while(nextLayers[name]){
+                NSString* nextName = nextLayers[name];
+                
+                id thisLayer = layersByName[name];
+                id nextLayer = layersByName[nextName];
+                
+                BOOL nextHidden = hiddenByChildName[nextName] != nil;
+                    
+                /**
+                 2021/09/23
+                 prev(this)와 next사이에 margin만 고려한다
+                 prev의 paddingBtttom과 next의 paddingTop은 모든 컨텐츠의 높이가 정해지면, 마지막으로 결정된다 동시에 recursion하게 결정된다
+                 margin도 padding과 마찬가지로 마지막에 recursion하게 결정된다
+                 */
+                float vNextToMargin = 0;
+                if(!nextHidden) {
+                    vNextToMargin = [layersByName[nextName][@"vNextToMargin"] floatValue];
+                }
+                
+                float nexty = thisy + thish + [WildCardConstructor convertSketchToPixel:(vNextToMargin)];
+                float nexth = [rects[nextName] CGRectValue].size.height;
+                //A1 경우를 검사해서 h에 영향을 주지 않도록 해야한다
+                /**
+                 역시 h를 확대해간다
+                 */
+                if(nexty + nexth > h) {
+                    NSLog(@"%@ expended! by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth, nextHidden);
+                    h = nexty + nexth;
+                }
+                    
+                thisy = nexty;
+                thish = nexth;
+                name = nextName;
+                thisHidden = nextHidden;
+            }
+        }
     }
     
-    float padding = [WildCardConstructor getPaddingTopBottomConverted:cloudJson];
-//    NSLog(@"%@ - %f", cloudJson[@"name"], h + padding);
-    return h + padding;
+    float padding = [WildCardUtil getPaddingTopBottomConverted:cloudJson];
+    float margin = [WildCardUtil getMarginTopBottomConverted:cloudJson];
+    
+//    if(padding > 0)
+//        NSLog(@"%@ expended! by padding %d", cloudJson[@"name"], (int)padding);
+
+    return h + padding + margin;
 }
 
++ (float)getMarginTopBottomConverted:(id)layer{
+    float nextTopMargin = 0;
+    float nextBottomMargin = 0;
+    if(layer[@"margin"]) {
+        nextTopMargin = [layer[@"margin"][@"marginTop"] floatValue];
+        nextBottomMargin = [layer[@"margin"][@"marginBottom"] floatValue];
+    }
+    
+    return [WildCardConstructor convertSketchToPixel:nextTopMargin + nextBottomMargin];
+}
 
-
++ (float)getPaddingTopBottomConverted:(id)layer{
+    float paddingTop = 0 , paddingBottom = 0;
+    if([layer objectForKey:@"padding"] != nil) {
+        NSDictionary* padding = [layer objectForKey:@"padding"];
+        if([padding objectForKey:@"paddingTop"] != nil) {
+            paddingTop = [[padding objectForKey:@"paddingTop"] floatValue];
+            paddingTop = [WildCardConstructor convertSketchToPixel:paddingTop];
+        }
+        
+        if([padding objectForKey:@"paddingBottom"] != nil) {
+            paddingBottom = [[padding objectForKey:@"paddingBottom"] floatValue];
+            paddingBottom = [WildCardConstructor convertSketchToPixel:paddingBottom];
+        }
+    }
+    return paddingTop + paddingBottom;
+}
 
 @end
