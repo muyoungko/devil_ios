@@ -25,8 +25,8 @@
             if(dest[srcK] == nil || dest[srcK] == [NSNull null])
                 dest[srcK] = [@{} mutableCopy];
             [JevilUtil sync:srcValue :dest[srcK]];
-        } else if([[srcValue class] isKindOfClass:[NSArray class]] || [[srcValue class] isSubclassOfClass:[NSArray class]]){
-            if(dest[srcK] == nil || dest[srcK] == [NSNull null])
+        } else if([srcValue isKindOfClass:[NSArray class]] ){
+            if(dest[srcK] == nil || dest[srcK] == [NSNull null] || ![dest[srcK] isKindOfClass:[NSArray class]] )
                 dest[srcK] = [@[] mutableCopy];
             [JevilUtil syncList:srcValue :dest[srcK]];
         } else {
