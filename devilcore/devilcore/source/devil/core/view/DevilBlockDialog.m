@@ -133,11 +133,15 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     [self.wc.meta update];
 }
 
-+ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show onselect:(void (^)(BOOL yes, id res))callback{
++ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show onselect:(void (^)(BOOL yes, id res))callback {
+    return [DevilBlockDialog popup:blockName data:data title:titleText yes:yes no:no show:show delegate:[JevilInstance currentInstance].vc onselect:callback];
+}
+
++ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show delegate:(id)wildCardConstructorInstanceDelegate onselect:(void (^)(BOOL yes, id res))callback {
     
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
-    WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:[JevilInstance currentInstance].vc];
+    WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:wildCardConstructorInstanceDelegate];
     wc.meta.correspondData = data;
     wc.meta.jevil = [JevilInstance currentInstance].jevil;
     [wc.meta created];

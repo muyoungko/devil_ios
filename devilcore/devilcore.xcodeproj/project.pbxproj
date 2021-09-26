@@ -133,6 +133,8 @@
 		6D8A40EB2674B77E006999FC /* play_pause.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D8A40EA2674B77E006999FC /* play_pause.json */; };
 		6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9824AE25C5A91E0000BB12 /* JevilUtil.h */; };
 		6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9824AF25C5A91E0000BB12 /* JevilUtil.m */; };
+		6D98A8412700D97D004F3ECF /* DevilAlertDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D98A83F2700D97D004F3ECF /* DevilAlertDialog.h */; };
+		6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D98A8402700D97D004F3ECF /* DevilAlertDialog.m */; };
 		6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */; };
 		6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -349,6 +351,8 @@
 		6D8A40EA2674B77E006999FC /* play_pause.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = play_pause.json; sourceTree = "<group>"; };
 		6D9824AE25C5A91E0000BB12 /* JevilUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilUtil.h; sourceTree = "<group>"; };
 		6D9824AF25C5A91E0000BB12 /* JevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilUtil.m; sourceTree = "<group>"; };
+		6D98A83F2700D97D004F3ECF /* DevilAlertDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAlertDialog.h; sourceTree = "<group>"; };
+		6D98A8402700D97D004F3ECF /* DevilAlertDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAlertDialog.m; sourceTree = "<group>"; };
 		6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStrip.h; sourceTree = "<group>"; };
 		6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardPagerTabStrip.m; sourceTree = "<group>"; };
 		6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStripCell.h; sourceTree = "<group>"; };
@@ -723,6 +727,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6D98A83E2700D964004F3ECF /* alert */,
 				6DC6789B26EA296A0005728A /* link */,
 				6D3EBE8025D92D970006ADD5 /* wifi */,
 				6D7E267625A89ABA00600978 /* view */,
@@ -773,6 +778,15 @@
 				6DCD33B8267DC69800784D91 /* DevilDrawer.m */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		6D98A83E2700D964004F3ECF /* alert */ = {
+			isa = PBXGroup;
+			children = (
+				6D98A83F2700D97D004F3ECF /* DevilAlertDialog.h */,
+				6D98A8402700D97D004F3ECF /* DevilAlertDialog.m */,
+			);
+			path = alert;
 			sourceTree = "<group>";
 		};
 		6D9F7AD12626B2FB003A70EC /* crop */ = {
@@ -927,6 +941,7 @@
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
 				6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */,
+				6D98A8412700D97D004F3ECF /* DevilAlertDialog.h in Headers */,
 				6D467AB8256AB07A006D57DD /* WildCardCustomAction.h in Headers */,
 				6D467ACA256AB07A006D57DD /* WildCardScreenTableView.h in Headers */,
 				6D467A94256AB07A006D57DD /* ReplaceRuleLocalImage.h in Headers */,
@@ -1176,6 +1191,7 @@
 				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,
+				6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */,
 				6D9F7C832637FE5E003A70EC /* ReplaceRuleWeb.m in Sources */,
 				6D467AC6256AB07A006D57DD /* WildCardExtensionConstructor.m in Sources */,
 				6D9E2B1425BB41160027D16D /* WildCardPagerTabStripCell.m in Sources */,

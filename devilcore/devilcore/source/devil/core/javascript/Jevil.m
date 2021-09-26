@@ -35,7 +35,7 @@
 #import "JevilFunctionUtil.h"
 #import "WildCardUICollectionView.h"
 #import "DevilSdk.h"
-
+#import "DevilAlertDialog.h"
 
 @interface Jevil()
 
@@ -138,66 +138,87 @@
 }
 
 + (void)alert:(NSString*)msg{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+        
+        }]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
-                                                      style:UIAlertActionStyleCancel
-                                                    handler:^(UIAlertAction *action) {
-                                                        
-    }]];
-    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:^(UIAlertAction *action) {
+                                                            
+        }]];
+        [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    }
 }
 
 + (void)alertFinish:(NSString*)msg{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+            [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+        }]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
-                                                      style:UIAlertActionStyleCancel
-                                                    handler:^(UIAlertAction *action) {
-       [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
-    }]];
-    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:^(UIAlertAction *action) {
+           [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+        }]];
+        [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    }
+    
 }
 
 + (void)confirm:(NSString*)msg :(NSString*)yes :(NSString*)no :(JSValue *)callback {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
-                                                                             message:msg
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-
-    [alertController addAction:[UIAlertAction actionWithTitle:yes
-                                                      style:UIAlertActionStyleDefault
-                                                    handler:^(UIAlertAction *action) {
-        [callback callWithArguments:@[@YES]];
-        [[JevilInstance currentInstance] syncData];
-                                                        
-    }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:no
-                                                      style:UIAlertActionStyleCancel
-                                                    handler:^(UIAlertAction *action) {
-        [callback callWithArguments:@[@NO]];
+    if(![DevilAlertDialog showConfirmTemplate:msg :yes :no :^(BOOL yes) {
+        [callback callWithArguments:@[(yes?@YES:@NO)]];
         [[JevilInstance currentInstance] syncData];
-    }]];
-    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    }]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                                 message:msg
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:yes
+                                                          style:UIAlertActionStyleDefault
+                                                        handler:^(UIAlertAction *action) {
+            [callback callWithArguments:@[@YES]];
+            [[JevilInstance currentInstance] syncData];
+                                                            
+        }]];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:no
+                                                          style:UIAlertActionStyleCancel
+                                                        handler:^(UIAlertAction *action) {
+            [callback callWithArguments:@[@NO]];
+            [[JevilInstance currentInstance] syncData];
+        }]];
+        [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    }
 }
 
 + (void)alertThen:(NSString*)msg :(JSValue *)callback {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
+    
+    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+            [callback callWithArguments:@[]];
+            [[JevilInstance currentInstance] syncData];
+        }]) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                                     message:nil
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
-                                                      style:UIAlertActionStyleCancel
-                                                    handler:^(UIAlertAction *action) {
-        [callback callWithArguments:@[]];
-        [[JevilInstance currentInstance] syncData];
-                                                        
-    }]];
-    [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+                                                              style:UIAlertActionStyleCancel
+                                                            handler:^(UIAlertAction *action) {
+                [callback callWithArguments:@[]];
+                [[JevilInstance currentInstance] syncData];
+                                                                
+            }]];
+            [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+    }
 }
 
 + (void)save:(NSString *)key :(NSString *)value{
