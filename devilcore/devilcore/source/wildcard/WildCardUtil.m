@@ -214,6 +214,15 @@ static BOOL IS_TABLET = NO;
 
 +(void)fitToScreenRecur:(id)layer offsety:(float)offsety height:(float)height{
     id frame = layer[@"frame"];
+    
+    int alignment = [frame[@"alignment"] intValue];
+    switch (alignment) {
+        case GRAVITY_LEFT_BOTTOM:
+        case GRAVITY_BOTTOM:
+        case GRAVITY_RIGHT_BOTTOM:
+        case GRAVITY_HCENTER_BOTTOM:
+            return;
+    }
     float y = [frame[@"y"] floatValue];
     float h = [frame[@"h"] floatValue];
 
