@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)autoPlay;
 @property BOOL autoPlay;
 @property (nonatomic, retain) AVPlayerViewController *playerViewController;
+@property (nonatomic, retain) UIImageView* imageView;
 
 @end
 

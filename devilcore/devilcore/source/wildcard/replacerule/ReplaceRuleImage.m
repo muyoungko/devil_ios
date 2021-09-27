@@ -24,7 +24,7 @@
     self.replaceView = iv;
     iv.contentMode = UIViewContentModeScaleAspectFill;
     [vv addSubview:iv];
-    [WildCardConstructor followSizeFromFather:vv child:iv];
+    [WildCardConstructor followSizeFromFather:vv child:iv]; 
     
 }
 
@@ -47,8 +47,8 @@
     if([url isEqualToString:self.currentUrl])
         return;
     
-    [(UIImageView*)self.replaceView setImage:nil];
-    [(UIImageView*)self.replaceView setNeedsDisplay];
+//    [(UIImageView*)self.replaceView setImage:nil];
+//    [(UIImageView*)self.replaceView setNeedsDisplay];
     self.replaceView.layer.cornerRadius = self.replaceView.superview.layer.cornerRadius;
     
     if([url hasPrefix:@"/"]) {

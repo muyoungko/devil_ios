@@ -12,7 +12,6 @@
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
 @property (nonatomic, retain) NSString* videoPath;
-@property (nonatomic, retain) UIImageView* imageView;
 @property (nonatomic, retain) LOTAnimationView* playPause;
 @property BOOL finished;
 @end

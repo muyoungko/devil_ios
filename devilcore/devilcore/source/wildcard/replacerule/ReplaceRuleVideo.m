@@ -15,6 +15,11 @@
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
     WildCardVideoView* videoView = [[WildCardVideoView alloc] initWithFrame:CGRectMake(0,0,0,0)];
     self.replaceView = videoView;
+    if(vv.layer.cornerRadius > 0) {
+        videoView.playerViewController.view.layer.cornerRadius = videoView.imageView.layer.cornerRadius = videoView.layer.cornerRadius = vv.layer.cornerRadius;
+        videoView.playerViewController.view.layer.masksToBounds = true;
+    }
+    
     [vv addSubview:videoView];
     [WildCardConstructor followSizeFromFather:vv child:videoView];
 }
