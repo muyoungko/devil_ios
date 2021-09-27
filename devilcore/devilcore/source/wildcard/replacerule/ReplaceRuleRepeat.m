@@ -17,6 +17,7 @@
 #import "WildCardAction.h"
 #import <UIKit/UIKit.h>
 #import "WildCardUICollectionView.h"
+#import "WildCardVideoView.h"
 
 @interface ReplaceRuleRepeat()
 @property int tagOffsetX;
@@ -203,6 +204,10 @@
             }
             
             [wcMeta doAllActionOfTrigger:WILDCARD_VIEW_PAGER_CHANGED node:vv.name];
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [WildCardVideoView autoPlay];
+            });
         }];
         
         arrayContentContainer = self.createdContainer = container;

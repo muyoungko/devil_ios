@@ -12,11 +12,15 @@
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
 @property (nonatomic, retain) NSString* videoPath;
+@property (nonatomic, retain) NSString* lastPlayingVideoPath;
 @property (nonatomic, retain) LOTAnimationView* playPause;
+@property BOOL ready;
+@property BOOL playing;
 @property BOOL finished;
 @end
 
 @implementation WildCardVideoView
+
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -27,8 +31,6 @@
     _playerViewController.delegate = self;
     _playerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill;
     [self addSubview:_playerViewController.view];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     
     _imageView = (UIImageView*)[[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -58,6 +60,10 @@
     
     UITapGestureRecognizer* singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickVideoView:)];
     [self addGestureRecognizer:singleFingerTap];
+    
+    _ready = NO;
+    _playing = NO;
+    _finished = NO;
     
     return self;
 }
@@ -119,15 +125,18 @@
     CGRect s = [[UIScreen mainScreen] bounds];
     int sw = s.size.width;
     int sh = s.size.height;
-    int fy = (sh - sw)/2;
+    int fy = (sh - sw)/3;
     int ty = (sh + sw)/2;
+    int fx = 0;
+    int tx = sw;
     NSString* activeKey = nil;
     for(id k in d) {
         WildCardVideoView* v = m[k];
         if(v.autoPlay && v.videoPath != nil){
             CGRect r = [v.superview convertRect:v.frame toView:nil];
+            int x = r.origin.x + r.size.width/2;
             int y = r.origin.y + r.size.height/2;
-            if(fy < y & y < ty) {
+            if(fx < x & x < tx && fy < y & y < ty) {
                 [v play];
                 activeKey = k;
                 break;
@@ -153,16 +162,7 @@
 
 - (void)setPreview:(NSString*)ppath video:(NSString*)vpath force:(BOOL)force{
     _playerViewController.player = nil;
-    if(vpath != nil) {
-        if(force) {
-            _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
-        } else if(self.videoPath == nil || ![self.videoPath isEqualToString:vpath]){
-            _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:vpath]];
-        }
-        if(self.autoPlay)
-            [WildCardVideoView registView:self];
-        self.finished = NO;
-    } else {
+    if(vpath == nil) {
         [_playerViewController.player pause];
         _playerViewController.view.hidden = YES;
     }
@@ -180,29 +180,88 @@
         UIImage *image = [UIImage imageWithData:imageData];
         [self.imageView setImage:image];
     }
+    
+    if(self.autoPlay)
+        [WildCardVideoView registView:self];
+    else
+        [WildCardVideoView unregistView:self];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+                        change:(NSDictionary *)change context:(void *)context {
+    AVPlayer* player = _playerViewController.player;
+    if ([keyPath isEqualToString:@"status"]) {
+        if (player.status == AVPlayerStatusReadyToPlay) {
+            NSLog(@"Ready to Play");
+            _ready = YES;
+            if(_playing)
+                [self play];
+        } else if (player.status == AVPlayerStatusFailed) {
+            NSLog(@"Fail to Ready");
+        } else {
+            
+        }
+    } else {
+        NSLog(@"Previous observeValueForKeyPath %@", keyPath );
+    }
 }
 
 -(void)didFinishPlaying{
     NSLog(@"didFinishPlaying");
     self.finished = YES;
+    self.playing = NO;
+    self.imageView.hidden = NO;
 }
 
 -(void)play{
+    NSLog(@"play %@", self.videoPath);
+    
+    _playing = YES;
+    
+    if(self.videoPath == nil || ![self.videoPath isEqualToString:self.lastPlayingVideoPath]){
+        if(_playerViewController.player){
+            NSLog(@"Remove Observer");
+            [_playerViewController.player removeObserver:self forKeyPath:@"status"];
+        }
+        _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:self.videoPath]];
+        self.lastPlayingVideoPath = self.videoPath;
+        [_playerViewController.player addObserver:self forKeyPath:@"status" options:0 context:nil];
+        _ready = NO;
+        NSLog(@"Player Init");
+    } else {
+        NSLog(@"Player Init Pass");
+    }
+    
+    if(!_ready) {
+        NSLog(@"play returned");
+        //return;
+    }
+    
+    NSLog(@"play ing");
     self.imageView.hidden = YES;
     if(_playerViewController.player != nil) {
         _playerViewController.view.hidden = NO;
         
-        if(self.finished)
+        if(self.finished){
             [_playerViewController.player seekToTime:CMTimeMakeWithSeconds(0, 6000)];
+        }
         self.finished = NO;
         [_playerViewController.player play];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
 -(void)stop{
-    //self.imageView.hidden = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    _playing = NO;
     if(_playerViewController.player != nil)
         [_playerViewController.player pause];
+}
+
+-(BOOL)isPlaying {
+    return _playing;
 }
 
 @end

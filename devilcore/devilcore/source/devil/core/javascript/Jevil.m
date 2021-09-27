@@ -222,10 +222,13 @@
 }
 
 + (void)save:(NSString *)key :(NSString *)value{
-    key = [NSString stringWithFormat:@"%@_%@", key, [WildCardConstructor sharedInstance].project_id];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    if(value == nil) {
+        [Jevil remove:key];
+    } else {
+        key = [NSString stringWithFormat:@"%@_%@", key, [WildCardConstructor sharedInstance].project_id];
+        [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
 }
 + (void)remove:(NSString *)key{
     key = [NSString stringWithFormat:@"%@_%@", key, [WildCardConstructor sharedInstance].project_id];
