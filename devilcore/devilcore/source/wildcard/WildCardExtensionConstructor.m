@@ -145,13 +145,12 @@
         }
         case WILDCARD_EXTENSION_TYPE_INPUT:
         {
-            BOOL verticalAlignTop = [extension[@"select11"] isEqualToString:@"Y"];
             if([[[rule.replaceView subviews][0] class] isEqual:[WildCardUITextView class]]){
                 WildCardUITextView* tf = (WildCardUITextView*)[rule.replaceView subviews][0];
                 if(tf.placeholderLabel == nil){
-                    if(verticalAlignTop)
-                        ;
                     UILabel* ppp = [[UILabel alloc] initWithFrame:tf.frame];
+                    if(tf.verticalAlignTop)
+                        ppp.frame = CGRectMake(0, 0, tf.frame.size.width, 25);
                     ppp.text = tf.placeholderText;
                     ppp.font = tf.font;
                     ppp.textColor = [UIColor lightGrayColor];

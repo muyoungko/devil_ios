@@ -37,13 +37,11 @@
         tf.font = [UIFont systemFontOfSize:textSize];
         tf.originalTextColor = tf.textColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
         tf.emtpy = true;
-        tf.placeholderLabel = nil;
+        
         NSString* text = [textSpec objectForKey:@"text"];
         if([WildCardConstructor sharedInstance].textTransDelegate != nil )
             text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
         tf.placeholderText = text;
-        
-        tf.verticalAlignTop = [extension[@"select11"] isEqualToString:@"Y"];
         
         int halignment = 1;
         int valignment = 0;
@@ -61,6 +59,7 @@
         
         if(valignment == 0) {
             valignment = GRAVITY_TOP;
+            tf.verticalAlignTop = true;
         }
         else if(valignment == 1) {
             valignment = GRAVITY_VERTICAL_CENTER;
