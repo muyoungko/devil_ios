@@ -37,6 +37,7 @@
 
 -(void)reset{
     self.sec = self.originalSec;
+    [self tick];
 }
 
 -(void)startTimeFrom:(NSString*)mm_ss{
