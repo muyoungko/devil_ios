@@ -234,7 +234,9 @@ alpha:1.0]
     cell.textLabel.text = n;
     cell.textLabel.numberOfLines = 2;
     
-    if([k isEqualToString:self.selectedKey])
+    if([k isKindOfClass:[NSString class]] && [k isEqualToString:self.selectedKey])
+        cell.textLabel.textColor = self.textColorSelected;
+    else if([k isKindOfClass:[NSNumber class]] && k == self.selectedKey)
         cell.textLabel.textColor = self.textColorSelected;
     else
         cell.textLabel.textColor = self.textColorNormal;

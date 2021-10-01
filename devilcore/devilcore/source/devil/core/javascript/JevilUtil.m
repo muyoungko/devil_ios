@@ -52,6 +52,7 @@
         [dest addObjectsFromArray:src];
     } else {
         for(int i=0;i<srcLen && i<destLen;i++){
+            //if([src[i] isKindOfClass:[NSArray class]])  
             [JevilUtil sync:src[i] :dest[i]];
         }
         

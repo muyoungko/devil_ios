@@ -183,9 +183,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [DevilGoogleLogin sharedInstance].delegate = self;
     self.devilNaverLoginCallback = [[DevilNaverLoginCallback alloc] init];
     [DevilNaverLogin sharedInstance].delegate = self.devilNaverLoginCallback;
+    
     [DevilLink sharedInstance].delegate = self;
-    
-    
     if(launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]){
         NSLog(@"launchOptions %@", launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]);
         [[DevilLink sharedInstance] setReserveUrl:launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey][@"url"]];
