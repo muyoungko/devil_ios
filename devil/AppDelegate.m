@@ -216,6 +216,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
      NSLog(@"app will enter foreground");
+    if([self.navigationController.topViewController isKindOfClass:[DevilController class]]){
+        DevilController* vc = (DevilController*)self.navigationController.topViewController;
+        [vc onResume];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -453,7 +457,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     NSString* package_ios = param[@"package_ios"];
     NSString* title = param[@"title"];
     NSString* desc = param[@"desc"];
-    NSString* imageUrl = param[@"image"];
+    NSString* imageUrl = param[@"image_url"];
+    NSString* appstore_id = param[@"appstore_id"];
     
     NSURL *link = [[NSURL alloc] initWithString:url];
     
@@ -462,6 +467,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                              domainURIPrefix:dynamicLinksDomainURIPrefix];
     linkBuilder.iOSParameters = [[FIRDynamicLinkIOSParameters alloc]
                                  initWithBundleID:package_ios];
+    linkBuilder.iOSParameters.appStoreID = appstore_id;
     linkBuilder.androidParameters = [[FIRDynamicLinkAndroidParameters alloc]
                                      initWithPackageName:package_android];
     

@@ -55,6 +55,7 @@
             param[@"package_android"] = @"kr.co.july.cloudjsonviewer";
             param[@"package_ios"] = @"kr.co.july.CloudJsonViewer";
             param[@"prefix"] = @"https://sketchtoapp.page.link";
+            param[@"appstore_id"] = @"1540234300";
         }
         
         [self.delegate createFirebaseDynamicLink:param callback:^(id  _Nonnull res) {
@@ -81,7 +82,8 @@
 }
 
 -(void)consumeStandardReserveUrl{
-    NSString* urls = [self popReserveUrl];
+    NSString* urls = [self getReserveUrl];
+    BOOL consumed = false;
     if(urls) {
         NSURL* url = [NSURL URLWithString:urls];
         NSString* path = [url path];
@@ -91,8 +93,12 @@
             NSString* screenName = pp[2];
             id data = [DevilUtil queryToJson:url];
             [Jevil go:screenName :data];
+            consumed = YES;
         }
     }
+    
+    if(consumed)
+        [self popReserveUrl];
 }
 
 -(BOOL)checkCond:(id)cond {
