@@ -7,6 +7,7 @@
 
 #import "ReplaceRuleWeb.h"
 #import "MappingSyntaxInterpreter.h"
+#import "DevilUtil.h"
 
 @interface ReplaceRuleWeb()
 @property (nonatomic, retain) NSString* lastUrl;
@@ -32,9 +33,18 @@
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{
     WKWebView* web = (WKWebView*)self.replaceView;
     NSString* url = [MappingSyntaxInterpreter interpret:self.replaceJsonKey:opt];
-    if([url hasPrefix:@"/"])
+    if([url hasPrefix:@"/"]) {
+        NSString* token = [Jevil get:@"x-access-token"];
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"web_host"], url];
-    if(url != nil && ![url isEqualToString:self.lastUrl]){
+        NSURL* nsurl = [NSURL URLWithString:url];
+        id query = [DevilUtil queryToJson:nsurl];
+        if(!query[@"token"] && token) {
+            if([query count] > 0)
+                url = [url stringByAppendingFormat:@"&token=%@", token];
+            else
+                url = [url stringByAppendingFormat:@"?token=%@", token];
+        }
+    } if(url != nil && ![url isEqualToString:self.lastUrl]){
         self.lastUrl = url;
         [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     }

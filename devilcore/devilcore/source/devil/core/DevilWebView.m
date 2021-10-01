@@ -139,8 +139,9 @@
                                                 
                                                       }]];
     [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{
-        completionHandler();
+        
     }];
+    completionHandler();
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
