@@ -68,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)download:(NSString*)url;
 + (void)sound:(NSDictionary*)param;
 + (void)soundCallback:(JSValue*)callback;
++ (void)soundControlCallback:(JSValue *)callback;
 + (void)soundTick:(JSValue*)callback;
 + (void)soundPause;
 + (void)soundStop;

@@ -866,6 +866,14 @@ BOOL httpOk[10];
     }
 }
 
++ (void)soundControlCallback:(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilSound sharedInstance] setControlCallback:^(NSString * _Nonnull command) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[command]];
+    }];
+}
+
+
 + (BOOL)soundIsPlaying{
     @try {
         return [[DevilSound sharedInstance] isPlaying];

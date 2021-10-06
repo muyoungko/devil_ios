@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (DevilSound*)sharedInstance;
 - (void)sound:(id)param;
 - (void)setSoundCallback:(void (^)(id res))callback;
+- (void)setControlCallback:(void (^)(NSString* command))callback;
 - (void)setTickCallback:(void (^)(int sec, int totalSec))callback;
 - (void)stop;
 - (BOOL)isPlaying;

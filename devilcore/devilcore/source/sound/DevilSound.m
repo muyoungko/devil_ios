@@ -14,6 +14,7 @@
 @property (nonatomic,retain) id observer;
 @property void (^callback)(int sec, int totalSec);
 @property void (^callbackSound)(id res);
+@property void (^callbackControl)(NSString* command);
 @property (nonatomic,retain) id lockScreenInfo;
 @property BOOL isPlaying;
 @property (nonatomic,retain) AVPlayer *recentAvPlayerCompleteCalled;
@@ -57,6 +58,7 @@
 
     [self setUpRemoteCommandCenter:param];
 }
+
 
 -(void)audioPlayerDidFinishPlaying:(id)notification{
     if(self.callbackSound && self.recentAvPlayerCompleteCalled != self.player) {
@@ -107,22 +109,31 @@
 
     [remoteCommandCenter.togglePlayPauseCommand setEnabled:YES];
     [remoteCommandCenter.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
-        if([self isPlaying])
+        if([self isPlaying]){
             [self pause];
-        else
+            if(self.callbackControl)
+                self.callbackControl(@"pause");
+        }else{
             [self resume];
+            if(self.callbackControl)
+                self.callbackControl(@"resume");
+        }
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     
     [remoteCommandCenter.pauseCommand setEnabled:YES];
     [remoteCommandCenter.pauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self pause];
+        if(self.callbackControl)
+            self.callbackControl(@"pause");
         return MPRemoteCommandHandlerStatusSuccess;
     }];
 
     [remoteCommandCenter.skipBackwardCommand setEnabled:YES];
     [remoteCommandCenter.skipBackwardCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self move:-15];
+        if(self.callbackControl)
+            self.callbackControl(@"move");
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     remoteCommandCenter.skipBackwardCommand.preferredIntervals = @[@(15)];
@@ -130,6 +141,8 @@
     [remoteCommandCenter.skipForwardCommand setEnabled:YES];
     [remoteCommandCenter.skipForwardCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self move:15];
+        if(self.callbackControl)
+            self.callbackControl(@"move");
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     remoteCommandCenter.skipForwardCommand.preferredIntervals = @[@(15)];
@@ -149,6 +162,10 @@
 
 - (void)setSoundCallback:(void (^)(id res))callback{
     self.callbackSound = callback;
+}
+
+- (void)setControlCallback:(void (^)(NSString* command))callback{
+    self.callbackControl = callback;
 }
 
 -(void)setTickCallback:(void (^)(int sec, int totalSeconds))callback{
