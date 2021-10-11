@@ -86,6 +86,7 @@
 
 -(void) initWithLocalOnComplete:(void (^_Nonnull)(BOOL success))complete;
 -(void) initWithOnlineOnComplete:(void (^_Nonnull)(BOOL success))complete;
+-(void) initWithOnlineVersion:(NSString*)version onComplete:(void (^_Nonnull)(BOOL success))complete;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey;
 -(NSString*) getDeclaredCode;
 -(NSMutableDictionary*_Nullable) getAllBlockJson;
@@ -101,6 +102,7 @@
 -(NSMutableDictionary*)getScreen:(NSString*)screenId;
 -(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId;
 -(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId;
+-(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId;
 +(BOOL)isTablet;
 
 @end

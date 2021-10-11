@@ -176,11 +176,25 @@
         {
             NSString* barBgNodeName = extension[@"select3"];
             NSString* watch = extension[@"select4"];
-            UIView* barBg = [meta getView:barBgNodeName];
+            NSString* cap = extension[@"select5"];
+            WildCardUIView* barBg = [meta getView:barBgNodeName];
             int rate  = [meta.correspondData[watch] intValue];
             float barBgWidth = barBg.frame.size.width;
             rule.replaceView.frame = CGRectMake(rule.replaceView.frame.origin.x, rule.replaceView.frame.origin.y,
                                                 barBgWidth*rate/100.0f, rule.replaceView.frame.size.height);
+            if(cap) {
+                UIView* capView = [meta getView:cap];
+                capView.center = CGPointMake(barBg.frame.origin.x +
+                                             barBgWidth*rate/100.0f, capView.center.y);
+            }
+            
+            NSString* dragable = extension[@"select6"];
+            if([@"Y" isEqualToString:dragable]) {
+                barBg.userInteractionEnabled = YES;
+                [WildCardConstructor userInteractionEnableToParentPath:barBg depth:5];
+                //[barBg dragCallback:]
+            }
+            
             break;
         }
         case WILDCARD_EXTENSION_TYPE_CHEKBOX:

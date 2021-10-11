@@ -873,6 +873,9 @@ BOOL httpOk[10];
     }];
 }
 
++ (id)soundCurrentInfo{
+    return [[DevilSound sharedInstance] currentInfo];
+}
 
 + (BOOL)soundIsPlaying{
     @try {

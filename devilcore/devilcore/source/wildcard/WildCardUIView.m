@@ -9,6 +9,10 @@
 #import "WildCardUIView.h"
 #import "WildCardConstructor.h"
 
+@interface WildCardUIView()
+@property void (^dragCallback)(int sec, int totalSec);
+@end
+
 @implementation WildCardUIView
 
 
@@ -27,6 +31,20 @@
     //NSLog(@"WC - touchesBegan %@ %@", _name , instanceKey);
     return ;
 }
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if(touches.count > 1)
+        return;
+    
+    UITouch *touch = [touches anyObject];
+    NSLog(@"touchesMoved %f", touch.force);
+    CGPoint touchPoint = [touch locationInView:self];
+    
+    float x = touchPoint.x;
+    float y = touchPoint.y;
+    
+}
+
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     
@@ -58,6 +76,12 @@
     }
 }
 
+- (void)addDragCallback:(void (^)(int sec, int totalSec))callback {
+    self.dragCallback = callback;
+}
+
+
+
 //- (void)drawRect:(CGRect)rect
 //{
 //    [super drawRect:rect];
@@ -81,8 +105,5 @@
 ////    [_path stroke]; // ...if you want to draw the outline.
 ////    CGContextRestoreGState(ctx);
 //}
-
-
-
 
 @end

@@ -36,6 +36,8 @@
 }
 
 - (void)sound:(id)param{
+    self.currentInfo = param;
+    self.currentInfo[@"playing"] = @"Y";
     
     if(self.player != nil) {
         [self.player pause];
@@ -200,6 +202,7 @@
         [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:nil];
         [[AVAudioSession sharedInstance] setActive:NO error:nil];
     }
+    self.currentInfo = nil;
 }
 
 - (BOOL)isPlaying{
@@ -212,12 +215,14 @@
 - (void)pause{
     if(self.player != nil) {
         [self.player pause];
+        self.currentInfo[@"playing"] = @"N";
     }
 }
 
 - (void)resume{
     if(self.player != nil) {
         [self.player play];
+        self.currentInfo[@"playing"] = @"Y";
     }
 }
 

@@ -18,6 +18,7 @@
 #import <UIKit/UIKit.h>
 #import "WildCardUICollectionView.h"
 #import "WildCardVideoView.h"
+#import "JevilInstance.h"
 
 @interface ReplaceRuleRepeat()
 @property int tagOffsetX;
@@ -278,7 +279,22 @@
             minLeft = 0;
         if(minTop == 1000000)
             minTop = 0;
-        container.contentInset = UIEdgeInsetsMake(minTop, minLeft, 0, 0);
+    
+        /**
+        CollectionView는 iPhone에 상단의 header나 x padding에 의해 contentInset이 자동으로 결정된다
+        하지만 아래처럼 세팅하면 이 자동 영역이 사라지고 무조건 xpadding 시작점 부터 리스트가 시작된다.
+        container.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        
+         그럼 해더도 같이 무시되서 auto로 설정할수밖에 없는데, 여기서 문제가 되는게
+         List가 No Header로 최상단부터 시작하면 안드로이드는 -27로 topmargin이 adjust되지만
+         아이폰은 오히려 +27로 xpadding 만큼 자동으로 조정되어 서로 다르게 보이게 된다.
+         그래서 List가 NoHeader이고 origin.y가 0인 경우 반대로 xpadding만큼 -top padding을 줘야한다. 
+         */
+        float autoPaddingAdjust = 0;
+        BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
+        if(noHeader && vv.frame.origin.y == 0 && [REPEAT_TYPE_VLIST isEqualToString:repeatType])
+            autoPaddingAdjust = -27;
+        container.contentInset = UIEdgeInsetsMake(minTop + autoPaddingAdjust, minLeft, 0, 0);
         
         arrayContentContainer = self.createdContainer = container;
         

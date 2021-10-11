@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property int footer_sketch_height;
 @property BOOL fix_footer;
 @property (nonatomic, retain) WildCardUIView* footer;
+@property (nonatomic, retain) WildCardUIView* inside_footer;
 
 - (void)showIndicator;
 - (void)hideIndicator;

@@ -103,7 +103,15 @@
         _header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
         [self hideNavigationBar];
-       
+    
+    CGFloat topPadding = 0;
+    CGFloat bottomPadding = 0;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+        topPadding = window.safeAreaInsets.top;
+        bottomPadding = window.safeAreaInsets.bottom;
+    }
+    
     id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
     if(footer){
         id footerCloudJson = footer[@"cloudJson"];
@@ -112,14 +120,6 @@
         self.original_footer_height = self.footer.frame.size.height;
         
         [WildCardConstructor applyRule:self.footer withData:self.data];
-        
-        CGFloat topPadding = 0;
-        CGFloat bottomPadding = 0;
-        if (@available(iOS 11.0, *)) {
-            UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
-            topPadding = window.safeAreaInsets.top;
-            bottomPadding = window.safeAreaInsets.bottom;
-        }
         
         int footerY = screenHeight - self.footer.frame.size.height - bottomPadding;
         self.original_footer_height_plus_bottom_padding = self.footer.frame.size.height + bottomPadding;
@@ -131,6 +131,19 @@
             [WildCardUtil convertPixcelToSketch:bottomPadding ];
         
         [self.view addSubview:self.footer];
+    }
+    
+    id inside_footer = [[WildCardConstructor sharedInstance] getInsideFooterCloudJson:self.screenId];
+    if(inside_footer) {
+        self.inside_footer = [WildCardConstructor constructLayer:nil withLayer:inside_footer instanceDelegate:self];
+        [WildCardConstructor applyRule:self.inside_footer withData:self.data];
+        
+        float inside_footer_y = (float)screenHeight - self.inside_footer.frame.size.height
+            - (self.footer?self.footer.frame.size.height:0);
+        self.inside_footer.frame = CGRectMake(0, inside_footer_y, self.inside_footer.frame.size.width,
+                                              self.inside_footer.frame.size.height);
+        
+        [self.view addSubview:self.inside_footer];
     }
     
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + self.footer_sketch_height];
@@ -168,6 +181,7 @@
 
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + self.footer_sketch_height];
     [self construct];
+    [self onResume];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -417,6 +431,9 @@
     if(self.header)
         [self.header update:self.data];
     [WildCardConstructor applyRule:self.footer withData:self.data];
+    
+    if(self.inside_footer)
+        [WildCardConstructor applyRule:self.inside_footer withData:self.data];
     
     [[DevilDrawer sharedInstance] update:self];
 }

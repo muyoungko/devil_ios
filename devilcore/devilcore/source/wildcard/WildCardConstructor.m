@@ -112,6 +112,28 @@ static NSString *default_project_id = nil;
     }];
 }
 
+-(void) initWithOnlineVersion:(NSString*)version onComplete:(void (^_Nonnull)(BOOL success))complete
+{
+    [WildCardConstructor sharedInstance].onLineMode = YES;
+    NSString* path = [NSString stringWithFormat:@"http://img.deavil.com/dist/%@/%@/json/%@.json",
+                      self.project_id,
+                      version,
+                      self.project_id];
+    NSString* url = [NSString stringWithFormat:path, self.project_id];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* responseJsonObject) {
+        if(responseJsonObject != nil)
+        {
+            [self initWithProject:self.project_id json:responseJsonObject];
+            
+            complete(YES);
+        }
+        else
+        {
+            complete(NO);
+        }
+    }];
+}
+
 -(void)initWithProject:(NSString*)projectId json:(id)projectJson {
     NSString* project_id = self.project_id;
     _cloudJsonMap = projectJson[@"cloudJsonMap"] ;
@@ -295,7 +317,14 @@ static NSString *default_project_id = nil;
         return nil;
 }
 
-
+-(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId {
+    id h = _screenMap[screenId][@"inside_footer_block_id"];
+    if(h != nil && h != [NSNull null]){
+        NSString* header_block_id =  [_screenMap[screenId][@"inside_footer_block_id"] stringValue];
+        return _cloudJsonMap[header_block_id];
+    } else
+        return nil;
+}
 
 -(void)onExtensionCheckBoxClickListener:(WildCardUITapGestureRecognizer *)recognizer
 {

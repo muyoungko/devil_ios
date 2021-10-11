@@ -55,4 +55,6 @@
 
 @property (retain, nonatomic) NSMutableDictionary* tags;
 
+- (void)addDragCallback:(void (^)(int sec, int totalSec))callback;
+
 @end
