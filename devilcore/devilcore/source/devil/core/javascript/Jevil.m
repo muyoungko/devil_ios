@@ -908,6 +908,9 @@ BOOL httpOk[10];
 + (void)soundMove:(int)sec{
     [[DevilSound sharedInstance] move:sec];
 }
++ (void)soundSeek:(int)sec{
+    [[DevilSound sharedInstance] seek:sec];
+}
 + (void)soundSpeed:(NSString*)speed{
     [[DevilSound sharedInstance] speed:[speed floatValue]];
 }

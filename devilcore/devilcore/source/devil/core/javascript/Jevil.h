@@ -76,6 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)soundResume;
 + (BOOL)soundIsPlaying;
 + (void)soundMove:(int)sec;
++ (void)soundSeek:(int)sec;
 + (void)soundSpeed:(NSString*)speed;
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback;
 + (void)stopSpeechRecognizer;

@@ -192,7 +192,9 @@
             if([@"Y" isEqualToString:dragable]) {
                 barBg.userInteractionEnabled = YES;
                 [WildCardConstructor userInteractionEnableToParentPath:barBg depth:5];
-                //[barBg dragCallback:]
+                [barBg addDragCallback:^(int action, float x, float y) {
+                    
+                }];
             }
             
             break;

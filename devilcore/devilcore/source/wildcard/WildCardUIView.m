@@ -10,7 +10,7 @@
 #import "WildCardConstructor.h"
 
 @interface WildCardUIView()
-@property void (^dragCallback)(int sec, int totalSec);
+@property void (^dragCallback)(int action, float x, float y);
 @end
 
 @implementation WildCardUIView
@@ -33,7 +33,7 @@
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if(touches.count > 1)
+    if(touches.count > 1 || !self.dragCallback)
         return;
     
     UITouch *touch = [touches anyObject];
@@ -76,7 +76,7 @@
     }
 }
 
-- (void)addDragCallback:(void (^)(int sec, int totalSec))callback {
+- (void)addDragCallback:(void (^)(int action, float x, float y))callback {
     self.dragCallback = callback;
 }
 

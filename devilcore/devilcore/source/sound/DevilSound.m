@@ -63,11 +63,16 @@
 
 
 -(void)audioPlayerDidFinishPlaying:(id)notification{
-    if(self.callbackSound && self.recentAvPlayerCompleteCalled != self.player) {
+    if(self.recentAvPlayerCompleteCalled != self.player) {
         self.recentAvPlayerCompleteCalled = self.player;
         id r = [@{} mutableCopy];
         r[@"command"] = @"complete";
-        self.callbackSound(r);
+        
+        if(self.callbackSound)
+            self.callbackSound(r);
+        
+        if(self.callbackControl)
+            self.callbackControl(@"complete");
     }
 }
 

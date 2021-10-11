@@ -62,7 +62,10 @@
     [self sort];
     if(self.mainWc)
         [self reloadBlock];
-    
+//    if([Devil sharedInstance].reservedUrl)
+//        [self showAlert:[[Devil sharedInstance].reservedUrl absoluteString]];
+//    else
+//        [self showAlert:@"없음"];
     [[Devil sharedInstance] consumeReservedUrl];
 }
 
