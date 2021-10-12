@@ -686,7 +686,8 @@ BOOL httpOk[10];
     
     d.didFinishDismissingBlock = ^{
         if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
-            ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = nil;
+            if(d == ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
+                ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = nil;
     };
 }
 
