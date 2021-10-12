@@ -292,7 +292,8 @@
          */
         float autoPaddingAdjust = 0;
         BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
-        if(noHeader && vv.frame.origin.y == 0 && [REPEAT_TYPE_VLIST isEqualToString:repeatType])
+        CGRect vvGlobalFrame = [WildCardUtil getGlobalFrame:vv];
+        if(noHeader && vvGlobalFrame.origin.y == 0 && [REPEAT_TYPE_VLIST isEqualToString:repeatType])
             autoPaddingAdjust = -27;
         container.contentInset = UIEdgeInsetsMake(minTop + autoPaddingAdjust, minLeft, 0, 0);
         
