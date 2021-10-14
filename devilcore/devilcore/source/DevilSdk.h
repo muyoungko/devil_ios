@@ -10,15 +10,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class DevilController;
+
 @protocol DevilSdkDelegate<NSObject>
 @required
 -(float)startLoading;
 -(float)stopLoading;
 @end
 
+@protocol DevilSdkScreenDelegate<NSObject>
+@required
+-(DevilController*)getScreenViewController:(NSString*)screenName;
+@end
+
 @interface DevilSdk : NSObject
 
 @property (nonatomic, weak, nullable) id <DevilSdkDelegate> devilSdkDelegate;
+@property (nonatomic, weak, nullable) id <DevilSdkScreenDelegate> devilSdkScreenDelegate;
 @property (nonatomic, retain) NSMutableDictionary* registeredClass;
 
 +(DevilSdk*)sharedInstance;
@@ -27,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)addCustomJevil:(Class)a;
 -(void)registScreenController:(NSString*)screenName class:(Class)class;
 -(Class)getRegisteredScreenClassOrDevil:(NSString*)screenName;
+-(UIViewController*)getRegisteredScreenViewController:(NSString*)screenName;
+
 @end
 
 NS_ASSUME_NONNULL_END

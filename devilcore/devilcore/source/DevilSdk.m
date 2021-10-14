@@ -64,4 +64,17 @@
     return [DevilController class];
 }
 
+-(UIViewController*)getRegisteredScreenViewController:(NSString*)screenName {
+    Class cls = self.registeredClass[screenName];
+    if(cls != nil)
+        return [[cls alloc] init];
+    
+    if(self.devilSdkScreenDelegate) {
+        UIViewController *r = [self.devilSdkScreenDelegate getScreenViewController:screenName];
+        if(r != nil)
+            return r;
+    }
+    return [[DevilController alloc] init];
+}
+
 @end

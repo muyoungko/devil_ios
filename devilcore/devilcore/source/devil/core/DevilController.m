@@ -299,6 +299,14 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (void)setRootBackgroundIfHas:(NSString*)screeenId {
+    NSString* firstBlockId = [[WildCardConstructor sharedInstance] getFirstBlock:self.screenId];
+    id cj = [[WildCardConstructor sharedInstance] getBlockJson:firstBlockId];
+    if(cj[@"backgroundColor"]) {
+        self.viewMain.backgroundColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
+    }
+}
+
 - (void)construct {
     id list = [WildCardConstructor sharedInstance].screenMap[self.screenId][@"list"];
     if([list count] > 1 || ![list[0][@"type"] isEqualToString:@"sketch"])
@@ -308,12 +316,14 @@
         _mainWc.meta.jevil = self.jevil;
         [_mainWc.meta created];
         [self onCreated];
+        [self setRootBackgroundIfHas:self.screenId];
     } else {
         //[self createWildCardScreenListView:self.screenId];
         [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
         _mainWc.meta.jevil = self.jevil;
         [_mainWc.meta created];
         [self onCreated];
+        [self setRootBackgroundIfHas:self.screenId];
     }
 }
 

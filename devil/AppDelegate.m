@@ -28,7 +28,7 @@
 #import "AppDelegate.h"
 #import "MyDevilController.h"
 
-@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate>
+@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
 @property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
@@ -153,7 +153,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [FIRApp configure];
     
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
-    [[DevilSdk sharedInstance] registScreenController:@"view" class:[MyDevilController class]];
+    //[[DevilSdk sharedInstance] registScreenController:@"view" class:[MyDevilController class]];
+    [DevilSdk sharedInstance].devilSdkScreenDelegate = self;
     
     if(launchOptions == nil){
         [self preparePushToken:application];
@@ -492,4 +493,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }];
 }
     
+-(DevilController*)getScreenViewController:(NSString*)screenName {
+    if([@"view" isEqualToString:screenName]) {
+        return [[MyDevilController init] alloc];
+    }
+    else return nil;
+}
 @end

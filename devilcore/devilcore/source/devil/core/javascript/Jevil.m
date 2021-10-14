@@ -51,8 +51,7 @@
 + (void)go:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
     
-    Class a = [[DevilSdk sharedInstance] getRegisteredScreenClassOrDevil:screenName];
-    DevilController* d = [[a alloc] init];
+    DevilController* d = (DevilController*)[[DevilSdk sharedInstance] getRegisteredScreenViewController:screenName];
     if(param != nil)
         d.startData = param;
     d.screenId = screenId;
