@@ -16,6 +16,8 @@
 #import "WildCardUITapGestureRecognizer.h"
 #import "WildCardUITextField.h"
 #import "WildCardUITextView.h"
+#import "JevilInstance.h"
+#import "JevilCtx.h"
 
 @implementation WildCardExtensionConstructor
 
@@ -174,14 +176,21 @@
         }
         case WILDCARD_EXTENSION_TYPE_PROGRESS_BAR:
         {
+            
             NSString* barBgNodeName = extension[@"select3"];
-            NSString* watch = extension[@"select4"];
+            __block NSString* watch = extension[@"select4"];
             NSString* cap = extension[@"select5"];
-            WildCardUIView* barBg = [meta getView:barBgNodeName];
+            WildCardUIView* barBg = (WildCardUIView*)[meta getView:barBgNodeName];
+            
+            if(rule.constructed && barBg.moving) {
+                return;
+            }
+            
             int rate  = [meta.correspondData[watch] intValue];
-            float barBgWidth = barBg.frame.size.width;
+            __block float barBgWidth = barBg.frame.size.width;
+            float newBarWidth = barBgWidth*rate/100.0f;
             rule.replaceView.frame = CGRectMake(rule.replaceView.frame.origin.x, rule.replaceView.frame.origin.y,
-                                                barBgWidth*rate/100.0f, rule.replaceView.frame.size.height);
+                                                newBarWidth, rule.replaceView.frame.size.height);
             if(cap) {
                 UIView* capView = [meta getView:cap];
                 capView.center = CGPointMake(barBg.frame.origin.x +
@@ -189,11 +198,44 @@
             }
             
             NSString* dragable = extension[@"select6"];
-            if([@"Y" isEqualToString:dragable]) {
+            if([@"Y" isEqualToString:dragable] && !rule.constructed) {
+                rule.constructed = YES;
+                barBg.moving = NO;
                 barBg.userInteractionEnabled = YES;
                 [WildCardConstructor userInteractionEnableToParentPath:barBg depth:5];
-                [barBg addDragCallback:^(int action, float x, float y) {
-                    
+                [barBg addTouchCallback:^(int action, CGPoint p) {
+                    if(action == TOUCH_ACTION_DOWN) {
+                        barBg.startX = p.x;
+                        barBg.startY = p.y;
+                        barBg.startObjectX = rule.replaceView.frame.size.width;
+                        barBg.startObjectY = 0;
+                        barBg.moving = YES;
+                    } else if(action == TOUCH_ACTION_MOVE) {
+                        float newBarWidth = barBg.startObjectX-(barBg.startX-p.x);
+                        if(newBarWidth < 0)
+                            newBarWidth = 0;
+                        if(newBarWidth > barBgWidth)
+                            newBarWidth = barBgWidth;
+                        
+                        rule.replaceView.frame = CGRectMake(rule.replaceView.frame.origin.x, rule.replaceView.frame.origin.y,
+                                                            newBarWidth, rule.replaceView.frame.size.height);
+                        float rate = newBarWidth / barBgWidth;
+                        if(cap) {
+                            UIView* capView = [meta getView:cap];
+                            capView.center = CGPointMake(barBg.frame.origin.x +
+                                                         newBarWidth, capView.center.y);
+                        }
+                        
+                        //NSLog(@"barBg.startObjectX %f", barBg.startObjectX);
+                        //NSLog(@"newBarWidth - %f" , newBarWidth);
+                        
+                        meta.correspondData[watch] = [NSNumber numberWithInt:(int)(rate * 100)];
+                    } else if(action == TOUCH_ACTION_UP || action == TOUCH_ACTION_CANCEL) {
+                        NSString* script = extension[@"select7"];
+                        JevilCtx* jevil = [JevilInstance currentInstance].jevil;
+                        barBg.moving = NO;
+                        [jevil code:script viewController:[JevilInstance currentInstance].vc data:meta.correspondData meta:meta];
+                    }
                 }];
             }
             

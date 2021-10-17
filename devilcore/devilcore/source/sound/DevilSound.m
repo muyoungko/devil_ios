@@ -17,6 +17,7 @@
 @property void (^callbackControl)(NSString* command);
 @property (nonatomic,retain) id lockScreenInfo;
 @property BOOL isPlaying;
+@property NSTimeInterval lastMoveTime;
 @property (nonatomic,retain) AVPlayer *recentAvPlayerCompleteCalled;
 @end
 
@@ -186,6 +187,11 @@
             queue:NULL // main queue
             usingBlock:^(CMTime time) {
 
+            NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+            //NSLog(@"%f", now);
+            if(now - self.lastMoveTime < 1)
+                return;
+            
             float totalSeconds = (Float64)(time.value) / (Float64)(time.timescale);
             CMTime du = self.player.currentItem.duration;
             if(self.callback != nil)
@@ -236,12 +242,14 @@
         CMTime cur = self.player.currentItem.currentTime;
         int curSec = (int)(cur.value / cur.timescale);
         [self.player seekToTime:CMTimeMake(curSec + sec, 1)];
+        self.lastMoveTime = [[NSDate date] timeIntervalSince1970];
     }
 }
 
 - (void)seek:(int)sec{
     if(self.player != nil){
         [self.player seekToTime:CMTimeMake(sec, 1)];
+        self.lastMoveTime = [[NSDate date] timeIntervalSince1970];
     }
 }
 - (void)speed:(float)speed{

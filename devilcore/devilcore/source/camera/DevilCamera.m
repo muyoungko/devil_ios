@@ -196,7 +196,7 @@
         case AVAuthorizationStatusRestricted:
         case AVAuthorizationStatusDenied:
         case AVAuthorizationStatusNotDetermined: { // request authorization
-            
+             
             [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     callback(granted);

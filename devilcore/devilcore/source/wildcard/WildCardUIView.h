@@ -28,7 +28,10 @@
 #define GRAVITY_HCENTER_TOP 49
 #define GRAVITY_HCENTER_BOTTOM 81
 
-
+#define TOUCH_ACTION_DOWN 1
+#define TOUCH_ACTION_MOVE 2
+#define TOUCH_ACTION_UP 3
+#define TOUCH_ACTION_CANCEL 4
 
 @interface WildCardUIView : UIView
 
@@ -49,12 +52,18 @@
 @property float paddingTop;
 @property float paddingBottom;
 
+@property float startX;
+@property float startY;
+@property float startObjectX;
+@property float startObjectY;
+@property BOOL moving;
+
 @property BOOL cornerRadiusHalf;
 
 @property (retain, nonatomic) NSString* name;
 
 @property (retain, nonatomic) NSMutableDictionary* tags;
 
-- (void)addDragCallback:(void (^)(int action, float x, float y))callback;
+- (void)addTouchCallback:(void (^)(int action, CGPoint p))callback;
 
 @end

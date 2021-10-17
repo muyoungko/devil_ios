@@ -10,7 +10,7 @@
 #import "WildCardConstructor.h"
 
 @interface WildCardUIView()
-@property void (^dragCallback)(int action, float x, float y);
+@property void (^touchCallback)(int action, CGPoint p);
 @end
 
 @implementation WildCardUIView
@@ -25,33 +25,55 @@
     NSString *s = [super description];
     return [NSString stringWithFormat:@"%@ name : %@",s,  _name];
 }
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    if(self.touchCallback)
+        return self;
+    else
+        return [super hitTest:point withEvent:event];
+}
+
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    NSString* instanceKey = [NSString stringWithFormat:@"%lx", (long)self];
-    //NSLog(@"WC - touchesBegan %@ %@", _name , instanceKey);
+    if(touches.count > 1)
+        return;
+    
+    if(!self.touchCallback)
+        return;
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    self.touchCallback(TOUCH_ACTION_DOWN, touchPoint);
+    
     return ;
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if(touches.count > 1 || !self.dragCallback)
+    if(touches.count > 1 || !self.touchCallback)
         return;
     
     UITouch *touch = [touches anyObject];
-    NSLog(@"touchesMoved %f", touch.force);
     CGPoint touchPoint = [touch locationInView:self];
-    
-    float x = touchPoint.x;
-    float y = touchPoint.y;
-    
+    self.touchCallback(TOUCH_ACTION_MOVE, touchPoint);
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    if(touches.count > 1 || !self.touchCallback)
+        return;
     
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    self.touchCallback(TOUCH_ACTION_CANCEL, touchPoint);
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    if(touches.count > 1 || !self.touchCallback)
+        return;
     
+    UITouch *touch = [touches anyObject];
+    CGPoint touchPoint = [touch locationInView:self];
+    self.touchCallback(TOUCH_ACTION_UP, touchPoint);
 }
 
 - (instancetype)init
@@ -76,11 +98,11 @@
     }
 }
 
-- (void)addDragCallback:(void (^)(int action, float x, float y))callback {
-    self.dragCallback = callback;
+- (void)addTouchCallback:(void (^)(int action, CGPoint p))callback {    
+    self.touchCallback = callback;
 }
 
-
+ 
 
 //- (void)drawRect:(CGRect)rect
 //{

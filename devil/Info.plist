@@ -108,7 +108,7 @@
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Please, allow access for Bluetooth</string>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera description.</string>
+	<string>Camera needs to user profile update</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -116,7 +116,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allowing access to the microphone lets you record audio.</string>
+    <string>Allowing access to the microphone for user profile edit function</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>$(PRODUCT_NAME) photos add description.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
