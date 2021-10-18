@@ -23,6 +23,7 @@ UIDocumentInteractionControllerDelegate>
 -(void)tab:(NSString*)screenId;
 -(void)onResume;
 -(void)finish;
+-(void)alertFinish:(NSString*)msg;
 -(WildCardUIView*)findView:(NSString*)name;
 
 @property (nonatomic, retain) NSString* projectId;

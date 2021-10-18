@@ -116,7 +116,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSMicrophoneUsageDescription</key>
-    <string>Allowing access to the microphone for user profile edit function</string>
+	<string>Allowing access to the microphone for user profile edit function</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>$(PRODUCT_NAME) photos add description.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

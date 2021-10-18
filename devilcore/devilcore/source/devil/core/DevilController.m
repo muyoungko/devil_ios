@@ -37,6 +37,11 @@
         [WildCardConstructor sharedInstance:self.projectId];
     }
     
+    if(!self.screenId){
+        [self alertFinish:@"No Screen Id. Did you set splash screen?"];
+        return;
+    }
+    
     self.jevil = [[JevilCtx alloc] init];
     self.thisMetas = [@{} mutableCopy];
     
@@ -309,6 +314,11 @@
 
 - (void)construct {
     id list = [WildCardConstructor sharedInstance].screenMap[self.screenId][@"list"];
+    if([list count] == 0){
+        [self alertFinish:@"Screen should contain at least 1 block. Did you add block in screen? Please, check 'Block List' in screen"];
+        return;
+    }
+    
     if([list count] > 1 || ![list[0][@"type"] isEqualToString:@"sketch"])
         [self createWildCardScreenListView:self.screenId];
     else if([[WildCardConstructor sharedInstance] isFirstBlockFitScreen:self.screenId]) {
@@ -488,4 +498,16 @@
     return nil;
 }
 
+-(void)alertFinish:(NSString *)msg {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+       [self.navigationController popViewControllerAnimated:YES];
+    }]];
+    [self presentViewController:alertController animated:YES completion:^{}];
+}
 @end
