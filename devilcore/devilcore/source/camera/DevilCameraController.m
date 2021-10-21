@@ -531,17 +531,22 @@ typedef NS_ENUM(NSInteger, UIMode) {
         return;
     }
     
-    // Add audio input.
-    AVCaptureDevice* audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
-    AVCaptureDeviceInput* audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:&error];
-    if (!audioDeviceInput) {
-        NSLog(@"Could not create audio device input: %@", error);
-    }
-    if ([self.session canAddInput:audioDeviceInput]) {
-        [self.session addInput:audioDeviceInput];
-    }
-    else {
-        NSLog(@"Could not add audio device input to the session");
+    /**
+    다음 코드때문에 microphone 권한을 물어본다.
+     */
+    if(self.hasVideo) {
+        AVCaptureDevice* audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
+        AVCaptureDeviceInput* audioDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:audioDevice error:&error];
+        if (!audioDeviceInput) {
+            NSLog(@"Could not create audio device input: %@", error);
+        }
+        
+        if ([self.session canAddInput:audioDeviceInput]) {
+            [self.session addInput:audioDeviceInput];
+        }
+        else {
+            NSLog(@"Could not add audio device input to the session");
+        }
     }
     
     // Add photo output.

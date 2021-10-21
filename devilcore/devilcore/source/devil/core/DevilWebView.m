@@ -10,6 +10,7 @@
 #import "Jevil.h"
 #import "DevilBlockDialog.h"
 #import "DevilController.h"
+#import "DevilLink.h"
 
 @interface DevilWebView ()
 @property (copy, nonatomic) WKWebViewActionHandler actionHandler;
@@ -100,6 +101,9 @@
         [d show];
         
         ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else if([url hasPrefix:@"jevil://devil.com"]) {
+        [[DevilLink sharedInstance] standardUrlProcess:url];
         decisionHandler(WKNavigationActionPolicyCancel);
     } else if(![url hasPrefix:@"http://"] && ![url hasPrefix:@"https://"]) {
         /**    jevil://markt/auth?name=%ED%99%8D%EC%9D%80%ED%9D%AC&birth=19801015&gender=0&mobile=...

@@ -81,20 +81,36 @@
     return r;
 }
 
+-(BOOL)standardUrlProcess:(NSString*)urls{
+    BOOL consumed = false;
+    NSURL* url = [NSURL URLWithString:urls];
+    NSString* path = [url path];
+    id pp = [path componentsSeparatedByString:@"/"];
+    NSString* command = pp[1];
+    if([@"screen" isEqualToString:command]){
+        NSString* screenName = pp[2];
+        id data = [DevilUtil queryToJson:url];
+        [Jevil go:screenName :data];
+        consumed = YES;
+    } else if([@"replaceScreen" isEqualToString:command]){
+        NSString* screenName = pp[2];
+        id data = [DevilUtil queryToJson:url];
+        [Jevil replaceScreen:screenName :data];
+        consumed = YES;
+    } else if([@"rootScreen" isEqualToString:command]){
+        NSString* screenName = pp[2];
+        id data = [DevilUtil queryToJson:url];
+        [Jevil rootScreen:screenName :data];
+        consumed = YES;
+    }
+    return consumed;
+}
+
 -(void)consumeStandardReserveUrl{
     NSString* urls = [self getReserveUrl];
-    BOOL consumed = false;
+    BOOL consumed = NO;
     if(urls) {
-        NSURL* url = [NSURL URLWithString:urls];
-        NSString* path = [url path];
-        id pp = [path componentsSeparatedByString:@"/"];
-        NSString* command = pp[1];
-        if([@"screen" isEqualToString:command]){
-            NSString* screenName = pp[2];
-            id data = [DevilUtil queryToJson:url];
-            [Jevil go:screenName :data];
-            consumed = YES;
-        }
+        consumed = [self standardUrlProcess:urls];
     }
     
     if(consumed)

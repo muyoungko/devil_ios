@@ -54,6 +54,9 @@
     } else if([@"bottom" isEqualToString:show]) {
         self.top = false;
         self.horizontal = false;
+    } else {
+        self.left = true;
+        self.horizontal = true;
     }
     
     self.contentView = contentView;
