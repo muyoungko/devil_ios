@@ -258,7 +258,7 @@ static BOOL IS_TABLET = NO;
 
 
 
-+(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
++(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
 {
     float h = [cloudJson[@"frame"][@"h"] floatValue];
     /**
@@ -350,7 +350,7 @@ static BOOL IS_TABLET = NO;
             if( (containerWidth / w) - col > 0.7f)
                 col ++;
             long row = targetDataJsonLen / col + (targetDataJsonLen % col > 0 ? 1 : 0);
-            h = row * [WildCardUtil mesureHeight:targetLayer data:data];
+            h = row * [WildCardUtil measureHeight:targetLayer data:data];
         } else if([repeatType isEqualToString:REPEAT_TYPE_BOTTOM])
         {
             //TODO margin 계산해야함 첫 셀의 start도 계산해야함
@@ -396,9 +396,9 @@ static BOOL IS_TABLET = NO;
                 NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
                 NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
                 NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter getJsonWithPath:data : targetJsonString];
-                thish = [WildCardUtil mesureHeight:child data:targetDataJson[0]];
+                thish = [WildCardUtil measureHeight:child data:targetDataJson[0]];
             } else
-                thish = [WildCardUtil mesureHeight:child data:data];
+                thish = [WildCardUtil measureHeight:child data:data];
 
             layersByName[name] = arr[i];
             if(child[@"hiddenCondition"] != nil)
@@ -462,7 +462,7 @@ static BOOL IS_TABLET = NO;
              */
             BOOL thisHidden = hiddenByChildName[name] != nil;
             if(thisy + thish > h){
-                //NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
+                NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
                 h = thisy + thish;
             }
             
@@ -473,15 +473,30 @@ static BOOL IS_TABLET = NO;
                 id nextLayer = layersByName[nextName];
                 
                 BOOL nextHidden = hiddenByChildName[nextName] != nil;
-                    
+                /**
+                 
+                 */
+                
                 /**
                  2021/09/23
                  prev(this)와 next사이에 margin만 고려한다
                  prev의 paddingBtttom과 next의 paddingTop은 모든 컨텐츠의 높이가 정해지면, 마지막으로 결정된다 동시에 recursion하게 결정된다
                  margin도 padding과 마찬가지로 마지막에 recursion하게 결정된다
+                 
+                 2021/10/22 next가 hidden이더라도 relative margin은 적용되어야한다. next 체인 A B C에서 B가 hidden이더라도 margin은 hidden여부와 관계 없이 계속 적용되어야한다
+                 if(!nextHidden)을 주석처리함
+                 관련 케이스 https://console.deavil.com/#/block/37844916
+                 
+                 top_desc           vh              311-50
+                 second_desc             10    372-180
+                 desc                   vh    5     558-19
+                 detail_img                 20    hidden 여기서 이게 히든처리되서 20만큼 높이가 덜 나온다
+                 Bottom                     20    623-40
+                 
                  */
                 float vNextToMargin = 0;
-                if(!nextHidden) {
+                //if(!nextHidden)
+                {
                     vNextToMargin = [layersByName[nextName][@"vNextToMargin"] floatValue];
                 }
                 
@@ -492,7 +507,7 @@ static BOOL IS_TABLET = NO;
                  역시 h를 확대해간다
                  */
                 if(nexty + nexth > h) {
-                    //NSLog(@"%@ expended! by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth, nextHidden);
+                    NSLog(@"%@ expended! by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth, nextHidden);
                     h = nexty + nexth;
                 }
                     

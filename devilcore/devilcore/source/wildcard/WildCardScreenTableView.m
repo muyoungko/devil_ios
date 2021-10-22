@@ -142,7 +142,7 @@
     NSString* key = [_list objectAtIndex:[indexPath row]];
     NSMutableDictionary* item = [_listData objectAtIndex:[indexPath row]];
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:key];
-    float height = [WildCardUtil mesureHeight:cj data:item];
+    float height = [WildCardUtil measureHeight:cj data:item];
     
     //NSLog(@"h %d %f", [indexPath row], height);
     return height;

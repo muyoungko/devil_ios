@@ -27,7 +27,7 @@
 +(CGRect)getGlobalFrame:(UIView*)v;
 +(float) convertPixcelToSketch:(float)p;
 +(float) convertSketchToPixel:(float)p;
-+(float) mesureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
++(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
 
 
 @end
