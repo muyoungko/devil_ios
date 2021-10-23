@@ -10,6 +10,9 @@
 
 @import AVKit;
 @import AVFoundation;
+@import SystemConfiguration;
+@import CoreTelephony;
+@import Foundation;
 
 @implementation DevilUtil
 
@@ -213,5 +216,20 @@
         return newImage;
     } else
         return image;
+}
+
++ (BOOL)isWifiConnection {
+    SCNetworkReachabilityFlags  flags = 0;
+    SCNetworkReachabilityRef netReachability;
+    netReachability = SCNetworkReachabilityCreateWithName(CFAllocatorGetDefault(), [@"www.google.com" UTF8String]);
+    if(netReachability)
+    {
+        SCNetworkReachabilityGetFlags(netReachability, &flags);
+        CFRelease(netReachability);
+    }
+    if(flags & kSCNetworkReachabilityFlagsIsWWAN)
+        return NO;
+    else
+        return YES;
 }
 @end

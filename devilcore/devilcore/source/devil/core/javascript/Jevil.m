@@ -771,8 +771,10 @@ BOOL httpOk[10];
     return adapter.selectedIndex;
 }
 
-+ (BOOL)wifiIsOn {
-    return YES;
++ (void)isWifi:(JSValue *)callback {
+    BOOL r = [DevilUtil isWifiConnection];
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[(r?@TRUE:@FALSE)]];
 }
 
 + (void)wifiList:(JSValue *)callback {
@@ -1027,10 +1029,6 @@ BOOL httpOk[10];
     [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
 }
 
-+ (void)isWifi:(JSValue *)callback {
-    [callback callWithArguments:@[@TRUE]];
-}
-
 + (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback{
     [[DevilLocation sharedInstance] getCurrentLocation:^(id  _Nonnull result) {
         [callback callWithArguments:@[ result ]];
@@ -1128,6 +1126,10 @@ BOOL httpOk[10];
     UIImageWriteToSavedPhotosAlbum(snapshotImage,nil,nil,nil);
     
     [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[@{@"r":@TRUE}]];
+}
+
++ (void)androidEscapeDozeModeIf:(NSString*)msg:(NSString*)yes:(NSString*)no{
+    
 }
 
 

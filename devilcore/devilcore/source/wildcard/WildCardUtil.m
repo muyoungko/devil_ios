@@ -462,7 +462,7 @@ static BOOL IS_TABLET = NO;
              */
             BOOL thisHidden = hiddenByChildName[name] != nil;
             if(thisy + thish > h){
-                NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
+                //NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
                 h = thisy + thish;
             }
             
@@ -507,7 +507,7 @@ static BOOL IS_TABLET = NO;
                  역시 h를 확대해간다
                  */
                 if(nexty + nexth > h) {
-                    NSLog(@"%@ expended! by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth, nextHidden);
+                    //NSLog(@"%@ expended! by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth, nextHidden);
                     h = nexty + nexth;
                 }
                     

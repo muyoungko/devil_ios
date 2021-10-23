@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)popupDate:(NSDictionary*)param :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
-+ (BOOL)wifiIsOn;
++ (void)isWifi:(JSValue *)callback;
 + (void)wifiList:(JSValue *)callback;
 + (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback;
 + (void)gallery:(NSDictionary*)param :(JSValue *)callback;
@@ -88,7 +88,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)textChanged:(NSString*)node :(JSValue *)callback;
 + (void)textFocusChanged:(NSString*)node :(JSValue *)callback;
 + (void)videoViewAutoPlay;
-+ (void)isWifi:(JSValue *)callback;
 + (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback;
 + (void)getCurrentPlace:(NSDictionary*)param :(JSValue*)callback;
 + (void)searchPlace:(NSDictionary*)param :(JSValue*)callback;
@@ -106,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)consumeStandardReserveUrl;
 + (void)localPush:(id)param;
 + (void)toJpg:(NSString*)node :(JSValue*)callback;
-
++ (void)androidEscapeDozeModeIf:(NSString*)msg:(NSString*)yes:(NSString*)no;
 @end
 
 @interface Jevil : NSObject <Jevil>

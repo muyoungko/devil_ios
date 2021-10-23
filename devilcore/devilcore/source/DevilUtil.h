@@ -40,6 +40,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(id) queryToJson:(NSURL*)url;
 + (void)clearTmpDirectory;
 + (UIImage *)resizeImageProperly:(UIImage *)image;
++ (BOOL)isWifiConnection;
 
 @end
 

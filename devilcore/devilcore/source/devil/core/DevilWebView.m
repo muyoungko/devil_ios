@@ -53,8 +53,8 @@
     NSString* scheme = navigationAction.request.URL.scheme;
     
     if([navigationAction.request.URL.absoluteString hasPrefix:@"itms-apps"] ||
-       [navigationAction.request.URL.absoluteString hasPrefix:@"https://itunes.apple.com"] ||
-       [navigationAction.request.URL.absoluteString hasPrefix:@"https://www.sktpass.com/applink"]
+       [navigationAction.request.URL.absoluteString hasPrefix:@"https://itunes.apple.com"]
+       //||[navigationAction.request.URL.absoluteString hasPrefix:@"https://www.sktpass.com/applink"]
        ){
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
             
