@@ -22,11 +22,11 @@
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLogin class]];
     NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
     id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
-    if(devilConfig[@"hasKakaoLogin"]){
+    if([devilConfig[@"hasKakaoLogin"] boolValue]){
         [DevilKakaoLogin initKakaoAppKey];
     }
     
-    if(devilConfig[@"hasFacebookLogin"]){
+    if([devilConfig[@"hasFacebookLogin"] boolValue]){
         [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     }
 }
@@ -38,10 +38,10 @@
     NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
     id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
     
-    if(devilConfig[@"hasKakaoLogin"] && [DevilKakaoLogin handleOpenUrl:url])
+    if([devilConfig[@"hasKakaoLogin"] boolValue] && [DevilKakaoLogin handleOpenUrl:url])
         return true;
     
-    if(devilConfig[@"hasFacebookLogin"] &&
+    if([devilConfig[@"hasFacebookLogin"] boolValue] &&
        [[FBSDKApplicationDelegate sharedInstance] application:application
                                                                   openURL:url
                                                         sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
@@ -49,11 +49,11 @@
         return true;
     
     
-    if(devilConfig[@"hasGoogleLogin"] &&
+    if([devilConfig[@"hasGoogleLogin"] boolValue] &&
        [DevilGoogleLogin application:application openURL:url options:options])
         return true;
     
-    if(devilConfig[@"hasNaverLogin"] &&
+    if([devilConfig[@"hasNaverLogin"] boolValue] &&
        [DevilNaverLogin application:application openURL:url options:options])
         return true;
     

@@ -57,7 +57,7 @@
         self.data = self.startData;
     } else
         self.data = [@{} mutableCopy];
-    self.offsetY = self.navigationController.navigationBar.frame.size.height 
+    self.offsetY = 0;//self.navigationController.navigationBar.frame.size.height
         + [UIApplication sharedApplication].statusBarFrame.size.height;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
@@ -285,8 +285,19 @@
 
 - (void)showNavigationBar{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    self.viewHeight = screenHeight - self.offsetY;
+    
+    /**
+     navigationbar truncate true 일경우
+     */
+//    self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
+//    self.viewHeight = screenHeight - self.offsetY;
+    
+    /**
+     navigationbar truncate false 일경우
+     */
+    self.offsetY = 0;;
+    self.viewHeight = screenHeight - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
+    
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;

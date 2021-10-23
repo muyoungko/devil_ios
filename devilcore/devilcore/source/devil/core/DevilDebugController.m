@@ -67,10 +67,11 @@ alpha:1.0]
 
 - (void)showNavigationBar{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    int offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-    int viewHeight = screenHeight - offsetY;
+    [self.navigationController.navigationBar setTranslucent:NO];
+    int offsetY = 0;
+    int viewHeight = screenHeight - self.navigationController.navigationBar.frame.size.height - [UIApplication sharedApplication].statusBarFrame.size.height;
     self.top.frame = CGRectMake(0, offsetY , screenWidth, self.top.frame .size.height);
-    self.tv.frame = CGRectMake(0, offsetY + self.top.frame .size.height, screenWidth, viewHeight - self.top.frame .size.height);
+    self.tv.frame = CGRectMake(0, offsetY + self.top.frame.size.height, screenWidth, viewHeight - self.top.frame .size.height);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

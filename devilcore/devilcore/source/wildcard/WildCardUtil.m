@@ -487,15 +487,21 @@ static BOOL IS_TABLET = NO;
                  if(!nextHidden)을 주석처리함
                  관련 케이스 https://console.deavil.com/#/block/37844916
                  
-                 top_desc           vh              311-50
-                 second_desc             10    372-180
-                 desc                   vh    5     558-19
-                 detail_img                 20    hidden 여기서 이게 히든처리되서 20만큼 높이가 덜 나온다
-                 Bottom                     20    623-40
+                 노드 명     variable height   margin    y,-height
+                 top_desc           vh                            311-50
+                 second_desc                       10         372-180
+                 desc                   vh               5          558-19
+                 detail_img                            20         hidden 여기서 이게 히든처리되서 20만큼 높이가 덜 나온다 -> 2021/10/23, 20만큼 덜 나오는게 맞고, WildCardMeta의 requestLayout를 수정해야한다
+                 Bottom                                 20        623-40
+                 
+                 2021/10/23
+                 https://console.deavil.com/#/block/3356033983
+                 next가 hidden이더라도 relative margin은 적용되어야하는데 이경우는 적용되면 안된다?
+                 if(!nextHidden)의 주석을 다시 품
                  
                  */
                 float vNextToMargin = 0;
-                //if(!nextHidden)
+                if(!nextHidden)
                 {
                     vNextToMargin = [layersByName[nextName][@"vNextToMargin"] floatValue];
                 }

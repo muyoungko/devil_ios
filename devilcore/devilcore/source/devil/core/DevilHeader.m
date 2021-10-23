@@ -48,6 +48,13 @@
         UIColor* bgColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
         [vc.navigationController.navigationBar setBarTintColor:bgColor];
         [vc.navigationController.navigationBar setBackgroundColor:bgColor];
+        [vc.navigationController.navigationBar setAlpha:1.0f];
+        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+        [[UINavigationBar appearance] setAlpha:1.0f];
+        [vc.navigationController.navigationBar setTranslucent:false];
+//        [vc.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+//        [vc.navigationController.navigationBar setOpaque:YES];
+        
     }
     return self;
 }

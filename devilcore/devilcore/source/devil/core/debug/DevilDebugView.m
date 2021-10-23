@@ -35,8 +35,15 @@
         int screenHeight = screenRect.size.height;
         int w = 50;
         
+        /**
+        TODO viewDidApear에서 해더 여부를 판단해야함
+         */
+        int headder_height = 0;
+        if(!vc.navigationController.isNavigationBarHidden)
+            headder_height = vc.navigationController.navigationBar.frame.size.height;
+            
         self.frame = CGRectMake(screenWidth-w-30,
-                                screenHeight-w-100,w,w);
+                                screenHeight-w-100 - headder_height,w,w);
         
         UIImageView* iv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, w)];
         [self addSubview:iv];

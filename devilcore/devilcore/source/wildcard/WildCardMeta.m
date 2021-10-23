@@ -309,18 +309,23 @@
         float fHNextToMargin = nextNode.margin;
         int nextType = nextNode.nextType;
         float newOffset = 0;
+        
         if(nextType == WC_NEXT_TYPE_HORIZONTAL) {
             if (prevView.hidden == YES)
-                newOffset = offsetX + fHNextToMargin;
+                newOffset = offsetX + (nextView.hidden?0:fHNextToMargin);
             else
-                newOffset = offsetX + prevView.frame.size.width + prevView.rightMargin + fHNextToMargin;
+                newOffset = offsetX + prevView.frame.size.width + prevView.rightMargin + (nextView.hidden?0:fHNextToMargin);
         }
         else if(nextType == WC_NEXT_TYPE_VERTICAL) {
             //NSLog(@"%@ %f %f", prevView.name, prevView.frame.size.width, prevView.frame.size.height);
+            /**
+             2021/10/23 fHNextToMargin 적용여부는 preview hidden여부가 아니라 next hidden여부에 따라 적용 여부가 달라져야한다
+             관련 케이스 https://console.deavil.com/#/block/37844916
+            */
             if (prevView.hidden == YES)
-                newOffset = offsetY + fHNextToMargin;
+                newOffset = offsetY + (nextView.hidden?0:fHNextToMargin);
             else
-                newOffset = offsetY + prevView.frame.size.height + prevView.bottomMargin +fHNextToMargin;
+                newOffset = offsetY + prevView.frame.size.height + prevView.bottomMargin + (nextView.hidden?0:fHNextToMargin);
         } else if(nextType == WC_NEXT_TYPE_HORIZONTAL_PREV) {
             if (prevView.hidden == YES)
                 newOffset = offsetX - fHNextToMargin;
