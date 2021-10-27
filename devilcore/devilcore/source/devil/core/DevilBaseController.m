@@ -51,10 +51,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+    self.originalY = self.view.frame.origin.y;
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
@@ -109,7 +118,7 @@
     if(self.devilBlockDialog == nil &&
        editingPoint.y > screenHeight/4)
     {
-        int toUp = screenHeight/4 - editingPoint.y;
+        int toUp = screenHeight/3 - editingPoint.y;
         self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
     }
 }
@@ -121,7 +130,7 @@
         
         [UIView animateWithDuration:0.15f animations:^{
             float viewGap = self.view.frame.origin.y - self.originalY;
-            int toUp = screenHeight - rect.size.height - self.original_footer_height - viewGap;
+            int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
             self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
         }];
     }

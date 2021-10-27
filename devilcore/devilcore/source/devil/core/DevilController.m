@@ -57,8 +57,7 @@
         self.data = self.startData;
     } else
         self.data = [@{} mutableCopy];
-    self.offsetY = 0;//self.navigationController.navigationBar.frame.size.height
-        + [UIApplication sharedApplication].statusBarFrame.size.height;
+    self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     
@@ -104,7 +103,6 @@
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
-        float a = self.navigationController.navigationBar.frame.size.height;
         _header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
         [self hideNavigationBar];
@@ -126,7 +124,7 @@
         
         [WildCardConstructor applyRule:self.footer withData:self.data];
         
-        int footerY = screenHeight - self.footer.frame.size.height - bottomPadding;
+        int footerY = screenHeight - self.footer.frame.size.height - bottomPadding - (_header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
         self.original_footer_height_plus_bottom_padding = self.footer.frame.size.height + bottomPadding;
         self.footer.frame= CGRectMake(0, footerY, self.footer.frame.size.width,
                                       self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음

@@ -12,6 +12,7 @@
 @interface WildCardUtil : NSObject
 
 +(void)setSketchWidth:(float)w;
++(float)headerHeightInPixcelIfHeader:(UIViewController*)vc;
 +(float)headerHeightInPixcel;
 +(float)headerHeightInSketch;
 +(UIColor*) colorWithHexString: (NSString *) hexString;

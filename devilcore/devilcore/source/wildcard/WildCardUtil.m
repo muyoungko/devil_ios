@@ -21,6 +21,13 @@ static BOOL IS_TABLET = NO;
     SKETCH_WIDTH = w;
 }
 
++ (float)headerHeightInPixcelIfHeader:(UIViewController*)vc {
+    if(vc.navigationController.isNavigationBarHidden)
+        return 0;
+    else
+        return [self headerHeightInPixcel];
+}
+
 + (float)headerHeightInPixcel {
     float r = 0;
     CGFloat topPadding = 0;
