@@ -38,17 +38,17 @@
     }
     
     
-//    if(url == nil){
-//        [(UIImageView*)self.replaceView setImage:nil];
-//        [(UIImageView*)self.replaceView setNeedsDisplay];
-//        return;
-//    }
+    if(url == nil){
+        [(UIImageView*)self.replaceView setImage:nil];
+        [(UIImageView*)self.replaceView setNeedsDisplay];
+        return;
+    }
     
     if([url isEqualToString:self.currentUrl])
         return;
     
-//    [(UIImageView*)self.replaceView setImage:nil];
-//    [(UIImageView*)self.replaceView setNeedsDisplay];
+    [(UIImageView*)self.replaceView setImage:nil];
+    [(UIImageView*)self.replaceView setNeedsDisplay];
     self.replaceView.layer.cornerRadius = self.replaceView.superview.layer.cornerRadius;
     
     if([url hasPrefix:@"/"]) {

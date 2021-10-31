@@ -374,11 +374,15 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         networkImageView.layer.cornerRadius = f.layer.cornerRadius;
         f.layer.borderWidth = 0;
 
-        [nv setImage:image];
-//        [nv setAlpha:0];
-//        [UIView animateWithDuration:0.3 animations:^{
-//            [nv setAlpha:1.0];
-//        }];
+        if(nv.image == nil) {
+            [nv setImage:image];
+            [nv setAlpha:0];
+            [UIView animateWithDuration:0.3 animations:^{
+                [nv setAlpha:1.0];
+            }];
+        } else
+            [nv setImage:image];
+        
     } failure:nil];
 }
 

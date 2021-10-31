@@ -37,4 +37,8 @@
         [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:self.reservedAni];
 }
 
+- (void)reloadData{
+    [super reloadData];
+    
+}
 @end
