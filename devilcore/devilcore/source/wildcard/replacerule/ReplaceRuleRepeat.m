@@ -250,6 +250,7 @@
         adapter.depth = depth;
         adapter.clipToPadding = clipToPadding;
         self.adapterForRetain = adapter;
+        adapter.collectionView = container;
         container.delegate = adapter;
         container.dataSource = adapter;
         
@@ -401,8 +402,11 @@
                || targetDataJson[i][WC_INDEX] != nil)
                 break;
         }
-        targetDataJson[i][WC_INDEX] = [NSString stringWithFormat:@"%d", i];
-        targetDataJson[i][WC_LENGTH] = [NSString stringWithFormat:@"%lu", [targetDataJson count]];
+        /**
+         2021.11.1 collectionView의 조건부 reload를 하기 위해 data를 비교한다. 거기서 WC_INDEX와 같은것을 제외하기 위해 아예 데이터 변조를 하지 않도록한다
+         */
+//        targetDataJson[i][WC_INDEX] = [NSString stringWithFormat:@"%d", i];
+//        targetDataJson[i][WC_LENGTH] = [NSString stringWithFormat:@"%lu", [targetDataJson count]];
     }
     
     
@@ -572,7 +576,9 @@
             return @"2";
         };
         
-        [cv reloadData];
+        
+        if([adapter shouldReload])
+            [cv reloadData];
     } else if([REPEAT_TYPE_TAG isEqualToString:repeatType]) {
         int i;
         float offsetX = self.tagOffsetX;

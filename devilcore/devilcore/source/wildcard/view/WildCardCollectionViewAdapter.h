@@ -34,6 +34,7 @@ typedef void (^ ViewPagerSelected)(int);
 @property (nonatomic, retain) UIPageControl* pageControl;
 
 @property (nonatomic, retain) NSMutableDictionary* cachedViewByType;
+@property (nonatomic, retain) NSMutableDictionary* visibleDataByIndexPath;
 @property (nonatomic, retain) NSString* repeatType;
 
 @property void (^lastItemCallback)(id res);
@@ -46,6 +47,7 @@ typedef void (^ ViewPagerSelected)(int);
 -(int)getIndex;
 -(int)getCount;
 -(void)scrollToIndex:(int)index view:(UICollectionView*)c;
+-(BOOL)shouldReload;
 
 @property (nonatomic, retain) WildCardMeta* meta;
 @property int depth;

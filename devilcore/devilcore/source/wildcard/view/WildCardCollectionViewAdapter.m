@@ -17,6 +17,8 @@
 
 @property (nonatomic, retain) WildCardUICollectionView* c;
 @property (nonatomic, retain) NSTimer *timer;
+@property int lastDataCount;
+
 @end
 
 @implementation WildCardCollectionViewAdapter
@@ -27,6 +29,8 @@
     self = [super init];
     if (self) {
         self.cachedViewByType = [[NSMutableDictionary alloc] init];
+        self.visibleDataByIndexPath = [[NSMutableDictionary alloc] init];
+        self.lastDataCount = 0;
         viewPagerSelectedIndex = 0;
         _pageControl = nil;
         _selectedIndex = 0;
@@ -91,7 +95,7 @@
     //뷰페이저
     float start = self.viewPagerStartPaddingX;
     float contentWidth = self.viewPagerContentWidth;
-    if(self.collectionView){
+    if(self.collectionView && [self.repeatType isEqualToString:REPEAT_TYPE_VIEWPAGER]){
         targetContentOffset->x = scrollView.contentOffset.x;
         int newIndex = _selectedIndex;
         if(velocity.x > 0.5 || velocity.x < -0.5){
@@ -364,6 +368,11 @@
             self.lastItemCallback(nil);
         }
         
+        if(indexPath.section == 0) {
+            self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = [NSString stringWithFormat:@"%@", self.data[indexPath.row]];
+            self.lastDataCount = [self.data count];
+        }
+        
         return cell;
     } else {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FOOTER" forIndexPath:indexPath];
@@ -371,6 +380,40 @@
     }
 }
 
+- (BOOL)shouldReload {
+    id index_path_list = [self.collectionView indexPathsForVisibleItems];
+    BOOL allVisibleSame = [index_path_list count] > 0 ? YES : NO;
+    for(NSIndexPath* index in index_path_list) {
+        if(index.section > 0)
+            continue;
+        
+        if(index.row < [self.data count]) {
+            NSNumber* key = [NSNumber numberWithInt:(int)index.row];
+            id already = self.visibleDataByIndexPath[key];
+            if(!already) {
+                allVisibleSame = NO;
+                break;
+            }
+            
+            NSString* a = [NSString stringWithFormat:@"%@", already];
+            NSString* b = [NSString stringWithFormat:@"%@", self.data[(int)index.row]];
+            if(![a isEqualToString:b]) {
+                allVisibleSame = NO;
+                break;
+            }
+        } else {
+            allVisibleSame = NO;
+            break;
+        }
+    }
+    
+    BOOL r = allVisibleSame?NO : YES;
+    
+    if(self.lastDataCount != [self.data count])
+        r = YES;
+    
+    return r;
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     if(self.draggedCallback != nil) {
