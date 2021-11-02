@@ -192,6 +192,15 @@
             if(now - self.lastMoveTime < 1)
                 return;
             
+            CMTime currentPosition = self.player.currentItem.currentTime;
+            int currentPositionSec = (int)(currentPosition.value / currentPosition.timescale);
+            
+            CMTime duration = self.player.currentItem.duration;
+            int durationSec = (int)(duration.value / duration.timescale);
+            
+            self.currentInfo[@"currentPosition"] = [NSNumber numberWithInt:currentPositionSec];
+            self.currentInfo[@"duration"] = [NSNumber numberWithInt:durationSec];
+            
             float totalSeconds = (Float64)(time.value) / (Float64)(time.timescale);
             CMTime du = self.player.currentItem.duration;
             if(self.callback != nil)
