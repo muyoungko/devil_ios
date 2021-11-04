@@ -1158,6 +1158,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self uiRecord];
+                self.video = YES;
             });
         }
     });
@@ -1166,6 +1167,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 - (void)onClickPicture:(id)sender
 {
     [self uiPicture];
+    self.video = NO;
     dispatch_async(self.sessionQueue, ^{
         /*
          Remove the AVCaptureMovieFileOutput from the session because Live Photo
