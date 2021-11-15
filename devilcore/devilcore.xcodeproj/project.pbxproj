@@ -18,6 +18,8 @@
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */; };
+		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
+		6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */; };
 		6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */; };
 		6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */; };
@@ -235,6 +237,8 @@
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
 		6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardScriptAction.m; sourceTree = "<group>"; };
+		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
+		6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIPageControl.m; sourceTree = "<group>"; };
 		6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBlockDialog.h; sourceTree = "<group>"; };
 		6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBlockDialog.m; sourceTree = "<group>"; };
 		6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDebugController.h; sourceTree = "<group>"; };
@@ -687,6 +691,8 @@
 				6D9F7B1626298930003A70EC /* WildCardVideoView.m */,
 				6D9F7B1A26298952003A70EC /* WildCardProgressBar.h */,
 				6D9F7B1B26298952003A70EC /* WildCardProgressBar.m */,
+				6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */,
+				6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -938,6 +944,7 @@
 				6D467A87256AB07A006D57DD /* WildCardLayoutPathUnit.h in Headers */,
 				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
 				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
+				6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */,
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
 				6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */,
@@ -1158,6 +1165,7 @@
 				6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */,
 				6D9F7AB92622EA57003A70EC /* DevilCamera.m in Sources */,
 				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
+				6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */,
 				6D3EBE7C25D9123F0006ADD5 /* ReplaceRuleIcon.m in Sources */,
 				6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,

@@ -16,6 +16,7 @@
 #import "WildCardUITapGestureRecognizer.h"
 #import "WildCardUITextField.h"
 #import "WildCardUITextView.h"
+#import "WildCardUIPageControl.h"
 #import "JevilInstance.h"
 #import "JevilCtx.h"
 
@@ -90,8 +91,7 @@
             NSString* inactiveCircleInnerColor = extension[@"select7"];
             NSString* inactiveCircleBorderColor = extension[@"select8"];
             
-            
-            UIPageControl* pc = [[UIPageControl alloc] initWithFrame:CGRectMake(0, 0, extensionContainer.frame.size.width, extensionContainer.frame.size.height)];
+            WildCardUIPageControl* pc = [[WildCardUIPageControl alloc] initWithFrame:CGRectMake(0, 0, extensionContainer.frame.size.width, extensionContainer.frame.size.height)];
             if(inactiveCircleBorderColor)
                 pc.pageIndicatorTintColor = [WildCardUtil colorWithHexString:inactiveCircleBorderColor];
             else
@@ -101,7 +101,10 @@
                 pc.currentPageIndicatorTintColor = [WildCardUtil colorWithHexString:activeCircleColor];
             else
                 pc.pageIndicatorTintColor = [UIColor grayColor];
-
+            pc.meta = meta;
+            pc.viewPagerNodeName = viewPagerNodeName;
+            [pc addTarget:[WildCardConstructor sharedInstance] action:@selector(onExtensionPageControlClickListener:) forControlEvents:UIControlEventValueChanged];
+            
             return pc;
             break;
         }

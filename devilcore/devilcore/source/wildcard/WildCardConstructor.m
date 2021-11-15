@@ -41,6 +41,8 @@
 #import "WildCardPagerTabStripMaker.h"
 #import "Lottie/Lottie.h"
 #import "WildCardUITextView.h"
+#import "WildCardUIPageControl.h"
+#import "WildCardUICollectionView.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -326,6 +328,14 @@ static NSString *default_project_id = nil;
         return nil;
 }
 
+-(void)onExtensionPageControlClickListener:(id)sender {
+    WildCardUIPageControl* pc = (WildCardUIPageControl*)sender;
+    UIView* v = [pc.meta getView:pc.viewPagerNodeName];
+    WildCardUICollectionView* c = (WildCardUICollectionView*)[v subviews][0];
+    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)c.delegate;
+    [adapter scrollToIndex:(int)pc.currentPage view:c];
+}
+
 -(void)onExtensionCheckBoxClickListener:(WildCardUITapGestureRecognizer *)recognizer
 {
     WildCardMeta* meta = recognizer.meta;
@@ -376,6 +386,7 @@ static NSString *default_project_id = nil;
     if(t[WILDCARD_NODE_CLICKED] != nil)
         [t[WILDCARD_NODE_CLICKED] doAllAction];
 }
+
 -(void)onClickListener:(WildCardUITapGestureRecognizer *)recognizer
 {
     WildCardUIView* vv = (WildCardUIView*)recognizer.view;
