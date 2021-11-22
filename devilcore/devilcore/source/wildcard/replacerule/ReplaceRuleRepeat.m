@@ -294,6 +294,7 @@
          2021/10/22 markx 커리큘럼 참고
          https://console.deavil.com/#/screen/37844913
          
+                
          */
         float autoPaddingAdjust = 0;
         BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
@@ -303,7 +304,15 @@
             CGFloat bottomPadding = 0;
             if (@available(iOS 11.0, *)) {
                 UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
-                autoPaddingAdjust = -window.safeAreaInsets.top;
+                
+                /**
+                 2021/11/22
+                 https://console.deavil.com/#/block/56547552
+                 상위로 너무 붙어서 /2 를 붙였다
+                 로파이 소식 화면 보면 이걸 피하기위해 리스트를 약간 띄워놨는데(y값11)
+                 너무 붙거나 너무 떨어지거나 한다
+                 */
+                autoPaddingAdjust = -window.safeAreaInsets.top/2;
             }
         }
         container.contentInset = UIEdgeInsetsMake(minTop + autoPaddingAdjust, minLeft, 0, 0);
