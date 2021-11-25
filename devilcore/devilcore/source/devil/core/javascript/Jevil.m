@@ -804,7 +804,15 @@ BOOL httpOk[10];
 }
 
 + (void)gallery:(NSDictionary*)param :(JSValue *)callback {
-    [DevilCamera getGelleryList:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+    [DevilCamera gallery:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+}
+
+
++ (void)galleryList:(NSDictionary*)param :(JSValue *)callback {
+    [DevilCamera galleryList:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
         [[JevilInstance currentInstance] syncData];
     }];

@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)wifiList:(JSValue *)callback;
 + (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback;
 + (void)gallery:(NSDictionary*)param :(JSValue *)callback;
++ (void)galleryList:(NSDictionary*)param :(JSValue *)callback;
 + (void)camera:(NSDictionary*)param :(JSValue *)callback;
 + (void)cameraQr:(NSDictionary*)param :(JSValue *)callback;
 + (void)share:(NSString*)url;

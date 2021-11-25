@@ -126,6 +126,13 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D530D05274B539E006EDD58 /* DevilGalleryController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D530D06274B539E006EDD58 /* DevilGalleryController.m */; };
+		6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */; };
+		6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */; };
+		6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */; };
+		6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */; };
+		6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */; };
 		6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */; };
 		6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */; };
 		6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267725A89AD400600978 /* DevilSelectDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -346,6 +353,13 @@
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
 		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
+		6D530D05274B539E006EDD58 /* DevilGalleryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGalleryController.h; sourceTree = "<group>"; };
+		6D530D06274B539E006EDD58 /* DevilGalleryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGalleryController.m; sourceTree = "<group>"; };
+		6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevilGalleryController.xib; sourceTree = "<group>"; };
+		6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_icon@3x.png"; sourceTree = "<group>"; };
+		6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_cancel@3x.png"; sourceTree = "<group>"; };
+		6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox_on@3x.png"; sourceTree = "<group>"; };
+		6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox@3x.png"; sourceTree = "<group>"; };
 		6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDateTimePopup.h; sourceTree = "<group>"; };
 		6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDateTimePopup.m; sourceTree = "<group>"; };
 		6D7E267725A89AD400600978 /* DevilSelectDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSelectDialog.h; sourceTree = "<group>"; };
@@ -472,6 +486,10 @@
 			children = (
 				6DD0987626A6AAEF000A913A /* devil_camera_record.wav */,
 				6D8A40EA2674B77E006999FC /* play_pause.json */,
+				6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */,
+				6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */,
+				6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */,
+				6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */,
 				6D9F7A9C2622E93C003A70EC /* devil_camera_cancel@3x.png */,
 				6D9F7AA32622E93C003A70EC /* devil_camera_complete@3x.png */,
 				6D9F7A9D2622E93C003A70EC /* devil_camera_flash@3x.png */,
@@ -484,6 +502,7 @@
 				6D9F7AA22622E93C003A70EC /* devil_camera_video@3x.png */,
 				6D0224A026131F6500634842 /* devil_icon.png */,
 				6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */,
+				6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */,
 			);
 			path = resource;
 			sourceTree = "<group>";
@@ -850,6 +869,8 @@
 				6D9F7ACB26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m */,
 				6DF5778E26D00C1D009D41A1 /* DevilQrCameraController.h */,
 				6DF5778F26D00C1D009D41A1 /* DevilQrCameraController.m */,
+				6D530D05274B539E006EDD58 /* DevilGalleryController.h */,
+				6D530D06274B539E006EDD58 /* DevilGalleryController.m */,
 			);
 			path = camera;
 			sourceTree = "<group>";
@@ -897,6 +918,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
 				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
 				6DD09437269C79E8000A913A /* MarketComponent.h in Headers */,
 				6DC162452691711000FD769C /* DevilNavigationController.h in Headers */,
@@ -1062,6 +1084,7 @@
 				6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */,
 				6D9F7AAA2622E93C003A70EC /* devil_camera_picture@3x.png in Resources */,
 				6D9F7AA72622E93C003A70EC /* devil_camera_flash@3x.png in Resources */,
+				6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */,
 				6D9F7AAB2622E93C003A70EC /* devil_camera_record_start@3x.png in Resources */,
 				6D9F7AAE2622E93C003A70EC /* devil_camera_shutter@3x.png in Resources */,
 				6D9F7AAC2622E93C003A70EC /* devil_camera_video@3x.png in Resources */,
@@ -1070,8 +1093,12 @@
 				6D4679A6256A4980006D57DD /* LICENSE in Resources */,
 				6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */,
 				6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */,
+				6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */,
+				6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */,
 				6D9F7AA82622E93C003A70EC /* devil_camera_recording@3x.png in Resources */,
 				6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */,
+				6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */,
+				6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
 			);
@@ -1168,6 +1195,7 @@
 				6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */,
 				6D3EBE7C25D9123F0006ADD5 /* ReplaceRuleIcon.m in Sources */,
 				6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */,
+				6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
 				6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */,
 				6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */,

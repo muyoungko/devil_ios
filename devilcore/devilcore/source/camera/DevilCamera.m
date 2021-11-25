@@ -7,6 +7,7 @@
 
 #import "DevilCamera.h"
 #import "DevilCameraController.h"
+#import "DevilGalleryController.h"
 #import "DevilUtil.h"
 #import "DevilQrCameraController.h"
 
@@ -76,23 +77,51 @@
     }
 }
 
-+(void)getGelleryList:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
++(void)galleryList:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     [DevilCamera requestCameraPermission:^(BOOL granted) {
         if(granted) {
-            PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+            
+            BOOL hasPicture = param && param[@"hasPicture"] ? [param[@"hasPicture"] boolValue] : NO;
+            BOOL hasVideo = param && param[@"hasVideo"] ? [param[@"hasVideo"] boolValue] : NO;
+            
             id r = [@[] mutableCopy];
             int end = 1000;
-            [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                [r addObject:[@{
-                    @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier]
-                } mutableCopy]];
-                if(idx < end)
-                    *stop = false;
-                else
-                    *stop = true;
-            }];
             
-            [self reverse:r];
+            if(hasPicture) {
+                PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+                [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [r addObject:[@{
+                        @"id":[NSNumber numberWithInt:(int)idx],
+                        @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
+                        @"image":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
+                        @"type":@"image",
+                    } mutableCopy]];
+                    if(idx < end)
+                        *stop = false;
+                    else
+                        *stop = true;
+                }];
+            }
+            
+            if(hasVideo) {
+                PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:nil];
+                [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    [r addObject:[@{
+                        @"id":[NSNumber numberWithInt:(int)idx],
+                        @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
+                        @"video":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
+                        @"type":@"video",
+                    } mutableCopy]];
+                    if(idx < end)
+                        *stop = false;
+                    else
+                        *stop = true;
+                }];
+            }
+            
+            r = [r sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
+                return [b[@"id"] intValue] - [a[@"id"] intValue];
+            }];
             
             callback([@{@"r":@TRUE, @"list":r} mutableCopy]);
         } else {
@@ -164,6 +193,30 @@
 + (void)goCamera:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback {
     dispatch_async(dispatch_get_main_queue(), ^{
         DevilCameraController* dc = [[DevilCameraController alloc] init];
+        DevilCamera *c = [[DevilCamera alloc] init];
+        dc.param = param;
+        c.callback = callback;
+        dc.delegate = c;
+        
+        [vc.navigationController pushViewController:dc animated:YES];
+    });
+}
+
+
++(void)gallery:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
+    
+    [DevilCamera requestCameraPermission:^(BOOL granted) {
+        if(granted) {
+            [DevilCamera goGallery:vc param:param callback:callback];
+        } else {
+            callback(nil);
+        }
+    }];
+}
+
++ (void)goGallery:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        DevilGalleryController* dc = [[DevilGalleryController alloc] init];
         DevilCamera *c = [[DevilCamera alloc] init];
         dc.param = param;
         c.callback = callback;
