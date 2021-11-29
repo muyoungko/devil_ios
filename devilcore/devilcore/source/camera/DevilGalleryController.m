@@ -126,8 +126,8 @@
                 id r = [@{} mutableCopy];
                 r[@"r"] = @TRUE;
                 r[@"list"] = self.selected;
-                [self.delegate completeCapture:self result:r];
                 [self.navigationController popViewControllerAnimated:YES];
+                [self.delegate completeCapture:self result:r];
             }
         }
     };
@@ -289,6 +289,10 @@
             }
         }
     } else { //체크
+        if(self.max < [self.selected count]+1) {
+            [self alert:[NSString stringWithFormat:@"%d개 이하로 선택해주세요", self.max]];
+            return;
+        }
         o[@"selected"] = @"Y";
         [self.selected addObject:o];
     }

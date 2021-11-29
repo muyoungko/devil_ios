@@ -382,11 +382,14 @@
 
 - (BOOL)shouldReload {
     id index_path_list = [self.collectionView indexPathsForVisibleItems];
+    
     BOOL allVisibleSame = [index_path_list count] > 0 ? YES : NO;
+    BOOL atLeastOneCompared = NO;
     for(NSIndexPath* index in index_path_list) {
         if(index.section > 0)
             continue;
         
+        atLeastOneCompared = YES;
         if(index.row < [self.data count]) {
             NSNumber* key = [NSNumber numberWithInt:(int)index.row];
             id already = self.visibleDataByIndexPath[key];
@@ -407,7 +410,7 @@
         }
     }
     
-    BOOL r = allVisibleSame?NO : YES;
+    BOOL r = allVisibleSame && atLeastOneCompared ? NO : YES;
     
     if(self.lastDataCount != [self.data count])
         r = YES;

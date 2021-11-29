@@ -19,6 +19,7 @@
 #import "WildCardUICollectionView.h"
 #import "WildCardVideoView.h"
 #import "JevilInstance.h"
+#import "DevilController.h"
 
 @interface ReplaceRuleRepeat()
 @property int tagOffsetX;
@@ -297,7 +298,11 @@
                 
          */
         float autoPaddingAdjust = 0;
-        BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
+        DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+        
+        BOOL noHeader = [[WildCardConstructor sharedInstance] getHeaderCloudJson:dc.screenId] == nil;
+        
+        //BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
         CGRect vvGlobalFrame = [WildCardUtil getGlobalFrame:vv];
         if(noHeader && vvGlobalFrame.origin.y == 0 && [REPEAT_TYPE_VLIST isEqualToString:repeatType]) {
             CGFloat topPadding = 0;
@@ -311,8 +316,10 @@
                  상위로 너무 붙어서 /2 를 붙였다
                  로파이 소식 화면 보면 이걸 피하기위해 리스트를 약간 띄워놨는데(y값11)
                  너무 붙거나 너무 떨어지거나 한다
+                 
+                 2021/11/28 사이드 이펙 나서 다시 없앰
                  */
-                autoPaddingAdjust = -window.safeAreaInsets.top/2;
+                autoPaddingAdjust = -window.safeAreaInsets.top;
             }
         }
         container.contentInset = UIEdgeInsetsMake(minTop + autoPaddingAdjust, minLeft, 0, 0);
