@@ -298,11 +298,12 @@
                 
          */
         float autoPaddingAdjust = 0;
-        DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+        BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
+        if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]]){
+            DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+            noHeader = [[WildCardConstructor sharedInstance] getHeaderCloudJson:dc.screenId] == nil;
+        }
         
-        BOOL noHeader = [[WildCardConstructor sharedInstance] getHeaderCloudJson:dc.screenId] == nil;
-        
-        //BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
         CGRect vvGlobalFrame = [WildCardUtil getGlobalFrame:vv];
         if(noHeader && vvGlobalFrame.origin.y == 0 && [REPEAT_TYPE_VLIST isEqualToString:repeatType]) {
             CGFloat topPadding = 0;
