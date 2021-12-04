@@ -20,6 +20,9 @@
 		6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */; };
 		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
 		6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */; };
+		6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3DD349275B778000707521 /* DevilPlayerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D3DD34C275B778000707521 /* DevilPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3DD34A275B778000707521 /* DevilPlayerController.m */; };
+		6D3DD34E275B93C600707521 /* devil_camera_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D3DD34D275B93C600707521 /* devil_camera_close@3x.png */; };
 		6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */; };
 		6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */; };
@@ -246,6 +249,9 @@
 		6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardScriptAction.m; sourceTree = "<group>"; };
 		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
 		6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIPageControl.m; sourceTree = "<group>"; };
+		6D3DD349275B778000707521 /* DevilPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPlayerController.h; sourceTree = "<group>"; };
+		6D3DD34A275B778000707521 /* DevilPlayerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPlayerController.m; sourceTree = "<group>"; };
+		6D3DD34D275B93C600707521 /* devil_camera_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_close@3x.png"; sourceTree = "<group>"; };
 		6D3EB57025C70B6C0006ADD5 /* DevilBlockDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBlockDialog.h; sourceTree = "<group>"; };
 		6D3EB57125C70B6C0006ADD5 /* DevilBlockDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBlockDialog.m; sourceTree = "<group>"; };
 		6D3EBCBE25CAACAC0006ADD5 /* DevilDebugController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDebugController.h; sourceTree = "<group>"; };
@@ -484,6 +490,7 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6D3DD34D275B93C600707521 /* devil_camera_close@3x.png */,
 				6DD0987626A6AAEF000A913A /* devil_camera_record.wav */,
 				6D8A40EA2674B77E006999FC /* play_pause.json */,
 				6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */,
@@ -871,6 +878,8 @@
 				6DF5778F26D00C1D009D41A1 /* DevilQrCameraController.m */,
 				6D530D05274B539E006EDD58 /* DevilGalleryController.h */,
 				6D530D06274B539E006EDD58 /* DevilGalleryController.m */,
+				6D3DD349275B778000707521 /* DevilPlayerController.h */,
+				6D3DD34A275B778000707521 /* DevilPlayerController.m */,
 			);
 			path = camera;
 			sourceTree = "<group>";
@@ -918,6 +927,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */,
 				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
 				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
 				6DD09437269C79E8000A913A /* MarketComponent.h in Headers */,
@@ -1101,6 +1111,7 @@
 				6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
+				6D3DD34E275B93C600707521 /* devil_camera_close@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1180,6 +1191,7 @@
 				6D9F7B112629658F003A70EC /* PECropView.m in Sources */,
 				6D9F7C8926396318003A70EC /* DevilToast.m in Sources */,
 				6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */,
+				6D3DD34C275B778000707521 /* DevilPlayerController.m in Sources */,
 				6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */,
 				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,
 				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,

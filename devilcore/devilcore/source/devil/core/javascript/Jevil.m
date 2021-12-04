@@ -36,6 +36,7 @@
 #import "WildCardUICollectionView.h"
 #import "DevilSdk.h"
 #import "DevilAlertDialog.h"
+#import "DevilPlayerController.h"
 
 @interface Jevil()
 
@@ -1140,5 +1141,12 @@ BOOL httpOk[10];
     
 }
 
+
++ (void)video:(NSDictionary*)param{
+    DevilPlayerController* d = [[DevilPlayerController alloc] init];
+    d.param = param;
+    //[[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
+    [[JevilInstance currentInstance].vc.navigationController presentModalViewController:d animated:YES];
+}
 
 @end

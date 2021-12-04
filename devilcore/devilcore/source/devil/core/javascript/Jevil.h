@@ -107,6 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)localPush:(id)param;
 + (void)toJpg:(NSString*)node :(JSValue*)callback;
 + (void)androidEscapeDozeModeIf:(NSString*)msg:(NSString*)yes:(NSString*)no;
++ (void)video:(NSDictionary*)param;
 @end
 
 @interface Jevil : NSObject <Jevil>

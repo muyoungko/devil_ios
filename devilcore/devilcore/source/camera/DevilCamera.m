@@ -78,7 +78,7 @@
 }
 
 +(void)galleryList:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
-    [DevilCamera requestCameraPermission:^(BOOL granted) {
+    [DevilCamera requestGalleryPermission:^(BOOL granted) {
         if(granted) {
             
             BOOL hasPicture = param && param[@"hasPicture"] ? [param[@"hasPicture"] boolValue] : NO;
@@ -243,7 +243,9 @@
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
     switch (authStatus) {
         case AVAuthorizationStatusAuthorized: { // camera authorized
-            callback(true);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(true);
+            });
         }
             break;
         case AVAuthorizationStatusRestricted:
@@ -262,4 +264,25 @@
     }
 }
 
++ (void)requestGalleryPermission:(void (^)(BOOL granted))callback {
+    
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        switch (status) {
+            case PHAuthorizationStatusAuthorized: {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    callback(true);
+                });
+                break;
+            }
+            case PHAuthorizationStatusDenied:
+            case PHAuthorizationStatusNotDetermined:
+            case PHAuthorizationStatusRestricted: {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    callback(false);
+                });
+                break;
+            }
+        }
+    }];
+}
 @end

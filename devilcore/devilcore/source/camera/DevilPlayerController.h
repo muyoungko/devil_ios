@@ -5,11 +5,14 @@
 //  Created by Mu Young Ko on 2021/12/04.
 //
 
-#import <Foundation/Foundation.h>
+#import <devilcore/devilcore.h>
+@import UIKit;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilPlayerController : NSObject
+@interface DevilPlayerController : DevilBaseController
+
+@property (nonatomic, retain) id param;
 
 @end
 
