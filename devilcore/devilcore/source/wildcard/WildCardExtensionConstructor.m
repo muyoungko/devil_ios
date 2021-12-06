@@ -19,6 +19,7 @@
 #import "WildCardUIPageControl.h"
 #import "JevilInstance.h"
 #import "JevilCtx.h"
+#import "WildCardProgressBar.h"
 
 @implementation WildCardExtensionConstructor
 
@@ -184,63 +185,35 @@
             __block NSString* watch = extension[@"select4"];
             NSString* cap = extension[@"select5"];
             WildCardUIView* barBg = (WildCardUIView*)[meta getView:barBgNodeName];
+            __block BOOL dragable = [@"Y" isEqualToString:extension[@"select6"]];
+            __block BOOL vertical = [@"Y" isEqualToString:extension[@"select8"]];
             
-            if(rule.constructed && barBg.moving) {
+            if(!rule.constructed) {
+                rule.constructed = YES;
+                
+                WildCardProgressBar* barController = [[WildCardProgressBar alloc] init];
+                meta.forRetain[@"progress_key"] = barController;
+                barController.dragable = dragable;
+                barController.vertical = vertical;
+                barController.meta = meta;
+                barController.progressGroup = (WildCardUIView*)[barBg superview];
+                if(cap)
+                    barController.cap = (WildCardUIView*)[meta getView:cap];
+                barController.bar = (WildCardUIView*)rule.replaceView;
+                barController.bar_bg = barBg;
+                barController.watch = watch;
+                barController.dragUpScript = extension[@"select7"];
+                barController.moveScript = extension[@"select9"];
+                [barController construct];
+            }
+            
+            WildCardProgressBar* barController = meta.forRetain[@"progress_key"];
+             
+            if(rule.constructed && barController.moving) {
                 return;
             }
             
-            int rate  = [meta.correspondData[watch] intValue];
-            __block float barBgWidth = barBg.frame.size.width;
-            float newBarWidth = barBgWidth*rate/100.0f;
-            rule.replaceView.frame = CGRectMake(rule.replaceView.frame.origin.x, rule.replaceView.frame.origin.y,
-                                                newBarWidth, rule.replaceView.frame.size.height);
-            if(cap) {
-                UIView* capView = [meta getView:cap];
-                capView.center = CGPointMake(barBg.frame.origin.x +
-                                             barBgWidth*rate/100.0f, capView.center.y);
-            }
-            
-            NSString* dragable = extension[@"select6"];
-            if([@"Y" isEqualToString:dragable] && !rule.constructed) {
-                rule.constructed = YES;
-                barBg.moving = NO;
-                barBg.userInteractionEnabled = YES;
-                [WildCardConstructor userInteractionEnableToParentPath:barBg depth:5];
-                [barBg addTouchCallback:^(int action, CGPoint p) {
-                    if(action == TOUCH_ACTION_DOWN) {
-                        barBg.startX = p.x;
-                        barBg.startY = p.y;
-                        barBg.startObjectX = rule.replaceView.frame.size.width;
-                        barBg.startObjectY = 0;
-                        barBg.moving = YES;
-                    } else if(action == TOUCH_ACTION_MOVE) {
-                        float newBarWidth = barBg.startObjectX-(barBg.startX-p.x);
-                        if(newBarWidth < 0)
-                            newBarWidth = 0;
-                        if(newBarWidth > barBgWidth)
-                            newBarWidth = barBgWidth;
-                        
-                        rule.replaceView.frame = CGRectMake(rule.replaceView.frame.origin.x, rule.replaceView.frame.origin.y,
-                                                            newBarWidth, rule.replaceView.frame.size.height);
-                        float rate = newBarWidth / barBgWidth;
-                        if(cap) {
-                            UIView* capView = [meta getView:cap];
-                            capView.center = CGPointMake(barBg.frame.origin.x +
-                                                         newBarWidth, capView.center.y);
-                        }
-                        
-                        //NSLog(@"barBg.startObjectX %f", barBg.startObjectX);
-                        //NSLog(@"newBarWidth - %f" , newBarWidth);
-                        
-                        meta.correspondData[watch] = [NSNumber numberWithInt:(int)(rate * 100)];
-                    } else if(action == TOUCH_ACTION_UP || action == TOUCH_ACTION_CANCEL) {
-                        NSString* script = extension[@"select7"];
-                        JevilCtx* jevil = [JevilInstance currentInstance].jevil;
-                        barBg.moving = NO;
-                        [jevil code:script viewController:[JevilInstance currentInstance].vc data:meta.correspondData meta:meta];
-                    }
-                }];
-            }
+            [barController update];
             
             break;
         }

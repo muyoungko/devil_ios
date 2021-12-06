@@ -29,6 +29,7 @@
         self.layoutPath = nil;
         self.gravityNodes = nil;
         self.parentMeta = nil;
+        self.forRetain = [[NSMutableDictionary alloc] init];
     }
     return self;
 }

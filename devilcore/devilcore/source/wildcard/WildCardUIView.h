@@ -52,11 +52,6 @@
 @property float paddingTop;
 @property float paddingBottom;
 
-@property float startX;
-@property float startY;
-@property float startObjectX;
-@property float startObjectY;
-@property BOOL moving;
 
 @property BOOL cornerRadiusHalf;
 

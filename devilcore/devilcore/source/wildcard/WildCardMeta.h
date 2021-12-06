@@ -52,6 +52,8 @@
 
 @property (nonatomic, weak, nullable) id <WildCardConstructorInstanceDelegate> wildCardConstructorInstanceDelegate;
 
+@property (nonatomic, retain) NSMutableDictionary* forRetain;
+
 -(void)addNextChain:(UIView*)prevView next:(UIView*)nextView margin:(int)margin nextType:(int)nextType depth:(int)depth;
 
 -(void)addGravity:(UIView*)view depth:(int)depth;
