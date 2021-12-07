@@ -56,24 +56,28 @@
                 self.startX = p.x;
                 self.startY = p.y;
                 self.startObjectX = self.bar.frame.size.width;
-                self.startObjectY = self.bar.frame.origin.y;
+                self.startObjectY = self.bar_bg.frame.size.height - self.bar.frame.size.height;
                 self.moving = YES;
             } else if(action == TOUCH_ACTION_MOVE) {
                 float newBarWidth = self.startObjectX-(self.startX-p.x);
                 float barBgWidth = self.bar_bg.frame.size.width;
+                
                 if(self.vertical) {
                     newBarWidth = self.startObjectY-(self.startY-p.y);
                     barBgWidth = self.bar_bg.frame.size.height;
                 }
+                
                 if(newBarWidth < 0)
                     newBarWidth = 0;
                 if(newBarWidth > barBgWidth)
                     newBarWidth = barBgWidth;
+                float rate = newBarWidth / barBgWidth;
+                if(self.vertical)
+                    rate = 1.0f - newBarWidth / barBgWidth;
                 
-                float rate = 1.0f - newBarWidth / barBgWidth;
                 [self rateToView:(int)(rate * 100)];
                 self.meta.correspondData[self.watch] = [NSNumber numberWithInt:(int)(rate * 100)];
-                //NSLog(@"rate %f", rate);
+                NSLog(@"rate %f", rate);
                 //NSLog(@"barBg.startObjectX %f", barBg.startObjectX);
                 //NSLog(@"newBarWidth - %f" , newBarWidth);
                 
