@@ -190,6 +190,8 @@
     NSMutableDictionary *dict = [NSMutableDictionary new];
 
     for (NSURLQueryItem *item in queryItems){
+        if([item value] == nil)
+            continue;
         [dict setObject:[item value] forKey:[item name]];
     }
     

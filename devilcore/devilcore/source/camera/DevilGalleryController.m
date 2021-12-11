@@ -18,6 +18,7 @@
 @property NSMutableArray* data;
 @property NSMutableArray* selected;
 @property NSString* titleText;
+@property BOOL startFront;
 @property BOOL hasPicture;
 @property BOOL hasVideo;
 @property int max;
@@ -38,6 +39,7 @@
     self.title = self.titleText = self.param && self.param[@"title"]? [self.param[@"title"] stringValue] : @"사진 선택";
     self.hasPicture = self.param && self.param[@"hasPicture"]? [self.param[@"hasPicture"] boolValue] : YES;
     self.hasVideo = self.param && self.param[@"hasVideo"] ? [self.param[@"hasVideo"] boolValue] : NO;
+    self.startFront = self.param && self.param[@"startFront"] ? [self.param[@"startFront"] boolValue] : NO;
     self.min = self.param && self.param[@"min"]? [self.param[@"min"] intValue] : 1;
     self.max = self.param && self.param[@"max"]? [self.param[@"max"] intValue] : 10;
     self.minSec = self.param && self.param[@"minSec"]? [self.param[@"minSec"] intValue] : 3;
@@ -312,6 +314,7 @@
 
 -(void)onClickCamera:(UIView*)sender {
     [DevilCamera camera:self param:@{
+        @"startFront": self.startFront?@TRUE:@FALSE,
         @"hasPicture": self.hasPicture?@TRUE:@FALSE,
         @"hasVideo": self.hasVideo?@TRUE:@FALSE,
         @"minSec": [NSNumber numberWithInt:self.minSec],

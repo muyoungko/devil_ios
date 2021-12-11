@@ -139,13 +139,21 @@
                     if(recordGranted)
                         [DevilCamera goCamera:vc param:param callback:callback];
                     else
-                        callback(nil);
+                        callback(@{
+                            @"r" : @FALSE,
+                            @"code" : @"403",
+                            @"msg" : @"카메라 권한이 없습니다. 설정에서 녹음 권한을 허용해주세요"
+                        });
                 }];
             } else {
                 [DevilCamera goCamera:vc param:param callback:callback];
             }
         } else {
-            callback(nil);
+            callback(@{
+                @"r" : @FALSE,
+                @"code" : @"403",
+                @"msg" : @"카메라 권한이 없습니다. 설정에서 카메라 권한을 허용해주세요"
+            });
         }
     }];
 }
@@ -179,7 +187,11 @@
 
             }];
         } else {
-            callback(nil);
+            callback(@{
+                @"r" : @FALSE,
+                @"code" : @"403",
+                @"msg" : @"카메라 권한이 없습니다. 설정에서 카메라 권한을 허용해주세요"
+            });
         }
     }];
 }
@@ -209,7 +221,11 @@
         if(granted) {
             [DevilCamera goGallery:vc param:param callback:callback];
         } else {
-            callback(nil);
+            callback(@{
+                @"r" : @FALSE,
+                @"code" : @"403",
+                @"msg" : @"권한이 없습니다. 설정에서 갤러리 권한을 허용해주세요"
+            });
         }
     }];
 }

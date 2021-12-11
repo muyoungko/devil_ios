@@ -50,8 +50,7 @@
             tf.maxLength = -1;
             
         if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
-            tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textSpec[@"text"] attributes:@{NSForegroundColorAttributeName:
-                                                                                                                       [WildCardUtil colorWithHexString:placeHolderTextColor]}];
+            tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textSpec[@"text"] attributes:@{NSForegroundColorAttributeName:[WildCardUtil colorWithHexString:placeHolderTextColor]}];
         else
             [tf setValue:[WildCardUtil colorWithHexString:placeHolderTextColor] forKeyPath:@"_placeholderLabel.textColor"];
         

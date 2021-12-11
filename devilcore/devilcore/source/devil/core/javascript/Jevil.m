@@ -632,6 +632,11 @@ BOOL httpOk[10];
 
 + (void)hideKeyboard {
     [[JevilInstance currentInstance].vc.view endEditing:YES];
+    
+    if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog) {
+        [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog endEditing:YES];
+    }
+    
 }
 
 + (void)scrollTo:(NSString*)nodeName :(int)index :(BOOL)noani {
@@ -806,8 +811,12 @@ BOOL httpOk[10];
 
 + (void)gallery:(NSDictionary*)param :(JSValue *)callback {
     [DevilCamera gallery:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
-        [callback callWithArguments:@[res]];
-        [[JevilInstance currentInstance] syncData];
+        if([res[@"r"] boolValue]) {
+            [callback callWithArguments:@[res]];
+            [[JevilInstance currentInstance] syncData];
+        } else if(res[@"msg"]){
+            [Jevil alert:res[@"msg"]];
+        }
     }];
 }
 
@@ -822,15 +831,23 @@ BOOL httpOk[10];
 
 + (void)camera:(NSDictionary*)param :(JSValue *)callback {
     [DevilCamera camera:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
-        [callback callWithArguments:@[res]];
-        [[JevilInstance currentInstance] syncData];
+        if([res[@"r"] boolValue]) {
+            [callback callWithArguments:@[res]];
+            [[JevilInstance currentInstance] syncData];
+        } else if(res[@"msg"]){
+            [Jevil alert:res[@"msg"]];
+        }
     }];
 }
 
 + (void)cameraQr:(NSDictionary*)param :(JSValue *)callback {
     [DevilCamera cameraQr:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
-        [callback callWithArguments:@[res]];
-        [[JevilInstance currentInstance] syncData];
+        if([res[@"r"] boolValue]) {
+            [callback callWithArguments:@[res]];
+            [[JevilInstance currentInstance] syncData];
+        } else if(res[@"msg"]){
+            [Jevil alert:res[@"msg"]];
+        }
     }];
 }
 
