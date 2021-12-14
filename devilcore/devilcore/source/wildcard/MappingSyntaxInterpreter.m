@@ -103,8 +103,12 @@
     }
     else
     {
+        NSScanner *scanner = [NSScanner scannerWithString:tomb];
+        BOOL isNumeric = [scanner scanInteger:NULL] && [scanner isAtEnd];
         NSString *text = nil;
-        if([tomb rangeOfString:@"("].length > 0 ){
+        if(isNumeric) {
+            return tomb;
+        } else if([tomb rangeOfString:@"("].length > 0 ){
             text = [MappingSyntaxInterpreter getfunctionValue:tomb :data];
         }
         else
