@@ -85,15 +85,18 @@
             BOOL hasVideo = param && param[@"hasVideo"] ? [param[@"hasVideo"] boolValue] : NO;
             
             id r = [@[] mutableCopy];
-            int end = 1000;
+            int end = 2000;
             
             if(hasPicture) {
                 PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
                 [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSDate* cdate = obj.creationDate;
+                    long d = (long)([cdate timeIntervalSince1970] * 1000);
                     [r addObject:[@{
                         @"id":[NSNumber numberWithInt:(int)idx],
                         @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
                         @"image":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
+                        @"date": [NSNumber numberWithLong:d],
                         @"type":@"image",
                     } mutableCopy]];
                     if(idx < end)
@@ -106,10 +109,13 @@
             if(hasVideo) {
                 PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:nil];
                 [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    NSDate* cdate = obj.creationDate;
+                    long d = (long)([cdate timeIntervalSince1970] * 1000);
                     [r addObject:[@{
                         @"id":[NSNumber numberWithInt:(int)idx],
                         @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
                         @"video":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
+                        @"date": [NSNumber numberWithLong:d],
                         @"type":@"video",
                     } mutableCopy]];
                     if(idx < end)
@@ -120,7 +126,7 @@
             }
             
             r = [r sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-                return [b[@"id"] intValue] - [a[@"id"] intValue];
+                return [b[@"date"] longValue] - [a[@"date"] longValue];
             }];
             
             callback([@{@"r":@TRUE, @"list":r} mutableCopy]);
