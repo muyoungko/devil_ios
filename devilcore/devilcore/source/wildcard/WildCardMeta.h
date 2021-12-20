@@ -48,6 +48,7 @@
 @property (nonatomic, retain) NSMutableDictionary* matchParentNodes;
 
 @property (nonatomic, retain) WildCardMeta* parentMeta;
+@property (nonatomic, retain) NSMutableArray* childMetas;
 @property (nonatomic, retain) JevilCtx* jevil;
 
 @property (nonatomic, weak, nullable) id <WildCardConstructorInstanceDelegate> wildCardConstructorInstanceDelegate;

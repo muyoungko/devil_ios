@@ -447,7 +447,13 @@ static BOOL IS_TABLET = NO;
     double s = [[NSDate date] timeIntervalSince1970];
     WildCardMeta* meta = [[WildCardMeta alloc] init];
     meta.wildCardConstructorInstanceDelegate = delegate;
-    meta.parentMeta = parentMeta;
+    if(parentMeta) {
+        meta.parentMeta = parentMeta;
+        if(!parentMeta.childMetas) {
+            parentMeta.childMetas = [@[] mutableCopy];
+        }
+        [parentMeta.childMetas addObject:meta];
+    }
     WildCardUIView* v = [WildCardConstructor constructLayer1:cell:layer:nil:meta:depth:0];
     [WildCardConstructor constructLayer2:cell:layer:nil:meta:depth:0];
     v.meta = meta;

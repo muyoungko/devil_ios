@@ -491,19 +491,27 @@
 }
 
 -(UILabel*)getTextView:(NSString*)name{
-    return [self.generatedViews[name] subviews][0];
+    return [[self getView:name] subviews][0];
 }
 
 -(UIImageView*)getImageView:(NSString*)name{
-    return [self.generatedViews[name] subviews][0];
+    return [[self getView:name] subviews][0];
 }
 
 -(UIView*)getView:(NSString*)name{
-    return self.generatedViews[name];
+    id r = self.generatedViews[name];
+    if(!r) {
+        for(WildCardMeta* childMeta in self.childMetas) {
+            r = [childMeta getView:name];
+            if(r)
+                return r;
+        }
+    }
+    return r;
 }
 
 -(UITextField*)getInput:(NSString*)name{
-    return [self.generatedViews[name] subviews][0];
+    return [[self getView:name] subviews][0];
 }
 
 -(void)update {

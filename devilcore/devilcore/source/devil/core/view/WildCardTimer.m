@@ -40,7 +40,14 @@
     [self tick];
 }
 
--(void)startTimeFrom:(NSString*)mm_ss{
+-(void)startTimeFromSec:(int)sec {
+    //NSLog(@"startTimeFromSec %d", sec);
+    self.sec = self.originalSec = sec;
+    [self tick];
+    self.vv.tags[@"timer"] = self;
+}
+
+-(void)startTimeFrom:(NSString*)mm_ss {
     id s = [mm_ss componentsSeparatedByString:@":"];
     int hh = 0;
     int mm = 0;
@@ -83,12 +90,16 @@
 }
 
 -(void)tick {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(tick) object:nil];
+    //NSLog(@"self.sec %d", self.sec);
     [self showTime];
     self.sec --;
     if(self.sec < 0){
         NSString* action = self.layer[@"timer"][@"action"];
-        WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-        [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
+        if(action) {
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
+        }
     } else
         [self performSelector:@selector(tick) withObject:nil afterDelay:1];
 }

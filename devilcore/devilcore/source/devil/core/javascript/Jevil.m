@@ -37,6 +37,7 @@
 #import "DevilSdk.h"
 #import "DevilAlertDialog.h"
 #import "DevilPlayerController.h"
+#import "WildCardTimer.h"
 
 @interface Jevil()
 
@@ -1164,6 +1165,14 @@ BOOL httpOk[10];
     d.param = param;
     //[[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
     [[JevilInstance currentInstance].vc.navigationController presentModalViewController:d animated:YES];
+}
+
+
++ (void)timer:(NSString*)node :(int)sec {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = [vc findView:node];
+    WildCardTimer* timer = (WildCardTimer*)vv.tags[@"timer"];
+    [timer startTimeFromSec:sec];
 }
 
 @end

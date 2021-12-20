@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(id)initWith:(WildCardMeta*)meta :(WildCardUILabel*)tv :(id)layer :(NSString*)name :(WildCardUIView*)vv;
 -(void)reset;
 -(void)startTimeFrom:(NSString*)mm_ss;
+-(void)startTimeFromSec:(int)sec;
 
 @end
 
