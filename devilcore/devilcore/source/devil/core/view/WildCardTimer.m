@@ -15,6 +15,7 @@
 @property (nonatomic, retain) WildCardUILabel*tv;
 @property (nonatomic, retain) id layer;
 @property (nonatomic, retain) NSString* name;
+@property (nonatomic, retain) NSString* format;
 @property (nonatomic, retain) WildCardUIView* vv;
 
 @property int sec;
@@ -48,6 +49,36 @@
 }
 
 -(void)startTimeFrom:(NSString*)mm_ss {
+    
+    self.format = nil;
+    NSError* error = nil;
+    
+    if(self.format == nil){
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{2}:[0-9]{2}:[0-9]{2}" options:0 error:&error];
+        NSArray* matches = [regex matchesInString:mm_ss options:0 range:NSMakeRange(0, [mm_ss length])];
+        for (NSTextCheckingResult* match in matches) {
+            NSString* matchText = [mm_ss substringWithRange:[match range]];
+            self.format = [mm_ss stringByReplacingOccurrencesOfString:matchText withString:@"%@"];
+            mm_ss = matchText;
+            break;
+        }
+    }
+    
+    if(self.format == nil){
+        NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"[0-9]{2}:[0-9]{2}" options:0 error:&error];
+        NSArray* matches = [regex matchesInString:mm_ss options:0 range:NSMakeRange(0, [mm_ss length])];
+        for (NSTextCheckingResult* match in matches) {
+            NSString* matchText = [mm_ss substringWithRange:[match range]];
+            self.format = [mm_ss stringByReplacingOccurrencesOfString:matchText withString:@"%@"];
+            mm_ss = matchText;
+            break;
+        }
+    }
+    
+    if(self.format == nil)
+        self.format = @"%@";
+        
+    
     id s = [mm_ss componentsSeparatedByString:@":"];
     int hh = 0;
     int mm = 0;
@@ -86,7 +117,7 @@
         else
             t = [NSString stringWithFormat:@"%02d:%02d", (self.sec%3600)/60, self.sec % 60];
     }
-    self.tv.text = t;
+    self.tv.text = [NSString stringWithFormat:self.format, t];
 }
 
 -(void)tick {
