@@ -85,10 +85,12 @@
             BOOL hasVideo = param && param[@"hasVideo"] ? [param[@"hasVideo"] boolValue] : NO;
             
             id r = [@[] mutableCopy];
-            int end = 2000;
+            int end = 10000;
             
             if(hasPicture) {
-                PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:nil];
+                PHFetchOptions *options = [PHFetchOptions new];
+                options.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ];
+                PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeImage options:options];
                 [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSDate* cdate = obj.creationDate;
                     long d = (long)([cdate timeIntervalSince1970] * 1000);
@@ -107,7 +109,9 @@
             }
             
             if(hasVideo) {
-                PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:nil];
+                PHFetchOptions *options = [PHFetchOptions new];
+                options.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ];
+                PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options];
                 [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSDate* cdate = obj.creationDate;
                     long d = (long)([cdate timeIntervalSince1970] * 1000);
