@@ -42,7 +42,6 @@
     [super created];
     if(!self.picker_list_adapter) {
         WildCardUICollectionView* picker_list = [[self.meta getView:@"picker_list"] subviews][0];
-        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)picker_list.delegate;
         
         picker_list.contentInset = UIEdgeInsetsMake(picker_list.frame.size.height/2.0f, 0, picker_list.frame.size.height/2.0f, 0);
         
