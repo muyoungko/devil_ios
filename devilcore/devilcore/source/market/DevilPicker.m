@@ -42,16 +42,29 @@
     [super created];
     if(!self.picker_list_adapter) {
         WildCardUICollectionView* picker_list = [[self.meta getView:@"picker_list"] subviews][0];
+        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)picker_list.delegate;
+        
+        picker_list.contentInset = UIEdgeInsetsMake(picker_list.frame.size.height/2.0f, 0, picker_list.frame.size.height/2.0f, 0);
+        
         self.picker_list_adapter = (WildCardCollectionViewAdapter*)picker_list.delegate;
+        
         self.picker_selected_text = (WildCardUILabel*)[self.meta getTextView:@"picker_selected_text"];
+        self.picker_selected_text.text = @"";
         self.picker_list_adapter.collectionView.hidden = YES;
         self.picker_list_adapter.scrolledCallback = ^(id res) {
             [self picker_shape];
         };
         
         self.picker_list_adapter.draggedCallback = ^(id res) {
+            int selectedIndex = [self picker_shape];
+            id theThing = self.meta.correspondData[self.list_key][selectedIndex];
+            
+            //NSLog(@"draggedCallback data_index = %d key = %@", selectedIndex, theThing[self.json_key]);
+            [(WildCardUICollectionView*)self.picker_list_adapter.collectionView asyncScrollTo:selectedIndex : YES];
+            
+            self.meta.correspondData[self.watch_key] = theThing[self.json_key];
+            
             [[JevilInstance currentInstance] pushData];
-            [self picker_shape];
             if(self.value_selected_script) {
                 [[JevilInstance currentInstance].jevil code:self.value_selected_script
                                              viewController:[JevilInstance currentInstance].vc
@@ -67,7 +80,7 @@
     self.picker_list_adapter.collectionView.hidden = NO;
     
     [self picker_shape];
-    NSLog(@"Select to %@", self.meta.correspondData[self.watch_key]);
+    //NSLog(@"update to %@", self.meta.correspondData[self.watch_key]);
     //NSLog(@"adapter.data cound %@", [self.picker_list_adapter.data count]);
     //NSLog(@"list.data count to %d", );
     if(self.meta.correspondData[self.watch_key]) {
@@ -75,61 +88,37 @@
             id d = self.meta.correspondData[self.list_key][i];
             if([d[self.json_key] isEqual:self.meta.correspondData[self.watch_key]]) {
                 [(WildCardUICollectionView*)self.picker_list_adapter.collectionView asyncScrollTo:i : YES];
-                [self performSelector:@selector(picker_shape) withObject:nil afterDelay:0.0f];
                 break;
             }
         }
     }
 }
 
--(void)picker_shape {
+-(int)picker_shape {
     CGPoint picker_center = [[self.picker_list_adapter.collectionView superview] convertPoint:self.picker_list_adapter.collectionView.center toView:nil];
     CGRect picker_rect = [[self.picker_list_adapter.collectionView superview] convertRect:self.picker_list_adapter.collectionView.frame toView:nil];
-    
-//    int selected_data_index = 0;
-//    if(self.meta.correspondData[self.watch_key]) {
-//        for(int i=0;i<[self.meta.correspondData[self.list_key] count]; i++) {
-//            id d = self.meta.correspondData[self.list_key][i];
-//            if([d[self.json_key] isEqual:self.meta.correspondData[self.watch_key]]) {
-//                selected_data_index = i;
-//                break;
-//            }
-//        }
-//    }
-//
-//    id cells = [self.picker_list_adapter.collectionView subviews];
-//    for(int i=0;i<[cells count];i++){
-//        UIView* c = cells[i];
-//        int index = (int)c.tag;
-//
-//        c.alpha = 1.0f - (fabs(selected_data_index - index) / 10);
-//
-//        WildCardUIView* v = [c viewWithTag:CELL_UNDER_WILDCARD];
-//        UILabel* cell_text = [v.meta getTextView:@"picker_cell_text"];
-//        if(index < selected_data_index) {
-//            cell_text.textColor = self.up_color;
-//        } else {
-//            cell_text.textColor = self.bottom_color;
-//        }
-//        NSLog(@"cell_index = %d", index);
-//    }
-    
 
     float picker_harf = picker_rect.size.height/2.0f;
     id cells = [self.picker_list_adapter.collectionView subviews];
     int center_index = 0;
     float center_y = 0;
+    float min = 1000000;
+    int data_index = 0;
     for(int i=0;i<[cells count];i++){
         UIView* c = cells[i];
         CGRect crect = [self.picker_list_adapter.collectionView convertRect:c.frame toView:nil];
+        CGPoint cpoint = [self.picker_list_adapter.collectionView convertPoint:c.center toView:nil];
         int index = (int)c.tag;
-        id cdata = self.picker_list_adapter.data[index];
-        if(CGRectContainsPoint(crect, picker_center)) {
+        
+        float d = [self distanceBetween:picker_center and:cpoint];
+        //NSLog(@"d = %f", d);
+        if(d < min) {
+            min = d;
             //NSLog(@"center data = %@", self.picker_list_adapter.data[index]);
-            self.picker_selected_text.text = [NSString stringWithFormat:@"%@", cdata[self.json_value]];
-            self.meta.correspondData[self.watch_key] = cdata[self.json_key];
             center_index = i;
+            data_index = index;
             center_y = c.frame.origin.y;
+            //NSLog(@"min change. center_index = %d  data_index=%d ", center_index, data_index);
         }
 
         float crect_y = crect.origin.y + crect.size.height/2.0f;
@@ -138,20 +127,17 @@
         c.alpha = (1.0f - (fabs(picker_center.y - crect_y) / picker_harf)) * 0.8f + 0.2f;
     }
     
-    // 1. 진입시
-    // 2. 상하단 여백 줘서 0 index 선택가능하게하기
-    //NSLog(@"picker_shape center_index = %d [cells count] = %d", center_index, [cells count]);
+    id cdata = self.picker_list_adapter.data[data_index];
+    self.picker_selected_text.text = [NSString stringWithFormat:@"%@", cdata[self.json_value]];
+    //NSLog(@"picker_shape %@" , self.picker_selected_text.text);
+    //NSLog(@"picker_shape center_index = %d   min = %f  data_index=%d  cell_count=%d", center_index, min, data_index, [cells count]);
+    
+    return data_index;
 }
 
-
--(void)pause{
-    [super pause];
-}
--(void)resume{
-    [super resume];
-}
--(void)destory {
-    [super destory];
+- (float)distanceBetween:(CGPoint)p1 and:(CGPoint)p2
+{
+    return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
 }
 
 @end

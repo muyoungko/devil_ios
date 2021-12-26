@@ -11,8 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilPicker : MarketComponent
 
--(void)picker_shape;
-
 @end
 
 NS_ASSUME_NONNULL_END

@@ -66,81 +66,12 @@
     return _margin;
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if(self.scrolledCallback)
-        self.scrolledCallback(scrollView);
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if(self.scrolledCallback)
-        self.scrolledCallback(scrollView);
-    
-    //NSLog(@"scrollViewDidScroll %f", scrollView.contentOffset.y);
-}
-
 -(void)addViewPagerSelected:(ViewPagerSelected)func
 {
     if(viewPagerSelectedIndex<10)
         viewPagerSelected[viewPagerSelectedIndex++] = func;
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    
-}
-
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
-{
-    
-    float w = scrollView.frame.size.width;
-    float offset = targetContentOffset->x;
-    
-    //뷰페이저
-    float start = self.viewPagerStartPaddingX;
-    float contentWidth = self.viewPagerContentWidth;
-    if(self.collectionView && [self.repeatType isEqualToString:REPEAT_TYPE_VIEWPAGER]){
-        targetContentOffset->x = scrollView.contentOffset.x;
-        int newIndex = _selectedIndex;
-        if(velocity.x > 0.5 || velocity.x < -0.5){
-            int sindex = (scrollView.contentOffset.x - start + contentWidth/2) / contentWidth;
-            int direction = velocity.x > 0.0 ? 1 : -1;
-            int tobeIndex = sindex+direction;
-            if(tobeIndex < 0 )
-                tobeIndex = 0;
-            else if(tobeIndex > [_data count] -1 )
-                tobeIndex = [_data count] -1;
-            newIndex = tobeIndex;
-            float tobe = -start + contentWidth*(tobeIndex);
-            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
-                scrollView.contentOffset = CGPointMake(tobe, 0);
-                [scrollView layoutIfNeeded];
-            } completion:nil];
-        }
-        else
-        {
-            int sindex = (offset - start + contentWidth/2) / contentWidth;
-            newIndex = sindex;
-            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:sindex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-        }
-        
-        _selectedIndex = newIndex;
-        NSLog(@"scrollViewWillEndDragging %d", _selectedIndex);
-        for(int i=0;i<viewPagerSelectedIndex;i++)
-        {
-            @try{
-                viewPagerSelected[i](_selectedIndex);
-            }@catch(NSException* e)
-            {
-                NSLog(@"%@" , e);
-            }
-        }
-    }
-    
-    if(self.draggedCallback != nil) {
-        self.draggedCallback(nil);
-    }
-}
 
 -(void)scrollToIndex:(int)index view:(UICollectionView*)c
 {
@@ -433,12 +364,6 @@
     return r;
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if(self.draggedCallback != nil) {
-        self.draggedCallback(nil);
-    }
-}
-
 - (BOOL)accessibilityScroll:(UIAccessibilityScrollDirection)direction
 {
     if(direction == UIAccessibilityScrollDirectionUp){
@@ -478,6 +403,103 @@
     
     [self scrollToIndex:index view:self.collectionView];
 }
+
+
+
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if(self.scrolledCallback)
+        self.scrolledCallback(scrollView);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if(self.scrolledCallback)
+        self.scrolledCallback(scrollView);
+    
+    //NSLog(@"scrollViewDidScroll %f", scrollView.contentOffset.y);
+}
+
+//프로그램에 의한 스크롤 콜
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    //NSLog(@"scrollViewDidEndScrollingAnimation");
+//    if(self.draggedCallback != nil) {
+//        self.draggedCallback(nil);
+//    }
+}
+
+/**
+ 사용자에의 한 콜, fling할때
+ */
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    //NSLog(@"scrollViewDidEndDecelerating");
+    if(self.draggedCallback != nil) {
+        self.draggedCallback(nil);
+    }
+}
+
+/**
+ 스크롤로  fling하지 않고 조용히 놓기
+ */
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    //NSLog(@"scrollViewDidEndDragging");
+    if(!decelerate) {
+        if(self.draggedCallback != nil) {
+            self.draggedCallback(nil);
+        }
+    }
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    
+    float w = scrollView.frame.size.width;
+    float offset = targetContentOffset->x;
+    
+    //뷰페이저
+    float start = self.viewPagerStartPaddingX;
+    float contentWidth = self.viewPagerContentWidth;
+    if(self.collectionView && [self.repeatType isEqualToString:REPEAT_TYPE_VIEWPAGER]){
+        targetContentOffset->x = scrollView.contentOffset.x;
+        int newIndex = _selectedIndex;
+        if(velocity.x > 0.5 || velocity.x < -0.5){
+            int sindex = (scrollView.contentOffset.x - start + contentWidth/2) / contentWidth;
+            int direction = velocity.x > 0.0 ? 1 : -1;
+            int tobeIndex = sindex+direction;
+            if(tobeIndex < 0 )
+                tobeIndex = 0;
+            else if(tobeIndex > [_data count] -1 )
+                tobeIndex = [_data count] -1;
+            newIndex = tobeIndex;
+            float tobe = -start + contentWidth*(tobeIndex);
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+                scrollView.contentOffset = CGPointMake(tobe, 0);
+                [scrollView layoutIfNeeded];
+            } completion:nil];
+        }
+        else
+        {
+            int sindex = (offset - start + contentWidth/2) / contentWidth;
+            newIndex = sindex;
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:sindex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        }
+        
+        _selectedIndex = newIndex;
+        NSLog(@"scrollViewWillEndDragging %d", _selectedIndex);
+        for(int i=0;i<viewPagerSelectedIndex;i++)
+        {
+            @try{
+                viewPagerSelected[i](_selectedIndex);
+            }@catch(NSException* e)
+            {
+                NSLog(@"%@" , e);
+            }
+        }
+    }
+}
+
 
 @end
  
