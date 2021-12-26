@@ -680,6 +680,8 @@ static BOOL IS_TABLET = NO;
         
         //shadow
         if([layer objectForKey:@"shadow"]){
+            
+            NSLog(@"shadow %@", name);
             id shadow = layer[@"shadow"];
             
             float offsetX = [WildCardConstructor convertSketchToPixel:[shadow[@"offsetX"] intValue]];
@@ -1034,6 +1036,11 @@ static BOOL IS_TABLET = NO;
         WildCardUIView* prevView = [wcMeta.generatedViews objectForKey:prevName];
         WildCardUIView* nextView = [wcMeta.generatedViews objectForKey:nextName];
         
+        if(!prevView)
+            @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(Layout Rule)Node name '%@' is not exists.", prevName] userInfo:nil];
+        if(!nextView)
+            @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(Layout Rule)Node name '%@' is not exists.", nextName] userInfo:nil];
+            
         float hNextToMargin = 0;
         
         if([layer objectForKey:@"hNextToMargin"] != nil)
@@ -1053,6 +1060,11 @@ static BOOL IS_TABLET = NO;
         WildCardUIView* prevView = [wcMeta.generatedViews objectForKey:prevName];
         WildCardUIView* nextView = [wcMeta.generatedViews objectForKey:nextName];
         
+        if(!prevView)
+            @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(Layout Rule)Node name '%@' is not exists.", prevName] userInfo:nil];
+        if(!nextView)
+            @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(Layout Rule)Node name '%@' is not exists.", nextName] userInfo:nil];
+        
         float hPrevToMargin = 0;
         
         if([layer objectForKey:@"hPrevToMargin"] != nil)
@@ -1071,6 +1083,12 @@ static BOOL IS_TABLET = NO;
         NSString* nextName = [layer objectForKey:@"name"];
         WildCardUIView* prevView = [wcMeta.generatedViews objectForKey:prevName];
         WildCardUIView* nextView = [wcMeta.generatedViews objectForKey:nextName];
+        
+        if(!prevView)
+            @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(Layout Rule)Node name '%@' is not exists.", prevName] userInfo:nil];
+        if(!nextView)
+            @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(Layout Rule)Node name '%@' is not exists.", nextName] userInfo:nil];
+        
         float vNextToMargin = 0;
         if([layer objectForKey:@"vNextToMargin"] != nil)
         {

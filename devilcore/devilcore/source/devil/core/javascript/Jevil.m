@@ -38,6 +38,7 @@
 #import "DevilAlertDialog.h"
 #import "DevilPlayerController.h"
 #import "WildCardTimer.h"
+#import "DevilExceptionHandler.h"
 
 @interface Jevil()
 
@@ -642,17 +643,21 @@ BOOL httpOk[10];
 
 + (void)scrollTo:(NSString*)nodeName :(int)index :(BOOL)noani {
     
-    [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
-    
-    if(nodeName && ![@"null" isEqualToString:nodeName] ) {
-        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-        WildCardUICollectionView* list = (WildCardUICollectionView*)[[vc findView:nodeName] subviews][0];        
-        if(list != nil)
-            [list asyncScrollTo:index:!noani];
-    } else {
-        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-        if(vc.tv != nil)
-            [vc.tv asyncScrollTo:index];
+    @try{
+        [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
+        
+        if(nodeName && ![@"null" isEqualToString:nodeName] ) {
+            DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+            WildCardUICollectionView* list = (WildCardUICollectionView*)[[vc findView:nodeName] subviews][0];
+            if(list != nil)
+                [list asyncScrollTo:index:!noani];
+        } else {
+            DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+            if(vc.tv != nil)
+                [vc.tv asyncScrollTo:index];
+        }
+    }@catch(NSException* e){
+        [DevilExceptionHandler handle:e];
     }
     
 }

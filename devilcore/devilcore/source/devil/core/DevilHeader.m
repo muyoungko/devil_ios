@@ -181,6 +181,8 @@
         NSString* name = icon_layer[@"name"];
         NSString* url = icon_layer[@"localImageContent"];
         [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
+            if(byte == nil)
+                return;
             UIImage* icon_image = [UIImage imageWithData:byte];
             CGRect rect = [WildCardConstructor getFrame:icon_layer:nil];
             rect.origin.y = rect.origin.x = 0;

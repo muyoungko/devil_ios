@@ -85,7 +85,7 @@
             BOOL hasVideo = param && param[@"hasVideo"] ? [param[@"hasVideo"] boolValue] : NO;
             
             id r = [@[] mutableCopy];
-            int end = 10000;
+            int end = 100000;
             
             if(hasPicture) {
                 PHFetchOptions *options = [PHFetchOptions new];
@@ -109,6 +109,7 @@
             }
             
             if(hasVideo) {
+                end = 10000;
                 PHFetchOptions *options = [PHFetchOptions new];
                 options.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO] ];
                 PHFetchResult *results = [PHAsset fetchAssetsWithMediaType:PHAssetMediaTypeVideo options:options];

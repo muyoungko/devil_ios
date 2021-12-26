@@ -74,7 +74,11 @@
 
     [self constructHeaderAndFooter];
 
-    [self construct];
+    @try {
+        [self construct];
+    }@catch(NSException* e) {
+        [DevilExceptionHandler handle:e];
+    }
     
     [JevilInstance globalInstance].callbackData = nil;
     [JevilInstance globalInstance].callbackFunction = nil;
@@ -503,6 +507,8 @@
         if(r != nil)
             return r;
     }
+    
+    @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(findView)'%@' is not exists.", name] userInfo:nil];
 
     return nil;
 }

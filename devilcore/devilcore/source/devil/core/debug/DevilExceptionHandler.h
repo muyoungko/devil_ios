@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilExceptionHandler : NSObject
-+(void)handle:(UIViewController*)vc data:(id)data e:(NSException*)e; 
++(void)handle:(UIViewController*)vc data:(id)data e:(NSException*)e;
++(void)handle:(NSException*)e;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -592,7 +592,7 @@
                 return @"5";
             return @"2";
         };
-        
+         
         
         if([adapter shouldReload])
             [cv reloadData];

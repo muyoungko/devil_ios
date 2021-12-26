@@ -101,9 +101,10 @@
     
     self.sec = self.originalSec = ss + mm*60 + hh*3600;
     id layerTimer = self.layer[@"timer"];
-    if(layerTimer[@"start"])
+    if(layerTimer[@"start"]) {
         self.sec = self.originalSec = [layerTimer[@"start"] intValue];
-    [self tick];
+        [self tick];
+    }
     self.vv.tags[@"timer"] = self;
 }
 

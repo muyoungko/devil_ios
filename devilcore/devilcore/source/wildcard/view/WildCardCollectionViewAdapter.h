@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#define CELL_UNDER_WILDCARD 273123
 
 //typedef void (^ IteratorBlock)(id, int);
 
@@ -39,6 +40,7 @@ typedef void (^ ViewPagerSelected)(int);
 
 @property void (^lastItemCallback)(id res);
 @property void (^draggedCallback)(id res);
+@property void (^scrolledCallback)(id res);
 
 @property BOOL autoSwipeViewPager;
 -(void)autoSwipe:(BOOL)s;

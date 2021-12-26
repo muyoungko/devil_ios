@@ -9,6 +9,7 @@
 #import "MarketComponent.h"
 #import "DevilChat.h"
 #import "DevilCalendar.h"
+#import "DevilPicker.h"
 
 @implementation MarketInstance
 
@@ -19,6 +20,8 @@
         r = [[DevilChat alloc] initWithLayer:market meta:meta];
     } else if([@"calendar" isEqualToString:type]) {
         r = [[DevilCalendar alloc] initWithLayer:market meta:meta];
+    } else if([@"kr.co.july.picker" isEqualToString:type]) {
+        r = [[DevilPicker alloc] initWithLayer:market meta:meta];
     } else {
         r = [[MarketComponent alloc] initWithLayer:market meta:meta];
     }

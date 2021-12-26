@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) NSString* repeatType;
 -(void)asyncScrollTo:(int)index :(BOOL)ani;
+-(void)scrollTo:(int)index :(BOOL)ani;
+-(void)scrollToCore:(NSNumber*)index;
 
 @end
 

@@ -15,12 +15,15 @@
     self = [super init];
     self.marketJson = market;
     self.meta = meta;
+    
     return self;
 }
 
 -(void)created{
     NSString* script = self.marketJson[@"created"];
-    [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
+    if(script != nil) {
+        [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
+    }
 }
 -(void)update:(id)opt{
     self.meta.correspondData = opt;

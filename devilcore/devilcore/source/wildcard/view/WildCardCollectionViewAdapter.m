@@ -12,6 +12,7 @@
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardUtil.h"
 #import "WildCardUICollectionView.h"
+#import "DevilExceptionHandler.h"
 
 @interface WildCardCollectionViewAdapter()
 
@@ -65,9 +66,17 @@
     return _margin;
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    if(self.scrolledCallback)
+        self.scrolledCallback(scrollView);
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //NSLog(@"scrollViewDidScroll");
+    if(self.scrolledCallback)
+        self.scrolledCallback(scrollView);
+    
+    //NSLog(@"scrollViewDidScroll %f", scrollView.contentOffset.y);
 }
 
 -(void)addViewPagerSelected:(ViewPagerSelected)func
@@ -80,11 +89,6 @@
 {
     
 }
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    
-}
-
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
@@ -131,6 +135,10 @@
                 NSLog(@"%@" , e);
             }
         }
+    }
+    
+    if(self.draggedCallback != nil) {
+        self.draggedCallback(nil);
     }
 }
 
@@ -340,37 +348,44 @@
         NSMutableDictionary* item = [_data objectAtIndex:position];
         NSString* type = _typeGetter(position);
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
-         
+        cell.tag = position;
         UIView* childUIView = cell;
         if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 14.0) {
             childUIView = cell;
         } else {
             childUIView = [[cell subviews] objectAtIndex:0];
         }
-        if([[childUIView subviews] count] == 0)
-        {
-            NSDictionary *cloudJson = _cloudJsonGetter(position);
-            WildCardUIView* v = [WildCardConstructor constructLayer:childUIView withLayer:cloudJson withParentMeta:_meta depth:_depth instanceDelegate:_meta.wildCardConstructorInstanceDelegate];
-            //v.userInteractionEnabled = YES;
+       
+        @try{
+            if([[childUIView subviews] count] == 0)
+            {
+                NSDictionary *cloudJson = _cloudJsonGetter(position);
+                WildCardUIView* v = [WildCardConstructor constructLayer:childUIView withLayer:cloudJson withParentMeta:_meta depth:_depth instanceDelegate:_meta.wildCardConstructorInstanceDelegate];
+                //v.userInteractionEnabled = YES;
+                
+                if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:self.repeatType])
+                    v.frame = CGRectMake(v.frame.origin.x, 0, v.frame.size.width, v.frame.size.height);
+                else if([REPEAT_TYPE_GRID isEqualToString:self.repeatType] || [REPEAT_TYPE_VIEWPAGER isEqualToString:self.repeatType])
+                        v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height);
+                else
+                    v.frame = CGRectMake(0, v.frame.origin.y, v.frame.size.width, v.frame.size.height);
+                
+                v.tag = CELL_UNDER_WILDCARD;
+            }
             
-            if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:self.repeatType])
-                v.frame = CGRectMake(v.frame.origin.x, 0, v.frame.size.width, v.frame.size.height);
-            else if([REPEAT_TYPE_GRID isEqualToString:self.repeatType] || [REPEAT_TYPE_VIEWPAGER isEqualToString:self.repeatType])
-                    v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height);
-            else
-                v.frame = CGRectMake(0, v.frame.origin.y, v.frame.size.width, v.frame.size.height);
-        }
-        
-        WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];
-        [WildCardConstructor applyRule:v withData:item];
-        
-        if(self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
-            self.lastItemCallback(nil);
-        }
-        
-        if(indexPath.section == 0) {
-            self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = [NSString stringWithFormat:@"%@", self.data[indexPath.row]];
-            self.lastDataCount = [self.data count];
+            WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];
+            [WildCardConstructor applyRule:v withData:item];
+            
+            if(self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
+                self.lastItemCallback(nil);
+            }
+            
+            if(indexPath.section == 0) {
+                self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = [NSString stringWithFormat:@"%@", self.data[indexPath.row]];
+                self.lastDataCount = [self.data count];
+            }
+        }@catch(NSException* e){
+            [DevilExceptionHandler handle:e];
         }
         
         return cell;

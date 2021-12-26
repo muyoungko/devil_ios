@@ -18,6 +18,8 @@
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */; };
+		6D12857127773A990086B1CB /* DevilPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D12856F27773A990086B1CB /* DevilPicker.h */; };
+		6D12857227773A990086B1CB /* DevilPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D12857027773A990086B1CB /* DevilPicker.m */; };
 		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
 		6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */; };
 		6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3DD349275B778000707521 /* DevilPlayerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -247,6 +249,8 @@
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
 		6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardScriptAction.m; sourceTree = "<group>"; };
+		6D12856F27773A990086B1CB /* DevilPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPicker.h; sourceTree = "<group>"; };
+		6D12857027773A990086B1CB /* DevilPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPicker.m; sourceTree = "<group>"; };
 		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
 		6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIPageControl.m; sourceTree = "<group>"; };
 		6D3DD349275B778000707521 /* DevilPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPlayerController.h; sourceTree = "<group>"; };
@@ -858,6 +862,8 @@
 				6DD0943C269C7A1A000A913A /* DevilChat.m */,
 				6DD09440269C7A28000A913A /* DevilCalendar.h */,
 				6DD09441269C7A28000A913A /* DevilCalendar.m */,
+				6D12856F27773A990086B1CB /* DevilPicker.h */,
+				6D12857027773A990086B1CB /* DevilPicker.m */,
 			);
 			path = market;
 			sourceTree = "<group>";
@@ -927,6 +933,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D12857127773A990086B1CB /* DevilPicker.h in Headers */,
 				6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */,
 				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
 				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
@@ -1233,6 +1240,7 @@
 				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
 				6DCD33BA267DC69800784D91 /* DevilDrawer.m in Sources */,
 				6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */,
+				6D12857227773A990086B1CB /* DevilPicker.m in Sources */,
 				6D9F7B92262C8380003A70EC /* ReplaceRuleVideo.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
 				6DD097DE26A1AE29000A913A /* JevilFunctionUtil.m in Sources */,
