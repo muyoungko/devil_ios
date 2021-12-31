@@ -40,7 +40,8 @@ UIDocumentInteractionControllerDelegate>
 @property (nonatomic, retain) UIView* viewExtend;
 @property (nonatomic, retain) WildCardScreenTableView* tv;
 
--(void)onResume;
+@property BOOL (^onBackPressCallback)();
+
 
 @end
 

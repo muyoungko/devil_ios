@@ -8,6 +8,8 @@
 #import "ReplaceRuleWeb.h"
 #import "MappingSyntaxInterpreter.h"
 #import "DevilUtil.h"
+#import "JevilInstance.h"
+#import "DevilController.h"
 
 @interface ReplaceRuleWeb()
 @property (nonatomic, retain) NSString* lastUrl;
@@ -28,6 +30,16 @@
         cc.userInteractionEnabled = YES;
         cc = [cc superview];
     }
+    
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    dc.onBackPressCallback = ^BOOL{
+        if([web canGoBack]) {
+            [web goBack];
+            return YES;
+        }
+        return NO;
+    };
+    
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

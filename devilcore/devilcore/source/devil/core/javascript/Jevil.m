@@ -107,7 +107,12 @@
 }
 
 + (void)back{
-    [Jevil finish:nil];
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(dc.onBackPressCallback != nil && dc.onBackPressCallback()) {
+        
+    } else {
+        [Jevil finish:nil];
+    }
 }
 
 + (BOOL)isValidNumber:(NSString *)phone
