@@ -445,10 +445,14 @@
         if(bb.type == WC_LAYOUT_TYPE_MATCH_PARENT)
             return false;
         
+        /**
+         2022.01.06
+         Gravity가 최우선이 되어야하는데, 그렇게 안되는 버그가 있어서 이를 수정함
+         */
         if(aa.type == WC_LAYOUT_TYPE_GRAVITY)
-            return true;
+            return -1000;
         if(bb.type == WC_LAYOUT_TYPE_GRAVITY)
-            return false;
+            return 1000;
         
         if(aa.depth < bb.depth)
             return true;

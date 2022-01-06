@@ -83,6 +83,7 @@
     [self showIndicator];
     [[Devil sharedInstance] request:@"/front/api/project" postParam:nil complete:^(id  _Nonnull res) {
         [self hideIndicator];
+        
         self.data[@"list"] = res[@"list"];
         
         for(int i=(int)[self.data[@"list"] count]-1;i>=0;i--) {

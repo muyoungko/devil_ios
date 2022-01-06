@@ -12,6 +12,8 @@
 #define HOST_API @"https://console-api.deavil.com"
 #define HOST_WEB @"http://console.deavil.com"
 
+//#define HOST_API @"http://192.168.1.230:6111"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Devil : NSObject

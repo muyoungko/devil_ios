@@ -222,6 +222,7 @@
 		6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */; };
 		6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */; };
 		6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DD0987626A6AAEF000A913A /* devil_camera_record.wav */; };
+		6DE2BAEA2780ADDB008344DE /* devil_learning_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2BAE92780ADDB008344DE /* devil_learning_icon.png */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
@@ -454,6 +455,7 @@
 		6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleQrcode.h; sourceTree = "<group>"; };
 		6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleQrcode.m; sourceTree = "<group>"; };
 		6DD0987626A6AAEF000A913A /* devil_camera_record.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = devil_camera_record.wav; sourceTree = "<group>"; };
+		6DE2BAE92780ADDB008344DE /* devil_learning_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devil_learning_icon.png; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				6D9F7A9E2622E93C003A70EC /* devil_camera_recording@3x.png */,
 				6D9F7AA42622E93C003A70EC /* devil_camera_shutter@3x.png */,
 				6D9F7AA22622E93C003A70EC /* devil_camera_video@3x.png */,
+				6DE2BAE92780ADDB008344DE /* devil_learning_icon.png */,
 				6D0224A026131F6500634842 /* devil_icon.png */,
 				6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */,
 				6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */,
@@ -1115,6 +1118,7 @@
 				6D9F7AA82622E93C003A70EC /* devil_camera_recording@3x.png in Resources */,
 				6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */,
 				6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */,
+				6DE2BAEA2780ADDB008344DE /* devil_learning_icon.png in Resources */,
 				6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
