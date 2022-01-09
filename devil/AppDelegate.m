@@ -409,7 +409,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success{
     
     [JulyUtil request:url header:header postParam:json complete:^(id  _Nonnull json) {
-        success(json);
+        if([json isKindOfClass:[NSString class]])
+            success([@{@"body":json} mutableCopy]);
+        else
+            success(json);
     }];
 }
 
@@ -418,7 +421,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         success(json);
     }];
 }
-    
 
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension
 {

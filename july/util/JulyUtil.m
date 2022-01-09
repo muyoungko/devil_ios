@@ -55,7 +55,7 @@
     }
     return -1;
 }
-
+    
 +(void)request:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback{
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -88,20 +88,28 @@
 
 +(void)request:(NSString*)url header:(id _Nullable)header postParam:(id _Nullable)params complete:(void (^)(id res))callback{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
-    id headers = [@{@"Accept": @"application/json",
-        @"Content-Type": @"application/json",
-    } mutableCopy];
-    for(id k in [header allKeys]){
-        headers[k] = header[k];
+    BOOL form = YES;
+    if(header[@"content-type"] && [@"application/x-www-form-urlencoded" isEqualToString:header[@"content-type"]]) {
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        [manager.requestSerializer setValue:@"application/x-www-form-urlencoded; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+        form = YES;
+    } else {
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        form = NO;
     }
 
-    [manager POST:url parameters:params headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
+    __block BOOL fform = YES;
+    [manager POST:url parameters:params headers:header progress:nil success:^(NSURLSessionTask *task, id res)
     {
-        NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-        callback(r);
+        if(fform) {
+            callback([[NSString alloc] initWithData:res encoding:NSUTF8StringEncoding]);
+        } else {
+            NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+            callback(r);
+        }
     }
          failure:^(NSURLSessionTask *operation, NSError *error)
     {
