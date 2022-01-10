@@ -11,7 +11,9 @@
 
 #define HOST_API @"https://console-api.deavil.com"
 #define HOST_WEB @"http://console.deavil.com"
+//#define LEARN_API @"https://console-api.deavil.com"
 
+#define LEARN_API @"http://192.168.1.230:9111"
 //#define HOST_API @"http://192.168.1.230:6111"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,10 +30,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(NSString*)getName;
 
+-(NSString*)getLoginToken;
 -(BOOL)isLogin;
 -(void)isLogin:(void (^)(id res))callback;
 
 -(void)request:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback;
+-(void)requestLearn:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback;
 -(void)checkMemeber:(NSString*)type identifier:identifier callback:(void (^)(id res))callback;
 -(void)login:(NSString*)type email:(NSString*)email passwordOrToken:(NSString*)passwordOrToken callback:(void (^)(id res))callback;
 

@@ -109,6 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)androidEscapeDozeModeIf:(NSString*)msg:(NSString*)yes:(NSString*)no;
 + (void)video:(NSDictionary*)param;
 + (void)timer:(NSString*)node :(int)sec;
++ (void)custom:(NSString*)function;
 
 @end
 

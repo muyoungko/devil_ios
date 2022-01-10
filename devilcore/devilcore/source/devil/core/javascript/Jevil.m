@@ -39,6 +39,10 @@
 #import "DevilPlayerController.h"
 #import "WildCardTimer.h"
 #import "DevilExceptionHandler.h"
+#import "WildCardTrigger.h"
+
+
+
 
 @interface Jevil()
 
@@ -621,8 +625,7 @@ BOOL httpOk[10];
     [[JevilInstance currentInstance] syncData];
     
     UIViewController*vc = [JevilInstance currentInstance].vc;
-    if(vc != nil && 
-        ([[vc class] isKindOfClass:[DevilController class]] || [[vc class] isEqual:[DevilController class]])) {
+    if(vc != nil && ([vc isKindOfClass:[DevilController class]])) {
         [((DevilController*)vc) updateMeta];
         if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
             [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog update];
@@ -1183,6 +1186,14 @@ BOOL httpOk[10];
     WildCardUIView* vv = [vc findView:node];
     WildCardTimer* timer = (WildCardTimer*)vv.tags[@"timer"];
     [timer startTimeFromSec:sec];
+}
+
++ (void)custom:(NSString*)function {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    NSString *action = function;
+    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    trigger.node = nil;
+    [WildCardAction parseAndConducts:trigger action:action meta:[JevilInstance currentInstance].meta];
 }
 
 @end

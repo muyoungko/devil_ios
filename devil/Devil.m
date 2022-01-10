@@ -72,6 +72,11 @@
     }];
 }
 
+-(NSString*)getLoginToken {
+    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    return token;
+}
+
 -(BOOL)isLogin{
     NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     return token != nil;
@@ -93,9 +98,42 @@
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
-    id headers = [@{@"Origin":@"http://m.bnbhostsering.com",
-                    @"Accept": @"application/json"
-    } mutableCopy];
+    id headers = [@{@"Accept": @"application/json"} mutableCopy];
+    if(token)
+        headers[@"x-access-token"] = token;
+    
+    if(params == nil){
+        [manager GET:url parameters:@{} headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
+        {
+            NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+            callback(r);
+        }
+             failure:^(NSURLSessionTask *operation, NSError *error)
+        {
+            callback(nil);
+        }];
+    } else {
+        [manager POST:url parameters:params headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
+        {
+            NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+            callback(r);
+        }
+             failure:^(NSURLSessionTask *operation, NSError *error)
+        {
+            callback(nil);
+        }];
+    }
+}
+
+-(void)requestLearn:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback{
+
+    url = [NSString stringWithFormat:@"%@%@", LEARN_API, url];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    id headers = [@{@"Accept": @"application/json"} mutableCopy];
     if(token)
         headers[@"x-access-token"] = token;
     

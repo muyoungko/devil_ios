@@ -1,30 +1,26 @@
 //
-//  DevilDebugView.m
-//  devilcore
+//  DebugLearningView.m
+//  devil
 //
-//  Created by Mu Young Ko on 2021/01/14.
+//  Created by Mu Young Ko on 2022/01/10.
+//  Copyright © 2022 Mu Young Ko. All rights reserved.
 //
 
-#import "DevilDebugView.h"
-#import "WildCardConstructor.h"
-#import "DevilController.h"
-#import "DevilDebugController.h"
+#import "DebugLearningView.h"
+#import "LearningController.h"
+#import "Devil.h"
 
-@interface DevilDebugView()
+@interface DebugLearningView()
 @property (nonatomic, retain) DevilController* vc;
 @end
 
-@implementation DevilDebugView
+@implementation DebugLearningView
 
 + (void)constructDebugViewIf:(DevilController*)vc{
-    NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"]
-//       && [[vc class] isEqual:[DevilController class]]
-       ){
-        DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
-        [vc.view addSubview:debug];
-    }
+    DebugLearningView* debug = [[DebugLearningView alloc] initWithVc:vc];
+    [vc.view addSubview:debug];
 }
+
 
 - (instancetype)initWithVc:(DevilController*)vc
 {
@@ -52,24 +48,66 @@
         self.userInteractionEnabled = iv.userInteractionEnabled = YES;
         
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-        UIImage *devil_icon = [UIImage imageNamed:@"devil_icon.png" inBundle:bundle compatibleWithTraitCollection:nil];
+        UIImage *devil_icon = [UIImage imageNamed:@"devil_learning_icon.png" inBundle:bundle compatibleWithTraitCollection:nil];
         [iv setImage:devil_icon];
         
         UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
         [iv addGestureRecognizer:singleFingerTap];
         
-        UILongPressGestureRecognizer *longClick = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongClickListener:)];
-        [iv addGestureRecognizer:longClick];
-        
         iv.isAccessibilityElement = YES;
         iv.accessibilityTraits = UIAccessibilityTraitButton;
-        iv.accessibilityLabel = @"Devil App Builder Icon";
+        iv.accessibilityLabel = @"Devil App Builder Learning Icon";
         
     }
     return self;
 }
 
 -(void)onClickListener:(UITapGestureRecognizer *)recognizer{
+    
+    UIViewController*vc = [JevilInstance currentInstance].vc;
+    DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:vc];
+    id list = @[@{
+        @"id":@"정답확인",
+    },@{
+        @"id":@"리로드"
+    },];
+    
+    id param = @{
+        @"key" : @"id",
+        @"value" : @"id",
+        @"view" : self,
+        @"show" : @"point"
+    };
+    
+    [d popupSelect:list param:param onselect:^(id  _Nonnull res) {
+        if([res isEqualToString:@"정답확인"]) {
+            [self check];
+        } else if([res isEqualToString:@"리로드"]) {
+            [self reload];
+        }
+    }];
+    
+    self.vc.devilSelectDialog = d;
+    
+}
+
+-(void)check {
+    [self.vc startLoading];
+    NSString* path = [NSString stringWithFormat:@"/api/step/screen_id/%@", self.vc.screenId];
+    [[Devil sharedInstance] requestLearn:path postParam:nil complete:^(id  _Nonnull res) {
+        [self.vc stopLoading];
+        @try{
+            if(res) {
+                NSString* goal_script = res[@"step"][@"goal_script"];
+                [self.vc.jevil code:goal_script viewController:self.vc data:[JevilInstance currentInstance].meta.correspondData meta:[JevilInstance currentInstance].meta];
+            }
+        }@catch(NSException* e) {
+            
+        }
+    }];
+}
+
+-(void)reload {
     UINavigationController* nc = self.vc.navigationController;
     [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
         NSString* project_id = [WildCardConstructor sharedInstance].project_id;
@@ -86,49 +124,12 @@
         if(savedWebHost)
             [WildCardConstructor sharedInstance:project_id].project[@"web_host"] = savedWebHost;
         
-        DevilController* d = [[DevilController alloc] init];
+        LearningController* d = [[LearningController alloc] init];
         d.startData = startData;
         d.screenId = screenId;
         d.projectId = project_id;
         [nc pushViewController:d animated:YES];
     }];
-}
-
--(void)onLongClickListener:(UITapGestureRecognizer *)recognizer{
-    if(![[self.vc.navigationController.topViewController class] isEqual:
-       [DevilDebugController class]]){
-        DevilDebugController*vc = [[DevilDebugController alloc] init];
-        [self.vc.navigationController pushViewController:vc animated:YES];
-    }
-}
-
-
-+(DevilDebugView*)sharedInstance{
-    static DevilDebugView *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[DevilDebugView alloc] init];
-        sharedInstance.logList = [@[] mutableCopy];
-    });
-    return sharedInstance;
-}
-
-- (void)log:(NSString*)type title:(NSString*)title log:(id)log {
-    id item = [@{
-        @"type":type,
-        @"title":title,
-    } mutableCopy];
-    if(log)
-        item[@"log"] = log;
-    [self.logList addObject:item];
-    
-    if([self.logList count] > 100){
-        [self.logList removeObjectAtIndex:0];
-    }
-}
-
-- (void)clearLog{
-    [self.logList removeAllObjects];
 }
 
 @end

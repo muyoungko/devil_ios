@@ -681,7 +681,7 @@ static BOOL IS_TABLET = NO;
         //shadow
         if([layer objectForKey:@"shadow"]){
             
-            NSLog(@"shadow %@", name);
+            //NSLog(@"shadow %@", name);
             id shadow = layer[@"shadow"];
             
             float offsetX = [WildCardConstructor convertSketchToPixel:[shadow[@"offsetX"] intValue]];

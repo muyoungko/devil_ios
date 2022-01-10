@@ -11,6 +11,7 @@
 #import "LoginController.h"
 #import "Devil.h"
 #import <devilcore/devilcore.h>
+#import "MainV2Controller.h"
 
 @interface FirstController ()
 
@@ -31,7 +32,10 @@
             [self hideIndicator];
             if(res){
                 if([res[@"r"] boolValue]){
-                    [self.navigationController setViewControllers:@[[[MainController alloc] init]]];
+                    //[self.navigationController setViewControllers:@[[[MainController alloc] init]]];
+                    MainV2Controller* v = [[MainV2Controller alloc] init];
+                    v.screenId = @"56553391";
+                    [self.navigationController setViewControllers:@[v]];
                 } else {
                     [self.navigationController setViewControllers:@[[[LoginController alloc] init]]];
                 }

@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(DevilSdk*)sharedInstance;
 +(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback;
++(void)start:(NSString*)project_id screenId:(NSString*)screen_id controller:(Class)controllerClass viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback;
 -(id)getCustomJevil;
 -(void)addCustomJevil:(Class)a;
 -(void)registScreenController:(NSString*)screenName class:(Class)class;

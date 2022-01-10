@@ -27,6 +27,9 @@
 
 #import "AppDelegate.h"
 #import "MyDevilController.h"
+#import "LearningController.h"
+
+#import "JevilLearning.h"
 
 @interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate>
 
@@ -155,7 +158,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
     //[[DevilSdk sharedInstance] registScreenController:@"view" class:[MyDevilController class]];
     [DevilSdk sharedInstance].devilSdkScreenDelegate = self;
-    
+    [[DevilSdk sharedInstance] addCustomJevil:[JevilLearning class]];
     if(launchOptions == nil){
         [self preparePushToken:application];
     }
@@ -437,6 +440,17 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 -(void)onCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
 {
+    if([@"learn_check" isEqualToString:functionName]) {
+        NSString* screen_id = args[0];
+        NSString* learn_project_id = args[1];
+        AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        [WildCardConstructor sharedInstance:learn_project_id].delegate = appDelegate;
+        [WildCardConstructor sharedInstance:learn_project_id].textConvertDelegate = appDelegate;
+        [WildCardConstructor sharedInstance:learn_project_id].textTransDelegate = appDelegate;
+        [DevilSdk start:learn_project_id screenId:screen_id controller:[LearningController class] viewController:[JevilInstance currentInstance].vc complete:^(BOOL res) {
+            
+        }];
+    }
 }
 
 

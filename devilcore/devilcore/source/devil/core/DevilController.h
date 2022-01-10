@@ -25,7 +25,7 @@ UIDocumentInteractionControllerDelegate>
 -(void)finish;
 -(void)alertFinish:(NSString*)msg;
 -(WildCardUIView*)findView:(NSString*)name;
-
+@property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) NSString* projectId;
 @property (nonatomic, retain) NSString* screenId;
 @property (nonatomic, retain) NSString* screenName;
@@ -42,6 +42,7 @@ UIDocumentInteractionControllerDelegate>
 
 @property BOOL (^onBackPressCallback)();
 
+-(void)debugView;
 
 @end
 

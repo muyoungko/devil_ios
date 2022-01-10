@@ -39,6 +39,18 @@
     }];
 }
 
++(void)start:(NSString*)project_id screenId:(NSString*)screen_id controller:(Class)controllerClass viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback {
+    [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:^(BOOL success) {
+        [WildCardConstructor sharedInstance:project_id];
+        [[NSUserDefaults standardUserDefaults] setObject:project_id forKey:@"PROJECT_ID"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        DevilController* d = [[controllerClass alloc] init];
+        d.screenId = screen_id;
+        [vc.navigationController pushViewController:d animated:YES];
+        callback(success);
+    }];
+}
+
 -(id)getCustomJevil{
     if(self.sharedCustomJevilList == nil)
         self.sharedCustomJevilList = [@[] mutableCopy];

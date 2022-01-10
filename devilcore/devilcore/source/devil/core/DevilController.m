@@ -18,7 +18,6 @@
 @interface DevilController ()
 
 @property (nonatomic, retain) DevilHeader* header;
-@property (nonatomic, retain) JevilCtx* jevil;
 @property int header_sketch_height;
 @property BOOL hasOnResume;
 @property BOOL hasOnFinish;
@@ -82,6 +81,10 @@
     
     [JevilInstance globalInstance].callbackData = nil;
     [JevilInstance globalInstance].callbackFunction = nil;
+    [self debugView];
+}
+
+-(void)debugView {
     [DevilDebugView constructDebugViewIf:self];
 }
 
