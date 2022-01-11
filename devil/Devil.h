@@ -11,9 +11,9 @@
 
 #define HOST_API @"https://console-api.deavil.com"
 #define HOST_WEB @"http://console.deavil.com"
-//#define LEARN_API @"https://console-api.deavil.com"
+#define LEARN_API @"https://learn-api.devil-app-builder.com"
 
-#define LEARN_API @"http://192.168.1.230:9111"
+//#define LEARN_API @"http://192.168.1.230:9111"
 //#define HOST_API @"http://192.168.1.230:6111"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -13,9 +13,13 @@
 @implementation JevilLearning
 
 + (void)success{
-  
-    [[Devil sharedInstance] requestLearn:@"/api/step/success" postParam:nil complete:^(id  _Nonnull res) {
-        [Jevil alertFinish:@"성공하셨습니다"];
+    NSString* screen_id = ((DevilController*)[JevilInstance currentInstance].vc).screenId;
+    NSString* path = [NSString stringWithFormat:@"/api/step/success/%@", screen_id];
+    [[Devil sharedInstance] requestLearn:path postParam:nil complete:^(id  _Nonnull res) {
+        if(res && [res[@"r"] boolValue])
+            [Jevil alertFinish:@"성공하셨습니다"];
+        else
+            [Jevil alert:@"일시적 오류가 발생하였습니다. 다시 시도해주세요"];
     }];
 }
 

@@ -32,14 +32,15 @@
 
 - (void)viewDidLoad{   
     [super viewDidLoad];
-    if(self.projectId){
-        [WildCardConstructor sharedInstance:self.projectId];
-    }
     
     if(!self.screenId){
         [self alertFinish:@"No Screen Id. Did you set splash screen?"];
         return;
     }
+    
+    id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    self.screenName = screen[@"name"];
+    self.projectId = [screen[@"project_id"] stringValue];
     
     self.jevil = [[JevilCtx alloc] init];
     self.thisMetas = [@{} mutableCopy];
@@ -68,7 +69,6 @@
     if(common_javascript != nil && common_javascript != [NSNull null])
         [self.jevil code:common_javascript viewController:self data:self.data meta:nil];
     
-    id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
     [self updateHasFunction];
 
     [self constructHeaderAndFooter];
@@ -91,8 +91,6 @@
 -(void)updateHasFunction {
     self.hasOnCreated = self.hasOnFinish = self.hasOnResume = false;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
-    self.screenName = screen[@"name"];
-    self.projectId = screen[@"project_id"];
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
         
@@ -202,6 +200,9 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
+    [WildCardConstructor sharedInstance:self.projectId];
+    
     [self checkHeader];
     
     [WildCardConstructor sharedInstance].loadingDelegate = self;
