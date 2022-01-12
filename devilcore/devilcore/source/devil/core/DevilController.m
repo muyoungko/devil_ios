@@ -37,10 +37,13 @@
         [self alertFinish:@"No Screen Id. Did you set splash screen?"];
         return;
     }
+    if(self.projectId)
+        [WildCardConstructor sharedInstance:self.projectId];
     
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
     self.screenName = screen[@"name"];
     self.projectId = [screen[@"project_id"] stringValue];
+    
     
     self.jevil = [[JevilCtx alloc] init];
     self.thisMetas = [@{} mutableCopy];
