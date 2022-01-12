@@ -434,46 +434,54 @@
     }
     
     /**
-     순서 - Gravity, 깊은 depth, wrap_content , Match_Prent, nextView,
+     순서 - 깊은 depth,  wrap_content, Gravity, Match_Prent, nextView,
+     2022.01.06
+     Gravity가 최우선이 되어야하는데, 그렇게 안되는 버그가 있어서 이를 수정함
+     https://console.deavil.com/#/block/56545468
+     Gravity로 우측 할인가가 붙고 그 다음에 WrapContent된 오리지널 가격이 그 우측에 이어 붙는경우
+     
+     2022.01.12
+     Gravity가 최우선 되는 게 맞는가?
+     WrapContent Center 후에 우측에 화살표가 붙는 경우
+     일단 자기 width를 결정해야 자기가
+     https://console.deavil.com/#/block/56548847
+     
+     깊은 depth, wrap_content, Gravity,  Match_Prent, nextView,
+     wrap_content가 최우선이 되어야할듯
      */
     _layoutPath = [temp sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         WildCardLayoutPathUnit* aa = (WildCardLayoutPathUnit*)a;
         WildCardLayoutPathUnit* bb = (WildCardLayoutPathUnit*)b;
         
-        if(aa.type == WC_LAYOUT_TYPE_MATCH_PARENT)
-            return true;
-        if(bb.type == WC_LAYOUT_TYPE_MATCH_PARENT)
-            return false;
-        
-        /**
-         2022.01.06
-         Gravity가 최우선이 되어야하는데, 그렇게 안되는 버그가 있어서 이를 수정함
-         */
-        if(aa.type == WC_LAYOUT_TYPE_GRAVITY)
-            return -1000;
-        if(bb.type == WC_LAYOUT_TYPE_GRAVITY)
-            return 1000;
-        
         if(aa.depth < bb.depth)
-            return true;
+            return 1000;
         else if(aa.depth > bb.depth)
-            return false;
+            return -1000;
         else
         {
             if(aa.type == bb.type)
-                return false;
+                return 0;
             else{
-                if(bb.type == WC_LAYOUT_TYPE_WRAP_CONTENT)
-                    return true;
-                if(bb.type == WC_LAYOUT_TYPE_NEXT_VIEW)
-                    return true;
-                
-                return false;
+                int av = [self typeToValue:aa.type];
+                int bv = [self typeToValue:bb.type];
+                return bv - av;
             }
         }
+        
     }];
 }
 
+-(int)typeToValue:(int)type {
+    if(type == WC_LAYOUT_TYPE_WRAP_CONTENT)
+        return 400;
+    if(type == WC_LAYOUT_TYPE_GRAVITY)
+        return 300;
+    if(type == WC_LAYOUT_TYPE_MATCH_PARENT)
+        return 200;
+    if(type == WC_LAYOUT_TYPE_NEXT_VIEW)
+        return 100;
+    return 0;
+}
 
 -(void)addTriggerAction:(WildCardTrigger*)trigger
 {
