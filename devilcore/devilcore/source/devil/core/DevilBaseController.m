@@ -93,7 +93,7 @@
         int h = 170;
         loading.frame = CGRectMake(0, 0 , h, h);
         loading.userInteractionEnabled = NO;
-        loading.center = self.view.center;
+        loading.center = CGPointMake(self.view.center.x, self.view.frame.size.height/2);
         loading.tag = 2243;
         loading.loopAnimation = YES;
         [loading play];

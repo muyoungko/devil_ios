@@ -312,7 +312,7 @@
             }
             
             if(indexPath.section == 0) {
-                self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = [NSString stringWithFormat:@"%@", self.data[indexPath.row]];
+                self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = self.data[indexPath.row];
                 self.lastDataCount = [self.data count];
             }
         }@catch(NSException* e){
@@ -326,6 +326,9 @@
     }
 }
 
+/**
+ data의 각 아이템 주소가 바뀐경우 무조건 변경되어야함
+ */
 - (BOOL)shouldReload {
     id index_path_list = [self.collectionView indexPathsForVisibleItems];
     
@@ -347,6 +350,13 @@
             NSString* a = [NSString stringWithFormat:@"%@", already];
             NSString* b = [NSString stringWithFormat:@"%@", self.data[(int)index.row]];
             if(![a isEqualToString:b]) {
+                allVisibleSame = NO;
+                break;
+            }
+            
+            NSString* aa = [NSString stringWithFormat:@"%u", already];
+            NSString* bb = [NSString stringWithFormat:@"%u", self.data[(int)index.row]];
+            if(![aa isEqualToString:bb]) {
                 allVisibleSame = NO;
                 break;
             }

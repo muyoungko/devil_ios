@@ -41,6 +41,7 @@
     if(url == nil){
         [(UIImageView*)self.replaceView setImage:nil];
         [(UIImageView*)self.replaceView setNeedsDisplay];
+        [((WildCardUIView*)[self.replaceView superview]).tags removeObjectForKey:@"url"];
         return;
     }
     
@@ -79,6 +80,7 @@
         }
     } else {
         [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.replaceView withUrl:url];
+        ((WildCardUIView*)[self.replaceView superview]).tags[@"url"] = url;
     }
     
     self.currentUrl = url;

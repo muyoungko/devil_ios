@@ -15,6 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JevilLearning<JSExport>
  
 + (void)success;
++ (NSString*)getText:(NSString*)node;
++ (NSString*)getImage:(NSString*)node;
 
 @end
 

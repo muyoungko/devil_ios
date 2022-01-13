@@ -90,6 +90,7 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     BOOL form = YES;
+    id mheader = [header mutableCopy];
     if(header[@"content-type"] && [@"application/x-www-form-urlencoded" isEqualToString:header[@"content-type"]]) {
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -98,11 +99,14 @@
     } else {
         manager.requestSerializer = [AFJSONRequestSerializer serializer];
         manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        mheader[@"Accept"] = @"application/json";
+        mheader[@"Content-Type"] = @"application/json";
+        
         form = NO;
     }
 
-    __block BOOL fform = YES;
-    [manager POST:url parameters:params headers:header progress:nil success:^(NSURLSessionTask *task, id res)
+    __block BOOL fform = form;
+    [manager POST:url parameters:params headers:mheader progress:nil success:^(NSURLSessionTask *task, id res)
     {
         if(fform) {
             callback([[NSString alloc] initWithData:res encoding:NSUTF8StringEncoding]);

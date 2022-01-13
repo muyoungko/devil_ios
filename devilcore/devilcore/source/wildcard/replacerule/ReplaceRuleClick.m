@@ -11,6 +11,10 @@
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardUITapGestureRecognizer.h"
 
+@interface ReplaceRuleClick()
+@property (nonatomic, retain) WildCardUITapGestureRecognizer* singleFingerTap;
+@end
+
 @implementation ReplaceRuleClick
 
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
@@ -25,18 +29,19 @@
         [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(onClickListener:)];
         singleFingerTap.meta = wcMeta;
         [vv addGestureRecognizer:singleFingerTap];
+        self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickContent"];
     } else if(layer[@"clickJavascript"]) {
         WildCardUITapGestureRecognizer *singleFingerTap =
         [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(script:)];
         singleFingerTap.meta = wcMeta;
         [vv addGestureRecognizer:singleFingerTap];
+        self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
     }
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{
-    
 }
 
 @end

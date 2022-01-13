@@ -12,6 +12,19 @@
 
 @implementation JevilLearning
 
++ (NSString*)getText:(NSString*)node{
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* v = [dc findView:node];
+    UILabel* tv = [v subviews][0];
+    return tv.text;
+}
+
++ (NSString*)getImage:(NSString*)node{
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* v = [dc findView:node];
+    return v.tags[@"url"];
+}
+
 + (void)success{
     NSString* screen_id = ((DevilController*)[JevilInstance currentInstance].vc).screenId;
     NSString* path = [NSString stringWithFormat:@"/api/step/success/%@", screen_id];
