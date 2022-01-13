@@ -113,6 +113,21 @@
                     id results = res[@"results"];
                     if([results count] > 0){
                         id address_components = results[0][@"address_components"];
+                        for(id result in results) {
+                            id types = result[@"types"];
+                            BOOL found = false;
+                            for(id type in types){
+                                if([type isEqualToString:@"postal_code"]){
+                                    found = true;
+                                    address_components = result[@"address_components"];
+                                    break;
+                                }
+                            }
+                            
+                            if(found)
+                                break;
+                        }
+                        
                         NSString* address1 = @"";
                         NSString* address2 = @"";
                         NSString* address3 = @"";
