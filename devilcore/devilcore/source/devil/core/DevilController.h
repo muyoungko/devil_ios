@@ -12,6 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class MetaAndViewResult;
+
 @interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardScreenTableViewDelegate, WildCardConstructorLoading,
 UIDocumentInteractionControllerDelegate>
 {
@@ -25,6 +27,7 @@ UIDocumentInteractionControllerDelegate>
 -(void)finish;
 -(void)alertFinish:(NSString*)msg;
 -(WildCardUIView*)findView:(NSString*)name;
+-(MetaAndViewResult*)findViewWithMeta:(NSString*)name;
 @property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) NSString* projectId;
 @property (nonatomic, retain) NSString* screenId;
@@ -44,6 +47,11 @@ UIDocumentInteractionControllerDelegate>
 
 -(void)debugView;
 
+@end
+
+@interface MetaAndViewResult : NSObject
+@property (nonatomic, retain) WildCardMeta* meta;
+@property (nonatomic, retain) WildCardUIView* view;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -39,3 +39,4 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "MarketComponent.h"
 #import "MappingSyntaxInterpreter.h"
 #import "DevilLink.h"
+#import "WildCardTrigger.h"

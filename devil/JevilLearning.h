@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)success;
 + (NSString*)getText:(NSString*)node;
 + (NSString*)getImage:(NSString*)node;
++ (void)click:(NSString*)node;
++ (void)waitAlert:(NSString*)alertText :(int)sec :(JSValue*)callback;
++ (void)reload:(JSValue*)callback;
 
 @end
 

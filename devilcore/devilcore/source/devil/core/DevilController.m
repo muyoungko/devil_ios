@@ -499,7 +499,7 @@
 }
 
 -(WildCardUIView*)findView:(NSString*) name {
-    WildCardUIView* a = [self.mainWc.meta getView:name];
+    WildCardUIView* a = (WildCardUIView*)[self.mainWc.meta getView:name];
     if(a)
         return a;
     
@@ -510,9 +510,41 @@
     }
     
     if(self.footer) {
-        WildCardUIView* r = [self.footer.meta getView:name];
+        WildCardUIView* r = (WildCardUIView*)[self.footer.meta getView:name];
         if(r != nil)
             return r;
+    }
+    
+    @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(findView)'%@' is not exists.", name] userInfo:nil];
+
+    return nil;
+}
+
+-(MetaAndViewResult*)findViewWithMeta:(NSString*) name {
+    MetaAndViewResult* r = [[MetaAndViewResult alloc] init];
+    WildCardUIView* a = (WildCardUIView*)[self.mainWc.meta getView:name];
+    if(a) {
+        r.meta = self.mainWc.meta;
+        r.view = a;
+        return r;
+    }
+    
+    for(NSString* a in self.thisMetas) {
+        WildCardUIView* v = (WildCardUIView*) [self.thisMetas[a] getView:name];
+        if(v != nil) {
+            r.meta = self.mainWc.meta;
+            r.view = v;
+            return r;
+        }
+    }
+    
+    if(self.footer) {
+        WildCardUIView* v = (WildCardUIView*)[self.footer.meta getView:name];
+        if(v != nil) {
+            r.meta = self.mainWc.meta;
+            r.view = v;
+            return r;
+        }
     }
     
     @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(findView)'%@' is not exists.", name] userInfo:nil];
@@ -532,4 +564,8 @@
     }]];
     [self presentViewController:alertController animated:YES completion:^{}];
 }
+@end
+
+
+@implementation MetaAndViewResult
 @end

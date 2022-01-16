@@ -161,7 +161,9 @@
                                                         handler:^(UIAlertAction *action) {
                                                             
         }]];
+            
         [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+        ((DevilController*)[JevilInstance currentInstance].vc).activeAlert = alertController;
     }
 }
 
