@@ -692,7 +692,7 @@ static BOOL IS_TABLET = NO;
             vv.layer.shadowRadius = blurRadius;
             vv.layer.shadowOpacity = [WildCardUtil alphaWithHexString:shadow[@"color"]];
             vv.layer.shadowColor = [[WildCardUtil colorWithHexStringWithoutAlpha:shadow[@"color"]] CGColor];
-            vv.backgroundColor = [UIColor whiteColor];
+            //vv.backgroundColor = [UIColor whiteColor];
         }
         
         //        if([@"text" isEqualToString:_class])

@@ -31,6 +31,7 @@
     if (self) {
         self.cachedViewByType = [[NSMutableDictionary alloc] init];
         self.visibleDataByIndexPath = [[NSMutableDictionary alloc] init];
+        self.visibleDataStringByIndexPath = [[NSMutableDictionary alloc] init];
         self.lastDataCount = 0;
         viewPagerSelectedIndex = 0;
         _pageControl = nil;
@@ -313,6 +314,8 @@
             
             if(indexPath.section == 0) {
                 self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = self.data[indexPath.row];
+                self.visibleDataStringByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = [NSString stringWithFormat:@"%@", self.data[indexPath.row]];
+
                 self.lastDataCount = [self.data count];
             }
         }@catch(NSException* e){
@@ -341,20 +344,22 @@
         atLeastOneCompared = YES;
         if(index.row < [self.data count]) {
             NSNumber* key = [NSNumber numberWithInt:(int)index.row];
-            id already = self.visibleDataByIndexPath[key];
-            if(!already) {
+            id alreadyString = self.visibleDataStringByIndexPath[key];
+            id alreadyAddress = self.visibleDataByIndexPath[key];
+            if(!alreadyString) {
                 allVisibleSame = NO;
                 break;
             }
             
-            NSString* a = [NSString stringWithFormat:@"%@", already];
+            
+            NSString* a = alreadyString;
             NSString* b = [NSString stringWithFormat:@"%@", self.data[(int)index.row]];
             if(![a isEqualToString:b]) {
                 allVisibleSame = NO;
                 break;
             }
             
-            NSString* aa = [NSString stringWithFormat:@"%u", already];
+            NSString* aa = [NSString stringWithFormat:@"%u", alreadyAddress];
             NSString* bb = [NSString stringWithFormat:@"%u", self.data[(int)index.row]];
             if(![aa isEqualToString:bb]) {
                 allVisibleSame = NO;
