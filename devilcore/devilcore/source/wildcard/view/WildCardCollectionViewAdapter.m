@@ -344,7 +344,13 @@
         atLeastOneCompared = YES;
         if(index.row < [self.data count]) {
             NSNumber* key = [NSNumber numberWithInt:(int)index.row];
+            /**
+            데이터를 문자로 변환해서 검사해야 변경 증분을 알수가 있다
+             */
             id alreadyString = self.visibleDataStringByIndexPath[key];
+            /**
+            데이터의 문자는 같은데 주소가 변경되는 경우가 있다. 이경우는 무조건 리로드 해야한다
+             */
             id alreadyAddress = self.visibleDataByIndexPath[key];
             if(!alreadyString) {
                 allVisibleSame = NO;
