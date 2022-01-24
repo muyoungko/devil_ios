@@ -16,9 +16,10 @@
 
 @implementation DebugLearningView
 
-+ (void)constructDebugViewIf:(DevilController*)vc{
++ (DebugLearningView*)constructDebugViewIf:(DevilController*)vc{
     DebugLearningView* debug = [[DebugLearningView alloc] initWithVc:vc];
     [vc.view addSubview:debug];
+    return debug;
 }
 
 
@@ -81,7 +82,7 @@
     
     [d popupSelect:list param:param onselect:^(id  _Nonnull res) {
         if([res isEqualToString:@"정답확인"]) {
-            [self check];
+            [self reloadForCheck];
         } else if([res isEqualToString:@"리로드"]) {
             [self reload];
         }
@@ -91,22 +92,47 @@
     
 }
 
--(void)check {
+-(void)reloadForCheck {
     [self.vc startLoading];
+    UINavigationController* nc = self.vc.navigationController;
+    [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
+        NSString* project_id = [WildCardConstructor sharedInstance].project_id;
+        id startData = ((DevilController*)self.vc.navigationController.topViewController).startData;
+        id screenId = ((DevilController*)self.vc.navigationController.topViewController).screenId;
+        [self.vc.navigationController popViewControllerAnimated:YES];
+
+        NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
+        NSString* webHostKey = [NSString stringWithFormat:@"%@_WEB_HOST", project_id];
+        NSString *savedHost = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
+        NSString *savedWebHost = [[NSUserDefaults standardUserDefaults] objectForKey:webHostKey];
+        if(savedHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"host"] = savedHost;
+        if(savedWebHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"web_host"] = savedWebHost;
+        
+        LearningController* d = [[LearningController alloc] init];
+        d.checking = true;
+        d.startData = startData;
+        d.screenId = screenId;
+        d.projectId = project_id;
+        [nc pushViewController:d animated:YES];
+    }];
+}
+
+-(void)check {
     NSString* path = [NSString stringWithFormat:@"/api/step/screen_id/%@", self.vc.screenId];
     [[Devil sharedInstance] requestLearn:path postParam:nil complete:^(id  _Nonnull res) {
         [self.vc stopLoading];
         @try{
             if(res) {
                 NSString* goal_script = res[@"step"][@"goal_script"];
-                [self.vc.jevil code:goal_script viewController:self.vc data:[JevilInstance currentInstance].meta.correspondData meta:[JevilInstance currentInstance].meta];
+                [self.vc.jevil code:goal_script viewController:self.vc data:self.vc.mainWc.meta.correspondData meta:self.vc.mainWc.meta];
             }
         }@catch(NSException* e) {
             
         }
     }];
 }
-
 -(void)reload {
     UINavigationController* nc = self.vc.navigationController;
     [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {

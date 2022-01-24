@@ -85,6 +85,63 @@
     }];
 }
 
++ (NSDictionary*)getRect:(NSString*)node{
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* v = [dc findView:node];
+    id r = [@{} mutableCopy];
+    
+    
+    r[@"x"] = [NSNumber numberWithFloat:[WildCardUtil convertPixcelToSketch:v.frame.origin.x]];
+    r[@"y"] = [NSNumber numberWithFloat:[WildCardUtil convertPixcelToSketch:v.frame.origin.y]];
+    r[@"w"] = [NSNumber numberWithFloat:[WildCardUtil convertPixcelToSketch:v.frame.size.width]];
+    r[@"h"] = [NSNumber numberWithFloat:[WildCardUtil convertPixcelToSketch:v.frame.size.height]];
+    return r;
+}
+
++ (NSString*)getTextInVisibleInList:(NSArray*)path :(NSString*)node {
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardMeta* currentMeta = dc.mainWc.meta;
+    for(int i=0;i<[path count];i++) {
+        id p = path[i];
+        WildCardUIView* listView = (WildCardUIView*)[currentMeta getView:p[@"listNode"]];
+        WildCardUICollectionView* list = [listView subviews][0];
+        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)list.delegate;
+        int index = [p[@"index"] intValue];
+        if(index < [[list subviews] count]) {
+            UIView* cell = [list subviews][index];
+            WildCardUIView* cellRootView = [cell subviews][0];
+            currentMeta = cellRootView.meta;
+        } else {
+            return nil;
+        }
+    }
+    
+    UILabel *label = [currentMeta getTextView:node];
+    return label.text;
+}
+
++ (BOOL)isVisible:(NSString*)node {
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* v = [dc findView:node];
+    return !v.hidden;
+}
+
++ (void)sendInput:(NSString*)node :(NSString*)text :(JSValue*)callback {
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* v = [dc findView:node];
+    WildCardUITextField* field = (WildCardUITextField*)[v subviews][0];
+    field.text = text;
+    [field.meta.correspondData setObject:text forKey:field.holder];
+    [[JevilInstance currentInstance] pushData];
+    
+    double delayInSeconds = 1;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [[JevilInstance currentInstance] pushData];
+        [callback callWithArguments:@[]];
+    });
+}
+
 + (void)success{
     NSString* screen_id = ((DevilController*)[JevilInstance currentInstance].vc).screenId;
     NSString* path = [NSString stringWithFormat:@"/api/step/success/%@", screen_id];

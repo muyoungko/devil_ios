@@ -13,8 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DebugLearningView : UIView
 
-+ (void)constructDebugViewIf:(DevilController*)vc;
++ (DebugLearningView*)constructDebugViewIf:(DevilController*)vc;
 - (instancetype)initWithVc:(DevilController*)vc;
+- (void)check;
 
 @end 
 

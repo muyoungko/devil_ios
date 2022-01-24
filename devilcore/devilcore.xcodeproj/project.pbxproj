@@ -217,7 +217,7 @@
 		6DD0944D269C85A8000A913A /* MarketInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0944B269C85A8000A913A /* MarketInstance.m */; };
 		6DD097DD26A1AE29000A913A /* JevilFunctionUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD097DB26A1AE29000A913A /* JevilFunctionUtil.h */; };
 		6DD097DE26A1AE29000A913A /* JevilFunctionUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */; };
-		6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD097E026A28924000A913A /* WildCardUICollectionView.h */; };
+		6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD097E026A28924000A913A /* WildCardUICollectionView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DD097E326A28924000A913A /* WildCardUICollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD097E126A28924000A913A /* WildCardUICollectionView.m */; };
 		6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */; };
 		6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */; };
@@ -933,6 +933,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */,
 				6D12857127773A990086B1CB /* DevilPicker.h in Headers */,
 				6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */,
 				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
@@ -995,7 +996,6 @@
 				6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */,
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
 				6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */,
-				6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */,
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
 				6D467ABA256AB07A006D57DD /* WildCardUITapGestureRecognizer.h in Headers */,

@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LearningController : DevilController
 
+@property BOOL checking;
+
 @end
 
 NS_ASSUME_NONNULL_END

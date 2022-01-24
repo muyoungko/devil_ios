@@ -62,7 +62,9 @@
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     } else if([url hasPrefix:@"tauthlink://"] || [url hasPrefix:@"ktauthexternalcall://"]
-              || [url hasPrefix:@"upluscorporation://"]) {
+              || [url hasPrefix:@"upluscorporation://"]
+              || [url hasPrefix:@"ispmobile://"]
+              ) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
             
         }];

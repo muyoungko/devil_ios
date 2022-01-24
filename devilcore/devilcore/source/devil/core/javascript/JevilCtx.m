@@ -82,6 +82,8 @@
             self.jscontext[name] = value;
         }
     }
+    if([[data allKeys] count] == 0)
+        data[@"atLeastOneKey"] = @"1";
     self.jscontext[@"data"] = data;
     if(meta != nil){
         NSString *d = [JevilUtil find:data :meta.correspondData];

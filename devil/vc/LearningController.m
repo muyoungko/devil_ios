@@ -21,7 +21,10 @@
 }
 
 - (void)debugView{
-    [DebugLearningView constructDebugViewIf:self];
+    DebugLearningView* debugLearningView = [DebugLearningView constructDebugViewIf:self];
+    if(self.checking) {
+        [debugLearningView check];
+    }
 }
 
 /*

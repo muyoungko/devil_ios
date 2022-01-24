@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)click:(NSString*)node;
 + (void)waitAlert:(NSString*)alertText :(int)sec :(JSValue*)callback;
 + (void)reload:(JSValue*)callback;
++ (NSDictionary*)getRect:(NSString*)node;
++ (NSString*)getTextInVisibleInList:(NSArray*)path :(NSString*)node;
++ (BOOL)isVisible:(NSString*)node;
++ (void)sendInput:(NSString*)node :(NSString*)text :(JSValue*)callback;
 
 @end
 

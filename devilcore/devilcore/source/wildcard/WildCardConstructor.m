@@ -867,13 +867,12 @@ static BOOL IS_TABLET = NO;
             //tv.isAccessibilityElement = YES;
             [vv addSubview:tv];
             
+            if([@"Y" isEqualToString:layer[@"textSelection"]]) {
+                tv.textSelection = true;
+            }
+            
             tv.frame = CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);
             tv.lineBreakMode = NSLineBreakByTruncatingTail;
-            //            tv.translatesAutoresizingMaskIntoConstraints = NO;
-            //            [WildCardConstructor followSizeFromFather:vv child:tv];
-            
-            //            vv.backgroundColor = [UIColor purpleColor];
-            //            tv.backgroundColor = [UIColor yellowColor];
             
             NSDictionary* textSpec = [layer objectForKey:@"textSpec"];
             
