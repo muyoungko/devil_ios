@@ -9,6 +9,9 @@
 #import "WildCardConstructor.h"
 #import "DevilController.h"
 #import "DevilDebugController.h"
+#import "JevilInstance.h"
+#import "Jevil.h"
+#import "JevilCtx.h""
 
 @interface DevilDebugView()
 @property (nonatomic, retain) DevilController* vc;
@@ -18,9 +21,7 @@
 
 + (void)constructDebugViewIf:(DevilController*)vc{
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"]
-//       && [[vc class] isEqual:[DevilController class]]
-       ){
+    if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"]){
         DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
         [vc.view addSubview:debug];
     }
@@ -95,10 +96,55 @@
 }
 
 -(void)onLongClickListener:(UITapGestureRecognizer *)recognizer{
-    if(![[self.vc.navigationController.topViewController class] isEqual:
-       [DevilDebugController class]]){
-        DevilDebugController*vc = [[DevilDebugController alloc] init];
-        [self.vc.navigationController pushViewController:vc animated:YES];
+    if(![[self.vc.navigationController.topViewController class] isEqual:[DevilDebugController class]]
+       && self.vc.devilSelectDialog == nil
+       ){
+        __block id dev_menu_list = [WildCardConstructor sharedInstance].project[@"dev_menu_list"];
+        
+        if([dev_menu_list count] > 0) {
+            UIViewController*vc = [JevilInstance currentInstance].vc;
+            __block DevilSelectDialog* d = [[DevilSelectDialog alloc] initWithViewController:vc];
+            id list = [@[@{
+                @"id":@"디버그화면",
+                @"text":@"디버그화면",
+            },] mutableCopy];
+            
+            
+            for(int i=0;i<[dev_menu_list count];i++) {
+                id menu = dev_menu_list[i];
+                NSString* _id = [NSString stringWithFormat:@"%d", i];
+                NSString* text = menu[@"name"];
+                NSString* script = menu[@"script"];
+                [list addObject:[@{
+                    @"id":_id,
+                    @"text":text,
+                    @"script":script,
+                } mutableCopy]];
+            }
+            
+            id param = @{
+                @"key" : @"id",
+                @"value" : @"text",
+                @"view" : self,
+                @"show" : @"point"
+            };
+            
+            [d popupSelect:list param:param onselect:^(id  _Nonnull res) {
+                if([res isEqualToString:@"디버그화면"]) {
+                    DevilDebugController*vc = [[DevilDebugController alloc] init];
+                    [self.vc.navigationController pushViewController:vc animated:YES];
+                } else {
+                    int index = [res intValue];
+                    NSString* script = dev_menu_list[index][@"script"];
+                    [self.vc.jevil code:script viewController:self.vc data:self.vc.mainWc.meta.correspondData meta:self.vc.mainWc.meta];
+                }
+            }];
+            
+            self.vc.devilSelectDialog = d;
+        } else {
+            DevilDebugController*vc = [[DevilDebugController alloc] init];
+            [self.vc.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 

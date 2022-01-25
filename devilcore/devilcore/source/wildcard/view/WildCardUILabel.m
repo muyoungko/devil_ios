@@ -35,21 +35,18 @@
 
 - (void)setTextSelection:(BOOL)textSelection{
     if(textSelection){
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
+        //UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(textTapped:)];
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(textPressed:)];
         [WildCardConstructor userInteractionEnableToParentPath:self depth:10];
-        [self addGestureRecognizer:longPress];
+        [[self superview] addGestureRecognizer:longPress];
         [self setUserInteractionEnabled:YES];
-        
     }
 }
 
 - (void) textPressed:(UILongPressGestureRecognizer *) gestureRecognizer {
-    if (gestureRecognizer.state == UIGestureRecognizerStateRecognized &&
-        [gestureRecognizer.view isKindOfClass:[UILabel class]]) {
-        UILabel *someLabel = (UILabel *)gestureRecognizer.view;
+    if (gestureRecognizer.state == UIGestureRecognizerStateRecognized) {
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        [pasteboard setString:someLabel.text];
+        [pasteboard setString:self.text];
         [Jevil toast:@"클립보드에 복사되었습니다"];
     }
 }

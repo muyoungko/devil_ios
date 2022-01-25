@@ -9,6 +9,7 @@
 #import "DevilBlockDialog.h"
 #import "WildCardConstructor.h"
 #import "WildCardUtil.h"
+#import "DevilController.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -88,6 +89,12 @@ alpha:1.0]
     
     popup.callback = ^(BOOL yes, id  _Nonnull res) {
         [self.popup dismiss];
+    };
+    
+    self.popup.willStartDismissingBlock = ^{
+        if([self.vc isKindOfClass:[DevilController class]]) {
+            ((DevilController*)self.vc).devilSelectDialog = nil;
+        }
     };
     
     int w = [UIScreen mainScreen].bounds.size.width * 0.7f, h= 300;
@@ -207,10 +214,13 @@ alpha:1.0]
 }
 
 
+- (void)close {
+    [self.vc dismissViewControllerAnimated: YES completion: nil];
+}
 
 - (void)alertControllerBackgroundTapped
 {
-    [self.vc dismissViewControllerAnimated: YES completion: nil];
+    [self close];
 }
 
 
