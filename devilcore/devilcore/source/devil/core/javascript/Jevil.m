@@ -768,7 +768,22 @@ BOOL httpOk[10];
     UIViewController*vc = [JevilInstance currentInstance].vc;
     DevilDateTimePopup* d = [[DevilDateTimePopup alloc] initWithViewController:vc];
     id paramM = [param mutableCopy];
-    [d popup:paramM onselect:^(id  _Nonnull res) {
+    [d popup:paramM isDate:true onselect:^(id  _Nonnull res) {
+        if(res) {
+            [callback callWithArguments:@[res]];
+            [[JevilInstance currentInstance] syncData];
+        }
+    }];
+    
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:d];
+}
+
++ (void)popupTime:(NSDictionary*)param :(JSValue *)callback {
+    UIViewController*vc = [JevilInstance currentInstance].vc;
+    DevilDateTimePopup* d = [[DevilDateTimePopup alloc] initWithViewController:vc];
+    id paramM = [param mutableCopy];
+    [d popup:paramM isDate:false onselect:^(id  _Nonnull res) {
         if(res) {
             [callback callWithArguments:@[res]];
             [[JevilInstance currentInstance] syncData];

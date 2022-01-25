@@ -28,9 +28,7 @@
 }
 
 
--(void)popup:param onselect:(void (^)(id res))callback{
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleAlert];
+-(void)popup:param isDate:(BOOL)isDate onselect:(void (^)(id res))callback{
     
     NSString* selectedKey = param[@"selectedKey"];
     NSString* titleText = param[@"title"];
@@ -43,13 +41,15 @@
         [self.popup dismiss];
     };
     
-    int w = [UIScreen mainScreen].bounds.size.width * 0.8f, h= 200;
+    int w = [UIScreen mainScreen].bounds.size.width * 0.8f, h = 200;
     
     int offsetY = 10;
     NSString* yes = @"확인";
     NSString* no = @"취소";
     int titleHeight = 0;
-
+    if(titleText)
+        titleHeight = 50;
+        
     int buttonHeight = 10;
     if(yes){
         buttonHeight = 50;
@@ -95,7 +95,7 @@
         [b addSubview:button];
     }
     
-    UIDatePicker* datepicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, 0, w, h)];
+    UIDatePicker* datepicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, titleHeight, w, h)];
     if(selectedKey) {
         NSDateFormatter *df = [[NSDateFormatter alloc]init];
         [df setDateFormat:@"yyyyMMdd"];
@@ -112,7 +112,11 @@
     }
     
     datepicker.locale = [NSLocale localeWithLocaleIdentifier:[[NSLocale preferredLanguages] firstObject]];
-    datepicker.datePickerMode = UIDatePickerModeDate;
+    
+    if(isDate)
+        datepicker.datePickerMode = UIDatePickerModeDate;
+    else
+        datepicker.datePickerMode = UIDatePickerModeTime;
     
     datepicker.hidden = NO;
     

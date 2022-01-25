@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) UIViewController* vc;
 
 -(id)initWithViewController:(UIViewController*)vc;
--(void)popup:param onselect:(void (^)(id res))callback;
+-(void)popup:param isDate:(BOOL)isDate onselect:(void (^)(id res))callback;
 
 @end
 
