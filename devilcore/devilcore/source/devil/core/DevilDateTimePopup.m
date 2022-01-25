@@ -17,6 +17,7 @@
 @property (nonatomic, retain) DevilBlockDialog *popup;
 @property (nonatomic, retain) UIDatePicker* datepicker;
 @property (nonatomic, retain) NSString* date;
+@property BOOL isDate;
 @end
 
 @implementation DevilDateTimePopup
@@ -29,7 +30,7 @@
 
 
 -(void)popup:param isDate:(BOOL)isDate onselect:(void (^)(id res))callback{
-    
+    self.isDate = isDate;
     NSString* selectedKey = param[@"selectedKey"];
     NSString* titleText = param[@"title"];
     
@@ -96,9 +97,14 @@
     }
     
     UIDatePicker* datepicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, titleHeight, w, h)];
-    if(selectedKey) {
+    if(selectedKey && [selectedKey length] == 8 && isDate) {
         NSDateFormatter *df = [[NSDateFormatter alloc]init];
         [df setDateFormat:@"yyyyMMdd"];
+        datepicker.date = [df dateFromString:selectedKey];
+        self.date = selectedKey;
+    } else if(selectedKey && [selectedKey length] == 4 && !isDate) {
+        NSDateFormatter *df = [[NSDateFormatter alloc]init];
+        [df setDateFormat:@"HHmm"];
         datepicker.date = [df dateFromString:selectedKey];
         self.date = selectedKey;
     } else
@@ -134,10 +140,18 @@
 
 -(void)LabelChange:(id)sender
 {
-    NSDateFormatter *df = [[NSDateFormatter alloc]init];
-    [df setDateFormat:@"yyyyMMdd"];
-    self.date = [df stringFromDate:self.datepicker.date];
-    NSLog(@"%@", self.date);
+    if(self.isDate) {
+        NSDateFormatter *df = [[NSDateFormatter alloc]init];
+        [df setDateFormat:@"yyyyMMdd"];
+        self.date = [df stringFromDate:self.datepicker.date];
+        NSLog(@"%@", self.date);
+    } else {
+        NSDateFormatter *df = [[NSDateFormatter alloc]init];
+        [df setDateFormat:@"HHmm"];
+        self.date = [df stringFromDate:self.datepicker.date];
+        NSLog(@"%@", self.date);
+    }
+    
 }
 
 - (void)buttonClick:(UIView*)sender {
