@@ -31,6 +31,8 @@
 
 #import "JevilLearning.h"
 
+#import "LoginController.h"
+
 @interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
@@ -440,7 +442,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 -(void)onCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
 {
-    if([@"learn_check" isEqualToString:functionName]) {
+    if([@"logout" isEqualToString:functionName]) {
+        [[Devil sharedInstance] logout];
+        [self.navigationController setViewControllers:@[[[LoginController alloc] init]]];
+    } else if([@"learn_check" isEqualToString:functionName]) {
         NSString* screen_id = args[0];
         NSString* learn_project_id = args[1];
         AppDelegate* appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;

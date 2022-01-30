@@ -161,10 +161,6 @@
 }
 
 -(void)logout{
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    for (NSHTTPCookie *each in cookieStorage.cookies)
-        [cookieStorage deleteCookie:each];
-    
     self.member = nil;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
     [[NSUserDefaults standardUserDefaults] synchronize];

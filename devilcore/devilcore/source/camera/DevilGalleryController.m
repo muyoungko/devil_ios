@@ -415,18 +415,30 @@
     PHFetchResult *results = [PHAsset fetchAssetsWithLocalIdentifiers:@[[url stringByReplacingOccurrencesOfString:@"gallery://" withString:@""]] options:nil];
     
     [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        [manager requestImageForAsset:obj
-                           targetSize:CGSizeMake(1024, 1024)
-                          contentMode:PHImageContentModeAspectFill
-                              options:requestOptions
-                        resultHandler:^void(UIImage *image, NSDictionary *info) {
-            
-            NSString* outputFileName = [NSUUID UUID].UUIDString;
-            NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
-            NSData *imageData = UIImageJPEGRepresentation(image, 0.6f);
-            [imageData writeToFile:targetPath atomically:YES];
-            callback([@{@"url":targetPath} mutableCopy]);
-        }];
+//        if (@available(iOS 13, *)) {
+//            [manager requestImageDataAndOrientationForAsset:obj options:requestOptions resultHandler:^(NSData * _Nullable data, NSString * _Nullable dataUTI, CGImagePropertyOrientation orientation, NSDictionary * _Nullable info) {
+//                UIImage* image = [UIImage imageWithData:data];
+//                NSString* outputFileName = [NSUUID UUID].UUIDString;
+//                NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
+//                NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+//                [imageData writeToFile:targetPath atomically:YES];
+//                callback([@{@"url":targetPath} mutableCopy]);
+//            }];
+//        } else
+        {
+            [manager requestImageForAsset:obj
+                               targetSize:CGSizeMake(1024, 1024)
+                              contentMode:PHImageContentModeAspectFill
+                                  options:requestOptions
+                            resultHandler:^void(UIImage *image, NSDictionary *info) {
+                
+                NSString* outputFileName = [NSUUID UUID].UUIDString;
+                NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
+                NSData *imageData = UIImageJPEGRepresentation(image, 1.0f);
+                [imageData writeToFile:targetPath atomically:YES];
+                callback([@{@"url":targetPath} mutableCopy]);
+            }];
+        }
         *stop = true;
     }];
 }

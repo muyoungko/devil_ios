@@ -72,7 +72,7 @@
     } else if([url hasPrefix:@"jevil://devil.com/back"]) {
         [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
         decisionHandler(WKNavigationActionPolicyCancel);
-    } else if([url hasPrefix:@"jevil://devil.com/popupAddress"]) {
+    } else if([url isEqualToString:@"jevil://devil.com/popupAddress"]) {
         
         [JevilInstance currentInstance].data[@"address_step"] = @"1";
         [JevilInstance currentInstance].data[@"address_input1"] = @"";
@@ -95,6 +95,23 @@
                                [JevilInstance currentInstance].data[@"address_x"],
                                [JevilInstance currentInstance].data[@"address_y"]
                                ];
+                [self evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
+                    
+                }];
+            }
+        }];
+        [d show];
+        
+        ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;
+        decisionHandler(WKNavigationActionPolicyCancel);
+    } else if([url isEqualToString:@"jevil://devil.com/popupAddressSelect"]) {
+        DevilBlockDialog* d = [DevilBlockDialog popup:@"address-select-devil-template" data:[JevilInstance currentInstance].data title:nil yes:nil no:nil
+                                                 show:@"bottom"
+                                             onselect:^(BOOL yes, id res) {
+            [[JevilInstance currentInstance] syncData];
+            if(yes) {
+                NSString* s = [NSString stringWithFormat:@"javascript:addressSelectPopupCallback('%@')",
+                               [JevilInstance currentInstance].data[@"selectedAddressId"]];
                 [self evaluateJavaScript:s completionHandler:^(id _Nullable a, NSError * _Nullable error) {
                     
                 }];

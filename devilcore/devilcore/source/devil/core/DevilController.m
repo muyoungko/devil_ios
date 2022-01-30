@@ -226,6 +226,9 @@
     
     [JevilInstance currentInstance].vc = self;
     
+    if(self.mainWc && self.mainWc.meta)
+        [JevilInstance currentInstance].data = self.mainWc.meta.correspondData;
+    
     [[DevilDrawer sharedInstance] show:self];
     
     [self performSelector:@selector(onResume) withObject:nil afterDelay:0.01f];

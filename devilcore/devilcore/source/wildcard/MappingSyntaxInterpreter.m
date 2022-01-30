@@ -56,7 +56,10 @@
 +(NSString*) interpret:(NSString*) tomb : (NSDictionary*) data
 {
     tomb = trim(tomb);
-    if([tomb hasPrefix:@"'"])
+    if([@"true" isEqualToString:tomb] || [@"false" isEqualToString:tomb]) {
+        return tomb;
+    }
+    else if([tomb hasPrefix:@"'"])
     {
         return [tomb stringByReplacingOccurrencesOfString:@"'" withString:@""];
     }
