@@ -21,7 +21,8 @@
 
 + (void)constructDebugViewIf:(DevilController*)vc{
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
-    if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"]){
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"] && ![@"1605234988599" isEqualToString:dc.projectId]){
         DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
         [vc.view addSubview:debug];
     }

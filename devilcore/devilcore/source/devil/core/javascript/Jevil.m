@@ -1039,9 +1039,9 @@ BOOL httpOk[10];
 }
 
 + (void)textChanged:(NSString*)node :(JSValue *)callback {
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    WildCardUIView* vv = [vc findView:node];
-    if(vv != nil) {
+    @try{
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        WildCardUIView* vv = [vc findView:node];
         id o = [vv subviews][0];
         if([o isMemberOfClass:[WildCardUITextField class]]) {
             WildCardUITextField* c = o;
@@ -1058,8 +1058,8 @@ BOOL httpOk[10];
                 [callback callWithArguments:@[text]];
             };
         }
-    } else {
-        [Jevil alert:[NSString stringWithFormat:@"Node not found - %@", node]];
+    }@catch(NSException* e){
+        [DevilExceptionHandler handle:e];
     }
 }
 
