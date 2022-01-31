@@ -13,6 +13,7 @@
 #import "Lang.h"
 #import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
+#import "MainV2Controller.h"
 
 @interface LoginController ()
 
@@ -121,7 +122,7 @@
                 [self hideIndicator];
                 if([res[@"r"] boolValue]){
                     [self showIndicator];
-                    [[Devil sharedInstance] login:@"apple" email:identifier passwordOrToken:@"" callback:^(id  _Nonnull res) {
+                    [[Devil sharedInstance] login:@"apple" email:@"" passwordOrToken:identifier callback:^(id  _Nonnull res) {
                         [self hideIndicator];                        
                         if(res && [res[@"r"] boolValue]) {
                             [self finishLogin];
@@ -202,7 +203,9 @@
 
 -(void)finishLogin{
     [self.navigationController popViewControllerAnimated:YES];
-    [self.navigationController pushViewController:[[MainController alloc] init] animated:YES];
+    MainV2Controller* v = [[MainV2Controller alloc] init];
+    v.screenId = @"56553391";
+    [self.navigationController setViewControllers:@[v]];
 }
 
 @end

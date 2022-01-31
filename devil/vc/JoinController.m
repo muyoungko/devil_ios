@@ -9,7 +9,7 @@
 #import "JoinController.h"
 #import "WebController.h"
 #import "Devil.h"
-#import "MainController.h"
+#import "MainV2Controller.h"
 #import "Lang.h"
 
 @interface JoinController ()
@@ -156,7 +156,7 @@
     p[@"agree5"] = @"Y";
     
     if(email == nil)
-        email = @"none@kakao.com";
+        email = @"";
     
     [self showIndicator];
     [[Devil sharedInstance] request:@"/member/join" postParam:p complete:^(id  _Nonnull res) {
@@ -165,13 +165,15 @@
             NSString* passwordOrToken = password;
             if(self.token != nil)
                 passwordOrToken = self.token;
-            if([@"apple" isEqualToString:self.type])
-                email = self.identifier;
+            if([@"apple" isEqualToString:self.type]){
+                passwordOrToken = self.identifier;
+            }
             [[Devil sharedInstance] login:self.type email:email passwordOrToken:passwordOrToken callback:^(id  _Nonnull res) {
                 [self hideIndicator];
                 if(res && [res[@"r"] boolValue]){
-                    MainController* vc = [[MainController alloc] init];
-                    [self.navigationController pushViewController:vc animated:YES];
+                    MainV2Controller* v = [[MainV2Controller alloc] init];
+                    v.screenId = @"56553391";
+                    [self.navigationController setViewControllers:@[v]];
                 }
             }];
         } else
