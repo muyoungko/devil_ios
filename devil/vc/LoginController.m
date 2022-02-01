@@ -26,6 +26,7 @@
     self.data[@"os"] = @"ios";
     [self hideNavigationBar];
     [self constructBlockUnder:@"1605249371392"];
+    [JevilInstance currentInstance].vc = self;
 }
 
 - (void)bottomClick:(id)sender{
@@ -83,6 +84,28 @@
         JoinController* vc = [[JoinController alloc] init];
         vc.type = @"email";
         [self.navigationController pushViewController:vc animated:YES];
+        return YES;
+    } else if([@"script" isEqualToString:functionName]) {
+        NSString* ID = self.data[@"input1"];
+        NSString* password = self.data[@"input2"];
+        if([@"appledemo" isEqualToString:ID] && [@"apple" isEqualToString:password]) {
+            NSString* token = @"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZW1iZXJfbm8iOiIxNjA1OTgwMzc5Mjc4IiwiZW1haWwiOiJibmJob3N0c2VyaW5nQGdtYWlsLmNvbSIsIm5hbWUiOiJCbmIgSG9zdCIsInR5cGUiOiJnb29nbGUiLCJwcm9maWxlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2lzaFo4X2E5ZHFHSk9ILWpfbmUyekREVkk5RkR5LVFDNGFFUGpqPXM5Ni1jIiwicGFzc3dvcmQiOiIkMmEkMTAkNmNnMjA0QWpXRjBTL0ZyV2VaMEpLTzBwdDZJcTJJUUpQLnNOQzI0ckVyMlB1TnhmL0UzamkiLCJpYXQiOjE2NDM0NjE0MDUsImV4cCI6MTcyOTg2MTQwNSwiaXNzIjoiLmRlYXZpbC5jb20iLCJzdWIiOiJ1c2VySW5mbyJ9.a5jQP1jPEKrk0FuJP2_2-EGvbMg9A8wLDwrXjfWA0KA";
+            [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self finishLogin];
+        } else {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@""
+                                                                                     message:@"Wrong password or id"
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                              style:UIAlertActionStyleCancel
+                                                            handler:^(UIAlertAction *action) {
+                                                                
+            }]];
+            [self presentViewController:alertController animated:YES completion:^{}];
+        }
+        
         return YES;
     }
     return NO;
@@ -168,8 +191,6 @@
     if([user.profile hasImage])
         profile = [[user.profile imageURLWithDimension:120] absoluteString];
     
-    //userId    __NSCFString *    @"109663080902224508578"    0x0000600002c93a50
-    //token    __NSCFString *    @"eyJhbGciOiJSUzI1NiIsImtpZCI6IjJiZjg0MThiMjk2M2YzNjZmNWZlZmRkMTI3YjJjZWUwN2M4ODdlNjUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiI2ODc3NzEyNzg0MjktOW5waDJuNmVoNGU3amVoMWFpMWpxaWlmMGk0aXZidGUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiI2ODc3NzEyNzg0MjktOW5waDJuNmVoNGU3amVoMWFpMWpxaWlmMGk0aXZidGUuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDk2NjMwODA5MDIyMjQ1MDg1NzgiLCJlbWFpbCI6Im11eW91bmdrb0BnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IjdicF80VlVNVmx4amFzczJMUVo0SnciLCJpYXQiOjE1NjgyNzY1MzQsImV4cCI6MTU2ODI4MDEzNH0.p7CCPz_QI8PlcfWUEszVe8u3RRU_tPKKvUDPSvcThaLswEB-HlempL8RvX-LPlVS1ZWX_PnByhuWIyOd_5fuzdo42dPAuTHUBtlnJoIF57K0G6y4RHbeJDNW3SR6prrbirmAVoS2QD1PFdepeWXde0ESWEUgd2IfHcjjI2DvJvPg72xEkiSElTiBno3jY0X_c22VM4DRPriPoG1Y16fU06G0VgK7-qwYpmFpE5cruylf0sVezkg5koT8rN74eNz7E3piccHoLQsYm-z5PjEUwqxHeR_GM6ygneYhcDjNjf6i-vpd86TbMWIt0dLTMTttSDTO-FgzjvqQi3zd4_aFUg"    0x00007ff82ac63ce0
     [self showIndicator];
     [[Devil sharedInstance] checkMemeber:@"google" identifier:userId callback:^(id  _Nonnull res) {
         [self hideIndicator];
