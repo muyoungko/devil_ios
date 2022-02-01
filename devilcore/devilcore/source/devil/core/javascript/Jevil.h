@@ -40,6 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback;
 + (void)put:(NSString *)url :(id)param then:(JSValue *)callback;
 + (void)uploadS3:(NSArray*)file :(JSValue *)callback;
++ (void)uploadS3Secure:(NSArray*)paths :(JSValue *)callback;
++ (void)uploadS3:(NSArray*)paths :(NSString*)put_url :(JSValue *)callback;
 + (void)sendPushKeyWithDevilServer;
 + (void)getThenWithHeader:(NSString *)url :(id)header :(JSValue *)callback;
 + (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback;
@@ -82,6 +84,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)soundSpeed:(NSString*)speed;
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback;
 + (void)stopSpeechRecognizer;
++ (NSString*)recordStatus;
++ (void)recordStart:(NSDictionary*)param :(JSValue*)callback;
++ (void)recordStop:(JSValue*)callback;
+
 + (void)getLocation:(NSDictionary*)param :(JSValue*)callback;
 + (void)setText:(NSString*)node :(NSString*)text;
 + (void)webLoad:(NSString*)node :(JSValue *)callback;

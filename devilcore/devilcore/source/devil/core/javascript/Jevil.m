@@ -40,9 +40,7 @@
 #import "WildCardTimer.h"
 #import "DevilExceptionHandler.h"
 #import "WildCardTrigger.h"
-
-
-
+#import "DevilRecord.h"
 
 @interface Jevil()
 
@@ -462,6 +460,14 @@ BOOL httpOk[10];
 }
 
 + (void)uploadS3:(NSArray*)paths :(JSValue *)callback{
+    [Jevil uploadS3:paths :@"/api/media/url/put" :callback];
+}
+
++ (void)uploadS3Secure:(NSArray*)paths :(JSValue *)callback {
+    [Jevil uploadS3:paths :@"/api/media/url/secure/put" :callback];
+}
+
++ (void)uploadS3:(NSArray*)paths :(NSString*)put_url :(JSValue *)callback{
     if([paths count] == 0) {
         [callback callWithArguments:@[@{@"r":@TRUE, @"uploadedFile":@[]}]];
         return;
@@ -496,7 +502,7 @@ BOOL httpOk[10];
             __block NSString* path = paths[i];
             id ss = [path componentsSeparatedByString:@"."];
             NSString* ext = ss[[ss count]-1];
-            NSString* url = [NSString stringWithFormat:@"%@/api/media/url/put/%@", [WildCardConstructor sharedInstance].project[@"host"], ext];
+            NSString* url = [NSString stringWithFormat:@"%@%@/%@", [WildCardConstructor sharedInstance].project[@"host"], put_url, ext];
             [uploadedFile addObject:path];
             [uploadedFileSuccess addObject:@FALSE];
             __block int thisIndex = i;
@@ -981,6 +987,24 @@ BOOL httpOk[10];
 }
 + (void)stopSpeechRecognizer {
     [[DevilSpeech sharedInstance] cancel];
+}
+
+
++ (NSString*)recordStatus{
+    return [DevilRecord sharedInstance].status;
+}
+
++ (void)recordStart:(NSDictionary*)param :(JSValue*)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilRecord sharedInstance] startRecord:param complete:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
++ (void)recordStop:(JSValue*)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilRecord sharedInstance] stopRecord:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
 }
 
 + (void)setText:(NSString*)node :(NSString*)text {

@@ -48,7 +48,11 @@
     }
     NSString* url = param[@"url"];
     int start = [param[@"start"] intValue];
-    self.player = [AVPlayer playerWithURL:[NSURL URLWithString:url]];
+    if([url hasPrefix:@"http"])
+        self.player = [AVPlayer playerWithURL:[NSURL URLWithString:url]];
+    else
+        self.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:url]];
+        
     [self.player play];
     if(start > 0)
         [self.player seekToTime:CMTimeMake(start, 1)];
