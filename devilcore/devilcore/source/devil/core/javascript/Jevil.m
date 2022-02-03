@@ -460,14 +460,14 @@ BOOL httpOk[10];
 }
 
 + (void)uploadS3:(NSArray*)paths :(JSValue *)callback{
-    [Jevil uploadS3:paths :@"/api/media/url/put" :callback];
+    [Jevil uploadS3Core:paths :@"/api/media/url/put" :callback];
 }
 
 + (void)uploadS3Secure:(NSArray*)paths :(JSValue *)callback {
-    [Jevil uploadS3:paths :@"/api/media/url/secure/put" :callback];
+    [Jevil uploadS3Core:paths :@"/api/media/url/secure/put" :callback];
 }
 
-+ (void)uploadS3:(NSArray*)paths :(NSString*)put_url :(JSValue *)callback{
++ (void)uploadS3Core:(NSArray*)paths :(NSString*)put_url :(JSValue *)callback{
     if([paths count] == 0) {
         [callback callWithArguments:@[@{@"r":@TRUE, @"uploadedFile":@[]}]];
         return;
