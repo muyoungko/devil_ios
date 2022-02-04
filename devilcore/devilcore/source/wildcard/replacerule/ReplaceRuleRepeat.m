@@ -389,11 +389,13 @@
     NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
     NSString* targetNode4 = [arrayContent objectForKey:@"targetNode4"];
     NSString* targetNode5 = [arrayContent objectForKey:@"targetNode5"];
+    NSString* targetNode6 = [arrayContent objectForKey:@"targetNode6"];
     NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
     NSString* targetNodeSurfixIf = [arrayContent objectForKey:@"targetNodeSurfixIf"];
     NSString* targetNodePrefixIf = [arrayContent objectForKey:@"targetNodePrefixIf"];
     NSString* targetNode4If = [arrayContent objectForKey:@"targetNode4If"];
     NSString* targetNode5If = [arrayContent objectForKey:@"targetNode5If"];
+    NSString* targetNode6If = [arrayContent objectForKey:@"targetNode6If"];
     
     NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"]; 
     NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
@@ -410,6 +412,7 @@
     NSDictionary* targetLayerSelected = nil;
     NSDictionary* targetLayer4 = nil;
     NSDictionary* targetLayer5 = nil;
+    NSDictionary* targetLayer6 = nil;
     
     for(int i=0;i<[targetDataJson count];i++)
     {
@@ -433,6 +436,7 @@
     targetLayerSelected = [self getReferenceBlock:targetNodeSelected :childLayers];
     targetLayer4 = [self getReferenceBlock:targetNode4 :childLayers];
     targetLayer5 = [self getReferenceBlock:targetNode5 :childLayers];
+    targetLayer6 = [self getReferenceBlock:targetNode6 :childLayers];
     
     if([REPEAT_TYPE_BOTTOM isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType])
     {
@@ -576,6 +580,8 @@
                 return targetLayer4;
             else if(targetLayer5 != nil && [MappingSyntaxInterpreter ifexpression:targetNode5If data: targetDataJson[position]])
                 return targetLayer5;
+            else if(targetLayer6 != nil && [MappingSyntaxInterpreter ifexpression:targetNode6If data: targetDataJson[position]])
+                return targetLayer6;
             return targetLayer;
         };
         
@@ -590,6 +596,8 @@
                 return @"4";
             else if(targetLayer5 != nil && [MappingSyntaxInterpreter ifexpression:targetNode5If data: targetDataJson[position]])
                 return @"5";
+            else if(targetLayer6 != nil && [MappingSyntaxInterpreter ifexpression:targetNode6If data: targetDataJson[position]])
+                return @"6";
             return @"2";
         };
          
