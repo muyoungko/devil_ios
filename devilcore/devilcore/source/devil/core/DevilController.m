@@ -224,10 +224,15 @@
         [self.jevil code:acode viewController:self data:self.data meta:nil];
     }
     
-    [JevilInstance currentInstance].vc = self;
     
-    if(self.mainWc && self.mainWc.meta)
+    [JevilInstance currentInstance].jevil = self.jevil;
+    [JevilInstance currentInstance].jscontext = self.jevil.jscontext;
+    [JevilInstance currentInstance].vc = self;
+    if(self.mainWc && self.mainWc.meta) {
+        [JevilInstance currentInstance].meta = self.mainWc.meta;
         [JevilInstance currentInstance].data = self.mainWc.meta.correspondData;
+    }
+    
     
     [[DevilDrawer sharedInstance] show:self];
     
