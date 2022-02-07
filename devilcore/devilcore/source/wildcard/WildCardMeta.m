@@ -329,9 +329,9 @@
                 newOffset = offsetY + prevView.frame.size.height + prevView.bottomMargin + (nextView.hidden?0:fHNextToMargin);
         } else if(nextType == WC_NEXT_TYPE_HORIZONTAL_PREV) {
             if (prevView.hidden == YES)
-                newOffset = offsetX - fHNextToMargin;
-            else
-                newOffset = offsetX - nextView.frame.size.width - fHNextToMargin;
+                newOffset = offsetX - fHNextToMargin - nextView.rightMargin;
+            else 
+                newOffset = offsetX - nextView.frame.size.width - fHNextToMargin - nextView.rightMargin;
         }
         
         if(nextType == WC_NEXT_TYPE_HORIZONTAL) {

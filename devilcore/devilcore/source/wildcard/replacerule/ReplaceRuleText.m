@@ -49,7 +49,8 @@
                 [string addAttribute:NSForegroundColorAttributeName value:self.textContentHighLightColor range:range];
                 lv.attributedText = string;
             }
-        }
+        } else
+            [lv setText:text];
     } else {
         [lv setText:text];
     }
