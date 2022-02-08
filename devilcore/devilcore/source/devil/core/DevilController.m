@@ -34,7 +34,7 @@
     [super viewDidLoad];
     
     if(!self.screenId){
-        [self alertFinish:@"No Screen Id. Did you set splash screen?"];
+        [self alertFinish:@"No Screen Id. Check screen name"];
         return;
     }
     if(self.projectId)
@@ -204,7 +204,8 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    [WildCardConstructor sharedInstance:self.projectId];
+    if(self.projectId)
+        [WildCardConstructor sharedInstance:self.projectId];
     
     [self checkHeader];
     

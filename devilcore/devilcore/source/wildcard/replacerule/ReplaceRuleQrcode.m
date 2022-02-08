@@ -10,6 +10,7 @@
 
 @interface ReplaceRuleQrcode()
 @property (nonatomic, retain) NSString* lastCode;
+@property (nonatomic, retain) NSString* type;
 @end
 
 @implementation ReplaceRuleQrcode
@@ -18,6 +19,8 @@
     UIView* iv = [[UIImageView alloc] init];
     self.replaceView = iv;
     self.replaceJsonKey = layer[@"qrcode"][@"code"];
+    self.type = layer[@"qrcode"][@"type"];
+    
     iv.contentMode = UIViewContentModeScaleAspectFill;
     [vv addSubview:iv];
     [WildCardConstructor followSizeFromFather:vv child:iv];
@@ -35,7 +38,12 @@
 
 - (UIImage *)createQR:(NSString*)code {
     
-    CIFilter *filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    CIFilter *filter = nil;
+    if([@"bar" isEqualToString:self.type]) {
+        filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];
+    } else
+        filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
+    
     [filter setDefaults];
     
     NSData *data = [code dataUsingEncoding:NSUTF8StringEncoding];

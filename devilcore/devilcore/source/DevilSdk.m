@@ -33,9 +33,14 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
         DevilController* d = [[DevilController alloc] init];
         NSString* firstScreenId = [[WildCardConstructor sharedInstance] getFirstScreenId];
-        d.screenId = firstScreenId; 
-        [vc.navigationController pushViewController:d animated:YES];
-        callback(success);
+        if(firstScreenId) {
+            d.screenId = firstScreenId;
+            [vc.navigationController pushViewController:d animated:YES];
+            callback(success);
+        } else {
+            [Jevil alert:@"Set \"Start Screen\" in Devil console, please"];
+            callback(false);
+        }
     }];
 }
 
