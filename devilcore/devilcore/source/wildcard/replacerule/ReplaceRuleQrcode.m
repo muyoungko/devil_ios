@@ -39,9 +39,9 @@
 - (UIImage *)createQR:(NSString*)code {
     
     CIFilter *filter = nil;
-    if([@"bar" isEqualToString:self.type]) {
+    if([@"bar" isEqualToString:self.type])
         filter = [CIFilter filterWithName:@"CICode128BarcodeGenerator"];
-    } else
+    else
         filter = [CIFilter filterWithName:@"CIQRCodeGenerator"];
     
     [filter setDefaults];

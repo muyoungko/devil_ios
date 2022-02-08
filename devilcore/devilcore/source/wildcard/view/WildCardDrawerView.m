@@ -10,7 +10,7 @@
 #import "WildCardUIView.h"
 
 @interface WildCardDrawerView ()
-
+@property (nonatomic, retain) UIView* movingContentView;
 @end
 
 @implementation WildCardDrawerView
@@ -32,11 +32,11 @@
 //    [[UITapGestureRecognizer alloc] initWithTarget:self
 //                                            action:@selector(modalTap:)];
 //    [_viewModal addGestureRecognizer:singleFingerTap];
-//    [_contentView addGestureRecognizer:singleFingerTap];
+//    [_movingContentView addGestureRecognizer:singleFingerTap];
     
-//    _contentView = [[UIView alloc] initWithFrame:CGRectMake(-screenWidth,0,screenWidth, screenHeight)];
-//    [self addSubview:_contentView];
-    //_contentView.userInteractionEnabled = YES;
+//    _movingContentView = [[UIView alloc] initWithFrame:CGRectMake(-screenWidth,0,screenWidth, screenHeight)];
+//    [self addSubview:_movingContentView];
+    //_movingContentView.userInteractionEnabled = YES;
     
 //    UIGestureRecognizer* g = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(handleGesture:)];
 //    [self addGestureRecognizer:g];
@@ -60,14 +60,26 @@
     }
     
     self.contentView = contentView;
-    [self addSubview:contentView];
-    
+    float sw = [UIScreen mainScreen].bounds.size.width;
+    float sh = [UIScreen mainScreen].bounds.size.height;
     CGRect frame = contentView.frame;
     float x=0,y=0;
     float menuWidth = frame.size.width;
     float menuHeight = frame.size.height;
-    float sw = [UIScreen mainScreen].bounds.size.width;
-    float sh = [UIScreen mainScreen].bounds.size.height;
+    
+    if(menuHeight > sh) {
+        UIScrollView* sv = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, menuWidth, sh)];
+        [self addSubview:sv];
+        [sv addSubview:contentView];
+        sv.contentSize = contentView.frame.size;
+        sv.bounces = NO;
+        sv.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        self.movingContentView = sv;
+    } else {
+        [self addSubview:contentView];
+        self.movingContentView = contentView;
+    }
+    
     if(self.horizontal) {
         if (self.left) {
             self.from = x = -menuWidth;
@@ -85,7 +97,9 @@
             self.to = sh - menuHeight;
         }
     }
-    contentView.frame = CGRectMake(x, y, menuWidth, menuHeight);
+    self.movingContentView.frame = CGRectMake(x, y,
+                                              self.movingContentView.frame.size.width,
+                                              self.movingContentView.frame.size.height);
 }
 
 
@@ -104,7 +118,7 @@
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         [_contentView setFrame:CGRectMake(toX , toY, _contentView.frame.size.width, _contentView.frame.size.height)];
+                         [_movingContentView setFrame:CGRectMake(toX , toY, _movingContentView.frame.size.width, _movingContentView.frame.size.height)];
                          _viewModal.alpha = MODAL_ALPHA;
                      }
                      completion:^(BOOL finished){
@@ -134,7 +148,7 @@
                          CGFloat screenWidth = screenRect.size.width;
                          CGFloat screenHeight = screenRect.size.height;
                         
-                         [_contentView setFrame:CGRectMake(toX, toY, _contentView.frame.size.width, _contentView.frame.size.height)];
+                         [_movingContentView setFrame:CGRectMake(toX, toY, _movingContentView.frame.size.width, _movingContentView.frame.size.height)];
                          _viewModal.alpha = 0.0f;
                      }
                      completion:nil];
@@ -155,13 +169,13 @@
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event{
     if(naviStatus == 1) {
-        if(CGRectContainsPoint(self.contentView.frame, point)) {
+        if(CGRectContainsPoint(self.movingContentView.frame, point)) {
             UIView* r = [super hitTest:point withEvent:event];
             return r;
         } else
             return self;
     } else {
-        if(CGRectContainsPoint(self.contentView.frame, point)) {
+        if(CGRectContainsPoint(self.movingContentView.frame, point)) {
             UIView* r = [super hitTest:point withEvent:event];
             return r;
         } else
@@ -183,8 +197,8 @@
     
     if(naviStatus==1)
     {
-        uiMenuStartX = _contentView.frame.origin.x;
-        uiMenuStartY = _contentView.frame.origin.y;
+        uiMenuStartX = _movingContentView.frame.origin.x;
+        uiMenuStartY = _movingContentView.frame.origin.y;
     }
 }
 
@@ -230,7 +244,7 @@
                 toY = (int) x;
         }
     }
-    _contentView.frame = CGRectMake(toX,toY, _contentView.frame.size.width, _contentView.frame.size.height);
+    _movingContentView.frame = CGRectMake(toX,toY, _movingContentView.frame.size.width, _movingContentView.frame.size.height);
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -343,7 +357,7 @@
         float newUiMenuX = uiMenuStartX-(touchStartX-x);
         if(naviStatus==1)
         {
-            if(newUiMenuX >= -(float)(_contentView.frame.size.width)/2.0f)
+            if(newUiMenuX >= -(float)(_movingContentView.frame.size.width)/2.0f)
                 [self naviUp];
             else
                 [self naviDown];
