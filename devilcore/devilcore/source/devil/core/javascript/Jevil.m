@@ -41,6 +41,7 @@
 #import "DevilExceptionHandler.h"
 #import "WildCardTrigger.h"
 #import "DevilRecord.h"
+#import <SafariServices/SafariServices.h>
 
 @interface Jevil()
 
@@ -896,9 +897,14 @@ BOOL httpOk[10];
 }
 
 + (void)out:(NSString*)url{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
-        
-    }];
+    if([url hasPrefix:@"http"]) {
+        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
+        [[JevilInstance currentInstance].vc presentViewController:svc animated:YES completion:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+    }
 }
 
 + (void)download:(NSString*)url{
