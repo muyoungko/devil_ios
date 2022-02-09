@@ -24,7 +24,10 @@
     self.replaceView = iv;
     iv.contentMode = UIViewContentModeScaleAspectFill;
     [vv addSubview:iv];
-    [WildCardConstructor followSizeFromFather:vv child:iv]; 
+    [WildCardConstructor followSizeFromFather:vv child:iv];
+    
+    self.replaceView.layer.cornerRadius = self.replaceView.superview.layer.cornerRadius;
+    self.replaceView.layer.maskedCorners = self.replaceView.superview.layer.maskedCorners;
     
 }
 
@@ -50,7 +53,6 @@
     
     [(UIImageView*)self.replaceView setImage:nil];
     [(UIImageView*)self.replaceView setNeedsDisplay];
-    self.replaceView.layer.cornerRadius = self.replaceView.superview.layer.cornerRadius;
     
     if([url hasPrefix:@"/"]) {
         [(UIImageView*)self.replaceView setImage:[UIImage imageWithContentsOfFile:url]];
