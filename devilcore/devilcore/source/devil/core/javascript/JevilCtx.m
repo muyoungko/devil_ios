@@ -13,6 +13,7 @@
 #import "JevilInstance.h"
 #import "JevilUtil.h"
 #import "DevilSdk.h"
+#import "DevilLang.h"
 
 @interface JevilCtx ()
 
@@ -49,7 +50,7 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-            [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+            [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
                                                               style:UIAlertActionStyleCancel
                                                             handler:^(UIAlertAction *action) {
                                                                 

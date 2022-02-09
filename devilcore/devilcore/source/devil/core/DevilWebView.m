@@ -11,6 +11,7 @@
 #import "DevilBlockDialog.h"
 #import "DevilController.h"
 #import "DevilLink.h"
+#import "DevilLang.h"
 
 @interface DevilWebView ()
 @property (copy, nonatomic) WKWebViewActionHandler actionHandler;
@@ -156,7 +157,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:message
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
                                                         style:UIAlertActionStyleCancel
                                                       handler:^(UIAlertAction *action) {
                                                 
@@ -172,13 +173,13 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"취소"
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"취소")
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
                                                         completionHandler(false);
     }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
                                                           completionHandler(true);

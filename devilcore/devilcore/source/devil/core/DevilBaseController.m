@@ -8,6 +8,7 @@
 #import "DevilBaseController.h"
 #import "Lottie.h"
 #import "WildCardUITextField.h"
+#import "DevilLang.h"
 
 @interface DevilBaseController ()<UIGestureRecognizerDelegate>
 
@@ -147,7 +148,7 @@
             [self.view addSubview:self.keypadTop];
             
             self.keypadTopButton = [[UIButton alloc] initWithFrame:CGRectMake(sw-bw-10, 5, bw, h-10)];
-            NSString* text = @"확인";
+            NSString* text = trans(@"확인");
             if(self.editingTextField.returnKeyType == UIReturnKeySearch)
                 text = @"검색";
             else if(self.editingTextField.returnKeyType == UIReturnKeyNext)

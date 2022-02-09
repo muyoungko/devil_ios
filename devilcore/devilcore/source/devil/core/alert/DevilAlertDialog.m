@@ -8,6 +8,7 @@
 #import "DevilAlertDialog.h"
 #import "DevilBlockDialog.h"
 #import "WildCardConstructor.h"
+#import "DevilLang.h"
 
 @interface DevilAlertDialog()
 @property void (^callback)(BOOL yes);
@@ -28,7 +29,7 @@
 +(BOOL)showAlertTemplate:(NSString*)msg :(void (^)(BOOL yes))callback {
     id data = [@{} mutableCopy];
     data[@"alert_msg"] = msg;
-    data[@"alert_yes_text"] = @"확인";
+    data[@"alert_yes_text"] = trans(@"확인");
     [DevilAlertDialog sharedInstance].callback = callback;
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:@"alert-devil-template"];
     if(blockId) {

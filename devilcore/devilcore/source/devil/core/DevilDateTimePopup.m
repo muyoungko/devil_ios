@@ -8,6 +8,7 @@
 #import "DevilDateTimePopup.h"
 #import "DevilBlockDialog.h"
 #import "DevilUtil.h"
+#import "DevilLang.h"
 
 #define BUTTON_YES 1242
 #define BUTTON_NO 1243
@@ -45,8 +46,8 @@
     int w = [UIScreen mainScreen].bounds.size.width * 0.8f, h = 200;
     
     int offsetY = 10;
-    NSString* yes = @"확인";
-    NSString* no = @"취소";
+    NSString* yes = trans(@"확인");
+    NSString* no = trans(@"취소");
     int titleHeight = 0;
     if(titleText)
         titleHeight = 50;

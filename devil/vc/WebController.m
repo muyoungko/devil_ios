@@ -157,7 +157,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:message
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
                                                         style:UIAlertActionStyleCancel
                                                       handler:^(UIAlertAction *action) {
                                                           completionHandler();
@@ -170,13 +170,13 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"취소"
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"취소")
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
                                                         completionHandler(false);
     }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
                                                           completionHandler(true);
