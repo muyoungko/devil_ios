@@ -237,6 +237,7 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"3"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"4"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"5"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"6"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         [container setShowsHorizontalScrollIndicator:false];
