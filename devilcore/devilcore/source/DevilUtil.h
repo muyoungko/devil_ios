@@ -41,6 +41,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (void)clearTmpDirectory;
 + (UIImage *)resizeImageProperly:(UIImage *)image;
 + (BOOL)isWifiConnection;
++ (BOOL)isPhoneX;
 
 @end
 

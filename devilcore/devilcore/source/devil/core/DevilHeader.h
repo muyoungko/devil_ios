@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DevilHeader : NSObject
 
 @property (nonatomic, retain) WildCardMeta* meta;
+@property (nonatomic, retain) UIColor* bgcolor;
 
 -(id)initWithViewController:(UIViewController*)vc layer:(id)cj withData:(id)data instanceDelegate:(id)delegate;
 -(void)update;

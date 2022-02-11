@@ -14,6 +14,7 @@
 #import "JevilCtx.h"
 #import "DevilSound.h"
 #import "DevilDrawer.h"
+#import "DevilUtil.h"
 
 @interface DevilController ()
 
@@ -320,6 +321,19 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    if(![DevilUtil isPhoneX]) {
+        if(![[UIApplication sharedApplication].keyWindow viewWithTag:27362]) {
+            if (@available(iOS 13.0, *)) {
+                UIView *statusBar = [[UIView alloc]initWithFrame:[UIApplication sharedApplication].keyWindow.windowScene.statusBarManager.statusBarFrame] ;
+                statusBar.tag = 27362;
+                [[UIApplication sharedApplication].keyWindow addSubview:statusBar];
+            } else {
+                
+            }
+        }
+        [[UIApplication sharedApplication].keyWindow viewWithTag:27362].backgroundColor = self.header.bgcolor;
+    }
 }
 
 - (void)hideNavigationBar{
@@ -331,6 +345,11 @@
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    if(![DevilUtil isPhoneX]) {
+        if([[UIApplication sharedApplication].keyWindow viewWithTag:27362])
+            [[UIApplication sharedApplication].keyWindow viewWithTag:27362].backgroundColor = [UIColor clearColor];
+    }
 }
 
 - (void)setRootBackgroundIfHas:(NSString*)screeenId {

@@ -46,6 +46,7 @@
     
     if(cj[@"backgroundColor"]){
         UIColor* bgColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
+        self.bgcolor = bgColor;
         [vc.navigationController.navigationBar setBarTintColor:bgColor];
         [vc.navigationController.navigationBar setBackgroundColor:bgColor];
         [vc.navigationController.navigationBar setAlpha:1.0f];
@@ -72,6 +73,10 @@
                 
                 //TODO : 네트워크 캐시 해서 에니메이션부드럽게 해야함
                 [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
+                    
+                    if(byte == nil || ![byte isKindOfClass:[NSData class]])
+                        return;
+                    
                     CGRect rect = [WildCardConstructor getFrame:layer:nil];
                     UIView* logo = [[UIView alloc] initWithFrame:CGRectMake(0,0,rect.size.width, rect.size.height)];
                     UIImageView* logoImage = [[UIImageView alloc] initWithFrame:CGRectMake(0,0,rect.size.width, rect.size.height)];
@@ -181,7 +186,7 @@
         NSString* name = icon_layer[@"name"];
         NSString* url = icon_layer[@"localImageContent"];
         [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
-            if(byte == nil)
+            if(byte == nil || ![byte isKindOfClass:[NSData class]])
                 return;
             UIImage* icon_image = [UIImage imageWithData:byte];
             CGRect rect = [WildCardConstructor getFrame:icon_layer:nil];

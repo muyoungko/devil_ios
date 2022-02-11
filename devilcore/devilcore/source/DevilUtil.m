@@ -234,4 +234,16 @@
     else
         return YES;
 }
+
++ (BOOL)isPhoneX {
+    BOOL iPhoneX = NO;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *mainWindow = [[[UIApplication sharedApplication] delegate] window];
+        if (mainWindow.safeAreaInsets.top > 24.0) {
+            iPhoneX = YES;
+        }
+    }
+    
+    return iPhoneX;
+}
 @end
