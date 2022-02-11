@@ -81,10 +81,10 @@
                     [logo addSubview:logoImage];
                     self.barButtonByName[@"logo"] = logo;
                     
-                    if(layer[@"clickContent"]){
+                    if(layer[@"clickJavascript"]){
                         UITapGestureRecognizer *logoTap =
                         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleLogoTap)];
-                        self.logoClickAction = layer[@"clickContent"]; 
+                        self.logoClickAction = layer[@"clickJavascript"];
                         [logo addGestureRecognizer:logoTap];
                         logo.userInteractionEnabled = YES;
                     }
@@ -215,9 +215,9 @@
 }
 
 -(void)handleLogoTap{
-    NSString *action = self.logoClickAction;
+    NSString *script = self.logoClickAction;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-    [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
+    [WildCardAction execute:trigger script:script meta:self.meta];
 }
 
 -(void)aClick:(id)sender{

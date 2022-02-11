@@ -28,7 +28,7 @@
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{
     NSString* code = [MappingSyntaxInterpreter interpret:self.replaceJsonKey:opt];
-    if(code != nil && ![code isEqualToString:self.lastCode]){
+    if(code && ![code isEqualToString:@""] && ![code isEqualToString:self.lastCode]){
         self.lastCode = code;
         UIImage* qrImage = [self createQR:code];
         [((UIImageView*)self.replaceView) setImage:qrImage];
