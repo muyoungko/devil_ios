@@ -160,12 +160,11 @@
     [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
                                                         style:UIAlertActionStyleCancel
                                                       handler:^(UIAlertAction *action) {
-                                                
+        completionHandler();
                                                       }]];
     [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{
         
     }];
-    completionHandler();
 }
 
 - (void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler{
