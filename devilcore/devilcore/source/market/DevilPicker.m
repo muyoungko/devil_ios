@@ -127,7 +127,10 @@
     }
     
     id cdata = self.picker_list_adapter.data[data_index];
-    self.picker_selected_text.text = [NSString stringWithFormat:@"%@", cdata[self.json_value]];
+    if(cdata && cdata[self.json_value])
+        self.picker_selected_text.text = [NSString stringWithFormat:@"%@", cdata[self.json_value]];
+    else
+        self.picker_selected_text.text = @"";
     //NSLog(@"picker_shape %@" , self.picker_selected_text.text);
     //NSLog(@"picker_shape center_index = %d   min = %f  data_index=%d  cell_count=%d", center_index, min, data_index, [cells count]);
     

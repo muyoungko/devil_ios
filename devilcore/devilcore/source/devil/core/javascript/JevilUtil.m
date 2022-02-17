@@ -6,10 +6,15 @@
 //
 
 #import "JevilUtil.h"
+#import "JevilInstance.h"
 
 @implementation JevilUtil
 
 +(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest {
+    [self sync:src :dest :0 :0];
+}
+
++(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest :(int)depth :(int)subindex {
     id h = [@{} mutableCopy];
     id dstKs = [dest allKeys];
     for(id dstK in dstKs){
@@ -22,14 +27,17 @@
         [h removeObjectForKey:srcK];
         id srcValue = src[srcK];
         if([[srcValue class] isKindOfClass: [NSDictionary class]] || [[srcValue class] isSubclassOfClass:[NSDictionary class]]){
+            //NSLog(@"%@srcK - %@ %d", [[NSString string] stringByPaddingToLength: depth withString: @" " startingAtIndex: 0], srcK , subindex);
             if(dest[srcK] == nil || dest[srcK] == [NSNull null])
                 dest[srcK] = [@{} mutableCopy];
-            [JevilUtil sync:srcValue :dest[srcK]];
+            [JevilUtil sync:srcValue :dest[srcK] :depth+1 :0];
         } else if([srcValue isKindOfClass:[NSArray class]] ){
+            //NSLog(@"%@srcK - %@ %d", [[NSString string] stringByPaddingToLength: depth withString: @" " startingAtIndex: 0], srcK , subindex);
             if(dest[srcK] == nil || dest[srcK] == [NSNull null] || ![dest[srcK] isKindOfClass:[NSArray class]] )
                 dest[srcK] = [@[] mutableCopy];
-            [JevilUtil syncList:srcValue :dest[srcK]];
+            [JevilUtil syncList:srcValue :dest[srcK] :depth :subindex];
         } else {
+            //NSLog(@"%@srcK - %@ %d %@", [[NSString string] stringByPaddingToLength: depth withString: @" " startingAtIndex: 0], srcK , subindex, srcValue);
             dest[srcK] = srcValue;
         }
     }
@@ -40,7 +48,7 @@
     }
 }
 
-+(void)syncList:(NSMutableArray*)src :(NSMutableArray*)dest{
++(void)syncList:(NSMutableArray*)src :(NSMutableArray*)dest :(int)depth :(int)subindex {
     NSUInteger srcLen = [src count];
     NSUInteger destLen = [dest count];
     
@@ -52,8 +60,17 @@
         [dest addObjectsFromArray:src];
     } else {
         for(int i=0;i<srcLen && i<destLen;i++){
-            //if([src[i] isKindOfClass:[NSArray class]])  
-            [JevilUtil sync:src[i] :dest[i]];
+            
+//            id data = [JevilInstance currentInstance].data;
+//            id list = [JevilInstance currentInstance].data[@"list"];
+//            if(list && [list count] > 1 && list[1][@"category_list"] && i==1 && src[i][@"name"]) {
+//                NSLog(@"before %@ / %@", list[1][@"category_list"][1][@"name"], data[@"category_item2"][@"category_list"][1][@"name"]);
+//                [JevilUtil sync:src[i] :dest[i]: depth+1:i];
+//                NSLog(@"after %@ / %@", list[1][@"category_list"][1][@"name"], data[@"category_item2"][@"category_list"][1][@"name"]);
+//            } else
+            {
+                [JevilUtil sync:src[i] :dest[i]: depth+1:i];
+            }
         }
         
         if(srcLen > destLen){

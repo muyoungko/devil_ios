@@ -238,9 +238,6 @@
                 j[@"terms"] = terms;
                 j[@"address"] = address;
                 [list addObject:j];
-                
-                if([list count] >= 3)
-                    break;
             }
         
             r[@"r"] = @TRUE;
