@@ -217,39 +217,39 @@
     NSLog(@"play %@", self.videoPath);
     
     _playing = YES;
-    
+    //self.videoPath = @"https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_640_3MG.mp4";
     if(self.videoPath == nil || ![self.videoPath isEqualToString:self.lastPlayingVideoPath]){
         if(_playerViewController.player){
             NSLog(@"Remove Observer");
             [_playerViewController.player removeObserver:self forKeyPath:@"status"];
         }
-        _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:self.videoPath]];
+        
+        if([self.videoPath hasPrefix:@"http"])
+            _playerViewController.player = [AVPlayer playerWithURL:[NSURL URLWithString:self.videoPath]];
+        else
+            _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:self.videoPath]];
+        
         self.lastPlayingVideoPath = self.videoPath;
         [_playerViewController.player addObserver:self forKeyPath:@"status" options:0 context:nil];
         _ready = NO;
         NSLog(@"Player Init");
+        
+        self.imageView.hidden = YES;
+        if(_playerViewController.player != nil) {
+            _playerViewController.view.hidden = NO;
+            
+            if(self.finished){
+                [_playerViewController.player seekToTime:CMTimeMakeWithSeconds(0, 6000)];
+            }
+            self.finished = NO;
+            [_playerViewController.player play];
+        }
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     } else {
+        self.imageView.hidden = YES;
         NSLog(@"Player Init Pass");
     }
-    
-    if(!_ready) {
-        NSLog(@"play returned");
-        //return;
-    }
-    
-    NSLog(@"play ing");
-    self.imageView.hidden = YES;
-    if(_playerViewController.player != nil) {
-        _playerViewController.view.hidden = NO;
-        
-        if(self.finished){
-            [_playerViewController.player seekToTime:CMTimeMakeWithSeconds(0, 6000)];
-        }
-        self.finished = NO;
-        [_playerViewController.player play];
-    }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
 }
 
 -(void)stop{

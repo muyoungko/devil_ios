@@ -8,6 +8,7 @@
 #import "DevilLocation.h"
 #import "WildCardConstructor.h"
 #import "DevilUtil.h"
+#import "DevilExceptionHandler.h"
 
 @interface DevilLocation () <CLLocationManagerDelegate>
 
@@ -174,6 +175,53 @@
     [self unrequestLocationUpdate];
 }
 
+
+- (void)searchKoreanDongWithKakao:(NSString*)keyword :(void (^)(id result))callback{
+    self.callback = callback;
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
+    id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
+    
+    NSString* KakaoRestKey = devilConfig[@"KakaoRestKey"];
+    if(!KakaoRestKey){
+        self.callback(@{@"r":@FALSE, @"msg":@"KakaoRestKey is null"});
+        self.callback = nil;
+        return;
+    }
+    
+    NSString* url = [NSString stringWithFormat:
+                     @"https://dapi.kakao.com/v2/local/search/address.json?query=%@",
+                     urlencode(keyword)
+                     ];
+    NSString* Authorization = [NSString stringWithFormat:@"KakaoAK %@", KakaoRestKey];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:@{@"Authorization": Authorization} success:^(NSMutableDictionary *res) {
+        id r = [@{} mutableCopy];
+        
+        if(!res || ![res isKindOfClass:[NSDictionary class]]){
+            r[@"r"] = @FALSE;
+            r[@"msg"] = @"Network not available or Kakao Authorization is failed. Check Key";
+        } else {
+            id dd = res[@"documents"];
+            id list = [@[] mutableCopy];
+            for(id d in dd) {
+                id j = [@{} mutableCopy];
+                j[@"address"] = d[@"address_name"];
+                j[@"address1"] = d[@"address"][@"region_1depth_name"];
+                j[@"address2"] = d[@"address"][@"region_2depth_name"];
+                j[@"address3"] = d[@"address"][@"region_3depth_h_name"];
+                j[@"address4"] = d[@"address"][@"region_3depth_name"];
+                [list addObject:j];
+            }
+        
+            r[@"r"] = @TRUE;
+            r[@"list"] = list;
+        }
+        
+        if(self.callback != nil){
+            self.callback(r);
+            self.callback = nil;
+        }
+    }];
+}
 
 - (void)search:(NSString*)keyword :(void (^)(id result))callback{
     self.callback = callback;

@@ -471,7 +471,7 @@
         } else if([functionName isEqualToString:@"script"]){
             NSString* code = args[0];
             meta.lastClick = node;
-            code = [NSString stringWithFormat:@"{%@}", code];
+            code = [NSString stringWithFormat:@"{%@\n}", code];
             [self.jevil code:code viewController:self data:self.data meta:meta];
             return YES;
         } else if([functionName hasPrefix:@"Jevil"]) {

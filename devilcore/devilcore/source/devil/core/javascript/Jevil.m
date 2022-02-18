@@ -1129,7 +1129,7 @@ BOOL httpOk[10];
 }
 
 + (void)searchPlace:(NSDictionary*)param :(JSValue*)callback {
-    [[DevilLocation sharedInstance] search:param[@"keyword"] :^(id  _Nonnull result) {
+    [[DevilLocation sharedInstance] searchKoreanDongWithKakao:param[@"keyword"] :^(id  _Nonnull result) {
         [callback callWithArguments:@[ result ]];
     }];
 }

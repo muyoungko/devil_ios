@@ -19,6 +19,7 @@
 @property (nonatomic, retain) WildCardUICollectionView* c;
 @property (nonatomic, retain) NSTimer *timer;
 @property int lastDataCount;
+@property BOOL readyToCallScrollEnd;
 
 @end
 
@@ -33,6 +34,7 @@
         self.visibleDataByIndexPath = [[NSMutableDictionary alloc] init];
         self.visibleDataStringByIndexPath = [[NSMutableDictionary alloc] init];
         self.lastDataCount = 0;
+        self.readyToCallScrollEnd = NO;
         viewPagerSelectedIndex = 0;
         _pageControl = nil;
         _selectedIndex = 0;
@@ -308,7 +310,8 @@
             WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];
             [WildCardConstructor applyRule:v withData:item];
             
-            if(self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
+            if(self.readyToCallScrollEnd && self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
+                self.readyToCallScrollEnd = NO;
                 self.lastItemCallback(nil);
             }
             
@@ -428,12 +431,14 @@
 
 
 
-
+//사용자에의한 콜
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
     if(self.scrolledCallback)
         self.scrolledCallback(scrollView);
+    self.readyToCallScrollEnd = YES;
 }
 
+//프로그램에 의한 스크롤 콜
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if(self.scrolledCallback)
@@ -462,7 +467,7 @@
 }
 
 /**
- 스크롤로  fling하지 않고 조용히 놓기
+ 사용자에의한 콜 스크롤로  fling하지 않고 조용히 놓기
  */
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     //NSLog(@"scrollViewDidEndDragging");
@@ -473,6 +478,9 @@
     }
 }
 
+/**
+ 사용자에의한 콜
+ */
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     
