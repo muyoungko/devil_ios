@@ -15,6 +15,7 @@
 #import "DevilSound.h"
 #import "DevilDrawer.h"
 #import "DevilUtil.h"
+#import "DevilRecord.h"
 
 @interface DevilController ()
 
@@ -277,6 +278,10 @@
     if(self.hasOnResume && self.navigationController.topViewController == self){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
     }
+}
+
+-(void)onPause {
+    [[DevilRecord sharedInstance] cancel];
 }
 
 - (void)startLoading{

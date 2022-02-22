@@ -1013,6 +1013,13 @@ BOOL httpOk[10];
     }];
 }
 
++ (void)recordCancelCallback:(JSValue*)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [DevilRecord sharedInstance].cancelCallback = ^{
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[]];
+    };
+}
+
 + (void)setText:(NSString*)node :(NSString*)text {
     id meta = [JevilInstance currentInstance].meta;
     WildCardUIView* vv = (WildCardUIView*)[meta getView:node];

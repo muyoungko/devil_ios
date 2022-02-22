@@ -24,6 +24,7 @@ UIDocumentInteractionControllerDelegate>
 -(void)updateMeta;
 -(void)tab:(NSString*)screenId;
 -(void)onResume;
+-(void)onPause;
 -(void)finish;
 -(void)alertFinish:(NSString*)msg;
 -(WildCardUIView*)findView:(NSString*)name;

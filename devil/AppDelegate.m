@@ -221,10 +221,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-     NSLog(@"app will enter foreground");
+     NSLog(@"applicationDidEnterBackground");
     if([self.navigationController.topViewController isKindOfClass:[DevilController class]]){
         DevilController* vc = (DevilController*)self.navigationController.topViewController;
-        [vc onResume];
+        [vc onPause];
     }
 }
 

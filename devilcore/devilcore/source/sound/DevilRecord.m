@@ -70,12 +70,27 @@
 }
 
 - (void)stopRecord:(void (^)(id res))callback{
-    [self.recorder stop];
+    if(self.recorder) {
+        [self.recorder stop];
+        self.recorder = nil;
+    }
     self.status = @"none";
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5f * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^{
         callback([@{@"url":self.targetPath} mutableCopy]);
     });
+}
+
+- (void)cancel {
+    if(self.recorder) {
+        [self.recorder stop];
+        self.recorder = nil;
+    }
+    
+    if(self.cancelCallback) {
+        self.cancelCallback();
+        self.cancelCallback = nil;
+    }
 }
 
 - (BOOL) record

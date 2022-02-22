@@ -87,6 +87,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)recordStatus;
 + (void)recordStart:(NSDictionary*)param :(JSValue*)callback;
 + (void)recordStop:(JSValue*)callback;
++ (void)recordCancelCallback:(JSValue*)callback;
 
 + (void)getLocation:(NSDictionary*)param :(JSValue*)callback;
 + (void)setText:(NSString*)node :(NSString*)text;
