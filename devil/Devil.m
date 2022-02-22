@@ -198,9 +198,10 @@
                 NSString* command = ss[1];
                 if([@"login" isEqualToString:command]) {
                     NSString* project_id = ss[2];
-                    NSString* xAccessToken = ss[3];
+                    NSString* token = ss[3];
+                    token = [token stringByReplacingOccurrencesOfString:@"__JUM__" withString:@"."];
                     [WildCardConstructor sharedInstance:project_id];
-                    [Jevil save:@"x-access-token" : xAccessToken];
+                    [Jevil save:@"x-access-token" : token];
                     [app.navigationController popToViewController:mainVc animated:NO];
                     [mainVc startProject:project_id];
                 } else if([@"start" isEqualToString:command]) {

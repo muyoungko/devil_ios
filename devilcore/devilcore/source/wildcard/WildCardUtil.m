@@ -310,6 +310,8 @@ static BOOL IS_TABLET = NO;
         CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
 
         h = rect.size.height;
+        
+        //NSLog(@"text height - %@ %f", cloudJson[@"name"], h);
     } else if(cloudJson[@"arrayContent"] != nil && ([cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_GRID] || [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_BOTTOM]))
     {
         NSMutableDictionary* arrayContent = cloudJson[@"arrayContent"];
@@ -404,8 +406,10 @@ static BOOL IS_TABLET = NO;
                 NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
                 NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter getJsonWithPath:data : targetJsonString];
                 thish = [WildCardUtil measureHeight:child data:targetDataJson[0]];
-            } else
+            } else {
                 thish = [WildCardUtil measureHeight:child data:data];
+                //NSLog(@"child height - %@ %d", child[@"name"], thish);
+            }
 
             layersByName[name] = arr[i];
             if(child[@"hiddenCondition"] != nil)
@@ -413,13 +417,14 @@ static BOOL IS_TABLET = NO;
             else if(child[@"showCondition"] != nil)
                 hidden = ![MappingSyntaxInterpreter ifexpression:child[@"showCondition"] data:data defaultValue:NO];
             
-            
             if(hidden) {
                 hiddenByChildName[name] = name;
                 rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, 0)];
             } else {
                 rects[name] = [NSValue valueWithCGRect:CGRectMake(0, thisy, 0, thish)];
             }
+            
+            //NSLog(@"rect %@ %@", name, rects[name]);
             
             NSString* nextTo = arr[i][@"vNextTo"];
             if( nextTo != nil)
@@ -469,7 +474,7 @@ static BOOL IS_TABLET = NO;
              */
             BOOL thisHidden = hiddenByChildName[name] != nil;
             if(thisy + thish > h){
-                //NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
+//                NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
                 h = thisy + thish;
             }
             

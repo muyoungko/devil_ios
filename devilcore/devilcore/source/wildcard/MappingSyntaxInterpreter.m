@@ -55,6 +55,10 @@
 
 +(NSString*) interpret:(NSString*) tomb : (NSDictionary*) data
 {
+    //2022 02 23 tomb가 null이면 data를 json stringify하여 반환한다.
+    if(tomb == nil)
+        return @"";
+    
     tomb = trim(tomb);
     if([@"true" isEqualToString:tomb] || [@"false" isEqualToString:tomb]) {
         return tomb;

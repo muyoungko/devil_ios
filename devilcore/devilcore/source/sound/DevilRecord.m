@@ -11,6 +11,7 @@
 @property (nonatomic, retain) NSString* targetPath;
 @property (nonatomic, retain) AVAudioRecorder* recorder;
 @property (nonatomic, retain) AVAudioPlayer* beepPlayer;
+@property int tickIndex;
 @end
 
 @implementation DevilRecord
@@ -37,6 +38,7 @@
 }
 
 - (void)startRecord:(id)param complete:(void (^)(id res))callback{
+    self.tickIndex = 0;
     [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
         if (granted) {
             self.status = @"changing";
@@ -167,5 +169,14 @@
 
     return session.inputIsAvailable;
 }
+
+-(void)tick {
+    if(self.tickCallback != nil && ![@"none" isEqualToString:self.status]) {
+        self.tickCallback(self.tickIndex);
+        self.tickIndex ++;
+        [self performSelector:@selector(tick) withObject:nil afterDelay:1.0f];
+    }
+}
+
 
 @end

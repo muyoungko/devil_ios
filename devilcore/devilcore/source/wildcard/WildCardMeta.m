@@ -272,7 +272,7 @@
         parent.frame = CGRectMake(parent.frame.origin.x, parent.frame.origin.y, maxW, parent.frame.size.height);
     }
     
-    NSString* parentKey = [NSString stringWithFormat:@"%lx", (long)parent];
+    //NSString* parentKey = [NSString stringWithFormat:@"%lx", (long)parent];
     //NSLog(@"wrapContent - %@ (%f, %f)" , parent.name, parent.frame.size.width, parent.frame.size.height);
 }
 

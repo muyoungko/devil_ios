@@ -155,9 +155,10 @@ alpha:1.0]
 }
 
 - (void)link:(id)sender {
+    NSString *token = [Jevil get:@"x-access-token"];
     NSString* link = [NSString stringWithFormat:@"devil-app-builder://project/login/%@/%@",
                       [WildCardConstructor sharedInstance].project_id,
-                      [Jevil get:@"x-access-token"]
+                      token
                       ];
     
     UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];

@@ -1006,6 +1006,16 @@ BOOL httpOk[10];
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
 }
+
++ (void)recordTick:(JSValue*)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilRecord sharedInstance] setTickCallback:^(int sec) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[[NSNumber numberWithInt:sec]]];
+    }];
+    [[DevilRecord sharedInstance] tick];
+    
+}
+
 + (void)recordStop:(JSValue*)callback{
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [[DevilRecord sharedInstance] stopRecord:^(id  _Nonnull res) {

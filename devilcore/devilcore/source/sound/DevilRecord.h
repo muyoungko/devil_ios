@@ -15,11 +15,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSString* status;
 
 @property void (^cancelCallback)();
+@property void (^tickCallback)(int sec);
 
 + (DevilRecord*)sharedInstance;
 - (void)startRecord:(id)param complete:(void (^)(id res))callback;
 - (void)stopRecord:(void (^)(id res))callback;
 - (void)cancel;
+- (void)tick;
+
 @end
 
 NS_ASSUME_NONNULL_END

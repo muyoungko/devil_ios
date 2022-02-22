@@ -86,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)stopSpeechRecognizer;
 + (NSString*)recordStatus;
 + (void)recordStart:(NSDictionary*)param :(JSValue*)callback;
++ (void)recordTick:(JSValue*)callback;
 + (void)recordStop:(JSValue*)callback;
 + (void)recordCancelCallback:(JSValue*)callback;
 

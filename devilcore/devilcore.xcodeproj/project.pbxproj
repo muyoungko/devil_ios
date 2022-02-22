@@ -173,7 +173,7 @@
 		6D9F7AB92622EA57003A70EC /* DevilCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AB72622EA57003A70EC /* DevilCamera.m */; };
 		6D9F7ABF262310D7003A70EC /* DevilAVCamPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7ABD262310D7003A70EC /* DevilAVCamPreviewView.h */; };
 		6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7ABE262310D7003A70EC /* DevilAVCamPreviewView.m */; };
-		6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AC526234431003A70EC /* DevilUtil.h */; };
+		6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AC526234431003A70EC /* DevilUtil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AC626234431003A70EC /* DevilUtil.m */; };
 		6D9F7ACC26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7ACA26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h */; };
 		6D9F7ACD26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7ACB26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m */; };
@@ -953,6 +953,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */,
 				6DF377C627B3AC360050E1DA /* DevilLang.h in Headers */,
 				6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */,
 				6D12857127773A990086B1CB /* DevilPicker.h in Headers */,
@@ -965,7 +966,6 @@
 				6D9F7AB32622EA46003A70EC /* DevilCameraController.h in Headers */,
 				6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */,
 				6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */,
-				6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */,
 				6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */,
 				6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */,
 				6D3EBE7B25D9123F0006ADD5 /* ReplaceRuleIcon.h in Headers */,
