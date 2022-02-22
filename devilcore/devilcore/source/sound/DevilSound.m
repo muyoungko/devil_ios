@@ -17,6 +17,7 @@
 @property void (^callbackControl)(NSString* command);
 @property (nonatomic,retain) id lockScreenInfo;
 @property BOOL isPlaying;
+@property BOOL music;
 @property NSTimeInterval lastMoveTime;
 @property (nonatomic,retain) AVPlayer *recentAvPlayerCompleteCalled;
 @end
@@ -57,13 +58,16 @@
     if(start > 0)
         [self.player seekToTime:CMTimeMake(start, 1)];
     
-    NSError *sessionError = nil;
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&sessionError];
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
-    [[AVAudioSession sharedInstance] setMode:AVAudioSessionModeMoviePlayback error:nil];
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    self.music = param[@"music"] ? [param[@"music"] boolValue] : true;
+    if(self.music) {
+        NSError *sessionError = nil;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&sessionError];
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        [[AVAudioSession sharedInstance] setMode:AVAudioSessionModeMoviePlayback error:nil];
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
 
-    [self setUpRemoteCommandCenter:param];
+        [self setUpRemoteCommandCenter:param];
+    }
 }
 
 
@@ -268,5 +272,11 @@
 - (void)speed:(float)speed{
     if(self.player != nil)
         self.player.rate = speed;
+}
+
+- (void)stopIfNotMusic{
+    if(!self.music) {
+        [self pause];
+    }
 }
 @end

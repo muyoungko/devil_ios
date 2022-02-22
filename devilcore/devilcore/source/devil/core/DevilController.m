@@ -262,6 +262,7 @@
             [self.thisMetas[key] destory];
     }
     
+    [self onPause];
     [super viewDidDisappear:animated];
 }
 
@@ -282,6 +283,7 @@
 
 -(void)onPause {
     [[DevilRecord sharedInstance] cancel];
+    [[DevilSound sharedInstance] stopIfNotMusic];
 }
 
 - (void)startLoading{

@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)move:(int)sec;
 - (void)seek:(int)sec;
 - (void)speed:(float)speed;
+- (void)stopIfNotMusic;
 
 @end
 
