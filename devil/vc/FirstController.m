@@ -27,14 +27,15 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     [self showIndicator];
-    [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
+    [[WildCardConstructor sharedInstance] initWithOnlineVersion:@"0.0.1" onComplete:^(BOOL success) {
+//    [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
         
         //[WildCardConstructor sharedInstance].project[@"host"] = @"http://192.168.1.230:6111";
         
         [[Devil sharedInstance] isLogin:^(id  _Nonnull res) {
             [self hideIndicator];
             if(res){
-                if([res[@"r"] boolValue]){
+                if([res[@"r"] boolValue]) {
                     //[self.navigationController setViewControllers:@[[[MainController alloc] init]]];
                     MainV2Controller* v = [[MainV2Controller alloc] init];
                     v.screenId = @"56553391";

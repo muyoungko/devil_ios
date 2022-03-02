@@ -81,7 +81,7 @@
     [DevilCamera requestGalleryPermission:^(BOOL granted) {
         if(granted) {
             
-            BOOL hasPicture = param && param[@"hasPicture"] ? [param[@"hasPicture"] boolValue] : NO;
+            BOOL hasPicture = param && param[@"hasPicture"] ? [param[@"hasPicture"] boolValue] : YES;
             BOOL hasVideo = param && param[@"hasVideo"] ? [param[@"hasVideo"] boolValue] : NO;
             
             id r = [@[] mutableCopy];
