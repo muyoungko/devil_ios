@@ -1209,7 +1209,7 @@ BOOL httpOk[10];
 }
 
 + (void)localPush:(id)param {
-    
+    [[DevilLink sharedInstance] localPush:param];
 }
 
 + (void)consumeStandardReserveUrl {

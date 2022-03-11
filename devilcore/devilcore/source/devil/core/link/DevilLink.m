@@ -13,6 +13,8 @@
 #import "Jevil.h"
 #import "DevilUtil.h"
 
+@import UserNotifications;
+
 @implementation DevilLink
 
 + (DevilLink*)sharedInstance {
@@ -164,4 +166,31 @@
     
     return true;
 }
+
+-(void)localPush:(id)param{
+    NSString* title = param[@"title"];
+    NSString* msg = param[@"msg"];
+    NSString* url = param[@"url"];
+    
+    UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];
+    content.title = title;
+    content.body = msg;
+    content.userInfo = [@{@"url":url} mutableCopy];
+
+    UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                triggerWithTimeInterval:1 repeats:NO];
+    UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"FiveSecond"
+                content:content trigger:trigger];
+     
+    // Schedule the notification.
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+       if (error != nil) {
+           NSLog(@"%@", error.localizedDescription);
+       }
+    }];
+
+}
+
 @end
