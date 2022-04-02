@@ -118,9 +118,14 @@
             }
         }
         
-        if(!hasline)
+        if(!hasline) {
             self.vc.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+            [self.vc.navigationController.navigationBar setValue:@(YES) forKeyPath:@"hidesShadow"];
+        } else {
+            [self.vc.navigationController.navigationBar setValue:@(NO) forKeyPath:@"hidesShadow"];
+        }
     }
+    
 }
 -(void)update{
     [self update:self.meta.correspondData];

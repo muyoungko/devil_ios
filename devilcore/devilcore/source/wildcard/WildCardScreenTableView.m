@@ -54,6 +54,8 @@
                 }
             }
         }
+        
+        [self registerClass:[UITableViewCell class] forCellReuseIdentifier:@"FOOTER"];
     }
     return self;
 }
@@ -128,7 +130,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 
@@ -139,6 +141,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if(indexPath.section == 1) {
+        return 100;
+    }
+    
     NSString* key = [_list objectAtIndex:[indexPath row]];
     NSMutableDictionary* item = [_listData objectAtIndex:[indexPath row]];
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:key];
@@ -150,37 +156,45 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString* key = [_list objectAtIndex:[indexPath row]];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:key forIndexPath:indexPath];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = [UIColor clearColor];
-    //NSLog(@"c %d", [indexPath row]);
-    
-    @try{
-        if([[[[cell subviews] objectAtIndex:0] subviews] count] == 0)
-        {
-            NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:key];
-            WildCardUIView* core = [WildCardConstructor constructLayer:nil withLayer:cj];
-            [[[cell subviews] objectAtIndex:0] addSubview:core];
-            core.meta.wildCardConstructorInstanceDelegate = self;
+    if(indexPath.section == 0) {
+        NSString* key = [_list objectAtIndex:[indexPath row]];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:key forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor clearColor];
+        //NSLog(@"c %d", [indexPath row]);
+        
+        @try{
+            if([[[[cell subviews] objectAtIndex:0] subviews] count] == 0)
+            {
+                NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:key];
+                WildCardUIView* core = [WildCardConstructor constructLayer:nil withLayer:cj];
+                [[[cell subviews] objectAtIndex:0] addSubview:core];
+                core.meta.wildCardConstructorInstanceDelegate = self;
+            }
+            
+            
+            WildCardUIView *v = [[[[cell subviews] objectAtIndex:0] subviews] objectAtIndex:0];
+            [WildCardConstructor applyRule:v withData:[_listData objectAtIndex:[indexPath row]]];
+            
+            if(self.tableViewDelegate != nil)
+                [self.tableViewDelegate cellUpdated:[indexPath row] view:v];
+            
+            if(self.lastItemCallback != nil)
+                self.lastItemCallback(nil);
+            
+            return cell;
         }
-        
-        
-        WildCardUIView *v = [[[[cell subviews] objectAtIndex:0] subviews] objectAtIndex:0];
-        [WildCardConstructor applyRule:v withData:[_listData objectAtIndex:[indexPath row]]];
-        
-        if(self.tableViewDelegate != nil)
-            [self.tableViewDelegate cellUpdated:[indexPath row] view:v];
-        
-        if(self.lastItemCallback != nil)
-            self.lastItemCallback(nil);
-    }
-    @catch(NSException * e){
-        NSLog(@"%@",e);
+        @catch(NSException * e){
+            NSLog(@"%@",e);
+        }
+    
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FOOTER" forIndexPath:indexPath];
+        return cell;
     }
     
     
-    return cell;
+    return nil;
 }
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
