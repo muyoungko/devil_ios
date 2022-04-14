@@ -18,6 +18,7 @@
 		6D0EE16B2590BF6900C89D38 /* DevilExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */; };
 		6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0EE1752590CC5600C89D38 /* WildCardScriptAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */; };
+		6D1009252807C3F4004806A0 /* devil_camera_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1009242807C3F4004806A0 /* devil_camera_play@3x.png */; };
 		6D12857127773A990086B1CB /* DevilPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D12856F27773A990086B1CB /* DevilPicker.h */; };
 		6D12857227773A990086B1CB /* DevilPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D12857027773A990086B1CB /* DevilPicker.m */; };
 		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
@@ -253,6 +254,7 @@
 		6D0EE1692590BF6800C89D38 /* DevilExceptionHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilExceptionHandler.m; sourceTree = "<group>"; };
 		6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardScriptAction.h; sourceTree = "<group>"; };
 		6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardScriptAction.m; sourceTree = "<group>"; };
+		6D1009242807C3F4004806A0 /* devil_camera_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_play@3x.png"; sourceTree = "<group>"; };
 		6D12856F27773A990086B1CB /* DevilPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPicker.h; sourceTree = "<group>"; };
 		6D12857027773A990086B1CB /* DevilPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPicker.m; sourceTree = "<group>"; };
 		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 				6D9F7A9F2622E93C003A70EC /* devil_camera_front_back@3x.png */,
 				6D9F7AA52622E93C003A70EC /* devil_camera_gallery@3x.png */,
 				6D9F7AA02622E93C003A70EC /* devil_camera_picture@3x.png */,
+				6D1009242807C3F4004806A0 /* devil_camera_play@3x.png */,
 				6D9F7AA12622E93C003A70EC /* devil_camera_record_start@3x.png */,
 				6D9F7A9E2622E93C003A70EC /* devil_camera_recording@3x.png */,
 				6D9F7AA42622E93C003A70EC /* devil_camera_shutter@3x.png */,
@@ -1135,6 +1138,7 @@
 				6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */,
 				6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */,
 				6D9F7AA82622E93C003A70EC /* devil_camera_recording@3x.png in Resources */,
+				6D1009252807C3F4004806A0 /* devil_camera_play@3x.png in Resources */,
 				6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */,
 				6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */,
 				6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */,

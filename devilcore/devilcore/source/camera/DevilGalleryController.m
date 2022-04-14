@@ -238,6 +238,12 @@
             image.tag = 4321;
             [childUIView addSubview:image];
             
+            UIImageView* play_image = [[UIImageView alloc] initWithFrame:CGRectMake(s/3, s/3, s/3, s/3)];
+            UIImage* play = [self tintColor:[UIImage imageNamed:@"devil_camera_play.png" inBundle:bundle compatibleWithTraitCollection:nil] :UIColorFromRGB(0xffffff)];
+            [play_image setImage:play];
+            play_image.tag = 1121;
+            [childUIView addSubview:play_image];
+            
             UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, s, s)];
             [button addTarget:self action:@selector(onClickCheck:) forControlEvents:UIControlEventTouchUpInside];
             [childUIView addSubview:button];
@@ -255,10 +261,16 @@
     if([type isEqualToString:@"camera"]) {
         
     } else {
-        if(item[@"preview"])
-            [self urlToImage:item[@"preview"] : [childUIView viewWithTag:4321]];
+        if([item[@"type"] isEqualToString:@"video"])
+            [childUIView viewWithTag:1121].hidden = NO;
         else
+            [childUIView viewWithTag:1121].hidden = YES;
+        
+        if(item[@"preview"]) {
+            [self urlToImage:item[@"preview"] : [childUIView viewWithTag:4321]];
+        } else {
             [self urlToImage:item[@"url"] : [childUIView viewWithTag:4321]];
+        }
         [self check:[childUIView viewWithTag:3629] :[@"Y" isEqualToString:item[@"selected"]]];
     }
     
@@ -461,11 +473,12 @@
             NSString* outputFileName = [NSUUID UUID].UUIDString;
             NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mp4"]];
             NSString* previewPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
-            UIImage* preview = [DevilUtil getThumbnail:targetPath];
-            NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
-            [imageData writeToFile:previewPath atomically:YES];
+            
             [DevilUtil convertMovToMp4:path to:targetPath callback:^(id  _Nonnull res) {
                 if([res[@"r"] boolValue]){
+                    UIImage* preview = [DevilUtil getThumbnail:targetPath];
+                    NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
+                    [imageData writeToFile:previewPath atomically:YES];
                     callback([@{@"url":targetPath, @"preview":previewPath} mutableCopy]);
                 } else
                     ;

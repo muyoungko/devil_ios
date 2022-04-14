@@ -1130,7 +1130,8 @@ BOOL httpOk[10];
 }
 
 + (void)videoViewAutoPlay {
-    [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
+    //TODO
+    [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.5f];
 }
 
 + (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback{
