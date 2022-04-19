@@ -480,8 +480,9 @@
                     NSData *imageData = UIImageJPEGRepresentation(preview, 0.6f);
                     [imageData writeToFile:previewPath atomically:YES];
                     callback([@{@"url":targetPath, @"preview":previewPath} mutableCopy]);
-                } else
-                    ;
+                } else {
+                    [Jevil alert:@"Video encoding failed"];
+                }
             }];
         }];
         
