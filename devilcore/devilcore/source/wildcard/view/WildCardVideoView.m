@@ -257,7 +257,11 @@
 -(void)onPreparedTimerStart {
     
     if(self.observer != nil) {
-        [self.playerViewController.player removeTimeObserver:self.observer];
+        @try {
+            [self.playerViewController.player removeTimeObserver:self.observer];
+        }@catch(NSException* e) {
+        }
+        
         self.observer = nil;
     }
     
@@ -312,8 +316,11 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     } else {
-        if(_playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPaused)
+        if(_playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPaused) {
             [_playerViewController.player play];
+            self.imageView.hidden = YES;
+        }
+        
         NSLog(@"Player Init Pass");
     }
 }
