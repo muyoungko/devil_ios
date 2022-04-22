@@ -64,6 +64,7 @@
     id headers = [@{@"Accept": @"application/json"} mutableCopy];
     
     if(params == nil){
+        [manager.requestSerializer setTimeoutInterval:10.0];
         [manager GET:url parameters:@{} headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
         {
             NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
@@ -74,6 +75,7 @@
             callback(nil);
         }];
     } else {
+        [manager.requestSerializer setTimeoutInterval:10.0];
         [manager POST:url parameters:params headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
         {
             NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
@@ -106,6 +108,7 @@
     }
 
     __block BOOL fform = form;
+    [manager.requestSerializer setTimeoutInterval:10.0];
     [manager POST:url parameters:params headers:mheader progress:nil success:^(NSURLSessionTask *task, id res)
     {
         if(fform) {
@@ -132,6 +135,7 @@
     for(id k in [header allKeys])
         headers[k] = header[k];
     
+    [manager.requestSerializer setTimeoutInterval:10.0];
     [manager GET:url parameters:@{} headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
     {
         NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
@@ -169,6 +173,7 @@
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
+    [manager.requestSerializer setTimeoutInterval:10.0];
     [manager GET:url parameters:@{} headers:@{} progress:nil success:^(NSURLSessionTask *task, id res)
     {
         callback(res);

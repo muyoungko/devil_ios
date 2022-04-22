@@ -238,11 +238,20 @@
             image.tag = 4321;
             [childUIView addSubview:image];
             
-            UIImageView* play_image = [[UIImageView alloc] initWithFrame:CGRectMake(s/3, s/3, s/3, s/3)];
+            UIImageView* play_image = [[UIImageView alloc] initWithFrame:CGRectMake(0,0, s/7, s/7)];
             UIImage* play = [self tintColor:[UIImage imageNamed:@"devil_camera_play.png" inBundle:bundle compatibleWithTraitCollection:nil] :UIColorFromRGB(0xffffff)];
             [play_image setImage:play];
             play_image.tag = 1121;
+            play_image.center = CGPointMake(s/7, s/7*6);
             [childUIView addSubview:play_image];
+            
+            UILabel* duration = [[UILabel alloc] initWithFrame:CGRectMake(5, s-5-s/5, s-10, s/5)];
+            duration.textAlignment = NSTextAlignmentRight;
+            duration.tag = 1122;
+            duration.text = @"";
+            duration.textColor = UIColorFromRGB(0xffffff);
+            duration.font = [UIFont systemFontOfSize:15];
+            [childUIView addSubview:duration];
             
             UIButton* button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, s, s)];
             [button addTarget:self action:@selector(onClickCheck:) forControlEvents:UIControlEventTouchUpInside];
@@ -261,10 +270,16 @@
     if([type isEqualToString:@"camera"]) {
         
     } else {
-        if([item[@"type"] isEqualToString:@"video"])
+        if([item[@"type"] isEqualToString:@"video"]){
             [childUIView viewWithTag:1121].hidden = NO;
-        else
+            [childUIView viewWithTag:1122].hidden = NO;
+            int sec = [item[@"duration"] intValue];
+            
+            ((UILabel*)[childUIView viewWithTag:1122]).text = [NSString stringWithFormat:@"%d:%d", (int)(sec/60), sec%60];
+        } else {
             [childUIView viewWithTag:1121].hidden = YES;
+            [childUIView viewWithTag:1122].hidden = YES;
+        }
         
         if(item[@"preview"]) {
             [self urlToImage:item[@"preview"] : [childUIView viewWithTag:4321]];

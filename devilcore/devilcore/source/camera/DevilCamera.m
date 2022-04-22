@@ -122,6 +122,7 @@
                         @"video":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
                         @"date": [NSNumber numberWithLong:d],
                         @"type":@"video",
+                        @"duration": [NSNumber numberWithInt:(int)obj.duration],
                     } mutableCopy]];
                     if(idx < end)
                         *stop = false;

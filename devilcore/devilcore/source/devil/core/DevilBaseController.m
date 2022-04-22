@@ -98,6 +98,10 @@
         indicatorBg.tag = 2244;
         [window addSubview:indicatorBg];
         
+        UITapGestureRecognizer *singleFingerTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideIndicator)];
+        [indicatorBg addGestureRecognizer:singleFingerTap];
+        
         LOTAnimationView* loading = [LOTAnimationView animationNamed:@"loading" inBundle:[NSBundle mainBundle]];
         int h = 170;
         loading.frame = CGRectMake(0, 0 , h, h);

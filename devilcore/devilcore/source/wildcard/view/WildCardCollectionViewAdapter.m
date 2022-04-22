@@ -321,10 +321,11 @@
 
                 self.lastDataCount = [self.data count];
             }
+            
         }@catch(NSException* e){
             [DevilExceptionHandler handle:e];
         }
-        
+
         return cell;
     } else {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FOOTER" forIndexPath:indexPath];

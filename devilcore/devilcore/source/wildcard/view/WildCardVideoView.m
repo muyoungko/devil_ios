@@ -8,12 +8,16 @@
 #import "WildCardVideoView.h"
 #import "WildCardConstructor.h"
 #import "Lottie.h"
+#import <objc/runtime.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
 @property (nonatomic, retain) NSString* videoPath;
 @property (nonatomic, retain) NSString* lastPlayingVideoPath;
 @property (nonatomic, retain) LOTAnimationView* playPause;
+@property (nonatomic, retain) UIActivityIndicatorView* loading;
+@property (nonatomic,retain) id observer;
 @property BOOL ready;
 @property BOOL playing;
 @property BOOL finished;
@@ -30,6 +34,8 @@
     _playerViewController.showsPlaybackControls = NO;
     _playerViewController.delegate = self;
     _playerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    _playerViewController.player.automaticallyWaitsToMinimizeStalling = NO;
+    
     [self addSubview:_playerViewController.view];
     
     _imageView = (UIImageView*)[[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
@@ -39,6 +45,12 @@
     [self addSubview:_imageView];
     [WildCardConstructor followSizeFromFather:self child:self.imageView];
     
+    
+    self.loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    [self addSubview:_loading];
+    [WildCardConstructor followSizeFromFather:self child:_loading];
+    [_loading startAnimating];
+    _loading.hidden = YES;
     
     CGRect s = [[UIScreen mainScreen] bounds];
     int sw = s.size.width;
@@ -59,13 +71,37 @@
     self.userInteractionEnabled = YES;
     
     UITapGestureRecognizer* singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickVideoView:)];
+    singleFingerTap.numberOfTapsRequired = 1;
+    singleFingerTap.numberOfTouchesRequired = 1;
+    self.imageView.userInteractionEnabled = YES;
+    [self.imageView addGestureRecognizer:singleFingerTap];
+    self.playerViewController.view.userInteractionEnabled = YES;
+    [self.playerViewController.view addGestureRecognizer:singleFingerTap];
     [self addGestureRecognizer:singleFingerTap];
+//    UIView* contentView = [self.playerViewController.view valueForKey:@"contentView"];
+//    contentView.gestureRecognizers = @[];
+//    contentView.userInteractionEnabled = NO;
     
     _ready = NO;
     _playing = NO;
     _finished = NO;
     
     return self;
+}
+
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+    if(self.videoPath != nil)
+        return self;
+    else
+        return [super hitTest:point withEvent:event];
+}
+
+-(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+    for (UIView *view in self.subviews) {
+        if (!view.hidden && view.userInteractionEnabled && [view pointInside:[self convertPoint:point toView:view] withEvent:event])
+            return YES;
+    }
+    return NO;
 }
 
 -(void)onClickVideoView:(id)sender {
@@ -213,9 +249,36 @@
     self.imageView.hidden = NO;
 }
 
+-(void)onPrepared {
+    _loading.hidden = YES;
+    self.imageView.hidden = YES;
+}
+
+-(void)onPreparedTimerStart {
+    
+    if(self.observer != nil) {
+        [self.playerViewController.player removeTimeObserver:self.observer];
+        self.observer = nil;
+    }
+    
+    self.observer = [self.playerViewController.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 4)
+        queue:NULL // main queue
+        usingBlock:^(CMTime time) {
+
+        
+        CMTime currentPosition = self.playerViewController.player.currentItem.currentTime;
+        NSLog(@"%f", ((float)currentPosition.value) / currentPosition.timescale);
+        float currentPositionSec = ((float)currentPosition.value / currentPosition.timescale);
+        if(currentPositionSec > 0) {
+            [self.playerViewController.player removeTimeObserver:self.observer];
+            [self onPrepared];
+        }
+    }];
+    
+}
+
 -(void)play{
     NSLog(@"play %@", self.videoPath);
-    
     _playing = YES;
     //self.videoPath = @"https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_640_3MG.mp4";
     if(self.videoPath == nil || ![self.videoPath isEqualToString:self.lastPlayingVideoPath]){
@@ -224,6 +287,7 @@
             [_playerViewController.player removeObserver:self forKeyPath:@"status"];
         }
         
+        _loading.hidden = NO;
         if([self.videoPath hasPrefix:@"http"])
             _playerViewController.player = [AVPlayer playerWithURL:[NSURL URLWithString:self.videoPath]];
         else
@@ -231,10 +295,11 @@
         
         self.lastPlayingVideoPath = self.videoPath;
         [_playerViewController.player addObserver:self forKeyPath:@"status" options:0 context:nil];
+        [self onPreparedTimerStart];
+        
         _ready = NO;
         NSLog(@"Player Init");
         
-        self.imageView.hidden = YES;
         if(_playerViewController.player != nil) {
             _playerViewController.view.hidden = NO;
             
@@ -247,7 +312,8 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     } else {
-        self.imageView.hidden = YES;
+        if(_playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPaused)
+            [_playerViewController.player play];
         NSLog(@"Player Init Pass");
     }
 }
@@ -263,5 +329,6 @@
 -(BOOL)isPlaying {
     return _playing;
 }
+
 
 @end
