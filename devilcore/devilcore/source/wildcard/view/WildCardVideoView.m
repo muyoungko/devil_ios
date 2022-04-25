@@ -20,7 +20,6 @@
 @property (nonatomic,retain) id observer;
 @property BOOL ready;
 @property BOOL playing;
-@property BOOL finished;
 @end
 
 @implementation WildCardVideoView
@@ -70,30 +69,14 @@
     
     self.userInteractionEnabled = YES;
     
+    
     UITapGestureRecognizer* singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickVideoView:)];
-    singleFingerTap.numberOfTapsRequired = 1;
-    singleFingerTap.numberOfTouchesRequired = 1;
-    self.imageView.userInteractionEnabled = YES;
-    [self.imageView addGestureRecognizer:singleFingerTap];
-    self.playerViewController.view.userInteractionEnabled = YES;
-    [self.playerViewController.view addGestureRecognizer:singleFingerTap];
     [self addGestureRecognizer:singleFingerTap];
-//    UIView* contentView = [self.playerViewController.view valueForKey:@"contentView"];
-//    contentView.gestureRecognizers = @[];
-//    contentView.userInteractionEnabled = NO;
     
     _ready = NO;
     _playing = NO;
-    _finished = NO;
     
     return self;
-}
-
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    if(self.videoPath != nil)
-        return self;
-    else
-        return [super hitTest:point withEvent:event];
 }
 
 -(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
@@ -104,14 +87,34 @@
     return NO;
 }
 
+-(BOOL) isFinished {
+    if(_videoPath == nil || _playerViewController.player == nil)
+        return NO;
+    
+    CMTime currentTime = [_playerViewController.player.currentItem currentTime];
+    CMTime endTime = [_playerViewController.player.currentItem duration];
+    if(CMTIME_COMPARE_INLINE(currentTime, ==, endTime)) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 -(void)onClickVideoView:(id)sender {
     if(self.videoPath != nil) {
-        if(self.playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPlaying) {
-            [self stop];
-            [self blinkPause];
-        } else {
-            [self play];
+        if([self isFinished]) {
+            [_playerViewController.player seekToTime:CMTimeMake(0, 1)];
+            [_playerViewController.player play];
+            self.imageView.hidden = YES;
             [self blinkPlay];
+        } else {
+            if(self.playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPlaying) {
+                [self stop];
+                [self blinkPause];
+            } else {
+                [self play];
+                [self blinkPlay];
+            }
         }
     }
 }
@@ -205,12 +208,11 @@
         _playerViewController.player = nil;
     }
     
-    if(ppath != nil)
-        self.imageView.hidden = NO;
-    
     if([ppath hasPrefix:@"http"]) {
-        if(![ppath isEqualToString:self.previewPath])
+        if(![ppath isEqualToString:self.previewPath]) {
             [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.imageView withUrl:ppath];
+            self.imageView.hidden = NO;
+        }
     } else {
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:ppath]];
         UIImage *image = [UIImage imageWithData:imageData];
@@ -247,7 +249,6 @@
 
 -(void)didFinishPlaying{
     NSLog(@"didFinishPlaying");
-    self.finished = YES;
     self.playing = NO;
     self.imageView.hidden = NO;
 }
@@ -310,21 +311,21 @@
         if(_playerViewController.player != nil) {
             _playerViewController.view.hidden = NO;
             
-            if(self.finished){
+            if([self isFinished]){
                 [_playerViewController.player seekToTime:CMTimeMakeWithSeconds(0, 6000)];
             }
-            self.finished = NO;
             [_playerViewController.player play];
         }
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     } else {
         if(_playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPaused) {
-            if(self.finished) {
+            if([self isFinished]) {
                 [_playerViewController.player seekToTime:CMTimeMake(0, 1)];
                 [_playerViewController.player play];
-            } else
+            } else {
                 [_playerViewController.player play];
+            }
             self.imageView.hidden = YES;
         }
         

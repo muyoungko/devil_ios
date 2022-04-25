@@ -34,6 +34,9 @@
     WildCardVideoView* videoView = (WildCardVideoView*)self.replaceView;
     [videoView setAutoPlay:[@"Y" isEqualToString:autoPlay]];
     [videoView setPreview:previewUrl video:videoUrl];
+    if(videoUrl) {
+        [videoView superview].userInteractionEnabled = YES;
+    }
 }
 
 @end
