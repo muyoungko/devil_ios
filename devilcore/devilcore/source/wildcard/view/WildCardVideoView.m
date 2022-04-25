@@ -197,20 +197,20 @@
 }
 
 - (void)setPreview:(NSString*)ppath video:(NSString*)vpath force:(BOOL)force{
-    _playerViewController.player = nil;
+    
     if(vpath == nil) {
-        [_playerViewController.player pause];
+        if(_playerViewController != nil)
+            [_playerViewController.player pause];
         _playerViewController.view.hidden = YES;
+        _playerViewController.player = nil;
     }
     
     if(ppath != nil)
         self.imageView.hidden = NO;
     
-    self.previewPath = ppath;
-    self.videoPath = vpath;
-    
     if([ppath hasPrefix:@"http"]) {
-        [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.imageView withUrl:ppath];
+        if(![ppath isEqualToString:self.previewPath])
+            [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.imageView withUrl:ppath];
     } else {
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:ppath]];
         UIImage *image = [UIImage imageWithData:imageData];
@@ -221,6 +221,9 @@
         [WildCardVideoView registView:self];
     else
         [WildCardVideoView unregistView:self];
+    
+    self.previewPath = ppath;
+    self.videoPath = vpath;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
@@ -317,7 +320,11 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     } else {
         if(_playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPaused) {
-            [_playerViewController.player play];
+            if(self.finished) {
+                [_playerViewController.player seekToTime:CMTimeMake(0, 1)];
+                [_playerViewController.player play];
+            } else
+                [_playerViewController.player play];
             self.imageView.hidden = YES;
         }
         
