@@ -53,8 +53,14 @@
         [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
         [[UINavigationBar appearance] setAlpha:1.0f];
         [vc.navigationController.navigationBar setTranslucent:false];
-//        [vc.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-//        [vc.navigationController.navigationBar setOpaque:YES];
+
+        if (@available(iOS 15.0, *)) {
+            UINavigationBarAppearance* a = [UINavigationBarAppearance alloc];
+            [a configureWithOpaqueBackground];
+            a.backgroundColor = bgColor;
+            vc.navigationController.navigationBar.standardAppearance = a;
+            vc.navigationController.navigationBar.scrollEdgeAppearance = vc.navigationController.navigationBar.standardAppearance;
+        }
         
     }
     return self;
