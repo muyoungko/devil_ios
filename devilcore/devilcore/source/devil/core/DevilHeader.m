@@ -16,6 +16,7 @@
 @interface DevilHeader ()
 
 @property BOOL inited;
+@property BOOL hasline;
 @property (nonatomic, retain) UIViewController* vc;
 @property (nonatomic, retain) id cj;
 @property (nonatomic, retain) id barButtonByName;
@@ -58,6 +59,12 @@
             UINavigationBarAppearance* a = [UINavigationBarAppearance alloc];
             [a configureWithOpaqueBackground];
             a.backgroundColor = bgColor;
+            
+            if(!self.hasline) {
+                a.shadowImage = [[UIImage alloc] init];
+                a.shadowColor = [UIColor clearColor];
+            }
+            
             vc.navigationController.navigationBar.standardAppearance = a;
             vc.navigationController.navigationBar.scrollEdgeAppearance = vc.navigationController.navigationBar.standardAppearance;
         }
@@ -130,6 +137,8 @@
         } else {
             [self.vc.navigationController.navigationBar setValue:@(NO) forKeyPath:@"hidesShadow"];
         }
+        
+        self.hasline = hasline;
     }
     
 }
@@ -153,8 +162,8 @@
                 id barbuttons = [@[] mutableCopy];
                 for(id icon_layer in layer2){
                     NSString* name = icon_layer[@"name"];
-                    if(self.barButtonByName[name] 
-                        && self.meta.correspondData[@"left"] 
+                    if(self.barButtonByName[name]
+                        && self.meta.correspondData[@"left"]
                        && [self.meta.correspondData[@"left"][name] boolValue]) {
                         [barbuttons addObject:self.barButtonByName[name]];
                         
@@ -172,8 +181,8 @@
                 for(int j=(int)[layer2 count]-1;j>=0;j--) {
                     id icon_layer = layer2[j];
                     NSString* name = icon_layer[@"name"];
-                    if(self.barButtonByName[name] 
-                        && self.meta.correspondData[@"right"] 
+                    if(self.barButtonByName[name]
+                        && self.meta.correspondData[@"right"]
                         && [self.meta.correspondData[@"right"][name] boolValue]
                         )
                         [barbuttons addObject:self.barButtonByName[name]];
@@ -252,7 +261,7 @@
 - (UIImage *)imageWithImage:(UIImage *)image convertToSize:(CGSize)size {
     UIGraphicsBeginImageContext(size);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
-    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();    
+    UIImage *destImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return destImage;
 }
