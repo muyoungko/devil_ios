@@ -20,7 +20,6 @@
 @interface DevilController ()
 
 @property (nonatomic, retain) DevilHeader* header;
-@property int header_sketch_height;
 @property BOOL hasOnResume;
 @property BOOL hasOnFinish;
 @property BOOL hasOnCreated;
@@ -109,11 +108,12 @@
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 }
+
 -(void)constructHeaderAndFooter{
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
-        _header_sketch_height = [WildCardUtil headerHeightInSketch];
+        self.header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
         [self hideNavigationBar];
     
@@ -124,21 +124,16 @@
         topPadding = window.safeAreaInsets.top;
         bottomPadding = window.safeAreaInsets.bottom;
     }
+    self.bottomPadding = bottomPadding;
     
     id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
     if(footer){
         id footerCloudJson = footer[@"cloudJson"];
         self.fix_footer = [footer[@"fix_footer"] boolValue];
         self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
-        self.original_footer_height = self.footer.frame.size.height;
-        
+        self.isFooterVariableHeight = [footerCloudJson[@"frame"][@"h"] intValue] == -2;
         [WildCardConstructor applyRule:self.footer withData:self.data];
-        
-        int footerY = screenHeight - self.footer.frame.size.height - bottomPadding - (_header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
-        self.original_footer_height_plus_bottom_padding = self.footer.frame.size.height + bottomPadding;
-        self.footer.frame= CGRectMake(0, footerY, self.footer.frame.size.width,
-                                      self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
-        self.original_footer_y = footerY;
+        [self adjustFooterHeight];
         
         self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] +
             [WildCardUtil convertPixcelToSketch:bottomPadding ];
@@ -159,7 +154,28 @@
         [self.view addSubview:self.inside_footer];
     }
     
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + self.footer_sketch_height];
+    id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    if([screen[@"footer_shadow"] boolValue]) {
+        float offsetX = 0;
+        float offsetY = -5;
+        float blurRadius = 5;
+        self.footer.layer.masksToBounds = NO;
+        self.footer.layer.shadowOffset = CGSizeMake(offsetX, offsetY);
+        self.footer.layer.shadowRadius = blurRadius;
+        self.footer.layer.shadowOpacity = 0.05f;
+        self.footer.layer.shadowColor = [[UIColor blackColor] CGColor];
+    }
+    
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + self.footer_sketch_height];
+}
+
+-(void) adjustFooterHeight {
+    self.original_footer_height = self.footer.frame.size.height;
+    int footerY = screenHeight - self.original_footer_height - self.bottomPadding - (self.header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
+    self.original_footer_height_plus_bottom_padding = self.original_footer_height + self.bottomPadding;
+    self.original_footer_y = footerY;
+    self.footer.frame= CGRectMake(0, footerY, self.footer.frame.size.width,
+                                  self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
 }
 
 -(void)tab:(NSString*)screenId {
@@ -192,10 +208,12 @@
         self.fix_footer = [footer[@"fix_footer"] boolValue];
     [WildCardConstructor applyRule:self.footer withData:self.data];
 
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:_header_sketch_height + self.footer_sketch_height];
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + self.footer_sketch_height];
     [self construct];
     [self onResume];
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -313,12 +331,6 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     /**
-     navigationbar truncate true 일경우
-     */
-//    self.offsetY = self.navigationController.navigationBar.frame.size.height + [UIApplication sharedApplication].statusBarFrame.size.height;
-//    self.viewHeight = screenHeight - self.offsetY;
-    
-    /**
      navigationbar truncate false 일경우
      */
     self.offsetY = 0;;
@@ -432,7 +444,7 @@
     [WildCardConstructor applyRule:self.mainWc withData:_data];
     self.scrollView.contentOffset = CGPointMake(0, 0);
     float toBeHeight = screenHeight;
-    if(_header_sketch_height > 0)
+    if(self.header_sketch_height > 0)
         toBeHeight -= [WildCardUtil headerHeightInSketch];
     if(self.footer)
         toBeHeight -= self.original_footer_height_plus_bottom_padding;
@@ -507,7 +519,12 @@
     
     if(self.header)
         [self.header update:self.data];
-    [WildCardConstructor applyRule:self.footer withData:self.data];
+    
+    if(self.footer) {
+        [WildCardConstructor applyRule:self.footer withData:self.data];
+        if(self.isFooterVariableHeight)
+            [self adjustFooterHeight];
+    }
     
     if(self.inside_footer)
         [WildCardConstructor applyRule:self.inside_footer withData:self.data];
@@ -589,18 +606,7 @@
     return nil;
 }
 
--(void)alertFinish:(NSString *)msg {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
-                                                                             message:nil
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
-                                                      style:UIAlertActionStyleCancel
-                                                    handler:^(UIAlertAction *action) {
-       [self.navigationController popViewControllerAnimated:YES];
-    }]];
-    [self presentViewController:alertController animated:YES completion:^{}];
-}
 @end
 
 

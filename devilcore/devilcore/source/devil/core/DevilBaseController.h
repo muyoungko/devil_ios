@@ -33,15 +33,20 @@ NS_ASSUME_NONNULL_BEGIN
 @property int original_footer_height;
 @property int original_footer_height_plus_bottom_padding;
 @property int original_footer_y;
+@property int header_sketch_height;
+@property float bottomPadding;
+@property BOOL isFooterVariableHeight;
 @property int keyboard_height;
 @property int footer_sketch_height;
 @property BOOL fix_footer;
 @property (nonatomic, retain) WildCardUIView* footer;
 @property (nonatomic, retain) WildCardUIView* inside_footer;
 @property (nonatomic, retain) UIAlertController* activeAlert;
+@property CGRect keyboardRect;
 
 - (void)showIndicator;
 - (void)hideIndicator;
+- (void)adjustFooterPositionOnKeyboard;
 
 @end
 

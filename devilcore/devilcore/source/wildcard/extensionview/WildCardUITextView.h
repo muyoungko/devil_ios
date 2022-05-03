@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property float topInset;
 @property BOOL verticalAlignTop;
 @property void (^textChangedCallback)(NSString* text);
+@property void (^textFocusChangedCallback)(BOOL focus);
 @end
 
 NS_ASSUME_NONNULL_END

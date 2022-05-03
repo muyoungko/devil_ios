@@ -926,6 +926,15 @@ BOOL httpOk[10];
         //[d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
         [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
     }
+    
+    //그냥 파일 공유
+//    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[url, nsurl]
+//                                    applicationActivities:nil];
+//    [self.navigationController presentViewController:activityViewController
+//                                      animated:YES
+//                                    completion:^{
+//
+//    }];
 }
 
 
@@ -1113,18 +1122,25 @@ BOOL httpOk[10];
 + (void)textFocusChanged:(NSString*)node :(JSValue *)callback {
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
     if(vc.mainWc != nil) {
-        WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+        MetaAndViewResult* result = (WildCardUIView*)[vc findViewWithMeta:node];
+        __block WildCardUIView* vv = result.view;
+        __block WildCardMeta* meta = result.meta;
+        
         id o = [vv subviews][0];
         if([o isMemberOfClass:[WildCardUITextField class]]) {
             WildCardUITextField* c = o;
             c.textFocusChangedCallback = ^(BOOL focus) {
-                [JevilInstance currentInstance].meta = vc.mainWc.meta;
+                [JevilInstance currentInstance].meta = meta;
                 [[JevilInstance currentInstance] pushData];
                 [callback callWithArguments:@[(focus?@TRUE:@FALSE)]];
             };
         } else {
             WildCardUITextView* c = o;
-            //TODO
+            c.textFocusChangedCallback = ^(BOOL focus) {
+                [JevilInstance currentInstance].meta = meta;
+                [[JevilInstance currentInstance] pushData];
+                [callback callWithArguments:@[(focus?@TRUE:@FALSE)]];
+            };
         }
     }
 }

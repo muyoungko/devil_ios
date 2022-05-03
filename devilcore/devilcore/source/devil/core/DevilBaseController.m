@@ -9,6 +9,7 @@
 #import "Lottie.h"
 #import "WildCardUITextField.h"
 #import "DevilLang.h"
+#import "WildCardUtil.h"
 
 @interface DevilBaseController ()<UIGestureRecognizerDelegate>
 
@@ -138,11 +139,18 @@
     }
 }
 
+- (void)adjustFooterPositionOnKeyboard {
+    CGRect rect = self.keyboardRect;
+    float viewGap = self.view.frame.origin.y - self.originalY;
+    int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
+    self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
+}
+
 - (void)keyboardDidShow:(NSNotification*)noti {
     if(self.footer && !self.fix_footer) {
         NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
         CGRect rect = [keyboardFrameBegin CGRectValue];
-        
+        self.keyboardRect = rect;
         [UIView animateWithDuration:0.15f animations:^{
             float viewGap = self.view.frame.origin.y - self.originalY;
             int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
@@ -258,5 +266,17 @@
     return YES;
 }
 
+-(void)alertFinish:(NSString *)msg {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                             message:nil
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+       [self.navigationController popViewControllerAnimated:YES];
+    }]];
+    [self presentViewController:alertController animated:YES completion:^{}];
+}
 
 @end

@@ -318,7 +318,7 @@
                 newOffset = offsetX + prevView.frame.size.width + prevView.rightMargin + (nextView.hidden?0:fHNextToMargin);
         }
         else if(nextType == WC_NEXT_TYPE_VERTICAL) {
-            //NSLog(@"%@ %f %f", prevView.name, prevView.frame.size.width, prevView.frame.size.height);
+            //NSLog(@"prev %@ y=%f h=%f", prevView.name, prevView.frame.origin.y, prevView.frame.size.height);
             /**
              2021/10/23 fHNextToMargin 적용여부는 preview hidden여부가 아니라 next hidden여부에 따라 적용 여부가 달라져야한다
              관련 케이스 https://console.deavil.com/#/block/37844916
@@ -339,9 +339,8 @@
             nextView.frame = CGRectMake(newOffset, nextView.frame.origin.y, nextView.frame.size.width, nextView.frame.size.height);
             [self fireOnLayout:nextView offsetX:newOffset offsetY:offsetY outSize:size];
         }
-        else if(nextType == WC_NEXT_TYPE_VERTICAL)
-        {
-            //NSLog(@"%@ y=%f parentH=%f", nextView.name, newOffset, [nextView superview].frame.size.height);
+        else if(nextType == WC_NEXT_TYPE_VERTICAL) {
+            //NSLog(@"next %@ y=%f height=%f", nextView.name, newOffset, nextView.frame.size.height);
             //[nextView superview].backgroundColor = [UIColor redColor];
             nextView.frame = CGRectMake(nextView.frame.origin.x, newOffset, nextView.frame.size.width, nextView.frame.size.height);
             [self fireOnLayout:nextView offsetX:offsetX offsetY:newOffset outSize:size];

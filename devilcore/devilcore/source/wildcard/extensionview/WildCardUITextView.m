@@ -12,6 +12,8 @@
 #import "WildCardAction.h"
 #import "WildCardUtil.h"
 #import "WildCardConstructor.h"
+#import "JevilInstance.h"
+#import "DevilController.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -171,12 +173,20 @@
     if(self.placeholderLabel != nil){
         self.placeholderLabel.hidden = YES;
     }
+    
+    if(self.textFocusChangedCallback != nil) {
+        self.textFocusChangedCallback(true);
+    }
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
     NSString* text = [textView text];
     [_meta.correspondData setObject:[textView text] forKey:_holder];
     [self updatePlaceHolderVisible];
+    
+    if(self.textFocusChangedCallback != nil) {
+        self.textFocusChangedCallback(false);
+    }
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
@@ -215,6 +225,9 @@
         self.superview.frame = CGRectMake(self.superview.frame.origin.x, self.superview.frame.origin.y,
                                           self.superview.frame.size.width, h);
         [self.meta requestLayout];
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        [vc adjustFooterHeight];
+        [vc adjustFooterPositionOnKeyboard];
     }
 }
 
@@ -229,22 +242,6 @@
 }
 
 
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//    return YES;
-//}
-//- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-//{
-//    [_meta.correspondData setObject:[textField text] forKey:_holder];
-//    return YES;
-//}
-//- (void)textFieldDidEndEditing:(UITextField *)textField
-//{
-//    [_meta.correspondData setObject:[textField text] forKey:_holder];
-//}
-//
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    NSLog(@"touches begin - TextField input");
-//}
+
+
 @end
