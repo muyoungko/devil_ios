@@ -24,6 +24,7 @@
 #import "ReplaceRuleMarket.h"
 #import "ReplaceRuleQrcode.h"
 #import "ReplaceRuleAccessibility.h"
+#import "ReplaceRulePullToRefresh.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -630,7 +631,7 @@ static BOOL IS_TABLET = NO;
                 
             }
             [outRules addObject:ReplaceRuleExtension(vv ,layer, @"")];
-            
+        
             vv.userInteractionEnabled = YES;
             [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
             _class = @"extension";
@@ -983,7 +984,7 @@ static BOOL IS_TABLET = NO;
                 [wildCardTimer startTimeFrom:tv.text];
             }
         }
-
+        
         if([layer objectForKey:@"arrayContent"])
         {
             ReplaceRuleRepeat* replaceRule = [[ReplaceRuleRepeat alloc] initWithRuleJson:layer];

@@ -231,6 +231,17 @@
         
         WildCardUICollectionView *container = [[WildCardUICollectionView alloc] initWithFrame:containerRect collectionViewLayout:flowLayout];
         
+        NSString* pullToRefresh = [arrayContent objectForKey:@"pullToRefresh"];
+        NSString* pullToRefreshJavascript = [arrayContent objectForKey:@"pullToRefreshJavascript"];
+        if([@"Y" isEqualToString:pullToRefresh]) {
+            UIRefreshControl* refreshControl = [[UIRefreshControl alloc] init];
+            container.refreshControl = refreshControl;
+            self.pullToRefreshJavascript = pullToRefreshJavascript;
+            [container.refreshControl addTarget:self action:@selector(pullToRefresh:) forControlEvents:UIControlEventValueChanged];
+        }
+        
+        
+        
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"0"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"1"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"2"];
@@ -361,6 +372,18 @@
         [WildCardConstructor followSizeFromFather:vv child:arrayContentContainer];
     }
 }
+
+-(void)pullToRefresh:(UIRefreshControl*)refreshControl {
+    [refreshControl endRefreshing];
+    
+    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)self.adapterForRetain;
+    WildCardUIView* vv = (WildCardUIView*)self.createdContainer;
+    NSString *script = self.pullToRefreshJavascript;
+    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    trigger.node = vv;
+    [WildCardAction execute:trigger script:script meta:adapter.meta];
+}
+
 
 -(id)getReferenceBlock:(NSString*)blockName :(id)childLayers{
     

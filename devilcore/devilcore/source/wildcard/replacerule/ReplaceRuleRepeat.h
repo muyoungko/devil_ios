@@ -26,6 +26,7 @@
 @property(nonatomic, retain) UIView *createdContainer;
 @property(nonatomic, retain) NSObject* adapterForRetain;
 @property(nonatomic, retain) NSMutableArray *createdRepeatView;
+@property(nonatomic, retain) NSString* pullToRefreshJavascript;
 
 @end
 
