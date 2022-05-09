@@ -24,7 +24,6 @@
 #import "ReplaceRuleMarket.h"
 #import "ReplaceRuleQrcode.h"
 #import "ReplaceRuleAccessibility.h"
-#import "ReplaceRulePullToRefresh.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -299,7 +298,7 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId{
     id h = _screenMap[screenId][@"header_block_id"];
-    if(h != nil && h != [NSNull null]){
+    if(h != nil && h != [NSNull null] && ![h isEqualToString:@""]){
         NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
         return _cloudJsonMap[header_block_id];
     } else
@@ -308,7 +307,7 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId{
     id h = _screenMap[screenId][@"footer_block_id"];
-    if(h != nil && h != [NSNull null]){
+    if(h != nil && h != [NSNull null] && ![h isEqualToString:@""]){
         NSString* footer_block_id =  [_screenMap[screenId][@"footer_block_id"] stringValue];
         id n = _screenMap[screenId][@"fix_footer"];
         BOOL fix_footer = n == [NSNull null] || [n boolValue] == false ? false : true;
@@ -322,7 +321,7 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId {
     id h = _screenMap[screenId][@"inside_footer_block_id"];
-    if(h != nil && h != [NSNull null]){
+    if(h != nil && h != [NSNull null] && ![h isEqualToString:@""]){
         NSString* header_block_id =  [_screenMap[screenId][@"inside_footer_block_id"] stringValue];
         return _cloudJsonMap[header_block_id];
     } else
@@ -631,7 +630,7 @@ static BOOL IS_TABLET = NO;
                 
             }
             [outRules addObject:ReplaceRuleExtension(vv ,layer, @"")];
-        
+            
             vv.userInteractionEnabled = YES;
             [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
             _class = @"extension";
@@ -984,7 +983,7 @@ static BOOL IS_TABLET = NO;
                 [wildCardTimer startTimeFrom:tv.text];
             }
         }
-        
+
         if([layer objectForKey:@"arrayContent"])
         {
             ReplaceRuleRepeat* replaceRule = [[ReplaceRuleRepeat alloc] initWithRuleJson:layer];
