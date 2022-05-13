@@ -298,7 +298,7 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId{
     id h = _screenMap[screenId][@"header_block_id"];
-    if(h != nil && h != [NSNull null] && ![h isEqualToString:@""]){
+    if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
         return _cloudJsonMap[header_block_id];
     } else
@@ -307,7 +307,7 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId{
     id h = _screenMap[screenId][@"footer_block_id"];
-    if(h != nil && h != [NSNull null] && ![h isEqualToString:@""]){
+    if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* footer_block_id =  [_screenMap[screenId][@"footer_block_id"] stringValue];
         id n = _screenMap[screenId][@"fix_footer"];
         BOOL fix_footer = n == [NSNull null] || [n boolValue] == false ? false : true;
@@ -321,7 +321,7 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId {
     id h = _screenMap[screenId][@"inside_footer_block_id"];
-    if(h != nil && h != [NSNull null] && ![h isEqualToString:@""]){
+    if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* header_block_id =  [_screenMap[screenId][@"inside_footer_block_id"] stringValue];
         return _cloudJsonMap[header_block_id];
     } else
