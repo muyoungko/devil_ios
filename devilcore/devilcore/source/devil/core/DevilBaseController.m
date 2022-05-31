@@ -108,7 +108,11 @@
         loading.frame = CGRectMake(0, 0 , h, h);
         loading.userInteractionEnabled = NO;
         
-        loading.center = CGPointMake(self.view.center.x, self.view.frame.size.height/2);
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        int sw = screenRect.size.width;
+        int sh = screenRect.size.height;
+        
+        loading.center = CGPointMake(sw/2, sh/2);
         loading.tag = 2243;
         loading.loopAnimation = YES;
         [loading play];
@@ -134,8 +138,8 @@
     if(self.devilBlockDialog == nil &&
        editingPoint.y > screenHeight/4)
     {
-        int toUp = screenHeight/3 - editingPoint.y;
-        self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
+        // int toUp = screenHeight/3 - editingPoint.y;
+        //self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
     }
 }
 
@@ -230,6 +234,10 @@
             {
                 [UIView animateWithDuration:0.3f animations:^{
                     int toUp = screenHeight/4 - editingPoint.y;
+                    int minY = -200;
+                    if(toUp < minY)
+                        toUp = minY;
+                        
                     self.view.frame = CGRectMake(self.view.frame.origin.x, toUp, self.view.frame.size.width, self.view.frame.size.height);
                 }];
             }
@@ -246,7 +254,7 @@
     self.keypadTop.hidden = YES;
     if(self.footer)
         self.footer.frame = CGRectMake(self.footer.frame.origin.x, self.original_footer_y, self.footer.frame.size.width, self.footer.frame.size.height);
-    
+    editingView = nil;
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
 }
 
