@@ -1302,4 +1302,10 @@ BOOL httpOk[10];
     }];
 }
 
++ (void)bleWrite:(NSString*)udid :(NSString*)hexString {
+    [[DevilBle sharedInstance] send:udid :hexString :^(id  _Nonnull res) {
+        
+    }];
+}
+
 @end

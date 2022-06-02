@@ -22,7 +22,7 @@
 @property NSTimeInterval startScanSec;
 @property float scanSec;
 
-@property (nonatomic, retain) CBCharacteristic *characteristic;
+@property (nonatomic, retain) id characteristics;
 @property (nonatomic, retain) CBCentralManager* cbmanager;
 @property (nonatomic, retain) id blue_list;
 
@@ -43,6 +43,7 @@
 
 - (void)inititalize {
     self.blue_list = [@[] mutableCopy];
+    self.characteristics = [@{} mutableCopy];
     self.cbmanager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
 }
 
@@ -67,6 +68,7 @@
         }
     } else {
         [self.blue_list removeAllObjects];
+//        [self.characteristics removeAllObjects];
         [self.cbmanager scanForPeripheralsWithServices:@[] options:nil];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
@@ -100,36 +102,9 @@
         [self.blue_list addObject:peripheral];
         
         if(self.callbackList) {
-            id list = [@[] mutableCopy];
-            for(id b in self.blue_list) {
-                CBPeripheral* ble = (CBPeripheral*)b;
-                NSString *thisName = @"";
-                if(ble.name)
-                    thisName = [ble.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                
-                NSString *thisUdid = [ble.identifier description];
-                
-                NSString* state = @"unknown";
-                if(ble.state == CBPeripheralStateConnected)
-                    state = @"connected";
-                else if(ble.state == CBPeripheralStateConnecting)
-                    state = @"connecting";
-                else if(ble.state == CBPeripheralStateDisconnecting)
-                    state = @"disconnecting";
-                else if(ble.state == CBPeripheralStateDisconnected)
-                    state = @"disconnected";
-                
-                [list addObject:
-                     [@{
-                        @"name":thisName,
-                        @"udid":thisUdid,
-                        @"status":state,
-                     } mutableCopy]
-                ];
-            }
             self.callbackList([@{
                 @"r":@TRUE,
-                @"list":list
+                @"list":[self bleListArray]
             } mutableCopy]);
         }
     }
@@ -163,10 +138,11 @@
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral{
     if(self.callbackConnect) {
         NSString* udid = [peripheral.identifier description];
-        NSString* name = [peripheral.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSString* name = [self nameFromDevice:peripheral];
         self.callbackConnect(@{
             @"udid":udid,
             @"name":name,
+            @"list":[self bleListArray],
         });
         
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"connected" log:@{
@@ -180,10 +156,11 @@
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
     if(self.callbackDisconnect) {
         NSString* udid = [peripheral.identifier description];
-        NSString* name = [peripheral.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSString* name = [self nameFromDevice:peripheral];
         self.callbackDisconnect(@{
             @"udid":udid,
             @"name":name,
+            @"list":[self bleListArray],
         });
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"disconnected" log:@{
             @"udid":udid,
@@ -193,8 +170,33 @@
 }
 
 
-- (void)send:(NSString*)data :(void (^)(id res))callback{
+- (void)send:(NSString*)udid :(NSString*)hexString :(void (^)(id res))callback {
+    CBPeripheral* device = nil;
+    for(CBPeripheral* b in self.blue_list) {
+        NSString* thisUdid = [b.identifier description];
+        if([thisUdid isEqualToString:udid]) {
+            device = b;
+            break;
+        }
+    }
     
+    if(!device || !self.characteristics[udid]) {
+        callback(@{@"r":@FALSE, @"msg":@"No Connected Device"});
+        return;
+    }
+    
+    id cs = self.characteristics[udid];
+    NSData* data = [self fromHexString:hexString];
+    for(CBCharacteristic* c in cs) {
+        [device writeValue:data forCharacteristic:c type:CBCharacteristicWriteWithResponse];
+    }
+    
+    NSString* name = [self nameFromDevice:device];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"write" log:@{
+        @"udid":udid,
+        @"name":name,
+        @"data":hexString,
+    }];
 }
 
 - (void)callback:(NSString*)command :(void (^)(id res))callback{
@@ -250,6 +252,8 @@
 
 
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error {
+    NSString* udid = [peripheral.identifier description];
+    self.characteristics[udid] = service.characteristics;
     for (CBCharacteristic *charater in service.characteristics) {
         NSLog(@"discovered Characteristic :%@",charater.debugDescription);
         peripheral.delegate = self;
@@ -263,7 +267,7 @@
     NSLog(@"didUpdateValueForCharacteristic");
     if(characteristic.value.length > 0) {
         NSString* udid = [peripheral.identifier description];
-        NSString* name = [peripheral.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        NSString* name = [self nameFromDevice:peripheral];
         id json = @{
             @"udid":udid,
             @"name":name,
@@ -308,5 +312,58 @@
     return @"";
 }
 
+- (NSData*) fromHexString : (NSString*)command{
+    command = [command stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSMutableData *commandToSend= [[NSMutableData alloc] init];
+    unsigned char whole_byte;
+    char byte_chars[3] = {'\0','\0','\0'};
+    int i;
+    for (i=0; i < [command length]/2; i++) {
+        byte_chars[0] = [command characterAtIndex:i*2];
+        byte_chars[1] = [command characterAtIndex:i*2+1];
+        whole_byte = strtol(byte_chars, NULL, 16);
+        [commandToSend appendBytes:&whole_byte length:1];
+    }
+    NSLog(@"%@", commandToSend);
+    return commandToSend;
+}
+
+
+- (NSMutableArray*) bleListArray {
+    id list = [@[] mutableCopy];
+    for(id b in self.blue_list) {
+        CBPeripheral* ble = (CBPeripheral*)b;
+        NSString *thisName = [self nameFromDevice:ble];
+        
+        NSString *thisUdid = [ble.identifier description];
+        
+        NSString* state = @"unknown";
+        if(ble.state == CBPeripheralStateConnected)
+            state = @"connected";
+        else if(ble.state == CBPeripheralStateConnecting)
+            state = @"connecting";
+        else if(ble.state == CBPeripheralStateDisconnecting)
+            state = @"disconnecting";
+        else if(ble.state == CBPeripheralStateDisconnected)
+            state = @"disconnected";
+        
+        [list addObject:
+             [@{
+                @"name":thisName,
+                @"udid":thisUdid,
+                @"status":state,
+             } mutableCopy]
+        ];
+    }
+    
+    return list;
+}
+
+-(NSString*) nameFromDevice:(CBPeripheral*)ble {
+    NSString *thisName = @"";
+    if(ble.name)
+        thisName = [ble.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    return thisName;
+}
 
 @end
