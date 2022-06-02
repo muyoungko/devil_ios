@@ -24,6 +24,7 @@
 #import "DevilUtil.h"
 #import "WildCardUITextField.h"
 #import "DevilSound.h"
+#import "DevilBle.h"
 #import "DevilSpeech.h"
 #import "DevilLocation.h"
 #import "DevilLink.h"
@@ -1275,6 +1276,30 @@ BOOL httpOk[10];
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     trigger.node = nil;
     [WildCardAction parseAndConducts:trigger action:action meta:[JevilInstance currentInstance].meta];
+}
+
++ (void)bleList:(NSDictionary*)param :(JSValue *)callback {
+    @try {
+        [[JevilFunctionUtil sharedInstance] registFunction:callback];
+        [[DevilBle sharedInstance] list:param :^(id  _Nonnull res) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+        }];
+    } @catch (NSException *exception) {
+        //TODO
+    }
+}
+
++ (void)bleConnect:(NSString*)udid {
+    [[DevilBle sharedInstance] connect:udid :^(id  _Nonnull res) {
+        
+    }];
+}
+
++ (void)bleCallback:(NSString*)command :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilBle sharedInstance] callback:command :^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
 }
 
 @end

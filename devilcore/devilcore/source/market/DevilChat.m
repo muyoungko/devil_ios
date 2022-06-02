@@ -112,9 +112,9 @@
        [self connect];
 }
 
-- (void)destory {
+- (void)destroy {
     [self.session disconnect];
-    [super destory];
+    [super destroy];
 }
 
 @end

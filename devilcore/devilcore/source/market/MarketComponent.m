@@ -34,7 +34,7 @@
 -(void)resume{
     
 }
--(void)destory {
+-(void)destroy {
     
 }
 @end

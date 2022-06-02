@@ -119,7 +119,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)video:(NSDictionary*)param;
 + (void)timer:(NSString*)node :(int)sec;
 + (void)custom:(NSString*)function;
-
++ (void)bleList:(NSDictionary*)param :(JSValue *)callback;
++ (void)bleConnect:(NSString*)udid;
++ (void)bleCallback:(NSString*)command :(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

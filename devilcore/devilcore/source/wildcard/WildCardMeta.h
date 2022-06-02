@@ -77,7 +77,7 @@
 -(void)created;
 -(void)paused;
 -(void)resumed;
--(void)destory;
+-(void)destroy;
 
 @end
 

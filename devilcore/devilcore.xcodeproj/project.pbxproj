@@ -225,6 +225,8 @@
 		6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DD0987626A6AAEF000A913A /* devil_camera_record.wav */; };
 		6DE2BAFB27A8F2A7008344DE /* DevilRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE2BAF927A8F2A7008344DE /* DevilRecord.h */; };
 		6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */; };
+		6DEC183628484A0300B3FE88 /* DevilBle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183428484A0300B3FE88 /* DevilBle.h */; };
+		6DEC183728484A0300B3FE88 /* DevilBle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC183528484A0300B3FE88 /* DevilBle.m */; };
 		6DF377C627B3AC360050E1DA /* DevilLang.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF377C427B3AC360050E1DA /* DevilLang.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DF377C727B3AC360050E1DA /* DevilLang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF377C527B3AC360050E1DA /* DevilLang.m */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
@@ -464,6 +466,8 @@
 		6DD0987626A6AAEF000A913A /* devil_camera_record.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = devil_camera_record.wav; sourceTree = "<group>"; };
 		6DE2BAF927A8F2A7008344DE /* DevilRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilRecord.h; sourceTree = "<group>"; };
 		6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilRecord.m; sourceTree = "<group>"; };
+		6DEC183428484A0300B3FE88 /* DevilBle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBle.h; sourceTree = "<group>"; };
+		6DEC183528484A0300B3FE88 /* DevilBle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBle.m; sourceTree = "<group>"; };
 		6DF377C427B3AC360050E1DA /* DevilLang.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLang.h; sourceTree = "<group>"; };
 		6DF377C527B3AC360050E1DA /* DevilLang.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLang.m; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
@@ -781,6 +785,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6DEC1833284849EE00B3FE88 /* ble */,
 				6D98A83E2700D964004F3ECF /* alert */,
 				6DC6789B26EA296A0005728A /* link */,
 				6D3EBE8025D92D970006ADD5 /* wifi */,
@@ -908,6 +913,15 @@
 			path = camera;
 			sourceTree = "<group>";
 		};
+		6DEC1833284849EE00B3FE88 /* ble */ = {
+			isa = PBXGroup;
+			children = (
+				6DEC183428484A0300B3FE88 /* DevilBle.h */,
+				6DEC183528484A0300B3FE88 /* DevilBle.m */,
+			);
+			path = ble;
+			sourceTree = "<group>";
+		};
 		6DF377C327B3ABEE0050E1DA /* lang */ = {
 			isa = PBXGroup;
 			children = (
@@ -984,6 +998,7 @@
 				6DFB74A02824255A00A64539 /* ReplaceRulePullToRefresh.h in Headers */,
 				6DD0943D269C7A1A000A913A /* DevilChat.h in Headers */,
 				6D3EB57225C70B6C0006ADD5 /* DevilBlockDialog.h in Headers */,
+				6DEC183628484A0300B3FE88 /* DevilBle.h in Headers */,
 				6D467AC4256AB07A006D57DD /* WildCardViewPagerLeftAction.h in Headers */,
 				6DD097DD26A1AE29000A913A /* JevilFunctionUtil.h in Headers */,
 				6D9F7B0C2629658F003A70EC /* PECropView.h in Headers */,
@@ -1207,6 +1222,7 @@
 				6D467AAB256AB07A006D57DD /* WildCardMeta.m in Sources */,
 				6D467ABB256AB07A006D57DD /* WildCardViewPagerLeftAction.m in Sources */,
 				6D467AC7256AB07A006D57DD /* WildCardFunction.m in Sources */,
+				6DEC183728484A0300B3FE88 /* DevilBle.m in Sources */,
 				6DD0943E269C7A1A000A913A /* DevilChat.m in Sources */,
 				6D467ABD256AB07A006D57DD /* WildCardApplyAgainAction.m in Sources */,
 				6D467B87257CD9F3006D57DD /* WildCardUIButton.m in Sources */,

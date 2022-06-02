@@ -567,10 +567,10 @@
     }
 }
 
--(void)destory{
+-(void)destroy{
     for(id rule in self.replaceRules) {
         if([rule isKindOfClass:[ReplaceRuleMarket class]]) {
-            [((ReplaceRuleMarket*)rule).marketComponent destory];
+            [((ReplaceRuleMarket*)rule).marketComponent destroy];
         }
     }
 }

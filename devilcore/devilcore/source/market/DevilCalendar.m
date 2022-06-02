@@ -28,7 +28,7 @@
 -(void)resume{
     
 }
--(void)destory {
+-(void)destroy {
     
 }
 

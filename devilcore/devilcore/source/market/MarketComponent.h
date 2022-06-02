@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)update:(id)opt;
 -(void)pause;
 -(void)resume;
--(void)destory;
+-(void)destroy;
 
 @end
 

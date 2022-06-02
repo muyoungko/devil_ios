@@ -277,7 +277,7 @@
         [self finish];
         
         for(NSString* key in [self.thisMetas allKeys])
-            [self.thisMetas[key] destory];
+            [self.thisMetas[key] destroy];
     }
     
     [self onPause];
