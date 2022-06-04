@@ -122,7 +122,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleList:(NSDictionary*)param :(JSValue *)callback;
 + (void)bleConnect:(NSString*)udid;
 + (void)bleCallback:(NSString*)command :(JSValue *)callback;
-+ (void)bleWrite:(NSString*)udid :(NSString*)hexString;
++ (void)bleWrite:(NSString*)udid :(NSString*)hexString :(JSValue *)callback;
 
 @end
 

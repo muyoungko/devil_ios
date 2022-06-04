@@ -16,6 +16,7 @@
 #import "DevilDrawer.h"
 #import "DevilUtil.h"
 #import "DevilRecord.h"
+#import "DevilBle.h"
 
 @interface DevilController ()
 
@@ -278,6 +279,8 @@
         
         for(NSString* key in [self.thisMetas allKeys])
             [self.thisMetas[key] destroy];
+        
+        [[DevilBle sharedInstance] destroy];
     }
     
     [self onPause];

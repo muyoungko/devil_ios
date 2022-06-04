@@ -1302,9 +1302,10 @@ BOOL httpOk[10];
     }];
 }
 
-+ (void)bleWrite:(NSString*)udid :(NSString*)hexString {
++ (void)bleWrite:(NSString*)udid :(NSString*)hexString :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [[DevilBle sharedInstance] send:udid :hexString :^(id  _Nonnull res) {
-        
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
 }
 
