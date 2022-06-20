@@ -113,6 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)getReserveUrl;
 + (NSString*)popReserveUrl;
 + (void)consumeStandardReserveUrl;
++ (void)standardUrlProcess:(NSString*)url;
 + (void)localPush:(id)param;
 + (void)toJpg:(NSString*)node :(JSValue*)callback;
 + (void)androidEscapeDozeModeIf:(NSString*)msg:(NSString*)yes:(NSString*)no;
@@ -121,6 +122,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)custom:(NSString*)function;
 + (void)bleList:(NSDictionary*)param :(JSValue *)callback;
 + (void)bleConnect:(NSString*)udid;
++ (void)bleDisconnect:(NSString*)udid;
++ (void)bleRelease:(NSString*)udid;
 + (void)bleCallback:(NSString*)command :(JSValue *)callback;
 + (void)bleWrite:(NSString*)udid :(NSString*)hexString :(JSValue *)callback;
 

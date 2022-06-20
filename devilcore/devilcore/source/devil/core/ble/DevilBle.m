@@ -115,6 +115,32 @@
     }
 }
 
+- (void)bleRelease {
+    for(CBPeripheral* ble in self.blue_list) {
+        if(ble.state == CBPeripheralStateConnected || ble.state == CBPeripheralStateConnecting)
+            [self.cbmanager cancelPeripheralConnection:ble];
+    }
+}
+
+- (void)disconnect:(NSString*)udid :(void (^)(id res))callback {
+    CBPeripheral* device = nil;
+    for(CBPeripheral* b in self.blue_list) {
+        NSString* thisUdid = [b.identifier description];
+        if([thisUdid isEqualToString:udid]) {
+            device = b;
+            break;
+        }
+    }
+    
+    if(!device) {
+        callback(@{@"r":@FALSE, @"msg":@"No Device"});
+        return;
+    }
+    
+    NSLog(@"try disconnect :%@",device.name);
+    [self.cbmanager cancelPeripheralConnection:device];
+}
+
 - (void)connect:(NSString*)udid :(void (^)(id res))callback{
     CBPeripheral* device = nil;
     for(CBPeripheral* b in self.blue_list) {

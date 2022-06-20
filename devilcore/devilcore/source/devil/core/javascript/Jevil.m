@@ -1234,6 +1234,10 @@ BOOL httpOk[10];
     [[DevilLink sharedInstance] consumeStandardReserveUrl];
 }
 
++ (void)standardUrlProcess:(NSString*)url {
+    [[DevilLink sharedInstance] standardUrlProcess:url];
+}
+
 + (void)toJpg:(NSString*)nodeName :(JSValue*)callback
 {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
@@ -1293,6 +1297,16 @@ BOOL httpOk[10];
     [[DevilBle sharedInstance] connect:udid :^(id  _Nonnull res) {
         
     }];
+}
+
++ (void)bleDisconnect:(NSString*)udid {
+    [[DevilBle sharedInstance] disconnect:udid :^(id  _Nonnull res) {
+        
+    }];
+}
+
++ (void)bleRelease:(NSString*)udid {
+    [[DevilBle sharedInstance] bleRelease];
 }
 
 + (void)bleCallback:(NSString*)command :(JSValue *)callback {
