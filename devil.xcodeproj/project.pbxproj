@@ -47,6 +47,9 @@
 		6DE2BAF3278B3011008344DE /* DebugLearningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF2278B3011008344DE /* DebugLearningView.m */; };
 		6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF4278B3CBC008344DE /* devil_learning_icon@3x.png */; };
 		6DE2BAF8278B4B0F008344DE /* JevilLearning.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF7278B4B0F008344DE /* JevilLearning.m */; };
+		6DEC183A2860BA0F00B3FE88 /* devilbill.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18382860BA0E00B3FE88 /* devilbill.podspec */; };
+		6DEC183B2860BA0F00B3FE88 /* devilads.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18392860BA0E00B3FE88 /* devilads.podspec */; };
+		6DEC18832861427500B3FE88 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18822861427500B3FE88 /* README.md */; };
 		8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D980CABA3AA49A94779F5B1B /* Pods_devil.framework */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +134,9 @@
 		6DE2BAF4278B3CBC008344DE /* devil_learning_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_learning_icon@3x.png"; sourceTree = "<group>"; };
 		6DE2BAF6278B4B0F008344DE /* JevilLearning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilLearning.h; sourceTree = "<group>"; };
 		6DE2BAF7278B4B0F008344DE /* JevilLearning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilLearning.m; sourceTree = "<group>"; };
+		6DEC18382860BA0E00B3FE88 /* devilbill.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilbill.podspec; sourceTree = "<group>"; };
+		6DEC18392860BA0E00B3FE88 /* devilads.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilads.podspec; sourceTree = "<group>"; };
+		6DEC18822861427500B3FE88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA00C757F408C66841B49F61 /* Pods-CloudJsonViewer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudJsonViewer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CloudJsonViewer/Pods-CloudJsonViewer.debug.xcconfig"; sourceTree = "<group>"; };
 		D980CABA3AA49A94779F5B1B /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,10 +287,13 @@
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
+				6DEC18822861427500B3FE88 /* README.md */,
 				6DC1624926917AC900FD769C /* c.sh */,
 				6D4679A9256A51B9006D57DD /* devil.podspec */,
 				6D0224EF26143D8300634842 /* devilcore.podspec */,
 				6D0224ED2613959900634842 /* devillogin.podspec */,
+				6DEC18392860BA0E00B3FE88 /* devilads.podspec */,
+				6DEC18382860BA0E00B3FE88 /* devilbill.podspec */,
 				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
 				6D46791C25699107006D57DD /* image */,
 				6D4678B52567B1E2006D57DD /* devil */,
@@ -371,9 +380,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DC6783226E76CDC0005728A /* xbutton@3x.png in Resources */,
+				6DEC183B2860BA0F00B3FE88 /* devilads.podspec in Resources */,
 				6D4678E22567D46D006D57DD /* FirstController.xib in Resources */,
 				6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */,
 				6D46791E25699108006D57DD /* back_black@3x.png in Resources */,
+				6DEC183A2860BA0F00B3FE88 /* devilbill.podspec in Resources */,
+				6DEC18832861427500B3FE88 /* README.md in Resources */,
 				6D132BC5255E76F400004E1F /* loading.json in Resources */,
 				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
 				6DC1624A26917AC900FD769C /* c.sh in Resources */,
