@@ -18,7 +18,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBSDKAppEventsConfiguration.h"
 #import "FBSDKAppEventsConfigurationProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN

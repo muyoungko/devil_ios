@@ -24,7 +24,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(SKAdNetworkReporter)
 @interface FBSDKSKAdNetworkReporter : NSObject
 
 + (void)enable;

@@ -26,10 +26,8 @@
 
  #import <objc/runtime.h>
 
- #import "FBSDKAppEventsUtility.h"
  #import "FBSDKCodelessPathComponent.h"
- #import "FBSDKCoreKitBasicsImport.h"
- #import "FBSDKUtility.h"
+ #import "FBSDKCoreKit+Internal.h"
  #import "FBSDKViewHierarchyMacros.h"
 
  #define MAX_VIEW_HIERARCHY_LEVEL 35

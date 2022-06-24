@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D7EC2FF25F4A37D00FAE7D8"
-               BuildableName = "devillogin.framework"
-               BlueprintName = "devillogin"
-               ReferencedContainer = "container:devillogin.xcodeproj">
+               BuildableName = "devilads.framework"
+               BlueprintName = "devilads"
+               ReferencedContainer = "container:devilads.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -51,9 +51,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6D7EC2FF25F4A37D00FAE7D8"
-            BuildableName = "devillogin.framework"
-            BlueprintName = "devillogin"
-            ReferencedContainer = "container:devillogin.xcodeproj">
+            BuildableName = "devilads.framework"
+            BlueprintName = "devilads"
+            ReferencedContainer = "container:devilads.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

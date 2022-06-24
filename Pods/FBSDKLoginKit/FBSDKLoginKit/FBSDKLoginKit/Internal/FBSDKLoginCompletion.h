@@ -29,9 +29,6 @@
 @class FBSDKPermission;
 @class FBSDKProfile;
 
-@protocol FBSDKGraphRequestConnectionProviding;
-@protocol FBSDKAuthenticationTokenCreating;
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -110,10 +107,7 @@ NS_SWIFT_NAME(LoginURLCompleter)
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
-- (instancetype)initWithURLParameters:(NSDictionary *)parameters
-                                appID:(NSString *)appID
-                   connectionProvider:(id<FBSDKGraphRequestConnectionProviding>)connectionProvider
-           authenticationTokenCreator:(id<FBSDKAuthenticationTokenCreating>)authenticationTokenCreator;
+- (instancetype)initWithURLParameters:(NSDictionary *)parameters appID:(NSString *)appID;
 
 @end
 

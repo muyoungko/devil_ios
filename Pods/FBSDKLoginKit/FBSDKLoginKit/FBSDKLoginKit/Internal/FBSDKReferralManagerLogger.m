@@ -22,9 +22,14 @@
 
  #import "FBSDKReferralManagerLogger.h"
 
- #import "FBSDKCoreKitBasicsImportForLoginKit.h"
  #import "FBSDKLoginConstants.h"
  #import "FBSDKReferralManagerResult.h"
+
+ #ifdef FBSDKCOCOAPODS
+  #import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+ #else
+  #import "FBSDKCoreKit+Internal.h"
+ #endif
 
 static NSString *const FBSDKReferralManagerLoggerParamIdentifierKey = @"0_logger_id";
 static NSString *const FBSDKReferralManagerLoggerParamTimestampKey = @"1_timestamp_ms";
@@ -39,12 +44,6 @@ static NSString *const FBSDKReferralManagerLoggerValueEmpty = @"";
 static NSString *const FBSDKReferralManagerLoggerResultSuccessString = @"success";
 static NSString *const FBSDKReferralManagerLoggerResultCancelString = @"cancelled";
 static NSString *const FBSDKReferralManagerLoggerResultErrorString = @"error";
-
-/** Use to log the start of a referral request */
-FBSDKAppEventName const FBSDKAppEventNameFBReferralStart = @"fb_referral_start";
-
-/** Use to log the end of a referral request */
-FBSDKAppEventName const FBSDKAppEventNameFBReferralEnd = @"fb_referral_end";
 
 @implementation FBSDKReferralManagerLogger
 {

@@ -22,8 +22,6 @@
 
  #import "FBSDKLoginError.h"
 
- #import "FBSDKCoreKitBasicsImportForLoginKit.h"
-
  #ifdef FBSDKCOCOAPODS
   #import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
  #else

@@ -26,6 +26,7 @@
 #import <WebKit/WebKit.h>
 
 #import "FBSDKAppLink.h"
+#import "FBSDKAppLinkTarget.h"
 #import "FBSDKCoreKitBasicsImport.h"
 #import "FBSDKError.h"
 #import "NSURLSession+Protocols.h"
@@ -265,17 +266,14 @@ static NSString *const FBSDKWebViewAppLinkResolverShouldFallbackKey = @"should_f
   // Run some JavaScript in the webview to fetch the meta tags.
   [webView evaluateJavaScript:FBSDKWebViewAppLinkResolverTagExtractionJavaScript
             completionHandler:^(id _Nullable evaluateResult, NSError * _Nullable error) {
-    NSString *jsonString = [evaluateResult isKindOfClass:[NSString class]] ? evaluateResult : nil;
-    error = nil;
-    NSData *encodedJSON = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-    if (encodedJSON) {
-      NSArray<NSDictionary<NSString *, id> *> *arr =
-      [FBSDKTypeUtility JSONObjectWithData:encodedJSON
-                                   options:0
-                                     error:&error];
-      handler([self parseALData:arr]);
-    }
-  }];
+              NSString *jsonString = [evaluateResult isKindOfClass:[NSString class]] ? evaluateResult : nil;
+              error = nil;
+              NSArray<NSDictionary<NSString *, id> *> *arr =
+              [FBSDKTypeUtility JSONObjectWithData:[jsonString dataUsingEncoding:NSUTF8StringEncoding]
+                                              options:0
+                                                error:&error];
+              handler([self parseALData:arr]);
+            }];
 }
 
 /*

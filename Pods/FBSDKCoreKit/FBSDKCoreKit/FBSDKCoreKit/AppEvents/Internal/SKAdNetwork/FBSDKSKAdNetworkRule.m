@@ -22,7 +22,7 @@
 
  #import "FBSDKSKAdNetworkRule.h"
 
- #import "FBSDKCoreKitBasicsImport.h"
+ #import "FBSDKCoreKit+Internal.h"
 
 @implementation FBSDKSKAdNetworkRule
 

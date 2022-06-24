@@ -20,24 +20,20 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class FBSDKGraphRequestConnection;
 @protocol FBSDKGraphRequest;
-@protocol FBSDKGraphRequestConnecting;
-@protocol FBSDKGraphRequestConnectionDelegate;
-
-NS_SWIFT_NAME(GraphRequestCompletion)
-typedef void (^FBSDKGraphRequestCompletion)(id<FBSDKGraphRequestConnecting> _Nullable connection,
-                                            id _Nullable result,
-                                            NSError *_Nullable error);
+typedef void (^FBSDKGraphRequestBlock)(FBSDKGraphRequestConnection *_Nullable connection,
+                                       id _Nullable result,
+                                       NSError *_Nullable error);
 
 /// A protocol to describe an object that can manage graph requests
 NS_SWIFT_NAME(GraphRequestConnecting)
 @protocol FBSDKGraphRequestConnecting
 
 @property (nonatomic, assign) NSTimeInterval timeout;
-@property (nonatomic, weak, nullable) id<FBSDKGraphRequestConnectionDelegate> delegate;
 
 - (void)addRequest:(id<FBSDKGraphRequest>)request
-        completion:(FBSDKGraphRequestCompletion)handler;
+ completionHandler:(FBSDKGraphRequestBlock)handler;
 
 - (void)start;
 - (void)cancel;

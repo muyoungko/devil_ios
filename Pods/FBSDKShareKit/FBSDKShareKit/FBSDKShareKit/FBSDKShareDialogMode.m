@@ -18,14 +18,11 @@
 
 #import "FBSDKShareDialogMode.h"
 
-NSString *const FBSDKAppEventsDialogShareModeAutomatic = @"Automatic";
-NSString *const FBSDKAppEventsDialogShareModeBrowser = @"Browser";
-NSString *const FBSDKAppEventsDialogShareModeNative = @"Native";
-NSString *const FBSDKAppEventsDialogShareModeShareSheet = @"ShareSheet";
-NSString *const FBSDKAppEventsDialogShareModeWeb = @"Web";
-NSString *const FBSDKAppEventsDialogShareModeFeedBrowser = @"FeedBrowser";
-NSString *const FBSDKAppEventsDialogShareModeFeedWeb = @"FeedWeb";
-NSString *const FBSDKAppEventsDialogShareModeUnknown = @"Unknown";
+#ifdef FBSDKCOCOAPODS
+ #import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+#else
+ #import "FBSDKCoreKit+Internal.h"
+#endif
 
 NSString *NSStringFromFBSDKShareDialogMode(FBSDKShareDialogMode dialogMode)
 {

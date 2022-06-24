@@ -22,11 +22,8 @@
 
  #import "FBSDKFeatureExtractor.h"
 
- #import "FBSDKCoreKitBasicsImport.h"
+ #import "FBSDKCoreKit+Internal.h"
  #import "FBSDKModelManager.h"
- #import "FBSDKRulesFromKeyProvider.h"
- #import "FBSDKViewHierarchy.h"
- #import "FBSDKViewHierarchyMacros.h"
 
  #define REGEX_CR_PASSWORD_FIELD @"password"
  #define REGEX_CR_HAS_CONFIRM_PASSWORD_FIELD @"(?i)(confirm.*password)|(password.*(confirmation|confirm)|confirmation)"
@@ -46,15 +43,6 @@ static NSDictionary *_rules;
 void sum(float *val0, float *val1);
 
 @implementation FBSDKFeatureExtractor
-
-static id<FBSDKRulesFromKeyProvider> _keyProvider;
-
-+ (void)configureWithRulesFromKeyProvider:(id<FBSDKRulesFromKeyProvider>)keyProvider
-{
-  if (self == FBSDKFeatureExtractor.class) {
-    _keyProvider = keyProvider;
-  }
-}
 
 + (void)initialize
 {
@@ -85,10 +73,7 @@ static id<FBSDKRulesFromKeyProvider> _keyProvider;
 
 + (void)loadRulesForKey:(NSString *)useCaseKey
 {
-  BOOL isValid = [useCaseKey isKindOfClass:NSString.class];
-  if (isValid) {
-    _rules = [_keyProvider getRulesForKey:useCaseKey];
-  }
+  _rules = [FBSDKModelManager getRulesForKey:useCaseKey];
 }
 
 + (NSString *)getTextFeature:(NSString *)text
@@ -363,11 +348,6 @@ void sum(float *val0, float *val1)
     return 0.0;
   }
 
-  NSString *validPattern = [FBSDKTypeUtility coercedToStringValue:pattern];
-  if (!validPattern) {
-    return 0.0;
-  }
-
   NSRegularExpression *re = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
   NSRange range = NSMakeRange(0, validText.length);
   NSArray<NSTextCheckingResult *> *matched = [re matchesInString:validText options:0 range:range];
@@ -384,22 +364,6 @@ void sum(float *val0, float *val1)
   [@"positiveRules"][_textTypeInfo[textType]];
   return [self regextMatch:pattern text:matchText];
 }
-
- #if DEBUG
-  #if FBSDKTEST
-
-+ (id<FBSDKRulesFromKeyProvider>)keyProvider
-{
-  return _keyProvider;
-}
-
-+ (void)reset
-{
-  _keyProvider = nil;
-}
-
-  #endif
- #endif
 
 @end
 

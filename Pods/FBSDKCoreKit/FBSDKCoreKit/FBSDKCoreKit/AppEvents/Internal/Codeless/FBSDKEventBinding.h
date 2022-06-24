@@ -22,28 +22,21 @@
 
 #import <UIKit/UIKit.h>
 #import "FBSDKAppEventsNumberParser.h"
-#import "FBSDKCodelessParameterComponent.h"
-
-@protocol FBSDKEventLogging;
 
 NS_SWIFT_NAME(EventBinding)
 @interface FBSDKEventBinding : NSObject
 
-@property (class, nonatomic, readonly) id<FBSDKNumberParsing> numberParser;
+@property (class, nonatomic) id<FBSDKNumberParsing> numberParser;
 @property (nonatomic, copy, readonly) NSString *eventName;
 @property (nonatomic, copy, readonly) NSString *eventType;
 @property (nonatomic, copy, readonly) NSString *appVersion;
 @property (nonatomic, readonly) NSArray *path;
 @property (nonatomic, copy, readonly) NSString *pathType;
-@property (nonatomic, readonly) NSArray<FBSDKCodelessParameterComponent *> *parameters;
-
-+ (instancetype)new NS_UNAVAILABLE;
-- (instancetype)init NS_UNAVAILABLE;
+@property (nonatomic, readonly) NSArray *parameters;
 
 + (BOOL)isViewMatchPath:(UIView *)view path:(NSArray *)path;
 + (BOOL)isPath:(NSArray *)path matchViewPath:(NSArray *)viewPath;
-- (FBSDKEventBinding *)initWithJSON:(NSDictionary *)dict
-                        eventLogger:(id<FBSDKEventLogging>)eventLogger;
+- (FBSDKEventBinding *)initWithJSON:(NSDictionary *)dict;
 - (void)trackEvent:(id)sender;
 - (BOOL)isEqualToBinding:(FBSDKEventBinding *)binding;
 

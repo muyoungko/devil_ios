@@ -16,15 +16,19 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#import <Foundation/Foundation.h>
+#if SWIFT_PACKAGE
+ #import "FBSDKAccessToken.h"
+#else
+ #import <FBSDKCoreKit/FBSDKAccessToken.h>
+#endif
 
 #import "FBSDKCoreKit+Internal.h"
-
 @protocol FBSDKTokenCaching;
 @protocol FBSDKGraphRequestConnectionProviding;
 
 @interface FBSDKAccessToken (Internal)
 
+@property (class, nonatomic, copy) id<FBSDKTokenCaching> tokenCache;
 @property (class, nonatomic, copy) id<FBSDKGraphRequestConnectionProviding> connectionFactory;
 
 + (void)resetTokenCache;

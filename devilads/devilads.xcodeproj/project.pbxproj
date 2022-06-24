@@ -10,7 +10,6 @@
 		6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D52E6D22619D82A00935D3A /* devilcore.framework */; };
 		6DEC18722860BB7100B3FE88 /* devilads.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18612860BB7100B3FE88 /* devilads.h */; };
 		6DEC18742860BB7100B3FE88 /* TestSwiftLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18632860BB7100B3FE88 /* TestSwiftLogin.swift */; };
-		6DEC18812860BB7200B3FE88 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18712860BB7100B3FE88 /* Info.plist */; };
 		C52473C7347AC74072B7E891 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
@@ -164,7 +163,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DEC18812860BB7200B3FE88 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

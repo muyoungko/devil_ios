@@ -18,10 +18,8 @@
 
 #import "FBSDKErrorConfiguration.h"
 
-#import "FBSDKCoreKitBasicsImport.h"
-#import "FBSDKGraphRequestProtocol.h"
-#import "FBSDKInternalUtility.h"
-#import "FBSDKSettings.h"
+#import "FBSDKCoreKit+Internal.h"
+#import "FBSDKErrorRecoveryConfiguration.h"
 
 static NSString *const kErrorCategoryOther = @"other";
 static NSString *const kErrorCategoryTransient = @"transient";

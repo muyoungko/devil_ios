@@ -18,14 +18,10 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol FBSDKErrorReporting;
-
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(SDKError)
 @interface FBSDKError : NSObject
-
-+ (void)configureWithErrorReporter:(id<FBSDKErrorReporting>)errorReporter;
 
 + (NSError *)errorWithCode:(NSInteger)code message:(nullable NSString *)message;
 
@@ -95,6 +91,7 @@ NS_SWIFT_NAME(SDKError)
 + (NSError *)unknownErrorWithMessage:(NSString *)message;
 
 + (BOOL)isNetworkError:(NSError *)error;
++ (void)enableErrorReport;
 
 @end
 

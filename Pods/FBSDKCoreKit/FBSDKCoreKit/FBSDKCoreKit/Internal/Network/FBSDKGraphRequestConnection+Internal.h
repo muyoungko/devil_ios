@@ -26,11 +26,9 @@
  #import <FBSDKCoreKit/FBSDKGraphRequestConnection.h>
 #endif
 
-#import "FBSDKGraphRequestMetadata.h"
-
 @interface FBSDKGraphRequestConnection (Internal)
 
-@property (nonatomic, readonly) NSMutableArray<FBSDKGraphRequestMetadata *> *requests;
+@property (nonatomic, readonly) NSMutableArray *requests;
 
 + (void)setCanMakeRequests;
 

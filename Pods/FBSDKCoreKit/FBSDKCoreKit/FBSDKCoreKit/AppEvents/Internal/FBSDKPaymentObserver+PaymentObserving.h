@@ -18,7 +18,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FBSDKPaymentObserver.h"
 #import "FBSDKPaymentObserving.h"
 
 @interface FBSDKPaymentObserver (PaymentObservingProtocol) <FBSDKPaymentObserving>

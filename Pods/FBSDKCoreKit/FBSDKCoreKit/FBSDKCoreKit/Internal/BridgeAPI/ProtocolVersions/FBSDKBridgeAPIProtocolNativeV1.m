@@ -25,6 +25,7 @@
  #import <UIKit/UIKit.h>
 
  #import "FBSDKApplicationLifecycleNotifications.h"
+ #import "FBSDKBase64.h"
  #import "FBSDKBridgeAPIRequest.h"
  #import "FBSDKConstants.h"
  #import "FBSDKCoreKitBasicsImport.h"

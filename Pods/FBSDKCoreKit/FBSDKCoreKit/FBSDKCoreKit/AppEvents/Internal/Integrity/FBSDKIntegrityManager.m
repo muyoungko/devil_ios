@@ -23,41 +23,24 @@
  #import "FBSDKIntegrityManager.h"
 
  #import "FBSDKCoreKitBasicsImport.h"
- #import "FBSDKGateKeeperManaging.h"
- #import "FBSDKIntegrityProcessing.h"
+ #import "FBSDKGateKeeperManager.h"
+ #import "FBSDKModelManager.h"
+ #import "FBSDKSettings.h"
 
-@interface FBSDKIntegrityManager ()
-
-@property (nonatomic) Class<FBSDKGateKeeperManaging> gateKeeperManager;
-@property (nonatomic, weak) id<FBSDKIntegrityProcessing> integrityProcessor;
-@property (nonatomic) BOOL isIntegrityEnabled;
-@property (nonatomic) BOOL isSampleEnabled;
-
-@end
+static BOOL isIntegrityEnabled = NO;
+static BOOL isSampleEnabled = NO;
 
 @implementation FBSDKIntegrityManager
 
-- (instancetype)initWithGateKeeperManager:(Class<FBSDKGateKeeperManaging>)gateKeeperManager
-                       integrityProcessor:(id<FBSDKIntegrityProcessing>)integrityProcessor
++ (void)enable
 {
-  if ((self = [super init])) {
-    _gateKeeperManager = gateKeeperManager;
-    _integrityProcessor = integrityProcessor;
-  }
-  return self;
+  isIntegrityEnabled = YES;
+  isSampleEnabled = [FBSDKGateKeeperManager boolForKey:@"FBSDKFeatureIntegritySample" defaultValue:false];
 }
 
-- (void)enable
++ (nullable NSDictionary<NSString *, id> *)processParameters:(nullable NSDictionary<NSString *, id> *)parameters
 {
-  self.isIntegrityEnabled = YES;
-  self.isSampleEnabled = [self.gateKeeperManager boolForKey:@"FBSDKFeatureIntegritySample" defaultValue:false];
-}
-
-// Unused parameter eventName is required for conformance to shared protocol for processing app events.
-- (nullable NSDictionary<NSString *, id> *)processParameters:(nullable NSDictionary<NSString *, id> *)parameters
-                                                   eventName:(NSString *)eventName
-{
-  if (!self.isIntegrityEnabled || parameters.count == 0) {
+  if (!isIntegrityEnabled || parameters.count == 0) {
     return parameters;
   }
   NSMutableDictionary<NSString *, id> *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
@@ -65,9 +48,9 @@
 
   for (NSString *key in [parameters keyEnumerator]) {
     NSString *valueString = [FBSDKTypeUtility coercedToStringValue:parameters[key]];
-    BOOL shouldFilter = [self.integrityProcessor processIntegrity:key] || [self.integrityProcessor processIntegrity:valueString];
+    BOOL shouldFilter = [FBSDKModelManager processIntegrity:key] || [FBSDKModelManager processIntegrity:valueString];
     if (shouldFilter) {
-      [FBSDKTypeUtility dictionary:restrictiveParams setObject:self.isSampleEnabled ? valueString : @"" forKey:key];
+      [FBSDKTypeUtility dictionary:restrictiveParams setObject:isSampleEnabled ? valueString : @"" forKey:key];
       [params removeObjectForKey:key];
     }
   }

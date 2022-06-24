@@ -18,9 +18,8 @@
 
 #import "FBSDKLogger.h"
 
-#import "FBSDKCoreKitBasicsImport.h"
 #import "FBSDKInternalUtility.h"
-#import "FBSDKSettings.h"
+#import "FBSDKSettings+Internal.h"
 
 static NSUInteger g_serialNumberCounter = 1111;
 static NSMutableDictionary *g_stringsToReplace = nil;
@@ -126,15 +125,23 @@ static NSMutableDictionary *g_startTimesWithTags = nil;
 + (void)singleShotLogEntry:(NSString *)loggingBehavior
                   logEntry:(NSString *)logEntry
 {
-  FBSDKLogger *logger = [[FBSDKLogger alloc] initWithLoggingBehavior:loggingBehavior];
-  [logger logEntry:logEntry];
+  if ([FBSDKSettings.loggingBehaviors containsObject:loggingBehavior]) {
+    FBSDKLogger *logger = [[FBSDKLogger alloc] initWithLoggingBehavior:loggingBehavior];
+    [logger appendString:logEntry];
+    [logger emitToNSLog];
+  }
 }
 
-- (void)logEntry:(NSString *)logEntry
++ (void)singleShotLogEntry:(NSString *)loggingBehavior
+              formatString:(NSString *)formatString, ...
 {
-  if ([FBSDKSettings.loggingBehaviors containsObject:_loggingBehavior]) {
-    [self appendString:logEntry];
-    [self emitToNSLog];
+  if ([FBSDKSettings.loggingBehaviors containsObject:loggingBehavior]) {
+    va_list vaArguments;
+    va_start(vaArguments, formatString);
+    NSString *logString = [[NSString alloc] initWithFormat:formatString arguments:vaArguments];
+    va_end(vaArguments);
+
+    [self singleShotLogEntry:loggingBehavior logEntry:logString];
   }
 }
 

@@ -23,17 +23,14 @@
 #import <objc/runtime.h>
 
 #import "FBSDKAppEventsUtility.h"
-#import "FBSDKCoreKitBasicsImport.h"
+#import "FBSDKCoreKit+Internal.h"
 #import "FBSDKDataPersisting.h"
 #import "FBSDKGraphRequest.h"
 #import "FBSDKGraphRequest+Internal.h"
-#import "FBSDKGraphRequestConnecting.h"
 #import "FBSDKGraphRequestConnectionProviding.h"
 #import "FBSDKGraphRequestProviding.h"
-#import "FBSDKObjectDecoding.h"
 #import "FBSDKSettings.h"
 #import "FBSDKSettingsProtocol.h"
-#import "FBSDKUnarchiverProvider.h"
 
 #define FBSDK_GATEKEEPERS_USER_DEFAULTS_KEY @"com.facebook.sdk:GateKeepers%@"
 
@@ -53,12 +50,14 @@ static id<FBSDKGraphRequestProviding> _requestProvider;
 static id<FBSDKGraphRequestConnectionProviding> _connectionProvider;
 static Class<FBSDKSettings> _settings;
 static id<FBSDKDataPersisting> _store;
+static FBSDKLogger *_logger;
 
 #pragma mark - Public Class Methods
 + (void)initialize
 {
   if (self == [FBSDKGateKeeperManager class]) {
     _completionBlocks = [NSMutableArray array];
+    _logger = [FBSDKLogger new];
     _store = nil;
     _requestProvider = nil;
     _connectionProvider = nil;
@@ -91,9 +90,8 @@ static id<FBSDKDataPersisting> _store;
   @try {
     @synchronized(self) {
       if (!_canLoadGateKeepers) {
-        // If we can't load the gatekeepers then it means we didn't have an opportunity
-        // to inject our own logger type. Fall back to NSLog for the developer error.
-        NSLog(@"Cannot load gate keepers before configuring.");
+        [self.logger.class singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
+                                     logEntry:@"Cannot load gate keepers before configuring."];
         return;
       }
 
@@ -138,7 +136,7 @@ static id<FBSDKDataPersisting> _store;
           // start request with specified timeout instead of the default 180s
           id<FBSDKGraphRequestConnecting> requestConnection = [self.connectionProvider createGraphRequestConnection];
           requestConnection.timeout = kTimeout;
-          [requestConnection addRequest:request completion:^(id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
+          [requestConnection addRequest:request completionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
             _requeryFinishedForAppStart = YES;
             [self processLoadRequestResponse:result error:error];
           }];
@@ -240,6 +238,11 @@ static id<FBSDKDataPersisting> _store;
   return NO;
 }
 
++ (FBSDKLogger *)logger
+{
+  return _logger;
+}
+
 + (id<FBSDKGraphRequestProviding>)requestProvider
 {
   return _requestProvider;
@@ -272,6 +275,11 @@ static id<FBSDKDataPersisting> _store;
 + (BOOL)canLoadGateKeepers
 {
   return _canLoadGateKeepers;
+}
+
++ (void)setLogger:(FBSDKLogger *)logger
+{
+  _logger = logger;
 }
 
 + (void)setGateKeepers:(NSDictionary *)gateKeepers

@@ -28,7 +28,6 @@
   #import "FBSDKCoreKit+Internal.h"
  #endif
 
- #import "FBSDKCoreKitBasicsImportForLoginKit.h"
  #import "FBSDKLoginConstants.h"
  #import "FBSDKReferralManagerLogger.h"
  #import "FBSDKReferralManagerResult.h"
@@ -120,7 +119,7 @@ static int const FBClientStateChallengeLength = 20;
 
 - (NSString *)stringForChallenge
 {
-  NSString *challenge = fb_randomString(FBClientStateChallengeLength);
+  NSString *challenge = [FBSDKCrypto randomString:FBClientStateChallengeLength];
 
   return [challenge stringByReplacingOccurrencesOfString:@"+" withString:@"="];
 }

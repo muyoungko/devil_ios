@@ -18,10 +18,13 @@
 
 #import "FBSDKAuthenticationTokenClaims.h"
 
-#import "FBSDKCoreKitBasicsImport.h"
-#import "FBSDKSettings.h"
+#ifdef FBSDKCOCOAPODS
+ #import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+#else
+ #import "FBSDKCoreKit+Internal.h"
+#endif
 
-static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
+static long const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
 
 @implementation FBSDKAuthenticationTokenClaims
 
@@ -29,22 +32,15 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
                         iss:(NSString *)iss
                         aud:(NSString *)aud
                       nonce:(NSString *)nonce
-                        exp:(NSTimeInterval)exp
-                        iat:(NSTimeInterval)iat
+                        exp:(long)exp
+                        iat:(long)iat
                         sub:(NSString *)sub
                        name:(nullable NSString *)name
-                  givenName:(nullable NSString *)givenName
-                 middleName:(nullable NSString *)middleName
-                 familyName:(nullable NSString *)familyName
                       email:(nullable NSString *)email
                     picture:(nullable NSString *)picture
                 userFriends:(nullable NSArray<NSString *> *)userFriends
                userBirthday:(nullable NSString *)userBirthday
                userAgeRange:(nullable NSDictionary<NSString *, NSNumber *> *)userAgeRange
-               userHometown:(nullable NSDictionary<NSString *, NSString *> *)userHometown
-               userLocation:(nullable NSDictionary<NSString *, NSString *> *)userLocation
-                 userGender:(nullable NSString *)userGender
-                   userLink:(nullable NSString *)userLink
 {
   if (self = [super init]) {
     _jti = jti;
@@ -55,18 +51,11 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
     _iat = iat;
     _sub = sub;
     _name = name;
-    _givenName = givenName;
-    _middleName = middleName;
-    _familyName = familyName;
     _email = email;
     _picture = picture;
     _userFriends = userFriends;
     _userBirthday = userBirthday;
     _userAgeRange = userAgeRange;
-    _userHometown = userHometown;
-    _userLocation = userLocation;
-    _userGender = userGender;
-    _userLink = userLink;
   }
 
   return self;
@@ -80,7 +69,7 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
   if (claimsData) {
     NSDictionary *claimsDict = [FBSDKTypeUtility JSONObjectWithData:claimsData options:0 error:&error];
     if (!error) {
-      NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+      long currentTime = [[NSNumber numberWithDouble:[[NSDate date] timeIntervalSince1970]] longValue];
 
       // verify claims
       NSString *jti = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"jti"]];
@@ -93,11 +82,11 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
       BOOL audMatched = [aud isEqualToString:[FBSDKSettings appID]];
 
       NSNumber *expValue = [FBSDKTypeUtility numberValue:claimsDict[@"exp"]];
-      NSTimeInterval exp = [expValue doubleValue];
+      long exp = [expValue doubleValue];
       BOOL isExpired = expValue == nil || exp <= currentTime;
 
       NSNumber *iatValue = [FBSDKTypeUtility numberValue:claimsDict[@"iat"]];
-      NSTimeInterval iat = [iatValue doubleValue];
+      long iat = [iatValue doubleValue];
       BOOL issuedRecently = iatValue != nil && iat >= currentTime - MaxTimeSinceTokenIssued;
 
       NSString *nonce = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"nonce"]];
@@ -107,9 +96,6 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
       BOOL userIDValid = sub.length > 0;
 
       NSString *name = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"name"]];
-      NSString *givenName = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"given_name"]];
-      NSString *middleName = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"middle_name"]];
-      NSString *familyName = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"family_name"]];
       NSString *email = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"email"]];
       NSString *picture = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"picture"]];
       NSString *userBirthday = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"user_birthday"]];
@@ -129,12 +115,6 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
         }
       }
 
-      NSMutableDictionary<NSString *, NSString *> *userHometown = [self extractLocationDictFromClaims:claimsDict key:@"user_hometown"];
-      NSMutableDictionary<NSString *, NSString *> *userLocation = [self extractLocationDictFromClaims:claimsDict key:@"user_location"];
-
-      NSString *userGender = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"user_gender"]];
-      NSString *userLink = [FBSDKTypeUtility coercedToStringValue:claimsDict[@"user_link"]];
-
       NSArray<NSString *> *userFriends = [FBSDKTypeUtility arrayValue:claimsDict[@"user_friends"]];
       for (NSString *friend in userFriends) {
         if (![FBSDKTypeUtility coercedToStringValue:friend]) {
@@ -152,43 +132,16 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
                                                                iat:iat
                                                                sub:sub
                                                               name:name
-                                                         givenName:givenName
-                                                        middleName:middleName
-                                                        familyName:familyName
                                                              email:email
                                                            picture:picture
                                                        userFriends:userFriends
                                                       userBirthday:userBirthday
-                                                      userAgeRange:userAgeRange
-                                                      userHometown:userHometown
-                                                      userLocation:userLocation
-                                                        userGender:userGender
-                                                          userLink:userLink];
+                                                      userAgeRange:userAgeRange];
       }
     }
   }
 
   return nil;
-}
-
-+ (nullable NSMutableDictionary<NSString *, NSString *> *)extractLocationDictFromClaims:(NSDictionary *)claimsDict key:(NSString *)keyName
-{
-  NSDictionary *rawLocationData = [FBSDKTypeUtility dictionaryValue:claimsDict[keyName]];
-  NSMutableDictionary<NSString *, NSString *> *location;
-  if (rawLocationData.count > 0) {
-    location = NSMutableDictionary.new;
-    for (NSString *key in rawLocationData) {
-      NSString *value = [FBSDKTypeUtility dictionary:rawLocationData
-                                        objectForKey:key
-                                              ofType:NSString.class];
-      if (value == nil) {
-        return nil;
-      }
-
-      [FBSDKTypeUtility dictionary:location setObject:value forKey:key];
-    }
-  }
-  return location;
 }
 
 // MARK: Equality
@@ -203,18 +156,11 @@ static NSTimeInterval const MaxTimeSinceTokenIssued = 10 * 60; // 10 mins
   && _iat == claims.iat
   && [_sub isEqualToString:claims.sub]
   && [_name isEqualToString:claims.name]
-  && [_givenName isEqualToString:claims.givenName]
-  && [_middleName isEqualToString:claims.middleName]
-  && [_familyName isEqualToString:claims.familyName]
   && [_email isEqualToString:claims.email]
   && [_picture isEqualToString:claims.picture]
   && [_userFriends isEqualToArray:claims.userFriends]
   && [_userBirthday isEqualToString:claims.userBirthday]
-  && [_userAgeRange isEqualToDictionary:claims.userAgeRange]
-  && [_userHometown isEqualToDictionary:claims.userHometown]
-  && [_userLocation isEqualToDictionary:claims.userLocation]
-  && [_userGender isEqualToString:claims.userGender]
-  && [_userLink isEqualToString:claims.userLink];
+  && [_userAgeRange isEqualToDictionary:claims.userAgeRange];
 }
 
 - (BOOL)isEqual:(id)object

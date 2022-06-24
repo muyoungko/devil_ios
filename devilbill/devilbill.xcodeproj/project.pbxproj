@@ -8,9 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D52E6D22619D82A00935D3A /* devilcore.framework */; };
-		6DEC184F2860BB6700B3FE88 /* devilbill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183E2860BB6700B3FE88 /* devilbill.h */; };
+		6DEC184F2860BB6700B3FE88 /* devilbill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183E2860BB6700B3FE88 /* devilbill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DEC18512860BB6700B3FE88 /* TestSwiftLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18402860BB6700B3FE88 /* TestSwiftLogin.swift */; };
-		6DEC185E2860BB6700B3FE88 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC184E2860BB6700B3FE88 /* Info.plist */; };
+		6DEC18882865ED0900B3FE88 /* DevilBillSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18862865ED0900B3FE88 /* DevilBillSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC18892865ED0900B3FE88 /* DevilBillSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18872865ED0900B3FE88 /* DevilBillSdk.m */; };
+		6DEC188C2865ED2100B3FE88 /* JevilBill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC188A2865ED2100B3FE88 /* JevilBill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC188D2865ED2100B3FE88 /* JevilBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC188B2865ED2100B3FE88 /* JevilBill.m */; };
+		6DEC18902865EFC800B3FE88 /* DevilBill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC188E2865EFC800B3FE88 /* DevilBill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC18912865EFC800B3FE88 /* DevilBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC188F2865EFC800B3FE88 /* DevilBill.m */; };
 		C52473C7347AC74072B7E891 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */; platformFilter = ios; };
 /* End PBXBuildFile section */
 
@@ -21,6 +26,12 @@
 		6DEC183E2860BB6700B3FE88 /* devilbill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilbill.h; sourceTree = "<group>"; };
 		6DEC18402860BB6700B3FE88 /* TestSwiftLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwiftLogin.swift; sourceTree = "<group>"; };
 		6DEC184E2860BB6700B3FE88 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DEC18862865ED0900B3FE88 /* DevilBillSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBillSdk.h; sourceTree = "<group>"; };
+		6DEC18872865ED0900B3FE88 /* DevilBillSdk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBillSdk.m; sourceTree = "<group>"; };
+		6DEC188A2865ED2100B3FE88 /* JevilBill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilBill.h; sourceTree = "<group>"; };
+		6DEC188B2865ED2100B3FE88 /* JevilBill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilBill.m; sourceTree = "<group>"; };
+		6DEC188E2865EFC800B3FE88 /* DevilBill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBill.h; sourceTree = "<group>"; };
+		6DEC188F2865EFC800B3FE88 /* DevilBill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBill.m; sourceTree = "<group>"; };
 		85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.release.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,10 +79,24 @@
 		6DEC183D2860BB6700B3FE88 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DEC18852865ECF700B3FE88 /* bill */,
 				6DEC183E2860BB6700B3FE88 /* devilbill.h */,
 				6DEC18402860BB6700B3FE88 /* TestSwiftLogin.swift */,
 			);
 			path = source;
+			sourceTree = "<group>";
+		};
+		6DEC18852865ECF700B3FE88 /* bill */ = {
+			isa = PBXGroup;
+			children = (
+				6DEC18862865ED0900B3FE88 /* DevilBillSdk.h */,
+				6DEC18872865ED0900B3FE88 /* DevilBillSdk.m */,
+				6DEC188A2865ED2100B3FE88 /* JevilBill.h */,
+				6DEC188B2865ED2100B3FE88 /* JevilBill.m */,
+				6DEC188E2865EFC800B3FE88 /* DevilBill.h */,
+				6DEC188F2865EFC800B3FE88 /* DevilBill.m */,
+			);
+			path = bill;
 			sourceTree = "<group>";
 		};
 		9F1645EDDEBFFD8ACCEAB80C /* Frameworks */ = {
@@ -101,6 +126,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DEC184F2860BB6700B3FE88 /* devilbill.h in Headers */,
+				6DEC18882865ED0900B3FE88 /* DevilBillSdk.h in Headers */,
+				6DEC18902865EFC800B3FE88 /* DevilBill.h in Headers */,
+				6DEC188C2865ED2100B3FE88 /* JevilBill.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,7 +165,7 @@
 				TargetAttributes = {
 					6D7EC2FF25F4A37D00FAE7D8 = {
 						CreatedOnToolsVersion = 12.3;
-						LastSwiftMigration = 1230;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -164,7 +192,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DEC185E2860BB6700B3FE88 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,7 +244,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DEC18892865ED0900B3FE88 /* DevilBillSdk.m in Sources */,
+				6DEC18912865EFC800B3FE88 /* DevilBill.m in Sources */,
 				6DEC18512860BB6700B3FE88 /* TestSwiftLogin.swift in Sources */,
+				6DEC188D2865ED2100B3FE88 /* JevilBill.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,9 +38,6 @@
                                 friendIDs:(nullable NSArray<FBSDKUserIdentifier *> *)friendIDs
                                  birthday:(nullable NSDate *)birthday
                                  ageRange:(nullable FBSDKUserAgeRange *)ageRange
-                                 hometown:(nullable FBSDKLocation *)hometown
-                                 location:(nullable FBSDKLocation *)location
-                                   gender:(nullable NSString *)gender
                                 isLimited:(BOOL)isLimited
 {
   return [[FBSDKProfile alloc] initWithUserID:userID
@@ -55,9 +52,6 @@
                                     friendIDs:friendIDs
                                      birthday:birthday
                                      ageRange:ageRange
-                                     hometown:hometown
-                                     location:location
-                                       gender:gender
                                     isLimited:isLimited];
 }
 

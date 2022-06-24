@@ -18,12 +18,6 @@
 
 #import <Foundation/Foundation.h>
 
-#if FBSDK_SWIFT_PACKAGE
-#import "FBSDKLoggingBehavior.h"
-#else
-#import <FBSDKCoreKit/FBSDKLoggingBehavior.h>
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -37,13 +31,13 @@ NS_SWIFT_NAME(Logger)
 @interface FBSDKLogger : NSObject
 
 // Access current accumulated contents of the logger.
-@property (copy, nonatomic, readonly) NSString *contents;
+@property (copy, nonatomic) NSString *contents;
 
 // Each FBSDKLogger gets a unique serial number to allow the client to log these numbers and, for instance, correlation of Request/Response
 @property (nonatomic, readonly) NSUInteger loggerSerialNumber;
 
-// The logging behavior of this logger.
-@property (copy, nonatomic, readonly) FBSDKLoggingBehavior loggingBehavior;
+// The logging behavior of this logger.  See the FB_LOG_BEHAVIOR* constants in FBSession.h
+@property (copy, nonatomic, readonly) NSString *loggingBehavior;
 
 // Is the current logger instance active, based on its loggingBehavior?
 @property (nonatomic, readonly, getter=isActive) BOOL active;
@@ -53,15 +47,12 @@ NS_SWIFT_NAME(Logger)
 //
 
 // Create with specified logging behavior
-- (instancetype)initWithLoggingBehavior:(FBSDKLoggingBehavior)loggingBehavior;
+- (instancetype)initWithLoggingBehavior:(NSString *)loggingBehavior;
 
 // Append string, or key/value pair
 - (void)appendString:(NSString *)string;
 - (void)appendFormat:(NSString *)formatString, ... NS_FORMAT_FUNCTION(1,2);
 - (void)appendKey:(NSString *)key value:(NSString *)value;
-
-/// Logs entry if the current Settings contains the logging behavior for this logger instance
-- (void)logEntry:(NSString *)logEntry;
 
 // Emit log, clearing out the logger contents.
 - (void)emitToNSLog;
@@ -76,10 +67,13 @@ NS_SWIFT_NAME(Logger)
 + (NSUInteger)generateSerialNumber;
 
 // Simple helper to write a single log entry, based upon whether the behavior matches a specified on.
-+ (void)singleShotLogEntry:(FBSDKLoggingBehavior)loggingBehavior
++ (void)singleShotLogEntry:(NSString *)loggingBehavior
                   logEntry:(NSString *)logEntry;
 
-+ (void)singleShotLogEntry:(FBSDKLoggingBehavior)loggingBehavior
++ (void)singleShotLogEntry:(NSString *)loggingBehavior
+              formatString:(NSString *)formatString, ... NS_FORMAT_FUNCTION(2,3);
+
++ (void)singleShotLogEntry:(NSString *)loggingBehavior
               timestampTag:(NSObject *)timestampTag
               formatString:(NSString *)formatString, ... NS_FORMAT_FUNCTION(3,4);
 

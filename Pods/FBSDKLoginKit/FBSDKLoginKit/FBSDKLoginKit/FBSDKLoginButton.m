@@ -28,7 +28,6 @@
   #import "FBSDKCoreKit+Internal.h"
  #endif
 
- #import "FBSDKCoreKitBasicsImportForLoginKit.h"
  #import "FBSDKLoginTooltipView.h"
  #import "FBSDKNonceUtility.h"
 
@@ -37,8 +36,6 @@ static const CGFloat kFBLogoLeftMargin = 6.0;
 static const CGFloat kButtonHeight = 28.0;
 static const CGFloat kRightMargin = 8.0;
 static const CGFloat kPaddingBetweenLogoTitle = 8.0;
-
-FBSDKAppEventName const FBSDKAppEventNameFBSDKLoginButtonDidTap = @"fb_login_button_did_tap";
 
 @implementation FBSDKLoginButton
 {
@@ -90,9 +87,8 @@ FBSDKAppEventName const FBSDKAppEventNameFBSDKLoginButtonDidTap = @"fb_login_but
     _nonce = [nonce copy];
   } else {
     _nonce = nil;
-    NSString *msg = [NSString stringWithFormat:@"Unable to set invalid nonce: %@ on FBSDKLoginButton", nonce];
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                           logEntry:msg];
+                       formatString:@"Unable to set invalid nonce: %@ on FBSDKLoginButton", nonce];
   }
 }
 
@@ -321,14 +317,10 @@ FBSDKAppEventName const FBSDKAppEventNameFBSDKLoginButtonDidTap = @"fb_login_but
   if (self.nonce) {
     return [[FBSDKLoginConfiguration alloc] initWithPermissions:self.permissions
                                                        tracking:self.loginTracking
-                                                          nonce:self.nonce
-                                                messengerPageId:self.messengerPageId
-                                                       authType:self.authType];
+                                                          nonce:self.nonce];
   } else {
     return [[FBSDKLoginConfiguration alloc] initWithPermissions:self.permissions
-                                                       tracking:self.loginTracking
-                                                messengerPageId:self.messengerPageId
-                                                       authType:self.authType];
+                                                       tracking:self.loginTracking];
   }
 }
 
@@ -413,7 +405,7 @@ FBSDKAppEventName const FBSDKAppEventNameFBSDKLoginButtonDidTap = @"fb_login_but
   FBSDKGraphRequest *request = [[FBSDKGraphRequest alloc] initWithGraphPath:@"me?fields=id,name"
                                                                  parameters:nil
                                                                       flags:FBSDKGraphRequestFlagDisableErrorRecovery];
-  [request startWithCompletion:^(id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
+  [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
     NSString *userID = [FBSDKTypeUtility coercedToStringValue:result[@"id"]];
     if (!error && [FBSDKAccessToken.currentAccessToken.userID isEqualToString:userID]) {
       self->_userName = [FBSDKTypeUtility coercedToStringValue:result[@"name"]];
@@ -440,15 +432,6 @@ FBSDKAppEventName const FBSDKAppEventNameFBSDKLoginButtonDidTap = @"fb_login_but
 - (BOOL)_isAuthenticated
 {
   return (FBSDKAccessToken.currentAccessToken || FBSDKAuthenticationToken.currentAuthenticationToken);
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-  if (self = [super initWithFrame:frame]) {
-    self.authType = FBSDKLoginAuthTypeRerequest;
-  }
-
-  return self;
 }
 
 // MARK: - Testability

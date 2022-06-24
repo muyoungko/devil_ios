@@ -358,10 +358,7 @@ static inline CGFloat FBSDKPointsForScreenPixels(FBSDKLimitFunctionType limitFun
   self.borderWidth = 1.0;
   self.contentMode = UIViewContentModeRedraw;
   self.fillColor = [UIColor whiteColor];
-  self.foregroundColor = [UIColor colorWithRed:(0x6A / 255.0)
-                                         green:(0x71 / 255.0)
-                                          blue:(0x80 / 255.0)
-                                         alpha:1.0];
+  self.foregroundColor = FBSDKUIColorWithRGB(0x6A, 0x71, 0x80);
   self.opaque = NO;
 }
 

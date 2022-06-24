@@ -28,6 +28,7 @@
  #import "FBSDKInternalUtility.h"
  #import "FBSDKMath.h"
  #import "FBSDKProfile+Internal.h"
+ #import "FBSDKUtility.h"
 
 @interface FBSDKProfilePictureViewState : NSObject
 

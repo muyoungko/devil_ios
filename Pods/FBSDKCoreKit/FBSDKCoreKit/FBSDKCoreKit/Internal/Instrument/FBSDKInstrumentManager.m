@@ -20,18 +20,12 @@
 
 #import "FBSDKCoreKitBasicsImport.h"
 #import "FBSDKCrashObserver.h"
-#import "FBSDKErrorReport+ErrorReporting.h"
+#import "FBSDKErrorReporting.h"
 #import "FBSDKFeatureChecking.h"
 #import "FBSDKFeatureManager+FeatureChecking.h"
 #import "FBSDKSettings+Internal.h"
-
-#if defined FBSDK_SWIFT_PACKAGE
- #import "FBSDKSettingsProtocol.h"
-#else
- #import <FBSDKCoreKit/FBSDKSettingsProtocol.h>
-#endif
-
 #import "FBSDKSettings+SettingsProtocols.h"
+#import "FBSDKSettingsProtocol.h"
 
 @interface FBSDKInstrumentManager ()
 

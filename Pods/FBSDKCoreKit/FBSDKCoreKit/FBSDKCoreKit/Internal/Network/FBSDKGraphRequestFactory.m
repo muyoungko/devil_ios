@@ -42,12 +42,6 @@
 
 - (nonnull id<FBSDKGraphRequest>)createGraphRequestWithGraphPath:(nonnull NSString *)graphPath
                                                       parameters:(nonnull NSDictionary<NSString *, id> *)parameters
-{
-  return [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath parameters:parameters];
-}
-
-- (nonnull id<FBSDKGraphRequest>)createGraphRequestWithGraphPath:(nonnull NSString *)graphPath
-                                                      parameters:(nonnull NSDictionary<NSString *, id> *)parameters
                                                       HTTPMethod:(nonnull FBSDKHTTPMethod)method
 {
   return [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath
@@ -66,15 +60,6 @@
                                           tokenString:tokenString
                                               version:version
                                            HTTPMethod:method];
-}
-
-- (nonnull id<FBSDKGraphRequest>)createGraphRequestWithGraphPath:(nonnull NSString *)graphPath
-                                                      parameters:(nonnull NSDictionary *)parameters
-                                                           flags:(FBSDKGraphRequestFlags)flags
-{
-  return [[FBSDKGraphRequest alloc] initWithGraphPath:graphPath
-                                           parameters:parameters
-                                                flags:flags];
 }
 
 @end

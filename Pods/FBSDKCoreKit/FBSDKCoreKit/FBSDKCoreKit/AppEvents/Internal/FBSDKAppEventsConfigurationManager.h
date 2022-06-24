@@ -22,20 +22,13 @@
 
 typedef void (^FBSDKAppEventsConfigurationManagerBlock)(void);
 @protocol FBSDKDataPersisting;
-@protocol FBSDKSettings;
-@protocol FBSDKGraphRequestProviding;
-@protocol FBSDKGraphRequestConnectionProviding;
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(AppEventsConfigurationManager)
 @interface FBSDKAppEventsConfigurationManager : NSObject
 
-+ (void)configureWithStore:(id<FBSDKDataPersisting>)store
-                  settings:(id<FBSDKSettings>)settings
-       graphRequestFactory:(id<FBSDKGraphRequestProviding>)graphRequestFactory
-graphRequestConnectionFactory:(id<FBSDKGraphRequestConnectionProviding>)graphRequestConnectionFactory
-NS_SWIFT_NAME(configure(store:settings:graphRequestFactory:graphRequestConnectionFactory:));
++ (void)configureWithStore:(id<FBSDKDataPersisting>)store;
 
 + (FBSDKAppEventsConfiguration *)cachedAppEventsConfiguration;
 

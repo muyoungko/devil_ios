@@ -18,11 +18,11 @@
 
 #import "FBSDKGraphRequestConnection+Internal.h"
 
-#import "FBSDKAppEvents+EventLogging.h"
 #import "FBSDKConstants.h"
 #import "FBSDKCoreKit+Internal.h"
 #import "FBSDKError.h"
 #import "FBSDKErrorConfigurationProvider.h"
+#import "FBSDKEventLogger.h"
 #import "FBSDKGraphRequest+Internal.h"
 #import "FBSDKGraphRequestBody.h"
 #import "FBSDKGraphRequestConnectionFactory.h"
@@ -152,7 +152,7 @@ static BOOL _canMakeRequests = NO;
                      piggybackManagerProvider:FBSDKGraphRequestPiggybackManagerProvider.self
                                      settings:FBSDKSettings.self
                             connectionFactory:[FBSDKGraphRequestConnectionFactory new]
-                                  eventLogger:FBSDKAppEvents.singleton
+                                  eventLogger:[FBSDKEventLogger new]
                operatingSystemVersionComparer:NSProcessInfo.processInfo
                       macCatalystDeterminator:NSProcessInfo.processInfo];
 }
@@ -206,51 +206,20 @@ static BOOL _canMakeRequests = NO;
 - (void) addRequest:(id<FBSDKGraphRequest>)request
   completionHandler:(FBSDKGraphRequestBlock)handler
 {
-  FBSDKGraphRequestCompletion completion = ^void (id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
-    handler(FBSDK_CAST_TO_CLASS_OR_NIL(connection, FBSDKGraphRequestConnection), result, error);
-  };
-
-  [self addRequest:request completion:completion];
-}
-
-- (void)addRequest:(id<FBSDKGraphRequest>)request completion:(FBSDKGraphRequestCompletion)completion
-{
-  [self addRequest:request name:@"" completion:completion];
+  [self addRequest:request batchEntryName:@"" completionHandler:handler];
 }
 
 - (void) addRequest:(id<FBSDKGraphRequest>)request
      batchEntryName:(NSString *)name
   completionHandler:(FBSDKGraphRequestBlock)handler
 {
-  FBSDKGraphRequestCompletion completion = ^void (id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
-    handler(FBSDK_CAST_TO_CLASS_OR_NIL(connection, FBSDKGraphRequestConnection), result, error);
-  };
-
-  [self addRequest:request name:name completion:completion];
-}
-
-- (void)addRequest:(id<FBSDKGraphRequest>)request
-              name:(NSString *)name
-        completion:(FBSDKGraphRequestCompletion)completion
-{
   NSDictionary<NSString *, id> *batchParams = name.length > 0 ? @{kBatchEntryName : name } : nil;
-  [self addRequest:request parameters:batchParams completion:completion];
+  [self addRequest:request batchParameters:batchParams completionHandler:handler];
 }
 
 - (void) addRequest:(id<FBSDKGraphRequest>)request
     batchParameters:(NSDictionary<NSString *, id> *)batchParameters
   completionHandler:(FBSDKGraphRequestBlock)handler
-{
-  FBSDKGraphRequestCompletion completion = ^void (id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
-    handler(FBSDK_CAST_TO_CLASS_OR_NIL(connection, FBSDKGraphRequestConnection), result, error);
-  };
-
-  [self addRequest:request parameters:batchParameters completion:completion];
-}
-
-- (void)addRequest:(id<FBSDKGraphRequest>)request
-        parameters:(NSDictionary<NSString *, id> *)parameters
-        completion:(FBSDKGraphRequestCompletion)completion
 {
   if (self.state != kStateCreated) {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -258,8 +227,8 @@ static BOOL _canMakeRequests = NO;
                                  userInfo:nil];
   }
   FBSDKGraphRequestMetadata *metadata = [[FBSDKGraphRequestMetadata alloc] initWithRequest:request
-                                                                         completionHandler:completion
-                                                                           batchParameters:parameters];
+                                                                         completionHandler:handler
+                                                                           batchParameters:batchParameters];
 
   [FBSDKTypeUtility array:self.requests addObject:metadata];
 }
@@ -281,9 +250,8 @@ static BOOL _canMakeRequests = NO;
 {
   if (![self.class canMakeRequests]) {
     NSString *msg = @"FBSDKGraphRequestConnection cannot be started before Facebook SDK initialized.";
-    // TODO: Use a logger provider for this.
     [self.logger.class singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                                 logEntry:msg];
+                             formatString:@"%@", msg];
     self.state = kStateCancelled;
     [self completeFBSDKURLSessionWithResponse:nil
                                          data:nil
@@ -294,7 +262,7 @@ static BOOL _canMakeRequests = NO;
 
   if (self.state != kStateCreated && self.state != kStateSerialized) {
     [self.logger.class singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                                 logEntry:@"FBSDKGraphRequestConnection cannot be started again."];
+                             formatString:@"FBSDKGraphRequestConnection cannot be started again."];
     return;
   }
   Class<FBSDKGraphRequestPiggybackManaging> piggybackManager = [self.piggybackManagerProvider.class piggybackManager];
@@ -435,8 +403,7 @@ static BOOL _canMakeRequests = NO;
     } else if ([value isKindOfClass:[FBSDKGraphRequestDataAttachment class]]) {
       [body appendWithKey:key dataAttachmentValue:(FBSDKGraphRequestDataAttachment *)value logger:logger];
     } else {
-      NSString *msg = [NSString stringWithFormat:@"Unsupported FBSDKGraphRequest attachment:%@, skipping.", value];
-      [logger.class singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors logEntry:msg];
+      [logger.class singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors formatString:@"Unsupported FBSDKGraphRequest attachment:%@, skipping.", value];
     }
   }];
 }
@@ -503,9 +470,8 @@ static BOOL _canMakeRequests = NO;
         && [self _shouldWarnOnMissingFieldsParam:request]
         && !request.parameters[@"fields"]
         && [request.graphPath rangeOfString:@"fields="].location == NSNotFound) {
-      NSString *msg = [NSString stringWithFormat:@"starting with Graph API v2.4, GET requests for /%@ should contain an explicit \"fields\" parameter", request.graphPath];
       [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                             logEntry:msg];
+                         formatString:@"starting with Graph API v2.4, GET requests for /%@ should contain an explicit \"fields\" parameter", request.graphPath];
     }
   }
 }
@@ -797,7 +763,7 @@ static BOOL _canMakeRequests = NO;
         }
         [FBSDKTypeUtility array:results addObject:result];
       }
-      if (batchResultError && (*error == nil)) {
+      if (batchResultError) {
         // We'll report back the last error we saw.
         *error = batchResultError;
       }
@@ -865,7 +831,7 @@ static BOOL _canMakeRequests = NO;
   _expectingResults = count;
   NSUInteger disabledRecoveryCount = 0;
   for (FBSDKGraphRequestMetadata *metadata in self.requests) {
-    if ([metadata.request isGraphErrorRecoveryDisabled]) {
+    if ([(id<FBSDKGraphRequestInternal>)metadata.request isGraphErrorRecoveryDisabled]) {
       disabledRecoveryCount++;
     }
   }
@@ -884,7 +850,7 @@ static BOOL _canMakeRequests = NO;
     }
 
   #if !TARGET_OS_TV
-    BOOL isRecoveryDisabled = [metadata.request isGraphErrorRecoveryDisabled];
+    BOOL isRecoveryDisabled = [(id<FBSDKGraphRequestInternal>)metadata.request isGraphErrorRecoveryDisabled];
     if (resultError && !isRecoveryDisabled && isSingleRequestToRecover) {
       self->_recoveringRequestMetadata = metadata;
       self->_errorRecoveryProcessor = [FBSDKGraphErrorRecoveryProcessor new];
@@ -922,7 +888,7 @@ static BOOL _canMakeRequests = NO;
 
 #if !TARGET_OS_TV
   void (^clearToken)(NSInteger) = ^(NSInteger errorSubcode) {
-    FBSDKGraphRequestFlags flags = [metadata.request flags];
+    FBSDKGraphRequestFlags flags = [(id<FBSDKGraphRequestInternal>)metadata.request flags];
     if (flags & FBSDKGraphRequestFlagDoNotInvalidateTokenOnError) {
       return;
     }
@@ -1115,7 +1081,7 @@ static BOOL _canMakeRequests = NO;
 
 - (void)logMessage:(NSString *)message
 {
-  [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorNetworkRequests logEntry:message];
+  [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorNetworkRequests formatString:@"%@", message];
 }
 
 - (void)taskDidCompleteWithResponse:(NSURLResponse *)response
@@ -1178,9 +1144,8 @@ static BOOL _canMakeRequests = NO;
 
 - (NSString *)accessTokenWithRequest:(id<FBSDKGraphRequest>)request
 {
-  [self warnIfMissingClientToken];
   NSString *token = request.tokenString ?: request.parameters[kAccessTokenKey];
-  FBSDKGraphRequestFlags flags = [request flags];
+  FBSDKGraphRequestFlags flags = [(id<FBSDKGraphRequestInternal>)request flags];
   if (!token && !(flags & FBSDKGraphRequestFlagSkipClientToken) && [[self.settings.class clientToken] length] > 0) {
     NSString *baseTokenString = [NSString stringWithFormat:@"%@|%@", [self.settings.class appID], [self.settings.class clientToken]];
     if ([FBSDKAuthenticationToken.currentAuthenticationToken.graphDomain isEqualToString:@"gaming"]) {
@@ -1196,16 +1161,6 @@ static BOOL _canMakeRequests = NO;
 {
   if (![[self.settings.class loggingBehaviors] containsObject:FBSDKLoggingBehaviorAccessTokens]) {
     [FBSDKLogger registerStringToReplace:token replaceWith:@"ACCESS_TOKEN_REMOVED"];
-  }
-}
-
-- (void)warnIfMissingClientToken
-{
-  if (![self.settings.class clientToken]) {
-    NSString *const message = @"Starting with v13 of the SDK, a client token must be embedded in your client code before making Graph API calls. "
-    "Visit https://developers.facebook.com/docs/ios/getting-started#step-3---configure-your-project to learn how to implement this change.";
-    [self.logger.class singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                                 logEntry:message];
   }
 }
 
@@ -1268,7 +1223,7 @@ static BOOL _canMakeRequests = NO;
                                                                                   flags:FBSDKGraphRequestFlagDisableErrorRecovery
                                                                       connectionFactory:self.connectionFactory];
       FBSDKGraphRequestMetadata *retryMetadata = [[FBSDKGraphRequestMetadata alloc] initWithRequest:retryRequest completionHandler:_recoveringRequestMetadata.completionHandler batchParameters:_recoveringRequestMetadata.batchParameters];
-      [retryRequest startWithCompletion:^(id<FBSDKGraphRequestConnecting> potentialConnection, id result, NSError *retriedError) {
+      [retryRequest startWithCompletionHandler:^(FBSDKGraphRequestConnection *potentialConnection, id result, NSError *retriedError) {
         [self processResultBody:result error:retriedError metadata:retryMetadata canNotifyDelegate:YES];
         self->_errorRecoveryProcessor = nil;
         self->_recoveringRequestMetadata = nil;

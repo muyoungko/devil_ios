@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
      completionBlock:(FBSDKFeatureManagerBlock)completionBlock
 {
   // check if the feature is locally disabled by Crash Shield first
-  NSString *version = [self.store stringForKey:[self storageKeyForFeature:feature]];
+  NSString *version = [self.store stringForKey:[FBSDKFeatureManagerPrefix stringByAppendingString:[self.class featureName:feature]]];
   if (version && [version isEqualToString:[FBSDKSettings sdkVersion]]) {
     if (completionBlock) {
       completionBlock(false);
@@ -95,7 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)isEnabled:(FBSDKFeature)feature
 {
-  if (FBSDKFeatureCore == feature || FBSDKFeatureNone == feature) {
+  if (FBSDKFeatureCore == feature) {
     return YES;
   }
 
@@ -107,14 +107,9 @@ NS_ASSUME_NONNULL_BEGIN
   }
 }
 
-- (void)disableFeature:(FBSDKFeature)feature
+- (void)disableFeature:(NSString *)featureName
 {
-  [self.store setObject:[FBSDKSettings sdkVersion] forKey:[self storageKeyForFeature:feature]];
-}
-
-- (NSString *)storageKeyForFeature:(FBSDKFeature)feature
-{
-  return [FBSDKFeatureManagerPrefix stringByAppendingString:[self.class featureName:feature]];
+  [self.store setObject:[FBSDKSettings sdkVersion] forKey:[FBSDKFeatureManagerPrefix stringByAppendingString:featureName]];
 }
 
 #pragma mark - Private methods
@@ -145,7 +140,6 @@ NS_ASSUME_NONNULL_BEGIN
 {
   NSString *featureName;
   switch (feature) {
-    case FBSDKFeatureNone: featureName = @"NONE"; break;
     case FBSDKFeatureCore: featureName = @"CoreKit"; break;
     case FBSDKFeatureAppEvents: featureName = @"AppEvents"; break;
     case FBSDKFeatureCodelessEvents: featureName = @"CodelessEvents"; break;
@@ -191,7 +185,6 @@ NS_ASSUME_NONNULL_BEGIN
     case FBSDKFeatureSKAdNetwork:
     case FBSDKFeatureSKAdNetworkConversionValue:
       return NO;
-    case FBSDKFeatureNone:
     case FBSDKFeatureLogin:
     case FBSDKFeatureShare:
     case FBSDKFeatureCore:

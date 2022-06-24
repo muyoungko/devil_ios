@@ -50,72 +50,52 @@ static NSString *const DEPRECATED_EVENT_KEY = @"is_deprecated_event";
 
 @end
 
-@interface FBSDKEventDeactivationManager ()
-
-@property BOOL isEventDeactivationEnabled;
-@property (nonatomic, strong) NSMutableSet<NSString *> *deactivatedEvents;
-@property (nonatomic, strong) NSMutableArray<FBSDKDeactivatedEvent *> *eventsWithDeactivatedParams;
-@property (nonatomic) Class<FBSDKServerConfigurationProviding> serverConfigurationProvider;
-
-@end
-
 @implementation FBSDKEventDeactivationManager
-+ (instancetype)shared
-{
-  static FBSDKEventDeactivationManager *instance;
-  static dispatch_once_t nonce;
-  dispatch_once(&nonce, ^{
-    instance = [[self alloc] initWithServerConfigurationProvider:FBSDKServerConfigurationManager.class];
-  });
-  return instance;
-}
 
-- (instancetype)initWithServerConfigurationProvider:(Class<FBSDKServerConfigurationProviding>)serverConfigurationProvider
-{
-  self.isEventDeactivationEnabled = NO;
-  self.serverConfigurationProvider = serverConfigurationProvider;
-  return self;
-}
+static BOOL isEventDeactivationEnabled = NO;
 
-- (void)enable
+static NSMutableSet<NSString *> *_deactivatedEvents;
+static NSMutableArray<FBSDKDeactivatedEvent *> *_eventsWithDeactivatedParams;
+
++ (void)enable
 {
   @try {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-      NSDictionary<NSString *, id> *restrictiveParams = [self.serverConfigurationProvider cachedServerConfiguration].restrictiveParams;
+      NSDictionary<NSString *, id> *restrictiveParams = [FBSDKServerConfigurationManager cachedServerConfiguration].restrictiveParams;
       if (restrictiveParams) {
-        [self _updateDeactivatedEvents:restrictiveParams];
-        self.isEventDeactivationEnabled = YES;
+        [FBSDKEventDeactivationManager _updateDeactivatedEvents:restrictiveParams];
+        isEventDeactivationEnabled = YES;
       }
     });
   } @catch (NSException *exception) {}
 }
 
-- (void)processEvents:(NSMutableArray<NSDictionary<NSString *, id> *> *)events
++ (void)processEvents:(NSMutableArray<NSDictionary<NSString *, id> *> *)events
 {
   @try {
-    if (!self.isEventDeactivationEnabled) {
+    if (!isEventDeactivationEnabled) {
       return;
     }
     NSArray<NSDictionary<NSString *, id> *> *eventArray = [events copy];
     for (NSDictionary<NSString *, NSDictionary<NSString *, id> *> *event in eventArray) {
-      if ([self.deactivatedEvents containsObject:event[@"event"][@"_eventName"]]) {
+      if ([_deactivatedEvents containsObject:event[@"event"][@"_eventName"]]) {
         [events removeObject:event];
       }
     }
   } @catch (NSException *exception) {}
 }
 
-- (nullable NSDictionary<NSString *, id> *)processParameters:(nullable NSDictionary<NSString *, id> *)parameters
++ (nullable NSDictionary<NSString *, id> *)processParameters:(nullable NSDictionary<NSString *, id> *)parameters
                                                    eventName:(NSString *)eventName
 {
   @try {
-    if (!self.isEventDeactivationEnabled || parameters.count == 0 || self.eventsWithDeactivatedParams.count == 0) {
+    if (!isEventDeactivationEnabled || parameters.count == 0 || _eventsWithDeactivatedParams.count == 0) {
       return parameters;
     }
     NSMutableDictionary<NSString *, id> *params = [NSMutableDictionary dictionaryWithDictionary:parameters];
     for (NSString *key in [parameters keyEnumerator]) {
-      for (FBSDKDeactivatedEvent *event in self.eventsWithDeactivatedParams) {
+      for (FBSDKDeactivatedEvent *event in _eventsWithDeactivatedParams) {
         if ([event.eventName isEqualToString:eventName] && [event.deactivatedParams containsObject:key]) {
           [params removeObjectForKey:key];
         }
@@ -129,14 +109,14 @@ static NSString *const DEPRECATED_EVENT_KEY = @"is_deprecated_event";
 
 #pragma mark - Private Method
 
-- (void)_updateDeactivatedEvents:(nullable NSDictionary<NSString *, id> *)events
++ (void)_updateDeactivatedEvents:(nullable NSDictionary<NSString *, id> *)events
 {
   events = [FBSDKTypeUtility dictionaryValue:events];
   if (events.count == 0) {
     return;
   }
-  [self.deactivatedEvents removeAllObjects];
-  [self.eventsWithDeactivatedParams removeAllObjects];
+  [_deactivatedEvents removeAllObjects];
+  [_eventsWithDeactivatedParams removeAllObjects];
   NSMutableArray<FBSDKDeactivatedEvent *> *deactivatedParamsArray = [NSMutableArray array];
   NSMutableSet<NSString *> *deactivatedEventSet = [NSMutableSet set];
   for (NSString *eventName in events.allKeys) {
@@ -153,8 +133,8 @@ static NSString *const DEPRECATED_EVENT_KEY = @"is_deprecated_event";
       [FBSDKTypeUtility array:deactivatedParamsArray addObject:eventWithDeactivatedParams];
     }
   }
-  self.deactivatedEvents = deactivatedEventSet;
-  self.eventsWithDeactivatedParams = deactivatedParamsArray;
+  _deactivatedEvents = deactivatedEventSet;
+  _eventsWithDeactivatedParams = deactivatedParamsArray;
 }
 
 @end

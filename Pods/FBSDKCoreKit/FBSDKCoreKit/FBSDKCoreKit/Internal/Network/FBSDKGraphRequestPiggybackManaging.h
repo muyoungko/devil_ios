@@ -23,6 +23,6 @@
 NS_SWIFT_NAME(GraphRequestPiggybackManaging)
 @protocol FBSDKGraphRequestPiggybackManaging
 
-+ (void)addPiggybackRequests:(id<FBSDKGraphRequestConnecting>)connection;
++ (void)addPiggybackRequests:(FBSDKGraphRequestConnection *)connection;
 
 @end

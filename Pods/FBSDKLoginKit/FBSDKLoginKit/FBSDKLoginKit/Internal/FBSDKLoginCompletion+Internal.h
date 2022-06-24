@@ -53,6 +53,8 @@
 
 @property (nonatomic, strong) FBSDKLoginCompletionParameters *parameters;
 
+- (void)exchangeNonceForTokenWithHandler:(FBSDKLoginCompletionParametersBlock)handler;
+
 @end
 
 #endif

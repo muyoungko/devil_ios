@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "JevilBill.h"
 
 //! Project version number for devillogin.
 FOUNDATION_EXPORT double devilbillVersionNumber;

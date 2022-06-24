@@ -22,7 +22,7 @@
 
  #import "FBSDKAEMRule.h"
 
- #import "FBSDKCoreKitBasicsImport.h"
+ #import "FBSDKCoreKit+Internal.h"
 
 static NSString *const CONVERSION_VALUE_KEY = @"conversion_value";
 static NSString *const PRIORITY_KEY = @"priority";

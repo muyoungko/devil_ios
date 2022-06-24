@@ -24,8 +24,11 @@
 #endif
 
 #import "FBSDKCoreKit+Internal.h"
+@protocol FBSDKTokenCaching;
 
 @interface FBSDKAuthenticationToken (Internal)
+
+@property (class, nonatomic, copy) id<FBSDKTokenCaching> tokenCache;
 
 + (void)resetTokenCache;
 

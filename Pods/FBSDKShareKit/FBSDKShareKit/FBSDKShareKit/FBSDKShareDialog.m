@@ -29,9 +29,6 @@
  #else
   #import "FBSDKCoreKit+Internal.h"
  #endif
-
- #import "FBSDKCoreKitBasicsImportForShareKit.h"
- #import "FBSDKShareAppEventNames.h"
  #import "FBSDKShareCameraEffectContent.h"
  #import "FBSDKShareConstants.h"
  #import "FBSDKShareDefines.h"
@@ -52,9 +49,6 @@
  #define FBSDK_SHARE_METHOD_ATTRIBUTED_SHARE_SHEET_MIN_VERSION @"20150629"
  #define FBSDK_SHARE_METHOD_QUOTE_MIN_VERSION @"20160328"
  #define FBSDK_SHARE_METHOD_MMP_MIN_VERSION @"20160328"
-
-FBSDKAppEventName FBSDKAppEventNameFBSDKEventShareDialogShow = @"fb_dialog_share_show";
-FBSDKAppEventName FBSDKAppEventNameFBSDKEventShareDialogResult = @"fb_dialog_share_result";
 
 static inline void FBSDKShareDialogValidateAPISchemeRegisteredForCanOpenUrl()
 {
@@ -117,6 +111,7 @@ static inline void FBSDKShareDialogValidateShareExtensionSchemeRegisteredForCanO
 
 - (void)dealloc
 {
+  _webDialog.delegate = nil;
   if (_temporaryFiles) {
     NSFileManager *const fileManager = [NSFileManager defaultManager];
     for (NSURL *temporaryFile in _temporaryFiles) {
@@ -390,6 +385,7 @@ static inline void FBSDKShareDialogValidateShareExtensionSchemeRegisteredForCanO
 
 - (void)_cleanUpWebDialog
 {
+  _webDialog.delegate = nil;
   _webDialog = nil;
 }
 
@@ -596,6 +592,7 @@ static inline void FBSDKShareDialogValidateShareExtensionSchemeRegisteredForCanO
   NSDictionary *parameters = [FBSDKShareUtility feedShareDictionaryForContent:shareContent];
   _webDialog = [FBSDKWebDialog showWithName:FBSDK_SHARE_FEED_METHOD_NAME
                                  parameters:parameters
+                               windowFinder:FBSDKInternalUtility.sharedUtility
                                    delegate:self];
   return YES;
 }
@@ -753,6 +750,7 @@ static inline void FBSDKShareDialogValidateShareExtensionSchemeRegisteredForCanO
   }
   _webDialog = [FBSDKWebDialog showWithName:methodName
                                  parameters:parameters
+                               windowFinder:FBSDKInternalUtility.sharedUtility
                                    delegate:self];
   return YES;
 }

@@ -28,7 +28,6 @@
 #import "FBSDKAppEventsConfigurationManager.h"
 #import "FBSDKAppEventsDeviceInfo.h"
 #import "FBSDKConstants.h"
-#import "FBSDKCoreKitBasicsImport.h"
 #import "FBSDKDynamicFrameworkLoader.h"
 #import "FBSDKError.h"
 #import "FBSDKInternalUtility.h"
@@ -216,7 +215,7 @@ static ASIdentifierManager *_cachedAdvertiserIdentifierManager;
 {
   [[NSFileManager defaultManager] removeItemAtPath:[[self class] persistenceFilePath:FBSDK_APPEVENTSUTILITY_ANONYMOUSIDFILENAME]
                                              error:NULL];
-  [[NSFileManager defaultManager] removeItemAtPath:[[self class] persistenceFilePath:@"com-facebook-sdk-AppEventsTimeSpent.json"]
+  [[NSFileManager defaultManager] removeItemAtPath:[[self class] persistenceFilePath:FBSDKTimeSpentFilename]
                                              error:NULL];
 }
 
@@ -354,7 +353,7 @@ static ASIdentifierManager *_cachedAdvertiserIdentifierManager;
   NSString *tokenString = token.tokenString;
   NSString *clientTokenString = [FBSDKSettings clientToken];
 
-  if (![appID isEqualToString:token.appID]) {
+  if (!tokenString || ![appID isEqualToString:token.appID]) {
     // If there's a logging override app id present
     // then we don't want to use the client token since the client token
     // is intended to match up with the primary app id
@@ -370,14 +369,14 @@ static ASIdentifierManager *_cachedAdvertiserIdentifierManager;
   return tokenString;
 }
 
-+ (NSTimeInterval)unixTimeNow
++ (long)unixTimeNow
 {
-  return round([NSDate date].timeIntervalSince1970);
+  return (long)round([NSDate date].timeIntervalSince1970);
 }
 
-+ (NSTimeInterval)convertToUnixTime:(NSDate *)date
++ (time_t)convertToUnixTime:(NSDate *)date
 {
-  return round([date timeIntervalSince1970]);
+  return (time_t)round([date timeIntervalSince1970]);
 }
 
 + (BOOL)isDebugBuild

@@ -18,26 +18,16 @@
 
 #import <Foundation/Foundation.h>
 
-#if FBSDK_SWIFT_PACKAGE
-#import "FBSDKLoggingBehavior.h"
-#else
-#import <FBSDKCoreKit/FBSDKLoggingBehavior.h>
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Logging)
 @protocol FBSDKLogging
 
-@property (copy, nonatomic, readonly) NSString *contents;
-@property (copy, nonatomic, readonly) FBSDKLoggingBehavior loggingBehavior;
-
-- (instancetype)initWithLoggingBehavior:(FBSDKLoggingBehavior)loggingBehavior;
-
-+ (void)singleShotLogEntry:(FBSDKLoggingBehavior)loggingBehavior
++ (void)singleShotLogEntry:(NSString *)loggingBehavior
                   logEntry:(NSString *)logEntry;
 
-- (void)logEntry:(NSString *)logEntry;
++ (void)singleShotLogEntry:(NSString *)loggingBehavior
+              formatString:(NSString *)formatString, ... NS_FORMAT_FUNCTION(2,3);
 
 @end
 

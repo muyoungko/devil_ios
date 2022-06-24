@@ -21,25 +21,17 @@
 #import "FBSDKAccessToken.h"
 #import "FBSDKApplicationLifecycleNotifications.h"
 #import "FBSDKCoreKitBasicsImport.h"
-#import "FBSDKNotificationProtocols.h"
-
-@interface FBSDKAccessTokenExpirer ()
-
-@property (nonnull, nonatomic, readonly) id<FBSDKNotificationPosting, FBSDKNotificationObserving> notificationCenter;
-
-@end
 
 @implementation FBSDKAccessTokenExpirer
 {
   NSTimer *_timer;
 }
 
-- (instancetype)initWithNotificationCenter:(id<FBSDKNotificationPosting, FBSDKNotificationObserving>)notificationCenter
+- (instancetype)init
 {
   if (self = [super init]) {
-    _notificationCenter = notificationCenter;
-    [notificationCenter addObserver:self selector:@selector(_checkAccessTokenExpirationDate) name:FBSDKAccessTokenDidChangeNotification object:nil];
-    [notificationCenter addObserver:self selector:@selector(_checkAccessTokenExpirationDate) name:FBSDKApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_checkAccessTokenExpirationDate) name:FBSDKAccessTokenDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_checkAccessTokenExpirationDate) name:FBSDKApplicationDidBecomeActiveNotification object:nil];
     [self _checkAccessTokenExpirationDate];
   }
   return self;
@@ -49,7 +41,7 @@
 {
   [_timer invalidate];
   _timer = nil;
-  [self.notificationCenter removeObserver:self];
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)_checkAccessTokenExpirationDate
@@ -71,9 +63,9 @@
   [FBSDKTypeUtility dictionary:userInfo setObject:accessToken forKey:FBSDKAccessTokenChangeOldKey];
   userInfo[FBSDKAccessTokenDidExpireKey] = @YES;
 
-  [self.notificationCenter postNotificationName:FBSDKAccessTokenDidChangeNotification
-                                         object:[FBSDKAccessToken class]
-                                       userInfo:userInfo];
+  [[NSNotificationCenter defaultCenter] postNotificationName:FBSDKAccessTokenDidChangeNotification
+                                                      object:[FBSDKAccessToken class]
+                                                    userInfo:userInfo];
 }
 
 @end

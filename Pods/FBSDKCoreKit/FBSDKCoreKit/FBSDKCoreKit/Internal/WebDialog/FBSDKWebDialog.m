@@ -20,13 +20,12 @@
 
 #if !TARGET_OS_TV
 
- #import "FBSDKWebDialog+Internal.h"
+ #import "FBSDKWebDialog.h"
 
  #import "FBSDKAccessToken.h"
  #import "FBSDKCoreKitBasicsImport.h"
  #import "FBSDKDynamicFrameworkLoader.h"
  #import "FBSDKInternalUtility.h"
- #import "FBSDKInternalUtility+WindowFinding.h"
  #import "FBSDKLogger.h"
  #import "FBSDKSettings.h"
  #import "FBSDKWebDialogView.h"
@@ -53,33 +52,16 @@ static FBSDKWebDialog *g_currentDialog = nil;
 
  #pragma mark - Class Methods
 
-+ (instancetype)dialogWithName:(NSString *)name
-                      delegate:(id<FBSDKWebDialogDelegate>)delegate
-{
-  FBSDKWebDialog *dialog = [self new];
-  dialog.name = name;
-  dialog.delegate = delegate;
-  return dialog;
-}
-
-+ (instancetype)showWithName:(NSString *)name
-                  parameters:(NSDictionary *)parameters
-                    delegate:(id<FBSDKWebDialogDelegate>)delegate
-{
-  return [self showWithName:name
-                 parameters:parameters
-               windowFinder:FBSDKInternalUtility.sharedUtility
-                   delegate:delegate];
-}
-
 + (instancetype)showWithName:(NSString *)name
                   parameters:(NSDictionary *)parameters
                 windowFinder:(id<FBSDKWindowFinding>)windowFinder
                     delegate:(id<FBSDKWebDialogDelegate>)delegate
 {
-  FBSDKWebDialog *dialog = [self dialogWithName:name delegate:delegate];
+  FBSDKWebDialog *dialog = [self new];
   dialog.windowFinder = windowFinder;
+  dialog.name = name;
   dialog.parameters = parameters;
+  dialog.delegate = delegate;
   [dialog show];
   return dialog;
 }
@@ -115,7 +97,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   UIWindow *window = [self.windowFinder findWindow];
   if (!window) {
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                           logEntry:@"There are no valid ViewController to present FBSDKWebDialog"];
+                       formatString:@"There are no valid ViewController to present FBSDKWebDialog", nil];
     [self _failWithError:nil];
     return NO;
   }
@@ -126,7 +108,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   _dialogView.delegate = self;
   [_dialogView loadURL:URL];
 
-  if (!self.shouldDeferVisibility) {
+  if (!_deferVisibility) {
     [self _showWebView];
   }
 
@@ -152,7 +134,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
 
 - (void)webDialogViewDidFinishLoad:(FBSDKWebDialogView *)webDialogView
 {
-  if (self.shouldDeferVisibility) {
+  if (_deferVisibility) {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)),
       dispatch_get_main_queue(), ^{
         if (self->_dialogView) {
@@ -267,7 +249,7 @@ static FBSDKWebDialog *g_currentDialog = nil;
   UIWindow *window = [self.windowFinder findWindow];
   if (!window) {
     [FBSDKLogger singleShotLogEntry:FBSDKLoggingBehaviorDeveloperErrors
-                           logEntry:@"There are no valid ViewController to present FBSDKWebDialog"];
+                       formatString:@"There are no valid ViewController to present FBSDKWebDialog", nil];
     [self _failWithError:nil];
     return NO;
   }

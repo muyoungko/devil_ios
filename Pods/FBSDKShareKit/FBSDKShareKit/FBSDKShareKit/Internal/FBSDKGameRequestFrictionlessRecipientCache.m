@@ -34,8 +34,6 @@
   #import "FBSDKCoreKit+Internal.h"
  #endif
 
- #import "FBSDKCoreKitBasicsImportForShareKit.h"
-
 @implementation FBSDKGameRequestFrictionlessRecipientCache
 {
   NSSet *_recipientIDs;
@@ -108,7 +106,7 @@
                                                                  parameters:@{@"fields" : @""}
                                                                       flags:(FBSDKGraphRequestFlagDoNotInvalidateTokenOnError
                                                                         | FBSDKGraphRequestFlagDisableErrorRecovery)];
-  [request startWithCompletion:^(id<FBSDKGraphRequestConnecting> connection, id result, NSError *error) {
+  [request startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
     if (!error) {
       NSArray *items = [FBSDKTypeUtility arrayValue:result[@"data"]];
       NSArray *recipientIDs = [items valueForKey:@"recipient_id"];

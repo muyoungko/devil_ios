@@ -27,8 +27,6 @@
  #else
   #import "FBSDKCoreKit+Internal.h"
  #endif
-
- #import "FBSDKCoreKitBasicsImportForShareKit.h"
  #import "FBSDKShareUtility.h"
 
 static NSString *const FBSDKCameraEffectArgumentsArgumentsKey = @"arguments";

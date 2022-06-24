@@ -29,9 +29,6 @@
  #endif
  #import "FBSDKShareDialog.h"
 
-FBSDKAppEventName FBSDKAppEventNameFBSDKShareButtonImpression = @"fb_share_button_impression";
-FBSDKAppEventName FBSDKAppEventNameFBSDKShareButtonDidTap = @"fb_share_button_did_tap";
-
 @implementation FBSDKShareButton
 {
   FBSDKShareDialog *_dialog;

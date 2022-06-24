@@ -19,8 +19,15 @@
 #import "FBSDKAuthenticationToken.h"
 #import "FBSDKAuthenticationToken+Internal.h"
 
+#import <Foundation/Foundation.h>
+
+#ifdef FBSDKCOCOAPODS
+ #import <FBSDKCoreKit/FBSDKCoreKit+Internal.h>
+#else
+ #import "FBSDKCoreKit+Internal.h"
+#endif
+
 #import "FBSDKAuthenticationTokenClaims.h"
-#import "FBSDKCoreKitBasicsImport.h"
 
 static FBSDKAuthenticationToken *g_currentAuthenticationToken;
 static id<FBSDKTokenCaching> g_tokenCache;
