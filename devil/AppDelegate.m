@@ -14,6 +14,7 @@
 @import devilcore;
 @import devillogin;
 @import devilbill;
+@import devilads;
 
 #import <AFNetworking/AFNetworking.h>
 #import "UIImageView+AFNetworking.h"
@@ -163,6 +164,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [DevilSdk sharedInstance].devilSdkScreenDelegate = self;
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLearning class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
+    [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
     
     if(launchOptions == nil){
         [self preparePushToken:application];

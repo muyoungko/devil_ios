@@ -67,4 +67,5 @@ end
 
 target 'devilads' do
   project 'devilads/devilads.xcodeproj'
+  pod 'Google-Mobile-Ads-SDK'
 end

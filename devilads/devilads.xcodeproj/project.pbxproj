@@ -8,8 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D52E6D22619D82A00935D3A /* devilcore.framework */; };
-		6DEC18722860BB7100B3FE88 /* devilads.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18612860BB7100B3FE88 /* devilads.h */; };
+		6DEC18722860BB7100B3FE88 /* devilads.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18612860BB7100B3FE88 /* devilads.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DEC18742860BB7100B3FE88 /* TestSwiftLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18632860BB7100B3FE88 /* TestSwiftLogin.swift */; };
+		6DEC189F28660E0D00B3FE88 /* DevilAdsInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC189D28660E0D00B3FE88 /* DevilAdsInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC18A028660E0D00B3FE88 /* DevilAdsInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC189E28660E0D00B3FE88 /* DevilAdsInstance.m */; };
+		6DEC18A328660E1F00B3FE88 /* JevilAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18A128660E1F00B3FE88 /* JevilAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC18A428660E1F00B3FE88 /* JevilAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18A228660E1F00B3FE88 /* JevilAds.m */; };
+		6DEC18A728660E3100B3FE88 /* DevilAdsSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18A528660E3100B3FE88 /* DevilAdsSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC18A828660E3100B3FE88 /* DevilAdsSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18A628660E3100B3FE88 /* DevilAdsSdk.m */; };
 		90437E80EEACA3E6F3DA12BB /* Pods_devilads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13FC6D9BB4C57424AE992C5 /* Pods_devilads.framework */; };
 /* End PBXBuildFile section */
 
@@ -21,6 +27,12 @@
 		6DEC18612860BB7100B3FE88 /* devilads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilads.h; sourceTree = "<group>"; };
 		6DEC18632860BB7100B3FE88 /* TestSwiftLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwiftLogin.swift; sourceTree = "<group>"; };
 		6DEC18712860BB7100B3FE88 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DEC189D28660E0D00B3FE88 /* DevilAdsInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAdsInstance.h; sourceTree = "<group>"; };
+		6DEC189E28660E0D00B3FE88 /* DevilAdsInstance.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAdsInstance.m; sourceTree = "<group>"; };
+		6DEC18A128660E1F00B3FE88 /* JevilAds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilAds.h; sourceTree = "<group>"; };
+		6DEC18A228660E1F00B3FE88 /* JevilAds.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAds.m; sourceTree = "<group>"; };
+		6DEC18A528660E3100B3FE88 /* DevilAdsSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAdsSdk.h; sourceTree = "<group>"; };
+		6DEC18A628660E3100B3FE88 /* DevilAdsSdk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAdsSdk.m; sourceTree = "<group>"; };
 		D13FC6D9BB4C57424AE992C5 /* Pods_devilads.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilads.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -67,10 +79,24 @@
 		6DEC18602860BB7100B3FE88 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DEC189C28660DFE00B3FE88 /* ads */,
 				6DEC18612860BB7100B3FE88 /* devilads.h */,
 				6DEC18632860BB7100B3FE88 /* TestSwiftLogin.swift */,
 			);
 			path = source;
+			sourceTree = "<group>";
+		};
+		6DEC189C28660DFE00B3FE88 /* ads */ = {
+			isa = PBXGroup;
+			children = (
+				6DEC189D28660E0D00B3FE88 /* DevilAdsInstance.h */,
+				6DEC189E28660E0D00B3FE88 /* DevilAdsInstance.m */,
+				6DEC18A128660E1F00B3FE88 /* JevilAds.h */,
+				6DEC18A228660E1F00B3FE88 /* JevilAds.m */,
+				6DEC18A528660E3100B3FE88 /* DevilAdsSdk.h */,
+				6DEC18A628660E3100B3FE88 /* DevilAdsSdk.m */,
+			);
+			path = ads;
 			sourceTree = "<group>";
 		};
 		9F1645EDDEBFFD8ACCEAB80C /* Frameworks */ = {
@@ -99,7 +125,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DEC18A328660E1F00B3FE88 /* JevilAds.h in Headers */,
+				6DEC18A728660E3100B3FE88 /* DevilAdsSdk.h in Headers */,
 				6DEC18722860BB7100B3FE88 /* devilads.h in Headers */,
+				6DEC189F28660E0D00B3FE88 /* DevilAdsInstance.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +164,7 @@
 				TargetAttributes = {
 					6D7EC2FF25F4A37D00FAE7D8 = {
 						CreatedOnToolsVersion = 12.3;
-						LastSwiftMigration = 1230;
+						LastSwiftMigration = 1330;
 					};
 				};
 			};
@@ -197,6 +226,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DEC18A028660E0D00B3FE88 /* DevilAdsInstance.m in Sources */,
+				6DEC18A428660E1F00B3FE88 /* JevilAds.m in Sources */,
+				6DEC18A828660E3100B3FE88 /* DevilAdsSdk.m in Sources */,
 				6DEC18742860BB7100B3FE88 /* TestSwiftLogin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
