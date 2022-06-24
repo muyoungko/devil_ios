@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DevilBillInstance : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 +(DevilBillInstance*)sharedInstance;
+- (void)requestProduct:(NSArray*)skus callback:(void (^)(id res))callback;
 
 @end
 

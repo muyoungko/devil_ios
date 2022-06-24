@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol JevilBill <JSExport>
 
+
++ (void)getProduct:(NSDictionary*)param:(JSValue *)callback;
 + (void)loadItemList:(NSDictionary*)param:(JSValue *)callback;
 + (void)loadItemPurchasedList:(NSDictionary*)param:(JSValue *)callback;
 + (void)loadSubscribeList:(NSDictionary*)param : (JSValue *)callback;

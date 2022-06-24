@@ -21,10 +21,10 @@
     return sharedInstance;
 }
 
-- (void)getProduct:(NSString*)sku callback:(void (^)(id res))callback2
+- (void)requestProduct:(NSArray*)skus callback:(void (^)(id res))callback
 {
-    self.callback = callback2;
-    NSSet *productIdentifiers = [NSSet setWithObject:sku];
+    self.callback = callback;
+    NSSet *productIdentifiers = [NSSet setWithObject:skus];
     SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
     productsRequest.delegate = self;
     [productsRequest start];

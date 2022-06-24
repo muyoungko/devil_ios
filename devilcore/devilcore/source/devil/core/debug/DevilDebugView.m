@@ -11,7 +11,8 @@
 #import "DevilDebugController.h"
 #import "JevilInstance.h"
 #import "Jevil.h"
-#import "JevilCtx.h""
+#import "JevilCtx.h"
+
 
 @interface DevilDebugView()
 @property (nonatomic, retain) DevilController* vc;
@@ -22,8 +23,13 @@
 + (void)constructDebugViewIf:(DevilController*)vc{
     NSString *bundleIdentifier = [[NSBundle mainBundle] bundleIdentifier];
     DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    UIDevice *device = [UIDevice currentDevice];
+    NSString* udid = [[device identifierForVendor] UUIDString];
     if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"]
-       && ![@"1605234988599" isEqualToString:dc.projectId]
+       && (![@"1605234988599" isEqualToString:dc.projectId] ||
+           [@"CD44C803-7AAE-420F-A1DE-276E81847FAE" isEqualToString:udid]
+           )
+       
        )
     {
         DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];

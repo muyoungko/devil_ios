@@ -10,6 +10,12 @@
 
 @implementation JevilBill
 
++ (void)getProduct:(NSDictionary*)param:(JSValue *)callback {
+    [[DevilBillInstance sharedInstance] requestProduct:param[@"skus"] callback:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+    }];
+}
+
 + (void)loadItemList:(NSDictionary*)param:(JSValue *)callback{
 //    Bill
 }
@@ -20,7 +26,7 @@
     
 }
 + (void)loadSubscribePurchasedList:(NSDictionary*)param : (JSValue *)callback{
-    
+    [DevilBillInstance sharedInstance];
 }
 
 @end
