@@ -6,12 +6,12 @@
 //
 
 #import "JevilBill.h"
-#import "DevilBill.h"
+#import "DevilBillInstance.h"
 
 @implementation JevilBill
 
 + (void)loadItemList:(NSDictionary*)param:(JSValue *)callback{
-    
+//    Bill
 }
 + (void)loadItemPurchasedList:(NSDictionary*)param:(JSValue *)callback{
     

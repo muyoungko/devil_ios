@@ -3,25 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D52E6D22619D82A00935D3A /* devilcore.framework */; };
 		6DEC18722860BB7100B3FE88 /* devilads.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18612860BB7100B3FE88 /* devilads.h */; };
 		6DEC18742860BB7100B3FE88 /* TestSwiftLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18632860BB7100B3FE88 /* TestSwiftLogin.swift */; };
-		C52473C7347AC74072B7E891 /* Pods_devillogin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */; platformFilter = ios; };
+		90437E80EEACA3E6F3DA12BB /* Pods_devilads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13FC6D9BB4C57424AE992C5 /* Pods_devilads.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.debug.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.debug.xcconfig"; sourceTree = "<group>"; };
+		0741C836510F2351090E9673 /* Pods-devilads.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilads.release.xcconfig"; path = "Target Support Files/Pods-devilads/Pods-devilads.release.xcconfig"; sourceTree = "<group>"; };
+		09C2B536085D4DA0654D3831 /* Pods-devilads.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilads.debug.xcconfig"; path = "Target Support Files/Pods-devilads/Pods-devilads.debug.xcconfig"; sourceTree = "<group>"; };
 		6D52E6D22619D82A00935D3A /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7EC30025F4A37D00FAE7D8 /* devilads.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devilads.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DEC18612860BB7100B3FE88 /* devilads.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilads.h; sourceTree = "<group>"; };
 		6DEC18632860BB7100B3FE88 /* TestSwiftLogin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestSwiftLogin.swift; sourceTree = "<group>"; };
 		6DEC18712860BB7100B3FE88 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devillogin.release.xcconfig"; path = "Target Support Files/Pods-devillogin/Pods-devillogin.release.xcconfig"; sourceTree = "<group>"; };
+		D13FC6D9BB4C57424AE992C5 /* Pods_devilads.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilads.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,7 +30,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */,
-				C52473C7347AC74072B7E891 /* Pods_devillogin.framework in Frameworks */,
+				90437E80EEACA3E6F3DA12BB /* Pods_devilads.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				6D52E6D22619D82A00935D3A /* devilcore.framework */,
-				85C0E8F04D45C3A9265BFE6D /* Pods_devillogin.framework */,
+				D13FC6D9BB4C57424AE992C5 /* Pods_devilads.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -85,8 +85,8 @@
 		A8849A58C05FFF764C6B824F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */,
-				FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */,
+				09C2B536085D4DA0654D3831 /* Pods-devilads.debug.xcconfig */,
+				0741C836510F2351090E9673 /* Pods-devilads.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../Pods;
@@ -115,7 +115,6 @@
 				6D7EC2FC25F4A37D00FAE7D8 /* Sources */,
 				6D7EC2FD25F4A37D00FAE7D8 /* Frameworks */,
 				6D7EC2FE25F4A37D00FAE7D8 /* Resources */,
-				CE33EF874079611E789C12B9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -184,28 +183,11 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-devillogin-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-devilads-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CE33EF874079611E789C12B9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devillogin/Pods-devillogin-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devillogin/Pods-devillogin-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devillogin/Pods-devillogin-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -342,7 +324,7 @@
 		};
 		6D7EC30925F4A37D00FAE7D8 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 057C9C2579C9724EACF804FF /* Pods-devillogin.debug.xcconfig */;
+			baseConfigurationReference = 09C2B536085D4DA0654D3831 /* Pods-devilads.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
@@ -375,7 +357,7 @@
 		};
 		6D7EC30A25F4A37D00FAE7D8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBB6A61305AB1EC74B30F0DC /* Pods-devillogin.release.xcconfig */;
+			baseConfigurationReference = 0741C836510F2351090E9673 /* Pods-devilads.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;

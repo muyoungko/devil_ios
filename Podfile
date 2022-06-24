@@ -61,3 +61,10 @@ target 'devillogin' do
   pod 'GoogleToolboxForMac'
 end
   
+target 'devilbill' do
+  project 'devilbill/devilbill.xcodeproj'
+end
+
+target 'devilads' do
+  project 'devilads/devilads.xcodeproj'
+end
