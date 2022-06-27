@@ -404,18 +404,19 @@ BOOL httpOk[10];
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
         
-        if(responseJsonObject == nil)
-            responseJsonObject = [@{} mutableCopy];
-        else if([responseJsonObject isMemberOfClass:[NSError class]]){
+        if([responseJsonObject isKindOfClass:[NSError class]] || [responseJsonObject isMemberOfClass:[NSError class]]){
             NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
+            responseJsonObject = nil;
         } else
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
-        if(!responseJsonObject)
-            responseJsonObject = [@{} mutableCopy];
         
-        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[responseJsonObject]];
+        if(responseJsonObject)
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[responseJsonObject]];
+        else
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[]];
+        
         [[JevilInstance currentInstance] syncData];
     }];
 }

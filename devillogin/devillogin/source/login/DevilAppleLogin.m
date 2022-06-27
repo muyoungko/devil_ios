@@ -45,7 +45,7 @@
         // ASAuthorizationAppleIDCredential
         ASAuthorizationAppleIDCredential *appleIDCredential = authorization.credential;
         NSString *identifier = appleIDCredential.user;
-        NSString *token = [NSString stringWithFormat:@"%@", appleIDCredential.identityToken];
+        NSString *token = [[NSString alloc] initWithData:appleIDCredential.identityToken encoding:NSUTF8StringEncoding];
         
         id r = [@{} mutableCopy];
         r[@"identifier"] = identifier;

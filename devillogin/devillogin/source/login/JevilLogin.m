@@ -99,6 +99,8 @@
     [Jevil remove:@"x-access-token"];
     DevilKakaoLogin* kakao = [[DevilKakaoLogin alloc] init];
     [kakao logout];
+    
+    
 }
 
 @end
