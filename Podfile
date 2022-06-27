@@ -48,7 +48,6 @@ end
 
 target 'devilcore' do
   project 'devilcore/devilcore.xcodeproj'
-  # pod "NextLevel", "~> 0.16.3"
   lottie_libs
   pod 'MQTTClient'
   pod 'ZXingObjC', '~> 3.2.1'

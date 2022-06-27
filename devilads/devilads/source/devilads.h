@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "JevilAds.h"
-@import GoogleMobileAds;
+//@import GoogleMobileAds;
 
 //! Project version number for devillogin.
 FOUNDATION_EXPORT double deviladsVersionNumber;
