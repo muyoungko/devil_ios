@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilbill'
   s.platform         = :ios
-  s.version          = '0.0.161'
+  s.version          = '0.0.164'
   s.summary          = 'Devil Bill'
   s.description      = <<-DESC
     This is Devil Bill
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   
   s.source_files = 'devilbill/devilbill/source/**/*.*'
   s.public_header_files = 'devilbill/devilads/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
-  s.dependency 'devilcore', '~> 0.0.161'
-  s.resources = 'devilbill/devilbill/resource/*'
+  s.dependency 'devilcore', '~> 0.0.94'
+  #s.resources = 'devilbill/devilbill/resource/*'
 
 end

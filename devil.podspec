@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
   s.platform         = :ios
-  s.version          = '0.0.163'
+  s.version          = '0.0.164'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil
@@ -17,19 +17,19 @@ Pod::Spec.new do |s|
   }
   
   s.subspec 'DevilCore' do |ss|
-    ss.dependency 'devilcore', '~> 0.0.163'
+    ss.dependency 'devilcore', '~> 0.0.161'
   end
 
   s.subspec 'DevilLogin' do |ss|
-    ss.dependency 'devillogin', '~> 0.0.163'
+    ss.dependency 'devillogin', '~> 0.0.161'
   end
   
   s.subspec 'DevilAds' do |ss|
-    ss.dependency 'devilads', '~> 0.0.163'
+    ss.dependency 'devilads', '~> 0.0.161'
   end
   
   s.subspec 'DevilBill' do |ss|
-    ss.dependency 'devilbill', '~> 0.0.163'
+    ss.dependency 'devilbill', '~> 0.0.161'
   end
 
 end
