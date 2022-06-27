@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devillogin'
   s.platform         = :ios
-  s.version          = '0.0.161'
+  s.version          = '0.0.163'
   s.summary          = 'Devil Login'
   s.description      = <<-DESC
     This is Devil Login
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files = 'devillogin/devillogin/source/**/*.*', 'devillogin/devillogin/header/**/*.h'
   s.public_header_files = 'devillogin/devillogin/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
-  s.dependency 'devilcore', '~> 0.0.94'
+  s.dependency 'devilcore', '~> 0.0.163'
   s.dependency 'KakaoSDK', '~> 2.7.0'
   s.dependency 'FBSDKLoginKit', '~> 9.3.0'
   s.dependency 'FBSDKShareKit', '~> 9.3.0'
