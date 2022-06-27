@@ -13,7 +13,12 @@ workspace 'devil'
 project 'devil.xcodeproj'
 project 'devilcore/devilcore.xcodeproj'
 project 'devillogin/devillogin.xcodeproj'
+project 'devilbill/devilbill.xcodeproj'
+project 'devilads/devilads.xcodeproj'
 
+def google_ads
+  pod 'Google-Mobile-Ads-SDK'
+end
 def lottie_libs
   pod 'lottie-ios', '~> 2.5.3'
 end
@@ -23,7 +28,8 @@ target 'devil' do
   project 'devil.xcodeproj'
   
   lottie_libs
- 
+  google_ads
+  
   pod 'AFNetworking','~>4.0'
   
   pod 'Firebase/Core'
@@ -36,7 +42,6 @@ target 'devil' do
   
   pod 'GoogleSignIn', '~> 5.0'
   pod 'GoogleToolboxForMac'
-  pod 'Google-Mobile-Ads-SDK'
   pod 'naveridlogin-sdk-ios'
 end
 
@@ -53,8 +58,15 @@ target 'devillogin' do
   project 'devillogin/devillogin.xcodeproj'
   
   lottie_libs
+  pod 'Alamofire'
   
-  pod 'KakaoSDK'
+  pod 'KakaoSDKCommon'  # 필수 요소를 담은 공통 모듈
+  pod 'KakaoSDKAuth'  # 사용자 인증
+  pod 'KakaoSDKUser'  # 카카오 로그인, 사용자 관리
+  pod 'KakaoSDKTalk'  # 친구, 메시지(카카오톡)
+  pod 'KakaoSDKStory'  # 카카오스토리
+  pod 'KakaoSDKLink'  # 메시지(카카오톡 공유)
+  
   pod 'FBSDKLoginKit', '~> 9.3.0'
   pod 'FBSDKShareKit', '~> 9.3.0'
   pod 'GoogleSignIn', '~> 5.0'
@@ -67,5 +79,5 @@ end
 
 target 'devilads' do
   project 'devilads/devilads.xcodeproj'
-  pod 'Google-Mobile-Ads-SDK'
+  google_ads
 end

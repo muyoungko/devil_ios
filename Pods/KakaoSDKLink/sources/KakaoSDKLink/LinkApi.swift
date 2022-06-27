@@ -13,12 +13,13 @@
 //  limitations under the License.
 
 import Foundation
+import UIKit
 
 import Alamofire
 import KakaoSDKCommon
 import KakaoSDKTemplate
 
-/// 카카오링크 호출을 담당하는 클래스입니다.
+/// 카카오톡 공유 호출을 담당하는 클래스입니다.
 public class LinkApi {
     
     // MARK: Fields
@@ -26,9 +27,9 @@ public class LinkApi {
     /// 간편하게 API를 호출할 수 있도록 제공되는 공용 싱글톤 객체입니다. 
     public static let shared = LinkApi()
         
-    /// 카카오링크 API로부터 리다이렉트 된 URL 인지 체크합니다.
+    /// 카카오톡 공유 API로부터 리다이렉트 된 URL 인지 체크합니다.
     public static func isKakaoLinkUrl(_ url:URL) -> Bool {
-        if url.absoluteString.hasPrefix("\(try! KakaoSDKCommon.shared.scheme())://kakaolink") {
+        if url.absoluteString.hasPrefix("\(try! KakaoSDK.shared.scheme())://kakaolink") {
             return true
         }
         return false
@@ -68,7 +69,7 @@ extension LinkApi {
             // 측정 불가 bypass
             return false
         }
-        return count >= 1024 * 24
+        return count >= 1024 * 10
     }
 
     // MARK: Using Web Sharer
@@ -123,7 +124,7 @@ extension LinkApi {
     
     //공통
     private func makeSharerUrl(url:String, action:String, parameters:[String:Any]? = nil, serverCallbackArgs:[String:String]? = nil) -> URL? {
-        return SdkUtils.makeUrlWithParameters(url, parameters: ["app_key":try! KakaoSDKCommon.shared.appKey(),
+        return SdkUtils.makeUrlWithParameters(url, parameters: ["app_key":try! KakaoSDK.shared.appKey(),
                                                                 "validation_action":action,
                                                                 "validation_params":parameters?.toJsonString(),
                                                                 "ka":Constants.kaHeader,
@@ -135,9 +136,7 @@ extension LinkApi {
 extension LinkApi {
     // MARK: Fields
     
-    public func transformResponseToLinkResult(response: HTTPURLResponse?, data:Data?, targetAppKey: String? = nil, serverCallbackArgs:[String:String]? = nil,
-                                              completion:@escaping (LinkResult?, Error?) -> Void) {
-        
+    public func transformResponseToLinkResult(response: HTTPURLResponse?, data:Data?, targetAppKey: String? = nil, serverCallbackArgs:[String:String]? = nil, completion:@escaping (LinkResult?, Error?) -> Void) {
         
         if let data = data, let validationResult = try? SdkJSONDecoder.default.decode(ValidationResult.self, from: data) {
             let extraParameters = ["KA":Constants.kaHeader,
@@ -145,8 +144,7 @@ extension LinkApi {
                                    "lcba":serverCallbackArgs?.toJsonString()
                 ].filterNil()
             
-            let linkParameters = ["appkey" : try! KakaoSDKCommon.shared.appKey(),
-                                  "target_app_key" : targetAppKey,
+            let linkParameters = ["appkey" : (targetAppKey != nil) ? targetAppKey! : try! KakaoSDK.shared.appKey(),
                                   "appver" : Constants.appVersion(),
                                   "linkver" : "4.0",
                                   "template_json" : validationResult.templateMsg.toJsonString(),
@@ -168,6 +166,9 @@ extension LinkApi {
                 completion(nil, SdkError(reason:.BadParameter, message: "Invalid Url."))
             }
         }
+        else {
+            completion(nil, SdkError(reason:.Unknown, message: "Invalid Validation Result."))
+        }
     }
     
     // MARK: Using KakaoTalk
@@ -179,12 +180,15 @@ extension LinkApi {
                                 Urls.compose(path:Paths.defalutLink),
                                 parameters: ["link_ver":"4.0",
                                              "template_object":templateObjectJsonString].filterNil(),
-                                headers: ["Authorization":"KakaoAK \(try! KakaoSDKCommon.shared.appKey())"],
+                                headers: ["Authorization":"KakaoAK \(try! KakaoSDK.shared.appKey())"],
                                 sessionType: .Api,
-                                apiType: .KApi) { [weak self] (response, data, error) in
-                                    let strongSelf = self
-                                    
-                                    strongSelf?.transformResponseToLinkResult(response: response, data: data, serverCallbackArgs: serverCallbackArgs) { (linkResult, error) in
+                                apiType: .KApi) { [unowned self] (response, data, error) in
+                                                                        
+                                if let error = error {
+                                    completion(nil, error)
+                                }
+                                else {
+                                    self.transformResponseToLinkResult(response: response, data: data, serverCallbackArgs: serverCallbackArgs) { (linkResult, error) in
                                         if let error = error {
                                             completion(nil, error)
                                         }
@@ -197,6 +201,7 @@ extension LinkApi {
                                             }
                                         }
                                     }
+                                }
         }
     }
     
@@ -225,12 +230,14 @@ extension LinkApi {
                                              "template_id":templateId,
                                              "template_args":templateArgs?.toJsonString()]
                                     .filterNil(),
-                                headers: ["Authorization":"KakaoAK \(try! KakaoSDKCommon.shared.appKey())"],
+                                headers: ["Authorization":"KakaoAK \(try! KakaoSDK.shared.appKey())"],
                                 sessionType: .Api,
-                                apiType: .KApi) { [weak self] (response, data, error) in
-                                    let strongSelf = self
-                                    
-                                    strongSelf?.transformResponseToLinkResult(response: response, data: data, serverCallbackArgs: serverCallbackArgs) { (linkResult, error) in
+                                apiType: .KApi) { [unowned self] (response, data, error) in
+                                if let error = error {
+                                    completion(nil, error)
+                                }
+                                else {
+                                    self.transformResponseToLinkResult(response: response, data: data, serverCallbackArgs: serverCallbackArgs) { (linkResult, error) in
                                         if let error = error {
                                             completion(nil, error)
                                         }
@@ -243,7 +250,7 @@ extension LinkApi {
                                             }
                                         }
                                     }
-                                    
+                                }
         }
     }
     
@@ -257,12 +264,14 @@ extension LinkApi {
                                              "template_id":templateId,
                                              "template_args":templateArgs?.toJsonString()]
                                     .filterNil(),
-                                headers: ["Authorization":"KakaoAK \(try! KakaoSDKCommon.shared.appKey())"],
+                                headers: ["Authorization":"KakaoAK \(try! KakaoSDK.shared.appKey())"],
                                 sessionType: .Api,
-                                apiType: .KApi ) { [weak self] (response, data, error) in
-                                    let strongSelf = self
-                                    
-                                    strongSelf?.transformResponseToLinkResult(response: response, data: data, serverCallbackArgs: serverCallbackArgs) { (linkResult, error) in
+                                apiType: .KApi ) { [unowned self] (response, data, error) in
+                                if let error = error {
+                                    completion(nil, error)
+                                }
+                                else {
+                                    self.transformResponseToLinkResult(response: response, data: data, serverCallbackArgs: serverCallbackArgs) { (linkResult, error) in
                                         if let error = error {
                                             completion(nil, error)
                                         }
@@ -275,18 +284,19 @@ extension LinkApi {
                                             }
                                         }
                                     }
+                                }
         }
     }
         
     // MARK: Image Upload
     
-    /// 카카오링크 컨텐츠 이미지로 활용하기 위해 로컬 이미지를 카카오 이미지 서버로 업로드 합니다.
+    /// 카카오톡 공유 컨텐츠 이미지로 활용하기 위해 로컬 이미지를 카카오 이미지 서버로 업로드 합니다.
     public func imageUpload(image: UIImage, secureResource: Bool = true,
                             completion:@escaping (ImageUploadResult?, Error?) -> Void ) {
         return API.upload(.post, Urls.compose(path:Paths.imageUploadLink),
                           images: [image],
                           parameters: ["secure_resource": secureResource],
-                          headers: ["Authorization":"KakaoAK \(try! KakaoSDKCommon.shared.appKey())"],
+                          headers: ["Authorization":"KakaoAK \(try! KakaoSDK.shared.appKey())"],
                           sessionType: .Api,
                           apiType: .KApi) { (response, data, error) in
                             if let error = error {
@@ -303,12 +313,12 @@ extension LinkApi {
         }
     }
     
-    /// 카카오링크 컨텐츠 이미지로 활용하기 위해 원격 이미지를 카카오 이미지 서버로 스크랩 합니다.
+    /// 카카오톡 공유 컨텐츠 이미지로 활용하기 위해 원격 이미지를 카카오 이미지 서버로 스크랩 합니다.
     public func imageScrap(imageUrl: URL, secureResource: Bool = true,
                            completion:@escaping (ImageUploadResult?, Error?) -> Void) {
         API.responseData(.post, Urls.compose(path:Paths.imageScrapLink),
                                 parameters: ["image_url": imageUrl.absoluteString, "secure_resource": secureResource],
-                                headers: ["Authorization":"KakaoAK \(try! KakaoSDKCommon.shared.appKey())"],
+                                headers: ["Authorization":"KakaoAK \(try! KakaoSDK.shared.appKey())"],
                                 sessionType: .Api,
                                 apiType: .KApi) { (response, data, error) in
                                     if let error = error {

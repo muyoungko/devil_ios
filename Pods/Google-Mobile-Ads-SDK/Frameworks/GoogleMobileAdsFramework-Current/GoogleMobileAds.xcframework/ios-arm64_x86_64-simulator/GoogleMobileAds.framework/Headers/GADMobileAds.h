@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>
 
 #import <GoogleMobileAds/GADAudioVideoManager.h>
 #import <GoogleMobileAds/GADInitializationStatus.h>
@@ -56,7 +57,10 @@ typedef void (^GADAdInspectorCompletionHandler)(NSError *_Nullable error);
 /// Available in Google Mobile Ads SDK 7.10 and onwards. Before calling this method check if the
 /// GADMobileAds's shared instance responds to this method. Calling this method on a Google Mobile
 /// Ads SDK lower than 7.10 can crash the app.
-- (BOOL)isSDKVersionAtLeastMajor:(NSInteger)major minor:(NSInteger)minor patch:(NSInteger)patch;
+- (BOOL)isSDKVersionAtLeastMajor:(NSInteger)major
+                           minor:(NSInteger)minor
+                           patch:(NSInteger)patch
+    NS_SWIFT_NAME(isSDKVersionAtLeast(major:minor:patch:));
 
 /// Starts the Google Mobile Ads SDK. Call this method as early as possible to reduce latency on the
 /// session's first ad request. Calls completionHandler when the GMA SDK and all mediation networks
@@ -85,12 +89,8 @@ typedef void (^GADAdInspectorCompletionHandler)(NSError *_Nullable error);
                            completionHandler:
                                (nullable GADAdInspectorCompletionHandler)completionHandler;
 
-#pragma mark Deprecated
-
-/// Deprecated and does nothing. IAP transaction reporting is no longer supported.
-- (void)disableAutomatedInAppPurchaseReporting GAD_DEPRECATED_ATTRIBUTE;
-
-/// Deprecated and does nothing. IAP transaction reporting is no longer supported.
-- (void)enableAutomatedInAppPurchaseReporting GAD_DEPRECATED_ATTRIBUTE;
+/// Registers a web view with the Google Mobile Ads SDK to improve in-app ad monetization of ads
+/// within this web view.
+- (void)registerWebView:(nonnull WKWebView *)webView;
 
 @end

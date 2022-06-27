@@ -17,7 +17,7 @@ import KakaoSDKCommon
 
 /// 카카오 SDK의 기본 템플릿을 나타내는 프로토콜 입니다. 카카오 SDK에서는 카카오 디벨로퍼스에서 별도 템플릿을 만들지 않고도 소스코드 레벨에서 간단하게 템플릿을 작성할 수 있도록 기본 템플릿을 제공하고 있습니다.
 ///
-/// 이 모듈에서 제공되는 모든 템플릿 클래스는 이 프로토콜을 구현하고 있습니다. 생성된 템플릿으로 카카오링크, 카카오톡 메시지 전송에 활용할 수 있습니다.
+/// 이 모듈에서 제공되는 모든 템플릿 클래스는 이 프로토콜을 구현하고 있습니다. 생성된 템플릿으로 카카오톡 공유, 카카오톡 메시지 전송에 활용할 수 있습니다.
 ///
 /// - see:
 /// `FeedTemplate`<br>
@@ -172,6 +172,87 @@ public struct Content : Codable {
     }
 }
 
+/// 아이템 목록 형태의 콘텐츠의 내용을 담고 있는 오브젝트 입니다.
+public struct ItemContent : Codable {
+    
+    // MARK: Fields
+    
+    /// 헤더 또는 프로필 영역에 출력될 텍스트
+    /// profileImageUrl 값이 없을 경우, 볼드(Bold)체로 된 제목만 담은 헤더 형태로 출력됨, 최대 16자까지 출력
+    public let profileText : String?
+    
+    /// 프로필 영역에 출력될 이미지
+    /// 작은 원형의 프로필 사진 형태로 출력됨
+    public let profileImageUrl : URL?
+    
+    /// 이미지 아이템의 제목
+    /// 최대 2줄, 최대 24자까지 출력
+    public let titleImageText : String?
+    
+    /// 이미지 아이템의 이미지
+    /// iOS 108*108, Android 98*98 크기 1:1 비율이 아닌 이미지는 센터 크롭(Center crop) 방식으로 재조정됨
+    public let titleImageUrl : URL?
+    
+    /// 이미지 아이템의 제목 아래에 회색 글씨로 출력되는 카테고리 정보
+    /// 최대 한 줄, 최대 14자까지 출력
+    public let titleImageCategory : String?
+    
+    /// 각 텍스트 아이템 정보
+    /// 아이템 이름과 가격에 해당하는 item, itemOp를 포함한 JSON 배열, 최대 5개의 아이템 지원
+    public let items : [ItemInfo]?
+    
+    /// 주문금액, 결제금액 등 아이템 목록을 종합하는 제목
+    /// 텍스트 아이템 영역 아래에 최대 6자까지 출력
+    public let sum : String?
+    
+    /// 아이템 목록의 가격 합산 정보
+    /// 아이템 영역 아래에 볼드체로 최대 11자까지 출력
+    public let sumOp : String?
+    
+    
+    // MARK: Initializers
+    
+    public init(profileText: String? = nil,
+                profileImageUrl: URL? = nil,
+                titleImageText: String? = nil,
+                titleImageUrl: URL? = nil,
+                titleImageCategory: String? = nil,
+                items: [ItemInfo]? = nil,
+                sum: String? = nil,
+                sumOp: String? = nil) {
+        self.profileText = profileText
+        self.profileImageUrl = profileImageUrl
+        self.titleImageText = titleImageText
+        self.titleImageUrl = titleImageUrl
+        self.titleImageCategory = titleImageCategory
+        
+        self.items = items
+        
+        self.sum = sum
+        self.sumOp = sumOp
+    }
+}
+
+/// 아이템 목록 형태의 콘텐츠의 내용을 담고 있는 오브젝트 입니다.
+public struct ItemInfo : Codable {
+    
+    /// 아이템 이름, 최대 6자까지 출력
+    /// item과 itemOp는 둘 다 값이 있어야만 아이템 목록에 출력
+    public let item : String
+    
+    /// 아이템 가격. 최대 2줄, 1줄인 경우 최대 14자, 2줄인 경우 최대 25자까지 출력
+    /// 사용 가능한 문자: 숫자, 통화기호, 쉼표(,), 마침표(.), 띄어쓰기 소수 단위 금액을 포함한 경우, 소수점 아래 2자리까지만 사용 권장
+    /// item과 itemOp는 둘 다 값이 있어야만 아이템 목록에 출력
+    public let itemOp : String
+    
+    // MARK: Initializers
+    public init (item : String,
+                 itemOp : String) {
+        self.item = item
+        self.itemOp = itemOp
+    }
+}
+
 /// 가격, 할인율 등 커머스 정보를 나타내는 오브젝트 입니다.
 public struct CommerceDetail : Codable {
     
@@ -189,17 +270,31 @@ public struct CommerceDetail : Codable {
     /// 정액 할인 가격 (할인율과 동시 사용불가)
     public let fixedDiscountPrice : Int?
     
+    /// 상품명
+    public let productName : String?
     
+    /// 가격 단위
+    public let currencyUnit : String?
+    
+    /// 가격 단위 위치 (0: 가격뒤에 단위 표시, 1 : 가격앞에 단위 표시)
+    public let currencyUnitPosition : Int?
+
     // MARK: Initializers
     
     public init (regularPrice : Int,
                  discountPrice : Int? = nil,
                  discountRate : Int? = nil,
-                 fixedDiscountPrice : Int? = nil) {
+                 fixedDiscountPrice : Int? = nil,
+                 productName : String? = nil,
+                 currencyUnit : String? = nil,
+                 currencyUnitPosition : Int? = nil) {
         self.regularPrice = regularPrice
         self.discountPrice = discountPrice
         self.discountRate = discountRate
         self.fixedDiscountPrice = fixedDiscountPrice
+        self.productName = productName
+        self.currencyUnit = currencyUnit
+        self.currencyUnitPosition = currencyUnitPosition
     }
 }
 
@@ -224,19 +319,23 @@ public struct FeedTemplate : Codable, Templatable {
     /// "feed" 고정 값
     public let objectType : String
     
-    /// 메시지의 내용 입니다. 텍스트 및 이미지, 링크 정보를 포함합니다.
+    /// 메시지의 메인 콘텐츠 정보입니다.
     /// - seealso: `Content`
     
     public let content: Content
     
-    /// 댓글수, 좋아요수 등, 컨텐츠에 대한 소셜 정보입니다.
+    /// 아이템 영역에 포함할 콘텐츠 정보입니다.
+    /// - seealso: `ItemContent`
+    public let itemContent: ItemContent?
+    
+    /// 콘텐츠에 대한 소셜 정보입니다.
     /// - seealso: `Social`
     public let social: Social?
     
-    /// 기본 버튼 타이틀("자세히 보기")을 변경하고 싶을 때 설정. 이 값을 사용하면 클릭 시 이동할 링크는 content에 입력된 값이 사용합니다.
+    /// 기본 버튼 타이틀(자세히 보기)을 변경하고 싶을 때 설정. 이 값을 사용하면 클릭 시 이동할 링크는 content 에 입력된 값이 사용됩니다.
     public let buttonTitle: String?
     
-    /// 버튼 목록. 버튼 타이틀과 링크를 변경하고 싶을때, 버튼 두개를 사용하고 싶을때 사용합니다. (최대 2개)
+    /// 버튼 목록, 최대 2개. 버튼 타이틀과 링크를 변경하고 싶을 때, 버튼 두 개를 넣고 싶을 때 사용합니다.
     /// - seealso: `Button`
     public let buttons : [Button]?
     
@@ -247,12 +346,14 @@ public struct FeedTemplate : Codable, Templatable {
     /// - parameter social: 좋아요, 구독수 등 소셜 정보
     ///
     public init (content: Content,
+                 itemContent: ItemContent? = nil,
                  social: Social? = nil,
                  buttonTitle: String? = nil,
                  buttons: [Button]? = nil ) {
         
         self.objectType = "feed"
         self.content = content
+        self.itemContent = itemContent
         self.social = social
         self.buttonTitle = buttonTitle
         self.buttons = buttons

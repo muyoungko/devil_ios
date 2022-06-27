@@ -13,6 +13,7 @@
 //  limitations under the License.
 
 import Foundation
+import UIKit
 import Alamofire
 import KakaoSDKCommon
 
@@ -37,8 +38,13 @@ public class Auth {
     
     func initSession() {
         let interceptor = Interceptor(adapter: AuthRequestAdapter(), retrier: AuthRequestRetrier())
-        API.addSession(type: .AuthApi, session: Session(configuration: URLSessionConfiguration.default, interceptor: interceptor))
-        API.addSession(type: .RxAuthApi, session: Session(configuration: URLSessionConfiguration.default, interceptor: AuthRequestAdapter()))
+        let authApiSessionConfiguration : URLSessionConfiguration = URLSessionConfiguration.default
+        authApiSessionConfiguration.tlsMinimumSupportedProtocol = .tlsProtocol12
+        API.addSession(type: .AuthApi, session: Session(configuration: authApiSessionConfiguration, interceptor: interceptor))
+        
+        let rxAuthApiSessionConfiguration : URLSessionConfiguration = URLSessionConfiguration.default
+        rxAuthApiSessionConfiguration.tlsMinimumSupportedProtocol = .tlsProtocol12
+        API.addSession(type: .RxAuthApi, session: Session(configuration: rxAuthApiSessionConfiguration, interceptor: AuthRequestAdapter()))
         
         SdkLog.d(">>>> \(API.sessions)")
     }
@@ -54,9 +60,10 @@ public class Auth {
                              parameters: [String: Any]? = nil,
                              headers: [String: String]? = nil,
                              apiType: ApiType,
+                             logging: Bool = true,
                              completion: @escaping (HTTPURLResponse?, Data?, Error?) -> Void) {
         
-        API.responseData(HTTPMethod, url, parameters: parameters, headers: headers, sessionType: .AuthApi, apiType: apiType, completion: completion)
+        API.responseData(HTTPMethod, url, parameters: parameters, headers: headers, sessionType: .AuthApi, apiType: apiType, logging: logging, completion: completion)
     }
     
     public func upload(_ HTTPMethod: Alamofire.HTTPMethod,

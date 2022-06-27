@@ -53,7 +53,7 @@ open class SdkLog {
     public var debugLog : String {
         get {
             if let appVersion = Bundle.main.object(forInfoDictionaryKey:"CFBundleShortVersionString") as? String {
-                return "\("==== sdk version: \(KakaoSDKCommon.shared.sdkVersion())\n")\("==== app version: \(appVersion)\n\n\n")\(_debugLogs.joined(separator: "\n"))"
+                return "\("==== sdk version: \(KakaoSDK.shared.sdkVersion())\n")\("==== app version: \(appVersion)\n\n\n")\(_debugLogs.joined(separator: "\n"))"
             }
             else {
                 return _debugLogs.joined(separator: "\n")
@@ -102,7 +102,7 @@ open class SdkLog {
         }
         #endif
         
-        if KakaoSDKCommon.shared.isLoggingEnable() {
+        if KakaoSDK.shared.isLoggingEnable() {
             if (printLogLevel.rawValue >= SdkLog.shared.releaseLogLevel.rawValue) {
                 if (SdkLog.shared._debugLogs.count >= SdkLog.shared.maxLogs) {
                     SdkLog.shared._debugLogs.removeFirst()

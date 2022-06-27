@@ -26,7 +26,7 @@ final public class AuthApi {
     
     /// 카카오톡 으로부터 리다이렉트 된 URL 인지 체크합니다.
     public static func isKakaoTalkLoginUrl(_ url:URL) -> Bool {
-        if url.absoluteString.hasPrefix(KakaoSDKCommon.shared.redirectUri()) {
+        if url.absoluteString.hasPrefix(KakaoSDK.shared.redirectUri()) {
             return true
         }
         return false
@@ -48,7 +48,7 @@ final public class AuthApi {
     public func agt(completion:@escaping (String?, Error?) -> Void) {
         API.responseData(.post,
                                 Urls.compose(.Kauth, path:Paths.authAgt),
-                                parameters: ["client_id":try! KakaoSDKCommon.shared.appKey(), "access_token":AUTH.tokenManager.getToken()?.accessToken].filterNil(),
+                                parameters: ["client_id":try! KakaoSDK.shared.appKey(), "access_token":AUTH.tokenManager.getToken()?.accessToken].filterNil(),
                                 sessionType:.Auth,
                                 apiType: .KAuth) { (response, data, error) in
                                     if let error = error {
@@ -70,17 +70,17 @@ final public class AuthApi {
     /// 사용자 인증코드를 이용하여 신규 토큰 발급을 요청합니다.
     public func token(code: String,
                       codeVerifier: String? = nil,
-                      redirectUri: String = KakaoSDKCommon.shared.redirectUri(),
+                      redirectUri: String = KakaoSDK.shared.redirectUri(),
                       completion:@escaping (OAuthToken?, Error?) -> Void) {
         API.responseData(.post,
                                 Urls.compose(.Kauth, path:Paths.authToken),
                                 parameters: ["grant_type":"authorization_code",
-                                             "client_id":try! KakaoSDKCommon.shared.appKey(),
+                                             "client_id":try! KakaoSDK.shared.appKey(),
                                              "redirect_uri":redirectUri,
                                              "code":code,
                                              "code_verifier":codeVerifier,
                                              "ios_bundle_id":Bundle.main.bundleIdentifier,
-                                             "approval_type":KakaoSDKCommon.shared.approvalType().type].filterNil(),
+                                             "approval_type":KakaoSDK.shared.approvalType().type].filterNil(),
                                 sessionType:.Auth,
                                 apiType: .KAuth) { (response, data, error) in
                                     if let error = error {
@@ -100,15 +100,15 @@ final public class AuthApi {
     }
     
     /// 기존 토큰을 갱신합니다.
-    public func refreshAccessToken(refreshToken: String? = nil,
-                                   completion:@escaping (OAuthToken?, Error?) -> Void) {
+    public func refreshToken(token oldToken: OAuthToken? = nil,
+                             completion:@escaping (OAuthToken?, Error?) -> Void) {
         API.responseData(.post,
                                 Urls.compose(.Kauth, path:Paths.authToken),
                                 parameters: ["grant_type":"refresh_token",
-                                             "client_id":try! KakaoSDKCommon.shared.appKey(),
-                                             "refresh_token":refreshToken ?? AUTH.tokenManager.getToken()?.refreshToken,
+                                             "client_id":try! KakaoSDK.shared.appKey(),
+                                             "refresh_token":oldToken?.refreshToken ?? AUTH.tokenManager.getToken()?.refreshToken,
                                              "ios_bundle_id":Bundle.main.bundleIdentifier,
-                                             "approval_type":KakaoSDKCommon.shared.approvalType().type].filterNil(),
+                                             "approval_type":KakaoSDK.shared.approvalType().type].filterNil(),
                                 sessionType:.Auth,
                                 apiType: .KAuth) { (response, data, error) in
                                     if let error = error {
@@ -118,9 +118,9 @@ final public class AuthApi {
                                     
                                     if let data = data {
                                         if let newToken = try? SdkJSONDecoder.custom.decode(Token.self, from: data) {
-                                        
+
                                             //oauthtoken 객체가 없으면 에러가 나야함.
-                                            guard let oldOAuthToken = AUTH.tokenManager.getToken()
+                                            guard let oldOAuthToken = oldToken ?? AUTH.tokenManager.getToken()
                                             else {
                                                 completion(nil, SdkError(reason: .TokenNotFound))
                                                 return
@@ -150,7 +150,8 @@ final public class AuthApi {
                                                                         refreshToken: newRefreshToken,
                                                                         refreshTokenExpiresIn: newRefreshTokenExpiresIn,
                                                                         scope: newToken.scope,
-                                                                        scopes: newToken.scopes)
+                                                                        scopes: newToken.scopes,
+                                                                        idToken: newToken.idToken)
                                             
                                             AUTH.tokenManager.setToken(oauthToken)
                                             completion(oauthToken, nil)
@@ -160,5 +161,13 @@ final public class AuthApi {
                                     
                                     completion(nil, SdkError())
                                 }
-    }   
+        
+    }
+    
+    
+    /// 기존 토큰을 갱신합니다.
+    @available(*, deprecated, message: "use refreshToken(token:completion:) instead")
+    public func refreshAccessToken(refreshToken: String? = nil,
+                                   completion:@escaping (OAuthToken?, Error?) -> Void) {
+    }
 }

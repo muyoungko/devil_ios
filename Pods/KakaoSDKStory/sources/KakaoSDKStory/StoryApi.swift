@@ -37,7 +37,7 @@ extension StoryApi {
 
     /// 스토리 포스팅 api 으로부터 리다이렉트 된 URL 인지 체크합니다.
     public static func isStoryPostUrl(_ url:URL) -> Bool {
-        if url.absoluteString.hasPrefix("kakao\(try! KakaoSDKCommon.shared.appKey())://kakaostory") {
+        if url.absoluteString.hasPrefix("kakao\(try! KakaoSDK.shared.appKey())://kakaostory") {
             return true
         }
         return false
@@ -98,7 +98,7 @@ extension StoryApi {
                             }
                             
                             if let data = data {
-                                completion(try? SdkJSONDecoder.custom.decode(Story.self, from: data), nil)
+                                completion(try? SdkJSONDecoder.customIso8601Date.decode(Story.self, from: data), nil)
                                 return
                             }
 

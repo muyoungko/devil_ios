@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilads'
   s.platform         = :ios
-  s.version          = '0.0.164'
+  s.version          = '0.0.165'
   s.summary          = 'Devil Ads'
   s.description      = <<-DESC
     This is Devil Ads
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files = 'devilads/devilads/source/**/*.*', 'devilads/devilads/header/**/*.h'
   s.public_header_files = 'devilads/devilads/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.dependency 'devilcore', '~> 0.0.94'
-  # s.depondency 'Google-Mobile-Ads-SDK'
+  s.depondency 'Google-Mobile-Ads-SDK'
   # s.resources = 'devilads/devilads/resource/*'
 
 end

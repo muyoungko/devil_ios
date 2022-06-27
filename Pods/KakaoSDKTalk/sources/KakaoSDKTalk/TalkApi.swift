@@ -42,7 +42,7 @@ public class TalkApi {
     /// ```
     public func makeUrlForAddChannel(channelPublicId:String) -> URL? {
         SdkLog.d("===================================================================================================")
-        let url = SdkUtils.makeUrlWithParameters("\(Urls.compose(.Channel, path:Paths.channel))/\(channelPublicId)/friend",parameters:["app_key":try! KakaoSDKCommon.shared.appKey(), "kakao_agent":Constants.kaHeader, "api_ver":"1.0"].filterNil())
+        let url = SdkUtils.makeUrlWithParameters("\(Urls.compose(.Channel, path:Paths.channel))/\(channelPublicId)/friend",parameters:["app_key":try! KakaoSDK.shared.appKey(), "kakao_agent":Constants.kaHeader, "api_ver":"1.0"].filterNil())
         SdkLog.d("url: \(url?.absoluteString ?? "something wrong!") \n")
         return url
     }
@@ -62,7 +62,7 @@ public class TalkApi {
     public func makeUrlForChannelChat(channelPublicId:String) -> URL? {
         SdkLog.d("===================================================================================================")
         let url = SdkUtils.makeUrlWithParameters("\(Urls.compose(.Channel, path:Paths.channel))/\(channelPublicId)/chat",
-            parameters:["app_key":try! KakaoSDKCommon.shared.appKey(), "kakao_agent":Constants.kaHeader, "api_ver":"1.0"].filterNil())
+            parameters:["app_key":try! KakaoSDK.shared.appKey(), "kakao_agent":Constants.kaHeader, "api_ver":"1.0"].filterNil())
         SdkLog.d("url: \(url?.absoluteString ?? "something wrong!") \n")
         return url
     }
@@ -128,11 +128,12 @@ extension TalkApi {
      public func friends(offset: Int? = nil,
                          limit: Int? = nil,
                          order: Order? = nil,
+                         friendOrder: FriendOrder? = nil,
                          completion:@escaping (Friends<Friend>?, Error?) -> Void) {
          
          AUTH.responseData(.get,
                            Urls.compose(path:Paths.friends),
-                           parameters: ["offset": offset, "limit": limit, "order": order?.rawValue].filterNil(),
+                           parameters: ["offset": offset, "limit": limit, "order": order?.rawValue, "friend_order":friendOrder?.rawValue].filterNil(),
                            apiType: .KApi) { (response, data, error) in
                          
                              if let error = error {
@@ -157,6 +158,7 @@ extension TalkApi {
             friends(offset: context?.offset,
                     limit: context?.limit,
                     order: context?.order,
+                    friendOrder: context?.friendOrder,
                     completion: completion)
     }
     

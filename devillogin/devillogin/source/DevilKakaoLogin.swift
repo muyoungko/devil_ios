@@ -19,7 +19,8 @@ public class DevilKakaoLogin: NSObject {
     @objc static public func initKakaoAppKey() {
         let path = Bundle.main.path(forResource: "devil", ofType:"plist")!
         let dict = NSDictionary(contentsOfFile: path)
-        KakaoSDKCommon.initSDK(appKey: dict!["KakaoAppKey"] as! String)
+        
+        KakaoSDK.initSDK(appKey: dict!["KakaoAppKey"] as! String)
     }
     
     @objc static public func handleOpenUrl(_ url:URL) -> Bool {

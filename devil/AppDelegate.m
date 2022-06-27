@@ -10,7 +10,6 @@
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @import CoreData;
-@import GoogleMobileAds;
 @import devilcore;
 @import devillogin;
 @import devilbill;
