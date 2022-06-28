@@ -37,8 +37,6 @@
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
 		6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22CF6125FFB25C00A1CB25 /* devillogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6D6D31062869CF3600E6466A /* devilbill.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6D31052869CF3600E6466A /* devilbill.framework */; };
-		6D6D31082869CF3C00E6466A /* devilads.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6D31072869CF3C00E6466A /* devilads.framework */; };
 		6D6D31092869CF6100E6466A /* devilads.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6D31072869CF3C00E6466A /* devilads.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D6D310A2869CF6100E6466A /* devilbill.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6D31052869CF3600E6466A /* devilbill.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6DAAD9DE265FF8BA00FE5682 /* DevilNaverLoginCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */; };
@@ -156,9 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D6D31062869CF3600E6466A /* devilbill.framework in Frameworks */,
 				8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */,
-				6D6D31082869CF3C00E6466A /* devilads.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

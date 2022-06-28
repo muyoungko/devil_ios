@@ -129,12 +129,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleUtilities-00567490.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GoogleUtilities-7afea142.xcscheme</key>
+		<key>GoogleUtilities.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
