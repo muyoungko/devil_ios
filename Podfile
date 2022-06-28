@@ -19,6 +19,12 @@ project 'devilads/devilads.xcodeproj'
 def google_ads
   pod 'Google-Mobile-Ads-SDK'
 end
+
+def google_signin
+  pod 'GoogleSignIn', '~> 5.0'
+  pod 'GoogleToolboxForMac'
+end
+
 def lottie_libs
   pod 'lottie-ios', '~> 2.5.3'
 end
@@ -38,10 +44,9 @@ target 'devil' do
   pod 'Firebase/Analytics'
   pod 'Firebase/DynamicLinks'
   pod 'Firebase/Crashlytics'
-  pod 'Firebase/Analytics'
   
-  pod 'GoogleSignIn', '~> 5.0'
-  pod 'GoogleToolboxForMac'
+  google_signin
+  
   pod 'naveridlogin-sdk-ios'
 end
 
@@ -68,8 +73,8 @@ target 'devillogin' do
   
   pod 'FBSDKLoginKit', '~> 9.3.0'
   pod 'FBSDKShareKit', '~> 9.3.0'
-  pod 'GoogleSignIn', '~> 5.0'
-  pod 'GoogleToolboxForMac'
+  
+  google_signin
 end
   
 target 'devilbill' do

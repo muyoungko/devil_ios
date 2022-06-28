@@ -42,6 +42,7 @@
 		6D6D31092869CF6100E6466A /* devilads.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6D31072869CF3C00E6466A /* devilads.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D6D310A2869CF6100E6466A /* devilbill.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6D31052869CF3600E6466A /* devilbill.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6DAAD9DE265FF8BA00FE5682 /* DevilNaverLoginCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */; };
+		6DBC7CFA286AF4C90037ED1A /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 6DBC7CF9286AF4C90037ED1A /* Podfile.lock */; };
 		6DC1624A26917AC900FD769C /* c.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6DC1624926917AC900FD769C /* c.sh */; };
 		6DC6783226E76CDC0005728A /* xbutton@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DC6783126E76CDC0005728A /* xbutton@3x.png */; };
 		6DD47A9E26AE946600F4B3E4 /* MyDevilController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD47A9D26AE946600F4B3E4 /* MyDevilController.m */; };
@@ -127,6 +128,7 @@
 		6D6D31072869CF3C00E6466A /* devilads.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = devilads.framework; path = "../../../Library/Developer/Xcode/DerivedData/devil-ghnnlovlkwwdciayhgedkgdonhbn/Build/Products/Debug-iphoneos/devilads.framework"; sourceTree = "<group>"; };
 		6DAAD9DC265FF8BA00FE5682 /* DevilNaverLoginCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNaverLoginCallback.h; sourceTree = "<group>"; };
 		6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNaverLoginCallback.m; sourceTree = "<group>"; };
+		6DBC7CF9286AF4C90037ED1A /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		6DC1624926917AC900FD769C /* c.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = c.sh; sourceTree = "<group>"; };
 		6DC6783126E76CDC0005728A /* xbutton@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "xbutton@3x.png"; sourceTree = "<group>"; };
 		6DD47A9C26AE946600F4B3E4 /* MyDevilController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyDevilController.h; sourceTree = "<group>"; };
@@ -295,6 +297,7 @@
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
+				6DBC7CF9286AF4C90037ED1A /* Podfile.lock */,
 				6DEC18822861427500B3FE88 /* README.md */,
 				6DC1624926917AC900FD769C /* c.sh */,
 				6D4679A9256A51B9006D57DD /* devil.podspec */,
@@ -333,9 +336,9 @@
 				6DF137F020D7469A00071B9F /* Frameworks */,
 				6DF137F120D7469A00071B9F /* Resources */,
 				6D467998256A174F006D57DD /* Embed Frameworks */,
-				90C1459DF985B60673C2E7E4 /* [CP] Copy Pods Resources */,
 				92F52C5A9793923DD09FA825 /* [CP] Embed Pods Frameworks */,
 				6DC676ED26E5B36C0005728A /* ShellScript */,
+				306E6DFDEC72F590C364F1A7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -397,6 +400,7 @@
 				6D132BC5255E76F400004E1F /* loading.json in Resources */,
 				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
 				6DC1624A26917AC900FD769C /* c.sh in Resources */,
+				6DBC7CFA286AF4C90037ED1A /* Podfile.lock in Resources */,
 				6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */,
 				6D4679AA256A51B9006D57DD /* devil.podspec in Resources */,
 				6D0224EE2613959900634842 /* devillogin.podspec in Resources */,
@@ -411,6 +415,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		306E6DFDEC72F590C364F1A7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4CCA04F407CC2C66AE373E74 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -447,24 +469,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
-		};
-		90C1459DF985B60673C2E7E4 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		92F52C5A9793923DD09FA825 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -634,7 +638,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 96;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -650,10 +654,11 @@
 					"$(SDKROOT)/usr/lib/swift",
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 				);
-				MARKETING_VERSION = 0.0.95;
+				MARKETING_VERSION = 0.0.96;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil development";
+				SKIP_INSTALL = NO;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OBJC_BRIDGING_HEADER = "devil/devil-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -672,7 +677,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: muyoung ko (3675B8UJSV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: muyoung ko (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 95;
+				CURRENT_PROJECT_VERSION = 96;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -687,10 +692,11 @@
 					"$(SDKROOT)/usr/lib/swift",
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 				);
-				MARKETING_VERSION = 0.0.95;
+				MARKETING_VERSION = 0.0.96;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil distribution";
+				SKIP_INSTALL = NO;
 				SWIFT_COMPILATION_MODE = singlefile;
 				SWIFT_OBJC_BRIDGING_HEADER = "devil/devil-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
