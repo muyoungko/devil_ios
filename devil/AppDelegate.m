@@ -14,6 +14,7 @@
 @import devillogin;
 @import devilbill;
 @import devilads;
+@import GoogleMobileAds;
 
 #import <AFNetworking/AFNetworking.h>
 #import "UIImageView+AFNetworking.h"

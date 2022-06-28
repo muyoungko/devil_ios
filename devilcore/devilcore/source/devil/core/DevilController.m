@@ -137,20 +137,22 @@
         [self adjustFooterHeight];
         
         self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] +
-            [WildCardUtil convertPixcelToSketch:bottomPadding ];
+            [WildCardUtil convertPixcelToSketch:bottomPadding];
         
         [self.view addSubview:self.footer];
     }
     
     id inside_footer = [[WildCardConstructor sharedInstance] getInsideFooterCloudJson:self.screenId];
     if(inside_footer) {
+        id footerCloudJson = inside_footer;
+        self.fix_footer = [footer[@"fix_footer"] boolValue];
         self.inside_footer = [WildCardConstructor constructLayer:nil withLayer:inside_footer instanceDelegate:self];
+        self.isFooterVariableHeight = [footerCloudJson[@"frame"][@"h"] intValue] == -2;
         [WildCardConstructor applyRule:self.inside_footer withData:self.data];
         
-        float inside_footer_y = (float)screenHeight - self.inside_footer.frame.size.height
-            - (self.footer?self.footer.frame.size.height:0);
-        self.inside_footer.frame = CGRectMake(0, inside_footer_y, self.inside_footer.frame.size.width,
-                                              self.inside_footer.frame.size.height);
+        self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] +
+            [WildCardUtil convertPixcelToSketch:bottomPadding];
+        [self adjustFooterHeight];
         
         [self.view addSubview:self.inside_footer];
     }
@@ -167,16 +169,32 @@
         self.footer.layer.shadowColor = [[UIColor blackColor] CGColor];
     }
     
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + self.footer_sketch_height];
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height
+     + (self.inside_footer?0:self.footer_sketch_height)
+    ];
 }
 
 -(void) adjustFooterHeight {
-    self.original_footer_height = self.footer.frame.size.height;
-    int footerY = screenHeight - self.original_footer_height - self.bottomPadding - (self.header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
-    self.original_footer_height_plus_bottom_padding = self.original_footer_height + self.bottomPadding;
-    self.original_footer_y = footerY;
-    self.footer.frame= CGRectMake(0, footerY, self.footer.frame.size.width,
+    if(self.footer)
+        self.original_footer_height = self.footer.frame.size.height;
+    else if(self.inside_footer)
+        self.original_footer_height = self.inside_footer.frame.size.height;
+    
+    if(self.footer) {
+        int footerY = screenHeight - self.original_footer_height - self.bottomPadding - (self.header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
+        self.original_footer_y = footerY;
+        self.original_footer_height_plus_bottom_padding = self.original_footer_height + self.bottomPadding;
+        self.footer.frame = CGRectMake(0, footerY, self.footer.frame.size.width,
                                   self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
+    } else if(self.inside_footer) {
+        //inside footer는 바텀 패딩을 자동으로 더하지 않는다 알아서 해야한다
+        //TODO 그럼 bottom 패딩이 0인 기기에서는 어떻게 해야하나? footerY에 마이너스 패딩을 적용해야할듯
+        int footerY = screenHeight - self.original_footer_height - (self.header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
+        self.original_footer_y = footerY;
+        self.original_footer_height_plus_bottom_padding = self.original_footer_height;
+        self.inside_footer.frame = CGRectMake(0, footerY, self.inside_footer.frame.size.width,
+                                  self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
+    }
 }
 
 -(void)tab:(NSString*)screenId {
@@ -207,9 +225,14 @@
     id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
     if(footer)
         self.fix_footer = [footer[@"fix_footer"] boolValue];
-    [WildCardConstructor applyRule:self.footer withData:self.data];
+    
+    if(self.footer)
+        [WildCardConstructor applyRule:self.footer withData:self.data];
+    
+    if(self.inside_footer)
+        [WildCardConstructor applyRule:self.inside_footer withData:self.data];
 
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + self.footer_sketch_height];
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)];
     [self construct];
     [self onResume];
 }
@@ -529,8 +552,11 @@
             [self adjustFooterHeight];
     }
     
-    if(self.inside_footer)
+    if(self.inside_footer) {
         [WildCardConstructor applyRule:self.inside_footer withData:self.data];
+        if(self.isFooterVariableHeight)
+            [self adjustFooterHeight];
+    }
     
     [[DevilDrawer sharedInstance] update:self];
 }
