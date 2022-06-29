@@ -23,13 +23,5 @@ Pod::Spec.new do |s|
   s.subspec 'DevilLogin' do |ss|
     ss.dependency 'devillogin', '~> 0.0.166'
   end
-  
-  s.subspec 'DevilAds' do |ss|
-    ss.dependency 'devilads', '~> 0.0.166'
-  end
-  
-  s.subspec 'DevilBill' do |ss|
-    ss.dependency 'devilbill', '~> 0.0.166'
-  end
 
 end

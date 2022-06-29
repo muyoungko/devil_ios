@@ -77,11 +77,11 @@ target 'devillogin' do
   google_signin
 end
   
-target 'devilbill' do
-  project 'devilbill/devilbill.xcodeproj'
-end
-
-target 'devilads' do
-  project 'devilads/devilads.xcodeproj'
-#  google_ads # 이걸 넣으면, 아카이브에서 오류남, GoogleUtilities가 Firebase와 중복됨
-end
+#target 'devilbill' do
+#  project 'devilbill/devilbill.xcodeproj'
+#end
+#
+#target 'devilads' do
+#  project 'devilads/devilads.xcodeproj'
+##  google_ads # 이걸 넣으면, 아카이브에서 오류남, GoogleUtilities가 Firebase와 중복됨
+#end

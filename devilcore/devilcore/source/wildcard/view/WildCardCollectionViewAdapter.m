@@ -247,6 +247,9 @@
 {
     if(indexPath.section == 0) {
         int position = (int)[indexPath row];
+        if(position >= [_data count])
+            return CGSizeMake(collectionView.frame.size.width, 0);
+
         NSDictionary *cloudJson = _cloudJsonGetter(position);
         
         if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
@@ -278,6 +281,9 @@
 {
     if(indexPath.section == 0) {
         int position = (int)[indexPath row];
+        
+        if(position >= [_data count])
+            return [collectionView dequeueReusableCellWithReuseIdentifier:@"0" forIndexPath:indexPath];
         
         NSMutableDictionary* item = [_data objectAtIndex:position];
         NSString* type = _typeGetter(position);

@@ -12,8 +12,8 @@
 @import CoreData;
 @import devilcore;
 @import devillogin;
-@import devilbill;
-@import devilads;
+//@import devilbill;
+//@import devilads;
 @import GoogleMobileAds;
 
 #import <AFNetworking/AFNetworking.h>
@@ -163,8 +163,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     //[[DevilSdk sharedInstance] registScreenController:@"view" class:[MyDevilController class]];
     [DevilSdk sharedInstance].devilSdkScreenDelegate = self;
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLearning class]];
-    [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
-    [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
+//    [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
+//    [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
     
     if(launchOptions == nil){
         [self preparePushToken:application];

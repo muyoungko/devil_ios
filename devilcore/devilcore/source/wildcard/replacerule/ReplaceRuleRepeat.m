@@ -374,14 +374,18 @@
 }
 
 -(void)pullToRefresh:(UIRefreshControl*)refreshControl {
-    [refreshControl endRefreshing];
-    
-    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)self.adapterForRetain;
-    WildCardUIView* vv = (WildCardUIView*)self.createdContainer;
-    NSString *script = self.pullToRefreshJavascript;
-    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-    trigger.node = vv;
-    [WildCardAction execute:trigger script:script meta:adapter.meta];
+    NSLog(@"pullToRefresh");
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0f * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^{
+        NSLog(@"pullToRefresh after");
+        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)self.adapterForRetain;
+        WildCardUIView* vv = (WildCardUIView*)self.createdContainer;
+        NSString *script = self.pullToRefreshJavascript;
+        WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+        trigger.node = vv;
+        [WildCardAction execute:trigger script:script meta:adapter.meta];
+        [refreshControl endRefreshing];
+    });
 }
 
 
