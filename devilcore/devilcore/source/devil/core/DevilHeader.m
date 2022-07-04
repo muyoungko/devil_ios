@@ -21,6 +21,7 @@
 @property (nonatomic, retain) id cj;
 @property (nonatomic, retain) id barButtonByName;
 @property (nonatomic, retain) NSString* logoClickAction;
+@property (nonatomic, retain) UIColor* titleColor;
 
 @end
 
@@ -48,15 +49,10 @@
     if(cj[@"backgroundColor"]){
         UIColor* bgColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
         self.bgcolor = bgColor;
-        [vc.navigationController.navigationBar setBarTintColor:bgColor];
-        [vc.navigationController.navigationBar setBackgroundColor:bgColor];
-        [vc.navigationController.navigationBar setAlpha:1.0f];
-        [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
-        [[UINavigationBar appearance] setAlpha:1.0f];
         [vc.navigationController.navigationBar setTranslucent:false];
 
         if (@available(iOS 15.0, *)) {
-            UINavigationBarAppearance* a = [UINavigationBarAppearance alloc];
+            UINavigationBarAppearance* a = [UINavigationBarAppearance new];
             [a configureWithOpaqueBackground];
             a.backgroundColor = bgColor;
             
@@ -64,9 +60,20 @@
                 a.shadowImage = [[UIImage alloc] init];
                 a.shadowColor = [UIColor clearColor];
             }
+         
+            [a setTitleTextAttributes:@{NSForegroundColorAttributeName : self.titleColor}];
             
-            vc.navigationController.navigationBar.standardAppearance = a;
-            vc.navigationController.navigationBar.scrollEdgeAppearance = vc.navigationController.navigationBar.standardAppearance;
+            self.vc.navigationController.navigationBar.scrollEdgeAppearance = self.vc.navigationController.navigationBar.standardAppearance = a;
+            
+        } else {
+            [vc.navigationController.navigationBar setBarTintColor:bgColor];
+            [vc.navigationController.navigationBar setBackgroundColor:bgColor];
+            [vc.navigationController.navigationBar setAlpha:1.0f];
+            [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
+            [[UINavigationBar appearance] setAlpha:1.0f];
+            self.vc.navigationController.navigationBar.titleTextAttributes = @{
+                NSForegroundColorAttributeName : self.titleColor,
+            };
         }
         
     }
@@ -118,11 +125,8 @@
             } else if([@"title" isEqualToString:layer_name]){
                 id title = layer[@"textSpec"][@"text"];
                 int textSize = [layer[@"textSpec"][@"textSize"] intValue];
-                UIColor* textColor = [WildCardUtil colorWithHexString:layer[@"textSpec"][@"textColor"]];
+                self.titleColor = [WildCardUtil colorWithHexString:layer[@"textSpec"][@"textColor"]];
                 //NSFontAttributeName : [UIFont systemFontOfSize:textSize]
-                self.vc.navigationController.navigationBar.titleTextAttributes = @{
-                    NSForegroundColorAttributeName : textColor,
-                };
             } else if([@"line" isEqualToString:layer_name]){
 //                UINavigationBarAppearance* n = [UINavigationBarAppearance new];
 //                n.shadowColor = [UIColor clearColor];
@@ -142,9 +146,11 @@
     }
     
 }
+
 -(void)update{
     [self update:self.meta.correspondData];
 }
+
 -(void)update:(id)correspondData{
     self.meta.correspondData = correspondData;
     id layers = self.cj[@"layers"];

@@ -16,8 +16,8 @@
 @property void (^callbackSound)(id res);
 @property void (^callbackControl)(NSString* command);
 @property (nonatomic,retain) id lockScreenInfo;
-@property BOOL isPlaying;
 @property BOOL music;
+@property float speed;
 @property NSTimeInterval lastMoveTime;
 @property (nonatomic,retain) AVPlayer *recentAvPlayerCompleteCalled;
 @end
@@ -30,7 +30,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
-        sharedInstance.isPlaying = NO;
         
         [[NSNotificationCenter defaultCenter] addObserver:sharedInstance selector:@selector(audioPlayerDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:sharedInstance.player.currentItem];
     });
@@ -59,6 +58,7 @@
         [self.player seekToTime:CMTimeMake(start, 1)];
     
     self.music = param[@"music"] ? [param[@"music"] boolValue] : true;
+    self.speed = 1.0f;
     if(self.music) {
         NSError *sessionError = nil;
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&sessionError];
@@ -117,6 +117,12 @@
     // For lock screen & remote audio controls
     MPRemoteCommandCenter *remoteCommandCenter = [MPRemoteCommandCenter sharedCommandCenter];
 
+    [remoteCommandCenter.stopCommand setEnabled:YES];
+    [remoteCommandCenter.stopCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
+        [self pause];
+        return MPRemoteCommandHandlerStatusSuccess;
+    }];
+    
     [remoteCommandCenter.playCommand setEnabled:YES];
     [remoteCommandCenter.playCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self resume];
@@ -250,6 +256,7 @@
 - (void)resume{
     if(self.player != nil) {
         [self.player play];
+        self.player.rate = self.speed;
         self.currentInfo[@"playing"] = @"Y";
     }
 }
@@ -270,8 +277,9 @@
     }
 }
 - (void)speed:(float)speed{
-    if(self.player != nil)
+    if(self.player != nil && [self isPlaying])
         self.player.rate = speed;
+    self.speed = speed;
 }
 
 - (void)stopIfNotMusic{
