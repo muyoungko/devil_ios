@@ -30,7 +30,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
-        
+        sharedInstance.speed = 1.0f;
         [[NSNotificationCenter defaultCenter] addObserver:sharedInstance selector:@selector(audioPlayerDidFinishPlaying:) name:AVPlayerItemDidPlayToEndTimeNotification object:sharedInstance.player.currentItem];
     });
     return sharedInstance;
@@ -54,11 +54,11 @@
         self.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:url]];
         
     [self.player play];
+    self.player.rate = self.speed;
     if(start > 0)
         [self.player seekToTime:CMTimeMake(start, 1)];
     
     self.music = param[@"music"] ? [param[@"music"] boolValue] : true;
-    self.speed = 1.0f;
     if(self.music) {
         NSError *sessionError = nil;
         [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&sessionError];

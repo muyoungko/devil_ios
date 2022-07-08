@@ -630,6 +630,15 @@
         }
     }
     
+    if(self.inside_footer) {
+        WildCardUIView* v = (WildCardUIView*)[self.inside_footer.meta getView:name];
+        if(v != nil) {
+            r.meta = self.mainWc.meta;
+            r.view = v;
+            return r;
+        }
+    }
+    
     @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"(findView)'%@' is not exists.", name] userInfo:nil];
 
     return nil;
