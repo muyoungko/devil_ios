@@ -8,16 +8,23 @@
 #import "DevilChat.h"
 #import "JevilCtx.h"
 #import "JevilInstance.h"
+#import "WildCardCollectionViewAdapter.h"
+#import "WildCardUtil.h"
 
 @interface DevilChat()
 @property (nonatomic, retain) MQTTSession *session;
 @property BOOL connected;
+@property float originalY;
+@property BOOL originalYinited;
+@property BOOL keypadUp;
 @end
 
 @implementation DevilChat
 
 - (void)created {
     [super created];
+    self.originalYinited = NO;
+    self.keypadUp = NO;
 }
 
 
@@ -115,6 +122,52 @@
 - (void)destroy {
     [self.session disconnect];
     [super destroy];
+}
+
+-(void)keypad:(BOOL)up :(CGRect)keyboardRect {
+    UIView* v = [self.meta getView:@"chat_list"];
+    UICollectionView* list = [self.meta getList:@"chat_list"];
+    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)list.delegate;
+    
+    id childs = [list subviews];
+    float maxY = 0;
+    for (UIView* child in childs) {
+        CGRect f = [WildCardUtil getGlobalFrame:child];
+        float thisY = f.origin.y + f.size.height;
+        if(thisY > maxY)
+            maxY = thisY;
+    }
+    
+    float sh = [UIScreen mainScreen].bounds.size.height;
+    BOOL shouldAdjust = NO;
+    if(maxY > sh/2) {
+        shouldAdjust = YES;
+    }
+    
+    
+    float bottomPadding = 0;
+    if (@available(iOS 11.0, *)) {
+        UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+        bottomPadding = window.safeAreaInsets.bottom;
+    }
+    
+    if(!self.originalYinited) {
+        self.originalY = v.frame.origin.y;
+        self.originalYinited = YES;
+    }
+    
+    if(up && !self.keypadUp && shouldAdjust) {
+        self.keypadUp = YES;
+        [UIView animateWithDuration:0.15f animations:^{
+            v.frame = CGRectMake(v.frame.origin.x, self.originalY - keyboardRect.size.height + bottomPadding, v.frame.size.width, v.frame.size.height);
+        }];
+        
+    } else if(!up && self.keypadUp) {
+        self.keypadUp = NO;
+        [UIView animateWithDuration:0.15f animations:^{
+            v.frame = CGRectMake(v.frame.origin.x, self.originalY, v.frame.size.width, v.frame.size.height);
+        }];
+    }
 }
 
 @end

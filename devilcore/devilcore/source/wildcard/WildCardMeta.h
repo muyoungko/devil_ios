@@ -70,6 +70,7 @@
 -(UIImageView*)getImageView:(NSString*)name;
 -(UIView*)getView:(NSString*)name;
 -(UITextField*)getInput:(NSString*)name;
+-(UICollectionView*)getList:(NSString*)name;
 -(void)update;
 
 -(void)viewPagerMove:(NSString*)vp to:(int)distance;
@@ -78,6 +79,7 @@
 -(void)paused;
 -(void)resumed;
 -(void)destroy;
+-(void)keypad:(BOOL)up :(CGRect)keyboardRect;
 
 @end
 

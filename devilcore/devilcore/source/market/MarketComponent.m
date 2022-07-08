@@ -37,4 +37,9 @@
 -(void)destroy {
     
 }
+
+-(void)keypad:(BOOL)up{
+    
+}
+
 @end

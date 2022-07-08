@@ -521,6 +521,10 @@
     return r;
 }
 
+-(UICollectionView*)getList:(NSString*)name{
+    return [[self getView:name] subviews][0];
+}
+
 -(UITextField*)getInput:(NSString*)name{
     return [[self getView:name] subviews][0];
 }
@@ -571,6 +575,14 @@
     for(id rule in self.replaceRules) {
         if([rule isKindOfClass:[ReplaceRuleMarket class]]) {
             [((ReplaceRuleMarket*)rule).marketComponent destroy];
+        }
+    }
+}
+
+-(void)keypad:(BOOL)up :(CGRect)keyboardRect{
+    for(id rule in self.replaceRules) {
+        if([rule isKindOfClass:[ReplaceRuleMarket class]]) {
+            [((ReplaceRuleMarket*)rule).marketComponent keypad:up :keyboardRect];
         }
     }
 }

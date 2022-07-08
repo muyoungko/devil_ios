@@ -645,6 +645,15 @@
 }
 
 
+- (void)keyboardDidShow:(NSNotification*)noti{
+    [super keyboardDidShow:noti];
+    [_mainWc.meta keypad:YES :self.keyboardRect];
+}
+- (void)keyboardWillHide:(NSNotification*)noti{
+    [super keyboardWillHide:noti];
+    [_mainWc.meta keypad:NO :self.keyboardRect];
+}
+
 @end
 
 

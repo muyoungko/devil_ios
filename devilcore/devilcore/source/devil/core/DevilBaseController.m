@@ -151,16 +151,17 @@
 }
 
 - (void)keyboardDidShow:(NSNotification*)noti {
+    NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect rect = [keyboardFrameBegin CGRectValue];
+    self.keyboardRect = rect;
     if(self.footer && !self.fix_footer) {
-        NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
-        CGRect rect = [keyboardFrameBegin CGRectValue];
-        self.keyboardRect = rect;
         [UIView animateWithDuration:0.15f animations:^{
             float viewGap = self.view.frame.origin.y - self.originalY;
             int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
             self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
         }];
     }
+    
     
     if(editingNumberKey && self.footer == nil) {
         if(self.keypadTop == nil) {

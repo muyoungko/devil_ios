@@ -47,6 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)showIndicator;
 - (void)hideIndicator;
 - (void)adjustFooterPositionOnKeyboard;
+- (void)keyboardDidShow:(NSNotification*)noti;
+- (void)keyboardWillHide:(NSNotification*)noti;
 
 @end
 
