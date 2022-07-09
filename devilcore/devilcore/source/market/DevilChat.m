@@ -165,7 +165,6 @@
         self.keypadUp = YES;
         v.frameUpdateAvoid = YES;
         [UIView animateWithDuration:0.15f animations:^{
-            //v.frame = CGRectMake(v.frame.origin.x, self.originalY - keyboardRect.size.height + bottomPadding, v.frame.size.width, v.frame.size.height);
             v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.frame.size.width,
                                  self.originalHeight - keyboardRect.size.height + bottomPadding
                                  );
