@@ -10,6 +10,7 @@
 #import "JevilInstance.h"
 #import "WildCardCollectionViewAdapter.h"
 #import "WildCardUtil.h"
+#import "WildCardUIView.h"
 
 @interface DevilChat()
 @property (nonatomic, retain) MQTTSession *session;
@@ -125,7 +126,7 @@
 }
 
 -(void)keypad:(BOOL)up :(CGRect)keyboardRect {
-    UIView* v = [self.meta getView:@"chat_list"];
+    WildCardUIView* v = (WildCardUIView*)[self.meta getView:@"chat_list"];
     UICollectionView* list = [self.meta getList:@"chat_list"];
     WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)list.delegate;
     
@@ -158,12 +159,14 @@
     
     if(up && !self.keypadUp && shouldAdjust) {
         self.keypadUp = YES;
+        v.frameUpdateAvoid = YES;
         [UIView animateWithDuration:0.15f animations:^{
             v.frame = CGRectMake(v.frame.origin.x, self.originalY - keyboardRect.size.height + bottomPadding, v.frame.size.width, v.frame.size.height);
         }];
         
     } else if(!up && self.keypadUp) {
         self.keypadUp = NO;
+        v.frameUpdateAvoid = NO;
         [UIView animateWithDuration:0.15f animations:^{
             v.frame = CGRectMake(v.frame.origin.x, self.originalY, v.frame.size.width, v.frame.size.height);
         }];

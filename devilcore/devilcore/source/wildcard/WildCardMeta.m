@@ -114,12 +114,12 @@
           
     for(int i=0;i<[_layoutPath count];i++)
     {
-        
         WildCardLayoutPathUnit *unit = [_layoutPath objectAtIndex:i];
         if(unit.type == WC_LAYOUT_TYPE_WRAP_CONTENT)
         {
             WildCardUIView* headerView = [_wrapContentNodes objectForKey:unit.viewKey];
-            [self wrapContent:headerView];
+            if(!headerView.frameUpdateAvoid)
+                [self wrapContent:headerView];
             //NSLog(@"path(%d) wrapContent - %@ (%f,%f) (%f-%f)" ,unit.depth, headerView.name, headerView.frame.origin.x, headerView.frame.origin.y, headerView.frame.size.width, headerView.frame.size.height);
         }
         else if(unit.type == WC_LAYOUT_TYPE_NEXT_VIEW)
@@ -127,18 +127,21 @@
             WildCardUIView* headerView = [_nextChainHeaderNodes objectForKey:unit.viewKey];
             CGSize size = CGSizeMake(0, 0);
             //NSLog(@"path(%d) nextView - %@",unit.depth, headerView.name);
-            [self fireOnLayout:headerView offsetX:headerView.frame.origin.x offsetY:headerView.frame.origin.y outSize:size];
+            if(!headerView.frameUpdateAvoid)
+                [self fireOnLayout:headerView offsetX:headerView.frame.origin.x offsetY:headerView.frame.origin.y outSize:size];
         }
         else if(unit.type == WC_LAYOUT_TYPE_GRAVITY)
         {
             WildCardUIView* headerView = [_gravityNodes objectForKey:unit.viewKey];
             //NSLog(@"path(%d) gravity - %@", unit.depth,headerView.name);
-            [self gravityView:headerView];
+            if(!headerView.frameUpdateAvoid)
+                [self gravityView:headerView];
         } else if(unit.type == WC_LAYOUT_TYPE_MATCH_PARENT)
         {
             WildCardUIView* headerView = [_matchParentNodes objectForKey:unit.viewKey];
             //NSLog(@"path(%d) match_parent - %@", unit.depth,headerView.name);
-            [self matchParentView:headerView];
+            if(!headerView.frameUpdateAvoid)
+                [self matchParentView:headerView];
         }
     }
     

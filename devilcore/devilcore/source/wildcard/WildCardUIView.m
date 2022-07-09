@@ -15,6 +15,20 @@
 
 @implementation WildCardUIView
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.alignment = GRAVITY_LEFT | GRAVITY_TOP;
+        self.wrap_width = NO;
+        self.wrap_height = NO;
+        self.cornerRadiusHalf = NO;
+        self.tags = [@{} mutableCopy];
+        self.frameUpdateAvoid = NO;
+    }
+    return self;
+}
+
 
 //-(void)drawRect:(CGRect)rect{
 //    [super drawRect:rect];
@@ -76,18 +90,6 @@
     self.touchCallback(TOUCH_ACTION_UP, touchPoint);
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.alignment = GRAVITY_LEFT | GRAVITY_TOP;
-        self.wrap_width = NO;
-        self.wrap_height = NO;
-        self.cornerRadiusHalf = NO;
-        self.tags = [@{} mutableCopy];
-    }
-    return self;
-}
 
 - (void)setFrame:(CGRect)frame
 {

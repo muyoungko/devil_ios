@@ -52,7 +52,6 @@
 @property float paddingTop;
 @property float paddingBottom;
 
-
 @property BOOL cornerRadiusHalf;
 
 @property (retain, nonatomic) NSString* name;
@@ -60,5 +59,11 @@
 @property (retain, nonatomic) NSMutableDictionary* tags;
 
 - (void)addTouchCallback:(void (^)(int action, CGPoint p))callback;
+
+/**
+ 키보드 업 등에 의한 일시적 뷰 위치를 조정할 경우 Jevil.update()에 의한 뷰 frame조정을 받지 않아야한다. 이럴경우 frameUpdateAvoid를 true로 설정한다
+ 이 경우 WildCardMeta.requestLayout의 영향을 받지 않는다
+ */
+@property BOOL frameUpdateAvoid;
 
 @end
