@@ -16,6 +16,7 @@
 @property (nonatomic, retain) MQTTSession *session;
 @property BOOL connected;
 @property float originalY;
+@property float originalHeight;
 @property BOOL originalYinited;
 @property BOOL keypadUp;
 @end
@@ -133,6 +134,8 @@
     id childs = [list subviews];
     float maxY = 0;
     for (UIView* child in childs) {
+        if(![child isKindOfClass:[UICollectionViewCell class]])
+            continue;
         CGRect f = [WildCardUtil getGlobalFrame:child];
         float thisY = f.origin.y + f.size.height;
         if(thisY > maxY)
@@ -154,6 +157,7 @@
     
     if(!self.originalYinited) {
         self.originalY = v.frame.origin.y;
+        self.originalHeight = v.frame.size.height;
         self.originalYinited = YES;
     }
     
@@ -161,14 +165,18 @@
         self.keypadUp = YES;
         v.frameUpdateAvoid = YES;
         [UIView animateWithDuration:0.15f animations:^{
-            v.frame = CGRectMake(v.frame.origin.x, self.originalY - keyboardRect.size.height + bottomPadding, v.frame.size.width, v.frame.size.height);
+            //v.frame = CGRectMake(v.frame.origin.x, self.originalY - keyboardRect.size.height + bottomPadding, v.frame.size.width, v.frame.size.height);
+            v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.frame.size.width,
+                                 self.originalHeight - keyboardRect.size.height + bottomPadding
+                                 );
+        } completion:^(BOOL finished) {
+            [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([adapter.data count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
         }];
-        
     } else if(!up && self.keypadUp) {
         self.keypadUp = NO;
         v.frameUpdateAvoid = NO;
         [UIView animateWithDuration:0.15f animations:^{
-            v.frame = CGRectMake(v.frame.origin.x, self.originalY, v.frame.size.width, v.frame.size.height);
+            v.frame = CGRectMake(v.frame.origin.x, self.originalY, v.frame.size.width, self.originalHeight);
         }];
     }
 }
