@@ -145,6 +145,18 @@
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E268025AA935800600978 /* WildCardUITextView.m */; };
+		6D8628FC287AAC5700E62B7B /* DevilAdsInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628EF287AAC5700E62B7B /* DevilAdsInstance.m */; };
+		6D8628FD287AAC5700E62B7B /* JevilAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628F0287AAC5700E62B7B /* JevilAds.m */; };
+		6D8628FE287AAC5700E62B7B /* DevilAdsSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628F1287AAC5700E62B7B /* DevilAdsSdk.m */; };
+		6D8628FF287AAC5700E62B7B /* DevilAdsInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F2287AAC5700E62B7B /* DevilAdsInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D862900287AAC5700E62B7B /* DevilAdsSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F3287AAC5700E62B7B /* DevilAdsSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D862901287AAC5700E62B7B /* JevilAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F4287AAC5700E62B7B /* JevilAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D862902287AAC5700E62B7B /* JevilBill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F6287AAC5700E62B7B /* JevilBill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D862903287AAC5700E62B7B /* DevilBillSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628F7287AAC5700E62B7B /* DevilBillSdk.m */; };
+		6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F8287AAC5700E62B7B /* DevilBillInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D862905287AAC5700E62B7B /* DevilBillSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D862906287AAC5700E62B7B /* JevilBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FA287AAC5700E62B7B /* JevilBill.m */; };
+		6D862907287AAC5700E62B7B /* DevilBillInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */; };
 		6D8A40EB2674B77E006999FC /* play_pause.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D8A40EA2674B77E006999FC /* play_pause.json */; };
 		6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9824AE25C5A91E0000BB12 /* JevilUtil.h */; };
 		6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9824AF25C5A91E0000BB12 /* JevilUtil.m */; };
@@ -386,6 +398,18 @@
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
 		6D7E268025AA935800600978 /* WildCardUITextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextView.m; sourceTree = "<group>"; };
+		6D8628EF287AAC5700E62B7B /* DevilAdsInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilAdsInstance.m; sourceTree = "<group>"; };
+		6D8628F0287AAC5700E62B7B /* JevilAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilAds.m; sourceTree = "<group>"; };
+		6D8628F1287AAC5700E62B7B /* DevilAdsSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilAdsSdk.m; sourceTree = "<group>"; };
+		6D8628F2287AAC5700E62B7B /* DevilAdsInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilAdsInstance.h; sourceTree = "<group>"; };
+		6D8628F3287AAC5700E62B7B /* DevilAdsSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilAdsSdk.h; sourceTree = "<group>"; };
+		6D8628F4287AAC5700E62B7B /* JevilAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JevilAds.h; sourceTree = "<group>"; };
+		6D8628F6287AAC5700E62B7B /* JevilBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JevilBill.h; sourceTree = "<group>"; };
+		6D8628F7287AAC5700E62B7B /* DevilBillSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilBillSdk.m; sourceTree = "<group>"; };
+		6D8628F8287AAC5700E62B7B /* DevilBillInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilBillInstance.h; sourceTree = "<group>"; };
+		6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilBillSdk.h; sourceTree = "<group>"; };
+		6D8628FA287AAC5700E62B7B /* JevilBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilBill.m; sourceTree = "<group>"; };
+		6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilBillInstance.m; sourceTree = "<group>"; };
 		6D8A40EA2674B77E006999FC /* play_pause.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = play_pause.json; sourceTree = "<group>"; };
 		6D9824AE25C5A91E0000BB12 /* JevilUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilUtil.h; sourceTree = "<group>"; };
 		6D9824AF25C5A91E0000BB12 /* JevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilUtil.m; sourceTree = "<group>"; };
@@ -613,6 +637,8 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6D8628EE287AAC5700E62B7B /* ads */,
+				6D8628F5287AAC5700E62B7B /* bill */,
 				6DF377C327B3ABEE0050E1DA /* lang */,
 				6DF579A526D8D1F9009D41A1 /* beacon */,
 				6DD09434269C79CC000A913A /* market */,
@@ -839,6 +865,32 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		6D8628EE287AAC5700E62B7B /* ads */ = {
+			isa = PBXGroup;
+			children = (
+				6D8628EF287AAC5700E62B7B /* DevilAdsInstance.m */,
+				6D8628F0287AAC5700E62B7B /* JevilAds.m */,
+				6D8628F1287AAC5700E62B7B /* DevilAdsSdk.m */,
+				6D8628F2287AAC5700E62B7B /* DevilAdsInstance.h */,
+				6D8628F3287AAC5700E62B7B /* DevilAdsSdk.h */,
+				6D8628F4287AAC5700E62B7B /* JevilAds.h */,
+			);
+			path = ads;
+			sourceTree = "<group>";
+		};
+		6D8628F5287AAC5700E62B7B /* bill */ = {
+			isa = PBXGroup;
+			children = (
+				6D8628F6287AAC5700E62B7B /* JevilBill.h */,
+				6D8628F7287AAC5700E62B7B /* DevilBillSdk.m */,
+				6D8628F8287AAC5700E62B7B /* DevilBillInstance.h */,
+				6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */,
+				6D8628FA287AAC5700E62B7B /* JevilBill.m */,
+				6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */,
+			);
+			path = bill;
+			sourceTree = "<group>";
+		};
 		6D98A83E2700D964004F3ECF /* alert */ = {
 			isa = PBXGroup;
 			children = (
@@ -976,6 +1028,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
+				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
+				6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */,
+				6D862905287AAC5700E62B7B /* DevilBillSdk.h in Headers */,
+				6D8628FF287AAC5700E62B7B /* DevilAdsInstance.h in Headers */,
+				6D862900287AAC5700E62B7B /* DevilAdsSdk.h in Headers */,
 				6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */,
 				6DF377C627B3AC360050E1DA /* DevilLang.h in Headers */,
 				6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */,
@@ -1202,6 +1260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D862903287AAC5700E62B7B /* DevilBillSdk.m in Sources */,
 				6D467AAA256AB07A006D57DD /* WildCardUIView.m in Sources */,
 				6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */,
 				6DC162462691711000FD769C /* DevilNavigationController.m in Sources */,
@@ -1233,6 +1292,7 @@
 				6D467AAF256AB07A006D57DD /* WildCardLayoutPathUnit.m in Sources */,
 				6DF53B682657F854001FB1D6 /* DevilSpeech.m in Sources */,
 				6DF377C727B3AC360050E1DA /* DevilLang.m in Sources */,
+				6D862906287AAC5700E62B7B /* JevilBill.m in Sources */,
 				6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */,
 				6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */,
 				6DF5779126D00C1D009D41A1 /* DevilQrCameraController.m in Sources */,
@@ -1242,6 +1302,7 @@
 				6D3EBE8425D92DB00006ADD5 /* WifiManager.m in Sources */,
 				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,
 				6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */,
+				6D862907287AAC5700E62B7B /* DevilBillInstance.m in Sources */,
 				6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */,
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
 				6DD09443269C7A28000A913A /* DevilCalendar.m in Sources */,
@@ -1280,7 +1341,9 @@
 				6D9F7B1826298930003A70EC /* WildCardVideoView.m in Sources */,
 				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,
 				6DD097E326A28924000A913A /* WildCardUICollectionView.m in Sources */,
+				6D8628FE287AAC5700E62B7B /* DevilAdsSdk.m in Sources */,
 				6D44336A2588065400B0E616 /* JevilCtx.m in Sources */,
+				6D8628FD287AAC5700E62B7B /* JevilAds.m in Sources */,
 				6D467AB9256AB07A006D57DD /* WildCardAction.m in Sources */,
 				6DD09448269C8054000A913A /* ReplaceRuleMarket.m in Sources */,
 				6D467B6D257A2F16006D57DD /* DevilBaseController.m in Sources */,
@@ -1293,6 +1356,7 @@
 				6D9E2B1A25BB49540027D16D /* WildCardPagerTabStripMaker.m in Sources */,
 				6D12857227773A990086B1CB /* DevilPicker.m in Sources */,
 				6D9F7B92262C8380003A70EC /* ReplaceRuleVideo.m in Sources */,
+				6D8628FC287AAC5700E62B7B /* DevilAdsInstance.m in Sources */,
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
 				6DD097DE26A1AE29000A913A /* JevilFunctionUtil.m in Sources */,
 				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,

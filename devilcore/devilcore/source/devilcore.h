@@ -45,4 +45,5 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "WildCardUITextField.h"
 #import "DevilLang.h"
 #import "DevilUtil.h"
-
+#import "JevilBill.h"
+#import "JevilAds.h"
