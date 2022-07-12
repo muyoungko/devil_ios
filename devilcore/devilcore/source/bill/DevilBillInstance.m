@@ -158,8 +158,8 @@
             case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
                 //called when the user is in the process of purchasing, do not add any of your own code here.
                 break;
-            case SKPaymentTransactionStatePurchased:
-            //this is called when the user has successfully purchased the package (Cha-Ching!)
+            case SKPaymentTransactionStatePurchased: {
+                //this is called when the user has successfully purchased the package (Cha-Ching!)
                 
                 NSLog(@"Transaction state -> Purchased");
                 /**
@@ -171,13 +171,15 @@
                 if(self.purchaseCallback){
                     self.purchaseCallback(@{
                         @"r":@TRUE,
-                        @"id": transaction.transactionIdentifier,
+                        @"order_id": transaction.transactionIdentifier,
                         @"sku": transaction.payment.productIdentifier,
+                        @"receipt":[transaction.transactionReceipt base64EncodedStringWithOptions:0],
                     });
                     self.purchaseCallback = nil;
                 }
                 
                 break;
+            }
             case SKPaymentTransactionStateRestored:
                 NSLog(@"Transaction state -> Restored");
                 //add the same code as you did from SKPaymentTransactionStatePurchased here
@@ -255,38 +257,9 @@
     } else {
         /* Get the receipt in encoded format */
         NSString *encodedReceipt = [receipt base64EncodedStringWithOptions:0];
-        NSLog(@"%@",encodedReceipt);
-        
-        id headers = [@{
-            @"Accept": @"application/json",
-            @"Content-Type": @"application/json"
-        } mutableCopy];
-        
-        NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
-        id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
-        NSString* password = [devilConfig[@"InAppPurchasePassword"] stringValue];
-        
-        id params = @{
-            @"receipt-data":encodedReceipt,
-            @"password": password,
-        };
-        
-        NSString* url = @"https://buy.itunes.apple.com/verifyReceipt";
-        if([[receiptURL lastPathComponent] isEqualToString:@"sandboxReceipt"])
-            url = @"https://sandbox.itunes.apple.com/verifyReceipt";
-        
-        [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:headers json:params success:^(NSMutableDictionary *responseJsonObject) {
-            
-            if(responseJsonObject == nil)
-                responseJsonObject = [@{} mutableCopy];
-            else if([responseJsonObject isMemberOfClass:[NSError class]]){
-                NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
-                [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:url log:@{error:error}];
-            } else
-                [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:url log:responseJsonObject];
-            
+        [self requestReceipt:encodedReceipt callback:^(id  _Nonnull res) {
             id list = [@[] mutableCopy];
-            NSMutableDictionary* r = responseJsonObject;
+            NSMutableDictionary* r = res;
             long now = (long)[NSDate date].timeIntervalSince1970;
             //receipt > in_app > expires_date_ms, product_id
             id in_app = r[@"receipt"][@"in_app"];
@@ -307,5 +280,39 @@
             callback(@{@"r":@TRUE, @"list":list});
         }];
     }
+}
+
+-(void)requestReceipt:(NSString*)encodedReceipt callback:(void (^)(id res))callback {
+    id headers = [@{
+        @"Accept": @"application/json",
+        @"Content-Type": @"application/json"
+    } mutableCopy];
+    
+    NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
+    id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
+    NSString* password = [devilConfig[@"InAppPurchasePassword"] stringValue];
+    
+    id params = @{
+        @"receipt-data":encodedReceipt,
+        @"password": password,
+    };
+    
+    NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
+    NSString* url = @"https://buy.itunes.apple.com/verifyReceipt";
+    if([[receiptURL lastPathComponent] isEqualToString:@"sandboxReceipt"])
+        url = @"https://sandbox.itunes.apple.com/verifyReceipt";
+    
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:headers json:params success:^(NSMutableDictionary *responseJsonObject) {
+        
+        if(responseJsonObject == nil)
+            responseJsonObject = [@{} mutableCopy];
+        else if([responseJsonObject isMemberOfClass:[NSError class]]){
+            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:url log:@{error:error}];
+        } else
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:url log:responseJsonObject];
+        
+        callback(responseJsonObject);
+    }];
 }
 @end

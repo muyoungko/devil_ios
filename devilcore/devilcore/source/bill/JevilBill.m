@@ -7,11 +7,13 @@
 
 #import "JevilBill.h"
 #import "DevilBillInstance.h"
+#import "DEvilDebugView.h"
 
 @implementation JevilBill
 
 + (void)requestProduct:(NSDictionary*)param:(JSValue *)callback {
     [[DevilBillInstance sharedInstance] requestProduct:param[@"skus"] callback:^(id  _Nonnull res) {
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_BILL title:@"requestProduct" log:res];
         [callback callWithArguments:@[res]];
     }];
 }
@@ -20,6 +22,13 @@
     [[DevilBillInstance sharedInstance] purchase:param[@"sku"] callback:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
     }];
+}
+
++ (void)consume:(NSDictionary*)param :(JSValue *)callback {
+    [callback callWithArguments:@[@{@"r":@TRUE}]];
+//    [[DevilBillInstance sharedInstance] consume:param[@"sku"] callback:^(id  _Nonnull res) {
+//        [callback callWithArguments:@[res]];
+//    }];
 }
 
 

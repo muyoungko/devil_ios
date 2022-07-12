@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)purchase:(NSDictionary*)sku :(JSValue *)callback;
 + (void)requestProduct:(NSDictionary*)param:(JSValue *)callback;
++ (void)consume:(NSDictionary*)param :(JSValue *)callback;
 
 @end
 

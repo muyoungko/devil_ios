@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define DEVIL_LOG_REQUEST @"REQUEST"
 #define DEVIL_LOG_RESPONSE @"RESPONSE"
 #define DEVIL_LOG_BLUETOOTH @"BLE"
+#define DEVIL_LOG_BILL @"BILL"
 
 @interface DevilDebugView : UIView
 
