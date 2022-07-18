@@ -37,6 +37,7 @@
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
 		6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22CF6125FFB25C00A1CB25 /* devillogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86290A287E50BA00E62B7B /* StoreKit.framework */; };
 		6DAAD9DE265FF8BA00FE5682 /* DevilNaverLoginCallback.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */; };
 		6DBC7CFA286AF4C90037ED1A /* Podfile.lock in Resources */ = {isa = PBXBuildFile; fileRef = 6DBC7CF9286AF4C90037ED1A /* Podfile.lock */; };
 		6DC1624A26917AC900FD769C /* c.sh in Resources */ = {isa = PBXBuildFile; fileRef = 6DC1624926917AC900FD769C /* c.sh */; };
@@ -120,6 +121,7 @@
 		6D52E6102619988700935D3A /* devil.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = devil.plist; sourceTree = "<group>"; };
 		6D6D31052869CF3600E6466A /* devilbill.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = devilbill.framework; path = "../../../Library/Developer/Xcode/DerivedData/devil-ghnnlovlkwwdciayhgedkgdonhbn/Build/Products/Debug-iphoneos/devilbill.framework"; sourceTree = "<group>"; };
 		6D6D31072869CF3C00E6466A /* devilads.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = devilads.framework; path = "../../../Library/Developer/Xcode/DerivedData/devil-ghnnlovlkwwdciayhgedkgdonhbn/Build/Products/Debug-iphoneos/devilads.framework"; sourceTree = "<group>"; };
+		6D86290A287E50BA00E62B7B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		6DAAD9DC265FF8BA00FE5682 /* DevilNaverLoginCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNaverLoginCallback.h; sourceTree = "<group>"; };
 		6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNaverLoginCallback.m; sourceTree = "<group>"; };
 		6DBC7CF9286AF4C90037ED1A /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */,
+				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +163,7 @@
 		0BCC150E47406F73DA50155A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D86290A287E50BA00E62B7B /* StoreKit.framework */,
 				6D6D31072869CF3C00E6466A /* devilads.framework */,
 				6D6D31052869CF3600E6466A /* devilbill.framework */,
 				6D22CF6125FFB25C00A1CB25 /* devillogin.framework */,

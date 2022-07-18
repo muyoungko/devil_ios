@@ -7,9 +7,10 @@
 
 #import "DevilQrCameraController.h"
 #import "WildCardConstructor.h"
+#import "JevilInstance.h"
+#import "DevilController.h"
 
-
-@interface DevilQrCameraController ()
+@interface DevilQrCameraController()<WildCardConstructorInstanceDelegate>
 
 @property (nonatomic, strong) WildCardUIView* mainVc;
 @property (nonatomic, strong) ZXCapture *capture;
@@ -48,6 +49,7 @@
         id blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:self.blockName];
         id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
         self.mainVc = [WildCardConstructor constructLayer:self.view withLayer:cj instanceDelegate:self];
+        self.mainVc.backgroundColor = [UIColor clearColor];
         [WildCardConstructor applyRule:self.mainVc withData:[@{} mutableCopy]];
         WildCardMeta* meta = self.mainVc.meta;
         UIView* front = [meta getView:@"front"];
@@ -305,4 +307,10 @@
     [self.beepPlayer play];
 }
 
+-(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardMeta* parentMeta = dc.mainWc.meta;
+    [dc onInstanceCustomAction:parentMeta function:functionName args:args view:node];
+    return YES;
+}
 @end

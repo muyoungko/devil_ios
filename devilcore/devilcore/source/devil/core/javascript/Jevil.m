@@ -891,6 +891,10 @@ BOOL httpOk[10];
     }];
 }
 
++ (void)cameraQrClose {
+    [[JevilInstance currentInstance].vc dismissModalViewControllerAnimated:YES];
+}
+
 + (void)share:(NSString*)url{
     NSArray *activityItems = @[[NSURL URLWithString:url]];
     UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
