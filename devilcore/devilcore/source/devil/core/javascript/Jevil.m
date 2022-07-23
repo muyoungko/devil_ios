@@ -336,6 +336,50 @@ BOOL httpOk[10];
     }
 }
 
++ (void)http:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)body :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    NSString* originalUrl = url;
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    id header = [@{} mutableCopy];
+    if(headerObject)
+        header = [headerObject mutableCopy];
+    
+    id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
+    for(id h in header_list){
+        NSString* content = h[@"content"];
+        if([content hasPrefix:@"{"]){
+            content = [content stringByReplacingOccurrencesOfString:@"{" withString:@""];
+            content = [content stringByReplacingOccurrencesOfString:@"}" withString:@""];
+            NSString* value = [Jevil get:content];
+            if(value)
+                header[h[@"header"]] = value;
+        } else
+            header[h[@"header"]] = content;
+    }
+    
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
+    
+    if(!body)
+        body = @{};
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+    [[WildCardConstructor sharedInstance].delegate onNetworkRequestHttp:method :url :header :[body mutableCopy] :^(NSMutableDictionary *responseJsonObject) {
+        if(responseJsonObject == nil)
+            responseJsonObject = [@{} mutableCopy];
+        else if([responseJsonObject isMemberOfClass:[NSError class]]){
+            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
+        } else
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
+        
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[responseJsonObject]];
+        [[JevilInstance currentInstance] syncData];
+    }];
+}
+
 + (void)get:(NSString *)url then:(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     NSString* originalUrl = url;

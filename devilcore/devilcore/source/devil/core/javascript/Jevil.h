@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)save:(NSString *)key :(NSString *)value;
 + (void)remove:(NSString *)key;
 + (NSString*)get:(NSString *)key;
++ (void)http:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)body :(JSValue *)callback;
 + (void)get:(NSString *)url then:(JSValue *)callback;
 + (void)getMany:(NSArray *)url then:(JSValue *)callback;
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback;

@@ -394,42 +394,81 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     } failure:nil];
 }
 
-- (void)onNetworkRequest:(NSString*)url success:(void (^)(NSMutableDictionary* responseJsonObject))success
-{
-    [JulyUtil request:url postParam:nil complete:^(id  _Nonnull json) {
-        success(json);
+- (void)onNetworkRequest:(NSString*)url success:(void (^)(NSMutableDictionary* responseJsonObject))success {
+    [self onNetworkRequestHttp:@"get" :url :nil :nil :^(NSMutableDictionary *responseJsonObject) {
+        success(responseJsonObject);
     }];
 }
 
-- (void)onNetworkRequestToByte:(NSString*)url success:(void (^)(NSData* byte))success
-{
+- (void)onNetworkRequestToByte:(NSString*)url success:(void (^)(NSData* byte))success {
     [JulyUtil request:url complete:^(id  _Nonnull byte) {
         success(byte);
     }];
 }
 
 - (void)onNetworkRequestGet:(NSString*)url header:(NSDictionary*)header success:(void (^)(NSMutableDictionary* responseJsonObject))success{
-    [JulyUtil request:url header:header complete:^(id  _Nonnull json) {
-        success(json);
+    [self onNetworkRequestHttp:@"get" :url :header :nil :^(NSMutableDictionary *responseJsonObject) {
+        success(responseJsonObject);
     }];
 }
 
 - (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success{
-    
-    [JulyUtil request:url header:header postParam:json complete:^(id  _Nonnull json) {
-        if([json isKindOfClass:[NSString class]])
-            success([@{@"body":json} mutableCopy]);
-        else
-            success(json);
+    [self onNetworkRequestHttp:@"post" :url :header :json :^(NSMutableDictionary *responseJsonObject) {
+        success(responseJsonObject);
     }];
 }
 
 - (void)onNetworkRequestPut:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success{
-    [JulyUtil request:url header:header putParam:json complete:^(id  _Nonnull json) {
-        success(json);
+    [self onNetworkRequestHttp:@"put" :url :header :json :^(NSMutableDictionary *responseJsonObject) {
+        success(responseJsonObject);
     }];
 }
-
+    
+- (void)onNetworkRequestHttp:(NSString*)method :(NSString*)url :(NSDictionary*)header :(NSMutableDictionary*)body :(void (^)(NSMutableDictionary* responseJsonObject))success {
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
+    id headers = [@{
+        @"Accept": @"application/json, application/*+json",
+        @"Content-Type": @"application/json"
+                  } mutableCopy];
+    for(id k in [header allKeys])
+        headers[k] = header[k];
+    
+    [manager.requestSerializer setTimeoutInterval:10.0];
+    method = [method capitalizedString];
+    
+    if(!body)
+        body = [@{} mutableCopy];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithHTTPMethod:method
+                                                        URLString:url
+                                                       parameters:body
+                                                          headers:headers
+                                                   uploadProgress:nil
+                                                 downloadProgress:nil
+            success:^(NSURLSessionDataTask *task, id _Nullable res) {
+                
+        if(res) {
+            NSString* s = [[NSString alloc] initWithData:res encoding:NSUTF8StringEncoding];
+            if([s hasPrefix:@"["]) {
+                id a = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+                success([@{@"devil_list":a} mutableCopy]);
+            } else {
+                id a = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
+                success([a mutableCopy]);
+            }
+        }
+    }
+            failure:^(NSURLSessionDataTask * _Nullable task, NSError *error) {
+        success(nil);
+    }];
+    
+    [dataTask resume];
+}
+    
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension
 {
     return nil;

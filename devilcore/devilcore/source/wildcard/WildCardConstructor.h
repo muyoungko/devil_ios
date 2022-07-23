@@ -20,6 +20,7 @@
 - (UIView*)getNetworkImageViewInstnace;
 - (void)loadNetworkImageView:(UIView*)networkImageView withUrl:(NSString*)url;
 - (void)onNetworkRequest:(NSString*)url success:(void (^)(NSMutableDictionary* responseJsonObject))success;
+- (void)onNetworkRequestHttp:(NSString*)method :(NSString*)url :(NSDictionary*)header :(NSDictionary*)body :(void (^)(NSMutableDictionary* responseJsonObject))success;
 - (void)onNetworkRequestToByte:(NSString*)url success:(void (^)(NSData* byte))success;
 - (void)onNetworkRequestGet:(NSString*)url header:(NSDictionary*)header success:(void (^)(NSMutableDictionary* responseJsonObject))success;
 - (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success;
