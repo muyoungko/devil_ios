@@ -157,6 +157,8 @@
 		6D862905287AAC5700E62B7B /* DevilBillSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D862906287AAC5700E62B7B /* JevilBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FA287AAC5700E62B7B /* JevilBill.m */; };
 		6D862907287AAC5700E62B7B /* DevilBillInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */; };
+		6D86290E288C2FA200E62B7B /* DevilNfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D86290C288C2FA100E62B7B /* DevilNfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D86290F288C2FA200E62B7B /* DevilNfc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D86290D288C2FA100E62B7B /* DevilNfc.m */; };
 		6D8A40EB2674B77E006999FC /* play_pause.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D8A40EA2674B77E006999FC /* play_pause.json */; };
 		6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9824AE25C5A91E0000BB12 /* JevilUtil.h */; };
 		6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9824AF25C5A91E0000BB12 /* JevilUtil.m */; };
@@ -410,6 +412,8 @@
 		6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilBillSdk.h; sourceTree = "<group>"; };
 		6D8628FA287AAC5700E62B7B /* JevilBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilBill.m; sourceTree = "<group>"; };
 		6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilBillInstance.m; sourceTree = "<group>"; };
+		6D86290C288C2FA100E62B7B /* DevilNfc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNfc.h; sourceTree = "<group>"; };
+		6D86290D288C2FA100E62B7B /* DevilNfc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNfc.m; sourceTree = "<group>"; };
 		6D8A40EA2674B77E006999FC /* play_pause.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = play_pause.json; sourceTree = "<group>"; };
 		6D9824AE25C5A91E0000BB12 /* JevilUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilUtil.h; sourceTree = "<group>"; };
 		6D9824AF25C5A91E0000BB12 /* JevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilUtil.m; sourceTree = "<group>"; };
@@ -970,6 +974,8 @@
 			children = (
 				6DEC183428484A0300B3FE88 /* DevilBle.h */,
 				6DEC183528484A0300B3FE88 /* DevilBle.m */,
+				6D86290C288C2FA100E62B7B /* DevilNfc.h */,
+				6D86290D288C2FA100E62B7B /* DevilNfc.m */,
 			);
 			path = ble;
 			sourceTree = "<group>";
@@ -1028,6 +1034,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D86290E288C2FA200E62B7B /* DevilNfc.h in Headers */,
 				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
 				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
 				6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */,
@@ -1310,6 +1317,7 @@
 				6D9F7B112629658F003A70EC /* PECropView.m in Sources */,
 				6D9F7C8926396318003A70EC /* DevilToast.m in Sources */,
 				6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */,
+				6D86290F288C2FA200E62B7B /* DevilNfc.m in Sources */,
 				6D3DD34C275B778000707521 /* DevilPlayerController.m in Sources */,
 				6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */,
 				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,

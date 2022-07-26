@@ -18,6 +18,7 @@
 @property void (^callbackDisconnect)(id res);
 @property void (^callbackAdvertise)(id res);
 @property void (^callbackRead)(id res);
+@property void (^callbackDiscovered)(id res);
 
 @property NSTimeInterval startScanSec;
 @property float scanSec;
@@ -59,8 +60,7 @@
 
 - (void)scan {
     if (self.cbmanager.state == CBManagerStatePoweredOff){
-        [Jevil alert:@"abc"];
-//        [self showBluetoothSettingAlert];
+        [self showBluetoothSettingAlert];
         if(self.callbackList) {
             self.callbackList(@{
                 @"r":@FALSE,
@@ -196,7 +196,20 @@
 }
 
 
-- (void)send:(NSString*)udid :(NSString*)hexString :(void (^)(id res))callback {
+- (void)send:(id)param :(void (^)(id res))callback {
+    
+    NSString* udid = param[@"udid"];
+    NSString* service_udid = param[@"service"];
+    NSString* characteristic_udid = param[@"characteristic"];
+    NSString* hex = param[@"hex"];
+    NSString* text = param[@"text"];
+    
+    NSData* b = nil;
+    if(hex)
+        b = [self fromHexString:hex];
+    else if(text)
+        b = [text dataUsingEncoding:NSUTF8StringEncoding];
+    
     CBPeripheral* device = nil;
     for(CBPeripheral* b in self.blue_list) {
         NSString* thisUdid = [b.identifier description];
@@ -206,23 +219,17 @@
         }
     }
     
-    if(!device || !self.characteristics[udid]) {
-        callback(@{@"r":@FALSE, @"msg":@"No Connected Device"});
-        return;
+    for(CBService* service in device.services) {
+        for(CBCharacteristic* c in [service characteristics]) {
+            if([[c.UUID description] isEqualToString:characteristic_udid]) {
+                [device writeValue:b forCharacteristic:c type:CBCharacteristicWriteWithoutResponse];
+                NSString* name = [self nameFromDevice:device];
+                id j = [param mutableCopy];
+                j[@"name"] = name;
+                [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"write" log:j];
+            }
+        }
     }
-    
-    id cs = self.characteristics[udid];
-    NSData* data = [self fromHexString:hexString];
-    for(CBCharacteristic* c in cs) {
-        [device writeValue:data forCharacteristic:c type:CBCharacteristicWriteWithResponse];
-    }
-    
-    NSString* name = [self nameFromDevice:device];
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"write" log:@{
-        @"udid":udid,
-        @"name":name,
-        @"data":hexString,
-    }];
 }
 
 - (void)callback:(NSString*)command :(void (^)(id res))callback{
@@ -234,6 +241,8 @@
         self.callbackRead = callback;
     } else if([@"disconnected" isEqualToString:command]) {
         self.callbackDisconnect = callback;
+    } else if([@"discovered" isEqualToString:command]) {
+        self.callbackDiscovered = callback;
     }
 }
 
@@ -255,15 +264,55 @@
 - (void)destroy{
     if(self.cbmanager != nil) {
         [self.cbmanager stopScan];
-        self.cbmanager = nil;
         self.callbackConnect = nil;
         self.callbackRead = nil;
         self.callbackAdvertise = nil;
         self.callbackDisconnect = nil;
+        self.callbackDiscovered = nil;
         self.callbackList = nil;
     }
 }
 
+-(void)callDiscoveredCallback:(CBPeripheral *)peripheral {
+    if(self.callbackDiscovered)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        id r = [@{} mutableCopy];
+        id service_list = [@[] mutableCopy];
+        r[@"service"] = service_list;
+        r[@"udid"] = [peripheral.identifier description];
+        for(CBService* service in peripheral.services) {
+            id j = [@{} mutableCopy];
+            [service_list addObject:j];
+            j[@"udid"] = [service.UUID description];
+            j[@"primary"] = service.isPrimary?@TRUE:@FALSE;
+            id c_list = [@[] mutableCopy];
+            j[@"characteristic"] = c_list;
+            for(CBCharacteristic* c in [service characteristics]) {
+                id k = [@{} mutableCopy];
+                [c_list addObject:k];
+                k[@"udid"] = [c.UUID description];
+                CBCharacteristicProperties p = c.properties;
+                if( (p & CBCharacteristicPropertyBroadcast) != 0)
+                    k[@"broadcast"] = @TRUE;
+                if( (p & CBCharacteristicPropertyRead) != 0)
+                    k[@"read"] = @TRUE;
+                if( (p & CBCharacteristicPropertyWriteWithoutResponse) != 0)
+                    k[@"write_no_response"] = @TRUE;
+                if( (p & CBCharacteristicPropertyWrite) != 0)
+                    k[@"write"] = @TRUE;
+                if( (p & CBCharacteristicPropertyNotify) != 0)
+                    k[@"notify"] = @TRUE;
+                if( (p & CBCharacteristicPropertyIndicate) != 0)
+                    k[@"indicate"] = @TRUE;
+                if( (p & CBCharacteristicPropertyAuthenticatedSignedWrites) != 0)
+                    k[@"signedWrite"] = @TRUE;
+            }
+        }
+//        NSLog(@"callDiscoveredCallback %@", r);
+        self.callbackDiscovered(r);
+    });
+    
+}
 
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error {
     if (error != nil) {
@@ -281,11 +330,11 @@
     NSString* udid = [peripheral.identifier description];
     self.characteristics[udid] = service.characteristics;
     for (CBCharacteristic *charater in service.characteristics) {
-        NSLog(@"discovered Characteristic :%@",charater.debugDescription);
         peripheral.delegate = self;
         [peripheral setNotifyValue:YES forCharacteristic:charater];
         [peripheral readValueForCharacteristic:charater];
     }
+    [self callDiscoveredCallback:peripheral];
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error{
@@ -294,11 +343,17 @@
     if(characteristic.value.length > 0) {
         NSString* udid = [peripheral.identifier description];
         NSString* name = [self nameFromDevice:peripheral];
-        id json = @{
+        
+        id json = [@{
             @"udid":udid,
             @"name":name,
-            @"value":[self hexString:characteristic.value],
-        };
+            @"hex":[self hexString:characteristic.value],
+            @"characteristic":[characteristic.UUID description],
+            @"service":[characteristic.service.UUID description]
+        } mutableCopy];
+        NSString* text = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
+        if(text)
+            json[@"text"] = text;
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"read" log:json];
         
         if(self.callbackRead) {

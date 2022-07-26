@@ -127,7 +127,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleDisconnect:(NSString*)udid;
 + (void)bleRelease:(NSString*)udid;
 + (void)bleCallback:(NSString*)command :(JSValue *)callback;
-+ (void)bleWrite:(NSString*)udid :(NSString*)hexString :(JSValue *)callback;
++ (void)bleWrite:(NSDictionary*)param;
++ (void)nfcStart:(NSDictionary*)param :(JSValue*)callback;
++ (void)nfcStop;
 
 @end
 

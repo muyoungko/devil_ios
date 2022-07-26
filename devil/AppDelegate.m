@@ -458,7 +458,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                 success([@{@"devil_list":a} mutableCopy]);
             } else {
                 id a = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-                success([a mutableCopy]);
+                success(a);
             }
         }
     }

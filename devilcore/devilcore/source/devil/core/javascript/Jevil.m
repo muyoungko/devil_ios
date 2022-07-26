@@ -43,6 +43,7 @@
 #import "WildCardTrigger.h"
 #import "DevilRecord.h"
 #import <SafariServices/SafariServices.h>
+#import "DevilNfc.h"
 
 @interface Jevil()
 
@@ -1365,11 +1366,22 @@ BOOL httpOk[10];
     }];
 }
 
-+ (void)bleWrite:(NSString*)udid :(NSString*)hexString :(JSValue *)callback {
++ (void)bleWrite:(NSDictionary*)param {
+//    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilBle sharedInstance] send:param :^(id  _Nonnull res) {
+//        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)nfcStart:(NSDictionary*)param :(JSValue*)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    [[DevilBle sharedInstance] send:udid :hexString :^(id  _Nonnull res) {
+    [[DevilNfc sharedInstance] start:param :^(id  _Nonnull res) {
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
+}
+
++ (void)nfcStop {
+    [[DevilNfc sharedInstance] stop];
 }
 
 @end
