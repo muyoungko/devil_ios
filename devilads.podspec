@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilads'
   s.platform         = :ios
-  s.version          = '0.0.173'
+  s.version          = '0.0.174'
   s.summary          = 'Devil Ads'
   s.description      = <<-DESC
     This is Devil Ads
