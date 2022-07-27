@@ -254,7 +254,10 @@
         
         if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
             float h = [WildCardUtil measureHeight:cloudJson data:_data[position]];
-            return CGSizeMake(collectionView.frame.size.width, h);
+            float w = [self mesureWidth:cloudJson data:_data[position]];
+            if(w > collectionView.frame.size.width * 0.6)
+                w = collectionView.frame.size.width;
+            return CGSizeMake(w, h);
         } else {
             float w = [self mesureWidth:cloudJson data:_data[position]];
             return CGSizeMake(w, collectionView.frame.size.height);

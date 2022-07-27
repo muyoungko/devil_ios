@@ -225,7 +225,7 @@
             [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
         else
             [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-        
+         
         CGRect containerRect = [WildCardConstructor getFrame:layer:parent];
         containerRect.origin.x = containerRect.origin.y = 0;
         
