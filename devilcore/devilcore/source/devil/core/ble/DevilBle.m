@@ -37,7 +37,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
-        [sharedInstance inititalize];
     });
     return sharedInstance;
 }
@@ -49,6 +48,8 @@
 }
 
 - (void)list:(id)param :(void (^)(id res))callback{
+    [self inititalize];
+        
     self.callbackList = callback;
     if(param[@"sec"])
         self.scanSec = [param[@"sec"] floatValue];

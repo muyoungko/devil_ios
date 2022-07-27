@@ -132,6 +132,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NFCReaderUsageDescription</key>
+	<string>Please, allow access for NFC Scan Usage</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -157,8 +159,6 @@
 	<string>$(PRODUCT_NAME)photos description.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>Please, allow access for speech recognition</string>
-	<key>NFCReaderUsageDescription</key>
-	<string>Please, allow access for NFC Scan Usage</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
