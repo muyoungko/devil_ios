@@ -574,4 +574,18 @@ static BOOL IS_TABLET = NO;
     return paddingTop + paddingBottom;
 }
 
++(UIView*)findView:(id)layer name:(NSString*)name {
+    if([name isEqualToString:layer[@"name"]])
+        return layer;
+    
+    for(id c in layer[@"layers"]) {
+        id r = [self findView:c name:name];
+        if(r)
+            return r;
+    }
+    
+    return nil;
+}
+
+
 @end

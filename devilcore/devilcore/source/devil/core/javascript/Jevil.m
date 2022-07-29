@@ -255,18 +255,17 @@
     return r;
 }
 
-id result[10];
-BOOL complete[10];
-BOOL httpOk[10];
-
 + (void)getMany:(NSArray *)paths then:(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     __block int len = (int)[paths count];
     
+    id result = [@[] mutableCopy];
+    id complete = [@[] mutableCopy];
+    id httpOk = [@[] mutableCopy];
     for(int i=0;i<len;i++) {
-        result[i] = nil;
-        complete[i] = false;
-        httpOk[i] = false;
+        [result addObject:[@{} mutableCopy]];
+        [complete addObject:@FALSE];
+        [httpOk addObject:@FALSE];
     }
     
     for(int j=0;j<[paths count];j++) {
@@ -293,23 +292,26 @@ BOOL httpOk[10];
         if([Jevil get:x_access_token_key])
             header[@"x-access-token"] = [Jevil get:x_access_token_key];
         
+        
         __block int findex = j;
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
         [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
-            result[findex] = responseJsonObject;
-            complete[findex] = true;
-            httpOk[findex] = responseJsonObject != nil && !([responseJsonObject isMemberOfClass:[NSError class]]) ;
+            
+            if(responseJsonObject != nil)
+                result[findex] = responseJsonObject;
+            complete[findex] = @TRUE;
+            httpOk[findex] = (responseJsonObject != nil && !([responseJsonObject isMemberOfClass:[NSError class]]))?@TRUE:@FALSE ;
             BOOL allComplete = true;
             BOOL allOk = true;
             for(int i=0;i<len;i++) {
-                if(!complete[i]) {
+                if(complete[i] == @FALSE) {
                     allComplete = false;
                     break;
                 }
             }
             
             for(int i=0;i<len;i++) {
-                if(!httpOk[i]) {
+                if(httpOk[i] == @FALSE) {
                     allOk = false;
                     break;
                 }

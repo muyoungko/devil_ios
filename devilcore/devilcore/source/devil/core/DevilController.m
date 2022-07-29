@@ -32,7 +32,7 @@
 
 @implementation DevilController
 
-- (void)viewDidLoad{   
+- (void)viewDidLoad{
     [super viewDidLoad];
     
     if(!self.screenId){
@@ -189,11 +189,18 @@
     } else if(self.inside_footer) {
         //inside footer는 바텀 패딩을 자동으로 더하지 않는다 알아서 해야한다
         //TODO 그럼 bottom 패딩이 0인 기기에서는 어떻게 해야하나? footerY에 마이너스 패딩을 적용해야할듯
-        int footerY = screenHeight - self.original_footer_height - (self.header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
+        int footerY = screenHeight - self.original_footer_height - self.bottomPadding - (self.header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
         self.original_footer_y = footerY;
-        self.original_footer_height_plus_bottom_padding = self.original_footer_height;
+        self.original_footer_height_plus_bottom_padding = self.original_footer_height + self.bottomPadding;
         self.inside_footer.frame = CGRectMake(0, footerY, self.inside_footer.frame.size.width,
                                   self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
+        
+        //inside_footer의 경우 를 tab_bg를 self.bottomPadding만큼 널려준다
+        WildCardUIView* inside_footer_tab_bg = (WildCardUIView*)[self.inside_footer.meta getView:@"tab_bg"];
+        if(inside_footer_tab_bg) {
+            CGRect f = inside_footer_tab_bg.frame;
+            inside_footer_tab_bg.frame = CGRectMake(f.origin.x, f.origin.y, f.size.width, f.size.height+self.bottomPadding);
+        }
     }
 }
 

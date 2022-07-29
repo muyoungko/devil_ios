@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property BOOL fix_footer;
 @property (nonatomic, retain) WildCardUIView* footer;
 @property (nonatomic, retain) WildCardUIView* inside_footer;
+
 @property (nonatomic, retain) UIAlertController* activeAlert;
 @property CGRect keyboardRect;
 
