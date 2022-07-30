@@ -25,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString*)getReserveUrl;
 -(NSString*)popReserveUrl;
 -(BOOL)standardUrlProcess:(NSString*)url;
--(void)consumeStandardReserveUrl;
+-(BOOL)consumeStandardReserveUrl;
 -(BOOL)checkNotificationShouldShow:(NSDictionary*)data;
 -(void)localPush:(id)param;
 

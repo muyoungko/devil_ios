@@ -8,6 +8,7 @@
 #import "DevilBillInstance.h"
 #import "WildCardConstructor.h"
 #import "DevilDebugView.h"
+#import "Jevil.h"
 
 @interface DevilBillInstance()
 @property void (^callback)(id res);
@@ -97,6 +98,20 @@
 - (void)purchase:(NSString*)sku callback:(void (^)(id res))callback {
     
     self.purchaseCallback = callback;
+    
+    NSString* projectId = [Jevil get:@"PROJECT_ID"];
+    if([[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"]
+       && ![@"1605234988599" isEqualToString:projectId] ) {
+        self.purchaseCallback(@{
+            @"r":@TRUE,
+            @"order_id": [NSString stringWithFormat:@"devil_order_%@", [NSUUID UUID].UUIDString],
+            @"sku": sku,
+            @"receipt":[NSString stringWithFormat:@"devil_receipt_%@", [NSUUID UUID].UUIDString],
+        });
+        self.purchaseCallback = nil;
+        return;
+    }
+    
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:sku]];
     productsRequest.delegate = self;
     [productsRequest start];

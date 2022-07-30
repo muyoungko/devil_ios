@@ -407,6 +407,16 @@
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
+    for(int i=0;i<[url length];i++) {
+        unichar c = [url characterAtIndex:i];
+        if( (unsigned int)c >= 0xAC00 && (unsigned int)c <= 0xD7A3)
+        {
+            NSString *s = [NSString stringWithFormat:@"%C", c];
+            NSString *e = urlencode(s);
+            url = [url stringByReplacingOccurrencesOfString:s withString:e];
+        }
+    }
+    
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         
@@ -1282,12 +1292,12 @@
     [[DevilLink sharedInstance] localPush:param];
 }
 
-+ (void)consumeStandardReserveUrl {
-    [[DevilLink sharedInstance] consumeStandardReserveUrl];
++ (BOOL)consumeStandardReserveUrl {
+    return [[DevilLink sharedInstance] consumeStandardReserveUrl];
 }
 
-+ (void)standardUrlProcess:(NSString*)url {
-    [[DevilLink sharedInstance] standardUrlProcess:url];
++ (BOOL)standardUrlProcess:(NSString*)url {
+    return [[DevilLink sharedInstance] standardUrlProcess:url];
 }
 
 + (void)toJpg:(NSString*)nodeName :(JSValue*)callback

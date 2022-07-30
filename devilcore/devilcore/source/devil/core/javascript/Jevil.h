@@ -114,8 +114,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)createDeepLink:(NSDictionary*)param :(JSValue*)callback;
 + (NSString*)getReserveUrl;
 + (NSString*)popReserveUrl;
-+ (void)consumeStandardReserveUrl;
-+ (void)standardUrlProcess:(NSString*)url;
++ (BOOL)consumeStandardReserveUrl;
++ (BOOL)standardUrlProcess:(NSString*)url;
 + (void)localPush:(id)param;
 + (void)toJpg:(NSString*)node :(JSValue*)callback;
 + (void)androidEscapeDozeModeIf:(NSString*)msg:(NSString*)yes:(NSString*)no;

@@ -108,7 +108,7 @@
     return consumed;
 }
 
--(void)consumeStandardReserveUrl{
+-(BOOL)consumeStandardReserveUrl{
     NSString* urls = [self getReserveUrl];
     BOOL consumed = NO;
     if(urls) {
@@ -117,6 +117,8 @@
     
     if(consumed)
         [self popReserveUrl];
+    
+    return consumed;
 }
 
 -(BOOL)checkCond:(id)cond {
