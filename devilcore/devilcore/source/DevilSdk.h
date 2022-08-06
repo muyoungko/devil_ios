@@ -23,10 +23,18 @@ NS_ASSUME_NONNULL_BEGIN
 -(DevilController*)getScreenViewController:(NSString*)screenName;
 @end
 
+@protocol DevilSdkGoogleAdsDelegate<NSObject>
+@required
+-(void)loadAds:(id)params complete:(void (^)(id res))callback;
+-(void)showAds:(id)params complete:(void (^)(id res))callback;
+@end
+
 @interface DevilSdk : NSObject
 
 @property (nonatomic, weak, nullable) id <DevilSdkDelegate> devilSdkDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkScreenDelegate> devilSdkScreenDelegate;
+@property (nonatomic, weak, nullable) id <DevilSdkGoogleAdsDelegate> devilSdkGoogleAdsDelegate;
+
 @property (nonatomic, retain) NSMutableDictionary* registeredClass;
 
 +(DevilSdk*)sharedInstance;

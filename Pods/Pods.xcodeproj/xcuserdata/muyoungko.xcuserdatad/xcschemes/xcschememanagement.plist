@@ -179,16 +179,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-devilads.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-devilbill.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods-devilcore.xcscheme</key>
 		<dict>
 			<key>isShown</key>

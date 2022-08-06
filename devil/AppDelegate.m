@@ -37,6 +37,8 @@
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
 @property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
+@property(nonatomic, strong) GADInterstitialAd *interstitial;
+@property (nonatomic, retain) GADRewardedAd* rewardedAd;
 
 @end
 
@@ -160,6 +162,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
     //[[DevilSdk sharedInstance] registScreenController:@"view" class:[MyDevilController class]];
     [DevilSdk sharedInstance].devilSdkScreenDelegate = self;
+    [DevilSdk sharedInstance].devilSdkGoogleAdsDelegate = self;
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLearning class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
@@ -567,5 +570,46 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         return [[MyDevilController init] alloc];
     }
     else return nil;
+}
+    
+    
+//GOOGLE Ads delegate
+-(void)loadAds:(id)params complete:(void (^)(id res))callback{
+    NSString* adUnitId = params[@"adUnitId"];
+    GADRequest *request = [GADRequest request];
+      [GADRewardedAd
+           loadWithAdUnitID:adUnitId
+                    request:request
+          completionHandler:^(GADRewardedAd *ad, NSError *error) {
+            if (error) {
+              NSLog(@"Rewarded ad failed to load with error: %@", [error localizedDescription]);
+                callback([@{@"r":@FALSE} mutableCopy]);
+            } else {
+                self.rewardedAd = ad;
+                if(self.rewardedAd) {
+                    id r = [@{@"r":@TRUE,} mutableCopy];
+                    r[@"type"] = self.rewardedAd.adReward.type;
+                    r[@"reward"] = self.rewardedAd.adReward.amount;
+                    callback(r);
+                } else
+                    callback([@{@"r":@FALSE} mutableCopy]);
+            }
+          }];
+}
+
+-(void)showAds:(id)params complete:(void (^)(id res))callback{
+    if(self.rewardedAd) {
+        [self.rewardedAd presentFromRootViewController:[JevilInstance currentInstance].vc
+                                      userDidEarnRewardHandler:^{
+                                        GADAdReward *reward = self.rewardedAd.adReward;
+                                        id r = [@{@"r":@TRUE,} mutableCopy];
+                                        r[@"type"] = self.rewardedAd.adReward.type;
+                                        r[@"reward"] = self.rewardedAd.adReward.amount;
+                                        callback(r);
+                                    }];
+    } else {
+        id r = [@{@"r":@FALSE,} mutableCopy];
+        callback(r);
+    }
 }
 @end

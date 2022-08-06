@@ -872,12 +872,12 @@
 		6D8628EE287AAC5700E62B7B /* ads */ = {
 			isa = PBXGroup;
 			children = (
-				6D8628EF287AAC5700E62B7B /* DevilAdsInstance.m */,
-				6D8628F0287AAC5700E62B7B /* JevilAds.m */,
-				6D8628F1287AAC5700E62B7B /* DevilAdsSdk.m */,
 				6D8628F2287AAC5700E62B7B /* DevilAdsInstance.h */,
+				6D8628EF287AAC5700E62B7B /* DevilAdsInstance.m */,
 				6D8628F3287AAC5700E62B7B /* DevilAdsSdk.h */,
+				6D8628F1287AAC5700E62B7B /* DevilAdsSdk.m */,
 				6D8628F4287AAC5700E62B7B /* JevilAds.h */,
+				6D8628F0287AAC5700E62B7B /* JevilAds.m */,
 			);
 			path = ads;
 			sourceTree = "<group>";
