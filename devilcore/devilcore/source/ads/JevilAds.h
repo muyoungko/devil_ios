@@ -13,7 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol JevilAds <JSExport>
 
-+ (void)test:(NSDictionary*)param:(JSValue *)callback;
++ (void)loadAds:(NSDictionary*)param:(JSValue *)callback;
++ (void)showAds:(NSDictionary*)param:(JSValue *)callback;
 
 @end
 

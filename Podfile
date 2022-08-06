@@ -47,6 +47,7 @@ target 'devil' do
   
   google_signin
   
+  pod 'Google-Mobile-Ads-SDK'
   pod 'naveridlogin-sdk-ios'
 end
 

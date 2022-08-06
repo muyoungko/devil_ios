@@ -156,7 +156,7 @@ static NSString *default_project_id = nil;
      [NSString stringWithFormat:@"OS_VERSION_%@", project_id]];
     [[NSUserDefaults standardUserDefaults] setObject:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:[NSString stringWithFormat:@"APP_VERSION_%@", project_id]];
     
-    [[NSUserDefaults standardUserDefaults] setObject:[[NSBundle mainBundle] bundleIdentifier] forKey:[NSString stringWithFormat:@"PAKCAGE_%@", project_id]];
+    [[NSUserDefaults standardUserDefaults] setObject:[[NSBundle mainBundle] bundleIdentifier] forKey:[NSString stringWithFormat:@"PACKAGE_%@", project_id]];
     
     [[NSUserDefaults standardUserDefaults] setObject:project_id forKey:[NSString stringWithFormat:@"PROJECT_ID_%@", project_id]];
     

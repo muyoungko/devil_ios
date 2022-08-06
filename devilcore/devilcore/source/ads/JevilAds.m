@@ -9,7 +9,11 @@
 
 @implementation JevilAds
 
-+ (void)test:(NSDictionary*)param:(JSValue *)callback{
++ (void)loadAds:(NSDictionary*)param:(JSValue *)callback{
+    
+}
+
++ (void)showAds:(NSDictionary*)param:(JSValue *)callback{
     
 }
 
