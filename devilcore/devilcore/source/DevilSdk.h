@@ -29,11 +29,18 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)showAds:(id)params complete:(void (^)(id res))callback;
 @end
 
+@protocol DevilSdkNfcDelegate<NSObject>
+@required
+-(void)read:(id)params complete:(void (^)(id res))callback;
+-(void)stop:(id)params complete:(void (^)(id res))callback;
+@end
+
 @interface DevilSdk : NSObject
 
 @property (nonatomic, weak, nullable) id <DevilSdkDelegate> devilSdkDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkScreenDelegate> devilSdkScreenDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGoogleAdsDelegate> devilSdkGoogleAdsDelegate;
+@property (nonatomic, weak, nullable) id <DevilSdkNfcDelegate> devilSdkNfcDelegate;
 
 @property (nonatomic, retain) NSMutableDictionary* registeredClass;
 

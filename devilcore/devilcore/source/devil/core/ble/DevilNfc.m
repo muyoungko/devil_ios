@@ -6,12 +6,9 @@
 //
 
 #import "DevilNfc.h"
-@import CoreNFC;
+#import "DevilSdk.h"
 
-@interface DevilNfc() <NFCNDEFReaderSessionDelegate>
-
-@property (nonatomic, retain) NFCNDEFReaderSession* session;
-@property NFCNDEFMessage* detectedMessage;
+@interface DevilNfc()
 
 @end
 @implementation DevilNfc
@@ -26,30 +23,22 @@
 }
 
 - (void)start:(id)param :(void (^)(id res))callback {
-    if([NFCNDEFReaderSession readingAvailable]) {
-        self.session = [[NFCNDEFReaderSession alloc] initWithDelegate:self queue:nil invalidateAfterFirstRead:YES];
-        [self.session beginSession];
+    if([DevilSdk sharedInstance].devilSdkNfcDelegate) {
+        [[DevilSdk sharedInstance].devilSdkNfcDelegate read:@{} complete:^(id  _Nonnull res) {
+            callback(res);
+        }];
+    } else {
+        callback(@{@"r":@FALSE , @"msg":@"no devilSdkGoogleAdsDelegate"});
     }
-}
-- (void)readerSession:(NFCNDEFReaderSession *)session didDetectTags:(NSArray<__kindof id<NFCNDEFTag>> *)tags{
-    NSLog(@"didDetectTags");
-}
-- (void)readerSession:(NFCNDEFReaderSession *)session didDetectNDEFs:(NSArray<NFCNDEFMessage *> *)messages {
-    NSLog(@"didDetectNDEFs");
-}
-
-- (void)readerSessionDidBecomeActive:(NFCNDEFReaderSession *)session {
-    NSLog(@"readerSessionDidBecomeActive");
-}
-
-- (void)readerSession:(NFCNDEFReaderSession *)session didInvalidateWithError:(NSError *)error {
-    NSLog(@"didInvalidateWithError");
 }
 
 - (void)stop {
-    if(self.session) {
-        [self.session invalidateSession];
-        self.session = nil;
+    if([DevilSdk sharedInstance].devilSdkNfcDelegate) {
+        [[DevilSdk sharedInstance].devilSdkNfcDelegate stop:@{} complete:^(id  _Nonnull res) {
+//            callback(res);
+        }];
+    } else {
+//        callback(@{@"r":@FALSE , @"msg":@"no devilSdkGoogleAdsDelegate"});
     }
 }
 
