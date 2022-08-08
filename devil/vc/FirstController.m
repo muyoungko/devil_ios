@@ -27,8 +27,8 @@
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     
     [self showIndicator];
-//    [[WildCardConstructor sharedInstance] initWithOnlineVersion:@"0.0.1" onComplete:^(BOOL success) {
-    [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
+    [[WildCardConstructor sharedInstance] initWithOnlineVersion:@"0.0.1" onComplete:^(BOOL success) {
+//    [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
         
         //[WildCardConstructor sharedInstance].project[@"host"] = @"http://192.168.1.230:6111";
         
