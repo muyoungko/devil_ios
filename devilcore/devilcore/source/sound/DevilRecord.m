@@ -100,15 +100,12 @@
     NSError *error;
 
     // Recording settings
-    NSMutableDictionary *settings = [NSMutableDictionary dictionary];
-
-    [settings setValue: [NSNumber numberWithInt:kAudioFormatLinearPCM] forKey:AVFormatIDKey];
-    [settings setValue: [NSNumber numberWithFloat:16000.0] forKey:AVSampleRateKey];
-    [settings setValue: [NSNumber numberWithInt: 1] forKey:AVNumberOfChannelsKey];
-    [settings setValue: [NSNumber numberWithInt:16] forKey:AVLinearPCMBitDepthKey];
-    [settings setValue: [NSNumber numberWithBool:NO] forKey:AVLinearPCMIsBigEndianKey];
-    [settings setValue: [NSNumber numberWithBool:NO] forKey:AVLinearPCMIsFloatKey];
-    [settings setValue:  [NSNumber numberWithInt: AVAudioQualityMax] forKey:AVEncoderAudioQualityKey];
+    NSDictionary *settings = @{AVEncoderAudioQualityKey: @(AVAudioQualityMedium),
+                                     AVFormatIDKey: @(kAudioFormatMPEG4AAC),
+                                     AVEncoderBitRateKey: @(128000),
+                                     AVNumberOfChannelsKey: @(1),
+                                     AVSampleRateKey: @(44100)};
+    
 
     NSString *pathToSave = self.targetPath;
 
