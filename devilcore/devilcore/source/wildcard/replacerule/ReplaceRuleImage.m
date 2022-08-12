@@ -32,7 +32,7 @@
         [WildCardConstructor followSizeFromFather:vv child:iv];
         
         iv.layer.cornerRadius = vv.layer.cornerRadius;
-        iv.layer.maskedCorners = vv.superview.layer.maskedCorners;
+        iv.layer.maskedCorners = vv.layer.maskedCorners;
     }
     
     if(self.replaceJsonLayer[@"flipImageContent"])
@@ -48,7 +48,7 @@
         [WildCardConstructor followSizeFromFather:vv child:iv];
         
         iv.layer.cornerRadius = vv.layer.cornerRadius;
-        iv.layer.maskedCorners = vv.superview.layer.maskedCorners;
+        iv.layer.maskedCorners = vv.layer.maskedCorners;
         
         [self performSelector:@selector(flip) withObject:nil afterDelay:2.0f];
     }

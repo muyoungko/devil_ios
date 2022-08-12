@@ -10,21 +10,26 @@
 #import "DevilChat.h"
 #import "DevilCalendar.h"
 #import "DevilPicker.h"
+#import "DevilImageMapMarketComponent.h"
 
 @implementation MarketInstance
 
-+(MarketComponent*)create:(id)market meta:(id)meta{
++(MarketComponent*)create:(id)market meta:(id)meta vv:(id)vv{
     NSString* type = market[@"type"];
     MarketComponent* r = nil;
+    
     if([@"chat" isEqualToString:type]) {
         r = [[DevilChat alloc] initWithLayer:market meta:meta];
     } else if([@"calendar" isEqualToString:type]) {
         r = [[DevilCalendar alloc] initWithLayer:market meta:meta];
     } else if([@"kr.co.july.picker" isEqualToString:type]) {
         r = [[DevilPicker alloc] initWithLayer:market meta:meta];
+    } else if([@"kr.co.july.imagemap" isEqualToString:type]) {
+        r = [[DevilImageMapMarketComponent alloc] initWithLayer:market meta:meta];
     } else {
         r = [[MarketComponent alloc] initWithLayer:market meta:meta];
     }
+    r.vv = vv;
     return r;
 }
 

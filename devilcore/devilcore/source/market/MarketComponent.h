@@ -12,11 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MarketComponent : NSObject
 
+@property (nonatomic, retain) WildCardUIView* vv;
 @property (nonatomic, retain) WildCardMeta* meta;
 @property (nonatomic, retain) id marketJson;
 
 -(id)initWithLayer:(id)market meta:(id)meta;
 
+-(void)initialized;
 -(void)created;
 -(void)update:(id)opt;
 -(void)pause;

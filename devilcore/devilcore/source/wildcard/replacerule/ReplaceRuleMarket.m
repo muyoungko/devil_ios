@@ -19,7 +19,8 @@
     id market = layer[@"market"];
     self.replaceJsonLayer = market;
     self.replaceView = vv;
-    self.marketComponent = [MarketInstance create:market meta:wcMeta];
+    self.marketComponent = [MarketInstance create:market meta:wcMeta vv:vv];
+    [self.marketComponent initialized];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

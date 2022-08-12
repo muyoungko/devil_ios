@@ -19,6 +19,10 @@
     return self;
 }
 
+-(void)initialized {
+    
+}
+
 -(void)created{
     NSString* script = self.marketJson[@"created"];
     if(script != nil) {

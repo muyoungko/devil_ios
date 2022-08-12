@@ -164,6 +164,11 @@
 		6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9824AF25C5A91E0000BB12 /* JevilUtil.m */; };
 		6D98A8412700D97D004F3ECF /* DevilAlertDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D98A83F2700D97D004F3ECF /* DevilAlertDialog.h */; };
 		6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D98A8402700D97D004F3ECF /* DevilAlertDialog.m */; };
+		6D9A9DE628A3730F003302B3 /* DevilImageMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9A9DE428A3730F003302B3 /* DevilImageMapMarketComponent.h */; };
+		6D9A9DE728A3730F003302B3 /* DevilImageMapMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9A9DE528A3730F003302B3 /* DevilImageMapMarketComponent.m */; };
+		6D9A9DEA28A37320003302B3 /* DevilImageMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9A9DE828A37320003302B3 /* DevilImageMap.h */; };
+		6D9A9DEB28A37320003302B3 /* DevilImageMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9A9DE928A37320003302B3 /* DevilImageMap.m */; };
+		6D9A9DED28A569E1003302B3 /* devil_imagemap_pointer@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9A9DEC28A569E1003302B3 /* devil_imagemap_pointer@3x.png */; };
 		6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9E2B0E25BB3FC00027D16D /* WildCardPagerTabStrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */; };
 		6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -419,6 +424,11 @@
 		6D9824AF25C5A91E0000BB12 /* JevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilUtil.m; sourceTree = "<group>"; };
 		6D98A83F2700D97D004F3ECF /* DevilAlertDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAlertDialog.h; sourceTree = "<group>"; };
 		6D98A8402700D97D004F3ECF /* DevilAlertDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAlertDialog.m; sourceTree = "<group>"; };
+		6D9A9DE428A3730F003302B3 /* DevilImageMapMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImageMapMarketComponent.h; sourceTree = "<group>"; };
+		6D9A9DE528A3730F003302B3 /* DevilImageMapMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImageMapMarketComponent.m; sourceTree = "<group>"; };
+		6D9A9DE828A37320003302B3 /* DevilImageMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImageMap.h; sourceTree = "<group>"; };
+		6D9A9DE928A37320003302B3 /* DevilImageMap.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImageMap.m; sourceTree = "<group>"; };
+		6D9A9DEC28A569E1003302B3 /* devil_imagemap_pointer@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_imagemap_pointer@3x.png"; sourceTree = "<group>"; };
 		6D9E2B0B25BB3FC00027D16D /* WildCardPagerTabStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStrip.h; sourceTree = "<group>"; };
 		6D9E2B0C25BB3FC00027D16D /* WildCardPagerTabStrip.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardPagerTabStrip.m; sourceTree = "<group>"; };
 		6D9E2B1125BB41160027D16D /* WildCardPagerTabStripCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardPagerTabStripCell.h; sourceTree = "<group>"; };
@@ -540,6 +550,7 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6D9A9DEC28A569E1003302B3 /* devil_imagemap_pointer@3x.png */,
 				6D3DD34D275B93C600707521 /* devil_camera_close@3x.png */,
 				6DD0987626A6AAEF000A913A /* devil_camera_record.wav */,
 				6D8A40EA2674B77E006999FC /* play_pause.json */,
@@ -904,6 +915,17 @@
 			path = alert;
 			sourceTree = "<group>";
 		};
+		6D9A9DE328A372E7003302B3 /* imagemap */ = {
+			isa = PBXGroup;
+			children = (
+				6D9A9DE428A3730F003302B3 /* DevilImageMapMarketComponent.h */,
+				6D9A9DE528A3730F003302B3 /* DevilImageMapMarketComponent.m */,
+				6D9A9DE828A37320003302B3 /* DevilImageMap.h */,
+				6D9A9DE928A37320003302B3 /* DevilImageMap.m */,
+			);
+			path = imagemap;
+			sourceTree = "<group>";
+		};
 		6D9F7AD12626B2FB003A70EC /* crop */ = {
 			isa = PBXGroup;
 			children = (
@@ -933,6 +955,7 @@
 		6DD09434269C79CC000A913A /* market */ = {
 			isa = PBXGroup;
 			children = (
+				6D9A9DE328A372E7003302B3 /* imagemap */,
 				6DD0944A269C85A8000A913A /* MarketInstance.h */,
 				6DD0944B269C85A8000A913A /* MarketInstance.m */,
 				6DD09435269C79E8000A913A /* MarketComponent.h */,
@@ -1048,6 +1071,7 @@
 				6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */,
 				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
 				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
+				6D9A9DEA28A37320003302B3 /* DevilImageMap.h in Headers */,
 				6DD09437269C79E8000A913A /* MarketComponent.h in Headers */,
 				6DC162452691711000FD769C /* DevilNavigationController.h in Headers */,
 				6D9F7C8826396318003A70EC /* DevilToast.h in Headers */,
@@ -1086,6 +1110,7 @@
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
 				6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */,
 				6D9F7B91262C8380003A70EC /* ReplaceRuleVideo.h in Headers */,
+				6D9A9DE628A3730F003302B3 /* DevilImageMapMarketComponent.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
 				6D467A96256AB07A006D57DD /* ReplaceRuleText.h in Headers */,
 				6DD09442269C7A28000A913A /* DevilCalendar.h in Headers */,
@@ -1211,6 +1236,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */,
+				6D9A9DED28A569E1003302B3 /* devil_imagemap_pointer@3x.png in Resources */,
 				6D9F7AAA2622E93C003A70EC /* devil_camera_picture@3x.png in Resources */,
 				6D9F7AA72622E93C003A70EC /* devil_camera_flash@3x.png in Resources */,
 				6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */,
@@ -1291,6 +1317,7 @@
 				6DEC183728484A0300B3FE88 /* DevilBle.m in Sources */,
 				6DD0943E269C7A1A000A913A /* DevilChat.m in Sources */,
 				6D467ABD256AB07A006D57DD /* WildCardApplyAgainAction.m in Sources */,
+				6D9A9DEB28A37320003302B3 /* DevilImageMap.m in Sources */,
 				6D467B87257CD9F3006D57DD /* WildCardUIButton.m in Sources */,
 				6D467A8C256AB07A006D57DD /* WildCardLCAnimatedPageControl.m in Sources */,
 				6DFB74A12824255A00A64539 /* ReplaceRulePullToRefresh.m in Sources */,
@@ -1348,6 +1375,7 @@
 				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
 				6D9F7B1826298930003A70EC /* WildCardVideoView.m in Sources */,
 				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,
+				6D9A9DE728A3730F003302B3 /* DevilImageMapMarketComponent.m in Sources */,
 				6DD097E326A28924000A913A /* WildCardUICollectionView.m in Sources */,
 				6D8628FE287AAC5700E62B7B /* DevilAdsSdk.m in Sources */,
 				6D44336A2588065400B0E616 /* JevilCtx.m in Sources */,

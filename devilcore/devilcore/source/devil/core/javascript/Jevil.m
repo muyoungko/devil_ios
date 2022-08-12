@@ -44,6 +44,7 @@
 #import "DevilRecord.h"
 #import <SafariServices/SafariServices.h>
 #import "DevilNfc.h"
+#import "DevilImageMap.h"
 
 @interface Jevil()
 
@@ -970,6 +971,13 @@
     }
 }
 
++ (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [DevilUtil saveFileFromUrl:param[@"url"] to:param[@"destFileName"] callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
 + (void)download:(NSString*)url{
     
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
@@ -1394,6 +1402,27 @@
 
 + (void)nfcStop {
     [[DevilNfc sharedInstance] stop];
+}
+
++ (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [map callback:command :^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)imageMapLocation:(NSString*)nodeName :(NSString*)key :(JSValue*)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
+    [map relocation:key];
+}
+
++ (void)imageMapMode:(NSString*)nodeName :(NSString*)mode :(NSDictionary*)param {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
+    [map setMode:mode :param];
 }
 
 @end

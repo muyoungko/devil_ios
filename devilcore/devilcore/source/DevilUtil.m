@@ -248,4 +248,28 @@
     
     return iPhoneX;
 }
+
++(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename callback:(void (^)(id res))callback {
+    
+    NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
+
+    NSURL *URL = [NSURL URLWithString:url];
+    NSURLSessionDataTask* task = [session dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if(error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(@{@"r":@FALSE, @"msg":[error description]});
+            });
+        } else {
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = paths[0];
+            NSString* path = [documentsDirectory stringByAppendingPathComponent:filename];
+            BOOL success = [data writeToFile:path atomically:YES];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(@{@"r":@TRUE, @"dest":path});
+            });
+        }
+    }];
+    [task resume];
+}
 @end

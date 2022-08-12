@@ -71,6 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)cameraQrClose;
 + (void)share:(NSString*)url;
 + (void)out:(NSString*)url;
++ (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback;
 + (void)download:(NSString*)url;
 + (void)sound:(NSDictionary*)param;
 + (id)soundCurrentInfo;
@@ -130,6 +131,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleWrite:(NSDictionary*)param;
 + (void)nfcStart:(NSDictionary*)param :(JSValue*)callback;
 + (void)nfcStop;
++ (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback;
++ (void)imageMapLocation:(NSString*)nodeName :(NSString*)key :(JSValue*)callback;
++ (void)imageMapMode:(NSString*)nodeName :(NSString*)mode :(NSDictionary*)param;
 
 @end
 
