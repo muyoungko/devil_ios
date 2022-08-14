@@ -261,6 +261,7 @@
     WildCardUIButton* vv = (WildCardUIButton*)sender;
     NSString *script = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    trigger.node = vv;
     [WildCardAction execute:trigger script:script meta:self.meta];
 }
 
