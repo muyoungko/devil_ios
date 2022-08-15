@@ -45,6 +45,7 @@
 #import <SafariServices/SafariServices.h>
 #import "DevilNfc.h"
 #import "DevilImageMap.h"
+#import "DevilFileChooser.h"
 
 @interface Jevil()
 
@@ -918,7 +919,6 @@
     }];
 }
 
-
 + (void)galleryList:(NSDictionary*)param :(JSValue *)callback {
     [DevilCamera galleryList:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
@@ -926,6 +926,28 @@
     }];
 }
 
++ (void)gallerySystem:(NSDictionary*)param :(JSValue *)callback {
+    [DevilCamera gallerySystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+        if([res[@"r"] boolValue]) {
+            [callback callWithArguments:@[res]];
+            [[JevilInstance currentInstance] syncData];
+        } else if(res[@"msg"]){
+            [Jevil alert:res[@"msg"]];
+        }
+    }];
+}
+
+
++ (void)cameraSystem:(NSDictionary*)param :(JSValue *)callback {
+    [DevilCamera cameraSystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+        if([res[@"r"] boolValue]) {
+            [callback callWithArguments:@[res]];
+            [[JevilInstance currentInstance] syncData];
+        } else if(res[@"msg"]){
+            [Jevil alert:res[@"msg"]];
+        }
+    }];
+}
 
 + (void)camera:(NSDictionary*)param :(JSValue *)callback {
     [DevilCamera camera:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
@@ -1402,6 +1424,17 @@
 
 + (void)nfcStop {
     [[DevilNfc sharedInstance] stop];
+}
+
++ (void)fileChooser:(NSDictionary*)param :(JSValue*)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilFileChooser sharedInstance] fileChooser:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+        if([res[@"r"] boolValue]) {
+            [callback callWithArguments:@[res]];
+        } else if(res[@"msg"]){
+            [Jevil alert:res[@"msg"]];
+        }
+    }];
 }
 
 + (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback {

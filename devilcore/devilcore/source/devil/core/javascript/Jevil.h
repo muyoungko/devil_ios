@@ -66,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback;
 + (void)gallery:(NSDictionary*)param :(JSValue *)callback;
 + (void)galleryList:(NSDictionary*)param :(JSValue *)callback;
++ (void)gallerySystem:(NSDictionary*)param :(JSValue *)callback;
++ (void)cameraSystem:(NSDictionary*)param :(JSValue *)callback;
 + (void)camera:(NSDictionary*)param :(JSValue *)callback;
 + (void)cameraQr:(NSDictionary*)param :(JSValue *)callback;
 + (void)cameraQrClose;
@@ -131,6 +133,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleWrite:(NSDictionary*)param;
 + (void)nfcStart:(NSDictionary*)param :(JSValue*)callback;
 + (void)nfcStop;
++ (void)fileChooser:(NSDictionary*)param :(JSValue*)callback;
 + (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback;
 + (void)imageMapLocation:(NSString*)nodeName :(NSString*)key :(JSValue*)callback;
 + (void)imageMapMode:(NSString*)nodeName :(NSString*)mode :(NSDictionary*)param;

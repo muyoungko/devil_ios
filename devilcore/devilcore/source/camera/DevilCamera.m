@@ -15,12 +15,22 @@
 @import AVFoundation;
 @import Photos;
 
-@interface DevilCamera ()<DevilCameraControllerDelegate>
+@interface DevilCamera ()<DevilCameraControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property void (^callback)(id res);
 @end
 
 @implementation DevilCamera
+
++ (DevilCamera*)sharedInstance {
+    static DevilCamera *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
+}
+
 
 +(void)changePhAssetToUrlPath:(id)list callback:(void (^)(id res))callback {
     
@@ -141,6 +151,65 @@
         }
     }];
 }
+
++(void)gallerySystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
+    [DevilCamera requestCameraPermission:^(BOOL granted) {
+        if(granted) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            picker.delegate = [DevilCamera sharedInstance];
+            [vc presentViewController:picker animated:YES completion:nil];
+        } else {
+            callback(@{
+                @"r" : @FALSE,
+                @"code" : @"403",
+                @"msg" : @"카메라 권한이 없습니다. 설정에서 카메라 권한을 허용해주세요"
+            });
+        }
+    }];
+}
+
+
++(void)cameraSystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
+    [DevilCamera requestCameraPermission:^(BOOL granted) {
+        if(granted) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.delegate = [DevilCamera sharedInstance];
+            [vc presentViewController:picker animated:YES completion:nil];
+        } else {
+            callback(@{
+                @"r" : @FALSE,
+                @"code" : @"403",
+                @"msg" : @"카메라 권한이 없습니다. 설정에서 카메라 권한을 허용해주세요"
+            });
+        }
+    }];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<UIImagePickerControllerInfoKey, id> *)editingInfo API_DEPRECATED("", ios(2.0, 3.0)){
+    
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
+//    [picker dismissViewControllerAnimated:YES completion:^{
+//        UIImage* photo = info[UIImagePickerControllerOriginalImage];
+//        if(photo.imageOrientation == UIImageOrientationRight)
+//            photo = [DevilUtil rotateImage:photo degrees:90];
+//        else if(photo.imageOrientation == UIImageOrientationLeft)
+//            photo = [DevilUtil rotateImage:photo degrees:-90];
+//        else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
+//            photo = [DevilUtil rotateImage:photo degrees:180];
+//
+//    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
 
 +(void)camera:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     
