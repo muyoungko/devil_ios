@@ -272,4 +272,40 @@
     }];
     [task resume];
 }
+
++(NSString*)replaceUdidPrefixDir:(NSString*)url {
+    //ios document path 가 매번 달라진다
+    //예) /private/var/mobile/Containers/Data/Application/0B572ED5-40EC-4EDD-A98C-B2A7E3DCE077/tmp/EA9D3098-4566-4A69-859D-D00638981094.jpg
+    if([url containsString:@"/Data/Application"]) {
+        id aa = [url componentsSeparatedByString:@"/"];
+        bool checkData = false;
+        bool checkApplication = false;
+        bool checkUdid = false;
+        NSString* surfix = @"";
+        for(NSString* a in aa) {
+            if([a isEqualToString:@"Data"])
+                checkData = true;
+            else if([a isEqualToString:@"Application"])
+                checkApplication = true;
+            else if(checkApplication && checkData && !checkUdid)
+                checkUdid = true;
+            else if(checkApplication && checkData && checkUdid) {
+                if([surfix length] > 0)
+                    surfix = [surfix stringByAppendingString:@"/"];
+                surfix = [surfix stringByAppendingString:a];
+            }
+        }
+        
+        
+        id aaa = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *prefix = aaa[0];
+        prefix = [prefix stringByReplacingOccurrencesOfString:@"/Documents" withString:@""];
+        NSString *path = [NSString stringWithFormat:@"%@/%@", prefix, surfix];
+        
+        return path;
+    } else {
+        return url;
+    }
+}
+
 @end

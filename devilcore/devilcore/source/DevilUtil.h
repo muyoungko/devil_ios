@@ -46,6 +46,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (BOOL)isWifiConnection;
 + (BOOL)isPhoneX;
 +(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename callback:(void (^)(id res))callback;
++(NSString*)replaceUdidPrefixDir:(NSString*)url;
 
 @end
 

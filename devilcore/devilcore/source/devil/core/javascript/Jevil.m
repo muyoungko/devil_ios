@@ -927,7 +927,7 @@
 }
 
 + (void)gallerySystem:(NSDictionary*)param :(JSValue *)callback {
-    [DevilCamera gallerySystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+    [[DevilCamera sharedInstance] gallerySystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             [callback callWithArguments:@[res]];
             [[JevilInstance currentInstance] syncData];
@@ -939,7 +939,7 @@
 
 
 + (void)cameraSystem:(NSDictionary*)param :(JSValue *)callback {
-    [DevilCamera cameraSystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
+    [[DevilCamera sharedInstance] cameraSystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             [callback callWithArguments:@[res]];
             [[JevilInstance currentInstance] syncData];

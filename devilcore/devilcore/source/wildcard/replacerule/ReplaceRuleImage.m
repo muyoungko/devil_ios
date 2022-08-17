@@ -9,6 +9,7 @@
 #import "ReplaceRuleImage.h"
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
+#import "DevilUtil.h"
 
 @import Photos;
 
@@ -66,6 +67,7 @@
     
     [self updateImageView:url view:(UIImageView*)self.replaceView meta:meta data:opt];
     self.currentUrl = url;
+    
     if(self.currentUrl)
         ((WildCardUIView*)[self.replaceView superview]).tags[@"url"] = url;
     else
@@ -109,7 +111,13 @@
     [imageView setNeedsDisplay];
     
     if([url hasPrefix:@"/"]) {
-        [imageView setImage:[UIImage imageWithContentsOfFile:url]];
+        
+        if([[NSFileManager defaultManager] fileExistsAtPath:url])
+            [imageView setImage:[UIImage imageWithContentsOfFile:url]];
+        else {
+            url = [DevilUtil replaceUdidPrefixDir:url];
+            [imageView setImage:[UIImage imageWithContentsOfFile:url]];
+        }
     } else if([url hasPrefix:@"gallery://"]) {
         if(![url isEqualToString:self.currentUrl]) {
             PHImageRequestOptions* requestOptions = [[PHImageRequestOptions alloc] init];

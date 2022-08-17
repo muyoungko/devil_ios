@@ -18,6 +18,7 @@
 @interface DevilCamera ()<DevilCameraControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property void (^callback)(id res);
+@property (nonatomic, retain) id param;
 @end
 
 @implementation DevilCamera
@@ -152,12 +153,13 @@
     }];
 }
 
-+(void)gallerySystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
+-(void)gallerySystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     [DevilCamera requestCameraPermission:^(BOOL granted) {
         if(granted) {
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             picker.delegate = [DevilCamera sharedInstance];
+            self.callback = callback;
             [vc presentViewController:picker animated:YES completion:nil];
         } else {
             callback(@{
@@ -170,12 +172,14 @@
 }
 
 
-+(void)cameraSystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
+-(void)cameraSystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     [DevilCamera requestCameraPermission:^(BOOL granted) {
         if(granted) {
+            self.param = param;
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             picker.delegate = [DevilCamera sharedInstance];
+            self.callback = callback;
             [vc presentViewController:picker animated:YES completion:nil];
         } else {
             callback(@{
@@ -187,26 +191,53 @@
     }];
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<UIImagePickerControllerInfoKey, id> *)editingInfo API_DEPRECATED("", ios(2.0, 3.0)){
-    
-}
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
-//    [picker dismissViewControllerAnimated:YES completion:^{
-//        UIImage* photo = info[UIImagePickerControllerOriginalImage];
-//        if(photo.imageOrientation == UIImageOrientationRight)
-//            photo = [DevilUtil rotateImage:photo degrees:90];
-//        else if(photo.imageOrientation == UIImageOrientationLeft)
-//            photo = [DevilUtil rotateImage:photo degrees:-90];
-//        else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
-//            photo = [DevilUtil rotateImage:photo degrees:180];
-//
-//    }];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        if(self.callback) {
+            UIImage* photo = info[UIImagePickerControllerOriginalImage];
+            if(photo.imageOrientation == UIImageOrientationRight)
+                photo = [DevilUtil rotateImage:photo degrees:90];
+            else if(photo.imageOrientation == UIImageOrientationLeft)
+                photo = [DevilUtil rotateImage:photo degrees:-90];
+            else if(photo.imageOrientation == UIImageOrientationUp)
+                photo = [DevilUtil rotateImage:photo degrees:180];
+            
+            NSString* outputFileName = [NSUUID UUID].UUIDString;
+            NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
+            NSData *imageData = UIImageJPEGRepresentation(photo, 0.8f);
+            [imageData writeToFile:targetPath atomically:YES];
+            
+            if([self.param[@"multi"] boolValue]) {
+                id list = [@[] mutableCopy];
+                [list addObject:[@{
+                    @"type":@"image",
+                    @"image" :targetPath,
+                } mutableCopy]];
+                self.callback([@{
+                    @"r":@TRUE,
+                    @"list" : list,
+                } mutableCopy]);
+                self.callback = nil;
+            } else {
+                self.callback([@{
+                    @"r":@TRUE,
+                    @"type":@"image",
+                    @"image" :targetPath,
+                } mutableCopy]);
+                self.callback = nil;
+            }
+        }
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:^{
-        
+        if(self.callback) {
+            self.callback([@{
+                @"r":@FALSE,
+            } mutableCopy]);
+            self.callback = nil;
+        }
     }];
 }
 

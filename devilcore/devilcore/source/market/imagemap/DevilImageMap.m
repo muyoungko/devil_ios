@@ -165,12 +165,7 @@ float borderWidth = 7;
         }];
         [task resume];
     } else {
-        //ios document path 가 매번 달라진다
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = paths[0];
-        NSString* fileName = [DevilUtil getFileName:url];
-        NSString* ext = [DevilUtil getFileExt:url];
-        NSString *path = [documentsDirectory stringByAppendingFormat:@"/%@.%@", fileName, ext];
+        NSString* path = [DevilUtil replaceUdidPrefixDir:url];
         NSData* mapData = [NSData dataWithContentsOfFile:path];
         UIImage* image = [UIImage imageWithData:mapData];
         [self initializeWithImage:image];
