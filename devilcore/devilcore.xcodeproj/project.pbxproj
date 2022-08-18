@@ -166,6 +166,7 @@
 		6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D98A8402700D97D004F3ECF /* DevilAlertDialog.m */; };
 		6D9A864828AA7B6C001002D8 /* DevilFileChooser.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9A864628AA7B6C001002D8 /* DevilFileChooser.h */; };
 		6D9A864928AA7B6C001002D8 /* DevilFileChooser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9A864728AA7B6C001002D8 /* DevilFileChooser.m */; };
+		6D9A864B28AE08BA001002D8 /* devil_camera_system.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D9A864A28AE08BA001002D8 /* devil_camera_system.xib */; };
 		6D9A9DE628A3730F003302B3 /* DevilImageMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9A9DE428A3730F003302B3 /* DevilImageMapMarketComponent.h */; };
 		6D9A9DE728A3730F003302B3 /* DevilImageMapMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9A9DE528A3730F003302B3 /* DevilImageMapMarketComponent.m */; };
 		6D9A9DEA28A37320003302B3 /* DevilImageMap.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9A9DE828A37320003302B3 /* DevilImageMap.h */; };
@@ -428,6 +429,7 @@
 		6D98A8402700D97D004F3ECF /* DevilAlertDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilAlertDialog.m; sourceTree = "<group>"; };
 		6D9A864628AA7B6C001002D8 /* DevilFileChooser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilFileChooser.h; sourceTree = "<group>"; };
 		6D9A864728AA7B6C001002D8 /* DevilFileChooser.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilFileChooser.m; sourceTree = "<group>"; };
+		6D9A864A28AE08BA001002D8 /* devil_camera_system.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = devil_camera_system.xib; sourceTree = "<group>"; };
 		6D9A9DE428A3730F003302B3 /* DevilImageMapMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImageMapMarketComponent.h; sourceTree = "<group>"; };
 		6D9A9DE528A3730F003302B3 /* DevilImageMapMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImageMapMarketComponent.m; sourceTree = "<group>"; };
 		6D9A9DE828A37320003302B3 /* DevilImageMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImageMap.h; sourceTree = "<group>"; };
@@ -576,6 +578,7 @@
 				6D0224A026131F6500634842 /* devil_icon.png */,
 				6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */,
 				6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */,
+				6D9A864A28AE08BA001002D8 /* devil_camera_system.xib */,
 			);
 			path = resource;
 			sourceTree = "<group>";
@@ -1250,6 +1253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D9A864B28AE08BA001002D8 /* devil_camera_system.xib in Resources */,
 				6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */,
 				6D9A9DED28A569E1003302B3 /* devil_imagemap_pointer@3x.png in Resources */,
 				6D9F7AAA2622E93C003A70EC /* devil_camera_picture@3x.png in Resources */,

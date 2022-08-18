@@ -19,6 +19,8 @@
 
 @property void (^callback)(id res);
 @property (nonatomic, retain) id param;
+@property (nonatomic, retain) NSMutableArray* photoList;
+@property (nonatomic, retain) UIImagePickerController *picker;
 @end
 
 @implementation DevilCamera
@@ -171,16 +173,91 @@
     }];
 }
 
+-(UIView*)cameraOverlay {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    id arr = [bundle loadNibNamed:@"devil_camera_system" owner:self options:NULL];
+    UIView * r = [arr firstObject];
+    {
+        UIColor* color = [UIColor whiteColor];
+        UIButton * b = [r viewWithTag:8574];
+        b.imageView.tintColor = color;
+        b.imageView.image = [b.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b addTarget:self action:@selector(onClickTake:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    {
+        UIColor* color = [UIColor whiteColor];
+        UIButton * b = [r viewWithTag:8575];
+        b.imageView.tintColor = color;
+        b.imageView.image = [b.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b addTarget:self action:@selector(onClickCancel) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    {
+        UIColor* color = [UIColor whiteColor];
+        UIButton * b = [r viewWithTag:8576];
+        b.imageView.tintColor = color;
+        b.imageView.image = [b.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b addTarget:self action:@selector(onClickComplete) forControlEvents:UIControlEventTouchUpInside];
+    }
+
+    return r;
+}
+
+-(void)onClickTake:(id)sender {
+    [self.picker takePicture];
+}
+-(void)onClickCancel {
+    [self.picker dismissViewControllerAnimated:YES completion:^{
+        if(self.callback) {
+            self.callback([@{
+                @"r":@FALSE,
+            } mutableCopy]);
+            self.callback = nil;
+        }
+    }];
+}
+-(void)onClickComplete {
+    [self.picker dismissViewControllerAnimated:YES completion:^{
+        if(self.callback) {
+            self.callback([@{
+                @"r":([self.photoList count] > 0 ? @TRUE:@FALSE),
+                @"list":self.photoList
+            } mutableCopy]);
+            self.callback = nil;
+        }
+    }];
+}
 
 -(void)cameraSystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     [DevilCamera requestCameraPermission:^(BOOL granted) {
         if(granted) {
-            self.param = param;
-            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            picker.delegate = [DevilCamera sharedInstance];
-            self.callback = callback;
-            [vc presentViewController:picker animated:YES completion:nil];
+            
+            if([param[@"multi"] boolValue]) {
+                self.photoList = [@[] mutableCopy];
+                self.param = param;
+                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                self.picker = picker;
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                picker.delegate = self;
+                
+                UIView* over = [self cameraOverlay];
+                picker.cameraOverlayView = over;
+                picker.showsCameraControls = NO;
+                picker.navigationBarHidden = YES;
+                self.callback = callback;
+                [vc presentViewController:picker animated:YES completion:^{
+                    self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, 100);
+                }];
+            } else {
+                self.param = param;
+                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                picker.delegate = [DevilCamera sharedInstance];
+                self.callback = callback;
+                [vc presentViewController:picker animated:YES completion:nil];
+            }
+            
         } else {
             callback(@{
                 @"r" : @FALSE,
@@ -191,34 +268,36 @@
     }];
 }
 
+- (NSString*)savePhotoToJpegFile:(UIImage*)photo {
+     id aaa = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+     NSString *prefix = aaa[0];
+     if(photo.imageOrientation == UIImageOrientationRight)
+         photo = [DevilUtil rotateImage:photo degrees:90];
+     else if(photo.imageOrientation == UIImageOrientationLeft)
+         photo = [DevilUtil rotateImage:photo degrees:-90];
+     else if(photo.imageOrientation == UIImageOrientationUp)
+         photo = [DevilUtil rotateImage:photo degrees:180];
+     
+     NSString* outputFileName = [NSUUID UUID].UUIDString;
+     NSString* targetPath = [prefix stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
+     NSData *imageData = UIImageJPEGRepresentation(photo, 0.8f);
+     [imageData writeToFile:targetPath atomically:YES];
+    return targetPath;
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
-    [picker dismissViewControllerAnimated:YES completion:^{
-        if(self.callback) {
-            UIImage* photo = info[UIImagePickerControllerOriginalImage];
-            if(photo.imageOrientation == UIImageOrientationRight)
-                photo = [DevilUtil rotateImage:photo degrees:90];
-            else if(photo.imageOrientation == UIImageOrientationLeft)
-                photo = [DevilUtil rotateImage:photo degrees:-90];
-            else if(photo.imageOrientation == UIImageOrientationUp)
-                photo = [DevilUtil rotateImage:photo degrees:180];
-            
-            NSString* outputFileName = [NSUUID UUID].UUIDString;
-            NSString* targetPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
-            NSData *imageData = UIImageJPEGRepresentation(photo, 0.8f);
-            [imageData writeToFile:targetPath atomically:YES];
-            
-            if([self.param[@"multi"] boolValue]) {
-                id list = [@[] mutableCopy];
-                [list addObject:[@{
-                    @"type":@"image",
-                    @"image" :targetPath,
-                } mutableCopy]];
-                self.callback([@{
-                    @"r":@TRUE,
-                    @"list" : list,
-                } mutableCopy]);
-                self.callback = nil;
-            } else {
+    
+    UIImage* photo = info[UIImagePickerControllerOriginalImage];
+    NSString* targetPath = [self savePhotoToJpegFile:photo];
+    if([self.param[@"multi"] boolValue]) {
+        [self.photoList addObject:[@{
+            @"type":@"image",
+            @"image" :targetPath,
+        } mutableCopy]];
+        
+    } else {
+        [picker dismissViewControllerAnimated:YES completion:^{
+            if(self.callback) {
                 self.callback([@{
                     @"r":@TRUE,
                     @"type":@"image",
@@ -226,8 +305,8 @@
                 } mutableCopy]);
                 self.callback = nil;
             }
-        }
-    }];
+        }];
+    }
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
