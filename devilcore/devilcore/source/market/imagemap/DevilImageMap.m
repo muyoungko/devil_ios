@@ -181,9 +181,21 @@ float borderWidth = 7;
     _scrollView.contentSize = CGSizeMake(image.size.width, image.size.height);
     _contentView.frame = _imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
-    float sw = [UIScreen mainScreen].bounds.size.width;
-    float scale = self.scrollView.minimumZoomScale = sw/image.size.width;
-    self.scrollView.contentInset = UIEdgeInsetsMake(sw/2, 0, sw/2, 0);
+    //float sw = [UIScreen mainScreen].bounds.size.width;
+    float width_scale = self.frame.size.width/image.size.width;
+    float height_scale = self.frame.size.height/image.size.height;
+    
+    float scale = self.scrollView.minimumZoomScale = width_scale;
+    float min_inset_width = self.frame.size.width*0.1f;
+    float min_inset_height = self.frame.size.height*0.1f + ( (self.frame.size.height- image.size.height*width_scale) / 2);
+    
+    if((self.frame.size.width / self.frame.size.height) > (image.size.width / image.size.height)) {
+        scale = self.scrollView.minimumZoomScale = height_scale;
+        min_inset_width = self.frame.size.width*0.1f + ( (self.frame.size.width - image.size.width*height_scale) / 2);
+        min_inset_height = self.frame.size.height*0.1f;
+    }
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(min_inset_height, min_inset_width, min_inset_height, min_inset_width);
     
     self.scrollView.contentOffset = CGPointMake(image.size.width/2*scale, image.size.height/2*scale);
     self.scrollView.zoomScale = scale;

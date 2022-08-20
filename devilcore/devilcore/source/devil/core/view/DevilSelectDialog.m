@@ -31,6 +31,10 @@ alpha:1.0]
 @property (nonatomic) UIColor* textColorSelected;
 @property (nonatomic) UIColor* textColorNormal;
 @property (nonatomic) UIColor* yesButtonTextColor;
+@property (nonatomic) NSString *showType;
+@property (nonatomic) float width;
+@property (nonatomic) float height;
+
 @end
 
 @implementation DevilSelectDialog
@@ -97,11 +101,12 @@ alpha:1.0]
         }
     };
     
+    
     int w = [UIScreen mainScreen].bounds.size.width * 0.7f, h= 300;
     if(ws)
-        w = [WildCardConstructor convertSketchToPixel:[ws intValue]];
+        self.width = w = [WildCardConstructor convertSketchToPixel:[ws intValue]];
     if(hs)
-        h = [WildCardConstructor convertSketchToPixel:[hs intValue]];
+        self.height = h = [WildCardConstructor convertSketchToPixel:[hs intValue]];
     
     if([@"top" isEqualToString:show] || [@"bottom" isEqualToString:show]){
         w = [UIScreen mainScreen].bounds.size.width;
@@ -112,6 +117,9 @@ alpha:1.0]
         if(ws)
             w = [WildCardConstructor convertSketchToPixel:[ws intValue]];
         h = (int)[array count]*55;
+        if(hs) {
+            h = [WildCardConstructor convertSketchToPixel:[hs intValue]];
+        }
     } else if([@"center" isEqualToString:show] && [array count] < 5){
         h = (int)[array count]*55;
     }
@@ -153,7 +161,7 @@ alpha:1.0]
 
     self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, offsetY + titleHeight, w, h) style:UITableViewStylePlain];
     [self.tv setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-    [self.tv setSeparatorColor:UIColorFromRGB(0xededed)];
+    [self.tv setSeparatorColor:[UIColor clearColor]];
     self.tv.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tv.frame.size.width, 1)];
     
     self.tv.delegate = self;
@@ -200,6 +208,7 @@ alpha:1.0]
             popup.py = y;
         }
     }
+    self.showType = show;
     
     popup.shouldDismissOnBackgroundTouch = YES;
     DevilBlockDialogLayout layout = DevilBlockDialogLayoutMake(DevilBlockDialogHorizontalLayout_Center, DevilBlockDialogVerticalLayout_Center);
@@ -229,6 +238,17 @@ alpha:1.0]
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if([self.showType isEqual:@"point"]) {
+        if([_list count] == 1) {
+            return _height;
+        }
+        NSMutableDictionary* item = [_list objectAtIndex:[indexPath row]];
+        NSString* n = item[_valueString];
+        NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:17]};
+        CGRect textSize = [n boundingRectWithSize:CGSizeMake(self.width - 60, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        return textSize.size.height;
+        
+    }
     return 55;
 }
 
@@ -242,7 +262,7 @@ alpha:1.0]
     n = item[_valueString];
     
     cell.textLabel.text = n;
-    cell.textLabel.numberOfLines = 2;
+    cell.textLabel.numberOfLines = 10;
     
     if([k isKindOfClass:[NSString class]] && [k isEqualToString:self.selectedKey])
         cell.textLabel.textColor = self.textColorSelected;

@@ -67,6 +67,8 @@
 
 @property (nonatomic, retain) NSMutableDictionary* _Nullable cloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable tabletCloudJsonMap;
+@property (nonatomic, retain) NSMutableDictionary* _Nullable landscapeCloudJsonMap;
+@property (nonatomic, retain) NSMutableDictionary* _Nullable tabletLandscapeCloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable screenMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable blockMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable project;
@@ -89,6 +91,7 @@
 -(void) initWithOnlineOnComplete:(void (^_Nonnull)(BOOL success))complete;
 -(void) initWithOnlineVersion:(NSString*)version onComplete:(void (^_Nonnull)(BOOL success))complete;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey;
+-(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey :(BOOL)landscape;
 -(NSString*) getDeclaredCode;
 -(NSMutableDictionary*_Nullable) getAllBlockJson;
 
@@ -105,6 +108,7 @@
 -(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId;
 -(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId;
 +(BOOL)isTablet;
++(void)updateSketchWidth:(id)layer;
 
 @end
 

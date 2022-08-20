@@ -25,6 +25,7 @@
 @property BOOL hasOnFinish;
 @property BOOL hasOnCreated;
 @property (nonatomic, retain) id thisMetas;
+
 @end
 
 
@@ -62,6 +63,16 @@
         self.data = self.startData;
     } else
         self.data = [@{} mutableCopy];
+    
+    if(self.data[@"orientation"] && [self.data[@"orientation"] isEqualToString:@"landscape"]) {
+        self.landscape = YES;
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt: UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
+        [UIViewController attemptRotationToDeviceOrientation];
+        
+    } else
+        self.landscape = NO;
+    [self updateFlexScreen];
+    
     self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
@@ -248,8 +259,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    NSString* firstBlockId = [[WildCardConstructor sharedInstance] getFirstBlock:self.screenId];
+    id blockJson = [[WildCardConstructor sharedInstance] getBlockJson:firstBlockId :self.landscape];
+    [WildCardConstructor updateSketchWidth:blockJson];
     [self checkHeader];
-    
+    if(!self.landscape) {
+        [self toPortrait];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -428,7 +444,6 @@
         [self onCreated];
         [self setRootBackgroundIfHas:self.screenId];
     } else {
-        //[self createWildCardScreenListView:self.screenId];
         [self constructBlockUnderScrollView:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
         _mainWc.meta.jevil = self.jevil;
         [_mainWc.meta created];
@@ -454,7 +469,7 @@
 
 - (void)constructBlockUnder:(NSString*)block{
     [self releaseScreen];
-    NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
+    NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block :self.landscape];
     self.mainWc = [WildCardConstructor constructLayer:self.viewMain withLayer:cj instanceDelegate:self];
     NSString* key = [NSString stringWithFormat:@"%@", self.mainWc.meta];
     self.thisMetas[key] = self.mainWc.meta;
@@ -470,7 +485,7 @@
         self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
         [_viewMain addSubview:self.scrollView];
     }
-    NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
+    NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block :self.landscape];
     self.mainWc = [WildCardConstructor constructLayer:self.scrollView withLayer:cj instanceDelegate:self];
     NSString* key = [NSString stringWithFormat:@"%@", self.mainWc.meta];
     self.thisMetas[key] = self.mainWc.meta;
@@ -661,6 +676,24 @@
     [_mainWc.meta keypad:NO :self.keyboardRect];
 }
 
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if(self.landscape)
+        return UIInterfaceOrientationMaskLandscapeLeft
+        | UIInterfaceOrientationMaskLandscapeRight;
+    else {
+        return UIInterfaceOrientationMaskPortrait;
+    }
+}
+
+- (void)toLandscape {
+    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt: UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
+    [UIViewController attemptRotationToDeviceOrientation];
+}
+- (void)toPortrait {
+    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt: UIDeviceOrientationPortrait] forKey:@"orientation"];
+    [UIViewController attemptRotationToDeviceOrientation];
+}
 @end
 
 

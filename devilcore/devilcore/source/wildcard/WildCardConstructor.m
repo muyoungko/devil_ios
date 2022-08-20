@@ -140,6 +140,8 @@ static NSString *default_project_id = nil;
     NSString* project_id = self.project_id;
     _cloudJsonMap = projectJson[@"cloudJsonMap"] ;
     _tabletCloudJsonMap = projectJson[@"tabletCloudJsonMap"] ;
+    _landscapeCloudJsonMap = projectJson[@"landscapeCloudJsonMap"] ;
+    _tabletLandscapeCloudJsonMap = projectJson[@"tabletLandscapeCloudJsonMap"] ;
     _screenMap = projectJson[@"screenMap"];
     _blockMap = projectJson[@"block"];
     _project = projectJson[@"project"];
@@ -182,11 +184,19 @@ static NSString *default_project_id = nil;
     return nil;
 }
 
--(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey
+-(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey {
+    return [self getBlockJson:blockKey :NO];
+}
+
+-(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey :(BOOL)landscape
 {
-    if(IS_TABLET && _tabletCloudJsonMap[blockKey] != nil)
+    if(IS_TABLET && landscape && _tabletCloudJsonMap[blockKey] != nil)
+        return _tabletLandscapeCloudJsonMap[blockKey];
+    else if(IS_TABLET && _tabletCloudJsonMap[blockKey] != nil)
         return _tabletCloudJsonMap[blockKey];
-    if(_cloudJsonMap[blockKey] != nil)
+    else if(_landscapeCloudJsonMap[blockKey] != nil && landscape)
+        return _landscapeCloudJsonMap[blockKey];
+    else if(_cloudJsonMap[blockKey] != nil)
         return _cloudJsonMap[blockKey];
     else
         return nil;
@@ -429,6 +439,15 @@ static BOOL IS_TABLET = NO;
         [WildCardUtil setSketchWidth:SKETCH_WIDTH];
     }
 }
+
++(void)updateSketchWidth:(id)layer{
+    float w = [layer[@"frame"][@"w"] floatValue];
+    if(w > 360)
+        SKETCH_WIDTH = w;
+    else
+        SKETCH_WIDTH = 360;
+}
+
 +(void)resetIsTablet{
     IS_TABLET = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad;
 }
@@ -448,6 +467,7 @@ static BOOL IS_TABLET = NO;
 
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer withParentMeta:(WildCardMeta*)parentMeta depth:(int)depth instanceDelegate:(id)delegate
 {
+    [WildCardConstructor updateSketchWidth:layer];
     float w = [layer[@"frame"][@"w"] floatValue];
     double s = [[NSDate date] timeIntervalSince1970];
     WildCardMeta* meta = [[WildCardMeta alloc] init];

@@ -44,13 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) UIAlertController* activeAlert;
 @property CGRect keyboardRect;
+@property BOOL landscape;
 
 - (void)showIndicator;
 - (void)hideIndicator;
 - (void)adjustFooterPositionOnKeyboard;
 - (void)keyboardDidShow:(NSNotification*)noti;
 - (void)keyboardWillHide:(NSNotification*)noti;
-
+- (void)updateFlexScreen;
 @end
 
 NS_ASSUME_NONNULL_END

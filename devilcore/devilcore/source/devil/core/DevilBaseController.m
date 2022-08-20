@@ -10,6 +10,8 @@
 #import "WildCardUITextField.h"
 #import "DevilLang.h"
 #import "WildCardUtil.h"
+#import "WildCardConstructor.h"
+
 
 @interface DevilBaseController ()<UIGestureRecognizerDelegate>
 
@@ -44,6 +46,16 @@
     return YES;
 }
 
+-(void)updateFlexScreen {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    screenWidth = screenRect.size.width;
+    screenHeight = screenRect.size.height;
+    if(!self.landscape && screenWidth > screenHeight) {
+        screenWidth = screenRect.size.height;
+        screenHeight = screenRect.size.width;
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -51,6 +63,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textEditing:) name:UITextFieldTextDidBeginEditingNotification object:nil];
+    [self updateFlexScreen];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -96,8 +109,15 @@
     if([window viewWithTag:2243] == nil) {
         UIView* indicatorBg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
         indicatorBg.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.3];
+        indicatorBg.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                UIViewAutoresizingFlexibleHeight |
+                                UIViewAutoresizingFlexibleTopMargin |
+                                UIViewAutoresizingFlexibleLeftMargin |
+                                UIViewAutoresizingFlexibleRightMargin |
+                                UIViewAutoresizingFlexibleBottomMargin;
         indicatorBg.tag = 2244;
         [window addSubview:indicatorBg];
+        [WildCardConstructor followSizeFromFather:window child:indicatorBg];
         
         UITapGestureRecognizer *singleFingerTap =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideIndicator)];
