@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WildCardUIView.h"
 
 /**
  DevilBlockDialogShowType
@@ -104,6 +105,8 @@ extern DevilBlockDialogLayout const DevilBlockDialogLayout_Center NS_SWIFT_NAME(
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilBlockDialog : UIView
+
+@property (nonatomic, retain) WildCardUIView* wc;
 
 /**
  The view you want to appear in popup.

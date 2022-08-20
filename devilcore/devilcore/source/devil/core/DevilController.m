@@ -17,6 +17,7 @@
 #import "DevilUtil.h"
 #import "DevilRecord.h"
 #import "DevilBle.h"
+#import "DevilAlertDialog.h"
 
 @interface DevilController ()
 
@@ -694,6 +695,30 @@
     [[UIDevice currentDevice] setValue:[NSNumber numberWithInt: UIDeviceOrientationPortrait] forKey:@"orientation"];
     [UIViewController attemptRotationToDeviceOrientation];
 }
+
+-(void)setActiveAlertMessage:(NSString*)msg {
+    if([DevilAlertDialog sharedInstance].dialog) {
+        WildCardUIView* v = [DevilAlertDialog sharedInstance].dialog.wc;
+        WildCardMeta* meta = v.meta;
+        meta.correspondData[@"alert_msg"] = msg;
+        [[DevilAlertDialog sharedInstance].dialog update];
+    } else if(self.activeAlert) {
+        [self.activeAlert setMessage:msg];
+    }
+}
+
+-(void)closeActiveAlertMessage {
+    if([DevilAlertDialog sharedInstance].dialog) {
+        [[DevilAlertDialog sharedInstance].dialog dismiss];
+        [DevilAlertDialog sharedInstance].dialog = nil;
+    } else if(self.activeAlert) {
+        [self.activeAlert dismissViewControllerAnimated:YES completion:^{
+            
+        }];
+        self.activeAlert = nil;
+    }
+}
+
 @end
 
 

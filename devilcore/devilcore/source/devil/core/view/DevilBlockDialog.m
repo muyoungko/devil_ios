@@ -66,7 +66,6 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 @property (nonatomic, assign) BOOL isShowing;
 @property (nonatomic, assign) BOOL isBeingShown;
 @property (nonatomic, assign) BOOL isBeingDismissed;
-@property (nonatomic, retain) WildCardUIView* wc;
 @end
 
 @implementation DevilBlockDialog

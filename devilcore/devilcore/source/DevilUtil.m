@@ -13,6 +13,8 @@
 @import SystemConfiguration;
 @import CoreTelephony;
 @import Foundation;
+#import "DevilAlertDialog.h"
+#import "DevilController.h"
 
 @implementation DevilUtil
 
@@ -305,6 +307,31 @@
         return path;
     } else {
         return url;
+    }
+}
+
++(void)showAlert:(DevilController*)vc msg:(NSString*)msg showYes:(BOOL)showYes yesText:(NSString*)yesText cancelable:(BOOL)cancelable callback:(void (^)(BOOL res))callback
+{
+    if(![DevilAlertDialog showAlertTemplateParam:@{@"msg":msg,
+                                                   @"yes_text":yesText,
+                                                 } :^(BOOL yes) {
+        callback(true);
+        }])
+    {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                                     message:nil
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+
+            [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+                                                              style:UIAlertActionStyleCancel
+                                                            handler:^(UIAlertAction *action) {
+                callback(true);
+                                                                
+            }]];
+            [vc presentViewController:alertController animated:YES completion:^{}];
+
+            [vc setActiveAlert:alertController];
+            
     }
 }
 

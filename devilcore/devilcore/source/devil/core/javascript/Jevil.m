@@ -19,7 +19,6 @@
 #import "WifiManager.h"
 #import "DevilCamera.h"
 #import "DevilBeacon.h"
-#import "DevilUtil.h"
 #import "DevilToast.h"
 #import "DevilUtil.h"
 #import "WildCardUITextField.h"
@@ -560,8 +559,21 @@
             [callback callWithArguments:@[result]];
             return;
         }
+        
+        __block BOOL cancelled = NO;
+        
+        __block DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        BOOL showUploadingPopup = [paths count] > 5;
+        if(showUploadingPopup) {
+            [DevilUtil showAlert:vc msg:@"파일을 준비 중 입니다" showYes:YES yesText:@"취소" cancelable:true callback:^(BOOL res) {
+                cancelled = YES;
+                id r = [@{@"r":@FALSE, @"msg":@"취소되었습니다"} mutableCopy];
+                [callback callWithArguments:@[r]];
+            }];
+        }
+        
         for(int i=0;i<[paths count];i++){
-            __block NSString* path = paths[i];
+            __block NSString* path = [DevilUtil replaceUdidPrefixDir:paths[i]];
             id ss = [path componentsSeparatedByString:@"."];
             NSString* ext = ss[[ss count]-1];
             NSString* url = [NSString stringWithFormat:@"%@%@/%@", [WildCardConstructor sharedInstance].project[@"host"], put_url, ext];
@@ -569,6 +581,9 @@
             [uploadedFileSuccess addObject:@FALSE];
             __block int thisIndex = i;
             [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *upload) {
+                if(cancelled)
+                    return;
+                
                 if(upload == nil || !upload[@"upload_url"]){
                     s3index++;
                     result[@"r"] = @FALSE;
@@ -595,7 +610,14 @@
                     else if([path hasSuffix:@"mp4"])
                         contentType = @"video/mp4";
                     [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
+                        if(cancelled)
+                            return;
+                        
                         s3index++;
+                        
+                        if(showUploadingPopup)
+                            [vc setActiveAlertMessage:[NSString stringWithFormat:@"업로드 중입니다 %d / %d", s3index, [paths count]]];
+                        
                         if(res != nil)
                             uploadedFileSuccess[thisIndex] = @TRUE;
                         else
@@ -610,6 +632,10 @@
                                      @"success" : uploadedFileSuccess[j]
                                  } mutableCopy]];
                             }
+                            
+                            if(showUploadingPopup)
+                                [vc closeActiveAlertMessage];
+                            
                             [callback callWithArguments:@[result]];
                             [[JevilInstance currentInstance] syncData];
                         }

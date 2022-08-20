@@ -30,6 +30,8 @@ UIDocumentInteractionControllerDelegate>
 -(WildCardUIView*)findView:(NSString*)name;
 -(MetaAndViewResult*)findViewWithMeta:(NSString*)name;
 -(void)adjustFooterHeight;
+-(void)setActiveAlertMessage:(NSString*)msg;
+-(void)closeActiveAlertMessage;
 
 @property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) NSString* projectId;
