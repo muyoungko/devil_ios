@@ -246,8 +246,7 @@ alpha:1.0]
         NSString* n = item[_valueString];
         NSDictionary *attributes = @{NSFontAttributeName: [UIFont systemFontOfSize:17]};
         CGRect textSize = [n boundingRectWithSize:CGSizeMake(self.width - 60, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-        return textSize.size.height;
-        
+        return MAX(textSize.size.height, 55);
     }
     return 55;
 }

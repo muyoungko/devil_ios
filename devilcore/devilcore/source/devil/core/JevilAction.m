@@ -30,7 +30,7 @@
             [d setTag:44123];
             [pv addSubview:d];
             NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
-            [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:screenId sketch_height_more:0];
+            [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:screenId sketch_height_more:0 landscape:false];
             
             WildCardScreenTableView* tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
             tv.data = meta.correspondData;

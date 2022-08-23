@@ -173,31 +173,42 @@
     }];
 }
 
--(UIView*)cameraOverlay {
+-(UIView*)cameraOverlay:(BOOL)isLandscape {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    id arr = [bundle loadNibNamed:@"devil_camera_system" owner:self options:NULL];
-    UIView * r = [arr firstObject];
+    UIView * r = nil;
+    
+    if(isLandscape) {
+        id arr = [bundle loadNibNamed:@"devil_camera_system_landscape" owner:self options:NULL];
+        r = [arr firstObject];
+    } else {
+        id arr = [bundle loadNibNamed:@"devil_camera_system" owner:self options:NULL];
+        r = [arr firstObject];
+    }
+    
     {
         UIColor* color = [UIColor whiteColor];
         UIButton * b = [r viewWithTag:8574];
-        b.imageView.tintColor = color;
-        b.imageView.image = [b.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        b.tintColor = b.imageView.tintColor = color;
+        UIImage* image = [[UIImage imageNamed:@"devil_camera_shutter.png" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b setImage:image forState:UIControlStateNormal];
         [b addTarget:self action:@selector(onClickTake:) forControlEvents:UIControlEventTouchUpInside];
     }
     
     {
         UIColor* color = [UIColor whiteColor];
         UIButton * b = [r viewWithTag:8575];
-        b.imageView.tintColor = color;
-        b.imageView.image = [b.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        b.tintColor = b.imageView.tintColor = color;
+        UIImage* image = [[UIImage imageNamed:@"devil_camera_cancel.png" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b setImage:image forState:UIControlStateNormal];
         [b addTarget:self action:@selector(onClickCancel) forControlEvents:UIControlEventTouchUpInside];
     }
     
     {
         UIColor* color = [UIColor whiteColor];
         UIButton * b = [r viewWithTag:8576];
-        b.imageView.tintColor = color;
-        b.imageView.image = [b.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        b.tintColor = b.imageView.tintColor = color;
+        UIImage* image = [[UIImage imageNamed:@"devil_camera_complete.png" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b setImage:image forState:UIControlStateNormal];
         [b addTarget:self action:@selector(onClickComplete) forControlEvents:UIControlEventTouchUpInside];
     }
 
@@ -237,11 +248,16 @@
                 self.photoList = [@[] mutableCopy];
                 self.param = param;
                 UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                
+                BOOL isLandscape = [[UIApplication sharedApplication] statusBarOrientation] == UIDeviceOrientationLandscapeLeft ||
+                [[UIApplication sharedApplication] statusBarOrientation] == UIDeviceOrientationLandscapeRight;
+                if(isLandscape)
+                    picker.modalPresentationStyle = UIModalPresentationCurrentContext;
                 self.picker = picker;
                 picker.sourceType = UIImagePickerControllerSourceTypeCamera;
                 picker.delegate = self;
                 
-                UIView* over = [self cameraOverlay];
+                UIView* over = [self cameraOverlay:isLandscape];
                 picker.cameraOverlayView = over;
                 picker.showsCameraControls = NO;
                 picker.navigationBarHidden = YES;

@@ -100,7 +100,7 @@
 -(NSString*)getBlockIdByName:(NSString*)blockName;
 -(NSString*)getFirstBlock:(NSString*)screenId;
 -(BOOL)isFirstBlockFitScreen:(NSString*)screenId;
--(void)firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height;
+-(void)firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height landscape:(BOOL)isLandscape;
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey withName:(NSString*)nodeName;
 -(NSMutableArray*)getScreenIfList:(NSString*)screen;
 -(NSMutableDictionary*)getScreen:(NSString*)screenId;

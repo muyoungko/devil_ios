@@ -125,6 +125,7 @@
 -(void)constructHeaderAndFooter{
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
+        [WildCardConstructor updateSketchWidth:headerCloudJson];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
         self.header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
@@ -142,6 +143,7 @@
     id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
     if(footer){
         id footerCloudJson = footer[@"cloudJson"];
+        [WildCardConstructor updateSketchWidth:footerCloudJson];
         self.fix_footer = [footer[@"fix_footer"] boolValue];
         self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
         self.isFooterVariableHeight = [footerCloudJson[@"frame"][@"h"] intValue] == -2;
@@ -157,6 +159,7 @@
     id inside_footer = [[WildCardConstructor sharedInstance] getInsideFooterCloudJson:self.screenId];
     if(inside_footer) {
         id footerCloudJson = inside_footer;
+        [WildCardConstructor updateSketchWidth:footerCloudJson];
         self.fix_footer = [footer[@"fix_footer"] boolValue];
         self.inside_footer = [WildCardConstructor constructLayer:nil withLayer:inside_footer instanceDelegate:self];
         self.isFooterVariableHeight = [footerCloudJson[@"frame"][@"h"] intValue] == -2;
@@ -181,8 +184,8 @@
         self.footer.layer.shadowColor = [[UIColor blackColor] CGColor];
     }
     
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height
-     + (self.inside_footer?0:self.footer_sketch_height)
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)
+                                                          landscape:self.landscape
     ];
 }
 
@@ -251,7 +254,9 @@
     if(self.inside_footer)
         [WildCardConstructor applyRule:self.inside_footer withData:self.data];
 
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)];
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)
+                                                          landscape:self.landscape
+    ];
     [self construct];
     [self onResume];
 }
@@ -346,6 +351,10 @@
     
     if(self.hasOnResume && self.navigationController.topViewController == self){
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
+    }
+    
+    if(self.landscape) {
+        [self toLandscape];
     }
 }
 
@@ -471,6 +480,7 @@
 - (void)constructBlockUnder:(NSString*)block{
     [self releaseScreen];
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block :self.landscape];
+    [WildCardConstructor updateSketchWidth:cj];
     self.mainWc = [WildCardConstructor constructLayer:self.viewMain withLayer:cj instanceDelegate:self];
     NSString* key = [NSString stringWithFormat:@"%@", self.mainWc.meta];
     self.thisMetas[key] = self.mainWc.meta;
@@ -487,6 +497,7 @@
         [_viewMain addSubview:self.scrollView];
     }
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block :self.landscape];
+    [WildCardConstructor updateSketchWidth:cj];
     self.mainWc = [WildCardConstructor constructLayer:self.scrollView withLayer:cj instanceDelegate:self];
     NSString* key = [NSString stringWithFormat:@"%@", self.mainWc.meta];
     self.thisMetas[key] = self.mainWc.meta;

@@ -258,14 +258,17 @@ static NSString *default_project_id = nil;
     return NO;
 }
 
-- (void) firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height {
+- (void) firstBlockFitScreenIfTrue:(NSString*)screenId sketch_height_more:(int)height landscape:(BOOL)isLandscape{
     id s = _screenMap[screenId];
     id list = s[@"list"];
     if([list count] > 0) {
         id block_id = [list[0][@"block_id"] stringValue];
         id block = _blockMap[block_id];
-        if(block && block[@"fit_to_screen"] != [NSNull null] && [block[@"fit_to_screen"] boolValue])
-            [WildCardUtil fitToScreen: [self getBlockJson:block_id] sketch_height_more:height];
+        if(block && block[@"fit_to_screen"] != [NSNull null] && [block[@"fit_to_screen"] boolValue]) {
+            id cj = [self getBlockJson:block_id :isLandscape];
+            [WildCardConstructor updateSketchWidth:cj];
+            [WildCardUtil fitToScreen: cj sketch_height_more:height];
+        }
     }
 }
 
@@ -446,6 +449,8 @@ static BOOL IS_TABLET = NO;
         SKETCH_WIDTH = w;
     else
         SKETCH_WIDTH = 360;
+    
+    [WildCardUtil setSketchWidth:SKETCH_WIDTH];
 }
 
 +(void)resetIsTablet{
@@ -467,7 +472,6 @@ static BOOL IS_TABLET = NO;
 
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer withParentMeta:(WildCardMeta*)parentMeta depth:(int)depth instanceDelegate:(id)delegate
 {
-    [WildCardConstructor updateSketchWidth:layer];
     float w = [layer[@"frame"][@"w"] floatValue];
     double s = [[NSDate date] timeIntervalSince1970];
     WildCardMeta* meta = [[WildCardMeta alloc] init];

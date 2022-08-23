@@ -251,7 +251,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
-     NSLog(@"app did become active");
+    NSLog(@"app did become active");
+    UIViewController* top = [self.navigationController topViewController];
+    if([top isKindOfClass:[DevilController class]])
+        [((DevilController*)top) onResume];
 }
 
 
