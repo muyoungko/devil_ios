@@ -186,13 +186,13 @@ float borderWidth = 7;
     float height_scale = self.frame.size.height/image.size.height;
     
     float scale = self.scrollView.minimumZoomScale = width_scale;
-    float min_inset_width = self.frame.size.width*0.1f;
-    float min_inset_height = self.frame.size.height*0.1f + ( (self.frame.size.height- image.size.height*width_scale) / 2);
+    float min_inset_width = self.frame.size.width*0.0f;
+    float min_inset_height = self.frame.size.height*0.0f + ( (self.frame.size.height- image.size.height*width_scale) / 2);
     
     if((self.frame.size.width / self.frame.size.height) > (image.size.width / image.size.height)) {
         scale = self.scrollView.minimumZoomScale = height_scale;
-        min_inset_width = self.frame.size.width*0.1f + ( (self.frame.size.width - image.size.width*height_scale) / 2);
-        min_inset_height = self.frame.size.height*0.1f;
+        min_inset_width = self.frame.size.width*0.0f + ( (self.frame.size.width - image.size.width*height_scale) / 2);
+        min_inset_height = self.frame.size.height*0.0f;
     }
     
     self.scrollView.contentInset = UIEdgeInsetsMake(min_inset_height, min_inset_width, min_inset_height, min_inset_width);

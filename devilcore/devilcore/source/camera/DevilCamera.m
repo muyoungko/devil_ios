@@ -287,12 +287,12 @@
 - (NSString*)savePhotoToJpegFile:(UIImage*)photo {
      id aaa = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
      NSString *prefix = aaa[0];
-     if(photo.imageOrientation == UIImageOrientationRight)
-         photo = [DevilUtil rotateImage:photo degrees:90];
-     else if(photo.imageOrientation == UIImageOrientationLeft)
-         photo = [DevilUtil rotateImage:photo degrees:-90];
-     else if(photo.imageOrientation == UIImageOrientationUp)
-         photo = [DevilUtil rotateImage:photo degrees:180];
+//     if(photo.imageOrientation == UIImageOrientationRight)
+//         photo = [DevilUtil rotateImage:photo degrees:90];
+//     else if(photo.imageOrientation == UIImageOrientationLeft)
+//         photo = [DevilUtil rotateImage:photo degrees:-90];
+//     else if(photo.imageOrientation == UIImageOrientationUp)
+//         photo = [DevilUtil rotateImage:photo degrees:180];
      
      NSString* outputFileName = [NSUUID UUID].UUIDString;
      NSString* targetPath = [prefix stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
