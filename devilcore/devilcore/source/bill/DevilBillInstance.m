@@ -307,10 +307,11 @@
     id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
     NSString* password = [devilConfig[@"InAppPurchasePassword"] stringValue];
     
-    id params = @{
+    id params = [@{
         @"receipt-data":encodedReceipt,
-        @"password": password,
-    };
+    } mutableCopy];
+    if(password)
+        params[@"password"] = password;
     
     NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
     NSString* url = @"https://buy.itunes.apple.com/verifyReceipt";
