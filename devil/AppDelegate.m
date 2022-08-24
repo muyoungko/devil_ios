@@ -157,6 +157,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
     [FIRApp configure];
     
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
