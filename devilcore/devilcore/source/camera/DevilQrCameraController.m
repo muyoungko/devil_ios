@@ -50,7 +50,8 @@
         id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
         self.mainVc = [WildCardConstructor constructLayer:self.view withLayer:cj instanceDelegate:self];
         self.mainVc.backgroundColor = [UIColor clearColor];
-        [WildCardConstructor applyRule:self.mainVc withData:[@{} mutableCopy]];
+        
+        [WildCardConstructor applyRule:self.mainVc withData:[JevilInstance currentInstance].data];
         WildCardMeta* meta = self.mainVc.meta;
         UIView* front = [meta getView:@"front"];
         UITapGestureRecognizer *buttonFrontRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(buttonFrontBack:)];

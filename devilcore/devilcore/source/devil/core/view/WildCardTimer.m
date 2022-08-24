@@ -128,7 +128,7 @@
     self.sec --;
     if(self.sec < 0){
         NSString* action = self.layer[@"timer"][@"action"];
-        if(action) {
+        if(action && [action length] > 0) {
             WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
             [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
         }
