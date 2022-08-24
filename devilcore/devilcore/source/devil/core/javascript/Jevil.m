@@ -609,6 +609,10 @@
                         contentType = @"image/png";
                     else if([path hasSuffix:@"mp4"])
                         contentType = @"video/mp4";
+                    
+                    if([data length] == 0)
+                        @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
+                    
                     [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
                         if(cancelled)
                             return;

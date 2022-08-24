@@ -239,7 +239,7 @@ alpha:1.0]
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if([self.showType isEqual:@"point"]) {
-        if([_list count] == 1) {
+        if([_list count] == 1 && _height > 0) {
             return _height;
         }
         NSMutableDictionary* item = [_list objectAtIndex:[indexPath row]];
