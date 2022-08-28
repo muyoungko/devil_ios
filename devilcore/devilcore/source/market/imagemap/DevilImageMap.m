@@ -117,7 +117,6 @@ float borderWidth = 7;
             [self syncPin];
             
             [self setMode:@"new_direction" : nil];
-            
             [self showPopup:tappedPoint :@[@"취소"]];
             
             if(self.pinCallback)
@@ -126,12 +125,25 @@ float borderWidth = 7;
         
     } else if([@"edit" isEqualToString:self.mode]) {
         
+        CGPoint mp = [self clickToMapPoint:tappedPoint];
+        BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
+        if(inMap) {
+            self.editingPin[@"x"] = [NSNumber numberWithFloat:mp.x];
+            self.editingPin[@"y"] = [NSNumber numberWithFloat:mp.y];
+        }
+        
+        [self syncPin];
+        
+        self.editingPinView = [self getPinViewByKey:_editingPin[@"key"]];
+        
+        [self setMode:@"new_direction" : nil];
+        [self showPopup:tappedPoint :@[@"취소"]];
     } else if([self isPopupShow] && CGRectContainsPoint([WildCardUtil getGlobalFrame:self.popupView], tappedPoint)) {
         for(UILabel* c in [self.popupView subviews]) {
             if(CGRectContainsPoint([WildCardUtil getGlobalFrame:c], tappedPoint)) {
+                [self hidePopup];
                 if([@"취소" isEqualToString:c.text]) {
                     [self setMode:@"normal" : nil];
-                    [self hidePopup];
                 } else if([@"완료" isEqualToString:c.text]) {
                     [self complete];
                 }
@@ -144,6 +156,17 @@ float borderWidth = 7;
             }
         }
     }
+}
+
+-(UIView*)getPinViewByKey:(NSString*)key {
+    int index = 0;
+    for(id pin in self.pinList) {
+        if([key isEqualToString:pin[@"key"]]) {
+            return [self.contentView viewWithTag:index];
+        }
+        index ++;
+    }
+    return nil;
 }
 
 -(CGPoint)clickToMapPoint:(CGPoint)p {
@@ -267,7 +290,7 @@ float borderWidth = 7;
     UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     CGPoint pinViewP = [pinView.superview convertPoint:pinView.center toView:rootView];
     double r = atan2(see.y - pinViewP.y, see.x - pinViewP.x);
-    double degree = r * 180 / M_PI;
+    double degree = r * 180 / M_PI  + 90;
     NSLog(@"degree - %f", degree);
     pin[@"degree"] = [NSNumber numberWithInt:(int)degree];
     [pinView viewWithTag:4421].transform = CGAffineTransformMakeRotation(r + M_PI/2);
@@ -331,8 +354,10 @@ float borderWidth = 7;
            [child removeFromSuperview];
     }
     if(self.pinList) {
+        int index = 0;
         for(id pin in self.pinList) {
-            [self addPinView:pin];
+            UIView* pv = [self addPinView:pin];
+            pv.tag = index++;
         }
         if(self.insertingPin) {
             self.insertingPinView = [self addPinView:self.insertingPin];
@@ -410,7 +435,13 @@ float borderWidth = 7;
 }
 
 - (void)relocation:(NSString*)key {
-    
+    for(id pin in self.pinList) {
+        if([key isEqualToString:pin[@"key"]]) {
+            self.editingPin = pin;
+            [self setMode:@"edit": nil];
+            break;
+        }
+    }
 }
 
 - (void)setMode:(NSString*)mode :(id)param {
@@ -434,7 +465,16 @@ float borderWidth = 7;
                 @"pin":pin,
             } mutableCopy]);
     } else if (self.editingPin) {
-        
+        id pin = self.editingPin;
+        self.editingPin = nil;
+        [self hidePopup];
+        [self setMode:@"normal":nil];
+        if(self.completeCallback)
+            self.completeCallback([@{
+                @"list":self.pinList,
+                @"type":@"edit",
+                @"pin":pin,
+            } mutableCopy]);
     }
 }
 

@@ -305,13 +305,13 @@
     
     NSString* path = [[NSBundle mainBundle] pathForResource:@"devil" ofType:@"plist"];
     id devilConfig = [[NSDictionary alloc] initWithContentsOfFile:path];
-    NSString* password = [devilConfig[@"InAppPurchasePassword"] stringValue];
     
     id params = [@{
         @"receipt-data":encodedReceipt,
     } mutableCopy];
-    if(password)
-        params[@"password"] = password;
+    if(devilConfig[@"InAppPurchasePassword"]) {
+        params[@"password"] = [devilConfig[@"InAppPurchasePassword"] stringValue];
+    }
     
     NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
     NSString* url = @"https://buy.itunes.apple.com/verifyReceipt";
