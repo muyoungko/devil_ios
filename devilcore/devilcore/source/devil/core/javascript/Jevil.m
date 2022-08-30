@@ -572,6 +572,7 @@
             }];
         }
         
+        [DevilUtil httpPutQueueClear];
         for(int i=0;i<[paths count];i++){
             __block NSString* path = [DevilUtil replaceUdidPrefixDir:paths[i]];
             id ss = [path componentsSeparatedByString:@"."];
@@ -580,6 +581,7 @@
             [uploadedFile addObject:path];
             [uploadedFileSuccess addObject:@FALSE];
             __block int thisIndex = i;
+            
             [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *upload) {
                 if(cancelled)
                     return;

@@ -16,7 +16,23 @@
 #import "DevilAlertDialog.h"
 #import "DevilController.h"
 
+@interface DevilUtil()
+@property (nonatomic, retain) NSMutableArray* httpPutWaitQueue;
+@property (nonatomic, retain) NSMutableArray* httpPutIngQueue;
+@end
+
 @implementation DevilUtil
+
++(DevilUtil*)sharedInstance{
+    static DevilUtil *sharedInstance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[DevilUtil alloc] init];
+        sharedInstance.httpPutWaitQueue = [@[] mutableCopy];
+        sharedInstance.httpPutIngQueue = [@[] mutableCopy];
+    });
+    return sharedInstance;
+}
 
 + (UIImage *)rotateImage:(UIImage *)image degrees:(CGFloat)degrees
 {
@@ -142,32 +158,71 @@
 
 }
 
++(void)httpPutQueueClear {
+    [[DevilUtil sharedInstance].httpPutWaitQueue removeAllObjects];
+    [[DevilUtil sharedInstance].httpPutIngQueue removeAllObjects];
+}
 
-+(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType data:(NSData*)data complete:(void (^)(id res))callback{
++(void)httpPutQueueResume {
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    [request setURL:[NSURL URLWithString:url]];
-    [request setHTTPMethod:@"PUT"];
-    if(contentType)
-        [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:data];
-    
-    if([data length] == 0)
-        @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte."] userInfo:nil];
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSError *err;
-        NSURLResponse *response;
-        NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
-        NSString *res = [[NSString alloc]initWithData:responseData encoding:NSASCIIStringEncoding];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if(err)
-                callback(nil);
-            else
-                callback(@{@"r":@TRUE});
-        });
+    if([[DevilUtil sharedInstance].httpPutWaitQueue count] > 0) {
+        __block id a = [[DevilUtil sharedInstance].httpPutWaitQueue firstObject];
         
-    });
+        NSLog(@"httpPutQueueResume %lu %lu",
+              [[DevilUtil sharedInstance].httpPutWaitQueue count],
+              [[DevilUtil sharedInstance].httpPutIngQueue count]);
+        
+        [[DevilUtil sharedInstance].httpPutWaitQueue removeObjectAtIndex:0];
+        [[DevilUtil sharedInstance].httpPutIngQueue addObject:a];
+        
+        NSString* url = a[@"url"];
+        id contentType = a[@"contentType"];
+        NSData* data = a[@"data"];
+        void (^callback)(id res) = a[@"callback"];
+        
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setURL:[NSURL URLWithString:url]];
+        [request setHTTPMethod:@"PUT"];
+        if(contentType)
+            [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:data];
+        
+        if([data length] == 0)
+            @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte."] userInfo:nil];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSError *err;
+            NSURLResponse *response;
+            NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
+            NSString *res = [[NSString alloc]initWithData:responseData encoding:NSASCIIStringEncoding];
+            [self httpPutQueueResume];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[DevilUtil sharedInstance].httpPutIngQueue removeObject:a];
+                if(err)
+                    callback(nil);
+                else
+                    callback(@{@"r":@TRUE});
+            });
+            
+        });
+    }
+}
+
++(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType data:(NSData*)data complete:(void (^)(id res))callback {
+    
+    __block NSString* udid = [NSUUID UUID].UUIDString;
+    
+    [[DevilUtil sharedInstance].httpPutWaitQueue addObject:[@{
+        @"udid":udid,
+        @"url":url,
+        @"contentType":contentType,
+        @"data":data,
+        @"callback":callback
+    } mutableCopy]];
+    
+    if([[DevilUtil sharedInstance].httpPutIngQueue count] < 8) {
+        [DevilUtil httpPutQueueResume];
+    }
 }
 
 +(id) parseUrl:(NSString*)url {
