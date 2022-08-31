@@ -61,6 +61,10 @@
 + (NSString*) getFileExt:(NSString*)path {
     id ss = [path componentsSeparatedByString:@"."];
     NSString* ext = ss[[ss count]-1];
+    int a = (int)[ext rangeOfString:@"?"].location;
+    if(a >= 0) {
+        ext = [ext substringToIndex:a];
+    }
     return ext;
 }
 

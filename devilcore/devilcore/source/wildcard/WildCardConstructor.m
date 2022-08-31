@@ -318,7 +318,7 @@ static NSString *default_project_id = nil;
     id h = _screenMap[screenId][@"header_block_id"];
     if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
-        return _cloudJsonMap[header_block_id];
+        return [self getBlockJson:header_block_id:false];
     } else
         return nil;
 }
@@ -341,7 +341,7 @@ static NSString *default_project_id = nil;
     id h = _screenMap[screenId][@"inside_footer_block_id"];
     if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* header_block_id =  [_screenMap[screenId][@"inside_footer_block_id"] stringValue];
-        return _cloudJsonMap[header_block_id];
+        return [self getBlockJson:header_block_id:false];
     } else
         return nil;
 }

@@ -67,8 +67,7 @@
     
     if(self.data[@"orientation"] && [self.data[@"orientation"] isEqualToString:@"landscape"]) {
         self.landscape = YES;
-        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt: UIDeviceOrientationLandscapeLeft] forKey:@"orientation"];
-        [UIViewController attemptRotationToDeviceOrientation];
+        [self toLandscape];
         
     } else
         self.landscape = NO;
@@ -689,6 +688,10 @@
 }
 
 
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
     if(self.landscape)
         return UIInterfaceOrientationMaskLandscapeLeft
@@ -730,6 +733,9 @@
     }
 }
 
+-(void)orientationChanged:(NSNotification*)noti {
+    [super orientationChanged:noti];
+}
 @end
 
 

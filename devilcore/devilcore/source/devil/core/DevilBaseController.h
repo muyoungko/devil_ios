@@ -52,6 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)keyboardDidShow:(NSNotification*)noti;
 - (void)keyboardWillHide:(NSNotification*)noti;
 - (void)updateFlexScreen;
+-(void)orientationChanged:(NSNotification*)noti;
+
 @end
 
 NS_ASSUME_NONNULL_END

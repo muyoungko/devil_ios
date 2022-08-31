@@ -139,36 +139,62 @@
 
 
 
+- (UIWindow*)aWindow {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    if (!window)
+        window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+    return window;
+}
+
 - (void)showIndicator
 {
-    UIView* indicatorBg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
-    indicatorBg.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.3];
-    indicatorBg.tag = 2244;
-    [self.view addSubview:indicatorBg];
-    
-    LOTAnimationView* loading = [LOTAnimationView animationNamed:@"loading" inBundle:[NSBundle mainBundle]];
-    int h = 170;
-    loading.frame = CGRectMake(0, 0 , h, h);
-    loading.userInteractionEnabled = NO;
-    loading.center = self.view.center;
-    loading.tag = 2243;
-    loading.loopAnimation = YES;
-    [loading play];
-    [self.view addSubview:loading];
+    UIWindow* window = [self aWindow];
+    if([window viewWithTag:2243] == nil) {
+        UIView* indicatorBg = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, screenHeight)];
+        indicatorBg.backgroundColor = [UIColor colorWithRed:0.1 green:0.1 blue:0.1 alpha:0.3];
+        indicatorBg.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                UIViewAutoresizingFlexibleHeight |
+                                UIViewAutoresizingFlexibleTopMargin |
+                                UIViewAutoresizingFlexibleLeftMargin |
+                                UIViewAutoresizingFlexibleRightMargin |
+                                UIViewAutoresizingFlexibleBottomMargin;
+        indicatorBg.tag = 2244;
+        [window addSubview:indicatorBg];
+        [WildCardConstructor followSizeFromFather:window child:indicatorBg];
+        
+        UITapGestureRecognizer *singleFingerTap =
+        [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideIndicator)];
+        [indicatorBg addGestureRecognizer:singleFingerTap];
+        
+        LOTAnimationView* loading = [LOTAnimationView animationNamed:@"loading" inBundle:[NSBundle mainBundle]];
+        int h = 170;
+        loading.frame = CGRectMake(0, 0 , h, h);
+        loading.userInteractionEnabled = NO;
+        
+        CGRect screenRect = [[UIScreen mainScreen] bounds];
+        int sw = screenRect.size.width;
+        int sh = screenRect.size.height;
+        
+        loading.center = CGPointMake(sw/2, sh/2);
+        loading.tag = 2243;
+        loading.loopAnimation = YES;
+        [loading play];
+        [window addSubview:loading];
+    }
 }
 
 - (void)hideIndicator
 {
-    while([self.view viewWithTag:2243] != nil)
+    UIWindow* window = [self aWindow];
+    while([window viewWithTag:2243] != nil)
     {
-        [[self.view viewWithTag:2243] removeFromSuperview];
+        [[window viewWithTag:2243] removeFromSuperview];
     }
-    while([self.view viewWithTag:2244] != nil)
+    while([window viewWithTag:2244] != nil)
     {
-        [[self.view viewWithTag:2244] removeFromSuperview];
+        [[window viewWithTag:2244] removeFromSuperview];
     }
 }
-
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
