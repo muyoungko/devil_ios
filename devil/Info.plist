@@ -145,6 +145,12 @@
 	<string>Please, allow access for Bluetooth</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera needs to user profile update</string>
+	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
+	<string>Please, allow access health infomation for your health care</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Please, allow access health infomation for your health care</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Please, allow access health infomation for your health care</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Please, allow access location information</string>
 	<key>NSLocationAlwaysUsageDescription</key>

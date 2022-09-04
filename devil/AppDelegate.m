@@ -168,6 +168,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLearning class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
+    [[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
     
     if(launchOptions == nil){
         [self preparePushToken:application];

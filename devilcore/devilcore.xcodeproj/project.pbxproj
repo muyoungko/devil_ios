@@ -132,6 +132,10 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D482D8628C20E7B0041A149 /* DevilHealth.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D482D8428C20E7B0041A149 /* DevilHealth.h */; };
+		6D482D8728C20E7B0041A149 /* DevilHealth.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D482D8528C20E7B0041A149 /* DevilHealth.m */; };
+		6D482D8A28C348DD0041A149 /* JevilHealth.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D482D8828C348DD0041A149 /* JevilHealth.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D482D8B28C348DD0041A149 /* JevilHealth.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D482D8928C348DD0041A149 /* JevilHealth.m */; };
 		6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D530D05274B539E006EDD58 /* DevilGalleryController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D530D06274B539E006EDD58 /* DevilGalleryController.m */; };
 		6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */; };
@@ -396,6 +400,10 @@
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
 		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
+		6D482D8428C20E7B0041A149 /* DevilHealth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilHealth.h; sourceTree = "<group>"; };
+		6D482D8528C20E7B0041A149 /* DevilHealth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilHealth.m; sourceTree = "<group>"; };
+		6D482D8828C348DD0041A149 /* JevilHealth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilHealth.h; sourceTree = "<group>"; };
+		6D482D8928C348DD0041A149 /* JevilHealth.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilHealth.m; sourceTree = "<group>"; };
 		6D530D05274B539E006EDD58 /* DevilGalleryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGalleryController.h; sourceTree = "<group>"; };
 		6D530D06274B539E006EDD58 /* DevilGalleryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGalleryController.m; sourceTree = "<group>"; };
 		6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevilGalleryController.xib; sourceTree = "<group>"; };
@@ -662,6 +670,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6D482D8328C20E640041A149 /* health */,
 				6D9A864528AA7B4C001002D8 /* filechooser */,
 				6D8628EE287AAC5700E62B7B /* ads */,
 				6D8628F5287AAC5700E62B7B /* bill */,
@@ -864,6 +873,17 @@
 				6DC162442691711000FD769C /* DevilNavigationController.m */,
 			);
 			path = core;
+			sourceTree = "<group>";
+		};
+		6D482D8328C20E640041A149 /* health */ = {
+			isa = PBXGroup;
+			children = (
+				6D482D8428C20E7B0041A149 /* DevilHealth.h */,
+				6D482D8528C20E7B0041A149 /* DevilHealth.m */,
+				6D482D8828C348DD0041A149 /* JevilHealth.h */,
+				6D482D8928C348DD0041A149 /* JevilHealth.m */,
+			);
+			path = health;
 			sourceTree = "<group>";
 		};
 		6D7E267625A89ABA00600978 /* view */ = {
@@ -1077,6 +1097,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D482D8A28C348DD0041A149 /* JevilHealth.h in Headers */,
 				6D86290E288C2FA200E62B7B /* DevilNfc.h in Headers */,
 				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
 				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
@@ -1154,6 +1175,7 @@
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
 				6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */,
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
+				6D482D8628C20E7B0041A149 /* DevilHealth.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
 				6D467ABA256AB07A006D57DD /* WildCardUITapGestureRecognizer.h in Headers */,
 				6D9F7B0A2629658F003A70EC /* PECropRectView.h in Headers */,
@@ -1317,6 +1339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D862903287AAC5700E62B7B /* DevilBillSdk.m in Sources */,
+				6D482D8728C20E7B0041A149 /* DevilHealth.m in Sources */,
 				6D467AAA256AB07A006D57DD /* WildCardUIView.m in Sources */,
 				6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */,
 				6DC162462691711000FD769C /* DevilNavigationController.m in Sources */,
@@ -1331,6 +1354,7 @@
 				6DD09438269C79E8000A913A /* MarketComponent.m in Sources */,
 				6D467AAE256AB07A006D57DD /* MappingSyntaxInterpreter.m in Sources */,
 				6D09C3C125B08B2A00221A4C /* DevilDebugView.m in Sources */,
+				6D482D8B28C348DD0041A149 /* JevilHealth.m in Sources */,
 				6D9F7B0E2629658F003A70EC /* PECropViewController.m in Sources */,
 				6D3EBD4A25D4001A0006ADD5 /* DevilJsonViewer.m in Sources */,
 				6D9F7AB42622EA46003A70EC /* DevilCameraController.m in Sources */,
