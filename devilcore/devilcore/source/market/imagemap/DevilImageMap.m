@@ -9,6 +9,8 @@
 #import "WildCardConstructor.h"
 #import "DevilUtil.h"
 #import "WildCardUtil.h"
+#import "DevilPinLayer.h"
+
 #include <math.h>
 
 @interface DevilImageMap()<UIScrollViewDelegate>
@@ -25,6 +27,8 @@
 @property (nonatomic, retain) UIView* insertingPinView;
 @property (nonatomic, retain) id touchingPin;
 @property (nonatomic, retain) UIView* touchingPinView;
+@property (nonatomic, retain) DevilPinLayer* pinLayer;
+
 @property BOOL shouldDirectionMove;
 
 @property (nonatomic, retain) UIView* popupView;
@@ -45,11 +49,16 @@ float circleWidth = 70;
 float borderWidth = 7;
 
 -(void)construct {
+    float sw = [UIScreen mainScreen].bounds.size.width;
+    float sh = [UIScreen mainScreen].bounds.size.height;
+    
     self.imageView = [[UIImageView alloc] init];
     self.imageView.userInteractionEnabled = NO;
     
-    float sw = [UIScreen mainScreen].bounds.size.width;
-    float sh = [UIScreen mainScreen].bounds.size.height;
+    self.pinLayer = [[DevilPinLayer alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+    self.pinLayer.backgroundColor = [UIColor clearColor];
+    self.pinLayer.userInteractionEnabled = NO;
+    
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
     self.scrollView.bounces = NO;
     self.scrollView.bouncesZoom = NO;
@@ -67,36 +76,51 @@ float borderWidth = 7;
     [self addSubview:_scrollView];
     [_scrollView addSubview:_contentView];
     [_contentView addSubview:_imageView];
+    [_contentView addSubview:_pinLayer];
     [WildCardConstructor followSizeFromFather:self child:self.scrollView];
     
     _singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
     [self addGestureRecognizer:_singleFingerTap];
 
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    self.pointerImage = [UIImage imageNamed:@"devil_imagemap_pointer.png" inBundle:bundle compatibleWithTraitCollection:nil];
+    self.pointerImage = [UIImage imageNamed:@"devil_arrow.png" inBundle:bundle compatibleWithTraitCollection:nil];
 
     self.mode = @"normal";
+}
+
+-(CGPoint) pinToScreenPoint:(id)pin {
+    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+    float x = [pin[@"x"] floatValue];
+    float y = [pin[@"y"] floatValue];
+    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    return pinPointInScreen;
+}
+
+-(BOOL) isNearPin:(id)pin tap:(CGPoint)tappedPoint {
+    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+    float x = [pin[@"x"] floatValue];
+    float y = [pin[@"y"] floatValue];
+    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    float w = 40;
+    CGRect pinRect = CGRectMake(pinPointInScreen.x -w/2, pinPointInScreen.y-w/2, w, w);
+    return CGRectContainsPoint(pinRect, tappedPoint);
 }
 
 -(void)onClickListener:(UIGestureRecognizer *)recognizer {
     NSLog(@"onClickListener");
     CGPoint tappedPoint = [recognizer locationInView:self];
-    id children = [self.contentView subviews];
-    int index = 0;
     if([@"normal" isEqualToString:self.mode]) {
-        for(UIView* child in children) {
-            if(child != self.imageView && child != self.popupView) {
-                id pin = _pinList[index];
-                CGRect childRect = [WildCardUtil getGlobalFrame:child];
-                if(CGRectContainsPoint(childRect, tappedPoint)) {
-                    if(self.clickCallback)
-                        self.clickCallback([@{@"key":pin[@"key"]} mutableCopy]);
-                    break;
+        for(id pin in self.pinList) {
+            if([self isNearPin:pin tap:tappedPoint]) {
+                if(self.clickCallback){
+                    self.clickCallback([@{@"key":pin[@"key"]} mutableCopy]);
+                    return;
                 }
-                
-                index++;
             }
         }
+        
+        if(self.clickCallback)
+            self.clickCallback([@{} mutableCopy]);
     } else if([@"new" isEqualToString:self.mode]) {
         CGPoint mp = [self clickToMapPoint:tappedPoint];
         BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
@@ -109,7 +133,11 @@ float borderWidth = 7;
             if(self.param && self.param[@"text"])
                 p[@"text"] = self.param[@"text"];
 
-            p[@"color"] = @"#90ff0000";
+            if(self.param[@"color"])
+                p[@"color"] = self.param[@"color"];
+            else
+                p[@"color"] = @"#90ff0000";
+            
             p[@"degree"] = @0;
             p[@"hideDirection"] = @TRUE;
             self.insertingPin = p;
@@ -202,7 +230,7 @@ float borderWidth = 7;
     //NSLog(@"%lu %f %f", (unsigned long)[mapData length] , image.size.width, image.size.height);
             
     _scrollView.contentSize = CGSizeMake(image.size.width, image.size.height);
-    _contentView.frame = _imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    _pinLayer.frame = _contentView.frame = _imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
     //float sw = [UIScreen mainScreen].bounds.size.width;
     float width_scale = self.frame.size.width/image.size.width;
@@ -219,27 +247,23 @@ float borderWidth = 7;
     }
     
     self.scrollView.contentInset = UIEdgeInsetsMake(min_inset_height, min_inset_width, min_inset_height, min_inset_width);
-    
     self.scrollView.contentOffset = CGPointMake(image.size.width/2*scale, image.size.height/2*scale);
     self.scrollView.zoomScale = scale;
+    
+    self.pinLayer.zoomScale = scale;
 }
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = point;
     if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
         if(_editingPin) {
             self.touchingPin = _editingPin;
-            self.touchingPinView = _editingPinView;
         } else {
             self.touchingPin = _insertingPin;
-            self.touchingPinView = _insertingPinView;
         }
         
-        UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
-        CGPoint pinViewP = [self.touchingPinView.superview convertPoint:self.touchingPinView.center toView:rootView];
-        if([self distance:clickP:pinViewP] < circleWidth) {
+        if([self isNearPin:self.touchingPin tap:clickP]) {
             self.shouldDirectionMove = YES;
             self.touchingPin[@"hideDirection"] = @FALSE;
             return self;
@@ -263,9 +287,7 @@ float borderWidth = 7;
             self.touchingPinView = _insertingPinView;
         }
         
-        UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
-        CGPoint pinViewP = [self.touchingPinView.superview convertPoint:self.touchingPinView.center toView:rootView];
-        if([self distance:clickP:pinViewP] < circleWidth) {
+        if([self isNearPin:_insertingPin tap:clickP]) {
             self.shouldDirectionMove = YES;
             self.touchingPin[@"hideDirection"] = @FALSE;
         }
@@ -282,18 +304,17 @@ float borderWidth = 7;
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     if(self.shouldDirectionMove && ([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"])) {
-        [self pinDirection:self.touchingPin :self.touchingPinView :clickP];
+        [self pinDirection:self.touchingPin :clickP];
     }
 }
 
-- (void)pinDirection:(id)pin : (UIView*)pinView :(CGPoint)see {
-    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
-    CGPoint pinViewP = [pinView.superview convertPoint:pinView.center toView:rootView];
-    double r = atan2(see.y - pinViewP.y, see.x - pinViewP.x);
+- (void)pinDirection:(id)pin :(CGPoint)see {
+    CGPoint pinScreenPoint = [self pinToScreenPoint:pin];
+    double r = atan2(see.y - pinScreenPoint.y, see.x - pinScreenPoint.x);
     double degree = r * 180 / M_PI  + 90;
     NSLog(@"degree - %f", degree);
     pin[@"degree"] = [NSNumber numberWithInt:(int)degree];
-    [pinView viewWithTag:4421].transform = CGAffineTransformMakeRotation(r + M_PI/2);
+    [_pinLayer updatePinDirection:pin[@"key"]];
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -350,19 +371,94 @@ float borderWidth = 7;
 -(void)syncPin {
     id children = [self.contentView subviews];
     for(id child in children) {
-        if(child != self.imageView && child != self.popupView)
+        if(child != self.imageView && child != self.popupView  && child != _pinLayer)
            [child removeFromSuperview];
     }
-    if(self.pinList) {
-        int index = 0;
-        for(id pin in self.pinList) {
-            UIView* pv = [self addPinView:pin];
-            pv.tag = index++;
-        }
-        if(self.insertingPin) {
-            self.insertingPinView = [self addPinView:self.insertingPin];
-        }
+    
+    _pinLayer.pinList = [self.pinList mutableCopy];
+    if(self.insertingPin)
+        [_pinLayer.pinList addObject:self.insertingPin];
+    
+    [_pinLayer setNeedsDisplay];
+    [_pinLayer syncPin];
+    
+//    if(self.pinList) {
+//        int index = 0;
+//        for(id pin in self.pinList) {
+//            UIView* pv = [self addPinView:pin];
+//            pv.tag = index++;
+//        }
+//        if(self.insertingPin) {
+//            self.insertingPinView = [self addPinView:self.insertingPin];
+//        }
+//    }
+}
+
+-(void)drawArrow:(CGContextRef)context :(CGPoint)from :(CGPoint)to :(UIColor*)color {
+
+    double lineangle, angle;
+    
+    double cosy, siny;
+    // Arrow size
+    double length = 10.0;
+    double width = 5.0;
+
+    lineangle = atan2((from.y - to.y), (from.x - to.x));
+    cosy = cos(lineangle);
+    siny = sin(lineangle);
+
+    //draw a line between the 2 endpoint
+    CGContextMoveToPoint(context, from.x - length * cosy, from.y - length * siny );
+    CGContextAddLineToPoint(context, to.x + length * cosy, to.y + length * siny);
+    //paints a line along the current path
+    CGContextStrokePath(context);
+
+    //here is the tough part - actually drawing the arrows
+    //a total of 6 lines drawn to make the arrow shape
+    CGContextMoveToPoint(context, from.x, from.y);
+    CGContextAddLineToPoint(context,
+                        from.x + ( - length * cosy - ( width / 2.0 * siny )),
+                        from.y + ( - length * siny + ( width / 2.0 * cosy )));
+    CGContextAddLineToPoint(context,
+                        from.x + (- length * cosy + ( width / 2.0 * siny )),
+                        from.y - (width / 2.0 * cosy + length * siny ) );
+    CGContextClosePath(context);
+    CGContextStrokePath(context);
+
+    /*/-------------similarly the the other end-------------/*/
+    CGContextMoveToPoint(context, to.x, to.y);
+    CGContextAddLineToPoint(context,
+                        to.x +  (length * cosy - ( width / 2.0 * siny )),
+                        to.y +  (length * siny + ( width / 2.0 * cosy )) );
+    CGContextAddLineToPoint(context,
+                        to.x +  (length * cosy + width / 2.0 * siny),
+                        to.y -  (width / 2.0 * cosy - length * siny) );
+    CGContextClosePath(context);
+    CGContextStrokePath(context);
+}
+
+- (void)drawRect:(CGRect)rect {
+    [super drawRect:rect];
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+
+    //set the fill color to blue
+    for(id pin in self.pinList) {
+//        NSString* color = pin[@"color"];
+//        UIColor *c = [WildCardUtil colorWithHexString:color];
+//        CGContextSetFillColorWithColor(ctx, c.CGColor);
+//        //CGContextFillRect(ctx, rect);
+//
+//        CGContextDrawCei
+//        CGContextSetStrokeColorWithColor(ctx, [UIColor blueColor].CGColor);
+//        CGContextSetFillColorWithColor(ctx, [UIColor lightGrayColor].CGColor);
+//
+//
+//        [circle fill];
+//        [circle stroke];
     }
+    
+    
+    //fill your custom view with a blue rect
 }
 
 
@@ -386,11 +482,15 @@ float borderWidth = 7;
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
 //    NSLog(@"scrollViewDidZoom %f", scrollView.zoomScale);
     
+    [_pinLayer updateZoom:scrollView.zoomScale];
+//    _pinLayer.zoomScale = scrollView.zoomScale;
+//    [_pinLayer setNeedsDisplay];
+    
     float z = scrollView.zoomScale;
     id children = [self.contentView subviews];
     int index = 0;
     for(id child in children) {
-        if(child != self.imageView && child != self.popupView) {
+        if(child != self.imageView && child != self.popupView  && child != _pinLayer) {
             id pin;
             if(index < [self.pinList count])
                 pin = self.pinList[index];
@@ -494,9 +594,9 @@ float borderWidth = 7;
         
         CGPoint screenPoint;
         if(_insertingPin) {
-            screenPoint = [self centerOfRect:[WildCardUtil getGlobalFrame:_insertingPinView]];
+            screenPoint = [self pinToScreenPoint:_insertingPin];
         } else if(_editingPin) {
-            screenPoint = [self centerOfRect:[WildCardUtil getGlobalFrame:_editingPinView]];
+            screenPoint = [self pinToScreenPoint:_editingPin];
         }
             
         float pw = 90;

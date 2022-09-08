@@ -10,6 +10,7 @@
 
 @implementation JevilUtil
 
+
 +(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest {
     [self sync:src :dest :0 :0];
 }
@@ -48,6 +49,21 @@
     }
 }
 
+/**
+이슈
+ Map A가 listA 와 listB에 들어가 있을때,
+ src listA를 dest listA에 덮어쓸때, 각 list의 element들이 변경된다
+ 그런데 src listB를 dest listB에 덮어쓸때도 각 list의 element들이 변경되는데,
+ 이때 아까 listA에 들어있던 MapA가 같이 변경되버린다
+ 
+ 방법
+ 
+ data는 참조하는 곳이 너무 많이 주소를 바꾸면 안되고, data하위의 list는 새로 따되,
+ 모든 meta의 correspondentdata를 재설정해줘야한다
+ 특히 RepeatRule의 correspondentData를 re asign 해줘야하는데 방법이 딱히 없다
+ 
+ 일단 사용하는 곳에서 이슈 케이스를 만들어선 안된다
+ */
 +(void)syncList:(NSMutableArray*)src :(NSMutableArray*)dest :(int)depth :(int)subindex {
     NSUInteger srcLen = [src count];
     NSUInteger destLen = [dest count];

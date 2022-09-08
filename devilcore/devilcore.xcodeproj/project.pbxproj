@@ -226,6 +226,8 @@
 		6D9F7C8926396318003A70EC /* DevilToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7C8726396318003A70EC /* DevilToast.m */; };
 		6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */; };
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
+		6DA615F828C8F5E10078979D /* DevilPinLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA615F628C8F5E10078979D /* DevilPinLayer.h */; };
+		6DA615F928C8F5E10078979D /* DevilPinLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA615F728C8F5E10078979D /* DevilPinLayer.m */; };
 		6DC162452691711000FD769C /* DevilNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC162432691711000FD769C /* DevilNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DC162462691711000FD769C /* DevilNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC162442691711000FD769C /* DevilNavigationController.m */; };
 		6DC6789E26EA29840005728A /* DevilLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC6789C26EA29830005728A /* DevilLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -494,6 +496,8 @@
 		6D9F7C8726396318003A70EC /* DevilToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilToast.m; sourceTree = "<group>"; };
 		6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleAccessibility.h; sourceTree = "<group>"; };
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
+		6DA615F628C8F5E10078979D /* DevilPinLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPinLayer.h; sourceTree = "<group>"; };
+		6DA615F728C8F5E10078979D /* DevilPinLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPinLayer.m; sourceTree = "<group>"; };
 		6DC162432691711000FD769C /* DevilNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNavigationController.h; sourceTree = "<group>"; };
 		6DC162442691711000FD769C /* DevilNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNavigationController.m; sourceTree = "<group>"; };
 		6DC6789C26EA29830005728A /* DevilLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLink.h; sourceTree = "<group>"; };
@@ -962,6 +966,8 @@
 				6D9A9DE528A3730F003302B3 /* DevilImageMapMarketComponent.m */,
 				6D9A9DE828A37320003302B3 /* DevilImageMap.h */,
 				6D9A9DE928A37320003302B3 /* DevilImageMap.m */,
+				6DA615F628C8F5E10078979D /* DevilPinLayer.h */,
+				6DA615F728C8F5E10078979D /* DevilPinLayer.m */,
 			);
 			path = imagemap;
 			sourceTree = "<group>";
@@ -1118,6 +1124,7 @@
 				6D9F7C8826396318003A70EC /* DevilToast.h in Headers */,
 				6D9F7AB32622EA46003A70EC /* DevilCameraController.h in Headers */,
 				6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */,
+				6DA615F828C8F5E10078979D /* DevilPinLayer.h in Headers */,
 				6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */,
 				6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */,
 				6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */,
@@ -1377,6 +1384,7 @@
 				6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */,
 				6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */,
 				6DF5779126D00C1D009D41A1 /* DevilQrCameraController.m in Sources */,
+				6DA615F928C8F5E10078979D /* DevilPinLayer.m in Sources */,
 				6D467AA0256AB07A006D57DD /* ReplaceRuleLocalImage.m in Sources */,
 				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,
 				6D9F7B122629658F003A70EC /* UIImage+PECrop.m in Sources */,
