@@ -112,7 +112,7 @@ float textSize = 15;
     
     float z = self.zoomScale;
     
-    NSLog(@"syncPin pin lneght = %lu", (unsigned long)[_pinList count]);
+    //NSLog(@"syncPin pin lneght = %lu", (unsigned long)[_pinList count]);
     int index = 0;
     
     for(id pin in self.pinList) {
@@ -228,7 +228,7 @@ float textSize = 15;
         
         index ++;
         
-        NSLog(@"pin %@ %@ %@", pin[@"text"] , color, c);
+        //NSLog(@"pin %@ %@ %@", pin[@"text"] , color, c);
     }
 }
 

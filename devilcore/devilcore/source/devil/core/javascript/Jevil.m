@@ -1121,8 +1121,8 @@
 }
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback{
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    [[DevilSpeech sharedInstance] listen:param :^(id  _Nonnull text) {
-        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ text ]];
+    [[DevilSpeech sharedInstance] listen:param :^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ res ]];
     }];
 }
 + (void)stopSpeechRecognizer {

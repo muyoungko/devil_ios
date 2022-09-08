@@ -12,6 +12,7 @@
 @property (nonatomic, retain) AVAudioRecorder* recorder;
 @property (nonatomic, retain) AVAudioPlayer* beepPlayer;
 @property int tickIndex;
+
 @end
 
 @implementation DevilRecord

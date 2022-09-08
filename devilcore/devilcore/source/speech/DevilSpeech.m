@@ -18,6 +18,7 @@
 @property (nonatomic, strong) AVAudioInputNode* inputNode;
 @property (nonatomic, strong) AVAudioPlayer* beepPlayer;
 @property (nonatomic, strong) NSString* text;
+@property BOOL streaming;
 @end
 
 @implementation DevilSpeech
@@ -43,6 +44,7 @@
 
 - (void)listen:(id)param :(void (^)(id text))callback {
     self.audioEngine = [[AVAudioEngine alloc] init];
+    self.streaming = [param[@"streaming"] boolValue];
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         if(status == SFSpeechRecognizerAuthorizationStatusAuthorized){
             self.callback = callback;
@@ -94,7 +96,11 @@
 - (void) finish {
     
     if(self.callback != nil) {
-        self.callback(self.text);
+        self.callback(@{
+            @"r":@TRUE,
+            @"text":self.text,
+            @"end":@TRUE,
+        });
     }
     
     [self stop];
@@ -157,7 +163,13 @@
     NSLog(@"didHypothesizeTranscription");
     self.text = [transcription formattedString];
     NSLog(@"%@", self.text);
-    
+    if(self.streaming) {
+        self.callback(@{
+            @"r":@TRUE,
+            @"text":self.text,
+            @"end":@FALSE,
+        });
+    }
 }
 
 @end

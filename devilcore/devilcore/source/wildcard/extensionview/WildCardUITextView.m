@@ -195,16 +195,15 @@
     [self updatePlaceHolderVisible];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    if(self.doneClickAction != nil)
-    {
-        WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-        [WildCardAction parseAndConducts:trigger action:self.doneClickAction meta:self.meta];
-        textField.text = @"";
-        [_meta.correspondData setObject:@"" forKey:_holder];
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if([text length] > 0 && [text characterAtIndex:0] == '\n') {
+        if(self.doneClickAction != nil)
+        {
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            [WildCardAction parseAndConducts:trigger action:self.doneClickAction meta:self.meta];
+            [_meta.correspondData setObject:@"" forKey:_holder];
+        }
     }
-        
     return YES;
 }
 

@@ -102,7 +102,7 @@ float borderWidth = 7;
 }
 
 -(void)onClickListener:(UIGestureRecognizer *)recognizer {
-    NSLog(@"onClickListener");
+//    NSLog(@"onClickListener");
     CGPoint tappedPoint = [recognizer locationInView:self];
     if([@"normal" isEqualToString:self.mode]) {
         for(id pin in self.pinList) {
@@ -292,7 +292,7 @@ float borderWidth = 7;
     CGPoint pinScreenPoint = [self pinToScreenPoint:pin];
     double r = atan2(see.y - pinScreenPoint.y, see.x - pinScreenPoint.x);
     double degree = r * 180 / M_PI  + 90;
-    NSLog(@"degree - %f", degree);
+    //NSLog(@"degree - %f", degree);
     pin[@"degree"] = [NSNumber numberWithInt:(int)degree];
     [_pinLayer updatePinDirection:pin[@"key"]];
 }
