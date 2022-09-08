@@ -92,7 +92,7 @@ float textSize = 15;
 - (void)updateZoom:(float)zoomScale {
     self.zoomScale = zoomScale;
     float z = zoomScale;
-    NSLog(@"updateZoom %f shapes count - %u", z, [self.shapes count]);
+    //NSLog(@"updateZoom %f shapes count - %u", z, [self.shapes count]);
     for(CAShapeLayer* layer in self.shapes) {
         layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
     }
@@ -120,8 +120,6 @@ float textSize = 15;
         NSString* key = pin[@"key"];
 
         UIColor *c = [WildCardUtil colorWithHexString:color];
-        
-        NSLog(@"pin %@ %@", pin[@"text"] , color);
         
         BOOL selected = [pin[@"selected"] boolValue];
         BOOL hideDirection = [pin[@"hideDirection"] boolValue];
@@ -229,61 +227,9 @@ float textSize = 15;
         }
         
         index ++;
+        
+        NSLog(@"pin %@ %@ %@", pin[@"text"] , color, c);
     }
-}
-
-- (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    
-    NSLog(@"DevilPinLayer drawRect");
-    
-//    CGContextRef ctx = UIGraphicsGetCurrentContext();
-//
-//    float z = self.zoomScale;
-//    float width = 2 / z;
-//    float roundSize = 10 / z;
-//    float arrowLength = 10 / z;
-//    float textSize = 10 / z;
-//    //set the fill color to blue
-//    int index = 0;
-//    for(id pin in self.pinList) {
-//        NSString* color = pin[@"color"];
-//
-//        UIColor *c = [WildCardUtil colorWithHexString:color];
-//        //NSLog(@"pin %@ %@ %@", pin[@"text"] , color, c);
-//
-//        CGContextSetLineWidth(ctx, width);
-//        BOOL selected = [pin[@"selected"] boolValue];
-//        float x = [pin[@"x"] floatValue];
-//        float y = [pin[@"y"] floatValue];
-//
-//        CGRect rect = CGRectMake(x-roundSize, y-roundSize, roundSize*2, roundSize*2);
-//        CGContextAddEllipseInRect(ctx, rect);
-//        CGContextAddArc(ctx, x, y, roundSize, 0, 0, 0);
-//
-//        if(selected) {
-//            CGContextSetFillColorWithColor(ctx, c.CGColor);
-//            CGContextFillPath(ctx);
-//        } else {
-//            CGContextSetFillColorWithColor(ctx, [UIColor whiteColor].CGColor);
-//            CGContextSetStrokeColorWithColor(ctx, [UIColor whiteColor].CGColor);
-//            CGContextFillPath(ctx);
-//
-//            CGContextAddEllipseInRect(ctx, rect);
-//            CGContextAddArc(ctx, x, y, roundSize, 0, 0, 0);
-//            CGContextSetFillColorWithColor(ctx, c.CGColor);
-//            CGContextSetStrokeColorWithColor(ctx, c.CGColor);
-//            CGContextStrokePath(ctx);
-//        }
-//
-//
-//        index++;
-//    }
-}
-
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-    NSLog(@"DevilPinLayer drawLayer");
-    [super drawLayer:layer inContext:ctx];
 }
 
 @end
