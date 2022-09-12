@@ -447,7 +447,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         headers[k] = header[k];
     
     [manager.requestSerializer setTimeoutInterval:10.0];
-    method = [method capitalizedString];
+    method = [method uppercaseString];
     
     if(!body)
         body = [@{} mutableCopy];

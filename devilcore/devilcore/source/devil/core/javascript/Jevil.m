@@ -1032,7 +1032,34 @@
     }];
 }
 
-+ (void)download:(NSString*)url{
++ (void)downloadAndView:(NSString*)url {
+    [self download:url];
+}
+
++ (void)downloadAndShare:(NSString*)url {
+    
+    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
+    if(urlData) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString  *documentsDirectory = [paths objectAtIndex:0];
+
+        NSString* ext = [DevilUtil getFileExt:url];
+        NSString* name = [DevilUtil getFileName:url];
+        NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
+        [urlData writeToFile:path atomically:YES];
+        path = [NSString stringWithFormat:@"file:/%@", path];
+        
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:path]]
+                                        applicationActivities:nil];
+        [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
+                                          animated:YES
+                                        completion:^{
+
+        }];
+    }
+}
+
++ (void)download:(NSString*)url {
     
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
     if(urlData) {
@@ -1051,15 +1078,6 @@
         //[d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
         [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
     }
-    
-    //그냥 파일 공유
-//    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[url, nsurl]
-//                                    applicationActivities:nil];
-//    [self.navigationController presentViewController:activityViewController
-//                                      animated:YES
-//                                    completion:^{
-//
-//    }];
 }
 
 

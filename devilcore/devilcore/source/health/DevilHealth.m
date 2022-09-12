@@ -58,8 +58,14 @@
     NSSet <HKQuantityType *> * dataTypes = [NSSet setWithArray:@[
         [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierHeartRate],
         [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierStepCount],
-        [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyTemperature],
+        [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning],
+        [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex],
+        [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyFatPercentage],
+        [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierOxygenSaturation],
+        [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureSystolic],
+        [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBloodPressureDiastolic],
     ]];
+    
     [self.healthStore requestAuthorizationToShareTypes:nil readTypes:dataTypes completion:^(BOOL success, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (success)
@@ -77,28 +83,48 @@
     [list addObject:@{
         @"type":HKQuantityTypeIdentifierHeartRate,
     }];
-     
     [list addObject:@{
         @"type":HKQuantityTypeIdentifierStepCount,
+    }];
+    [list addObject:@{
+        @"type":HKQuantityTypeIdentifierDistanceWalkingRunning,
+    }];
+    [list addObject:@{
+        @"type":HKQuantityTypeIdentifierBodyMassIndex,
+    }];
+    [list addObject:@{
+        @"type":HKQuantityTypeIdentifierBodyFatPercentage,
+    }];
+    [list addObject:@{
+        @"type":HKQuantityTypeIdentifierOxygenSaturation,
+    }];
+    [list addObject:@{
+        @"type":HKQuantityTypeIdentifierBloodPressureSystolic,
+    }];
+    [list addObject:@{
+        @"type":HKQuantityTypeIdentifierBloodPressureDiastolic,
     }];
     
     int count = (int)[list count];
     __block int success_count = 0;
+    __block id r = [@{@"r":@TRUE} mutableCopy];
+    r[@"list"] = [@[] mutableCopy];
     for(id m in list) {
         [self requestHealthDataForType:param
                                 typeIdentifier:m[@"type"]
                                 callback:^(id res) {
             success_count++;
-            id r = [@{@"r":@TRUE} mutableCopy];
-            r[@"list"] = [@[] mutableCopy];
+            [r[@"list"] addObject:
+             [@{
+                @"type" : m[@"type"],
+                @"data" : res[@"list"],
+                @"unit" : res[@"unit"],
+             } mutableCopy]
+            ];
             if(success_count == count) {
-                [r[@"list"] addObject:
-                 [@{
-                    @"type" : m[@"type"],
-                    @"data" : res[@"list"],
-                    @"unit" : res[@"unit"],
-                 } mutableCopy]
-                ];
+                for(id a in r[@"list"]) {
+                    NSLog(@"%@ count - %d", a[@"type"], (int)[a[@"data"] count]);
+                }
                 callback(r);
             }
         }];
@@ -127,6 +153,16 @@
     HKStatisticsOptions option = HKStatisticsOptionCumulativeSum;
     if(typeIdentifier == HKQuantityTypeIdentifierHeartRate)
         option = HKStatisticsOptionDiscreteAverage;
+    else if(typeIdentifier == HKQuantityTypeIdentifierBodyMassIndex)
+        option = HKStatisticsOptionDiscreteAverage;
+    else if(typeIdentifier == HKQuantityTypeIdentifierBodyFatPercentage)
+        option = HKStatisticsOptionDiscreteAverage;
+    else if(typeIdentifier == HKQuantityTypeIdentifierOxygenSaturation)
+        option = HKStatisticsOptionDiscreteAverage;
+    else if(typeIdentifier == HKQuantityTypeIdentifierBloodPressureSystolic)
+        option = HKStatisticsOptionDiscreteAverage;
+    else if(typeIdentifier == HKQuantityTypeIdentifierBloodPressureDiastolic)
+        option = HKStatisticsOptionDiscreteAverage;
     
     // Your interval: sum by hour
     NSDateComponents *intervalComponents = [[NSDateComponents alloc] init];
@@ -141,6 +177,7 @@
             id list = [@[] mutableCopy];
             id slist = [result statistics];
             NSString* unit = @"";
+            BOOL first = true;
             for(HKStatistics* m in slist) {
                 HKQuantity* q;
                 if(m.averageQuantity)
@@ -155,7 +192,11 @@
                 NSString* sv = ss[0];
                 unit = ss[1];
                 double v = [sv doubleValue];
-                NSLog(@"%@ ~ %@, %@", s, e, q);
+                
+                if(first) {
+                    NSLog(@"%@ %@ ~ %@, %@", typeIdentifier, s, e, q);
+                    first = NO;
+                }
 
                 [list addObject:
                      [@{
