@@ -19,6 +19,7 @@
 @property void (^callbackAdvertise)(id res);
 @property void (^callbackRead)(id res);
 @property void (^callbackDiscovered)(id res);
+@property void (^callbackWrite)(id res);
 
 @property NSTimeInterval startScanSec;
 @property float scanSec;
@@ -208,9 +209,14 @@
     NSData* b = nil;
     if(hex)
         b = [self fromHexString:hex];
-    else if(text)
+    else if(text) {
+        text = [text stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        text = [text stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
+        text = [text stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"];
         b = [text dataUsingEncoding:NSUTF8StringEncoding];
+    }
     
+    self.callbackWrite = callback;
     CBPeripheral* device = nil;
     for(CBPeripheral* b in self.blue_list) {
         NSString* thisUdid = [b.identifier description];
@@ -223,13 +229,24 @@
     for(CBService* service in device.services) {
         for(CBCharacteristic* c in [service characteristics]) {
             if([[c.UUID description] isEqualToString:characteristic_udid]) {
-                [device writeValue:b forCharacteristic:c type:CBCharacteristicWriteWithoutResponse];
+                [device writeValue:b forCharacteristic:c type:CBCharacteristicWriteWithResponse];
                 NSString* name = [self nameFromDevice:device];
                 id j = [param mutableCopy];
                 j[@"name"] = name;
                 [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"write" log:j];
             }
         }
+    }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
+    NSLog(@"didWriteValueForCharacteristic %@ %@", characteristic, error?error:@"");
+    if(error)
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"write failed" log:@{@"characteristic":[characteristic.UUID description]}];
+    else
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"write success" log:@{@"characteristic":[characteristic.UUID description]}];
+    if(self.callbackWrite) {
+        self.callbackWrite([@{@"r":(error?@FALSE:@TRUE)} mutableCopy]);
     }
 }
 
