@@ -173,7 +173,7 @@
     }];
 }
 
--(UIView*)cameraOverlay:(BOOL)isLandscape {
+-(UIView*)cameraOverlay:(BOOL)isLandscape :(BOOL)showFrame :(float)rate {
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     UIView * r = nil;
     
@@ -210,6 +210,64 @@
         UIImage* image = [[UIImage imageNamed:@"devil_camera_complete.png" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [b setImage:image forState:UIControlStateNormal];
         [b addTarget:self action:@selector(onClickComplete) forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    
+    if(showFrame) {
+        float sw = [UIScreen mainScreen].bounds.size.width;
+        float sh = [UIScreen mainScreen].bounds.size.height;
+        if(isLandscape) {
+            float frame_sw = sw;
+            float frame_sh = sw*rate;
+            if(frame_sh > sh){
+                frame_sh = sh;
+                frame_sw = frame_sh/rate;
+            }
+            
+            CGPoint previewCenter = CGPointMake(100+552/2, sh/2);
+            
+//            UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
+//            frame.center = previewCenter;
+//            frame.layer.borderColor = [UIColor redColor].CGColor;
+//            frame.layer.borderWidth = 2.0f;
+//            [r addSubview:frame];
+            
+            
+            UIView* left_frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, previewCenter.x-frame_sw/2, sh)];
+            left_frame.backgroundColor = UIColorFromRGBA(0x95000000);
+            [r addSubview:left_frame];
+            
+            UIButton * b = [r viewWithTag:8574];
+            UIView* right_frame = [[UIView alloc] initWithFrame:CGRectMake(previewCenter.x+frame_sw/2, 0, b.frame.origin.x - previewCenter.x - frame_sw/2, sh)];
+            right_frame.backgroundColor = UIColorFromRGBA(0x95000000);
+            right_frame.userInteractionEnabled = NO;
+            [r addSubview:right_frame];
+        } else {
+            float frame_sw = sw;
+            float frame_sh = sw*rate;
+            /**
+                iphone 11 기준 y:100 414:552
+             */
+            CGPoint previewCenter = CGPointMake(sw/2, 100+552/2);
+            
+    //        UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
+    //        frame.center = previewCenter;
+    //        frame.layer.borderColor = [UIColor redColor].CGColor;
+    //        frame.layer.borderWidth = 2.0f;
+    //        [r addSubview:frame];
+            
+            
+            UIView* top_frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sw, previewCenter.y-frame_sh/2)];
+            top_frame.backgroundColor = UIColorFromRGBA(0x95000000);
+            [r addSubview:top_frame];
+            
+            UIButton * b = [r viewWithTag:8574];
+            
+            UIView* bottom_frame = [[UIView alloc] initWithFrame:CGRectMake(0, previewCenter.y+frame_sh/2, sw, b.frame.origin.y - previewCenter.y - frame_sh/2)];
+            bottom_frame.backgroundColor = UIColorFromRGBA(0x95000000);
+            bottom_frame.userInteractionEnabled = NO;
+            [r addSubview:bottom_frame];
+        }
     }
 
     return r;
@@ -257,7 +315,15 @@
                 picker.sourceType = UIImagePickerControllerSourceTypeCamera;
                 picker.delegate = self;
                 
-                UIView* over = [self cameraOverlay:isLandscape];
+                float rate = 1.2f;
+                if(param[@"rate"])
+                    rate = [param[@"rate"] floatValue];
+                BOOL showFrame = false;
+                if(param[@"showFrame"])
+                    showFrame = [param[@"showFrame"] boolValue];
+                
+                UIView* over = [self cameraOverlay:isLandscape :showFrame :rate];
+                
                 picker.cameraOverlayView = over;
                 picker.showsCameraControls = NO;
                 picker.navigationBarHidden = YES;

@@ -12,6 +12,7 @@
 #import "Devil.h"
 #import <devilcore/devilcore.h>
 #import "MainV2Controller.h"
+@import devilcore;
 
 @interface FirstController ()
 
@@ -45,6 +46,14 @@
                 }
             }
         }];
+        
+//        [[DevilCamera sharedInstance] cameraSystem:self param:@{@"multi":@TRUE, @"showFrame":@TRUE, @"rate":@0.8f} callback:^(id  _Nonnull res) {
+//            if([res[@"r"] boolValue]) {
+//
+//            } else if(res[@"msg"]){
+//
+//            }
+//        }];
     }];
 }
 

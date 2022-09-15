@@ -196,7 +196,7 @@
 		6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D9F7AA52622E93C003A70EC /* devil_camera_gallery@3x.png */; };
 		6D9F7AB32622EA46003A70EC /* DevilCameraController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AB12622EA46003A70EC /* DevilCameraController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9F7AB42622EA46003A70EC /* DevilCameraController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AB22622EA46003A70EC /* DevilCameraController.m */; };
-		6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AB62622EA57003A70EC /* DevilCamera.h */; };
+		6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7AB62622EA57003A70EC /* DevilCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9F7AB92622EA57003A70EC /* DevilCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7AB72622EA57003A70EC /* DevilCamera.m */; };
 		6D9F7ABF262310D7003A70EC /* DevilAVCamPreviewView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7ABD262310D7003A70EC /* DevilAVCamPreviewView.h */; };
 		6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7ABE262310D7003A70EC /* DevilAVCamPreviewView.m */; };
@@ -1104,6 +1104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D482D8A28C348DD0041A149 /* JevilHealth.h in Headers */,
+				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
 				6D86290E288C2FA200E62B7B /* DevilNfc.h in Headers */,
 				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
 				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
@@ -1168,7 +1169,6 @@
 				6D467AA2256AB07A006D57DD /* ReplaceRuleHidden.h in Headers */,
 				6D467A87256AB07A006D57DD /* WildCardLayoutPathUnit.h in Headers */,
 				6D467A8B256AB07A006D57DD /* WildCardUITextField.h in Headers */,
-				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
 				6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */,
 				6D467AC5256AB07A006D57DD /* WildCardApplyAgainAction.h in Headers */,
 				6D467AA6256AB07A006D57DD /* WildCardExtensionConstructor.h in Headers */,
