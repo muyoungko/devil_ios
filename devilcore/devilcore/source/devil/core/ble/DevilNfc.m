@@ -108,6 +108,14 @@
                                 if(err) {
                                     NSLog(@"%@", err);
                                 }
+                                
+                                float writeAndReadTermMs = 0.25f;
+                                if(self.param[@"writeAndReadTermMs"]) {
+                                    writeAndReadTermMs = [self.param[@"writeAndReadTermMs"] longValue] / 1000.0f;
+                                    
+                                }
+                                [NSThread sleepForTimeInterval:writeAndReadTermMs];
+                                
                                 [self readAndCallback:tag];
                             }];
                         }
