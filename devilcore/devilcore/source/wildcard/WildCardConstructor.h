@@ -109,7 +109,7 @@
 -(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId;
 +(BOOL)isTablet;
 +(void)updateSketchWidth:(id)layer;
-+(void)updateScreenWidth:(float)w;
++(void)updateScreenWidthHeight:(float)w :(float)h;
 
 @end
 

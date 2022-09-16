@@ -25,7 +25,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 @interface WildCardUtil : NSObject
 
 +(void)setSketchWidth:(float)w;
-+(void)setScreenWidth:(float)w;
++(void)setScreenWidthHeight:(float)w :(float)h;
 +(float)headerHeightInPixcelIfHeader:(UIViewController*)vc;
 +(float)headerHeightInPixcel;
 +(float)headerHeightInSketch;

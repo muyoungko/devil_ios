@@ -427,6 +427,7 @@ static NSString *default_project_id = nil;
 
 static float SKETCH_WIDTH = 360;
 static float SCREEN_WIDTH = 0;
+static float SCREEN_HEIGHT = 0;
 static BOOL IS_TABLET = NO;
 
 +(void)resetSketchWidth{
@@ -454,9 +455,10 @@ static BOOL IS_TABLET = NO;
     [WildCardUtil setSketchWidth:SKETCH_WIDTH];
 }
 
-+(void)updateScreenWidth:(float)w {
++(void)updateScreenWidthHeight:(float)w :(float)h {
     SCREEN_WIDTH = w;
-    [WildCardUtil setScreenWidth:SCREEN_WIDTH];
+    SCREEN_HEIGHT = h;
+    [WildCardUtil setScreenWidthHeight:SCREEN_WIDTH:SCREEN_HEIGHT];
 }
 
 +(void)resetIsTablet{

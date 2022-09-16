@@ -14,6 +14,8 @@
 
 static float SKETCH_WIDTH = 360;
 static float SCREEN_WIDTH = 0;
+static float SCREEN_HEIGHT = 0;
+
 static BOOL IS_TABLET = NO;
 
 @implementation WildCardUtil
@@ -22,8 +24,9 @@ static BOOL IS_TABLET = NO;
     SKETCH_WIDTH = w;
 }
 
-+(void)setScreenWidth:(float)w {
++(void)setScreenWidthHeight:(float)w :(float)h {
     SCREEN_WIDTH = w;
+    SCREEN_HEIGHT = h;
 }
 
 + (float)headerHeightInPixcelIfHeader:(UIViewController*)vc {
@@ -218,7 +221,7 @@ static BOOL IS_TABLET = NO;
 +(void)fitToScreen:(id)layer sketch_height_more:(int)sketch_height_more {
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     float screenWidth = SCREEN_WIDTH;
-    float screenHeight = (float)screenRect.size.height;
+    float screenHeight = SCREEN_HEIGHT;
 
     float sketch_height_of_screen = screenHeight * SKETCH_WIDTH / screenWidth;
     [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen - sketch_height_more];

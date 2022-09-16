@@ -57,7 +57,7 @@
         screenWidth = screenRect.size.height;
         screenHeight = screenRect.size.width;
     }
-    [WildCardConstructor updateScreenWidth:screenWidth];
+    [WildCardConstructor updateScreenWidthHeight:screenWidth:screenHeight];
     NSLog(@"updateFlexScreen %@ %d %d", self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
 }
 
