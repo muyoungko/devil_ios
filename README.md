@@ -14,3 +14,10 @@ Installing FirebaseCrashlytics 9.1.0 (was 8.3.0)
 Installing FirebaseDynamicLinks 9.1.0 (was 8.3.0)
 Installing FirebaseInstallations 9.1.0 (was 8.3.0)
 Installing FirebaseMessaging 9.1.0 (was 8.3.0)
+
+# Scence 전환
+SceneDelegate 만듬 
+AppDelegate에 window 관련 코드 삭제 
+Info.plist에 UIApplicationSceneManifest 부분 추가
+
+

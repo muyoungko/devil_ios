@@ -186,14 +186,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [WildCardConstructor sharedInstance].delegate = self;
     [WildCardConstructor sharedInstance].textConvertDelegate = self;
     [WildCardConstructor sharedInstance].textTransDelegate = self;
-    
-    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
-    //DevilCameraController* vc = [[DevilCameraController alloc] init];
-    self.navigationController = [[DevilNavigationController alloc] initWithRootViewController:vc];
-    
-    self.window.rootViewController = self.navigationController;
-    [self.window makeKeyAndVisible];
         
     [DevilGoogleLogin sharedInstance].delegate = self;
     self.devilNaverLoginCallback = [[DevilNaverLoginCallback alloc] init];
