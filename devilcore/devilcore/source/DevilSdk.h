@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id <DevilSdkGoogleAdsDelegate> devilSdkGoogleAdsDelegate;
 
 @property (nonatomic, retain) NSMutableDictionary* registeredClass;
+@property UIInterfaceOrientationMask currentOrientation;
 
 +(DevilSdk*)sharedInstance;
 +(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback;

@@ -23,6 +23,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[DevilSdk alloc] init];
+        sharedInstance.currentOrientation = UIInterfaceOrientationMaskPortrait;
     });
     return sharedInstance;
 }

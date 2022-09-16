@@ -53,7 +53,12 @@
     if(!self.landscape && screenWidth > screenHeight) {
         screenWidth = screenRect.size.height;
         screenHeight = screenRect.size.width;
+    } else if(self.landscape && screenWidth < screenHeight){
+        screenWidth = screenRect.size.height;
+        screenHeight = screenRect.size.width;
     }
+    [WildCardConstructor updateScreenWidth:screenWidth];
+    NSLog(@"updateFlexScreen %@ %d %d", self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
 }
 
 - (void)viewWillAppear:(BOOL)animated

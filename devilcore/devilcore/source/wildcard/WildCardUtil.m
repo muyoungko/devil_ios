@@ -13,12 +13,17 @@
 #import "ReplaceRuleRepeat.h"
 
 static float SKETCH_WIDTH = 360;
+static float SCREEN_WIDTH = 0;
 static BOOL IS_TABLET = NO;
 
 @implementation WildCardUtil
 
 +(void)setSketchWidth:(float)w {
     SKETCH_WIDTH = w;
+}
+
++(void)setScreenWidth:(float)w {
+    SCREEN_WIDTH = w;
 }
 
 + (float)headerHeightInPixcelIfHeader:(UIViewController*)vc {
@@ -212,7 +217,7 @@ static BOOL IS_TABLET = NO;
 
 +(void)fitToScreen:(id)layer sketch_height_more:(int)sketch_height_more {
     CGRect screenRect = [[UIScreen mainScreen] bounds];
-    float screenWidth = (float)screenRect.size.width;
+    float screenWidth = SCREEN_WIDTH;
     float screenHeight = (float)screenRect.size.height;
 
     float sketch_height_of_screen = screenHeight * SKETCH_WIDTH / screenWidth;
@@ -252,13 +257,13 @@ static BOOL IS_TABLET = NO;
 }
 
 +(float) convertPixcelToSketch:(float)p {
-    int screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    int screenWidth = SCREEN_WIDTH;
     float scaleAdjust = SKETCH_WIDTH / screenWidth;
     return p * scaleAdjust;
 }
 
 +(float) convertSketchToPixel:(float)p {
-    int screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    int screenWidth = SCREEN_WIDTH;
     float scaleAdjust = screenWidth / SKETCH_WIDTH;
     return p * scaleAdjust;
 }
@@ -585,6 +590,10 @@ static BOOL IS_TABLET = NO;
     }
     
     return nil;
+}
+
++ (BOOL)isTablet {
+    return true;
 }
 
 

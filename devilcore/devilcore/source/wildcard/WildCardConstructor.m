@@ -426,6 +426,7 @@ static NSString *default_project_id = nil;
 
 
 static float SKETCH_WIDTH = 360;
+static float SCREEN_WIDTH = 0;
 static BOOL IS_TABLET = NO;
 
 +(void)resetSketchWidth{
@@ -451,6 +452,11 @@ static BOOL IS_TABLET = NO;
         SKETCH_WIDTH = 360;
     
     [WildCardUtil setSketchWidth:SKETCH_WIDTH];
+}
+
++(void)updateScreenWidth:(float)w {
+    SCREEN_WIDTH = w;
+    [WildCardUtil setScreenWidth:SCREEN_WIDTH];
 }
 
 +(void)resetIsTablet{
@@ -1185,7 +1191,7 @@ static BOOL IS_TABLET = NO;
 
 +(CGRect)getFrame:(NSDictionary*) layer : (WildCardUIView*)parentForPadding
 {
-    int screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    int screenWidth = SCREEN_WIDTH;
     NSDictionary* frame = [layer objectForKey:@"frame"];
     
     float w = [[frame objectForKey:@"w"] floatValue];
@@ -1275,7 +1281,7 @@ static BOOL IS_TABLET = NO;
 
 +(float) convertSketchToPixel:(float)p
 {
-    int screenWidth = [[UIScreen mainScreen] bounds].size.width;
+    int screenWidth = SCREEN_WIDTH;
     float scaleAdjust = screenWidth / SKETCH_WIDTH;
     return p * scaleAdjust;
 }

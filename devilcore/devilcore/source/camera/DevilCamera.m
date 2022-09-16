@@ -10,6 +10,7 @@
 #import "DevilGalleryController.h"
 #import "DevilUtil.h"
 #import "DevilQrCameraController.h"
+#import "WildCardUtil.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -177,13 +178,13 @@
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     UIView * r = nil;
     
-    if(isLandscape) {
-        id arr = [bundle loadNibNamed:@"devil_camera_system_landscape" owner:self options:NULL];
-        r = [arr firstObject];
-    } else {
-        id arr = [bundle loadNibNamed:@"devil_camera_system" owner:self options:NULL];
-        r = [arr firstObject];
-    }
+    id arr = [bundle loadNibNamed:@"devil_camera_system" owner:self options:NULL];
+    r = [arr firstObject];
+    
+    float sw = [UIScreen mainScreen].bounds.size.width;
+    float sh = [UIScreen mainScreen].bounds.size.height;
+    //r.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    r.frame = CGRectMake(0, 0, sw, sh);
     
     {
         UIColor* color = [UIColor whiteColor];
@@ -211,8 +212,15 @@
         [b setImage:image forState:UIControlStateNormal];
         [b addTarget:self action:@selector(onClickComplete) forControlEvents:UIControlEventTouchUpInside];
     }
-    
-    
+
+    return r;
+}
+
+-(void)cameraOverlayUpdate:(UIView*)r :(BOOL)isLandscape :(BOOL)showFrame :(float)rate :(CGSize)previewSize{
+    int preview_offset = 100;
+    if([WildCardUtil isTablet])
+        preview_offset = 0;
+        
     if(showFrame) {
         float sw = [UIScreen mainScreen].bounds.size.width;
         float sh = [UIScreen mainScreen].bounds.size.height;
@@ -224,7 +232,7 @@
                 frame_sw = frame_sh/rate;
             }
             
-            CGPoint previewCenter = CGPointMake(100+552/2, sh/2);
+            CGPoint previewCenter = CGPointMake(preview_offset + previewSize.width/2, sh/2);
             
 //            UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
 //            frame.center = previewCenter;
@@ -241,6 +249,10 @@
             UIView* right_frame = [[UIView alloc] initWithFrame:CGRectMake(previewCenter.x+frame_sw/2, 0, b.frame.origin.x - previewCenter.x - frame_sw/2, sh)];
             right_frame.backgroundColor = UIColorFromRGBA(0x95000000);
             right_frame.userInteractionEnabled = NO;
+            
+            left_frame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            right_frame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
             [r addSubview:right_frame];
         } else {
             float frame_sw = sw;
@@ -248,7 +260,7 @@
             /**
                 iphone 11 기준 y:100 414:552
              */
-            CGPoint previewCenter = CGPointMake(sw/2, 100+552/2);
+            CGPoint previewCenter = CGPointMake(sw/2, preview_offset + previewSize.height/2);
             
     //        UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
     //        frame.center = previewCenter;
@@ -261,16 +273,21 @@
             top_frame.backgroundColor = UIColorFromRGBA(0x95000000);
             [r addSubview:top_frame];
             
-            UIButton * b = [r viewWithTag:8574];
-            
-            UIView* bottom_frame = [[UIView alloc] initWithFrame:CGRectMake(0, previewCenter.y+frame_sh/2, sw, b.frame.origin.y - previewCenter.y - frame_sh/2)];
+            UIView* bottom_frame = [[UIView alloc] initWithFrame:CGRectMake(0, previewCenter.y+frame_sh/2, sw,
+                                                                            sh - previewCenter.y - frame_sh/2)];
             bottom_frame.backgroundColor = UIColorFromRGBA(0x95000000);
             bottom_frame.userInteractionEnabled = NO;
+            
+            top_frame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            bottom_frame.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            
             [r addSubview:bottom_frame];
         }
+        
+        [r bringSubviewToFront:[r viewWithTag:8574]];
+        [r bringSubviewToFront:[r viewWithTag:8575]];
+        [r bringSubviewToFront:[r viewWithTag:8576]];
     }
-
-    return r;
 }
 
 -(void)onClickTake:(id)sender {
@@ -322,14 +339,24 @@
                 if(param[@"showFrame"])
                     showFrame = [param[@"showFrame"] boolValue];
                 
-                UIView* over = [self cameraOverlay:isLandscape :showFrame :rate];
+                __block UIView* over = [self cameraOverlay:isLandscape :showFrame :rate];
                 
                 picker.cameraOverlayView = over;
                 picker.showsCameraControls = NO;
                 picker.navigationBarHidden = YES;
                 self.callback = callback;
                 [vc presentViewController:picker animated:YES completion:^{
-                    self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, 100);
+                    UIView* previewView = [self findViewOfClassName:self.picker.view :@"CAMPreviewView"];
+                    CGSize previewViewSize = CGSizeMake(0, 0);
+                    if(previewView)
+                        previewViewSize = CGSizeMake(previewView.frame.size.width, previewView.frame.size.height);
+                    [self cameraOverlayUpdate:over :isLandscape :showFrame :rate: previewViewSize];
+                    if([WildCardUtil isTablet])
+                        ;
+                    else {
+                        
+                        self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, 100);
+                    }
                 }];
             } else {
                 self.param = param;
@@ -349,17 +376,23 @@
         }
     }];
 }
+- (UIView*)findViewOfClassName:(UIView*)p :(NSString*)name {
+    NSString* className = [NSString stringWithFormat:@"%@", [p class]];
+    if([className isEqualToString:name])
+        return p;
+    
+    for(UIView* vv in [p subviews]){
+        UIView* r = [self findViewOfClassName:vv :name];
+        if(r)
+            return r;
+    }
+    
+    return nil;
+}
 
 - (NSString*)savePhotoToJpegFile:(UIImage*)photo {
      id aaa = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
      NSString *prefix = aaa[0];
-//     if(photo.imageOrientation == UIImageOrientationRight)
-//         photo = [DevilUtil rotateImage:photo degrees:90];
-//     else if(photo.imageOrientation == UIImageOrientationLeft)
-//         photo = [DevilUtil rotateImage:photo degrees:-90];
-//     else if(photo.imageOrientation == UIImageOrientationUp)
-//         photo = [DevilUtil rotateImage:photo degrees:180];
-     
      NSString* outputFileName = [NSUUID UUID].UUIDString;
      NSString* targetPath = [prefix stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
      NSData *imageData = UIImageJPEGRepresentation(photo, 0.8f);

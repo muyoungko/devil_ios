@@ -610,4 +610,19 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         callback(r);
     }
 }
+    
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+    
+    if([DevilSdk sharedInstance].currentOrientation != UIInterfaceOrientationMaskPortrait) {
+        return [DevilSdk sharedInstance].currentOrientation;
+    } else if([self.navigationController.topViewController isKindOfClass:[DevilController class]]) {
+        DevilController* d = ((DevilController*)self.navigationController.topViewController);
+        return [d supportedInterfaceOrientations];
+    }
+    
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+
+    
 @end
