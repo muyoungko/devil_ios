@@ -178,7 +178,7 @@
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     UIView * r = nil;
     
-    id arr = [bundle loadNibNamed:@"devil_camera_system" owner:self options:NULL];
+    id arr = [bundle loadNibNamed:(isLandscape?@"devil_camera_system_landscape":@"devil_camera_system") owner:self options:NULL];
     r = [arr firstObject];
     
     float sw = [UIScreen mainScreen].bounds.size.width;
@@ -246,7 +246,8 @@
             [r addSubview:left_frame];
             
             UIButton * b = [r viewWithTag:8574];
-            UIView* right_frame = [[UIView alloc] initWithFrame:CGRectMake(previewCenter.x+frame_sw/2, 0, b.frame.origin.x - previewCenter.x - frame_sw/2, sh)];
+            UIView* right_frame = [[UIView alloc] initWithFrame:CGRectMake(previewCenter.x+frame_sw/2, 0,
+                                                                           sw - previewCenter.x - frame_sw/2, sh)];
             right_frame.backgroundColor = UIColorFromRGBA(0x95000000);
             right_frame.userInteractionEnabled = NO;
             

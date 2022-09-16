@@ -102,7 +102,14 @@ alpha:1.0]
     };
     
     
-    int w = [UIScreen mainScreen].bounds.size.width * 0.7f, h= 300;
+    float sw = [UIScreen mainScreen].bounds.size.width;
+    float sh = [UIScreen mainScreen].bounds.size.height;
+    
+    int w = sw * 0.7f, h= 300;
+    //check landscape
+    if(sw > sh)
+        w = sw * 0.3f;
+    
     if(ws)
         self.width = w = [WildCardConstructor convertSketchToPixel:[ws intValue]];
     if(hs)
