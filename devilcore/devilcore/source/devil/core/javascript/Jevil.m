@@ -37,6 +37,7 @@
 #import "DevilSdk.h"
 #import "DevilAlertDialog.h"
 #import "DevilPlayerController.h"
+#import "DevilPhotoController.h"
 #import "WildCardTimer.h"
 #import "DevilExceptionHandler.h"
 #import "WildCardTrigger.h"
@@ -1439,6 +1440,13 @@
 
 + (void)video:(NSDictionary*)param{
     DevilPlayerController* d = [[DevilPlayerController alloc] init];
+    d.param = param;
+    //[[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
+    [[JevilInstance currentInstance].vc.navigationController presentModalViewController:d animated:YES];
+}
+
++ (void)photo:(NSDictionary*)param{
+    DevilPhotoController* d = [[DevilPhotoController alloc] init];
     d.param = param;
     //[[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
     [[JevilInstance currentInstance].vc.navigationController presentModalViewController:d animated:YES];

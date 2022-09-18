@@ -54,6 +54,10 @@
 //
 //            }
 //        }];
+        
+//        DevilPhotoController* d = [[DevilPhotoController alloc] init];
+//        d.param = [@{@"url":@"/var/mobile/Containers/Data/Application/CBF4A6E0-D102-4F63-8BD9-B432159DFBB7/Documents/03921392-800B-438F-87B5-68E86E01188D.jpg"} mutableCopy];
+//        [self.navigationController presentModalViewController:d animated:YES];
     }];
 }
 

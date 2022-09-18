@@ -149,6 +149,8 @@
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E268025AA935800600978 /* WildCardUITextView.m */; };
+		6D7F7A9928D6F1F100F67029 /* DevilPhotoController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7F7A9728D6F1F000F67029 /* DevilPhotoController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D7F7A9A28D6F1F100F67029 /* DevilPhotoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7F7A9828D6F1F000F67029 /* DevilPhotoController.m */; };
 		6D8628FC287AAC5700E62B7B /* DevilAdsInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628EF287AAC5700E62B7B /* DevilAdsInstance.m */; };
 		6D8628FD287AAC5700E62B7B /* JevilAds.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628F0287AAC5700E62B7B /* JevilAds.m */; };
 		6D8628FE287AAC5700E62B7B /* DevilAdsSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628F1287AAC5700E62B7B /* DevilAdsSdk.m */; };
@@ -419,6 +421,8 @@
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
 		6D7E268025AA935800600978 /* WildCardUITextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUITextView.m; sourceTree = "<group>"; };
+		6D7F7A9728D6F1F000F67029 /* DevilPhotoController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPhotoController.h; sourceTree = "<group>"; };
+		6D7F7A9828D6F1F000F67029 /* DevilPhotoController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPhotoController.m; sourceTree = "<group>"; };
 		6D8628EF287AAC5700E62B7B /* DevilAdsInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilAdsInstance.m; sourceTree = "<group>"; };
 		6D8628F0287AAC5700E62B7B /* JevilAds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilAds.m; sourceTree = "<group>"; };
 		6D8628F1287AAC5700E62B7B /* DevilAdsSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilAdsSdk.m; sourceTree = "<group>"; };
@@ -1034,6 +1038,8 @@
 				6D530D06274B539E006EDD58 /* DevilGalleryController.m */,
 				6D3DD349275B778000707521 /* DevilPlayerController.h */,
 				6D3DD34A275B778000707521 /* DevilPlayerController.m */,
+				6D7F7A9728D6F1F000F67029 /* DevilPhotoController.h */,
+				6D7F7A9828D6F1F000F67029 /* DevilPhotoController.m */,
 			);
 			path = camera;
 			sourceTree = "<group>";
@@ -1103,6 +1109,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D7F7A9928D6F1F100F67029 /* DevilPhotoController.h in Headers */,
 				6D482D8A28C348DD0041A149 /* JevilHealth.h in Headers */,
 				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
 				6D86290E288C2FA200E62B7B /* DevilNfc.h in Headers */,
@@ -1452,6 +1459,7 @@
 				6D467B73257A2F27006D57DD /* DevilController.m in Sources */,
 				6DD097DE26A1AE29000A913A /* JevilFunctionUtil.m in Sources */,
 				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,
+				6D7F7A9A28D6F1F100F67029 /* DevilPhotoController.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,
 				6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */,
