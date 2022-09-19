@@ -133,7 +133,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleDisconnect:(NSString*)udid;
 + (void)bleRelease:(NSString*)udid;
 + (void)bleCallback:(NSString*)command :(JSValue *)callback;
-+ (void)bleWrite:(NSDictionary*)param;
++ (void)bleWrite:(NSDictionary*)param :(JSValue*)callback;
++ (void)bleRead:(NSDictionary*)param :(JSValue*)callback;
 + (void)nfcStart:(NSDictionary*)param :(JSValue*)callback;
 + (void)nfcStop;
 + (void)fileChooser:(NSDictionary*)param :(JSValue*)callback;

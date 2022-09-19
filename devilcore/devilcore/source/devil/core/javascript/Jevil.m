@@ -1502,10 +1502,17 @@
     }];
 }
 
-+ (void)bleWrite:(NSDictionary*)param {
-//    [[JevilFunctionUtil sharedInstance] registFunction:callback];
++ (void)bleWrite:(NSDictionary*)param :(JSValue *)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [[DevilBle sharedInstance] send:param :^(id  _Nonnull res) {
-//        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)bleRead:(NSDictionary*)param :(JSValue *)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilBle sharedInstance] read:param :^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
 }
 

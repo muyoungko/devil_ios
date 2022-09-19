@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)connect:(NSString*)udid :(void (^)(id res))callback;
 - (void)disconnect:(NSString*)udid :(void (^)(id res))callback;
 - (void)send:(id)param :(void (^)(id res))callback;
+- (void)read:(id)param :(void (^)(id res))callback;
 - (void)callback:(NSString*)command :(void (^)(id res))callback;
 - (void)destroy;
 - (void)bleRelease;
