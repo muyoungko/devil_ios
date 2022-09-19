@@ -20,6 +20,7 @@
     [super viewDidLoad];
     
     self.data = [@{} mutableCopy];
+    [self updateFlexScreen];
     [self constructLeftBackButton];
 }
 
@@ -73,12 +74,22 @@
     [WildCardConstructor applyRule:self.mainWc withData:_data];
 }
 
+-(void)updateFlexScreen {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    screenWidth = screenRect.size.width;
+    screenHeight = screenRect.size.height;
+    [WildCardConstructor updateScreenWidthHeight:screenWidth:screenHeight];
+}
+
+
 - (void)constructBlockUnder:(NSString*)block{
     int header_height = 0;
     NSMutableDictionary* cj = [[WildCardConstructor sharedInstance] getBlockJson:block];
+    [WildCardConstructor updateSketchWidth:cj];
     [WildCardUtil fitToScreen:cj sketch_height_more:header_height];
     self.mainWc = [WildCardConstructor constructLayer:self.viewMain withLayer:cj instanceDelegate:self];
     [WildCardConstructor applyRule:self.mainWc withData:_data];
+    
 }
 
 - (void)constructBlockUnderScrollView:(NSString*)block{

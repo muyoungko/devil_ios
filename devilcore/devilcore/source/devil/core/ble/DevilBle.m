@@ -310,6 +310,12 @@
                 [c_list addObject:k];
                 k[@"udid"] = [c.UUID description];
                 CBCharacteristicProperties p = c.properties;
+                
+                NSLog(@"DEVIL CBCharacteristic - %@", [c.UUID description]);
+                for(CBDescriptor* d in c.descriptors) {
+                    NSLog(@"DEVIL CBDescriptor - %@", [d.UUID description]);
+                }
+                
                 if( (p & CBCharacteristicPropertyBroadcast) != 0)
                     k[@"broadcast"] = @TRUE;
                 if( (p & CBCharacteristicPropertyRead) != 0)
@@ -327,6 +333,7 @@
             }
         }
 //        NSLog(@"callDiscoveredCallback %@", r);
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"discovered" log:r];
         self.callbackDiscovered(r);
     });
     
@@ -378,6 +385,10 @@
             self.callbackRead(json);
         }
     }
+}
+
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error {
+    
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error{
