@@ -407,12 +407,13 @@
         NSString* text = [[NSString alloc] initWithData:characteristic.value encoding:NSUTF8StringEncoding];
         if(text)
             json[@"text"] = text;
-        [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"READ" log:json];
         
         if(self.callbackRead) {
             self.callbackRead(json);
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"READ" log:json];
             self.callbackRead = nil;
         } else if(self.callbackNotify) {
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"NOTIFY" log:json];
             self.callbackNotify(json);
         }
     }
