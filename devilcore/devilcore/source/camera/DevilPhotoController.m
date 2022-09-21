@@ -8,8 +8,10 @@
 #import "DevilPhotoController.h"
 @import Photos;
 
-@interface DevilPhotoController ()
+@interface DevilPhotoController () <UIScrollViewDelegate>
 @property (nonatomic, retain) NSString* currentUrl;
+@property (nonatomic, retain) UIImageView* imageView;
+@property (nonatomic, retain) UIScrollView* scrollView;
 @end
 
 @implementation DevilPhotoController
@@ -21,17 +23,45 @@
     
     
     UIImageView* v = [[UIImageView alloc] init];
+    self.imageView = v;
     float sw = [UIScreen mainScreen].bounds.size.width;
     float sh = [UIScreen mainScreen].bounds.size.height;
-    v.frame = CGRectMake(0, 0, sw, sh/2);
+    v.frame = CGRectMake(0, 0, sw*8, sh*8);
+    v.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:v];
-    v.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+    
+    
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+    self.scrollView.bounces = NO;
+    self.scrollView.bouncesZoom = NO;
+    self.scrollView.clipsToBounds = NO;
+    self.scrollView.autoresizesSubviews = NO;
+    _scrollView.userInteractionEnabled = YES;
+    _scrollView.scrollEnabled = YES;
+    _scrollView.contentSize = self.imageView.frame.size;
+    _scrollView.delegate = self;
+    
+    self.scrollView.minimumZoomScale = 1.0f / 8.0f;
+    self.scrollView.maximumZoomScale = 4;
+    self.scrollView.zoomScale = 1.0f / 8.0f;
+    //self.scrollView.contentOffset = CGPointMake(sw*4, sh*4);
+    
+    [self.view addSubview:_scrollView];
+    [_scrollView addSubview:self.imageView];
+    
     
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
     [self constructNavigationButton];
-    
     [self loadImage:self.param[@"url"] :v];
+    
+    [WildCardConstructor followSizeFromFather:self.view child:_scrollView];
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    return self.imageView;
+}
+- (void)scrollViewDidZoom:(UIScrollView *)scrollView {
+    NSLog(@"scrollViewDidZoom %f", scrollView.zoomScale);
 }
 
 - (void)loadImage:(NSString*)url :(UIImageView*)imageView {

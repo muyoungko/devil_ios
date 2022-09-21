@@ -277,8 +277,21 @@ alpha:1.0]
     else
         cell.textLabel.textColor = self.textColorNormal;
     
+    cell.tag = [indexPath row];
+    UITapGestureRecognizer *singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTap:)];
+    [cell addGestureRecognizer:singleFingerTap];
+    
     return cell;
 }
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
+{
+    int index = (int)recognizer.view.tag;
+    NSString* key = _list[index][_keyString];
+    [self.popup dismiss];
+    self.callback(key);
+}
+
         
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -286,6 +299,10 @@ alpha:1.0]
     NSString* key = _list[index][_keyString];
     [self.popup dismiss];
     self.callback(key);
+}
+
+- (BOOL) tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
 }
 
 @end

@@ -47,18 +47,7 @@
 }
 
 -(void)updateFlexScreen {
-    CGRect screenRect = [[UIScreen mainScreen] bounds];
-    screenWidth = screenRect.size.width;
-    screenHeight = screenRect.size.height;
-    if(!self.landscape && screenWidth > screenHeight) {
-        screenWidth = screenRect.size.height;
-        screenHeight = screenRect.size.width;
-    } else if(self.landscape && screenWidth < screenHeight){
-        screenWidth = screenRect.size.height;
-        screenHeight = screenRect.size.width;
-    }
-    [WildCardConstructor updateScreenWidthHeight:screenWidth:screenHeight];
-    NSLog(@"updateFlexScreen %@ %d %d", self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

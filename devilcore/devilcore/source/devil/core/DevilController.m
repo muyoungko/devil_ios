@@ -264,9 +264,9 @@
     id blockJson = [[WildCardConstructor sharedInstance] getBlockJson:firstBlockId :self.landscape];
     [WildCardConstructor updateSketchWidth:blockJson];
     [self checkHeader];
-    if(!self.landscape) {
-        [self toPortrait];
-    }
+//    if(!self.landscape) {
+//        [self toPortrait];
+//    }
     
     //가로 세로 전환될 때 self.view.backgroundColor가 투명하면 이상하다
     if([blockJson objectForKey:@"backgroundColor"] != nil)
@@ -352,9 +352,9 @@
         [self.jevil code:@"onResume()" viewController:self data:self.data meta:nil];
     }
     
-    if(self.landscape) {
-        [self toLandscape];
-    }
+//    if(self.landscape) {
+//        [self toLandscape];
+//    }
 }
 
 -(void)onPause {
@@ -693,20 +693,24 @@
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    if(self.landscape)
-        return UIInterfaceOrientationMaskLandscapeLeft
-        | UIInterfaceOrientationMaskLandscapeRight;
-    else {
+    
+    if(self.landscape){
+        NSLog(@"supportedInterfaceOrientations landscape");
+        return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+    } else {
+        NSLog(@"supportedInterfaceOrientations portrait");
         return UIInterfaceOrientationMaskPortrait;
     }
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    if(self.landscape)
-        return UIInterfaceOrientationMaskLandscapeLeft
-        | UIInterfaceOrientationMaskLandscapeRight;
-    else {
-        return UIInterfaceOrientationMaskPortrait;
+    if(self.landscape) {
+        NSLog(@"preferredInterfaceOrientationForPresentation landscape");
+        return UIInterfaceOrientationLandscapeLeft
+        | UIInterfaceOrientationLandscapeRight;
+    } else {
+        NSLog(@"preferredInterfaceOrientationForPresentation portrait");
+        return UIInterfaceOrientationPortrait;
     }
 }
 
@@ -743,13 +747,14 @@
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    NSLog(@"willTransitionToTraitCollection");
+//    NSLog(@"willTransitionToTraitCollection");
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
-    float sw = [UIScreen mainScreen].bounds.size.width;
-    NSLog(@"viewWillTransitionToSize %f %f %f", size.width, size.height, sw);
-    [self updateFlexScreen];
+    //navigationController의 모든 view에 호출이 들어온다
+//    float sw = [UIScreen mainScreen].bounds.size.width;
+//    NSLog(@"viewWillTransitionToSize %f %f %f", size.width, size.height, sw);
+//    [self updateFlexScreen];
 }
 
 -(void)orientationChanged:(NSNotification*)noti {
@@ -757,6 +762,22 @@
     [super orientationChanged:noti];
     NSLog(@"orientationChanged sw - %f", sw);
 }
+
+-(void)updateFlexScreen {
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    screenWidth = screenRect.size.width;
+    screenHeight = screenRect.size.height;
+    if(!self.landscape && screenWidth > screenHeight) {
+        screenWidth = screenRect.size.height;
+        screenHeight = screenRect.size.width;
+    } else if(self.landscape && screenWidth < screenHeight){
+        screenWidth = screenRect.size.height;
+        screenHeight = screenRect.size.width;
+    }
+    [WildCardConstructor updateScreenWidthHeight:screenWidth:screenHeight];
+    NSLog(@"updateFlexScreen %@ %@ %d %d", self.screenName, self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
+}
+
 @end
 
 

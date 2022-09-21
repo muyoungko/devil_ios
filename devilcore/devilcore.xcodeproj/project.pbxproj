@@ -230,6 +230,8 @@
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
 		6DA615F828C8F5E10078979D /* DevilPinLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA615F628C8F5E10078979D /* DevilPinLayer.h */; };
 		6DA615F928C8F5E10078979D /* DevilPinLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA615F728C8F5E10078979D /* DevilPinLayer.m */; };
+		6DACCFCE28DA244C002E7409 /* DevilImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */; };
+		6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */; };
 		6DC162452691711000FD769C /* DevilNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC162432691711000FD769C /* DevilNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DC162462691711000FD769C /* DevilNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC162442691711000FD769C /* DevilNavigationController.m */; };
 		6DC6789E26EA29840005728A /* DevilLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC6789C26EA29830005728A /* DevilLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -502,6 +504,8 @@
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
 		6DA615F628C8F5E10078979D /* DevilPinLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPinLayer.h; sourceTree = "<group>"; };
 		6DA615F728C8F5E10078979D /* DevilPinLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPinLayer.m; sourceTree = "<group>"; };
+		6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImagePickerController.h; sourceTree = "<group>"; };
+		6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImagePickerController.m; sourceTree = "<group>"; };
 		6DC162432691711000FD769C /* DevilNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNavigationController.h; sourceTree = "<group>"; };
 		6DC162442691711000FD769C /* DevilNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNavigationController.m; sourceTree = "<group>"; };
 		6DC6789C26EA29830005728A /* DevilLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLink.h; sourceTree = "<group>"; };
@@ -1040,6 +1044,8 @@
 				6D3DD34A275B778000707521 /* DevilPlayerController.m */,
 				6D7F7A9728D6F1F000F67029 /* DevilPhotoController.h */,
 				6D7F7A9828D6F1F000F67029 /* DevilPhotoController.m */,
+				6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */,
+				6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */,
 			);
 			path = camera;
 			sourceTree = "<group>";
@@ -1150,6 +1156,7 @@
 				6D467AAD256AB07A006D57DD /* WildCardNextChain.h in Headers */,
 				6D467ABE256AB07A006D57DD /* WildCardViewPagerRightAction.h in Headers */,
 				6D467A86256AB07A006D57DD /* WildCardUIView.h in Headers */,
+				6DACCFCE28DA244C002E7409 /* DevilImagePickerController.h in Headers */,
 				6D9F7B102629658F003A70EC /* UIImage+PECrop.h in Headers */,
 				6DF53B6E2658F3D3001FB1D6 /* DevilLocation.h in Headers */,
 				6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */,
@@ -1412,6 +1419,7 @@
 				6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */,
 				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,
 				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,
+				6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */,
 				6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */,
 				6D467A92256AB07A006D57DD /* ReplaceRuleImage.m in Sources */,
 				6D467AB4256AB07A006D57DD /* WildCardCollectionViewAdapter.m in Sources */,

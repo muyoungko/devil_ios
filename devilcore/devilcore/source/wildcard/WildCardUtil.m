@@ -596,7 +596,7 @@ static BOOL IS_TABLET = NO;
 }
 
 + (BOOL)isTablet {
-    return true;
+    return IS_TABLET;
 }
 
 

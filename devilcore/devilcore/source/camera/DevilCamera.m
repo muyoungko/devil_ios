@@ -11,6 +11,7 @@
 #import "DevilUtil.h"
 #import "DevilQrCameraController.h"
 #import "WildCardUtil.h"
+#import "DevilImagePickerController.h""
 
 @import AVKit;
 @import AVFoundation;
@@ -233,13 +234,15 @@
             }
             
             CGPoint previewCenter = CGPointMake(preview_offset + previewSize.width/2, sh/2);
+            //폰에서는 previewSize가 가로세로가 반대로 나온다
+            if(![WildCardUtil isTablet])
+                previewCenter = CGPointMake(preview_offset + previewSize.height/2, sh/2);
             
 //            UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
 //            frame.center = previewCenter;
-//            frame.layer.borderColor = [UIColor redColor].CGColor;
+//            frame.layer.borderColor = [UIColor blackColor].CGColor;
 //            frame.layer.borderWidth = 2.0f;
 //            [r addSubview:frame];
-            
             
             UIView* left_frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, previewCenter.x-frame_sw/2, sh)];
             left_frame.backgroundColor = UIColorFromRGBA(0x95000000);
@@ -263,11 +266,11 @@
              */
             CGPoint previewCenter = CGPointMake(sw/2, preview_offset + previewSize.height/2);
             
-    //        UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
-    //        frame.center = previewCenter;
-    //        frame.layer.borderColor = [UIColor redColor].CGColor;
-    //        frame.layer.borderWidth = 2.0f;
-    //        [r addSubview:frame];
+//            UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
+//            frame.center = previewCenter;
+//            frame.layer.borderColor = [UIColor redColor].CGColor;
+//            frame.layer.borderWidth = 2.0f;
+//            [r addSubview:frame];
             
             
             UIView* top_frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sw, previewCenter.y-frame_sh/2)];
@@ -323,12 +326,15 @@
             if([param[@"multi"] boolValue]) {
                 self.photoList = [@[] mutableCopy];
                 self.param = param;
-                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                DevilImagePickerController *picker = [[DevilImagePickerController alloc] init];
                 
                 BOOL isLandscape = [[UIApplication sharedApplication] statusBarOrientation] == UIDeviceOrientationLandscapeLeft ||
                 [[UIApplication sharedApplication] statusBarOrientation] == UIDeviceOrientationLandscapeRight;
+                picker.landscape = isLandscape;
+                
                 if(isLandscape)
                     picker.modalPresentationStyle = UIModalPresentationCurrentContext;
+                
                 self.picker = picker;
                 picker.sourceType = UIImagePickerControllerSourceTypeCamera;
                 picker.delegate = self;
@@ -355,8 +361,10 @@
                     if([WildCardUtil isTablet])
                         ;
                     else {
-                        
-                        self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, 100);
+                        if(isLandscape)
+                            self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, 100);
+                        else
+                            self.picker.cameraViewTransform = CGAffineTransformMakeTranslation(0, 100);
                     }
                 }];
             } else {

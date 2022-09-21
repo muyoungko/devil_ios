@@ -54,7 +54,7 @@ float borderWidth = 7;
     self.pinLayer = [[DevilPinLayer alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
     self.pinLayer.backgroundColor = [UIColor clearColor];
     self.pinLayer.userInteractionEnabled = NO;
-    
+     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
     self.scrollView.bounces = NO;
     self.scrollView.bouncesZoom = NO;

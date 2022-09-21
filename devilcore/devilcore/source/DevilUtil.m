@@ -394,4 +394,13 @@
     }
 }
 
++(NSString*)orientationToString:(UIInterfaceOrientationMask)mask{
+    NSString* r = @"";
+    if(mask & UIInterfaceOrientationMaskPortrait) {
+        return @"portrait";
+    } else if(mask & UIInterfaceOrientationMaskLandscapeLeft) {
+        return @"landscape";
+    }
+    return @"?";
+}
 @end
