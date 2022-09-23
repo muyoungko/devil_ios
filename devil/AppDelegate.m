@@ -171,6 +171,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
+    [[DevilSdk sharedInstance] addCustomJevil:[JevilNfc class]];
      
     [DevilHealthTest test];
     
