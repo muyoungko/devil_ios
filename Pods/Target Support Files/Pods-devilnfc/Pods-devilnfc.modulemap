@@ -1,0 +1,6 @@
+framework module Pods_devilnfc {
+  umbrella header "Pods-devilnfc-umbrella.h"
+
+  export *
+  module * { export * }
+}

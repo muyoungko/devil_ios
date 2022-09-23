@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
-  s.name             = 'devillogin'
+  s.name             = 'devilnfc'
   s.platform         = :ios
   s.version          = '0.0.185'
-  s.summary          = 'Devil Login'
+  s.summary          = 'Devil Nfc'
   s.description      = <<-DESC
     This is Devil Login
                        DESC
@@ -16,21 +16,9 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
-  s.source_files = 'devillogin/devillogin/source/**/*.*', 'devillogin/devillogin/header/**/*.h'
-  s.public_header_files = 'devillogin/devillogin/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.source_files = 'devilnfc/devilnfc/source/**/*.*', 'devilnfc/devilnfc/header/**/*.h'
+  s.public_header_files = 'devilnfc/devilnfc/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
   s.dependency 'devilcore', '~> 0.0.184'
-  s.dependency 'Alamofire'
-  s.dependency 'KakaoSDKCommon'
-  s.dependency 'KakaoSDKAuth'
-  s.dependency 'KakaoSDKUser'
-  s.dependency 'KakaoSDKTalk'
-  s.dependency 'KakaoSDKStory'
-  s.dependency 'KakaoSDKLink'
-        
-  s.dependency 'FBSDKLoginKit', '~> 9.3.0'
-  s.dependency 'FBSDKShareKit', '~> 9.3.0'
-  #s.dependency 'GoogleSignIn'
-  #s.dependency 'GoogleToolboxForMac'
 
 end

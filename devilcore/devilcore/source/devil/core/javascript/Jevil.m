@@ -43,7 +43,6 @@
 #import "WildCardTrigger.h"
 #import "DevilRecord.h"
 #import <SafariServices/SafariServices.h>
-#import "DevilNfc.h"
 #import "DevilImageMap.h"
 #import "DevilFileChooser.h"
 
@@ -1516,16 +1515,6 @@
     }];
 }
 
-+ (void)nfcStart:(NSDictionary*)param :(JSValue*)callback {
-    [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    [[DevilNfc sharedInstance] start:param :^(id  _Nonnull res) {
-        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
-    }];
-}
-
-+ (void)nfcStop {
-    [[DevilNfc sharedInstance] stop];
-}
 
 + (void)fileChooser:(NSDictionary*)param :(JSValue*)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];

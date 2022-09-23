@@ -277,19 +277,26 @@
 			<key>orderHint</key>
 			<integer>45</integer>
 		</dict>
-		<key>PromisesObjC.xcscheme</key>
+		<key>Pods-devilnfc.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>46</integer>
 		</dict>
-		<key>ZXingObjC.xcscheme</key>
+		<key>PromisesObjC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>47</integer>
+		</dict>
+		<key>ZXingObjC.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>48</integer>
 		</dict>
 		<key>lottie-ios.xcscheme</key>
 		<dict>

@@ -82,6 +82,10 @@ target 'devilhealth' do
   project 'devilhealth/devilhealth.xcodeproj'
 end
 
+target 'devilnfc' do
+  project 'devilnfc/devilnfc.xcodeproj'
+end
+
 target 'devilextra' do
   project 'devilextra/devilextra.xcodeproj'
 end

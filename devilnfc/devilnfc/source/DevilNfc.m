@@ -6,7 +6,7 @@
 //
 
 #import "DevilNfc.h"
-#import "DevilDebugView.h"
+@import devilcore;
 @import CoreNFC;
 
 @interface DevilNfc() <NFCNDEFReaderSessionDelegate>

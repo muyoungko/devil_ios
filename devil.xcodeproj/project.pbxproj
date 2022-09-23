@@ -37,6 +37,9 @@
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
 		6D482D8D28C3CA930041A149 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D482D8C28C3CA920041A149 /* HealthKit.framework */; };
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
+		6D62FAFA28DD75F00094426E /* devilnfc.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D62FAF928DD75F00094426E /* devilnfc.podspec */; };
+		6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; };
+		6D62FB0A28DD7A0B0094426E /* devilnfc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22CF6125FFB25C00A1CB25 /* devillogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D7F7A9628D40BD100F67029 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7F7A9528D40BD100F67029 /* SceneDelegate.m */; };
 		6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86290A287E50BA00E62B7B /* StoreKit.framework */; };
@@ -70,6 +73,7 @@
 				6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */,
 				6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */,
 				6DACD00428DD61E7002E7409 /* devilextra.framework in Embed Frameworks */,
+				6D62FB0A28DD7A0B0094426E /* devilnfc.framework in Embed Frameworks */,
 				6DACD00728DD61EC002E7409 /* devilhealth.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -127,6 +131,8 @@
 		6D467B68257A2E17006D57DD /* refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@3x.png"; sourceTree = "<group>"; };
 		6D482D8C28C3CA920041A149 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		6D52E6102619988700935D3A /* devil.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = devil.plist; sourceTree = "<group>"; };
+		6D62FAF928DD75F00094426E /* devilnfc.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilnfc.podspec; sourceTree = "<group>"; };
+		6D62FB0828DD7A0B0094426E /* devilnfc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilnfc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7F7A9428D40BD100F67029 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		6D7F7A9528D40BD100F67029 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		6D86290A287E50BA00E62B7B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -164,6 +170,7 @@
 				6DACD00328DD61E7002E7409 /* devilextra.framework in Frameworks */,
 				6D482D8D28C3CA930041A149 /* HealthKit.framework in Frameworks */,
 				6DACD00628DD61EC002E7409 /* devilhealth.framework in Frameworks */,
+				6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */,
 				8A6CB2049F337C13AFC38288 /* Pods_devil.framework in Frameworks */,
 				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
 			);
@@ -175,6 +182,7 @@
 		0BCC150E47406F73DA50155A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D62FB0828DD7A0B0094426E /* devilnfc.framework */,
 				6DACD00528DD61EC002E7409 /* devilhealth.framework */,
 				6DACD00228DD61E7002E7409 /* devilextra.framework */,
 				6D482D8C28C3CA920041A149 /* HealthKit.framework */,
@@ -315,6 +323,7 @@
 				6D0224EF26143D8300634842 /* devilcore.podspec */,
 				6D0224ED2613959900634842 /* devillogin.podspec */,
 				6DACD01328DD64AA002E7409 /* devilhealth.podspec */,
+				6D62FAF928DD75F00094426E /* devilnfc.podspec */,
 				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
 				6D46791C25699107006D57DD /* image */,
 				6D4678B52567B1E2006D57DD /* devil */,
@@ -416,6 +425,7 @@
 				6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */,
 				6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */,
 				6D52E6112619988700935D3A /* devil.plist in Resources */,
+				6D62FAFA28DD75F00094426E /* devilnfc.podspec in Resources */,
 				6D132BC6255E76F400004E1F /* lang.json in Resources */,
 				6D0224F026143D8300634842 /* devilcore.podspec in Resources */,
 			);

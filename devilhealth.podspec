@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
   s.source_files = 'devilhealth/devilhealth/source/**/*.*', 'devilhealth/devilhealth/header/**/*.h'
   s.public_header_files = 'devilhealth/devilhealth/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
-  s.dependency 'devilcore', '~> 0.0.94'
+  s.dependency 'devilcore', '~> 0.0.184'
 
 end

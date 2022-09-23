@@ -135,8 +135,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleCallback:(NSString*)command :(JSValue *)callback;
 + (void)bleWrite:(NSDictionary*)param :(JSValue*)callback;
 + (void)bleRead:(NSDictionary*)param :(JSValue*)callback;
-+ (void)nfcStart:(NSDictionary*)param :(JSValue*)callback;
-+ (void)nfcStop;
 + (void)fileChooser:(NSDictionary*)param :(JSValue*)callback;
 + (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback;
 + (void)imageMapLocation:(NSString*)nodeName :(NSString*)key :(JSValue*)callback;

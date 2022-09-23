@@ -13,6 +13,7 @@
 @import devilcore;
 @import devillogin;
 @import devilhealth;
+@import devilnfc;
 @import GoogleMobileAds;
 
 #import <AFNetworking/AFNetworking.h>
@@ -170,8 +171,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
-    
-    
+     
     [DevilHealthTest test];
     
     if(launchOptions == nil){
