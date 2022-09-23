@@ -20,4 +20,17 @@ SceneDelegate 만듬
 AppDelegate에 window 관련 코드 삭제 
 Info.plist에 UIApplicationSceneManifest 부분 추가
 
+# Google Ads 탑재
+AppDelegate에 DevilSdkGoogleAdsDelegate 프로토콜 구현
+
+@property(nonatomic, strong) GADInterstitialAd *interstitial;
+@property (nonatomic, retain) GADRewardedAd* rewardedAd;
+
+[DevilSdk sharedInstance].devilSdkGoogleAdsDelegate = self;
+[[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
+    
+-(void)loadAds:(id)params complete:(void (^)(id res))callback
+-(void)showAds:(id)params complete:(void (^)(id res))callback
+
+
 
