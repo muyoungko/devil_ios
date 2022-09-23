@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
-  s.name             = 'devilbill'
+  s.name             = 'devilextra'
   s.platform         = :ios
   s.version          = '0.0.184'
-  s.summary          = 'Devil Bill'
+  s.summary          = 'Devil Extra'
   s.description      = <<-DESC
-    This is Devil Bill
+    This is Devil Login
                        DESC
   s.homepage         = 'https://github.com/muyoungko/devil_ios'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -16,9 +16,9 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
-  s.source_files = 'devilbill/devilbill/source/**/*.*'
-  s.public_header_files = 'devilbill/devilads/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.source_files = 'devilextra/devilextra/source/**/*.*', 'devilextra/devilextra/header/**/*.h'
+  s.public_header_files = 'devilextra/devilextra/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.static_framework = true
   s.dependency 'devilcore', '~> 0.0.94'
-  #s.resources = 'devilbill/devilbill/resource/*'
 
 end

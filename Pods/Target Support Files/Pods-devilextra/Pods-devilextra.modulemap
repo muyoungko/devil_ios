@@ -1,0 +1,6 @@
+framework module Pods_devilextra {
+  umbrella header "Pods-devilextra-umbrella.h"
+
+  export *
+  module * { export * }
+}

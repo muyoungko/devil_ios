@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
-  s.name             = 'devilads'
+  s.name             = 'devilhealth'
   s.platform         = :ios
-  s.version          = '0.0.184'
-  s.summary          = 'Devil Ads'
+  s.version          = '0.0.185'
+  s.summary          = 'Devil Health'
   s.description      = <<-DESC
-    This is Devil Ads
+    This is Devil Login
                        DESC
   s.homepage         = 'https://github.com/muyoungko/devil_ios'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
@@ -16,10 +16,9 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
-  s.source_files = 'devilads/devilads/source/**/*.*', 'devilads/devilads/header/**/*.h'
-  s.public_header_files = 'devilads/devilads/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.source_files = 'devilhealth/devilhealth/source/**/*.*', 'devilhealth/devilhealth/header/**/*.h'
+  s.public_header_files = 'devilhealth/devilhealth/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.static_framework = true
   s.dependency 'devilcore', '~> 0.0.94'
-  # s.depondency 'Google-Mobile-Ads-SDK'
-  # s.resources = 'devilads/devilads/resource/*'
 
 end
