@@ -1547,5 +1547,7 @@
     DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
     [map setMode:mode :param];
 }
-
++ (NSString*)getByte:(NSString*)text {
+    return [DevilUtil byteToHex:[text dataUsingEncoding:NSUTF8StringEncoding]];
+}
 @end

@@ -139,6 +139,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback;
 + (void)imageMapLocation:(NSString*)nodeName :(NSString*)key :(JSValue*)callback;
 + (void)imageMapMode:(NSString*)nodeName :(NSString*)mode :(NSDictionary*)param;
++ (NSString*)getByte:(NSString*)text;
 
 @end
 
