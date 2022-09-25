@@ -11,6 +11,9 @@
 #import "WildCardUtil.h"
 #import "DevilPinLayer.h"
 
+#define POPUP_TAG_OK 1201
+#define POPUP_TAG_CANCEL 1200
+
 #include <math.h>
 
 @interface DevilImageMap()<UIScrollViewDelegate>
@@ -160,19 +163,22 @@ float borderWidth = 7;
         [self setMode:@"new_direction" : nil];
         [self showPopup:@[@"취소"]];
     } else if([self isPopupShow] && CGRectContainsPoint([WildCardUtil getGlobalFrame:self.popupView], tappedPoint)) {
-        for(UILabel* c in [self.popupView subviews]) {
+        for(UIView* c in [self.popupView subviews]) {
             if(CGRectContainsPoint([WildCardUtil getGlobalFrame:c], tappedPoint)) {
                 [self hidePopup];
-                if([@"취소" isEqualToString:c.text]) {
+                NSString* key = @"";
+                if(c.tag == POPUP_TAG_CANCEL) {
                     [self setMode:@"normal" : nil];
-                } else if([@"완료" isEqualToString:c.text]) {
+                    key = @"취소";
+                } else if(c.tag == POPUP_TAG_OK) {
                     [self complete];
+                    key = @"완료";
                 }
                 
                 if(self.actionCallback)
                     self.actionCallback([@{
                         @"mode": self.mode,
-                        @"key" : c.text,
+                        @"key" : key,
                     } mutableCopy]);
             }
         }
@@ -460,38 +466,65 @@ float borderWidth = 7;
             screenPoint = [self pinToScreenPoint:_editingPin];
         }
             
-        float pw = 90;
-        float ph = 50;
-        float gap = 30;
+        float gap = 20;
         float x = screenPoint.x + gap;
         float y = screenPoint.y;
-        float sw = [UIScreen mainScreen].bounds.size.width;
-//        if(x > sw - pw)
-//            x = screenPoint.x - pw - gap;
         self.popupView.frame = CGRectMake(x, y, self.popupView.frame.size.width, self.popupView.frame.size.height);
     }
 }
 -(void)showPopup:(id)selection {
-    float pw = 90;
+    float pw = 50;
     float ph = 50;
-    float gap = 30;
     
     UIView* popup = [[UIView alloc] initWithFrame:CGRectMake(0, 0, pw, ph * [selection count] )];
-    popup.backgroundColor = [UIColor whiteColor];
-    popup.layer.cornerRadius = 5;
-    popup.layer.shadowOffset = CGSizeMake(5, 5);
-    popup.layer.shadowRadius = 5;
-    popup.layer.shadowOpacity = [WildCardUtil alphaWithHexString:@"#90000000"];
-    popup.layer.shadowColor = [WildCardUtil colorWithHexString:@"#90000000"].CGColor;
+    popup.backgroundColor = [UIColor clearColor];
+    
+//    popup.backgroundColor = [UIColor whiteColor];
+//    popup.layer.cornerRadius = 5;
+//    popup.layer.shadowOffset = CGSizeMake(5, 5);
+//    popup.layer.shadowRadius = 5;
+//    popup.layer.shadowOpacity = [WildCardUtil alphaWithHexString:@"#90000000"];
+//    popup.layer.shadowColor = [WildCardUtil colorWithHexString:@"#90000000"].CGColor;
     
     int index = 0;
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     for(NSString* s in selection) {
-        UILabel* text = [[UILabel alloc] initWithFrame:CGRectMake(0, index*ph, pw, ph)];
-        text.font = [UIFont boldSystemFontOfSize:20];
-        text.textColor = [WildCardUtil colorWithHexString:@"#333333"];
-        text.text = s;
-        text.textAlignment = NSTextAlignmentCenter;
-        [popup addSubview:text];
+//        UILabel* text = [[UILabel alloc] initWithFrame:CGRectMake(0, index*ph, pw, ph)];
+//        text.font = [UIFont boldSystemFontOfSize:20];
+//        text.textColor = [WildCardUtil colorWithHexString:@"#333333"];
+//        text.text = s;
+//        text.textAlignment = NSTextAlignmentCenter;
+//        [popup addSubview:text];
+        
+        
+        
+        float bh = ph*0.8f;
+        UIView* button = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bh, bh)];
+        button.center = CGPointMake(pw/2, index*ph + ph/2);
+        button.backgroundColor = [UIColor whiteColor];
+        button.layer.cornerRadius = bh/2;
+        button.layer.shadowOffset = CGSizeMake(5, 5);
+        button.layer.shadowRadius = 5;
+        button.layer.shadowOpacity = [WildCardUtil alphaWithHexString:@"#90000000"];
+        button.layer.shadowColor = [WildCardUtil colorWithHexString:@"#90000000"].CGColor;
+
+        NSString* imageName = @"";
+        if([@"취소" isEqualToString:s]) {
+            button.tag = POPUP_TAG_CANCEL;
+            imageName = @"devil_imagemap_cancel";
+        } else {
+            button.tag = POPUP_TAG_OK;
+            imageName = @"devil_imagemap_ok";
+        }
+        
+        UIImage* image = [UIImage imageNamed:imageName inBundle:bundle compatibleWithTraitCollection:nil];
+        UIImageView* imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.backgroundColor = [UIColor whiteColor];
+        imageView.center = CGPointMake(bh/2, bh/2);
+        [button addSubview:imageView];
+        
+         
+        [popup addSubview:button];
         index ++;
     }
     [self addSubview:popup];

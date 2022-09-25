@@ -141,6 +141,8 @@
 		6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */; };
 		6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */; };
 		6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */; };
+		6D62FB0D28DF24780094426E /* devil_imagemap_ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */; };
+		6D62FB0E28DF24780094426E /* devil_imagemap_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D62FB0C28DF24780094426E /* devil_imagemap_cancel@3x.png */; };
 		6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267725A89AD400600978 /* DevilSelectDialog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7E267825A89AD400600978 /* DevilSelectDialog.m */; };
 		6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D7E267F25AA935800600978 /* WildCardUITextView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -409,6 +411,8 @@
 		6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox@3x.png"; sourceTree = "<group>"; };
 		6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDateTimePopup.h; sourceTree = "<group>"; };
 		6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDateTimePopup.m; sourceTree = "<group>"; };
+		6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_imagemap_ok@3x.png"; sourceTree = "<group>"; };
+		6D62FB0C28DF24780094426E /* devil_imagemap_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_imagemap_cancel@3x.png"; sourceTree = "<group>"; };
 		6D7E267725A89AD400600978 /* DevilSelectDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSelectDialog.h; sourceTree = "<group>"; };
 		6D7E267825A89AD400600978 /* DevilSelectDialog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSelectDialog.m; sourceTree = "<group>"; };
 		6D7E267F25AA935800600978 /* WildCardUITextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUITextView.h; sourceTree = "<group>"; };
@@ -566,6 +570,8 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6D62FB0C28DF24780094426E /* devil_imagemap_cancel@3x.png */,
+				6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */,
 				6D9A9DEC28A569E1003302B3 /* devil_imagemap_pointer@3x.png */,
 				6D3DD34D275B93C600707521 /* devil_camera_close@3x.png */,
 				6DD0987626A6AAEF000A913A /* devil_camera_record.wav */,
@@ -1277,7 +1283,9 @@
 				6D9F7AA72622E93C003A70EC /* devil_camera_flash@3x.png in Resources */,
 				6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */,
 				6D9F7AAB2622E93C003A70EC /* devil_camera_record_start@3x.png in Resources */,
+				6D62FB0D28DF24780094426E /* devil_imagemap_ok@3x.png in Resources */,
 				6D9F7AAE2622E93C003A70EC /* devil_camera_shutter@3x.png in Resources */,
+				6D62FB0E28DF24780094426E /* devil_imagemap_cancel@3x.png in Resources */,
 				6D9F7AAC2622E93C003A70EC /* devil_camera_video@3x.png in Resources */,
 				6D8A40EB2674B77E006999FC /* play_pause.json in Resources */,
 				6D9F7AA62622E93C003A70EC /* devil_camera_cancel@3x.png in Resources */,
