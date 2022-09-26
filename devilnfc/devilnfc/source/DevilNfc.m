@@ -82,7 +82,7 @@
         [session connectToTag:tag completionHandler:^(NSError * _Nullable error) {
             [tag queryNDEFStatusWithCompletionHandler:^(NFCNDEFStatus status, NSUInteger capacity, NSError * _Nullable error) {
                 if(status == NFCNDEFStatusReadWrite || status == NFCNDEFStatusReadOnly) {
-                    if(self.param[@"write"]) {
+                    if(self.param[@"write"] && (self.param[@"write"][@"hex"] || self.param[@"write"][@"text"])) {
                         NSString* hex = self.param[@"write"][@"hex"];
                         NSString* text = self.param[@"write"][@"text"];
                         
