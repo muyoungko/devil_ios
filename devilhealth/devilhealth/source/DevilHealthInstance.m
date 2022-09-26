@@ -6,16 +6,16 @@
 //  Copyright © 2022 july. All rights reserved.
 //
 
-#import "DevilHealth.h"
+#import "DevilHealthInstance.h"
 
-@interface DevilHealth ()
+@interface DevilHealthInstance ()
 
 @end
 
-@implementation DevilHealth
+@implementation DevilHealthInstance
 
-+ (DevilHealth*)sharedInstance {
-    static DevilHealth *sharedInstance = nil;
++ (DevilHealthInstance*)sharedInstance {
+    static DevilHealthInstance *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];

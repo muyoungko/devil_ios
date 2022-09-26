@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 #import "DevilHealthTest.h"
-#import "DevilHealth.h"
+#import "DevilHealthInstance.h"
 #import "JevilHealth.h"
 
 //! Project version number for devilhealth.

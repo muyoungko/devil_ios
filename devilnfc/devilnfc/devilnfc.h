@@ -6,7 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DevilNfc.h"
+#import "DevilNfcInstance.h"
 #import "JevilNfc.h"
 
 //! Project version number for devilnfc.

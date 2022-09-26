@@ -13,8 +13,8 @@
 		6D62FAFE28DD772E0094426E /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FAFC28DD772E0094426E /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D62FB0228DD794C0094426E /* JevilNfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FB0028DD794C0094426E /* JevilNfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D62FB0328DD794C0094426E /* JevilNfc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62FB0128DD794C0094426E /* JevilNfc.m */; };
-		6D62FB0628DD79A10094426E /* DevilNfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FB0428DD79A10094426E /* DevilNfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D62FB0728DD79A10094426E /* DevilNfc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62FB0528DD79A10094426E /* DevilNfc.m */; };
+		6D62FB0628DD79A10094426E /* DevilNfcInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FB0428DD79A10094426E /* DevilNfcInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D62FB0728DD79A10094426E /* DevilNfcInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62FB0528DD79A10094426E /* DevilNfcInstance.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,8 +39,8 @@
 		6D62FAFC28DD772E0094426E /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D62FB0028DD794C0094426E /* JevilNfc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilNfc.h; sourceTree = "<group>"; };
 		6D62FB0128DD794C0094426E /* JevilNfc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilNfc.m; sourceTree = "<group>"; };
-		6D62FB0428DD79A10094426E /* DevilNfc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilNfc.h; sourceTree = "<group>"; };
-		6D62FB0528DD79A10094426E /* DevilNfc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilNfc.m; sourceTree = "<group>"; };
+		6D62FB0428DD79A10094426E /* DevilNfcInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilNfcInstance.h; sourceTree = "<group>"; };
+		6D62FB0528DD79A10094426E /* DevilNfcInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilNfcInstance.m; sourceTree = "<group>"; };
 		CA6F70E166B71333C6511FBD /* Pods-devilnfc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilnfc.release.xcconfig"; path = "Target Support Files/Pods-devilnfc/Pods-devilnfc.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,8 +87,8 @@
 		6D62FAFB28DD76D90094426E /* source */ = {
 			isa = PBXGroup;
 			children = (
-				6D62FB0428DD79A10094426E /* DevilNfc.h */,
-				6D62FB0528DD79A10094426E /* DevilNfc.m */,
+				6D62FB0428DD79A10094426E /* DevilNfcInstance.h */,
+				6D62FB0528DD79A10094426E /* DevilNfcInstance.m */,
 				6D62FB0028DD794C0094426E /* JevilNfc.h */,
 				6D62FB0128DD794C0094426E /* JevilNfc.m */,
 			);
@@ -122,7 +122,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D62FAF328DD755C0094426E /* devilnfc.h in Headers */,
-				6D62FB0628DD79A10094426E /* DevilNfc.h in Headers */,
+				6D62FB0628DD79A10094426E /* DevilNfcInstance.h in Headers */,
 				6D62FB0228DD794C0094426E /* JevilNfc.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,7 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D62FB0728DD79A10094426E /* DevilNfc.m in Sources */,
+				6D62FB0728DD79A10094426E /* DevilNfcInstance.m in Sources */,
 				6D62FB0328DD794C0094426E /* JevilNfc.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

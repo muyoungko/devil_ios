@@ -6,19 +6,19 @@
 //
 
 #import "JevilHealth.h"
-#import "DevilHealth.h"
+#import "DevilHealthInstance.h"
 
 @implementation JevilHealth
 
 
 + (void)requestPermission:(NSDictionary*)param:(JSValue *)callback {
-    [[DevilHealth sharedInstance] requestPermission:param callback:^(id  _Nonnull res) {
+    [[DevilHealthInstance sharedInstance] requestPermission:param callback:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
     }];
 }
 
 + (void)requestHealthData:(NSDictionary*)param :(JSValue *)callback {
-    [[DevilHealth sharedInstance] requestHealthData:param callback:^(id  _Nonnull res) {
+    [[DevilHealthInstance sharedInstance] requestHealthData:param callback:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
     }];
 }

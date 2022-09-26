@@ -5,21 +5,21 @@
 //  Created by Mu Young Ko on 2022/07/23.
 //
 
-#import "DevilNfc.h"
+#import "DevilNfcInstance.h"
 @import devilcore;
 @import CoreNFC;
 
-@interface DevilNfc() <NFCNDEFReaderSessionDelegate>
+@interface DevilNfcInstance() <NFCNDEFReaderSessionDelegate>
 @property (nonatomic, retain) NFCNDEFReaderSession* session;
 @property NFCNDEFMessage* detectedMessage;
 @property (nonatomic, retain) id param;
 @property void (^callback)(id res);
 @end
 
-@implementation DevilNfc
+@implementation DevilNfcInstance
 
-+ (DevilNfc*)sharedInstance {
-    static DevilNfc *sharedInstance = nil;
++ (DevilNfcInstance*)sharedInstance {
+    static DevilNfcInstance *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];

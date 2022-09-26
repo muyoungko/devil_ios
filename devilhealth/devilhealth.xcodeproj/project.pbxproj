@@ -12,8 +12,8 @@
 		6DACD00B28DD6250002E7409 /* DevilHealthTest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DACD00928DD6250002E7409 /* DevilHealthTest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DACD00C28DD6250002E7409 /* DevilHealthTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACD00A28DD6250002E7409 /* DevilHealthTest.m */; };
 		6DACD01928DD6551002E7409 /* JevilHealth.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACD01528DD6551002E7409 /* JevilHealth.m */; };
-		6DACD01A28DD6551002E7409 /* DevilHealth.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DACD01628DD6551002E7409 /* DevilHealth.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6DACD01B28DD6551002E7409 /* DevilHealth.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACD01728DD6551002E7409 /* DevilHealth.m */; };
+		6DACD01A28DD6551002E7409 /* DevilHealthInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DACD01628DD6551002E7409 /* DevilHealthInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DACD01B28DD6551002E7409 /* DevilHealthInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACD01728DD6551002E7409 /* DevilHealthInstance.m */; };
 		6DACD01C28DD6551002E7409 /* JevilHealth.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DACD01828DD6551002E7409 /* JevilHealth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CBADE844D558A186569C9E1F /* Pods_devilhealth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B497FB82604B1C4846A857F /* Pods_devilhealth.framework */; };
 /* End PBXBuildFile section */
@@ -26,8 +26,8 @@
 		6DACD00928DD6250002E7409 /* DevilHealthTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilHealthTest.h; sourceTree = "<group>"; };
 		6DACD00A28DD6250002E7409 /* DevilHealthTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilHealthTest.m; sourceTree = "<group>"; };
 		6DACD01528DD6551002E7409 /* JevilHealth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilHealth.m; sourceTree = "<group>"; };
-		6DACD01628DD6551002E7409 /* DevilHealth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilHealth.h; sourceTree = "<group>"; };
-		6DACD01728DD6551002E7409 /* DevilHealth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilHealth.m; sourceTree = "<group>"; };
+		6DACD01628DD6551002E7409 /* DevilHealthInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilHealthInstance.h; sourceTree = "<group>"; };
+		6DACD01728DD6551002E7409 /* DevilHealthInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilHealthInstance.m; sourceTree = "<group>"; };
 		6DACD01828DD6551002E7409 /* JevilHealth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JevilHealth.h; sourceTree = "<group>"; };
 		E728AC5E7AB2D8D690638A59 /* Pods-devilhealth.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilhealth.release.xcconfig"; path = "Target Support Files/Pods-devilhealth/Pods-devilhealth.release.xcconfig"; sourceTree = "<group>"; };
 		E91F3ADF86BBC32184B8DABE /* Pods-devilhealth.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilhealth.debug.xcconfig"; path = "Target Support Files/Pods-devilhealth/Pods-devilhealth.debug.xcconfig"; sourceTree = "<group>"; };
@@ -88,8 +88,8 @@
 			children = (
 				6DACD00928DD6250002E7409 /* DevilHealthTest.h */,
 				6DACD00A28DD6250002E7409 /* DevilHealthTest.m */,
-				6DACD01628DD6551002E7409 /* DevilHealth.h */,
-				6DACD01728DD6551002E7409 /* DevilHealth.m */,
+				6DACD01628DD6551002E7409 /* DevilHealthInstance.h */,
+				6DACD01728DD6551002E7409 /* DevilHealthInstance.m */,
 				6DACD01828DD6551002E7409 /* JevilHealth.h */,
 				6DACD01528DD6551002E7409 /* JevilHealth.m */,
 			);
@@ -113,7 +113,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DACCFF828DD5DE9002E7409 /* devilhealth.h in Headers */,
-				6DACD01A28DD6551002E7409 /* DevilHealth.h in Headers */,
+				6DACD01A28DD6551002E7409 /* DevilHealthInstance.h in Headers */,
 				6DACD00B28DD6250002E7409 /* DevilHealthTest.h in Headers */,
 				6DACD01C28DD6551002E7409 /* JevilHealth.h in Headers */,
 			);
@@ -214,7 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DACD01928DD6551002E7409 /* JevilHealth.m in Sources */,
-				6DACD01B28DD6551002E7409 /* DevilHealth.m in Sources */,
+				6DACD01B28DD6551002E7409 /* DevilHealthInstance.m in Sources */,
 				6DACD00C28DD6250002E7409 /* DevilHealthTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

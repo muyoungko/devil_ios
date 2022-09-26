@@ -11,11 +11,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilHealth : NSObject
+@interface DevilHealthInstance : NSObject
 
 @property (nonatomic, retain) HKHealthStore* healthStore;
 
-+ (DevilHealth*)sharedInstance;
++ (DevilHealthInstance*)sharedInstance;
 -(void)requestPermission:(id)param callback:(void (^)(id res))callback;
 -(void)requestHealthData:(id)param callback:(void (^)(id res))callback;
 
