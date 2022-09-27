@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilnfc'
   s.platform         = :ios
-  s.version          = '0.0.186'
+  s.version          = '0.0.188'
   s.summary          = 'Devil Nfc'
   s.description      = <<-DESC
     This is Devil Login
@@ -19,6 +19,6 @@ Pod::Spec.new do |s|
   s.source_files = 'devilnfc/devilnfc/source/**/*.*', 'devilnfc/devilnfc/header/**/*.h'
   s.public_header_files = 'devilnfc/devilnfc/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
-  s.dependency 'devilcore', '~> 0.0.184'
+  s.dependency 'devilcore', '~> 0.0.187'
 
 end

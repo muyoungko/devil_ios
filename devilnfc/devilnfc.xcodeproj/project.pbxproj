@@ -10,26 +10,11 @@
 		4460E377B4670D2C8118DBB3 /* Pods_devilnfc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F958F5FD528CD437DA947E6 /* Pods_devilnfc.framework */; };
 		6D62FAF328DD755C0094426E /* devilnfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FAF228DD755C0094426E /* devilnfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D62FAFD28DD772E0094426E /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FAFC28DD772E0094426E /* devilcore.framework */; };
-		6D62FAFE28DD772E0094426E /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FAFC28DD772E0094426E /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D62FB0228DD794C0094426E /* JevilNfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FB0028DD794C0094426E /* JevilNfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D62FB0328DD794C0094426E /* JevilNfc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62FB0128DD794C0094426E /* JevilNfc.m */; };
 		6D62FB0628DD79A10094426E /* DevilNfcInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FB0428DD79A10094426E /* DevilNfcInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D62FB0728DD79A10094426E /* DevilNfcInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62FB0528DD79A10094426E /* DevilNfcInstance.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		6D62FAFF28DD772E0094426E /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				6D62FAFE28DD772E0094426E /* devilcore.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3F958F5FD528CD437DA947E6 /* Pods_devilnfc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilnfc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,7 +124,6 @@
 				6D62FAEB28DD755C0094426E /* Sources */,
 				6D62FAEC28DD755C0094426E /* Frameworks */,
 				6D62FAED28DD755C0094426E /* Resources */,
-				6D62FAFF28DD772E0094426E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);

@@ -8,9 +8,6 @@
       location = "group:devilextra/devilextra.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:devilhealth/devilhealth.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:devillogin/devillogin.xcodeproj">
    </FileRef>
    <FileRef

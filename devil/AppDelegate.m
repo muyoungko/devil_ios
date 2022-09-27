@@ -12,7 +12,7 @@
 @import CoreData;
 @import devilcore;
 @import devillogin;
-@import devilhealth;
+//@import devilhealth;
 @import devilnfc;
 @import GoogleMobileAds;
 
@@ -170,10 +170,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLearning class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilBill class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
-    [[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
+    //[[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilNfc class]];
-     
-    [DevilHealthTest test];
     
     if(launchOptions == nil){
         [self preparePushToken:application];
