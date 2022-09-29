@@ -19,7 +19,4 @@
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:devilhealth/devilhealth.xcodeproj">
-   </FileRef>
 </Workspace>

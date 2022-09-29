@@ -79,9 +79,9 @@ target 'devillogin' do
   google_signin
 end
   
-target 'devilhealth' do
-  project 'devilhealth/devilhealth.xcodeproj'
-end
+#target 'devilhealth' do
+#  project 'devilhealth/devilhealth.xcodeproj'
+#end
 
 target 'devilnfc' do
   project 'devilnfc/devilnfc.xcodeproj'
