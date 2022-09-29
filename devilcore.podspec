@@ -21,6 +21,7 @@ Pod::Spec.new do |s|
   s.dependency 'lottie-ios', '~> 2.5.3'
   s.dependency 'MQTTClient'
   s.dependency 'ZXingObjC', '~> 3.2.1'
+  s.dependency 'Charts', '~> 4.1.0'
   s.resources = 'devilcore/devilcore/resource/*'
 
 end

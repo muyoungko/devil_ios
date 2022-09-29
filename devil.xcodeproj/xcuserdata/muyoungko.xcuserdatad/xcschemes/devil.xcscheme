@@ -42,20 +42,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6DACCFF328DD5DE9002E7409"
-               BuildableName = "devilhealth.framework"
-               BlueprintName = "devilhealth"
-               ReferencedContainer = "container:devilhealth/devilhealth.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D62FAEE28DD755C0094426E"
                BuildableName = "devilnfc.framework"
                BlueprintName = "devilnfc"

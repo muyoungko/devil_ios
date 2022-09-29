@@ -228,6 +228,8 @@
 		6DA615F928C8F5E10078979D /* DevilPinLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA615F728C8F5E10078979D /* DevilPinLayer.m */; };
 		6DACCFCE28DA244C002E7409 /* DevilImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */; };
 		6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */; };
+		6DC0CE3228E5974E00195F60 /* DevilChartMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */; };
+		6DC0CE3328E5974E00195F60 /* DevilChartMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */; };
 		6DC162452691711000FD769C /* DevilNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC162432691711000FD769C /* DevilNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DC162462691711000FD769C /* DevilNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC162442691711000FD769C /* DevilNavigationController.m */; };
 		6DC6789E26EA29840005728A /* DevilLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC6789C26EA29830005728A /* DevilLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -498,6 +500,8 @@
 		6DA615F728C8F5E10078979D /* DevilPinLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPinLayer.m; sourceTree = "<group>"; };
 		6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImagePickerController.h; sourceTree = "<group>"; };
 		6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImagePickerController.m; sourceTree = "<group>"; };
+		6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilChartMarketComponent.h; sourceTree = "<group>"; };
+		6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilChartMarketComponent.m; sourceTree = "<group>"; };
 		6DC162432691711000FD769C /* DevilNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNavigationController.h; sourceTree = "<group>"; };
 		6DC162442691711000FD769C /* DevilNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNavigationController.m; sourceTree = "<group>"; };
 		6DC6789C26EA29830005728A /* DevilLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLink.h; sourceTree = "<group>"; };
@@ -979,6 +983,15 @@
 			path = crop;
 			sourceTree = "<group>";
 		};
+		6DC0CE2F28E5973600195F60 /* chart */ = {
+			isa = PBXGroup;
+			children = (
+				6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */,
+				6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */,
+			);
+			path = chart;
+			sourceTree = "<group>";
+		};
 		6DC6789B26EA296A0005728A /* link */ = {
 			isa = PBXGroup;
 			children = (
@@ -991,6 +1004,7 @@
 		6DD09434269C79CC000A913A /* market */ = {
 			isa = PBXGroup;
 			children = (
+				6DC0CE2F28E5973600195F60 /* chart */,
 				6D9A9DE328A372E7003302B3 /* imagemap */,
 				6DD0944A269C85A8000A913A /* MarketInstance.h */,
 				6DD0944B269C85A8000A913A /* MarketInstance.m */,
@@ -1101,6 +1115,7 @@
 				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
 				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
 				6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */,
+				6DC0CE3228E5974E00195F60 /* DevilChartMarketComponent.h in Headers */,
 				6D862905287AAC5700E62B7B /* DevilBillSdk.h in Headers */,
 				6D8628FF287AAC5700E62B7B /* DevilAdsInstance.h in Headers */,
 				6D862900287AAC5700E62B7B /* DevilAdsSdk.h in Headers */,
@@ -1375,6 +1390,7 @@
 				6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */,
 				6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */,
 				6DF5779126D00C1D009D41A1 /* DevilQrCameraController.m in Sources */,
+				6DC0CE3328E5974E00195F60 /* DevilChartMarketComponent.m in Sources */,
 				6DA615F928C8F5E10078979D /* DevilPinLayer.m in Sources */,
 				6D467AA0256AB07A006D57DD /* ReplaceRuleLocalImage.m in Sources */,
 				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,

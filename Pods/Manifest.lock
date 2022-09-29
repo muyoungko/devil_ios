@@ -21,6 +21,10 @@ PODS:
   - AppAuth/Core (1.5.0)
   - AppAuth/ExternalUserAgent (1.5.0):
     - AppAuth/Core
+  - Charts (4.1.0):
+    - Charts/Core (= 4.1.0)
+  - Charts/Core (4.1.0):
+    - SwiftAlgorithms (~> 1.0)
   - FBSDKCoreKit (9.3.0):
     - FBSDKCoreKit/Basics (= 9.3.0)
     - FBSDKCoreKit/Core (= 9.3.0)
@@ -262,6 +266,7 @@ PODS:
   - nanopb/encode (2.30909.0)
   - naveridlogin-sdk-ios (4.1.3)
   - PromisesObjC (2.1.1)
+  - SwiftAlgorithms (1.0.0)
   - ZXingObjC (3.2.2):
     - ZXingObjC/All (= 3.2.2)
   - ZXingObjC/All (3.2.2)
@@ -269,6 +274,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - Alamofire
+  - Charts (~> 4.1.0)
   - FBSDKLoginKit (~> 9.3.0)
   - FBSDKShareKit (~> 9.3.0)
   - Firebase/Analytics
@@ -296,6 +302,7 @@ SPEC REPOS:
     - AFNetworking
     - Alamofire
     - AppAuth
+    - Charts
     - FBSDKCoreKit
     - FBSDKLoginKit
     - FBSDKShareKit
@@ -330,12 +337,14 @@ SPEC REPOS:
     - nanopb
     - naveridlogin-sdk-ios
     - PromisesObjC
+    - SwiftAlgorithms
     - ZXingObjC
 
 SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   AppAuth: 80317d99ac7ff2801a2f18ff86b48cd315ed465d
+  Charts: 354f86803d11d9c35de280587fef50d1af063978
   FBSDKCoreKit: 0d1ae58388a458b8222f72025804cdc84eb5d0c3
   FBSDKLoginKit: aea68df6121c5e165ccae2fabfdc83c4644ee40f
   FBSDKShareKit: 70889c97c62f0c6b3ccb8b999e73a85f19024001
@@ -370,8 +379,9 @@ SPEC CHECKSUMS:
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
   naveridlogin-sdk-ios: b9d7c20677981177ed994ecb1c8c2b49f223277d
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
+  SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   ZXingObjC: 2c95a0dc52daac69b23ec78fad8fa2fec05f8981
 
-PODFILE CHECKSUM: a6bc912a064be59e93d28aa3f6475b52d46535ee
+PODFILE CHECKSUM: 4c3ca589482d4efa39caa282dfaab1fece995293
 
 COCOAPODS: 1.11.3

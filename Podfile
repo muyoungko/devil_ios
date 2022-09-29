@@ -57,6 +57,7 @@ target 'devilcore' do
   lottie_libs
   pod 'MQTTClient'
   pod 'ZXingObjC', '~> 3.2.1'
+  pod 'Charts', '~> 4.1.0'
 end
 
 target 'devillogin' do

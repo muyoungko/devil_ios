@@ -11,6 +11,7 @@
 #import "DevilCalendar.h"
 #import "DevilPicker.h"
 #import "DevilImageMapMarketComponent.h"
+#import "DevilChartMarketComponent.h"
 
 @implementation MarketInstance
 
@@ -26,6 +27,8 @@
         r = [[DevilPicker alloc] initWithLayer:market meta:meta];
     } else if([@"kr.co.july.imagemap" isEqualToString:type]) {
         r = [[DevilImageMapMarketComponent alloc] initWithLayer:market meta:meta];
+    } else if([@"kr.co.july.chart" isEqualToString:type]) {
+        r = [[DevilChartMarketComponent alloc] initWithLayer:market meta:meta];
     } else {
         r = [[MarketComponent alloc] initWithLayer:market meta:meta];
     }
