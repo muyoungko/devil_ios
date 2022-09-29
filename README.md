@@ -33,4 +33,10 @@ AppDelegate에 DevilSdkGoogleAdsDelegate 프로토콜 구현
 -(void)showAds:(id)params complete:(void (^)(id res))callback
 
 
+# 이상한 오류
+ERROR ITMS-90206: "Invalid Bundle. The bundle at 'devil.app/Frameworks/devilcore.framework' contains disallowed file 'Frameworks'."
+devilcore target의 Build Setting 에서 Embed 검색
+Always Embed Swift Standard Libraries
+YES -> NO 로 변경함
+https://stackoverflow.com/questions/25777958/validation-error-invalid-bundle-the-bundle-at-contains-disallowed-file-fr?lq=1
 

@@ -9,6 +9,7 @@
 
 #import "JevilCtx.h"
 #import "Jevil.h"
+#import "JevilHealthBlank.h"
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
 #import "JevilUtil.h"
@@ -42,6 +43,8 @@
             NSString* jevilName = NSStringFromClass(customJevil[i]);
             self.jscontext[jevilName] = customJevil[i];
         }
+        if([self.jscontext[@"JevilHealth"] toObject] == nil)
+           self.jscontext[@"JevilHealth"] = [JevilHealthBlank class];
         
         [self.jscontext setExceptionHandler:^(JSContext *context, JSValue *exception) {
             NSLog(@"%@",exception); 

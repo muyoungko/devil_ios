@@ -12,7 +12,8 @@
 
 @import Charts;
 
-@interface DevilChartMarketComponent()<ChartViewDelegate, ChartValueFormatter, ChartAxisValueFormatter>
+@interface DevilChartMarketComponent()
+<ChartViewDelegate, ChartValueFormatter, ChartAxisValueFormatter>
 @property (nonatomic, retain) NSString* type;
 @property (nonatomic, retain) NSString* dataPath;
 @property (nonatomic, retain) BarLineChartViewBase* chart;

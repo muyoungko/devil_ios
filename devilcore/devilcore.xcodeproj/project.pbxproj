@@ -230,6 +230,8 @@
 		6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */; };
 		6DC0CE3228E5974E00195F60 /* DevilChartMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */; };
 		6DC0CE3328E5974E00195F60 /* DevilChartMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */; };
+		6DC0CE3628E5DDFB00195F60 /* JevilHealthBlank.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */; };
+		6DC0CE3728E5DDFB00195F60 /* JevilHealthBlank.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0CE3528E5DDFB00195F60 /* JevilHealthBlank.m */; };
 		6DC162452691711000FD769C /* DevilNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC162432691711000FD769C /* DevilNavigationController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DC162462691711000FD769C /* DevilNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC162442691711000FD769C /* DevilNavigationController.m */; };
 		6DC6789E26EA29840005728A /* DevilLink.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC6789C26EA29830005728A /* DevilLink.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -502,6 +504,8 @@
 		6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImagePickerController.m; sourceTree = "<group>"; };
 		6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilChartMarketComponent.h; sourceTree = "<group>"; };
 		6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilChartMarketComponent.m; sourceTree = "<group>"; };
+		6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilHealthBlank.h; sourceTree = "<group>"; };
+		6DC0CE3528E5DDFB00195F60 /* JevilHealthBlank.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilHealthBlank.m; sourceTree = "<group>"; };
 		6DC162432691711000FD769C /* DevilNavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNavigationController.h; sourceTree = "<group>"; };
 		6DC162442691711000FD769C /* DevilNavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNavigationController.m; sourceTree = "<group>"; };
 		6DC6789C26EA29830005728A /* DevilLink.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLink.h; sourceTree = "<group>"; };
@@ -645,6 +649,8 @@
 				6D9824AF25C5A91E0000BB12 /* JevilUtil.m */,
 				6DD097DB26A1AE29000A913A /* JevilFunctionUtil.h */,
 				6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */,
+				6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */,
+				6DC0CE3528E5DDFB00195F60 /* JevilHealthBlank.m */,
 			);
 			path = javascript;
 			sourceTree = "<group>";
@@ -1188,6 +1194,7 @@
 				6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */,
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
 				6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */,
+				6DC0CE3628E5DDFB00195F60 /* JevilHealthBlank.h in Headers */,
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
 				6D467ABA256AB07A006D57DD /* WildCardUITapGestureRecognizer.h in Headers */,
@@ -1382,6 +1389,7 @@
 				6D467A8C256AB07A006D57DD /* WildCardLCAnimatedPageControl.m in Sources */,
 				6DFB74A12824255A00A64539 /* ReplaceRulePullToRefresh.m in Sources */,
 				6D467A90256AB07A006D57DD /* ReplaceRuleExtension.m in Sources */,
+				6DC0CE3728E5DDFB00195F60 /* JevilHealthBlank.m in Sources */,
 				6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */,
 				6D467AAF256AB07A006D57DD /* WildCardLayoutPathUnit.m in Sources */,
 				6DF53B682657F854001FB1D6 /* DevilSpeech.m in Sources */,
@@ -1600,7 +1608,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1633,7 +1641,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1032BFC6BE887F2D93A4D66B /* Pods-devilcore.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;

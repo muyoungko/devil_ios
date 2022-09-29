@@ -135,7 +135,6 @@
 		6DAAD9DC265FF8BA00FE5682 /* DevilNaverLoginCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilNaverLoginCallback.h; sourceTree = "<group>"; };
 		6DAAD9DD265FF8BA00FE5682 /* DevilNaverLoginCallback.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilNaverLoginCallback.m; sourceTree = "<group>"; };
 		6DACD00228DD61E7002E7409 /* devilextra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilextra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DACD00528DD61EC002E7409 /* devilhealth.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilhealth.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DACD01328DD64AA002E7409 /* devilhealth.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilhealth.podspec; sourceTree = "<group>"; };
 		6DBC7CF9286AF4C90037ED1A /* Podfile.lock */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile.lock; sourceTree = "<group>"; };
 		6DC1624926917AC900FD769C /* c.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = c.sh; sourceTree = "<group>"; };
@@ -177,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				6D62FB0828DD7A0B0094426E /* devilnfc.framework */,
-				6DACD00528DD61EC002E7409 /* devilhealth.framework */,
 				6DACD00228DD61E7002E7409 /* devilextra.framework */,
 				6D482D8C28C3CA920041A149 /* HealthKit.framework */,
 				6D86290A287E50BA00E62B7B /* StoreKit.framework */,
