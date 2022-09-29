@@ -79,6 +79,7 @@
     l.font = [UIFont systemFontOfSize:14.f];
     l.xEntrySpace = 4.0;
     
+    _chart.extraTopOffset = 8.0f;
     _chart.extraBottomOffset = 8.0f;
 }
 
