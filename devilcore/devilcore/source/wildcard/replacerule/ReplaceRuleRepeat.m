@@ -313,7 +313,7 @@
         BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
         if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]]){
             DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
-            noHeader = [[WildCardConstructor sharedInstance] getHeaderCloudJson:dc.screenId] == nil;
+            noHeader = [[WildCardConstructor sharedInstance] getHeaderCloudJson:dc.screenId :dc.landscape] == nil;
         }
         
         CGRect vvGlobalFrame = [WildCardUtil getGlobalFrame:vv];

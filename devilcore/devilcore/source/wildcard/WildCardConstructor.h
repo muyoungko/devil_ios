@@ -104,12 +104,13 @@
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey withName:(NSString*)nodeName;
 -(NSMutableArray*)getScreenIfList:(NSString*)screen;
 -(NSMutableDictionary*)getScreen:(NSString*)screenId;
--(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId;
--(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId;
--(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId;
+-(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId :(BOOL)isLandscape;
+-(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId :(BOOL)isLandscape;
+-(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId :(BOOL)isLandscape;
 +(BOOL)isTablet;
 +(void)updateSketchWidth:(id)layer;
 +(void)updateScreenWidthHeight:(float)w :(float)h;
+-(UIInterfaceOrientationMask) supportedOrientation : (NSString*)screenId :(NSString*)limitOrientation;
 
 @end
 

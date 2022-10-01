@@ -314,16 +314,16 @@ static NSString *default_project_id = nil;
     return _screenMap[screenId];
 }
 
--(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId{
+-(NSMutableDictionary*)getHeaderCloudJson:(NSString*)screenId :(BOOL)isLandscape{
     id h = _screenMap[screenId][@"header_block_id"];
     if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* header_block_id =  [_screenMap[screenId][@"header_block_id"] stringValue];
-        return [self getBlockJson:header_block_id:false];
+        return [self getBlockJson:header_block_id:isLandscape];
     } else
         return nil;
 }
 
--(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId{
+-(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId :(BOOL)isLandscape{
     id h = _screenMap[screenId][@"footer_block_id"];
     if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* footer_block_id =  [_screenMap[screenId][@"footer_block_id"] stringValue];
@@ -331,17 +331,17 @@ static NSString *default_project_id = nil;
         BOOL fix_footer = n == [NSNull null] || [n boolValue] == false ? false : true;
         id r = [@{} mutableCopy];
         r[@"fix_footer"] = fix_footer?@TRUE:@FALSE;
-        r[@"cloudJson"] = [self getBlockJson:footer_block_id];
+        r[@"cloudJson"] = [self getBlockJson:footer_block_id:isLandscape];
         return r;
     } else
         return nil;
 }
 
--(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId {
+-(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId :(BOOL)isLandscape{
     id h = _screenMap[screenId][@"inside_footer_block_id"];
     if(h != nil && h != [NSNull null] && ![@"" isEqual:h]){
         NSString* header_block_id =  [_screenMap[screenId][@"inside_footer_block_id"] stringValue];
-        return [self getBlockJson:header_block_id:false];
+        return [self getBlockJson:header_block_id:isLandscape];
     } else
         return nil;
 }
@@ -1387,5 +1387,25 @@ static BOOL IS_TABLET = NO;
     }
 }
 
+-(UIInterfaceOrientationMask) supportedOrientation : (NSString*)screenId :(NSString*)limitOrientation {
+    UIInterfaceOrientationMask r = UIInterfaceOrientationMaskPortrait;
+    id s = _screenMap[screenId];
+    id list = s[@"list"];
+    if([list count] > 0) {
+        id blockKey = [list[0][@"block_id"] stringValue];
+        
+        if([@"landscape" isEqualToString:limitOrientation]) {
+            if(IS_TABLET && _tabletLandscapeCloudJsonMap[blockKey] != nil) {
+                r = UIInterfaceOrientationMaskLandscape;
+            } else if(!IS_TABLET && _landscapeCloudJsonMap[blockKey] != nil) {
+                r = UIInterfaceOrientationMaskLandscape;
+            }
+        } else {
+            r = UIInterfaceOrientationMaskPortrait;
+        }
+    }
+    
+    return r;
+}
 
 @end

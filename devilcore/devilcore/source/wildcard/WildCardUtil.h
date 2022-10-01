@@ -44,6 +44,5 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(float) convertSketchToPixel:(float)p;
 +(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
 +(UIView*)findView:(id)layer name:(NSString*)name;
-+ (BOOL)isTablet;
-
++(BOOL)isTablet;
 @end

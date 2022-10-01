@@ -118,8 +118,8 @@
 
 -(void)constructHeaderAndFooter{
     NSLog(@"constructHeaderAndFooter");
-    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
-        id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId];
+    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId:self.landscape]){
+        id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId:self.landscape];
         [WildCardConstructor updateSketchWidth:headerCloudJson];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
         self.header_sketch_height = [WildCardUtil headerHeightInSketch];
@@ -135,7 +135,7 @@
     }
     self.bottomPadding = bottomPadding;
     
-    id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
+    id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId:self.landscape];
     if(footer){
         id footerCloudJson = footer[@"cloudJson"];
         [WildCardConstructor updateSketchWidth:footerCloudJson];
@@ -151,7 +151,7 @@
         [self.view addSubview:self.footer];
     }
     
-    id inside_footer = [[WildCardConstructor sharedInstance] getInsideFooterCloudJson:self.screenId];
+    id inside_footer = [[WildCardConstructor sharedInstance] getInsideFooterCloudJson:self.screenId:self.landscape];
     if(inside_footer) {
         id footerCloudJson = inside_footer;
         [WildCardConstructor updateSketchWidth:footerCloudJson];
@@ -239,7 +239,7 @@
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
     [self updateHasFunction];
 
-    id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId];
+    id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId: self.landscape];
     if(footer)
         self.fix_footer = [footer[@"fix_footer"] boolValue];
     
@@ -371,7 +371,7 @@
 }
 
 - (void)checkHeader{
-    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId]){
+    if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId :self.landscape]){
         [self showNavigationBar];
     }else
         [self hideNavigationBar];

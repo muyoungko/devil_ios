@@ -37,6 +37,10 @@
         DevilController* d = [[DevilController alloc] init];
         NSString* firstScreenId = [[WildCardConstructor sharedInstance] getFirstScreenId];
         if(firstScreenId) {
+            
+            [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:firstScreenId :[Jevil get:@"ORIENTATION"]];
+            d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+            
             d.screenId = firstScreenId;
             [vc.navigationController pushViewController:d animated:YES];
             callback(success);

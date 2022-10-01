@@ -615,13 +615,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
     
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
-    UIInterfaceOrientationMask r = UIInterfaceOrientationMaskPortrait;
-    if([DevilSdk sharedInstance].currentOrientation != UIInterfaceOrientationMaskPortrait) {
-        r = [DevilSdk sharedInstance].currentOrientation;
-    } else if([self.navigationController.topViewController isKindOfClass:[DevilController class]]) {
-        DevilController* d = ((DevilController*)self.navigationController.topViewController);
-        r = [d supportedInterfaceOrientations];
-    }
+    UIInterfaceOrientationMask r = [DevilSdk sharedInstance].currentOrientation;
     NSLog(@"supportedInterfaceOrientationsForWindow %@" , [DevilUtil orientationToString:r]);
     return r;
 }

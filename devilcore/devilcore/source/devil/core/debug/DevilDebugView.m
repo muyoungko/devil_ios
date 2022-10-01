@@ -12,7 +12,7 @@
 #import "JevilInstance.h"
 #import "Jevil.h"
 #import "JevilCtx.h"
-
+#import "DevilSdk.h"
 
 @interface DevilDebugView()
 @property (nonatomic, retain) DevilController* vc;
@@ -101,6 +101,8 @@
         d.startData = startData;
         d.screenId = screenId;
         d.projectId = project_id;
+        [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
+        d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
         [nc pushViewController:d animated:YES];
     }];
 }

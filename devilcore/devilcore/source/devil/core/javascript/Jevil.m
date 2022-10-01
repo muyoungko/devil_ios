@@ -63,17 +63,10 @@
     DevilController* d = (DevilController*)[[DevilSdk sharedInstance] getRegisteredScreenViewController:screenName];
     if(param != nil) {
         d.startData = param;
-        if(param[@"orientation"] && [param[@"orientation"] isEqualToString:@"landscape"]) {
-            [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskLandscapeLeft
-            | UIInterfaceOrientationMaskLandscapeRight;
-            d.landscape = YES;
-        } else {
-            [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
-            d.landscape = NO;
-        }
-    } else {
-        [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
     }
+    [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
+    d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+    
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
@@ -94,17 +87,10 @@
     DevilController* d = [[DevilController alloc] init];
     if(param != nil) {
         d.startData = param;
-        if(param[@"orientation"] && [param[@"orientation"] isEqualToString:@"landscape"]) {
-            [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskLandscapeLeft
-            | UIInterfaceOrientationMaskLandscapeRight;
-            d.landscape = YES;
-        } else {
-            [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
-            d.landscape = NO;
-        }
-    } else {
-        [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
     }
+    [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
+    d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+    
     d.screenId = screenId;
     UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
     [n popViewControllerAnimated:NO];
@@ -117,24 +103,25 @@
     DevilController* d = [[DevilController alloc] init];
     if(param != nil) {
         d.startData = param;
-        if(param[@"orientation"] && [param[@"orientation"] isEqualToString:@"landscape"]) {
-            [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskLandscapeLeft
-            | UIInterfaceOrientationMaskLandscapeRight;
-            d.landscape = YES;
-        } else {
-            [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
-            d.landscape = NO;
-        }
-    } else {
-        [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
     }
+    
+    [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
+    d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+    
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
 }
 
 + (void)finish:(id)callbackData {
-    [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
+    id vlist = [[JevilInstance currentInstance].vc.navigationController viewControllers];
+    if([vlist count] > 0) {
+        UIViewController* toback = vlist[[vlist count]-1];
+        if([toback isKindOfClass:[DevilController class]]) {
+            DevilController* tobackDevil = (DevilController*)toback;
+            [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:tobackDevil.screenId :[Jevil get:@"ORIENTATION"]];
+        }
+    }
     if(callbackData){
         [JevilInstance globalInstance].callbackData = callbackData;
     }
@@ -142,13 +129,30 @@
 }
 
 + (void)finishThen:(JSValue *)callback {
-    [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
+    
+    id vlist = [[JevilInstance currentInstance].vc.navigationController viewControllers];
+    if([vlist count] > 0) {
+        UIViewController* toback = vlist[[vlist count]-1];
+        if([toback isKindOfClass:[DevilController class]]) {
+            DevilController* tobackDevil = (DevilController*)toback;
+            [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:tobackDevil.screenId :[Jevil get:@"ORIENTATION"]];
+        }
+    }
+    
     [JevilInstance globalInstance].callbackFunction = callback;
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)back{
-    [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
+    id vlist = [[JevilInstance currentInstance].vc.navigationController viewControllers];
+    if([vlist count] > 0) {
+        UIViewController* toback = vlist[[vlist count]-1];
+        if([toback isKindOfClass:[DevilController class]]) {
+            DevilController* tobackDevil = (DevilController*)toback;
+            [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:tobackDevil.screenId :[Jevil get:@"ORIENTATION"]];
+        }
+    }
+    
     DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
     if(dc.onBackPressCallback != nil && dc.onBackPressCallback()) {
         
@@ -1550,4 +1554,9 @@
 + (NSString*)getByte:(NSString*)text {
     return [DevilUtil byteToHex:[text dataUsingEncoding:NSUTF8StringEncoding]];
 }
+
++ (void)configHost:(NSString*)host{
+    [WildCardConstructor sharedInstance].project[@"host"] = host;
+}
+
 @end
