@@ -115,8 +115,8 @@
 
 + (void)finish:(id)callbackData {
     id vlist = [[JevilInstance currentInstance].vc.navigationController viewControllers];
-    if([vlist count] > 0) {
-        UIViewController* toback = vlist[[vlist count]-1];
+    if([vlist count] > 1) {
+        UIViewController* toback = vlist[[vlist count]-2];
         if([toback isKindOfClass:[DevilController class]]) {
             DevilController* tobackDevil = (DevilController*)toback;
             [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:tobackDevil.screenId :[Jevil get:@"ORIENTATION"]];
@@ -131,8 +131,8 @@
 + (void)finishThen:(JSValue *)callback {
     
     id vlist = [[JevilInstance currentInstance].vc.navigationController viewControllers];
-    if([vlist count] > 0) {
-        UIViewController* toback = vlist[[vlist count]-1];
+    if([vlist count] > 1) {
+        UIViewController* toback = vlist[[vlist count]-2];
         if([toback isKindOfClass:[DevilController class]]) {
             DevilController* tobackDevil = (DevilController*)toback;
             [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:tobackDevil.screenId :[Jevil get:@"ORIENTATION"]];
@@ -145,8 +145,8 @@
 
 + (void)back{
     id vlist = [[JevilInstance currentInstance].vc.navigationController viewControllers];
-    if([vlist count] > 0) {
-        UIViewController* toback = vlist[[vlist count]-1];
+    if([vlist count] > 1) {
+        UIViewController* toback = vlist[[vlist count]-2];
         if([toback isKindOfClass:[DevilController class]]) {
             DevilController* tobackDevil = (DevilController*)toback;
             [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:tobackDevil.screenId :[Jevil get:@"ORIENTATION"]];
