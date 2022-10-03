@@ -1551,12 +1551,17 @@
     DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
     [map setMode:mode :param];
 }
+
 + (NSString*)getByte:(NSString*)text {
     return [DevilUtil byteToHex:[text dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
 + (void)configHost:(NSString*)host{
     [WildCardConstructor sharedInstance].project[@"host"] = host;
+}
+
++ (void)log:(NSString*)text:(NSDictionary*)log{
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_CUSTOM title:text log:log];
 }
 
 @end

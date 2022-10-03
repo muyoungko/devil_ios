@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 #define DEVIL_LOG_BLUETOOTH @"BLE"
 #define DEVIL_LOG_BILL @"BILL"
 #define DEVIL_LOG_NFC @"NFC"
+#define DEVIL_LOG_CUSTOM @"LOG"
 
 @interface DevilDebugView : UIView
 

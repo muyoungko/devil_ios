@@ -141,6 +141,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)imageMapMode:(NSString*)nodeName :(NSString*)mode :(NSDictionary*)param;
 + (NSString*)getByte:(NSString*)text;
 + (void)configHost:(NSString*)host;
++ (void)log:(NSString*)text:(NSDictionary*)log;
 
 @end
 

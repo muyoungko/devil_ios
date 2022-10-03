@@ -142,9 +142,10 @@ float borderWidth = 7;
             
             [self syncPin];
             
-            [self setMode:@"new_direction" : nil];
-            [self showPopup:@[@"취소"]];
+            if(![self.param[@"autoComplete"] boolValue])
+                [self showPopup:@[@"취소"]];
             
+            [self setMode:@"new_direction" : self.param];
             if(self.pinCallback)
                 self.pinCallback([@{@"mode":self.mode} mutableCopy]);
         }
@@ -308,12 +309,24 @@ float borderWidth = 7;
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
-        [self setMode:@"can_complete" : nil];
-        self.shouldDirectionMove = false;
-        [self hidePopup];
-        [self showPopup:@[@"취소", @"완료"]];
-        if (self.directionCallback)
-            self.directionCallback([@{@"mode":self.mode} mutableCopy]);
+        if([self.param[@"autoComplete"] boolValue]) {
+            [self complete];
+            [self setMode:@"normal" : nil];
+            self.shouldDirectionMove = false;
+            [self hidePopup];
+            if(self.actionCallback)
+                self.actionCallback([@{
+                    @"mode": self.mode,
+                    @"key" : @"완료",
+                } mutableCopy]);
+        } else {
+            [self setMode:@"can_complete" : nil];
+            self.shouldDirectionMove = false;
+            [self hidePopup];
+            [self showPopup:@[@"취소", @"완료"]];
+            if (self.directionCallback)
+                self.directionCallback([@{@"mode":self.mode} mutableCopy]);
+        }
     }
 }
 
