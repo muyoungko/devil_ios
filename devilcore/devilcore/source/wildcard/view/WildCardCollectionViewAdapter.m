@@ -21,6 +21,7 @@
 @property int lastDataCount;
 @property BOOL readyToCallScrollEnd;
 
+
 @end
 
 @implementation WildCardCollectionViewAdapter
@@ -531,6 +532,10 @@
         {
             @try{
                 viewPagerSelected[i](_selectedIndex);
+                
+                if(self.viewPagerSelectedCallback)
+                    self.viewPagerSelectedCallback(_selectedIndex);
+                
             }@catch(NSException* e)
             {
                 NSLog(@"%@" , e);

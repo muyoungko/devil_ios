@@ -548,4 +548,9 @@ float borderWidth = 7;
 -(BOOL)isPopupShow {
     return self.popupView != nil;
 }
+
+-(void)focus:(NSString*)key {
+    
+}
+
 @end

@@ -589,6 +589,10 @@
             return @"2";
         };
         
+        if([meta getReserveViewPagerSelectedCallback:((WildCardUIView*)cv.superview).name]) {
+            [adapter setViewPagerSelectedCallback:[meta getReserveViewPagerSelectedCallback:((WildCardUIView*)cv.superview).name]];
+        }
+        
         [cv reloadData];
     }
     else if([REPEAT_TYPE_HLIST isEqualToString:repeatType] || [REPEAT_TYPE_VLIST isEqualToString:repeatType])

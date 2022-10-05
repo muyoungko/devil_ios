@@ -948,6 +948,17 @@
     return adapter.selectedIndex;
 }
 
++ (void)viewPagerSelectedCallback:(NSString*)nodeName :(JSValue*)callback{
+    id meta = ((DevilController*)[JevilInstance currentInstance].vc).mainWc.meta;
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [meta reserveViewPagerSelected:nodeName callback:^(int index) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
+            nodeName,
+            [NSNumber numberWithInt:index]
+        ]];
+    }];
+}
+
 + (void)isWifi:(JSValue *)callback {
     BOOL r = [DevilUtil isWifiConnection];
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
@@ -1519,6 +1530,13 @@
     }];
 }
 
++ (void)bleWriteDescriptor:(NSDictionary*)param :(JSValue*)callback {
+    
+}
+
++ (void)bleReadDescriptor:(NSDictionary*)param :(JSValue*)callback {
+    
+}
 
 + (void)fileChooser:(NSDictionary*)param :(JSValue*)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
@@ -1550,6 +1568,12 @@
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
     DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
     [map setMode:mode :param];
+}
+
++ (void)imageMapFocus:(NSString*)nodeName :(NSString*)pinKey {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
+    [map focus:pinKey];
 }
 
 + (NSString*)getByte:(NSString*)text {

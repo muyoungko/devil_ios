@@ -15,9 +15,13 @@
 #import "WildCardCollectionViewAdapter.h"
 #import "ReplaceRuleMarket.h"
 
+@interface WildCardMeta()
+@property (nonatomic, retain) NSMutableDictionary* viewPagerSelectedCallbackMap;
+@end
+
 @implementation WildCardMeta
-- (id) init
-{
+
+- (id) init {
     self = [super init];
     if (self != nil) {
         self.replaceRules = [[NSMutableArray alloc] init];
@@ -30,6 +34,7 @@
         self.gravityNodes = nil;
         self.parentMeta = nil;
         self.forRetain = [[NSMutableDictionary alloc] init];
+        self.viewPagerSelectedCallbackMap = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -589,4 +594,14 @@
         }
     }
 }
+
+-(void)reserveViewPagerSelected:(NSString*)nodeName callback:(void (^)(int index))callback {
+    self.viewPagerSelectedCallbackMap[nodeName] = callback;
+}
+
+-(id)getReserveViewPagerSelectedCallback:(NSString*)nodeName {
+    return self.viewPagerSelectedCallbackMap[nodeName];
+}
+
+
 @end

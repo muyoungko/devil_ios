@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)popupTime:(NSDictionary*)param :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
++ (void)viewPagerSelectedCallback:(NSString*)nodeName :(JSValue*)callback;
 + (void)isWifi:(JSValue *)callback;
 + (void)wifiList:(JSValue *)callback;
 + (void)wifiConnect:(NSString*)ssid :(NSString*)password :(JSValue *)callback;
@@ -135,10 +136,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleCallback:(NSString*)command :(JSValue *)callback;
 + (void)bleWrite:(NSDictionary*)param :(JSValue*)callback;
 + (void)bleRead:(NSDictionary*)param :(JSValue*)callback;
++ (void)bleWriteDescriptor:(NSDictionary*)param :(JSValue*)callback;
++ (void)bleReadDescriptor:(NSDictionary*)param :(JSValue*)callback;
 + (void)fileChooser:(NSDictionary*)param :(JSValue*)callback;
 + (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback;
 + (void)imageMapLocation:(NSString*)nodeName :(NSString*)key :(JSValue*)callback;
 + (void)imageMapMode:(NSString*)nodeName :(NSString*)mode :(NSDictionary*)param;
++ (void)imageMapFocus:(NSString*)nodeName :(NSString*)pinKey;
 + (NSString*)getByte:(NSString*)text;
 + (void)configHost:(NSString*)host;
 + (void)log:(NSString*)text:(NSDictionary*)log;
