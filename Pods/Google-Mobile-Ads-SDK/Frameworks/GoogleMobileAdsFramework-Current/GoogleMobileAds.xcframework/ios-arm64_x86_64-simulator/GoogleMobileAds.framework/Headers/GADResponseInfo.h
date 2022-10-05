@@ -17,6 +17,18 @@
 /// Network configuration set on the AdMob UI.
 @property(nonatomic, readonly, nonnull) NSDictionary<NSString *, id> *adUnitMapping;
 
+/// The ad source name associated with this ad network response. Nil if the ad server does not
+/// populate this field.
+@property(nonatomic, readonly, nullable) NSString *adSourceName;
+
+/// The ad source ID associated with this ad network response. Nil if the ad server does not
+/// populate this field.
+@property(nonatomic, readonly, nullable) NSString *adSourceID;
+
+/// The ad source instance name associated with this ad network response. Nil if the ad server does
+/// not populate this field.
+@property(nonatomic, readonly, nullable) NSString *adSourceInstanceName;
+
 /// The ad source instance ID associated with this ad network response. Nil if the ad server does
 /// not populate this field.
 @property(nonatomic, readonly, nullable) NSString *adSourceInstanceID;
@@ -51,6 +63,9 @@ FOUNDATION_EXPORT NSString *_Nonnull GADErrorUserInfoKeyResponseInfo;
 
 /// A class name that identifies the ad network that returned the ad. Nil if no ad was returned.
 @property(nonatomic, readonly, nullable) NSString *adNetworkClassName;
+
+/// Dictionary of extra parameters that may be returned in an ad response.
+@property(nonatomic, readonly, nonnull) NSDictionary<NSString *, id> *extrasDictionary;
 
 /// The GADAdNetworkResponseInfo corresponding to the adapter that was used to load the ad. Nil if
 /// the ad failed to load.
