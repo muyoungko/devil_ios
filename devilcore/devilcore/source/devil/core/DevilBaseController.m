@@ -11,7 +11,7 @@
 #import "DevilLang.h"
 #import "WildCardUtil.h"
 #import "WildCardConstructor.h"
-
+#import "WildCardEventTracker.h"
 
 @interface DevilBaseController ()<UIGestureRecognizerDelegate>
 
@@ -67,6 +67,8 @@
     self.navigationController.interactivePopGestureRecognizer.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     self.originalY = self.view.frame.origin.y;
+    
+    [[WildCardEventTracker sharedInstance] onScreen:self.projectId screenId:self.screenId screenName:self.screenName];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

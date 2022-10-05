@@ -10,6 +10,7 @@
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardUITapGestureRecognizer.h"
+#import "WildCardEventTracker.h"
 
 @interface ReplaceRuleClick()
 @property (nonatomic, retain) WildCardUITapGestureRecognizer* singleFingerTap;
@@ -39,6 +40,8 @@
         self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
     }
+    
+    [[WildCardEventTracker sharedInstance] onClickEvent:vv.name];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

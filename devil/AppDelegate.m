@@ -35,7 +35,7 @@
 
 #import "LoginController.h"
 
-@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate>
+@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
 @property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
@@ -172,6 +172,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
     //[[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilNfc class]];
+    
+    [DevilSdk sharedInstance].devilSdkGADelegate = self;
     
     if(launchOptions == nil){
         [self preparePushToken:application];
@@ -620,6 +622,20 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     return r;
 }
 
-
+- (void)onScreen:(NSString *)projectId screenId:(NSString *)screenId screenName:(NSString *)screenName {
+    [FIRAnalytics logEventWithName:kFIREventScreenView
+                        parameters:@{kFIRParameterScreenClass: [DevilController class],
+                                     kFIRParameterScreenName: screenName,
+                                     kFIRParameterGroupID : projectId,
+                                   }];
+}
+    
+- (void)onEvent:(NSString *)projectId eventType:(NSString *)eventType viewName:(NSString *)viewName {
+    [FIRAnalytics logEventWithName:kFIREventSelectContent
+                        parameters:@{
+                                     kFIRParameterGroupID : projectId,
+                                     kFIRParameterItemName:viewName,
+                                     }];
+}
     
 @end

@@ -18,6 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(float)stopLoading;
 @end
 
+@protocol DevilSdkGADelegate<NSObject>
+@required
+-(void)onScreen:(NSString*)projectId screenId:(NSString*)screenId screenName:(NSString*)screenName;
+-(void)onEvent:(NSString*)projectId eventType:(NSString*)eventType viewName:(NSString*)viewName;
+@end
+
 @protocol DevilSdkScreenDelegate<NSObject>
 @required
 -(DevilController*)getScreenViewController:(NSString*)screenName;
@@ -34,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id <DevilSdkDelegate> devilSdkDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkScreenDelegate> devilSdkScreenDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGoogleAdsDelegate> devilSdkGoogleAdsDelegate;
+@property (nonatomic, weak, nullable) id <DevilSdkGADelegate> devilSdkGADelegate;
 
 @property (nonatomic, retain) NSMutableDictionary* registeredClass;
 @property UIInterfaceOrientationMask currentOrientation;

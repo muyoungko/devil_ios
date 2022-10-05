@@ -46,6 +46,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property CGRect keyboardRect;
 @property BOOL landscape;
 
+@property (nonatomic, retain) NSString* projectId;
+@property (nonatomic, retain) NSString* screenId;
+@property (nonatomic, retain) NSString* screenName;
+
 - (void)showIndicator;
 - (void)hideIndicator;
 - (void)adjustFooterPositionOnKeyboard;
