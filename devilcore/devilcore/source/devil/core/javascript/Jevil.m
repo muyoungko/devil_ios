@@ -940,8 +940,16 @@
     [vv.tags[@"timer"] reset];
 }
 
++ (void)setViewPagerSelectedIndex:(NSString *)nodeName :(int)index{
+    id meta = ((DevilController*)[JevilInstance currentInstance].vc).mainWc.meta;
+    WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
+    UICollectionView* cv = (UICollectionView*)[vv subviews][0];
+    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
+    adapter.reserveSelectedIndex = index;
+}
+
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName{
-    id meta = [JevilInstance currentInstance].meta;
+    id meta = ((DevilController*)[JevilInstance currentInstance].vc).mainWc.meta;
     WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
     UICollectionView* cv = (UICollectionView*)[vv subviews][0];
     WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;

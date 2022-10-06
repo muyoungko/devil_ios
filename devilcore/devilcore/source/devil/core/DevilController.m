@@ -26,7 +26,7 @@
 @property BOOL hasOnFinish;
 @property BOOL hasOnCreated;
 @property (nonatomic, retain) id thisMetas;
-
+@property BOOL noProjectIdChange;
 @end
 
 
@@ -276,8 +276,15 @@
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-    if(self.projectId)
+    /**
+     세로->가로 모드로 화면 이동 시 이전화면의 viewDidAppear가 호출됨
+     그래서 전 화면의 projectId로 세팅되는 오류가 발생한다
+     다만 viewWillTransitionToSize 가 직전에 호출된다
+     */
+    if(self.projectId && !self.noProjectIdChange) {
+        self.noProjectIdChange = NO;
         [WildCardConstructor sharedInstance:self.projectId];
+    }
     
     [self checkHeader];
     
@@ -747,14 +754,13 @@
 }
 
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-//    NSLog(@"willTransitionToTraitCollection");
+    NSLog(@"willTransitionToTraitCollection %@" , self.projectId);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator{
+    NSLog(@"viewWillTransitionToSize %@" , self.projectId);
+    self.noProjectIdChange = YES;
     //navigationController의 모든 view에 호출이 들어온다
-//    float sw = [UIScreen mainScreen].bounds.size.width;
-//    NSLog(@"viewWillTransitionToSize %f %f %f", size.width, size.height, sw);
-//    [self updateFlexScreen];
 }
 
 -(void)orientationChanged:(NSNotification*)noti {
@@ -775,7 +781,7 @@
         screenHeight = screenRect.size.width;
     }
     [WildCardConstructor updateScreenWidthHeight:screenWidth:screenHeight];
-    NSLog(@"updateFlexScreen %@ %@ %d %d", self.screenName, self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
+    NSLog(@"updateFlexScreen %@ %@ %@ %d %d", self.projectId, self.screenName, self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
 }
 
 @end

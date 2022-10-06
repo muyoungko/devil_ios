@@ -60,6 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)popupDate:(NSDictionary*)param :(JSValue *)callback;
 + (void)popupTime:(NSDictionary*)param :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
++ (void)setViewPagerSelectedIndex:(NSString *)nodeName :(int)index;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
 + (void)viewPagerSelectedCallback:(NSString*)nodeName :(JSValue*)callback;
 + (void)isWifi:(JSValue *)callback;

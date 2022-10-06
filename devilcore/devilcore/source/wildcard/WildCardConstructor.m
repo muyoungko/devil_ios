@@ -43,6 +43,7 @@
 #import "WildCardUITextView.h"
 #import "WildCardUIPageControl.h"
 #import "WildCardUICollectionView.h"
+#import "WildCardEventTracker.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -411,6 +412,7 @@ static NSString *default_project_id = nil;
     NSString *action = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     trigger.node = vv;
+    [[WildCardEventTracker sharedInstance] onClickEvent:vv.name];
     [WildCardAction parseAndConducts:trigger action:action meta:recognizer.meta];
 }
 
@@ -420,6 +422,7 @@ static NSString *default_project_id = nil;
     NSString *script = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     trigger.node = vv;
+    [[WildCardEventTracker sharedInstance] onClickEvent:vv.name];
     [WildCardAction execute:trigger script:script meta:recognizer.meta];
 }
 

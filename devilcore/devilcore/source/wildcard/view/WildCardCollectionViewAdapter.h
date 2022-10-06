@@ -29,6 +29,7 @@ typedef void (^ ViewPagerSelected)(int);
 }
 @property float margin;
 @property int selectedIndex;
+@property int reserveSelectedIndex;
 @property TypeGetter typeGetter;
 @property CloudJsonGetter cloudJsonGetter;
 @property (nonatomic, retain) NSArray* data;

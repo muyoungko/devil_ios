@@ -7,6 +7,7 @@
 
 #import "JevilFunctionUtil.h"
 #import "JevilInstance.h"
+#import "DevilExceptionHandler.h"
 
 @interface JevilFunctionUtil ()
 
@@ -47,8 +48,13 @@
     NSString* vcKey = [NSString stringWithFormat:@"%ul", [JevilInstance currentInstance].vc];
     NSString* functionKey = [NSString stringWithFormat:@"%ul", function];
     
-    if(self.fs[vcKey] && self.fs[vcKey][functionKey])
-       [function callWithArguments:params];
+    if(self.fs[vcKey] && self.fs[vcKey][functionKey]) {
+        @try{
+            [function callWithArguments:params];
+        }@catch(NSException* e) {
+            [DevilExceptionHandler handle:e];
+        }
+    }
 }
 
 -(void)clear {

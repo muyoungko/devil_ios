@@ -3,6 +3,3 @@
 
 pod trunk push devilcore.podspec --allow-warnings
 
-
-#[!] The spec did not pass validation, due to 1 error
-#[!] Unable to accept duplicate entry for: devilcore

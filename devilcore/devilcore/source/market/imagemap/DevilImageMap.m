@@ -10,6 +10,7 @@
 #import "DevilUtil.h"
 #import "WildCardUtil.h"
 #import "DevilPinLayer.h"
+#import "DevilExceptionHandler.h"
 
 #define POPUP_TAG_OK 1201
 #define POPUP_TAG_CANCEL 1200
@@ -29,6 +30,8 @@
 @property (nonatomic, retain) DevilPinLayer* pinLayer;
 
 @property BOOL shouldDirectionMove;
+@property float min_inset_width;
+@property float min_inset_height;
 
 @property (nonatomic, retain) UIView* popupView;
 
@@ -234,6 +237,8 @@ float borderWidth = 7;
         min_inset_width = self.frame.size.width*0.0f + ( (self.frame.size.width - image.size.width*height_scale) / 2);
         min_inset_height = self.frame.size.height*0.0f;
     }
+    _min_inset_width = min_inset_width;
+    _min_inset_height = min_inset_height;
     
     self.scrollView.contentInset = UIEdgeInsetsMake(min_inset_height, min_inset_width, min_inset_height, min_inset_width);
     self.scrollView.contentOffset = CGPointMake(image.size.width/2*scale, image.size.height/2*scale);
@@ -550,7 +555,45 @@ float borderWidth = 7;
 }
 
 -(void)focus:(NSString*)key {
-    
+    @try{
+        id pin = nil;
+        for(id p in self.pinList) {
+            if([p[@"key"] isEqualToString:key]) {
+                pin = p;
+                break;
+            }
+        }
+        
+        if(pin == nil)
+            @throw [NSException exceptionWithName:@"Devil Image Map" reason:[NSString stringWithFormat:@"Key not found - %@", key] userInfo:nil];
+        
+        float sw = self.scrollView.frame.size.width;
+        float sh = self.scrollView.frame.size.height;
+        
+        float x = ([pin[@"x"] floatValue]) * self.scrollView.zoomScale - sw/2;
+        float y = ([pin[@"y"] floatValue]) * self.scrollView.zoomScale - sh/2;
+
+        if(x < -_min_inset_width)
+            x = -_min_inset_width;
+        if(y < -_min_inset_height)
+            y = -_min_inset_height;
+        
+        float max_x = self.scrollView.contentSize.width - sw;
+        float max_y = self.scrollView.contentSize.height - sh;
+
+        if(x > max_x)
+            x = max_x;
+//        if(y > max_y)
+//            y = max_y;
+        
+        [self.scrollView setContentOffset:CGPointMake(x, y) animated:YES];
+    }@catch(NSException* e) {
+        [DevilExceptionHandler handle:e];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    NSLog(@"contentOffset (%f, %f) %f contentSize (%f, %f)", _scrollView.contentOffset.x, _scrollView.contentOffset.y , _scrollView.zoomScale, _scrollView.contentSize.width, _scrollView.contentSize.height );
 }
 
 @end

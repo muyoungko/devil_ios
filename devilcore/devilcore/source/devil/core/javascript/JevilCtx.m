@@ -47,8 +47,9 @@
            self.jscontext[@"JevilHealth"] = [JevilHealthBlank class];
         
         [self.jscontext setExceptionHandler:^(JSContext *context, JSValue *exception) {
-            NSLog(@"%@",exception); 
-            NSString* msg = [NSString stringWithFormat:@"%@", exception];
+            NSLog(@"%@",exception);
+            id line = [exception objectForKeyedSubscript:@"line"];
+            NSString* msg = [NSString stringWithFormat:@"line %@, %@",line, exception];
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
