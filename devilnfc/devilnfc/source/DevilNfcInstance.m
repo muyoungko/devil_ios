@@ -9,8 +9,10 @@
 @import devilcore;
 @import CoreNFC;
 
-@interface DevilNfcInstance() <NFCNDEFReaderSessionDelegate>
-@property (nonatomic, retain) NFCNDEFReaderSession* session;
+@interface DevilNfcInstance() <NFCNDEFReaderSessionDelegate, NFCTagReaderSessionDelegate>
+//@property (nonatomic, retain) NFCNDEFReaderSession* session;
+@property (nonatomic, retain) NFCTagReaderSession* session;
+
 @property NFCNDEFMessage* detectedMessage;
 @property (nonatomic, retain) id param;
 @property void (^callback)(id res);
@@ -31,7 +33,8 @@
     if([NFCNDEFReaderSession readingAvailable]) {
         self.param = param;
         self.callback = callback;
-        self.session = [[NFCNDEFReaderSession alloc] initWithDelegate:self queue:nil invalidateAfterFirstRead:YES];
+        self.session = [[NFCTagReaderSession alloc] initWithPollingOption:NFCPollingISO14443 delegate:self queue:nil];
+        //self.session = [[NFCNDEFReaderSession alloc] initWithDelegate:self queue:nil invalidateAfterFirstRead:YES];
         [self.session beginSession];
     }
 }
@@ -43,6 +46,89 @@
     }
 }
 
+- (void)tagReaderSession:(NFCTagReaderSession *)session didInvalidateWithError:(NSError *)error API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos, macos, tvos) {
+    NSLog(@"didInvalidateWithError");
+    if(self.callback) {
+        id r = [@{} mutableCopy];
+        r[@"r"] = @FALSE;
+        r[@"msg"] = @"cancel";
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.callback(r);
+            self.callback = nil;
+        });
+    }
+}
+
+- (void)tagReaderSessionDidBecomeActive:(NFCTagReaderSession *)session API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos, macos, tvos) {
+    NSLog(@"tagReaderSessionDidBecomeActive");
+}
+
+- (void)tagReaderSession:(NFCTagReaderSession *)session didDetectTags:(NSArray<__kindof id<NFCTag>> *)tags API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos, macos, tvos) {
+    NSLog(@"didDetectTags");
+    
+    if([tags count] > 0) {
+        id tag = tags[0];
+        NSData* sn = [[tag asNFCISO7816Tag] identifier];
+        NSString* idd = [DevilUtil byteToHex:sn];
+        [session connectToTag:tag completionHandler:^(NSError * _Nullable error) {
+            [tag queryNDEFStatusWithCompletionHandler:^(NFCNDEFStatus status, NSUInteger capacity, NSError * _Nullable error) {
+                if(status == NFCNDEFStatusReadWrite || status == NFCNDEFStatusReadOnly) {
+                    if(self.param[@"write"] && (self.param[@"write"][@"hex"] || self.param[@"write"][@"text"])) {
+                        NSString* hex = self.param[@"write"][@"hex"];
+                        NSString* text = self.param[@"write"][@"text"];
+                        
+                        NSData* b = nil;
+                        if(hex)
+                            b = [self fromHexString:hex];
+                        else if(text) {
+                            text = [text stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+                            text = [text stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
+                            text = [text stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"];
+                            b = [text dataUsingEncoding:NSUTF8StringEncoding];
+                        }
+                        
+                        if(b) {
+                            NSString* s = [[NSString alloc] initWithData:b encoding:NSUTF8StringEncoding];
+                            [[DevilDebugView sharedInstance] log:DEVIL_LOG_NFC title:@"write" log:@{
+                                @"text":s,
+                            }];
+                            
+                            NFCNDEFPayload* payload = [NFCNDEFPayload wellKnownTypeURIPayloadWithString:s];
+                            NFCNDEFMessage* ndefmsg = [[NFCNDEFMessage alloc] initWithNDEFRecords:@[payload]];
+                            [tag writeNDEF:ndefmsg completionHandler:^(NSError * _Nullable err) {
+                                if(err) {
+                                    NSLog(@"%@", err);
+                                }
+                                
+                                float writeAndReadTermMs = 0.25f;
+                                if(self.param[@"writeAndReadTermMs"]) {
+                                    writeAndReadTermMs = [self.param[@"writeAndReadTermMs"] longValue] / 1000.0f;
+                                    
+                                }
+                                [NSThread sleepForTimeInterval:writeAndReadTermMs];
+                                
+                                [self readAndCallback:tag];
+                            }];
+                        }
+                    } else {
+                        [self readAndCallback:tag];
+                    }
+                } else {
+                    [self stop];
+                    if(self.callback) {
+                        id r = [@{} mutableCopy];
+                        r[@"r"] = @TRUE;
+                        r[@"id"] = idd;
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.callback(r);
+                            self.callback = nil;
+                        });
+                    }
+                }
+            }];
+        }];
+    }
+}
 
 - (void)readAndCallback:(id)tag {
     [tag readNDEFWithCompletionHandler:^(NFCNDEFMessage * _Nullable msg, NSError * _Nullable err) {

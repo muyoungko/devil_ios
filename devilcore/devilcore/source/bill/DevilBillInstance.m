@@ -77,8 +77,10 @@
                 }
             }
             dispatch_async(dispatch_get_main_queue(), ^{
-                self.callback(r);
-                self.callback = nil;
+                if(self.callback) {
+                    self.callback(r);
+                    self.callback = nil;
+                }
             });
         }];
         

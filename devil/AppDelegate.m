@@ -623,6 +623,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 - (void)onScreen:(NSString *)projectId screenId:(NSString *)screenId screenName:(NSString *)screenName {
+    if(projectId == nil || screenId == nil || screenName == nil)
+        return;
+    
     [FIRAnalytics logEventWithName:kFIREventScreenView
                         parameters:@{kFIRParameterScreenClass: [DevilController class],
                                      kFIRParameterScreenName: screenName,
@@ -631,6 +634,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
     
 - (void)onEvent:(NSString *)projectId eventType:(NSString *)eventType viewName:(NSString *)viewName {
+    if(projectId == nil || eventType == nil || viewName == nil)
+        return;
+    
     [FIRAnalytics logEventWithName:kFIREventSelectContent
                         parameters:@{
                                      kFIRParameterGroupID : projectId,

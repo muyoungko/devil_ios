@@ -71,6 +71,8 @@
 	<string>755378721718919</string>
 	<key>FacebookDisplayName</key>
 	<string>Devil App Builder</string>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>http://m.deavil.com/share</string>
@@ -215,7 +217,5 @@
 	</array>
 	<key>UIUserInterfaceStyle</key>
 	<string>Light</string>
-	<key>FirebaseAutomaticScreenReportingEnabled</key>
-	<false/>
 </dict>
 </plist>
