@@ -612,6 +612,7 @@
             }];
         }
         
+        
         [DevilUtil httpPutQueueClear];
         for(int i=0;i<[paths count];i++){
             __block NSString* path = [DevilUtil replaceUdidPrefixDir:paths[i]];
@@ -632,10 +633,15 @@
                     if(s3index == s3length){
                         for(int j=0;j<[uploadedFile count];j++){
                             [result[@"uploadedFile"] addObject:
-                             [@{@"key" : uploadedFile[j],
+                             [@{@"original" : paths[j],
+                                @"key" : uploadedFile[j],
                                 @"success" : uploadedFileSuccess[j]
                              } mutableCopy]];
                         }
+                        
+                        if(showUploadingPopup)
+                            [vc closeActiveAlertMessage];
+                        
                         [callback callWithArguments:@[result]];
                         [[JevilInstance currentInstance] syncData];
                     }
@@ -652,30 +658,15 @@
                     else if([path hasSuffix:@"mp4"])
                         contentType = @"video/mp4";
                     
-                    if([data length] == 0)
-                        @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
-                    
-                    [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
-                        if(cancelled)
-                            return;
-                        
+                    if([data length] == 0) {
                         s3index++;
-                        
-                        if(showUploadingPopup)
-                            [vc setActiveAlertMessage:[NSString stringWithFormat:@"업로드 중입니다 %d / %d", s3index, [paths count]]];
-                        
-                        if(res != nil)
-                            uploadedFileSuccess[thisIndex] = @TRUE;
-                        else
-                            result[@"r"] = @FALSE;
-                        
+                        result[@"r"] = @FALSE;
                         if(s3index == s3length){
                             for(int j=0;j<[uploadedFile count];j++){
                                 [result[@"uploadedFile"] addObject:
-                                 [@{
-                                     @"original" : paths[j],
-                                     @"key" : uploadedFile[j],
-                                     @"success" : uploadedFileSuccess[j]
+                                 [@{@"original" : paths[j],
+                                    @"key" : uploadedFile[j],
+                                    @"success" : uploadedFileSuccess[j]
                                  } mutableCopy]];
                             }
                             
@@ -685,7 +676,41 @@
                             [callback callWithArguments:@[result]];
                             [[JevilInstance currentInstance] syncData];
                         }
-                    }];
+                        
+//                        @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
+                    } else {
+                        [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
+                            if(cancelled)
+                                return;
+                            
+                            s3index++;
+                            
+                            if(showUploadingPopup)
+                                [vc setActiveAlertMessage:[NSString stringWithFormat:@"업로드 중입니다 %d / %d", s3index, [paths count]]];
+                            
+                            if(res != nil)
+                                uploadedFileSuccess[thisIndex] = @TRUE;
+                            else
+                                result[@"r"] = @FALSE;
+                            
+                            if(s3index == s3length){
+                                for(int j=0;j<[uploadedFile count];j++){
+                                    [result[@"uploadedFile"] addObject:
+                                     [@{
+                                         @"original" : paths[j],
+                                         @"key" : uploadedFile[j],
+                                         @"success" : uploadedFileSuccess[j]
+                                     } mutableCopy]];
+                                }
+                                
+                                if(showUploadingPopup)
+                                    [vc closeActiveAlertMessage];
+                                
+                                [callback callWithArguments:@[result]];
+                                [[JevilInstance currentInstance] syncData];
+                            }
+                        }];
+                    }
                 }
             }];
         }
