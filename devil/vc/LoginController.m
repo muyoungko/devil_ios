@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.data[@"os"] = @"ios";
+    self.data[@"email"] = @"appledemo";
+    self.data[@"pass"] = @"apple";
     [self hideNavigationBar];
     [self constructBlockUnder:@"1605249371392"];
     [JevilInstance currentInstance].vc = self;
@@ -90,7 +92,7 @@
         NSString* password = self.data[@"input2"];
         if([@"appledemo" isEqualToString:ID] && [@"apple" isEqualToString:password]) {
             NSString* token = @"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZW1iZXJfbm8iOiIxNjA1OTgwMzc5Mjc4IiwiZW1haWwiOiJibmJob3N0c2VyaW5nQGdtYWlsLmNvbSIsIm5hbWUiOiJCbmIgSG9zdCIsInR5cGUiOiJnb29nbGUiLCJwcm9maWxlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FPaDE0R2lzaFo4X2E5ZHFHSk9ILWpfbmUyekREVkk5RkR5LVFDNGFFUGpqPXM5Ni1jIiwicGFzc3dvcmQiOiIkMmEkMTAkNmNnMjA0QWpXRjBTL0ZyV2VaMEpLTzBwdDZJcTJJUUpQLnNOQzI0ckVyMlB1TnhmL0UzamkiLCJpYXQiOjE2NDM0NjE0MDUsImV4cCI6MTcyOTg2MTQwNSwiaXNzIjoiLmRlYXZpbC5jb20iLCJzdWIiOiJ1c2VySW5mbyJ9.a5jQP1jPEKrk0FuJP2_2-EGvbMg9A8wLDwrXjfWA0KA";
-            [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
+            [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"x-access-token_1605234988599"];
             [[NSUserDefaults standardUserDefaults] synchronize];
             [self finishLogin];
         } else {

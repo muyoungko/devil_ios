@@ -64,6 +64,7 @@
                         if(res != nil && [res[@"r"] boolValue] == YES){
                             self.member = res[@"member"];
                             NSString* token = res[@"token"];
+                            [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"x-access-token_1605234988599"];
                             [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
                             [[NSUserDefaults standardUserDefaults] synchronize];
                             [self sendPush];
