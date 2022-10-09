@@ -18,7 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [Jevil save:@"x-access-token" : [[Devil sharedInstance] getLoginToken]];
     // Do any additional setup after loading the view.
 }
 

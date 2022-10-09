@@ -74,12 +74,12 @@
 }
 
 -(NSString*)getLoginToken {
-    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"x-access-token_1605234988599"];
     return token;
 }
 
 -(BOOL)isLogin{
-    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"x-access-token_1605234988599"];
     return token != nil;
 }
 -(void)isLogin:(void (^)(id res))callback{
@@ -167,6 +167,7 @@
     for (NSHTTPCookie *each in cookieStorage.cookies)
         [cookieStorage deleteCookie:each];
     
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"x-access-token_1605234988599"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
