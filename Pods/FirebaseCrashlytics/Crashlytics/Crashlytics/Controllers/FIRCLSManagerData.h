@@ -22,21 +22,20 @@ NS_ASSUME_NONNULL_BEGIN
 @class FIRCLSApplicationIdentifierModel;
 @class FIRCLSInstallIdentifierModel;
 @class FIRCLSExecutionIdentifierModel;
-@class FIRCLSOnDemandModel;
 @class FIRCLSSettings;
 @class FIRCLSLaunchMarkerModel;
 @class GDTCORTransport;
 @protocol FIRAnalyticsInterop;
 
 /*
- * FIRCLSManagerData's purpose is to simplify the adding and removing of
+ * Manager Data's purpose is to simplify the adding and removing of
  * dependencies from each of the Manager classes so that it's easier
  * to inject mock classes during testing. A lot of the Manager classes
  * share these dependencies, but don't use all of them.
  *
  * If you plan on adding interdependencies between Managers, do not add a pointer
  * to the dependency here. Instead add them as a new value to the constructor of
- * the Manager, and construct them in FirebaseCrashlytics. This data structure should
+ * the Manager, and construct them in FIRCrashlytics. This data structure should
  * be for Models and other SDKs / Interops Crashlytics depends on.
  */
 @interface FIRCLSManagerData : NSObject
@@ -47,8 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
                           analytics:(nullable id<FIRAnalyticsInterop>)analytics
                         fileManager:(FIRCLSFileManager *)fileManager
                         dataArbiter:(FIRCLSDataCollectionArbiter *)dataArbiter
-                           settings:(FIRCLSSettings *)settings
-                      onDemandModel:(FIRCLSOnDemandModel *)onDemandModel NS_DESIGNATED_INITIALIZER;
+                           settings:(FIRCLSSettings *)settings NS_DESIGNATED_INITIALIZER;
 
 - (instancetype)init NS_UNAVAILABLE;
 + (instancetype)new NS_UNAVAILABLE;
@@ -73,9 +71,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Uniquely identifies a run of the app
 @property(nonatomic, strong) FIRCLSExecutionIdentifierModel *executionIDModel;
-
-// Handles storing and uploading of on-demand events
-@property(nonatomic, readonly) FIRCLSOnDemandModel *onDemandModel;
 
 // Settings fetched from the server
 @property(nonatomic, strong) FIRCLSSettings *settings;

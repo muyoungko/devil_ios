@@ -14,9 +14,9 @@
 
 #import "Crashlytics/Crashlytics/Helpers/FIRCLSLogger.h"
 
-#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 
-FIRLoggerService kFIRLoggerCrashlytics = @"[FirebaseCrashlytics]";
+FIRLoggerService kFIRLoggerCrashlytics = @"[Firebase/Crashlytics]";
 
 NSString *const CrashlyticsMessageCode = @"I-CLS000000";
 

@@ -22,7 +22,7 @@
 #import <UIKit/UIKit.h>
 
 #ifdef FIRDynamicLinks3P
-#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 #import "FirebaseDynamicLinks/Sources/FIRDLScionLogging.h"
 #import "Interop/Analytics/Public/FIRAnalyticsInterop.h"
 #else
@@ -440,14 +440,7 @@ static const NSInteger FIRErrorCodeDurableDeepLinkFailed = -119;
       }
     }
   }
-
-  mainQueueCompletion(
-      nil, [[NSError alloc] initWithDomain:@"com.firebase.dynamicLinks"
-                                      code:1
-                                  userInfo:@{
-                                    NSLocalizedFailureReasonErrorKey :
-                                        @"Universal link URL could not be parsed by Dynamic Links."
-                                  }]);
+  mainQueueCompletion(nil, nil);
   return nil;
 }
 
@@ -557,6 +550,9 @@ static const NSInteger FIRErrorCodeDurableDeepLinkFailed = -119;
                                              errorDescription:(NSString *)errorDescription
                                               underlyingError:(nullable NSError *)underlyingError {
   self.retrievingPendingDynamicLink = NO;
+
+  // TODO (b/38035270) inform caller why we failed, for App developer it is hard to debug
+  // stuff like this without having source code access
 }
 
 #pragma mark - FIRDLRetrievalProcessDelegate
@@ -582,6 +578,7 @@ static const NSInteger FIRErrorCodeDurableDeepLinkFailed = -119;
 
 static NSString *kSelfDiagnoseOutputHeader =
     @"---- Firebase Dynamic Links diagnostic output start ----\n";
+// TODO (b/38397557) Add link to the "Debug FDL" documentation when docs is published
 static NSString *kSelfDiagnoseOutputFooter =
     @"---- Firebase Dynamic Links diagnostic output end ----\n";
 

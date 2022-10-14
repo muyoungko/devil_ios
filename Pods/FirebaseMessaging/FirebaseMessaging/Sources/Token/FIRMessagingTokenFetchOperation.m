@@ -25,7 +25,7 @@
 #import "FirebaseMessaging/Sources/Token/FIRMessagingCheckinPreferences.h"
 #import "FirebaseMessaging/Sources/Token/FIRMessagingTokenOperation.h"
 
-#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 
 // We can have a static int since this error should theoretically only
 // happen once (for the first time). If it repeats there is something
@@ -34,6 +34,7 @@ static int phoneRegistrationErrorRetryCount = 0;
 static const int kMaxPhoneRegistrationErrorRetryCount = 10;
 NSString *const kFIRMessagingFirebaseUserAgentKey = @"X-firebase-client";
 NSString *const kFIRMessagingFirebaseHeartbeatKey = @"X-firebase-client-log-type";
+NSString *const kFIRMessagingHeartbeatTag = @"fire-iid";
 
 @implementation FIRMessagingTokenFetchOperation
 
@@ -41,15 +42,13 @@ NSString *const kFIRMessagingFirebaseHeartbeatKey = @"X-firebase-client-log-type
                                    scope:(NSString *)scope
                                  options:(nullable NSDictionary<NSString *, NSString *> *)options
                       checkinPreferences:(FIRMessagingCheckinPreferences *)checkinPreferences
-                              instanceID:(NSString *)instanceID
-                         heartbeatLogger:(id<FIRHeartbeatLoggerProtocol>)heartbeatLogger {
+                              instanceID:(NSString *)instanceID {
   return [super initWithAction:FIRMessagingTokenActionFetch
            forAuthorizedEntity:authorizedEntity
                          scope:scope
                        options:options
             checkinPreferences:checkinPreferences
-                    instanceID:instanceID
-               heartbeatLogger:heartbeatLogger];
+                    instanceID:instanceID];
 }
 
 - (void)performTokenOperation {
@@ -58,7 +57,7 @@ NSString *const kFIRMessagingFirebaseHeartbeatKey = @"X-firebase-client-log-type
   [request setValue:checkinVersionInfo forHTTPHeaderField:@"info"];
   [request setValue:[FIRApp firebaseUserAgent]
       forHTTPHeaderField:kFIRMessagingFirebaseUserAgentKey];
-  [request setValue:@([self.heartbeatLogger heartbeatCodeForToday]).stringValue
+  [request setValue:@([FIRHeartbeatInfo heartbeatCodeForTag:kFIRMessagingHeartbeatTag]).stringValue
       forHTTPHeaderField:kFIRMessagingFirebaseHeartbeatKey];
 
   // Build form-encoded body

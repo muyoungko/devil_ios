@@ -28,8 +28,7 @@ FOUNDATION_EXPORT NSString *const kFIRMessagingFirebaseHeartbeatKey;
                                    scope:(NSString *)scope
                                  options:(nullable NSDictionary<NSString *, NSString *> *)options
                       checkinPreferences:(FIRMessagingCheckinPreferences *)checkinPreferences
-                              instanceID:(NSString *)instanceID
-                         heartbeatLogger:(id<FIRHeartbeatLoggerProtocol>)heartbeatLogger;
+                              instanceID:(NSString *)instanceID;
 
 @end
 NS_ASSUME_NONNULL_END

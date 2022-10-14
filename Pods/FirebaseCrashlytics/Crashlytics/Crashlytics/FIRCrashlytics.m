@@ -25,7 +25,6 @@
 #import "Crashlytics/Crashlytics/Components/FIRCLSHost.h"
 #include "Crashlytics/Crashlytics/Components/FIRCLSUserLogging.h"
 #import "Crashlytics/Crashlytics/DataCollection/FIRCLSDataCollectionArbiter.h"
-#import "Crashlytics/Crashlytics/DataCollection/FIRCLSDataCollectionToken.h"
 #import "Crashlytics/Crashlytics/FIRCLSUserDefaults/FIRCLSUserDefaults.h"
 #include "Crashlytics/Crashlytics/Handlers/FIRCLSException.h"
 #import "Crashlytics/Crashlytics/Helpers/FIRCLSDefines.h"
@@ -46,11 +45,8 @@
 #import "Crashlytics/Crashlytics/Controllers/FIRCLSNotificationManager.h"
 #import "Crashlytics/Crashlytics/Controllers/FIRCLSReportManager.h"
 #import "Crashlytics/Crashlytics/Controllers/FIRCLSReportUploader.h"
-#import "Crashlytics/Crashlytics/Private/FIRCLSExistingReportManager_Private.h"
-#import "Crashlytics/Crashlytics/Private/FIRCLSOnDemandModel_Private.h"
-#import "Crashlytics/Crashlytics/Private/FIRExceptionModel_Private.h"
 
-#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
+#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
 #import "FirebaseInstallations/Source/Library/Private/FirebaseInstallationsInternal.h"
 #import "Interop/Analytics/Public/FIRAnalyticsInterop.h"
 
@@ -130,16 +126,13 @@ NSString *const FIRCLSGoogleTransportMappingID = @"1206";
     FIRCLSSettings *settings = [[FIRCLSSettings alloc] initWithFileManager:_fileManager
                                                                 appIDModel:appModel];
 
-    FIRCLSOnDemandModel *onDemandModel =
-        [[FIRCLSOnDemandModel alloc] initWithFIRCLSSettings:settings fileManager:_fileManager];
     _managerData = [[FIRCLSManagerData alloc] initWithGoogleAppID:_googleAppID
                                                   googleTransport:googleTransport
                                                     installations:installations
                                                         analytics:analytics
                                                       fileManager:_fileManager
                                                       dataArbiter:_dataArbiter
-                                                         settings:settings
-                                                    onDemandModel:onDemandModel];
+                                                         settings:settings];
 
     _reportUploader = [[FIRCLSReportUploader alloc] initWithManagerData:_managerData];
 
@@ -153,14 +146,15 @@ NSString *const FIRCLSGoogleTransportMappingID = @"1206";
                                                 existingReportManager:_existingReportManager
                                                      analyticsManager:_analyticsManager];
 
-    _didPreviouslyCrash = [_fileManager didCrashOnPreviousExecution];
     // Process did crash during previous execution
+    NSString *crashedMarkerFileName = [NSString stringWithUTF8String:FIRCLSCrashedMarkerFileName];
+    NSString *crashedMarkerFileFullPath =
+        [[_fileManager rootPath] stringByAppendingPathComponent:crashedMarkerFileName];
+    _didPreviouslyCrash = [_fileManager fileExistsAtPath:crashedMarkerFileFullPath];
+
     if (_didPreviouslyCrash) {
       // Delete the crash file marker in the background ensure start up is as fast as possible
       dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSString *crashedMarkerFileFullPath = [[self.fileManager rootPath]
-            stringByAppendingPathComponent:[NSString
-                                               stringWithUTF8String:FIRCLSCrashedMarkerFileName]];
         [self.fileManager removeItemAtPath:crashedMarkerFileFullPath];
       });
     }
@@ -301,13 +295,13 @@ NSString *const FIRCLSGoogleTransportMappingID = @"1206";
 }
 
 #pragma mark - API: setUserID
-- (void)setUserID:(nullable NSString *)userID {
+- (void)setUserID:(NSString *)userID {
   FIRCLSUserLoggingRecordInternalKeyValue(FIRCLSUserIdentifierKey, userID);
 }
 
 #pragma mark - API: setCustomValue
 
-- (void)setCustomValue:(nullable id)value forKey:(NSString *)key {
+- (void)setCustomValue:(id)value forKey:(NSString *)key {
   FIRCLSUserLoggingRecordUserKeyValue(key, value);
 }
 
@@ -351,22 +345,11 @@ NSString *const FIRCLSGoogleTransportMappingID = @"1206";
 
 #pragma mark - API: Errors and Exceptions
 - (void)recordError:(NSError *)error {
-  [self recordError:error userInfo:nil];
-}
-
-- (void)recordError:(NSError *)error userInfo:(NSDictionary<NSString *, id> *)userInfo {
-  FIRCLSUserLoggingRecordError(error, userInfo);
+  FIRCLSUserLoggingRecordError(error, nil);
 }
 
 - (void)recordExceptionModel:(FIRExceptionModel *)exceptionModel {
   FIRCLSExceptionRecordModel(exceptionModel);
-}
-
-- (void)recordOnDemandExceptionModel:(FIRExceptionModel *)exceptionModel {
-  [self.managerData.onDemandModel
-      recordOnDemandExceptionIfQuota:exceptionModel
-           withDataCollectionEnabled:[self.dataArbiter isCrashlyticsCollectionEnabled]
-          usingExistingReportManager:self.existingReportManager];
 }
 
 @end

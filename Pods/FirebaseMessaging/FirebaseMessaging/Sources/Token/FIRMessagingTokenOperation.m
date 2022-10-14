@@ -17,7 +17,6 @@
 #import "FirebaseMessaging/Sources/Token/FIRMessagingTokenOperation.h"
 
 #import <GoogleUtilities/GULAppEnvironmentUtil.h>
-#import "FirebaseCore/Extension/FIRHeartbeatLogger.h"
 #import "FirebaseInstallations/Source/Library/Private/FirebaseInstallationsInternal.h"
 #import "FirebaseMessaging/Sources/FIRMessagingLogger.h"
 #import "FirebaseMessaging/Sources/FIRMessagingUtilities.h"
@@ -52,8 +51,7 @@ static NSString *const kFIRMessagingParamFCMLibVersion = @"X-cliv";
                          scope:(NSString *)scope
                        options:(NSDictionary<NSString *, NSString *> *)options
             checkinPreferences:(FIRMessagingCheckinPreferences *)checkinPreferences
-                    instanceID:(NSString *)instanceID
-               heartbeatLogger:(id<FIRHeartbeatLoggerProtocol>)heartbeatLogger {
+                    instanceID:(NSString *)instanceID {
   self = [super init];
   if (self) {
     _action = action;
@@ -63,7 +61,6 @@ static NSString *const kFIRMessagingParamFCMLibVersion = @"X-cliv";
     _checkinPreferences = checkinPreferences;
     _instanceID = instanceID;
     _completionHandlers = [[NSMutableArray alloc] init];
-    _heartbeatLogger = heartbeatLogger;
 
     _isExecuting = NO;
     _isFinished = NO;

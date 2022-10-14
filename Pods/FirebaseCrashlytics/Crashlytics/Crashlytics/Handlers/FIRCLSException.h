@@ -53,7 +53,8 @@ typedef struct {
 __BEGIN_DECLS
 
 void FIRCLSExceptionInitialize(FIRCLSExceptionReadOnlyContext* roContext,
-                               FIRCLSExceptionWritableContext* rwContext);
+                               FIRCLSExceptionWritableContext* rwContext,
+                               void* delegate);
 void FIRCLSExceptionCheckHandlers(void* delegate);
 
 void FIRCLSExceptionRaiseTestObjCException(void) __attribute((noreturn));
@@ -61,21 +62,12 @@ void FIRCLSExceptionRaiseTestCppException(void) __attribute((noreturn));
 
 #ifdef __OBJC__
 void FIRCLSExceptionRecordModel(FIRExceptionModel* exceptionModel);
-NSString* FIRCLSExceptionRecordOnDemandModel(FIRExceptionModel* exceptionModel,
-                                             int previousRecordedOnDemandExceptions,
-                                             int previousDroppedOnDemandExceptions);
 void FIRCLSExceptionRecordNSException(NSException* exception);
 void FIRCLSExceptionRecord(FIRCLSExceptionType type,
                            const char* name,
                            const char* reason,
-                           NSArray<FIRStackFrame*>* frames);
-NSString* FIRCLSExceptionRecordOnDemand(FIRCLSExceptionType type,
-                                        const char* name,
-                                        const char* reason,
-                                        NSArray<FIRStackFrame*>* frames,
-                                        BOOL fatal,
-                                        int previousRecordedOnDemandExceptions,
-                                        int previousDroppedOnDemandExceptions);
+                           NSArray<FIRStackFrame*>* frames,
+                           BOOL attemptDelivery);
 #endif
 
 __END_DECLS

@@ -81,7 +81,7 @@
 /**
  * Returns path for database with specified name.
  * @param databaseName The database name without extension: "<databaseName>.sqlite".
- * @return Path to the database with the specified name.
+ * @returns Path to the database with the specified name.
  */
 + (NSString *)pathForDatabaseWithName:(NSString *)databaseName;
 

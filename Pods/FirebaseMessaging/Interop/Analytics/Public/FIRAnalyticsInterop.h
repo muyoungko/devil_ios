@@ -20,11 +20,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// Block typedef callback parameter to `getUserProperties(with:)`.
-typedef void (^FIRAInteropUserPropertiesCallback)(NSDictionary<NSString *, id> *userProperties)
-    NS_SWIFT_UNAVAILABLE("Use Swift's closure syntax instead.");
+/// Block typedef callback parameter to getUserPropertiesWithCallback:.
+typedef void (^FIRAInteropUserPropertiesCallback)(NSDictionary<NSString *, id> *userProperties);
 
-/// Connector for bridging communication between Firebase SDKs and FirebaseAnalytics APIs.
+/// Connector for bridging communication between Firebase SDKs and FirebaseAnalytics API.
 @protocol FIRAnalyticsInterop
 
 /// Sets user property when trigger event is logged. This API is only available in the SDK.
@@ -45,8 +44,7 @@ typedef void (^FIRAInteropUserPropertiesCallback)(NSDictionary<NSString *, id> *
 - (NSInteger)maxUserProperties:(NSString *)origin;
 
 /// Returns the user properties to a callback function.
-- (void)getUserPropertiesWithCallback:
-    (void (^)(NSDictionary<NSString *, id> *userProperties))callback;
+- (void)getUserPropertiesWithCallback:(FIRAInteropUserPropertiesCallback)callback;
 
 /// Logs events.
 - (void)logEventWithOrigin:(NSString *)origin

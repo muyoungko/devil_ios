@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '14.0'
+platform :ios, '16.0'
 
 #use_frameworks!
 #use_modular_headers!
@@ -41,7 +41,7 @@ target 'devil' do
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   pod 'Firebase/Auth'
-  pod 'Firebase/Analytics'
+  pod 'Firebase/Analytics', '8.1.0'
   pod 'Firebase/DynamicLinks'
   pod 'Firebase/Crashlytics'
   
@@ -66,12 +66,13 @@ target 'devillogin' do
   lottie_libs
   pod 'Alamofire'
   
-  pod 'KakaoSDKCommon'  # 필수 요소를 담은 공통 모듈
-  pod 'KakaoSDKAuth'  # 사용자 인증
-  pod 'KakaoSDKUser'  # 카카오 로그인, 사용자 관리
-  pod 'KakaoSDKTalk'  # 친구, 메시지(카카오톡)
-  pod 'KakaoSDKStory'  # 카카오스토리
-  pod 'KakaoSDKLink'  # 메시지(카카오톡 공유)
+#  pod 'KakaoSDK'  # 전체 추가 방식
+  pod 'KakaoSDKCommon', '2.11.3'  # 필수 요소를 담은 공통 모듈
+  pod 'KakaoSDKAuth', '2.11.3'  # 사용자 인증
+  pod 'KakaoSDKUser', '2.11.3'  # 카카오 로그인, 사용자 관리
+  pod 'KakaoSDKTalk', '2.11.3'  # 친구, 메시지(카카오톡)
+  pod 'KakaoSDKStory', '2.11.3'  # 카카오스토리
+#  pod 'KakaoSDKLink', '2.11.3'  # 메시지(카카오톡 공유)
   
   pod 'FBSDKLoginKit', '~> 9.3.0'
   pod 'FBSDKShareKit', '~> 9.3.0'

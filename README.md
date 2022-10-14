@@ -40,3 +40,20 @@ Always Embed Swift Standard Libraries
 YES -> NO 로 변경함
 https://stackoverflow.com/questions/25777958/validation-error-invalid-bundle-the-bundle-at-contains-disallowed-file-fr?lq=1
 
+# ios 16 xcode 14 컴파일오류
+Pod file 변경 
+Podfile platform :ios, '16.0'
+
+pod 재설치
+pod deintegrate
+pod install
+
+카카오 관련 오류는 다음과 같이 수정
+pod 'KakaoSDKCommon', '2.11.3'  # 필수 요소를 담은 공통 모듈
+pod 'KakaoSDKAuth', '2.11.3'  # 사용자 인증
+pod 'KakaoSDKUser', '2.11.3'  # 카카오 로그인, 사용자 관리
+pod 'KakaoSDKTalk', '2.11.3'  # 친구, 메시지(카카오톡)
+pod 'KakaoSDKStory', '2.11.3'  # 카카오스토리
+참고 https://devtalk.kakao.com/t/swift5-7-xcode14-beta3/124083/12
+
+facebook sdk의 team sigin은 적절히 변경 

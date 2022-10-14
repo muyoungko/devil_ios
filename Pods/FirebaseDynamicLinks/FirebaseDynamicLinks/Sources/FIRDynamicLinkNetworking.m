@@ -21,7 +21,6 @@
 
 #import "FirebaseDynamicLinks/Sources/GINInvocation/GINArgument.h"
 #import "FirebaseDynamicLinks/Sources/GINInvocation/GINInvocation.h"
-#import "FirebaseDynamicLinks/Sources/Utilities/FDLDeviceHeuristicsHelper.h"
 #import "FirebaseDynamicLinks/Sources/Utilities/FDLUtilities.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -208,14 +207,15 @@ NSData *_Nullable FIRDataWithDictionary(NSDictionary *dictionary, NSError **_Nul
 
   NSMutableDictionary *requestBody = [@{
     @"bundleId" : [NSBundle mainBundle].bundleIdentifier,
-    @"device" :
-        [FDLDeviceHeuristicsHelper FDLDeviceInfoDictionaryFromResolutionHeight:resolutionHeight
-                                                               resolutionWidth:resolutionWidth
-                                                                        locale:locale
-                                                                     localeRaw:localeRaw
-                                                             localeFromWebview:localeFromWebView
-                                                                      timeZone:timezone
-                                                                     modelName:modelName],
+    @"device" : @{
+      @"screenResolutionHeight" : @(resolutionHeight),
+      @"screenResolutionWidth" : @(resolutionWidth),
+      @"languageCode" : locale,
+      @"languageCodeRaw" : localeRaw,
+      @"languageCodeFromWebview" : localeFromWebView,
+      @"timezone" : timezone,
+      @"deviceModelName" : modelName,
+    },
     @"iosVersion" : IOSVersion,
     @"sdkVersion" : FDLSDKVersion,
     @"visualStyle" : @(uniqueMatchVisualStyle),
@@ -236,9 +236,7 @@ NSData *_Nullable FIRDataWithDictionary(NSDictionary *dictionary, NSError **_Nul
                                                              error:&serializationError];
 
     if (serializationError) {
-      if (errorPtr != nil) {
-        *errorPtr = serializationError;
-      }
+      *errorPtr = serializationError;
       return nil;
     }
 

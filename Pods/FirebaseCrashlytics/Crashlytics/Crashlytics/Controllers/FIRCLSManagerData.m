@@ -17,8 +17,6 @@
 #import "Crashlytics/Crashlytics/Components/FIRCLSApplication.h"
 #import "Crashlytics/Crashlytics/Models/FIRCLSExecutionIdentifierModel.h"
 #import "Crashlytics/Crashlytics/Models/FIRCLSInstallIdentifierModel.h"
-#import "Crashlytics/Crashlytics/Models/FIRCLSSettings.h"
-#import "Crashlytics/Crashlytics/Private/FIRCLSOnDemandModel_Private.h"
 #import "Crashlytics/Crashlytics/Settings/Models/FIRCLSApplicationIdentifierModel.h"
 
 @implementation FIRCLSManagerData
@@ -29,8 +27,7 @@
                           analytics:(nullable id<FIRAnalyticsInterop>)analytics
                         fileManager:(FIRCLSFileManager *)fileManager
                         dataArbiter:(FIRCLSDataCollectionArbiter *)dataArbiter
-                           settings:(FIRCLSSettings *)settings
-                      onDemandModel:(FIRCLSOnDemandModel *)onDemandModel {
+                           settings:(FIRCLSSettings *)settings {
   self = [super init];
   if (!self) {
     return nil;
@@ -43,7 +40,6 @@
   _fileManager = fileManager;
   _dataArbiter = dataArbiter;
   _settings = settings;
-  _onDemandModel = onDemandModel;
 
   _appIDModel = [[FIRCLSApplicationIdentifierModel alloc] init];
   _installIDModel = [[FIRCLSInstallIdentifierModel alloc] initWithInstallations:installations];
