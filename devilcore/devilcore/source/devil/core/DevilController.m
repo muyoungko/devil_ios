@@ -18,6 +18,7 @@
 #import "DevilRecord.h"
 #import "DevilBle.h"
 #import "DevilAlertDialog.h"
+#import "WildCardEventTracker.h"
 
 @interface DevilController ()
 
@@ -237,6 +238,7 @@
     
     self.screenId = screenId;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
+    self.screenName = screen[@"name"];
     [self updateHasFunction];
 
     id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId: self.landscape];
@@ -254,6 +256,8 @@
     ];
     [self construct];
     [self onResume];
+    
+    [[WildCardEventTracker sharedInstance] onScreen:self.projectId screenId:self.screenId screenName:self.screenName];
 }
 
 

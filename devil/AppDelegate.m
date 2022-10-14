@@ -247,12 +247,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 
-- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
-    
-}
-    
-
-
 - (void)applicationDidEnterBackground:(UIApplication *)application {
      NSLog(@"applicationDidEnterBackground");
     if([self.navigationController.topViewController isKindOfClass:[DevilController class]]){
