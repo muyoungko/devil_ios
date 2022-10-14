@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1EE9C73723CEFC982956F827 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70ABC1E4B64E8B81AFE77DBE /* Pods_devil.framework */; };
 		6D0224EE2613959900634842 /* devillogin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224ED2613959900634842 /* devillogin.podspec */; };
 		6D0224F026143D8300634842 /* devilcore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224EF26143D8300634842 /* devilcore.podspec */; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
@@ -58,6 +57,7 @@
 		6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF4278B3CBC008344DE /* devil_learning_icon@3x.png */; };
 		6DE2BAF8278B4B0F008344DE /* JevilLearning.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF7278B4B0F008344DE /* JevilLearning.m */; };
 		6DEC18832861427500B3FE88 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18822861427500B3FE88 /* README.md */; };
+		E97926306CC30D9F043B3617 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFD0E5E9C884158698CB6DC9 /* Pods_devil.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -152,9 +152,9 @@
 		6DE2BAF7278B4B0F008344DE /* JevilLearning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilLearning.m; sourceTree = "<group>"; };
 		6DEC18822861427500B3FE88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		70ABC1E4B64E8B81AFE77DBE /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		973B95A0E5AACD678366BEE6 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
-		D3BA0038736EE9B99E6DCF97 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
+		88ACFC94B91496A9F47F4992 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
+		EFD0E5E9C884158698CB6DC9 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFB3EDEAF9EF17D30DD44BB1 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,7 +165,7 @@
 				6DACD00328DD61E7002E7409 /* devilextra.framework in Frameworks */,
 				6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */,
 				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
-				1EE9C73723CEFC982956F827 /* Pods_devil.framework in Frameworks */,
+				E97926306CC30D9F043B3617 /* Pods_devil.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,7 +181,7 @@
 				6D86290A287E50BA00E62B7B /* StoreKit.framework */,
 				6D22CF6125FFB25C00A1CB25 /* devillogin.framework */,
 				6D467AED256AB1B0006D57DD /* devilcore.framework */,
-				70ABC1E4B64E8B81AFE77DBE /* Pods_devil.framework */,
+				EFD0E5E9C884158698CB6DC9 /* Pods_devil.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -329,10 +329,9 @@
 		F0CDCB8A11149BBB3516D5E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D3BA0038736EE9B99E6DCF97 /* Pods-devil.debug.xcconfig */,
-				973B95A0E5AACD678366BEE6 /* Pods-devil.release.xcconfig */,
+				88ACFC94B91496A9F47F4992 /* Pods-devil.debug.xcconfig */,
+				FFB3EDEAF9EF17D30DD44BB1 /* Pods-devil.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -343,14 +342,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "devil" */;
 			buildPhases = (
-				B16CC10D7E32BFF2A5F5CA19 /* [CP] Check Pods Manifest.lock */,
+				A66FF2C3266FA8D1ACB86AA3 /* [CP] Check Pods Manifest.lock */,
 				6DF137EF20D7469A00071B9F /* Sources */,
 				6DF137F020D7469A00071B9F /* Frameworks */,
 				6DF137F120D7469A00071B9F /* Resources */,
 				6D467998256A174F006D57DD /* Embed Frameworks */,
 				6DC676ED26E5B36C0005728A /* ShellScript */,
-				A7643469B287818159414281 /* [CP] Embed Pods Frameworks */,
-				055C5D25936A3DD56078F6F6 /* [CP] Copy Pods Resources */,
+				C5A7BE3C753811CE726D878C /* [CP] Embed Pods Frameworks */,
+				39813B72D03E6A9BD9657265 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -427,7 +426,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		055C5D25936A3DD56078F6F6 /* [CP] Copy Pods Resources */ = {
+		39813B72D03E6A9BD9657265 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -464,25 +463,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		A7643469B287818159414281 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework/NaverThirdPartyLogin",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B16CC10D7E32BFF2A5F5CA19 /* [CP] Check Pods Manifest.lock */ = {
+		A66FF2C3266FA8D1ACB86AA3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -502,6 +483,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C5A7BE3C753811CE726D878C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework/NaverThirdPartyLogin",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -647,7 +646,7 @@
 		};
 		6DF1380E20D7469B00071B9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3BA0038736EE9B99E6DCF97 /* Pods-devil.debug.xcconfig */;
+			baseConfigurationReference = 88ACFC94B91496A9F47F4992 /* Pods-devil.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -656,7 +655,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 154;
+				CURRENT_PROJECT_VERSION = 155;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -672,7 +671,7 @@
 					"$(SDKROOT)/usr/lib/swift",
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 				);
-				MARKETING_VERSION = 0.0.154;
+				MARKETING_VERSION = 0.0.155;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil development";
@@ -690,17 +689,18 @@
 		};
 		6DF1380F20D7469B00071B9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 973B95A0E5AACD678366BEE6 /* Pods-devil.release.xcconfig */;
+			baseConfigurationReference = FFB3EDEAF9EF17D30DD44BB1 /* Pods-devil.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: muyoung ko (3675B8UJSV)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: muyoung ko (3675B8UJSV)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 154;
+				CURRENT_PROJECT_VERSION = 155;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -714,10 +714,11 @@
 					"$(SDKROOT)/usr/lib/swift",
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 				);
-				MARKETING_VERSION = 0.0.154;
+				MARKETING_VERSION = 0.0.155;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil distribution";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "devil distribution";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
