@@ -12,28 +12,21 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <UserNotifications/UserNotifications.h>
 
-@import Firebase;
+@import FirebaseCore;
+@import FirebaseMessaging;
 @import devilcore;
 @import devillogin;
 @import GoogleSignIn;
-
-@protocol GoogleSigninMyDelegate <NSObject>
-
--(void)callback:(BOOL)sucess  didSignInForUser:(GIDGoogleUser *)user;
-
-@end
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,
 FIRMessagingDelegate,
 UNUserNotificationCenterDelegate,
 WildCardConstructorGlobalDelegate,
 WildCardConstructorTextConvertDelegate,
-WildCardConstructorTextTransDelegate,
-GIDSignInDelegate>
+WildCardConstructorTextTransDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) UINavigationController *navigationController;
-@property (nonatomic, weak, nullable) id <GoogleSigninMyDelegate> googleSigninMyDelegate;
 
 
 @end

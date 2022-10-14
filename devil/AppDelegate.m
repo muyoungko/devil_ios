@@ -15,6 +15,9 @@
 //@import devilhealth;
 @import devilnfc;
 @import GoogleMobileAds;
+@import FirebaseDynamicLinks;
+@import FirebaseAnalytics;
+@import FirebaseAuth;
 
 #import <AFNetworking/AFNetworking.h>
 #import "UIImageView+AFNetworking.h"
@@ -180,12 +183,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }
     
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
-
-    [GIDSignIn sharedInstance].clientID = [FIRApp defaultApp].options.clientID;
-    [GIDSignIn sharedInstance].delegate = self;
     
     [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-    
     
     [WildCardConstructor sharedInstance:@"1605234988599"];
     [WildCardConstructor sharedInstance].delegate = self;
@@ -213,18 +212,46 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)handleUrl:(NSURL *)url{
     return [[GIDSignIn sharedInstance] handleURL:url];
 }
-/**
- DevilGoogleLogin delegate
- */
+
 - (void)login:(UIViewController*)vc clientId:(NSString*)clientId{
       
-    [GIDSignIn sharedInstance].clientID = clientId;
-    [GIDSignIn sharedInstance].delegate = self;
-    [GIDSignIn sharedInstance].presentingViewController = vc;
-    [[GIDSignIn sharedInstance] signIn];
-    
+    GIDConfiguration* signInConfig = [[GIDConfiguration alloc] initWithClientID:clientId];
     self.devilGoogleLogin = [DevilGoogleLogin sharedInstance];
+    [GIDSignIn.sharedInstance signInWithConfiguration:signInConfig presentingViewController:self.navigationController.topViewController callback:^(GIDGoogleUser * _Nullable user, NSError * _Nullable error) {
+        
+        if (error == nil) {
+            GIDAuthentication *authentication = user.authentication;
+            FIRAuthCredential *credential =
+            [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
+                                           accessToken:authentication.accessToken];
+        
+            
+            if(self.devilGoogleLogin) {
+                NSString *userId = user.userID;
+                NSString *token = user.authentication.idToken;
+                NSString *name = user.profile.name;
+                NSString *email = user.profile.email;
+                NSString *profile = nil;
+                if([user.profile hasImage])
+                    profile = [[user.profile imageURLWithDimension:120] absoluteString];
+                [[DevilGoogleLogin sharedInstance] googleSignInSuccess:YES userId:userId name:name profile:profile email:email token:token];
+                self.devilGoogleLogin = nil;
+            }
+        } else {
+            if(self.devilGoogleLogin) {
+                [[DevilGoogleLogin sharedInstance] googleSignInSuccess:NO userId:nil name:nil profile:nil email:nil token:nil];
+                self.devilGoogleLogin = nil;
+            }
+        }
+    }];
 }
+
+
+- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
+    
+}
+    
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
      NSLog(@"applicationDidEnterBackground");
@@ -279,39 +306,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                                                 }];
     return handled;
 }
-
-- (void)signIn:(GIDSignIn *)signIn didSignInForUser:(GIDGoogleUser *)user withError:(NSError *)error {
-    if (error == nil) {
-        GIDAuthentication *authentication = user.authentication;
-        FIRAuthCredential *credential =
-        [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
-                                       accessToken:authentication.accessToken];
-    
-        
-        if(self.devilGoogleLogin) {
-            NSString *userId = user.userID;
-            NSString *token = user.authentication.idToken;
-            NSString *name = user.profile.name;
-            NSString *email = user.profile.email;
-            NSString *profile = nil;
-            if([user.profile hasImage])
-                profile = [[user.profile imageURLWithDimension:120] absoluteString];
-            [[DevilGoogleLogin sharedInstance] googleSignInSuccess:YES userId:userId name:name profile:profile email:email token:token];
-            self.devilGoogleLogin = nil;
-        }
-    } else {
-        if(self.devilGoogleLogin) {
-            [[DevilGoogleLogin sharedInstance] googleSignInSuccess:NO userId:nil name:nil profile:nil email:nil token:nil];
-            self.devilGoogleLogin = nil;
-        }
-    }
-    
-    if(self.googleSigninMyDelegate != nil){
-        [self.googleSigninMyDelegate callback:YES didSignInForUser:user];
-        self.googleSigninMyDelegate = nil;
-    }
-}
-    
     
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -482,10 +476,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 -(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data
 {
-    if([@"ads" isEqualToString:extension[@"select3"]])
-    {
-        
-    }
 }
 
 -(void)onCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node

@@ -18,7 +18,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LoginController : SubController< WildCardConstructorInstanceDelegate,
-GIDSignInDelegate, GoogleSigninMyDelegate,
 ASAuthorizationControllerPresentationContextProviding,
 ASAuthorizationControllerDelegate
 >

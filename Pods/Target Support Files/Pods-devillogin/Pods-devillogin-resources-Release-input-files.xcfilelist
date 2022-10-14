@@ -1,3 +1,2 @@
 ${PODS_ROOT}/Target Support Files/Pods-devillogin/Pods-devillogin-resources.sh
-${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle
-${PODS_CONFIGURATION_BUILD_DIR}/FBSDKCoreKit/FacebookSDKStrings.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle

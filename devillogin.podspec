@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devillogin'
   s.platform         = :ios
-  s.version          = '0.0.192'
+  s.version          = '0.0.193'
   s.summary          = 'Devil Login'
   s.description      = <<-DESC
     This is Devil Login
@@ -29,8 +29,8 @@ Pod::Spec.new do |s|
   s.dependency 'KakaoSDKStory', '2.11.3'
   #s.dependency 'KakaoSDKLink'
         
-  s.dependency 'FBSDKLoginKit', '~> 9.3.0'
-  s.dependency 'FBSDKShareKit', '~> 9.3.0'
+  #s.dependency 'FBSDKLoginKit', '~> 9.3.0'
+  #s.dependency 'FBSDKShareKit', '~> 9.3.0'
   #s.dependency 'GoogleSignIn'
   #s.dependency 'GoogleToolboxForMac'
 

@@ -74,9 +74,15 @@
     } else if([@"login_fb" isEqualToString:functionName]){
         return YES;
     } else if([@"login_google" isEqualToString:functionName]){
-        ((AppDelegate*)[UIApplication sharedApplication].delegate).googleSigninMyDelegate = self;
-        [GIDSignIn sharedInstance].presentingViewController = self;
-        [[GIDSignIn sharedInstance] signIn];
+        
+        GIDConfiguration* signInConfig = [[GIDConfiguration alloc] initWithClientID:@"257412051634-gnkm5n8p37jocftjutrbq2amj00qk34f.apps.googleusercontent.com"];
+        [GIDSignIn.sharedInstance signInWithConfiguration:signInConfig presentingViewController:self callback:^(GIDGoogleUser * _Nullable user, NSError * _Nullable error) {
+            if (error) {
+              return;
+            }
+            
+            [self googleLoginCallback:YES didSignInForUser:user];
+        }];
         
         return YES;
     } else if([@"login_apple" isEqualToString:functionName]){
@@ -181,8 +187,8 @@
     
 }
 
-//구글 로그인 ~~~~~~~~~~~~~~~~~~~~~~~~~
-- (void)callback:(BOOL)sucess didSignInForUser:(GIDGoogleUser *)user{
+//구글 로그인 후처리
+- (void)googleLoginCallback:(BOOL)sucess didSignInForUser:(GIDGoogleUser *)user{
     if(user == nil)
         return;
     NSString *userId = user.userID;                  // For client-side use only!

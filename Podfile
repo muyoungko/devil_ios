@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '16.0'
+platform :ios, '14.0'
 
 #use_frameworks!
 #use_modular_headers!
@@ -21,8 +21,7 @@ def google_ads
 end
 
 def google_signin
-  pod 'GoogleSignIn', '~> 5.0'
-  pod 'GoogleToolboxForMac'
+  pod 'GoogleSignIn'
 end
 
 def lottie_libs
@@ -38,12 +37,11 @@ target 'devil' do
   
   pod 'AFNetworking','~>4.0'
   
-  pod 'Firebase/Core'
-  pod 'Firebase/Messaging'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Analytics', '8.1.0'
-  pod 'Firebase/DynamicLinks'
-  pod 'Firebase/Crashlytics'
+  pod 'FirebaseMessaging'
+  pod 'FirebaseAuth'
+  pod 'FirebaseAnalytics'
+  pod 'FirebaseDynamicLinks'
+  pod 'FirebaseCrashlytics'
   
   google_signin
   
@@ -74,8 +72,8 @@ target 'devillogin' do
   pod 'KakaoSDKStory', '2.11.3'  # 카카오스토리
 #  pod 'KakaoSDKLink', '2.11.3'  # 메시지(카카오톡 공유)
   
-  pod 'FBSDKLoginKit', '~> 9.3.0'
-  pod 'FBSDKShareKit', '~> 9.3.0'
+#  pod 'FBSDKLoginKit'
+#  pod 'FBSDKShareKit'
   
   google_signin
 end

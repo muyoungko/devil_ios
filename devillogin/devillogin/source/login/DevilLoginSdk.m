@@ -14,7 +14,7 @@
 
 
 @import devilcore;
-@import FBSDKLoginKit;
+//@import FBSDKLoginKit;
 
 @implementation DevilLoginSdk
 
@@ -26,9 +26,9 @@
         [DevilKakaoLogin initKakaoAppKey];
     }
     
-    if([devilConfig[@"hasFacebookLogin"] boolValue]){
-        [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-    }
+//    if([devilConfig[@"hasFacebookLogin"] boolValue]){
+//        [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
+//    }
 }
 
 + (BOOL)application:(UIApplication *)application
@@ -41,12 +41,12 @@
     if([devilConfig[@"hasKakaoLogin"] boolValue] && [DevilKakaoLogin handleOpenUrl:url])
         return true;
     
-    if([devilConfig[@"hasFacebookLogin"] boolValue] &&
-       [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                  openURL:url
-                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]])
-        return true;
+//    if([devilConfig[@"hasFacebookLogin"] boolValue] &&
+//       [[FBSDKApplicationDelegate sharedInstance] application:application
+//                                                                  openURL:url
+//                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+//                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]])
+//        return true;
     
     
     if([devilConfig[@"hasGoogleLogin"] boolValue] &&
