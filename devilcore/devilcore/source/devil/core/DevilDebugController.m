@@ -127,7 +127,7 @@ alpha:1.0]
     }
     
     cell.tag = index;
-    ((UILabel*)[cell viewWithTag:2124]).text = item[@"type"];
+    ((UILabel*)[cell viewWithTag:2124]).text = [NSString stringWithFormat:@"%@ - %@", item[@"type"], item[@"reg_date"]];
     ((UILabel*)[cell viewWithTag:2123]).text = item[@"title"];
     return cell;
 }

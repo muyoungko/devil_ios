@@ -26,12 +26,40 @@
     return sharedInstance;
 }
 
-- (void)requestProduct:(NSArray*)skus callback:(void (^)(id res))callback {
-    self.callback = callback;
-    NSSet *productIdentifiers = [NSSet setWithArray:skus];
-    SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
-    productsRequest.delegate = self;
-    [productsRequest start];
+- (void)requestProduct:(id)param callback:(void (^)(id res))callback {
+    id skus = param[@"skus"];
+    
+    if([self isDevilAppTest]) {
+        id test = param[@"test"];
+        id list = [@[] mutableCopy];
+        for(int i=0;i<[skus count];i++) {
+            NSString* sku = skus[i];
+            id a = [@{} mutableCopy];
+            a[@"sku"] = sku;
+            if(test) {
+                id fallback = test[i];
+                a[@"type"] = fallback[@"type"];
+                
+                a[@"title"] = fallback[@"title"]?fallback[@"title"]:@"sku";
+                a[@"desc"] = fallback[@"desc"]?fallback[@"desc"]:@"sku";
+                a[@"price"] = fallback[@"price"]?fallback[@"price"]:@"1000";
+                a[@"price_text"] = fallback[@"price_text"]?fallback[@"price_text"]:@"1,000원";
+                
+                a[@"valid"] = fallback[@"valid"]?fallback[@"valid"]:@TRUE;
+                a[@"order_id"] = [NSString stringWithFormat:@"devil_order_%@", [NSUUID UUID].UUIDString];
+                a[@"receipt"] = [NSString stringWithFormat:@"devil_receipt_%@", [NSUUID UUID].UUIDString];
+            }
+            [list addObject:a];
+        }
+        id r = @{@"r":@TRUE, @"list":list};
+        callback(r);
+    } else {
+        self.callback = callback;
+        NSSet *productIdentifiers = [NSSet setWithArray:skus];
+        SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+        productsRequest.delegate = self;
+        [productsRequest start];
+    }
 }
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
@@ -97,13 +125,20 @@
     }
 }
 
-- (void)purchase:(NSString*)sku callback:(void (^)(id res))callback {
-    
-    self.purchaseCallback = callback;
-    
+- (BOOL) isDevilAppTest {
     NSString* projectId = [Jevil get:@"PROJECT_ID"];
     if([[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"]
        && ![@"1605234988599" isEqualToString:projectId] ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+- (void)purchase:(NSString*)sku callback:(void (^)(id res))callback {
+    
+    self.purchaseCallback = callback;
+    if([self isDevilAppTest]) {
         self.purchaseCallback(@{
             @"r":@TRUE,
             @"order_id": [NSString stringWithFormat:@"devil_order_%@", [NSUUID UUID].UUIDString],

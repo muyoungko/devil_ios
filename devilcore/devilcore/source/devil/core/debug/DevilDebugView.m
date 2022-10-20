@@ -176,6 +176,12 @@
         @"type":type,
         @"title":title,
     } mutableCopy];
+    
+    NSDateFormatter *df = [[NSDateFormatter alloc]init];
+    [df setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+    NSString* reg_date = [df stringFromDate:[NSDate now]];
+    item[@"reg_date"] = reg_date;
+    
     if(log)
         item[@"log"] = log;
     [self.logList addObject:item];

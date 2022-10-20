@@ -12,7 +12,7 @@
 @implementation JevilBill
 
 + (void)requestProduct:(NSDictionary*)param:(JSValue *)callback {
-    [[DevilBillInstance sharedInstance] requestProduct:param[@"skus"] callback:^(id  _Nonnull res) {
+    [[DevilBillInstance sharedInstance] requestProduct:param callback:^(id  _Nonnull res) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_BILL title:@"requestProduct" log:res];
         [callback callWithArguments:@[res]];
     }];
