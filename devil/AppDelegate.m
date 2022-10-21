@@ -116,8 +116,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     [[NSUserDefaults standardUserDefaults] setObject:fcmToken forKey:@"FCM"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    [[Devil sharedInstance] sendPush];
 }
 
 - (void)registerForRemoteNotifications {

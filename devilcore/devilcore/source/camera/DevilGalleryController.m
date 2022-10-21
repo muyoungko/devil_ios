@@ -11,6 +11,7 @@
 
 #define MARGIN 2
 #define COL 3
+#define COL_TABLET 6
 
 @import Photos;
 
@@ -36,6 +37,9 @@
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     UIView *rootView = [[bundle loadNibNamed:@"DevilGalleryController" owner:self options:nil] objectAtIndex:0];
     [self.view addSubview:rootView];
+    rootView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    
     self.title = self.titleText = self.param && self.param[@"title"]? [self.param[@"title"] stringValue] : @"사진 선택";
     self.hasPicture = self.param && self.param[@"hasPicture"]? [self.param[@"hasPicture"] boolValue] : YES;
     self.hasVideo = self.param && self.param[@"hasVideo"] ? [self.param[@"hasVideo"] boolValue] : NO;
@@ -195,8 +199,14 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    float s = ([UIScreen mainScreen].bounds.size.width - MARGIN*(COL)) / COL;
-    return CGSizeMake(s, s);
+    if([WildCardUtil isTablet]) {
+        float s = ([UIScreen mainScreen].bounds.size.width - MARGIN*(COL)) / COL;
+        return CGSizeMake(s, s);
+    } else {
+        float s = ([UIScreen mainScreen].bounds.size.width - MARGIN*(COL_TABLET)) / COL_TABLET;
+        return CGSizeMake(s, s);
+    }
+    
 }
 
 - (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

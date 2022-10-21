@@ -31,8 +31,6 @@
     
     [self update];
     
-    [[Devil sharedInstance] sendPush];
-    
     Test* t = [[Test alloc] init];
     [t run];
     

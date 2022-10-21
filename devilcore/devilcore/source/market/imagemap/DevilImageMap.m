@@ -160,12 +160,11 @@ float borderWidth = 7;
         if(inMap) {
             self.editingPin[@"x"] = [NSNumber numberWithFloat:mp.x];
             self.editingPin[@"y"] = [NSNumber numberWithFloat:mp.y];
+            NSLog(@"%@, %@", self.editingPin[@"x"], self.editingPin[@"y"]);
+            [self.pinLayer syncPinWithAnimation:self.editingPin[@"key"]];
+            [self setMode:@"new_direction" : nil];
+            [self showPopup:@[@"취소"]];
         }
-        
-        [self syncPin];
-        
-        [self setMode:@"new_direction" : nil];
-        [self showPopup:@[@"취소"]];
     } else if([self isPopupShow] && CGRectContainsPoint([WildCardUtil getGlobalFrame:self.popupView], tappedPoint)) {
         for(UIView* c in [self.popupView subviews]) {
             if(CGRectContainsPoint([WildCardUtil getGlobalFrame:c], tappedPoint)) {
@@ -269,7 +268,7 @@ float borderWidth = 7;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touchesBegan");
+//    NSLog(@"touchesBegan");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
@@ -292,7 +291,7 @@ float borderWidth = 7;
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touchesMoved");
+//    NSLog(@"touchesMoved");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     if(self.shouldDirectionMove && ([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"])) {
@@ -310,7 +309,7 @@ float borderWidth = 7;
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    NSLog(@"touchesEnded");
+//    NSLog(@"touchesEnded");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
@@ -424,6 +423,8 @@ float borderWidth = 7;
         if([key isEqualToString:pin[@"key"]]) {
             self.editingPin = pin;
             [self setMode:@"edit": nil];
+            [self focus:pin[@"key"]];
+            [self.pinLayer highlight:pin[@"key"]];
             break;
         }
     }
@@ -432,6 +433,7 @@ float borderWidth = 7;
 - (void)setMode:(NSString*)mode :(id)param {
     if([@"normal" isEqualToString:mode]) {
         self.editingPin = self.insertingPin = nil;
+        [self.pinLayer highlight:nil];
     }
     self.mode = mode;
     self.param = param;

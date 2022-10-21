@@ -67,7 +67,6 @@
                             [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"x-access-token_1605234988599"];
                             [[NSUserDefaults standardUserDefaults] setObject:token forKey:@"token"];
                             [[NSUserDefaults standardUserDefaults] synchronize];
-                            [self sendPush];
                         }
                         callback(res);
     }];
@@ -170,16 +169,6 @@
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"x-access-token_1605234988599"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)sendPush{
-    NSString* fcm = [[NSUserDefaults standardUserDefaults] objectForKey:@"FCM"];
-    if(fcm == nil)
-        return;
-    NSString* url = [NSString stringWithFormat:@"/push/key?fcm=%@&udid=%@&os=ios", urlencode(fcm), urlencode(self.udid)];
-    [[Devil sharedInstance] request:url postParam:nil complete:^(id  _Nonnull res) {
-        NSLog(@"%@",res);
-    }];
 }
 
 - (void)consumeReservedUrl {

@@ -14,6 +14,8 @@
 @property (nonatomic, retain) id shapeMapArrowHead;
 @property (nonatomic, retain) id shapeMapText;
 @property (nonatomic, retain) id shapeMapBody;
+
+@property (nonatomic, retain) NSString* highlightKey;
 @end
 @implementation DevilPinLayer
 
@@ -35,6 +37,7 @@ float textSize = 15;
     
     float x = [pin[@"x"] floatValue];
     float y = [pin[@"y"] floatValue];
+    NSLog(@"base Point %d %d", (int)x, (int)y);
     
     float degree = [pin[@"degree"] floatValue] - 90.0f;
     float arrow_angle = degree * M_PI / 180.0f;
@@ -42,7 +45,7 @@ float textSize = 15;
     CGRect rect = CGRectMake(x-roundSize, y-roundSize, roundSize*2, roundSize*2);
     CGPoint arrowFrom = (CGPoint){x + cos(arrow_angle) * roundSize, y + sin(arrow_angle) * roundSize};
     CGPoint arrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
-    
+    NSLog(@"degree - %f, (x,y) =%d,%d arrowFrom=%d,%d arrowTo=%d,%d", degree, (int)x, (int)y, (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo.x, (int)arrowTo.y);
     {
         CAShapeLayer *layer = self.shapeMapArrowHead[key];
         [self arrowHead:layer :arrowFrom :arrowTo];
@@ -98,6 +101,56 @@ float textSize = 15;
     }
 }
 
+- (void)highlight:(NSString*)key {
+    self.highlightKey = key;
+}
+
+- (void)syncPinWithAnimation:(NSString*)key {
+    for(id pin in self.pinList) {
+        NSString* mkey = pin[@"key"];
+        if([mkey isEqualToString:key]) {
+            
+            CAShapeLayer *layer = self.shapeMapBody[key];
+            CAShapeLayer *layer2 = self.shapeMapArrowLine[key];
+            CAShapeLayer *layer3 = self.shapeMapArrowHead[key];
+            CAShapeLayer *layer4 = self.shapeMapText[key];
+            
+            float x = [pin[@"x"] floatValue];
+            float y = [pin[@"y"] floatValue];
+            
+            [CATransaction begin];
+            [CATransaction setCompletionBlock:^{
+                /**
+                 shape에 패스를 새로 넣어줬는데 어딘가 이상한지, 이상한데 화살표가 생긴다
+                 그래서 그냥 새로 생성한다
+                 */
+                [self syncPin];
+            }];
+            CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"position"];
+            animation.cumulative = YES;
+            animation.fromValue = [NSValue valueWithCGPoint:layer.position];
+            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(x, y)];
+            animation.duration = 0.3f;
+            
+            
+            layer.position = CGPointMake(x, y);
+            [layer addAnimation:animation forKey:nil];
+            
+            layer2.position = CGPointMake(x, y);
+            [layer2 addAnimation:animation forKey:nil];
+            
+            layer3.position = CGPointMake(x, y);
+            [layer3 addAnimation:animation forKey:nil];
+            
+            layer4.position = CGPointMake(x, y);
+            NSLog(@"to Point %d %d", (int)x, (int)y);
+            [layer4 addAnimation:animation forKey:nil];
+            [CATransaction commit];
+            
+            break;
+        }
+    }
+}
 
 - (void)syncPin {
 
@@ -120,7 +173,8 @@ float textSize = 15;
         NSString* key = pin[@"key"];
 
         UIColor *c = [WildCardUtil colorWithHexString:color];
-        
+
+        BOOL highlight = [key isEqualToString:self.highlightKey];
         BOOL selected = [pin[@"selected"] boolValue];
         BOOL hideDirection = [pin[@"hideDirection"] boolValue];
         float x = [pin[@"x"] floatValue];
@@ -192,7 +246,7 @@ float textSize = 15;
             layer.contentsScale = [UIScreen mainScreen].scale;
             layer.anchorPoint = CGPointMake(0.5, 0.32);
             layer.alignmentMode = kCAAlignmentCenter;
-            if(selected)
+            if(selected || highlight)
                 layer.foregroundColor = [UIColor whiteColor].CGColor;
             else
                 layer.foregroundColor = c.CGColor;
@@ -206,7 +260,7 @@ float textSize = 15;
         //몸통
         {
             CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-            if(selected) {
+            if(selected || highlight) {
                 layer.fillColor = c.CGColor;
                 layer.strokeColor = c.CGColor;
             } else {
