@@ -903,9 +903,6 @@
     };
 }
 
-+ (void)popupClose {
-    [Jevil popupClose:NO];
-}
 
 + (void)popupClose:(BOOL)yes {
     if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)

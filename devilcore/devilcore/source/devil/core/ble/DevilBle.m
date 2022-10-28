@@ -267,6 +267,7 @@
     }
 }
 
+
 - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error {
     NSLog(@"didWriteValueForCharacteristic %@ %@", characteristic, error?error:@"");
     if(error)
@@ -275,6 +276,54 @@
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"WRITE success" log:@{@"characteristic":[characteristic.UUID description]}];
     if(self.callbackWrite) {
         self.callbackWrite([@{@"r":(error?@FALSE:@TRUE)} mutableCopy]);
+    }
+}
+
+- (void)writeDescriptor:(id)param {
+    NSString* udid = param[@"udid"];
+    NSString* service_udid = param[@"service"];
+    NSString* characteristic_udid = param[@"characteristic"];
+    NSString* descriptor_udid = param[@"descriptor"];
+    NSString* hex = param[@"hex"];
+    NSString* text = param[@"text"];
+    
+    NSData* b = nil;
+    if(hex)
+        b = [self fromHexString:hex];
+    else if(text) {
+        text = [text stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+        text = [text stringByReplacingOccurrencesOfString:@"\\r" withString:@"\r"];
+        text = [text stringByReplacingOccurrencesOfString:@"\\t" withString:@"\t"];
+        b = [text dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    
+    CBPeripheral* device = nil;
+    for(CBPeripheral* b in self.blue_list) {
+        NSString* thisUdid = [b.identifier description];
+        if([thisUdid isEqualToString:udid]) {
+            device = b;
+            break;
+        }
+    }
+    
+    for(CBService* service in device.services) {
+        for(CBCharacteristic* c in [service characteristics]) {
+            if([[c.UUID description] isEqualToString:characteristic_udid]) {
+                for(CBDescriptor* d in [c descriptors]) {
+                    if([[d.UUID description] isEqualToString:descriptor_udid]) {
+                        [device writeValue:b forCharacteristic:c type:CBCharacteristicWriteWithResponse];
+                        [device writeValue:b forDescriptor:d];
+                        NSString* name = [self nameFromDevice:device];
+                        id j = [param mutableCopy];
+                        j[@"name"] = name;
+                        [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH
+                                                       title:[NSString stringWithFormat:@"WRITE Descriptor request success"]
+                                                         log:j];
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -353,8 +402,24 @@
                     k[@"write_no_response"] = @TRUE;
                 if( (p & CBCharacteristicPropertyWrite) != 0)
                     k[@"write"] = @TRUE;
-                if( (p & CBCharacteristicPropertyNotify) != 0)
+                if( (p & CBCharacteristicPropertyNotify) != 0) {
                     k[@"notify"] = @TRUE;
+                    [peripheral setNotifyValue:YES forCharacteristic:c];
+                    /**
+                     아이폰은 [c descriptors]가 null이 나오는 기기가 있다. 안드로이드는 잘 나오는데,
+                     */
+                    for(CBDescriptor* d in [c descriptors]) {
+                        if([[[d UUID] UUIDString] isEqualToString:@"2902"]) {
+                            [self writeDescriptor:@{
+                                @"udid": [peripheral.identifier description],
+                                @"service" : [[service UUID] UUIDString],
+                                @"characteristic" : [[c UUID] UUIDString],
+                                @"descriptor" : @"2902",
+                                @"hex":@"0100",
+                            }];
+                        }
+                    }
+                }
                 if( (p & CBCharacteristicPropertyIndicate) != 0)
                     k[@"indicate"] = @TRUE;
                 if( (p & CBCharacteristicPropertyAuthenticatedSignedWrites) != 0)
@@ -385,7 +450,6 @@
     self.characteristics[udid] = service.characteristics;
     for (CBCharacteristic *charater in service.characteristics) {
         peripheral.delegate = self;
-        [peripheral setNotifyValue:YES forCharacteristic:charater];
     }
     [self callDiscoveredCallback:peripheral];
 }

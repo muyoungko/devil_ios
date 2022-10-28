@@ -53,7 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)scrollTo:(NSString*)nodeName :(int)index :(BOOL)noani;
 + (void)scrollUp:(NSString*)nodeName;
 + (void)popup:(NSString*)blockName :(NSDictionary*)param :(JSValue *)callback;
-+ (void)popupClose;
 + (void)popupClose:(BOOL)yes;
 + (void)popupAddress:(NSDictionary*)param :(JSValue *)callback;
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback;
