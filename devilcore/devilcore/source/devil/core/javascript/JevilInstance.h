@@ -33,7 +33,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSMutableDictionary* forRetain;
 @property void (^timerCallback)(id res);
 @property (nonatomic, retain) DevilBeacon* devilBeacon;
+@property (nonatomic, retain) UIViewController* mark;
+
 -(void)videoViewAutoPlay;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

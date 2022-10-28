@@ -113,6 +113,28 @@
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
 }
 
++ (void)markScreen{
+    if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
+        [JevilInstance currentInstance].mark = [JevilInstance currentInstance].vc;
+}
+
++ (void)backToMarkScreen{
+    UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
+    id arr = [@[] mutableCopy];
+    BOOL foundMark = false;
+    for(id v in n.viewControllers) {
+        [arr addObject:v];
+        if(v == [JevilInstance currentInstance].mark) {
+            foundMark = true;
+            break;
+        }
+    }
+    if(foundMark)
+        [[JevilInstance currentInstance].vc.navigationController setViewControllers:arr];
+    else
+        [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];    
+}
+
 + (void)finish:(id)callbackData {
     id vlist = [[JevilInstance currentInstance].vc.navigationController viewControllers];
     if([vlist count] > 1) {
