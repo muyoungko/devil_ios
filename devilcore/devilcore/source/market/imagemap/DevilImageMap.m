@@ -486,17 +486,20 @@ float borderWidth = 7;
             screenPoint = [self pinToScreenPoint:_editingPin];
         }
             
-        float gap = 20;
+        float gap = 27;
         float x = screenPoint.x + gap;
-        float y = screenPoint.y;
+        float y = screenPoint.y - (35*2)/2;
         self.popupView.frame = CGRectMake(x, y, self.popupView.frame.size.width, self.popupView.frame.size.height);
     }
 }
 -(void)showPopup:(id)selection {
-    float pw = 50;
-    float ph = 50;
+    float pw = 35;
+    float ph = 35;
+    float gap = 5;
     
-    UIView* popup = [[UIView alloc] initWithFrame:CGRectMake(0, 0, pw, ph * [selection count] )];
+    UIView* popup = [[UIView alloc] initWithFrame:CGRectMake(0, 0, pw,
+                                                             ph * [selection count] + gap*([selection count]-1)
+                                                             )];
     popup.backgroundColor = [UIColor clearColor];
     
 //    popup.backgroundColor = [UIColor whiteColor];
@@ -520,7 +523,7 @@ float borderWidth = 7;
         
         float bh = ph*0.8f;
         UIView* button = [[UIView alloc] initWithFrame:CGRectMake(0, 0, bh, bh)];
-        button.center = CGPointMake(pw/2, index*ph + ph/2);
+        button.center = CGPointMake(pw/2, index*ph + ph/2 + gap*(index-1));
         button.backgroundColor = [UIColor whiteColor];
         button.layer.cornerRadius = bh/2;
         button.layer.shadowOffset = CGSizeMake(5, 5);
