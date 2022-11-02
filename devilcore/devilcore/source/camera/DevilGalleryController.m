@@ -199,7 +199,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if([WildCardUtil isTablet]) {
+    if(![WildCardUtil isTablet]) {
         float s = ([UIScreen mainScreen].bounds.size.width - MARGIN*(COL)) / COL;
         return CGSizeMake(s, s);
     } else {

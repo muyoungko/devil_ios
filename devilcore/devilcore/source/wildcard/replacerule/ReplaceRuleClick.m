@@ -24,19 +24,24 @@
     [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
 
     self.replaceView = vv;
-    
+    NSString* ga = layer[@"ga"];
+    if(!ga)
+        ga = vv.name;
     if(layer[@"clickContent"]) {
         WildCardUITapGestureRecognizer *singleFingerTap =
         [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(onClickListener:)];
         singleFingerTap.meta = wcMeta;
         [vv addGestureRecognizer:singleFingerTap];
+        singleFingerTap.ga = ga;
         self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickContent"];
+        
     } else if(layer[@"clickJavascript"]) {
         WildCardUITapGestureRecognizer *singleFingerTap =
         [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(script:)];
         singleFingerTap.meta = wcMeta;
         [vv addGestureRecognizer:singleFingerTap];
+        singleFingerTap.ga = ga;
         self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
     }

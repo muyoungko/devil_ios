@@ -186,9 +186,9 @@
 }
 
 -(void) adjustFooterHeight {
-    if(self.footer)
+    if(self.footer && !self.original_footer_height)
         self.original_footer_height = self.footer.frame.size.height;
-    else if(self.inside_footer)
+    else if(self.inside_footer && !self.original_footer_height)
         self.original_footer_height = self.inside_footer.frame.size.height;
     
     if(self.footer) {

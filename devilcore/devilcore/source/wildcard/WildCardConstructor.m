@@ -412,7 +412,7 @@ static NSString *default_project_id = nil;
     NSString *action = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     trigger.node = vv;
-    [[WildCardEventTracker sharedInstance] onClickEvent:vv.name];
+    [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga];
     [WildCardAction parseAndConducts:trigger action:action meta:recognizer.meta];
 }
 
@@ -422,7 +422,7 @@ static NSString *default_project_id = nil;
     NSString *script = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     trigger.node = vv;
-    [[WildCardEventTracker sharedInstance] onClickEvent:vv.name];
+    [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga];
     [WildCardAction execute:trigger script:script meta:recognizer.meta];
 }
 

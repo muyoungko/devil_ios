@@ -166,6 +166,7 @@
     float viewGap = self.view.frame.origin.y - self.originalY;
     int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
     self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
+    
 }
 
 - (void)keyboardDidShow:(NSNotification*)noti {

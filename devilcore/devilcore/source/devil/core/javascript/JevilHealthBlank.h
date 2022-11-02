@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol JevilHealthBlank <JSExport>
-
++ (void)requestPermission:(NSDictionary*)param:(JSValue *)callback;
++ (void)requestHealthData:(NSDictionary*)param :(JSValue *)callback;
 @end
 
 @interface JevilHealthBlank : NSObject <JevilHealthBlank>

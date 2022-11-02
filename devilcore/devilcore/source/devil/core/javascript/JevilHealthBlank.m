@@ -8,5 +8,11 @@
 #import "JevilHealthBlank.h"
 
 @implementation JevilHealthBlank
++ (void)requestPermission:(NSDictionary*)param:(JSValue *)callback {
+    
+}
 
++ (void)requestHealthData:(NSDictionary*)param :(JSValue *)callback {
+    
+}
 @end
