@@ -39,20 +39,20 @@
     NSString* mqtt_uri = self.marketJson[@"mqtt_uri"];
     NSURL* uri = [NSURL URLWithString:mqtt_uri];
     
-    
-    MQTTWebsocketTransport *transport = [[MQTTWebsocketTransport alloc] init];
-    transport.url = @"wss://aws.iot-amazonaws.com/mqtt?expiry='2018-05-01T23:12:32.950Z'";
-
-    
-    MQTTCFSocketTransport *transport = [[MQTTCFSocketTransport alloc] init];
-    transport.host = uri.host;
-    transport.port = [uri.port intValue];
-        
     MQTTSession *session = [[MQTTSession alloc] init];
     self.session = session;
     session.keepAliveInterval = 10;
     session.delegate = self;
-    session.transport = transport;
+    
+    {
+        MQTTCFSocketTransport *transport = [[MQTTCFSocketTransport alloc] init];
+        if([uri.scheme isEqualToString:@"mqtt+ssl"])
+            transport.tls = YES;
+        transport.host = uri.host;
+        transport.port = [uri.port intValue];
+        session.transport = transport;
+    }
+    
     if(self.marketJson[@"username"]) {
         session.userName = self.marketJson[@"username"];
         session.password = self.marketJson[@"password"];

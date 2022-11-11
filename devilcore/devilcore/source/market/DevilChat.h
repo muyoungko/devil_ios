@@ -7,7 +7,9 @@
 
 #import <Foundation/Foundation.h>
 #import "MarketComponent.h"
-@import MQTTClient;
+#import <MQTTClient/MQTTClient.h>
+#import <MQTTClient/MQTTSessionManager.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 

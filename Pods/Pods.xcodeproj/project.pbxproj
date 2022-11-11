@@ -62,7 +62,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 06CD00000E5D104EF80EE85FCE4E1C52 /* Build configuration list for PBXAggregateTarget "Google-Mobile-Ads-SDK" */;
 			buildPhases = (
-				A309D702AC14EE9FAAF0532DD5510014 /* [CP] Copy XCFrameworks */,
+				96648783AE4C81E37959A8018AD1B691 /* [CP] Copy XCFrameworks */,
 			);
 			dependencies = (
 				C6501A1A6748F54163D0F3F0854A9698 /* PBXTargetDependency */,
@@ -3765,7 +3765,6 @@
 		7A48C8072E5F19BD3AD37574FB98B03A /* LOTLayer.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LOTLayer.m; path = "lottie-ios/Classes/Models/LOTLayer.m"; sourceTree = "<group>"; };
 		7A77FDDAE13DCB662A8077190667ED16 /* ZXQRCodeDecodedBitStreamParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZXQRCodeDecodedBitStreamParser.h; path = ZXingObjC/qrcode/decoder/ZXQRCodeDecodedBitStreamParser.h; sourceTree = "<group>"; };
 		7AAEEA7E793F7BD1A0E2BBDAD338CE14 /* Partition.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Partition.swift; path = Sources/Algorithms/Partition.swift; sourceTree = "<group>"; };
-		7AD6E7221A0B1E5B8D140608CC65E28C /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = GoogleMobileAds.xcframework; path = "Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework"; sourceTree = "<group>"; };
 		7AD85BA57A867D7F16C18A92959AEFFF /* FIRComponentType.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRComponentType.m; path = FirebaseCore/Sources/FIRComponentType.m; sourceTree = "<group>"; };
 		7AF99991C2468A4644DBEE31C434B777 /* ZXBizcardResultParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZXBizcardResultParser.m; path = ZXingObjC/client/result/ZXBizcardResultParser.m; sourceTree = "<group>"; };
 		7B444EA70AFAEF64B0708B21DBB114FC /* FIRMessagingDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRMessagingDefines.h; path = FirebaseMessaging/Sources/FIRMessagingDefines.h; sourceTree = "<group>"; };
@@ -4441,6 +4440,7 @@
 		CAB7FFA5DE25689A942BFBE0C6ED5CD8 /* ZXAztecSimpleToken.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZXAztecSimpleToken.h; path = ZXingObjC/aztec/encoder/ZXAztecSimpleToken.h; sourceTree = "<group>"; };
 		CAC3093E0C4AA8C83F41CF6035A699D3 /* FIRResetPasswordRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRResetPasswordRequest.m; path = FirebaseAuth/Sources/Backend/RPC/FIRResetPasswordRequest.m; sourceTree = "<group>"; };
 		CAD981B50668657C12B4F64C8D62FA84 /* FIRCLSMultipartMimeStreamEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRCLSMultipartMimeStreamEncoder.h; path = Crashlytics/Shared/FIRCLSNetworking/FIRCLSMultipartMimeStreamEncoder.h; sourceTree = "<group>"; };
+		CAF1EAB015BE5B0A86DB222B2129040F /* GoogleMobileAds.xcframework */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = wrapper.xcframework; name = GoogleMobileAds.xcframework; path = Frameworks/GoogleMobileAdsFramework/GoogleMobileAds.xcframework; sourceTree = "<group>"; };
 		CAFBD3587065DA1FC41FF26B9D97A6F1 /* FIRInstallationsSingleOperationPromiseCache.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRInstallationsSingleOperationPromiseCache.h; path = FirebaseInstallations/Source/Library/InstallationsIDController/FIRInstallationsSingleOperationPromiseCache.h; sourceTree = "<group>"; };
 		CAFD36888F785FC03E40824C53045245 /* FIRDLRetrievalProcessFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRDLRetrievalProcessFactory.m; path = FirebaseDynamicLinks/Sources/FIRDLRetrievalProcessFactory.m; sourceTree = "<group>"; };
 		CB2298F6D3CB0A060C29C92F43E2FE2F /* FIRAuth_Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRAuth_Internal.h; path = FirebaseAuth/Sources/Auth/FIRAuth_Internal.h; sourceTree = "<group>"; };
@@ -6530,7 +6530,7 @@
 		4F8FB5CC14E0A7645C631D7B949B2F47 /* Google-Mobile-Ads-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				8E6680913D19561120A466BC8AFEB1FE /* Frameworks */,
+				CBBF68816F0C865E0AD8B4C73AD45346 /* Frameworks */,
 				83ED88BE268F85A20D973184CAA3EE44 /* Support Files */,
 			);
 			path = "Google-Mobile-Ads-SDK";
@@ -7365,14 +7365,6 @@
 			name = AdIdSupport;
 			sourceTree = "<group>";
 		};
-		8E6680913D19561120A466BC8AFEB1FE /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7AD6E7221A0B1E5B8D140608CC65E28C /* GoogleMobileAds.xcframework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		8E8CCA71729F87C44E99CF401860063D /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -7795,6 +7787,14 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/FirebaseCoreInternal";
+			sourceTree = "<group>";
+		};
+		CBBF68816F0C865E0AD8B4C73AD45346 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CAF1EAB015BE5B0A86DB222B2129040F /* GoogleMobileAds.xcframework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CD9837604D5F26ACD87443A32A0EC113 /* GoogleUserMessagingPlatform */ = {
@@ -10681,6 +10681,24 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/GoogleAppMeasurement/GoogleAppMeasurement-xcframeworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		96648783AE4C81E37959A8018AD1B691 /* [CP] Copy XCFrameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK-xcframeworks.sh",
+				"${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework/GoogleMobileAds.xcframework",
+			);
+			name = "[CP] Copy XCFrameworks";
+			outputPaths = (
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Google-Mobile-Ads-SDK/GoogleMobileAds.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK-xcframeworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A0F0124B706E783270413B9ACDE84BAD /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -10697,24 +10715,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/FirebaseAnalytics/FirebaseAnalytics-xcframeworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A309D702AC14EE9FAAF0532DD5510014 /* [CP] Copy XCFrameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK-xcframeworks.sh",
-				"${PODS_ROOT}/Google-Mobile-Ads-SDK/Frameworks/GoogleMobileAdsFramework-Current/GoogleMobileAds.xcframework",
-			);
-			name = "[CP] Copy XCFrameworks";
-			outputPaths = (
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Google-Mobile-Ads-SDK/GoogleMobileAds.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Google-Mobile-Ads-SDK/Google-Mobile-Ads-SDK-xcframeworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F063CC20DE3012551304CA9E69DB1708 /* [CP] Copy XCFrameworks */ = {
