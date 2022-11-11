@@ -45,8 +45,6 @@
         self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
     }
-    
-    [[WildCardEventTracker sharedInstance] onClickEvent:vv.name];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{
