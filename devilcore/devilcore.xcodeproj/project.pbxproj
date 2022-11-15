@@ -255,6 +255,8 @@
 		6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */; };
 		6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */; };
 		6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DD0987626A6AAEF000A913A /* devil_camera_record.wav */; };
+		6DDE203529222AEC00AD7F3C /* JevilAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DDE203329222AEC00AD7F3C /* JevilAnimation.h */; };
+		6DDE203629222AEC00AD7F3C /* JevilAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE203429222AEC00AD7F3C /* JevilAnimation.m */; };
 		6DE2BAFB27A8F2A7008344DE /* DevilRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE2BAF927A8F2A7008344DE /* DevilRecord.h */; };
 		6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */; };
 		6DEC183628484A0300B3FE88 /* DevilBle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183428484A0300B3FE88 /* DevilBle.h */; };
@@ -531,6 +533,8 @@
 		6DD0987126A69987000A913A /* ReplaceRuleQrcode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleQrcode.h; sourceTree = "<group>"; };
 		6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleQrcode.m; sourceTree = "<group>"; };
 		6DD0987626A6AAEF000A913A /* devil_camera_record.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = devil_camera_record.wav; sourceTree = "<group>"; };
+		6DDE203329222AEC00AD7F3C /* JevilAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilAnimation.h; sourceTree = "<group>"; };
+		6DDE203429222AEC00AD7F3C /* JevilAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAnimation.m; sourceTree = "<group>"; };
 		6DE2BAF927A8F2A7008344DE /* DevilRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilRecord.h; sourceTree = "<group>"; };
 		6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilRecord.m; sourceTree = "<group>"; };
 		6DEC183428484A0300B3FE88 /* DevilBle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBle.h; sourceTree = "<group>"; };
@@ -655,6 +659,8 @@
 				6DD097DC26A1AE29000A913A /* JevilFunctionUtil.m */,
 				6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */,
 				6DC0CE3528E5DDFB00195F60 /* JevilHealthBlank.m */,
+				6DDE203329222AEC00AD7F3C /* JevilAnimation.h */,
+				6DDE203429222AEC00AD7F3C /* JevilAnimation.m */,
 			);
 			path = javascript;
 			sourceTree = "<group>";
@@ -865,6 +871,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6DDE203729222BA400AD7F3C /* animation */,
 				6DEC1833284849EE00B3FE88 /* ble */,
 				6D98A83E2700D964004F3ECF /* alert */,
 				6DC6789B26EA296A0005728A /* link */,
@@ -1058,6 +1065,13 @@
 			path = camera;
 			sourceTree = "<group>";
 		};
+		6DDE203729222BA400AD7F3C /* animation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = animation;
+			sourceTree = "<group>";
+		};
 		6DEC1833284849EE00B3FE88 /* ble */ = {
 			isa = PBXGroup;
 			children = (
@@ -1201,6 +1215,7 @@
 				6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */,
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
 				6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */,
+				6DDE203529222AEC00AD7F3C /* JevilAnimation.h in Headers */,
 				6DC0CE3628E5DDFB00195F60 /* JevilHealthBlank.h in Headers */,
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
@@ -1488,6 +1503,7 @@
 				6D467AB6256AB07A006D57DD /* WildCardViewPagerRightAction.m in Sources */,
 				6D44337025881C3800B0E616 /* Jevil.m in Sources */,
 				6DF53B6F2658F3D3001FB1D6 /* DevilLocation.m in Sources */,
+				6DDE203629222AEC00AD7F3C /* JevilAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

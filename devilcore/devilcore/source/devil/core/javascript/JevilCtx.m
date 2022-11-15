@@ -9,6 +9,7 @@
 
 #import "JevilCtx.h"
 #import "Jevil.h"
+#import "JevilAnimation.h"
 #import "JevilHealthBlank.h"
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
@@ -38,6 +39,7 @@
     if (self) {
         self.jscontext = [[JSContext alloc] init];
         self.jscontext[@"Jevil"] = [Jevil class];
+        self.jscontext[@"JevilAnimation"] = [JevilAnimation class];
         id customJevil = [[DevilSdk sharedInstance] getCustomJevil];
         for(int i=0;i<[customJevil count];i++) {
             NSString* jevilName = NSStringFromClass(customJevil[i]);

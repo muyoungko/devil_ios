@@ -1640,4 +1640,11 @@
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_CUSTOM title:text log:log];
 }
 
++ (void)animationStart:(NSString*)node:(NSDictionary*)param{
+    
+}
+
++ (void)animationStop:(NSString*)node{
+    
+}
 @end

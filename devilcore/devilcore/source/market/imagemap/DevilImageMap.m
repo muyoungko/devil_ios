@@ -163,7 +163,7 @@ float borderWidth = 7;
             NSLog(@"%@, %@", self.editingPin[@"x"], self.editingPin[@"y"]);
             [self.pinLayer syncPinWithAnimation:self.editingPin[@"key"]];
             [self setMode:@"new_direction" : nil];
-            [self showPopup:@[@"취소"]];
+            [self showPopup:@[@"취소", @"완료"]];
         }
     } else if([self isPopupShow] && CGRectContainsPoint([WildCardUtil getGlobalFrame:self.popupView], tappedPoint)) {
         for(UIView* c in [self.popupView subviews]) {

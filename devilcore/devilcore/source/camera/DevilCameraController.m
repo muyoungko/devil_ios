@@ -335,7 +335,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.btnFlash = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff) :nil];
     self.btnFront = [self createButton:CGPointMake(sw-35, 80) :@"devil_camera_front_back" :30 :@selector(onClickFront:) :UIColorFromRGB(0xffffff) :nil];
     
-    self.btnTake = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_shutter" :70 :@selector(onClickTake:) :UIColorFromRGB(0x3cb043) :nil];
+    self.btnTake = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_shutter" :70 :@selector(onClickTake:) :UIColorFromRGB(0xffffff) :nil];
     self.btnRecordStart = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_record_start" :110 :@selector(onClickRecordStartOrStop:) :UIColorFromRGB(0xff0000) :nil];
     self.btnRecordStop = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_recording" :110 :@selector(onClickRecordStartOrStop:) : nil :nil];
     

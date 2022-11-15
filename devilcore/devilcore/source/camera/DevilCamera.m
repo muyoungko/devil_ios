@@ -12,6 +12,7 @@
 #import "DevilQrCameraController.h"
 #import "WildCardUtil.h"
 #import "DevilImagePickerController.h""
+#import "WildCardConstructor.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -219,7 +220,7 @@
 
 -(void)cameraOverlayUpdate:(UIView*)r :(BOOL)isLandscape :(BOOL)showFrame :(float)rate :(CGSize)previewSize{
     int preview_offset = 100;
-    if([WildCardUtil isTablet])
+    if([WildCardConstructor isTablet])
         preview_offset = 0;
         
     if(showFrame) {
@@ -235,7 +236,7 @@
             
             CGPoint previewCenter = CGPointMake(preview_offset + previewSize.width/2, sh/2);
             //폰에서는 previewSize가 가로세로가 반대로 나온다
-            if(![WildCardUtil isTablet])
+            if(![WildCardConstructor isTablet])
                 previewCenter = CGPointMake(preview_offset + previewSize.height/2, sh/2);
             
 //            UIView* frame = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame_sw, frame_sh)];
@@ -358,7 +359,7 @@
                     if(previewView)
                         previewViewSize = CGSizeMake(previewView.frame.size.width, previewView.frame.size.height);
                     [self cameraOverlayUpdate:over :isLandscape :showFrame :rate: previewViewSize];
-                    if([WildCardUtil isTablet])
+                    if([WildCardConstructor isTablet])
                         ;
                     else {
                         if(isLandscape)

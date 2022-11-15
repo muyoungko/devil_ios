@@ -8,6 +8,7 @@
 #import "DevilGalleryController.h"
 #import "DevilUtil.h"
 #import "DevilCamera.h"
+#import "WildCardConstructor.h"
 
 #define MARGIN 2
 #define COL 3
@@ -199,7 +200,7 @@
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    if(![WildCardUtil isTablet]) {
+    if(![WildCardConstructor isTablet]) {
         float s = ([UIScreen mainScreen].bounds.size.width - MARGIN*(COL)) / COL;
         return CGSizeMake(s, s);
     } else {
@@ -465,7 +466,7 @@
         {
             [manager requestImageForAsset:obj
                                targetSize:CGSizeMake(1024, 1024)
-                              contentMode:PHImageContentModeAspectFill
+                              contentMode:PHImageContentModeAspectFill 
                                   options:requestOptions
                             resultHandler:^void(UIImage *image, NSDictionary *info) {
                 
