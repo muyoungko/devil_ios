@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JevilLearning<JSExport>
  
 + (void)success;
++ (NSString*)getCurrentScreenId;
 + (NSString*)getText:(NSString*)node;
 + (NSString*)getImage:(NSString*)node;
 + (void)click:(NSString*)node;

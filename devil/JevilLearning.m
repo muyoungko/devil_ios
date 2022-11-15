@@ -14,6 +14,11 @@
 
 @implementation JevilLearning
 
++ (NSString*)getCurrentScreenId {
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    return dc.screenId;
+}
+
 + (NSString*)getText:(NSString*)node{
     DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
     WildCardUIView* v = [dc findView:node];
