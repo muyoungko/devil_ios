@@ -257,6 +257,10 @@
 		6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6DD0987626A6AAEF000A913A /* devil_camera_record.wav */; };
 		6DDE203529222AEC00AD7F3C /* JevilAnimation.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DDE203329222AEC00AD7F3C /* JevilAnimation.h */; };
 		6DDE203629222AEC00AD7F3C /* JevilAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE203429222AEC00AD7F3C /* JevilAnimation.m */; };
+		6DDE203B2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DDE20392923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.h */; };
+		6DDE203C2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE203A2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m */; };
+		6DDE203F2924D7BE00AD7F3C /* DevilFlingChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DDE203D2924D7BE00AD7F3C /* DevilFlingChecker.h */; };
+		6DDE20402924D7BE00AD7F3C /* DevilFlingChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */; };
 		6DE2BAFB27A8F2A7008344DE /* DevilRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE2BAF927A8F2A7008344DE /* DevilRecord.h */; };
 		6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */; };
 		6DEC183628484A0300B3FE88 /* DevilBle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183428484A0300B3FE88 /* DevilBle.h */; };
@@ -535,6 +539,10 @@
 		6DD0987626A6AAEF000A913A /* devil_camera_record.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = devil_camera_record.wav; sourceTree = "<group>"; };
 		6DDE203329222AEC00AD7F3C /* JevilAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilAnimation.h; sourceTree = "<group>"; };
 		6DDE203429222AEC00AD7F3C /* JevilAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAnimation.m; sourceTree = "<group>"; };
+		6DDE20392923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBlockDrawerMarketComponent.h; sourceTree = "<group>"; };
+		6DDE203A2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBlockDrawerMarketComponent.m; sourceTree = "<group>"; };
+		6DDE203D2924D7BE00AD7F3C /* DevilFlingChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilFlingChecker.h; sourceTree = "<group>"; };
+		6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilFlingChecker.m; sourceTree = "<group>"; };
 		6DE2BAF927A8F2A7008344DE /* DevilRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilRecord.h; sourceTree = "<group>"; };
 		6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilRecord.m; sourceTree = "<group>"; };
 		6DEC183428484A0300B3FE88 /* DevilBle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBle.h; sourceTree = "<group>"; };
@@ -899,6 +907,8 @@
 				6DC162442691711000FD769C /* DevilNavigationController.m */,
 				6DFA289828ED19DE007463FB /* WildCardEventTracker.h */,
 				6DFA289928ED19DE007463FB /* WildCardEventTracker.m */,
+				6DDE203D2924D7BE00AD7F3C /* DevilFlingChecker.h */,
+				6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1023,6 +1033,7 @@
 		6DD09434269C79CC000A913A /* market */ = {
 			isa = PBXGroup;
 			children = (
+				6DDE20382923BFF500AD7F3C /* blockdrawer */,
 				6DC0CE2F28E5973600195F60 /* chart */,
 				6D9A9DE328A372E7003302B3 /* imagemap */,
 				6DD0944A269C85A8000A913A /* MarketInstance.h */,
@@ -1070,6 +1081,15 @@
 			children = (
 			);
 			path = animation;
+			sourceTree = "<group>";
+		};
+		6DDE20382923BFF500AD7F3C /* blockdrawer */ = {
+			isa = PBXGroup;
+			children = (
+				6DDE20392923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.h */,
+				6DDE203A2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m */,
+			);
+			path = blockdrawer;
 			sourceTree = "<group>";
 		};
 		6DEC1833284849EE00B3FE88 /* ble */ = {
@@ -1141,6 +1161,7 @@
 				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
 				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
 				6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */,
+				6DDE203B2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.h in Headers */,
 				6DC0CE3228E5974E00195F60 /* DevilChartMarketComponent.h in Headers */,
 				6D862905287AAC5700E62B7B /* DevilBillSdk.h in Headers */,
 				6D8628FF287AAC5700E62B7B /* DevilAdsInstance.h in Headers */,
@@ -1210,6 +1231,7 @@
 				6D98A8412700D97D004F3ECF /* DevilAlertDialog.h in Headers */,
 				6D467AB8256AB07A006D57DD /* WildCardCustomAction.h in Headers */,
 				6D467ACA256AB07A006D57DD /* WildCardScreenTableView.h in Headers */,
+				6DDE203F2924D7BE00AD7F3C /* DevilFlingChecker.h in Headers */,
 				6D467A94256AB07A006D57DD /* ReplaceRuleLocalImage.h in Headers */,
 				6D9F7B1C26298952003A70EC /* WildCardProgressBar.h in Headers */,
 				6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */,
@@ -1453,6 +1475,7 @@
 				6D9F7AB92622EA57003A70EC /* DevilCamera.m in Sources */,
 				6D467AB3256AB07A006D57DD /* WildCardGridView.m in Sources */,
 				6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */,
+				6DDE20402924D7BE00AD7F3C /* DevilFlingChecker.m in Sources */,
 				6D3EBE7C25D9123F0006ADD5 /* ReplaceRuleIcon.m in Sources */,
 				6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */,
 				6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */,
@@ -1466,6 +1489,7 @@
 				6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */,
 				6DC6789F26EA29840005728A /* DevilLink.m in Sources */,
 				6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */,
+				6DDE203C2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m in Sources */,
 				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
 				6D9F7B1826298930003A70EC /* WildCardVideoView.m in Sources */,
 				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,

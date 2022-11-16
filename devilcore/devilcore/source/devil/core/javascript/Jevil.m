@@ -45,6 +45,10 @@
 #import <SafariServices/SafariServices.h>
 #import "DevilImageMap.h"
 #import "DevilFileChooser.h"
+#import "ReplaceRuleMarket.h"
+#import "ReplaceRule.h"
+#import "DevilBlockDrawerMarketComponent.h"
+#import "MarketInstance.h"
 
 @interface Jevil()
 
@@ -1428,6 +1432,39 @@
 + (void)menuClose{
     [DevilDrawer menuClose];
 }
++ (void)drawerOpen:(NSString*)node{
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* view = [vc findView:node];
+    DevilBlockDrawerMarketComponent* mc = (DevilBlockDrawerMarketComponent*)[MarketInstance findMarketComponent:vc.mainWc.meta replaceView:view];
+    [mc naviUp];
+    
+}
++ (void)drawerClose:(NSString*)node{
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* view = [vc findView:node];
+    DevilBlockDrawerMarketComponent* mc = (DevilBlockDrawerMarketComponent*)[MarketInstance findMarketComponent:vc.mainWc.meta replaceView:view];
+    [mc naviDown];
+}
++ (void)drawerMove:(NSString*)node :(int)offset{
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* view = [vc findView:node];
+    DevilBlockDrawerMarketComponent* mc = (DevilBlockDrawerMarketComponent*)[MarketInstance findMarketComponent:vc.mainWc.meta replaceView:view];
+    [mc naviUpPreview:[WildCardConstructor convertSketchToPixel:offset]];
+}
+
++ (void)drawerCallback:(NSString*)node: (NSString*)command :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* view = [vc findView:node];
+    DevilBlockDrawerMarketComponent* mc = (DevilBlockDrawerMarketComponent*)[MarketInstance findMarketComponent:vc.mainWc.meta replaceView:view];
+    
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [mc callback:command :^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
+
+
 
 + (void)setTimer:(NSString*)key :(int)milli_sec :(JSValue*)callback {
     

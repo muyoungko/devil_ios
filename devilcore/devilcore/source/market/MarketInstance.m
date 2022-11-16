@@ -12,6 +12,10 @@
 #import "DevilPicker.h"
 #import "DevilImageMapMarketComponent.h"
 #import "DevilChartMarketComponent.h"
+#import "DevilBlockDrawerMarketComponent.h"
+#import "WildCardMeta.h"
+#import "ReplaceRule.h"
+#import "ReplaceRuleMarket.h"
 
 @implementation MarketInstance
 
@@ -29,6 +33,8 @@
         r = [[DevilImageMapMarketComponent alloc] initWithLayer:market meta:meta];
     } else if([@"kr.co.july.chart" isEqualToString:type]) {
         r = [[DevilChartMarketComponent alloc] initWithLayer:market meta:meta];
+    } else if([@"kr.co.july.blockdrawer" isEqualToString:type]) {
+        r = [[DevilBlockDrawerMarketComponent alloc] initWithLayer:market meta:meta];
     } else {
         r = [[MarketComponent alloc] initWithLayer:market meta:meta];
     }
@@ -36,4 +42,14 @@
     return r;
 }
 
++(MarketComponent*)findMarketComponent:(id)meta replaceView:(id)vv{
+    WildCardMeta* mmeta = (WildCardMeta*)meta;
+    for(ReplaceRule* rule in mmeta.replaceRules) {
+        if([rule isKindOfClass:[ReplaceRuleMarket class]] && rule.replaceView == vv) {
+            ReplaceRuleMarket* m = (ReplaceRuleMarket*)rule;
+            return m.marketComponent;
+        }
+    }
+    return nil;
+}
 @end

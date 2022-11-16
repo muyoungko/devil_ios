@@ -115,6 +115,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)menuReady:(NSString*)node :(NSDictionary*)param;
 + (void)menuOpen:(NSString*)node;
 + (void)menuClose;
++ (void)drawerOpen:(NSString*)node;
++ (void)drawerClose:(NSString*)node;
++ (void)drawerMove:(NSString*)node :(int)offset;
++ (void)drawerCallback:(NSString*)node: (NSString*)command :(JSValue *)callback;
 + (void)setTimer:(NSString*)key :(int)milli_sec :(JSValue*)callback;
 + (void)removeTimer:(NSString*)key;
 + (void)beaconScan:(NSDictionary*)param :(JSValue*)callback :(JSValue*)foundCallback;
