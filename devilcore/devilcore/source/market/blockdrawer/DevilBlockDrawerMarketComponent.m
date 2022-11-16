@@ -85,7 +85,7 @@
             _to = 0;
         } else if(_right) {
             self.vv.frame = CGRectMake(self.vv.frame.origin.x, self.vv.frame.origin.y, self.vv.frame.size.width, self.vv.frame.size.height);
-            _from = [self.vv superview].frame.size.width - self.vv.frame.size.width;
+            _from = [self.vv superview].frame.size.width;
             _to = [self.vv superview].frame.size.width - self.vv.frame.size.width;
         }
     } else if(_vertical) {
