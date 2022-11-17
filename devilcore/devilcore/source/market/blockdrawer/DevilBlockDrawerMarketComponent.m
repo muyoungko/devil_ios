@@ -313,6 +313,8 @@
         toY = to;
     }
     
+    if(call && self.callbackUp) self.callbackUp(@{});
+    
     [UIView animateWithDuration:duration
                           delay:0.0f
                         options:UIViewAnimationOptionCurveEaseOut
@@ -321,7 +323,7 @@
                      }
                      completion:^(BOOL finished){
                          naviStatus = 1;
-        if(call && self.callbackUp) self.callbackUp(@{});
+        
                      }];
 }
 - (void)naviDown {
