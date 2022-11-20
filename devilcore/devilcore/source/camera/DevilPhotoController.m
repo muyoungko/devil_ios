@@ -12,6 +12,13 @@
 @property (nonatomic, retain) NSString* currentUrl;
 @property (nonatomic, retain) UIImageView* imageView;
 @property (nonatomic, retain) UIScrollView* scrollView;
+
+@property (nonatomic, retain) UICollectionView* collectionView;
+@property (nonatomic, retain) NSString* url;
+@property (nonatomic, retain) NSArray* urls;
+@property int selectedIndex;
+
+@property BOOL single;
 @end
 
 @implementation DevilPhotoController
@@ -20,7 +27,9 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     self.title = @"";
-    
+    self.single = self.param[@"urls"]?false:true;
+    self.url = self.param[@"url"];
+    self.urls = self.param[@"urls"];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -30,39 +39,171 @@
     float sw = self.view.frame.size.width;
     float sh = self.view.frame.size.height;
     
-    if(!self.imageView) {
-        UIImageView* image = [[UIImageView alloc] init];
-        self.imageView = image;
-        
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        
-        self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
-        self.scrollView.bounces = NO;
-        self.scrollView.bouncesZoom = NO;
-        self.scrollView.clipsToBounds = NO;
-        self.scrollView.autoresizesSubviews = NO;
-        _scrollView.userInteractionEnabled = YES;
-        _scrollView.scrollEnabled = YES;
-        _scrollView.contentSize = self.imageView.frame.size;
-        _scrollView.delegate = self;
-        
-        [self.view addSubview:_scrollView];
-        [_scrollView addSubview:self.imageView];
-        
-        self.imageView.frame = CGRectMake(0, 0, sw*4, sh*4);
-        self.scrollView.frame = CGRectMake(0, 0, sw, sh);
-        
-        self.scrollView.minimumZoomScale = 1.0f / 4.0f;
-        self.scrollView.maximumZoomScale = 3;
-        self.scrollView.zoomScale = 1.0f / 4.0f;
-        
-        _scrollView.contentSize = self.imageView.frame.size;
-        [self loadImage:self.param[@"url"] :self.imageView];
-        
-        [self constructNavigationButton];
+    
+    if(self.single) {
+        if(!self.imageView) {
+            UIImageView* image = [[UIImageView alloc] init];
+            self.imageView = image;
+            
+            self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+            
+            self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+            self.scrollView.bounces = NO;
+            self.scrollView.bouncesZoom = NO;
+            self.scrollView.clipsToBounds = NO;
+            self.scrollView.autoresizesSubviews = NO;
+            _scrollView.userInteractionEnabled = YES;
+            _scrollView.scrollEnabled = YES;
+            _scrollView.contentSize = self.imageView.frame.size;
+            _scrollView.delegate = self;
+            
+            [self.view addSubview:_scrollView];
+            [_scrollView addSubview:self.imageView];
+            
+            self.imageView.frame = CGRectMake(0, 0, sw*4, sh*4);
+            self.scrollView.frame = CGRectMake(0, 0, sw, sh);
+            
+            self.scrollView.minimumZoomScale = 1.0f / 4.0f;
+            self.scrollView.maximumZoomScale = 3;
+            self.scrollView.zoomScale = 1.0f / 4.0f;
+            
+            _scrollView.contentSize = self.imageView.frame.size;
+            [self loadImage:self.param[@"url"] :self.imageView];
+            
+            [self constructNavigationButton];
+        }
+    } else {
+        if(!self.collectionView) {
+            
+            UICollectionViewFlowLayout* flowLayout = [[UICollectionViewFlowLayout alloc] init];
+            flowLayout.itemSize = CGSizeMake(100, 100);
+            [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+            CGRect containerRect = CGRectMake(0, 0, sw, sh);
+            containerRect.origin.x = containerRect.origin.y = 0;
+            self.collectionView = [[UICollectionView alloc] initWithFrame:containerRect collectionViewLayout:flowLayout];
+            self.collectionView.frame = CGRectMake(0, 0, sw, sh);
+            self.collectionView.delegate = self;
+            self.collectionView.dataSource = self;
+            
+            [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"picture"];
+            
+            [self.collectionView setShowsHorizontalScrollIndicator:NO];
+            [self.collectionView setShowsVerticalScrollIndicator:NO];
+            
+            [self.view addSubview:self.collectionView];
+            self.view.backgroundColor = [UIColor blackColor];
+            
+            [self constructNavigationButton];
+            
+            int startIndex = 0;
+            for(int i=0;i<[self.urls count];i++) {
+                if([self.urls[i] isEqualToString:self.url]){
+                    startIndex = i;
+                    break;
+                }
+            }
+            if(startIndex > 0) {
+                [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:startIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+            }
+        }
     }
 }
 
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.urls? [self.urls count] : 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 0;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    float sw = self.view.frame.size.width;
+    float sh = self.view.frame.size.height;
+    return CGSizeMake(sw, sh);
+}
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    int position = (int)[indexPath row];
+    NSString* thisUrl = _urls[position];
+    NSString* type = @"picture";
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
+    
+    UIView* childUIView = cell;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 14.0) {
+        childUIView = cell;
+    } else {
+        childUIView = [[cell subviews] objectAtIndex:0];
+    }
+    
+    float s = childUIView.frame.size.width;
+    float sw = self.view.frame.size.width;
+    float sh = self.view.frame.size.height;
+    
+    //construct
+    if([[childUIView subviews] count] == 0)
+    {
+        //[UIView ]
+        childUIView.backgroundColor = UIColorFromRGB(0x000000);
+        UIImageView* image = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+        image.contentMode = UIViewContentModeScaleAspectFit;
+        image.tag = 13123;
+        [childUIView addSubview:image];
+    }
+    UIImageView* imageView = [childUIView viewWithTag:13123];
+    [self loadImage:thisUrl:imageView];
+    
+    return cell;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    float w = scrollView.frame.size.width;
+    float offset = targetContentOffset->x;
+    
+    //뷰페이저
+    float start = 0;
+    float contentWidth = self.view.frame.size.width;
+    if(self.collectionView){
+        targetContentOffset->x = scrollView.contentOffset.x;
+        int newIndex = _selectedIndex;
+        if(velocity.x > 0.5 || velocity.x < -0.5){
+            int sindex = (scrollView.contentOffset.x - start + contentWidth/2) / contentWidth;
+            int direction = velocity.x > 0.0 ? 1 : -1;
+            int tobeIndex = sindex+direction;
+            if(tobeIndex < 0 )
+                tobeIndex = 0;
+            else if(tobeIndex > [_urls count] -1 )
+                tobeIndex = [_urls count] -1;
+            newIndex = tobeIndex;
+            float tobe = -start + contentWidth*(tobeIndex);
+            [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
+                scrollView.contentOffset = CGPointMake(tobe, 0);
+                [scrollView layoutIfNeeded];
+            } completion:nil];
+        }
+        else
+        {
+            int sindex = (offset - start + contentWidth/2) / contentWidth;
+            newIndex = sindex;
+            [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:sindex inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
+        }
+        
+        _selectedIndex = newIndex;
+    }
+}
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     return self.imageView;

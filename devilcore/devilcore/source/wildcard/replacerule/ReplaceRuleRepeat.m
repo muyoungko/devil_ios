@@ -600,7 +600,7 @@
         
         [cv reloadData];
         
-        if(adapter.reserveSelectedIndex > 0) {
+        if(adapter.reserveSelectedIndex >= 0 && [adapter getCount] > 0) {
             [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(adapter.reserveSelectedIndex) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
             adapter.reserveSelectedIndex = -1;
         }

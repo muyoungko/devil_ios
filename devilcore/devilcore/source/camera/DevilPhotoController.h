@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilPhotoController : DevilBaseController
+@interface DevilPhotoController : DevilBaseController<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (nonatomic, retain) id param;
 

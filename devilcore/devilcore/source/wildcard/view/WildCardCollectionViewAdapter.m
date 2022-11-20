@@ -36,6 +36,7 @@
         self.visibleDataStringByIndexPath = [[NSMutableDictionary alloc] init];
         self.lastDataCount = 0;
         self.readyToCallScrollEnd = NO;
+        self.reserveSelectedIndex = -1;
         viewPagerSelectedIndex = 0;
         _pageControl = nil;
         _selectedIndex = 0;
