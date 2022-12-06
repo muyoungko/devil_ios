@@ -49,9 +49,9 @@
 #import "ReplaceRule.h"
 #import "DevilBlockDrawerMarketComponent.h"
 #import "MarketInstance.h"
+#import "DevilUtil.h"
 
 @interface Jevil()
-
 
 @end
 
@@ -1684,4 +1684,22 @@
 + (void)animationStop:(NSString*)node{
     
 }
+
++ (NSString*)sha256:(NSString*)text{
+    return [DevilUtil sha256:text];
+}
+
++ (NSString*)sha256ToHex:(NSString*)text{
+    return [DevilUtil sha256ToHex:text];
+}
+
++ (NSString*)sha256ToHash:(NSString*)text{
+    return [DevilUtil sha256ToHash:text];
+}
+
++ (NSString*)sha512ToHash:(NSString*)text{
+    return [DevilUtil sha512ToHash:text];
+}
+
+
 @end

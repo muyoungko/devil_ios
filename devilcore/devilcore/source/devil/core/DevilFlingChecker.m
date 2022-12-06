@@ -39,7 +39,7 @@
 
 -(int)getFling {
     NSTimeInterval end = ((DevilFlingCheckerItem*)[_list lastObject]).time;
-    NSTimeInterval start = ((DevilFlingCheckerItem*)[_list lastObject]).time;
+    NSTimeInterval start = ((DevilFlingCheckerItem*)[_list firstObject]).time;
     
     float minx = 10000, maxx = 0;
     float miny = 10000, maxy = 0;
@@ -68,14 +68,14 @@
     float vVertical = distanceVertical /(end-start);
     
     if(vHorizontal > vVertical) {
-        if(vHorizontal > 200) {
+        if(vHorizontal > 50) {
             if(directionHorizontal > 0)
                 return FLING_RIGHT;
             else
                 return FLING_LEFT;
         }
     } else {
-        if(vVertical > 200) {
+        if(vVertical > 50) {
             if(directionVertical > 0)
                 return FLING_DOWN;
             else

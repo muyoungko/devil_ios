@@ -54,6 +54,11 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(NSString*)orientationToString:(UIInterfaceOrientationMask)mask;
 +(NSString *) byteToHex : (NSData*)data;
 
++(NSString*)sha256:(NSString*)text;
++(NSString*)sha256ToHex:(NSString*)text;
++(NSString*)sha256ToHash:(NSString*)text;
++(NSString*)sha512ToHash:(NSString*)text;
+
 @end
 
 NS_ASSUME_NONNULL_END

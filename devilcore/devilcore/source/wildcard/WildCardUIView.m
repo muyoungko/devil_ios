@@ -40,18 +40,33 @@
     return [NSString stringWithFormat:@"%@ name : %@",s,  _name];
 }
 
+//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
+//
+//    if(self.touchCallback) {
+//        NSLog(@"pointInside %@", self.name);
+//    }
+//
+//    BOOL r = [super pointInside:point withEvent:event];
+//    return r;
+//}
+
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+//    NSLog(@"hitTest %@", self.name);
     if(self.touchCallback) {
-        UIView* r = [super hitTest:point withEvent:event];
-//        NSLog(@"%@", self);
+//        UIView* r = [super hitTest:point withEvent:event];
 //        NSLog(@"frame - %f, %f, %f, %f", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
 //        NSLog(@"point - %f, %f", point.x, point.y);
 //        NSLog(@"--------------------");
-        if(r == nil && point.x > 0 && point.x < self.frame.size.width &&
-           point.y > 0 && point.y < self.frame.size.height)
+        if(
+           //r == nil &&
+           point.x > 0 && point.x < self.frame.size.width &&
+           point.y > 0 && point.y < self.frame.size.height) {
+//            NSLog(@"hitTest return self");
             return self;
-        else
-            return r;
+        } else {
+            //NSLog(@"hitTest return %@", ((WildCardUIView*)r).name);
+            return [super hitTest:point withEvent:event];
+        }
     } else
         return [super hitTest:point withEvent:event];
 }
@@ -70,6 +85,7 @@
     
     return ;
 }
+
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if(touches.count > 1 || !self.touchCallback)

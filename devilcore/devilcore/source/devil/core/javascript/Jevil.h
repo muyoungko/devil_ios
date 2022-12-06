@@ -152,6 +152,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)getByte:(NSString*)text;
 + (void)configHost:(NSString*)host;
 + (void)log:(NSString*)text:(NSDictionary*)log;
++ (NSString*)sha256:(NSString*)text;
++ (NSString*)sha256ToHex:(NSString*)text;
++ (NSString*)sha256ToHash:(NSString*)text;
++ (NSString*)sha512ToHash:(NSString*)text;
 
 @end
 

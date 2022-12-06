@@ -189,6 +189,7 @@
     float yv = 0;
     float fast = 100;
     int fling = [self.flingChecker getFling];
+    //NSLog(@"fling - %d", fling);
     if(fling > 0) {
         if(_horizontal) {
             if(_left) {

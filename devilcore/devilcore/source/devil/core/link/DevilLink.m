@@ -147,14 +147,30 @@
     return r;
 }
 
--(BOOL)checkNotificationShouldShow:(NSDictionary*)data {
+-(BOOL)checkNotificationShouldShow:(NSDictionary*)ndata {
+    NSMutableDictionary* data = [ndata mutableCopy];
+    if(data[@"extra"] && [data[@"extra"] isKindOfClass:[NSString class]]) {
+        NSString* s = data[@"extra"];
+        NSData *jsonData = [s dataUsingEncoding:NSUTF8StringEncoding];
+        NSError *error;
+        id extra = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        id ks = [extra allKeys];
+        for(id k in ks) {
+            ((NSMutableDictionary*)data)[k] = extra[k];
+        }
+    }
+    
     NSString* show = @"force";
     if(data[@"show"])
         show = data[@"show"];
     id cond = @{};
     if(data[@"cond"]) {
-        NSString* condString = data[@"cond"];
-        cond = [NSJSONSerialization JSONObjectWithData:[condString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        if([data[@"cond"] isKindOfClass:[NSString class]]) {
+            NSString* condString = data[@"cond"];
+            cond = [NSJSONSerialization JSONObjectWithData:[condString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        } else {
+            cond = data[@"cond"];
+        }
     }
     if([show isEqualToString:@"force"])
         return true;
