@@ -53,12 +53,12 @@
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
 //    NSLog(@"hitTest %@", self.name);
     if(self.touchCallback) {
-//        UIView* r = [super hitTest:point withEvent:event];
+        UIView* r = [super hitTest:point withEvent:event];
 //        NSLog(@"frame - %f, %f, %f, %f", self.frame.origin.x, self.frame.origin.y, self.frame.size.width, self.frame.size.height);
 //        NSLog(@"point - %f, %f", point.x, point.y);
 //        NSLog(@"--------------------");
         if(
-           //r == nil &&
+           r == nil &&
            point.x > 0 && point.x < self.frame.size.width &&
            point.y > 0 && point.y < self.frame.size.height) {
 //            NSLog(@"hitTest return self");

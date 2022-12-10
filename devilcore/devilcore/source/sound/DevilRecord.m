@@ -30,7 +30,7 @@
 
 - (void)playBeep{
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *path = [bundle pathForResource:@"devil_camera_record" ofType:@"wav"];
+    NSString *path = [bundle pathForResource:@"devil_record_start" ofType:@"mp3"];
     
     NSError *error;
     self.beepPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
@@ -81,7 +81,11 @@
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5f * NSEC_PER_SEC);
     dispatch_after(popTime, dispatch_get_main_queue(), ^{
         callback([@{@"url":self.targetPath} mutableCopy]);
+        
+        [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.2f];
     });
+    
+    
 }
 
 - (void)cancel {

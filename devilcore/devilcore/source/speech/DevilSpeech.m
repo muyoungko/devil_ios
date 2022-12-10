@@ -8,7 +8,7 @@
 #import "DevilSpeech.h"
 @import Speech;
 
-@interface DevilSpeech () <SFSpeechRecognizerDelegate, SFSpeechRecognitionTaskDelegate, AVSpeechSynthesizerDelegate>
+@interface DevilSpeech () <SFSpeechRecognizerDelegate, SFSpeechRecognitionTaskDelegate, AVSpeechSynthesizerDelegate, AVAudioPlayerDelegate>
 
 @property void (^callback)(id text);
 @property (nonatomic, strong) SFSpeechRecognizer* speechRecognizer;
@@ -33,13 +33,28 @@
 }
 
 - (void)playBeep{
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    NSString *path = [bundle pathForResource:@"devil_camera_record" ofType:@"wav"];
+    
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: nil];
     
     NSError *error;
-    self.beepPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *path = [bundle pathForResource:@"devil_record_start" ofType:@"mp3"];
+    self.beepPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:&error];
     self.beepPlayer.numberOfLoops = 1;
-    [self.beepPlayer play];
+    self.beepPlayer.currentTime = 0.0;
+    self.beepPlayer.volume = 1.0f;
+    
+    BOOL playback = [self.beepPlayer play];
+    
+    self.beepPlayer.delegate = self;
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
+    NSLog(@"audioPlayerDidFinishPlaying");
+}
+
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError * __nullable)error{
+    NSLog(@"audioPlayerDecodeErrorDidOccur %@", error);
 }
 
 - (void)listen:(id)param :(void (^)(id text))callback {
@@ -48,7 +63,7 @@
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         if(status == SFSpeechRecognizerAuthorizationStatusAuthorized){
             self.callback = callback;
-            
+
             [self playBeep];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self performSelector:@selector(listenCore:) withObject:param afterDelay:0.5f];
@@ -86,7 +101,7 @@
     
     [self.audioEngine prepare];
     [self.audioEngine startAndReturnError:nil];
-    
+     
     self.text = @"";
     dispatch_async(dispatch_get_main_queue(), ^{
         [self performSelector:@selector(finish) withObject:nil afterDelay:4];
@@ -113,10 +128,6 @@
 - (void) stop {
     if(self.audioEngine != nil && self.audioEngine.isRunning) {
         [self.audioEngine stop];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.2f];
-        });
     }
     
     if(self.recognitionRequest)
@@ -129,7 +140,9 @@
     self.recognitionRequest = nil;
     self.audioEngine = nil;
     
-    [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    //[[AVAudioSession sharedInstance] setActive:NO error:nil];
+    
+    [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.5f];
 }
 - (void)speechRecognitionDidDetectSpeech:(SFSpeechRecognitionTask *)task{
     NSLog(@"speechRecognitionDidDetectSpeech");
@@ -157,6 +170,7 @@
     if([self.text length] >= 4) {
         [self finish];
     }
+
 }
 
 - (void)speechRecognitionTask:(SFSpeechRecognitionTask *)task didHypothesizeTranscription:(SFTranscription *)transcription{
