@@ -683,6 +683,10 @@
                         contentType = @"image/png";
                     else if([path hasSuffix:@"mp4"])
                         contentType = @"video/mp4";
+                    else if([path hasSuffix:@"pdf"])
+                        contentType = @"application/pdf";
+                    else
+                        contentType = @"application/octet-stream";
                     
                     if([data length] == 0) {
                         s3index++;
