@@ -14,10 +14,10 @@
 @import devillogin;
 //@import devilhealth;
 @import devilnfc;
-@import GoogleMobileAds;
 @import FirebaseDynamicLinks;
 @import FirebaseAnalytics;
 @import FirebaseAuth;
+@import GoogleMobileAds;
 
 #import <AFNetworking/AFNetworking.h>
 #import "UIImageView+AFNetworking.h"
@@ -175,6 +175,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilNfc class]];
     
     [DevilSdk sharedInstance].devilSdkGADelegate = self;
+    [GADMobileAds.sharedInstance startWithCompletionHandler:nil];
     
     if(launchOptions == nil){
         [self preparePushToken:application];
@@ -215,23 +216,18 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
       
     GIDConfiguration* signInConfig = [[GIDConfiguration alloc] initWithClientID:clientId];
     self.devilGoogleLogin = [DevilGoogleLogin sharedInstance];
-    [GIDSignIn.sharedInstance signInWithConfiguration:signInConfig presentingViewController:self.navigationController.topViewController callback:^(GIDGoogleUser * _Nullable user, NSError * _Nullable error) {
-        
-        if (error == nil) {
-            GIDAuthentication *authentication = user.authentication;
-            FIRAuthCredential *credential =
-            [FIRGoogleAuthProvider credentialWithIDToken:authentication.idToken
-                                           accessToken:authentication.accessToken];
+    [GIDSignIn.sharedInstance signInWithPresentingViewController:self.navigationController.topViewController completion:^(GIDSignInResult * _Nullable signInResult, NSError * _Nullable error) {
+        if (error == nil && signInResult != nil) {
         
             
             if(self.devilGoogleLogin) {
-                NSString *userId = user.userID;
-                NSString *token = user.authentication.idToken;
-                NSString *name = user.profile.name;
-                NSString *email = user.profile.email;
+                NSString *userId = signInResult.user.userID;
+                NSString *token = signInResult.user.idToken.tokenString;
+                NSString *name = signInResult.user.profile.name;
+                NSString *email = signInResult.user.profile.email;
                 NSString *profile = nil;
-                if([user.profile hasImage])
-                    profile = [[user.profile imageURLWithDimension:120] absoluteString];
+                if([signInResult.user.profile hasImage])
+                    profile = [[signInResult.user.profile imageURLWithDimension:120] absoluteString];
                 [[DevilGoogleLogin sharedInstance] googleSignInSuccess:YES userId:userId name:name profile:profile email:email token:token];
                 self.devilGoogleLogin = nil;
             }
@@ -242,6 +238,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             }
         }
     }];
+//    [GIDSignIn.sharedInstance signInWithConfiguration:signInConfig presentingViewController:self.navigationController.topViewController callback:^(GIDGoogleUser * _Nullable user, NSError * _Nullable error) {
+//
+//
+//    }];
 }
 
 
@@ -448,9 +448,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             if([s hasPrefix:@"["]) {
                 id a = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
                 success([@{@"devil_list":a} mutableCopy]);
-            } else {
+            } else if([s hasPrefix:@"{"]) {
                 id a = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
                 success(a);
+            } else {
+                success([@{@"string":s} mutableCopy]);
             }
         }
     }
@@ -556,9 +558,17 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }
     else return nil;
 }
-    
+
     
 //GOOGLE Ads delegate
+-(UIView*)createBanner:(id)params {
+    GADBannerView* bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeBanner];
+    bannerView.adUnitID = @"ca-app-pub-5134106554966339/4881221230";
+    bannerView.rootViewController = [self.navigationController topViewController];
+    [bannerView loadRequest:[GADRequest request]];
+    return bannerView;
+}
+
 -(void)loadAds:(id)params complete:(void (^)(id res))callback{
     NSString* adUnitId = params[@"adUnitId"];
     GADRequest *request = [GADRequest request];

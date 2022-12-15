@@ -113,6 +113,7 @@ framework module GoogleMobileAds {
   header "Mediation/GADMediationAdRequest.h"
   header "Mediation/GADMediationAdSize.h"
   header "Mediation/GADMediationAdapter.h"
+  header "Mediation/GADMediationAppOpenAd.h"
   header "Mediation/GADMediationBannerAd.h"
   header "Mediation/GADMediationInterstitialAd.h"
   header "Mediation/GADMediationNativeAd.h"

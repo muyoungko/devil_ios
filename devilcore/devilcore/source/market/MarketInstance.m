@@ -13,6 +13,7 @@
 #import "DevilImageMapMarketComponent.h"
 #import "DevilChartMarketComponent.h"
 #import "DevilBlockDrawerMarketComponent.h"
+#import "DevilGoogleAdsBannerMarketComponent.h"
 #import "WildCardMeta.h"
 #import "ReplaceRule.h"
 #import "ReplaceRuleMarket.h"
@@ -35,6 +36,8 @@
         r = [[DevilChartMarketComponent alloc] initWithLayer:market meta:meta];
     } else if([@"kr.co.july.blockdrawer" isEqualToString:type]) {
         r = [[DevilBlockDrawerMarketComponent alloc] initWithLayer:market meta:meta];
+    }  else if([@"kr.co.july.googleads" isEqualToString:type]) {
+        r = [[DevilGoogleAdsBannerMarketComponent alloc] initWithLayer:market meta:meta];
     } else {
         r = [[MarketComponent alloc] initWithLayer:market meta:meta];
     }

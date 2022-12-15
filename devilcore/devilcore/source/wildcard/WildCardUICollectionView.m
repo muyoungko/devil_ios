@@ -34,7 +34,7 @@
     if([REPEAT_TYPE_HLIST isEqualToString:self.repeatType])
         [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:ani];
     else
-        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:ani];
+        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:ani];
 }
     
 -(void)scrollToCore:(NSNumber*)index{
@@ -42,7 +42,7 @@
     if([REPEAT_TYPE_HLIST isEqualToString:self.repeatType])
         [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:self.reservedAni];
     else
-        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:self.reservedAni];
+        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:self.reservedAni];
     
 //    if(self.delegate) {
 //        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)self.delegate;

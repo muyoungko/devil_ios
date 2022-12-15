@@ -855,7 +855,7 @@
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             WildCardUICollectionView* list = (WildCardUICollectionView*)[[vc findView:nodeName] subviews][0];
             if(list != nil)
-                [list asyncScrollTo:index:!noani];
+                [list scrollTo:index:!noani];
         } else {
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             if(vc.tv != nil)

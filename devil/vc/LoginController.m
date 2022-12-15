@@ -76,12 +76,12 @@
     } else if([@"login_google" isEqualToString:functionName]){
         
         GIDConfiguration* signInConfig = [[GIDConfiguration alloc] initWithClientID:@"257412051634-gnkm5n8p37jocftjutrbq2amj00qk34f.apps.googleusercontent.com"];
-        [GIDSignIn.sharedInstance signInWithConfiguration:signInConfig presentingViewController:self callback:^(GIDGoogleUser * _Nullable user, NSError * _Nullable error) {
-            if (error) {
+        [GIDSignIn.sharedInstance signInWithPresentingViewController:self completion:^(GIDSignInResult * _Nullable signInResult, NSError * _Nullable error) {
+            if (error || signInResult == nil) {
               return;
             }
             
-            [self googleLoginCallback:YES didSignInForUser:user];
+            [self googleLoginCallback:YES didSignInForUser:signInResult.user];
         }];
         
         return YES;
@@ -192,7 +192,7 @@
     if(user == nil)
         return;
     NSString *userId = user.userID;                  // For client-side use only!
-    __block NSString *token = user.authentication.idToken; // Safe to send to the server
+    __block NSString *token = user.idToken.tokenString; // Safe to send to the server
     __block NSString *name = user.profile.name;
     NSString *email = user.profile.email;
     NSString *profile = nil;

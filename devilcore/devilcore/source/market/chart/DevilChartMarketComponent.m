@@ -47,18 +47,13 @@
     _chart.drawGridBackgroundEnabled = NO;
     
     _chart.xAxis.labelPosition = XAxisLabelPositionBottom;
-    _chart.xAxis.drawGridLinesEnabled = NO;
+    _chart.xAxis.drawGridLinesEnabled = YES;
     _chart.xAxis.granularity = 1.0f;
     _chart.xAxis.centerAxisLabelsEnabled = NO;
-    _chart.xAxis.labelFont = [UIFont systemFontOfSize:14.f];
+    _chart.xAxis.labelFont = [UIFont systemFontOfSize:11.f];
     
-    _chart.leftAxis.labelCount = 5;
-    _chart.leftAxis.labelFont = [UIFont systemFontOfSize:10.f];
-    _chart.leftAxis.labelCount = 8;
     _chart.leftAxis.labelPosition = YAxisLabelPositionOutsideChart;
-    _chart.leftAxis.spaceTop = 0.15;
-    _chart.leftAxis.axisMinimum = 0.0; // this replaces startAtZero = YES
-    _chart.leftAxis.labelFont = [UIFont systemFontOfSize:14.f];
+    _chart.leftAxis.labelFont = [UIFont systemFontOfSize:11.f];
     
     ChartYAxis *rightAxis = _chart.rightAxis;
     rightAxis.enabled = YES;
@@ -80,6 +75,7 @@
     l.xEntrySpace = 4.0;
     
     _chart.extraTopOffset = 8.0f;
+    _chart.extraRightOffset = 8.0f;
     _chart.extraBottomOffset = 8.0f;
 }
 
@@ -104,6 +100,22 @@
     id list = chart_data[@"list"];
     self.list = list;
     id keys = chart_data[@"keys"];
+    
+    
+    if(chart_data[@"ymax"]) {
+        _chart.leftAxis.axisMaximum = [chart_data[@"ymax"] floatValue]; // this replaces startAtZero = YES
+    }
+    if(chart_data[@"ymin"]) {
+        _chart.leftAxis.axisMinimum = [chart_data[@"ymin"] floatValue]; // this replaces startAtZero = YES
+    }
+    if(chart_data[@"ylabel_count"]) {
+        _chart.leftAxis.labelCount = [chart_data[@"ylabel_count"] intValue];
+    }
+    if(chart_data[@"ylabel_granularity"]) {
+        _chart.leftAxis.granularity = [chart_data[@"ylabel_granularity"] intValue];
+    }
+    
+    
     
     if([@"bar" isEqualToString:self.type]) {
         id dataSetList = [@[] mutableCopy];

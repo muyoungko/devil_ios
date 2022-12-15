@@ -30,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @protocol DevilSdkGoogleAdsDelegate<NSObject>
-@required
+@optional
+-(UIView*)createBanner:(id)params;
 -(void)loadAds:(id)params complete:(void (^)(id res))callback;
 -(void)showAds:(id)params complete:(void (^)(id res))callback;
 @end

@@ -505,7 +505,7 @@
                     WildCardUIView* prevView = (WildCardUIView*)((CreatedViewInfo*)[repeatRule.createdRepeatView objectAtIndex:i-1]).view;
                     [meta addNextChain:prevView next:thisNode margin:margin nextType:nextType depth:containerDepth];
                 } else {
-                    if(nextType = WC_NEXT_TYPE_HORIZONTAL)
+                    if(nextType == WC_NEXT_TYPE_HORIZONTAL)
                         thisNode.frame = CGRectMake([(WildCardUIView*)[thisNode superview] paddingLeft] , thisNode.frame.origin.y, thisNode.frame.size.width, thisNode.frame.size.height);
                     else
                         thisNode.frame = CGRectMake(thisNode.frame.origin.x, [(WildCardUIView*)[thisNode superview] paddingTop] , thisNode.frame.size.width, thisNode.frame.size.height);

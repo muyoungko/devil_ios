@@ -266,6 +266,8 @@
 		6DEC183628484A0300B3FE88 /* DevilBle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183428484A0300B3FE88 /* DevilBle.h */; };
 		6DEC183728484A0300B3FE88 /* DevilBle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC183528484A0300B3FE88 /* DevilBle.m */; };
 		6DECCD4A2943694D007FBBD9 /* devil_record_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DECCD492943694D007FBBD9 /* devil_record_start.mp3 */; };
+		6DECCD4E294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DECCD4C294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.h */; };
+		6DECCD4F294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DECCD4D294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.m */; };
 		6DED70DD28B1F5E1004A180F /* devil_camera_system_landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DED70DC28B1F5E1004A180F /* devil_camera_system_landscape.xib */; };
 		6DF377C627B3AC360050E1DA /* DevilLang.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF377C427B3AC360050E1DA /* DevilLang.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DF377C727B3AC360050E1DA /* DevilLang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF377C527B3AC360050E1DA /* DevilLang.m */; };
@@ -549,6 +551,8 @@
 		6DEC183428484A0300B3FE88 /* DevilBle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBle.h; sourceTree = "<group>"; };
 		6DEC183528484A0300B3FE88 /* DevilBle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBle.m; sourceTree = "<group>"; };
 		6DECCD492943694D007FBBD9 /* devil_record_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = devil_record_start.mp3; sourceTree = "<group>"; };
+		6DECCD4C294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGoogleAdsBannerMarketComponent.h; sourceTree = "<group>"; };
+		6DECCD4D294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGoogleAdsBannerMarketComponent.m; sourceTree = "<group>"; };
 		6DED70DC28B1F5E1004A180F /* devil_camera_system_landscape.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = devil_camera_system_landscape.xib; sourceTree = "<group>"; };
 		6DF377C427B3AC360050E1DA /* DevilLang.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLang.h; sourceTree = "<group>"; };
 		6DF377C527B3AC360050E1DA /* DevilLang.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLang.m; sourceTree = "<group>"; };
@@ -1036,6 +1040,7 @@
 		6DD09434269C79CC000A913A /* market */ = {
 			isa = PBXGroup;
 			children = (
+				6DECCD4B294AFAE0007FBBD9 /* ads */,
 				6DDE20382923BFF500AD7F3C /* blockdrawer */,
 				6DC0CE2F28E5973600195F60 /* chart */,
 				6D9A9DE328A372E7003302B3 /* imagemap */,
@@ -1102,6 +1107,15 @@
 				6DEC183528484A0300B3FE88 /* DevilBle.m */,
 			);
 			path = ble;
+			sourceTree = "<group>";
+		};
+		6DECCD4B294AFAE0007FBBD9 /* ads */ = {
+			isa = PBXGroup;
+			children = (
+				6DECCD4C294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.h */,
+				6DECCD4D294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.m */,
+			);
+			path = ads;
 			sourceTree = "<group>";
 		};
 		6DF377C327B3ABEE0050E1DA /* lang */ = {
@@ -1255,6 +1269,7 @@
 				6D467AB5256AB07A006D57DD /* WildCardUILabel.h in Headers */,
 				6D467AA9256AB07A006D57DD /* WildCardUtil.h in Headers */,
 				6D467B8C257CF2F7006D57DD /* JevilAction.h in Headers */,
+				6DECCD4E294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.h in Headers */,
 				6DD0944C269C85A8000A913A /* MarketInstance.h in Headers */,
 				6D4433692588065400B0E616 /* JevilCtx.h in Headers */,
 				6D467AB1256AB07A006D57DD /* WildCardCollectionViewAdapter.h in Headers */,
@@ -1523,6 +1538,7 @@
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,
 				6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */,
 				6D9F7C832637FE5E003A70EC /* ReplaceRuleWeb.m in Sources */,
+				6DECCD4F294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.m in Sources */,
 				6D467AC6256AB07A006D57DD /* WildCardExtensionConstructor.m in Sources */,
 				6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */,
 				6D9E2B1425BB41160027D16D /* WildCardPagerTabStripCell.m in Sources */,
