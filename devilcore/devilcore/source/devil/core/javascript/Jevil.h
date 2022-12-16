@@ -156,6 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString*)sha256ToHex:(NSString*)text;
 + (NSString*)sha256ToHash:(NSString*)text;
 + (NSString*)sha512ToHash:(NSString*)text;
++ (void)gaEvent:(NSDictionary*)param;
 
 @end
 

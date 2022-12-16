@@ -238,10 +238,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             }
         }
     }];
-//    [GIDSignIn.sharedInstance signInWithConfiguration:signInConfig presentingViewController:self.navigationController.topViewController callback:^(GIDGoogleUser * _Nullable user, NSError * _Nullable error) {
-//
-//
-//    }];
 }
 
 
@@ -563,7 +559,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 //GOOGLE Ads delegate
 -(UIView*)createBanner:(id)params {
     GADBannerView* bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeBanner];
-    bannerView.adUnitID = @"ca-app-pub-5134106554966339/4881221230";
+    bannerView.adUnitID = params[@"adUnitId"];
     bannerView.rootViewController = [self.navigationController topViewController];
     [bannerView loadRequest:[GADRequest request]];
     return bannerView;

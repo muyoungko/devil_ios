@@ -1705,5 +1705,10 @@
     return [DevilUtil sha512ToHash:text];
 }
 
++ (void)gaEvent:(NSDictionary*)param{
+    if([DevilSdk sharedInstance].devilSdkGADelegate) {
+        [[DevilSdk sharedInstance].devilSdkGADelegate onEvent:[WildCardConstructor sharedInstance].project_id eventType:@"custom" viewName:param[@"event"]];
+    }
+}
 
 @end
