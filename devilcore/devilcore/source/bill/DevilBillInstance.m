@@ -247,7 +247,7 @@
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
                 if(self.purchaseCallback){
-                    self.purchaseCallback(@{@"r":@FALSE});
+                    self.purchaseCallback(@{@"r":@FALSE, @"code":@"cancel"});
                     self.purchaseCallback = nil;
                 }
                 

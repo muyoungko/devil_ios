@@ -238,6 +238,10 @@ static BOOL IS_TABLET = NO;
         case GRAVITY_HCENTER_BOTTOM:
             return;
     }
+    
+    if(layer[@"market"] && [@"kr.co.july.blockdrawer" isEqualToString:layer[@"market"][@"type"]])
+        return;
+    
     float y = [frame[@"y"] floatValue];
     float h = [frame[@"h"] floatValue];
 

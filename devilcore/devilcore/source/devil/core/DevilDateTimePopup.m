@@ -98,18 +98,25 @@
     }
     
     UIDatePicker* datepicker = [[UIDatePicker alloc]initWithFrame:CGRectMake(0, titleHeight, w, h)];
-    if(selectedKey && [selectedKey length] == 8 && isDate) {
+    if(selectedKey && [selectedKey isKindOfClass:[NSString class]] && [selectedKey length] == 8 && isDate) {
         NSDateFormatter *df = [[NSDateFormatter alloc]init];
         [df setDateFormat:@"yyyyMMdd"];
         datepicker.date = [df dateFromString:selectedKey];
         self.date = selectedKey;
-    } else if(selectedKey && [selectedKey length] == 4 && !isDate) {
+    } else if(selectedKey && [selectedKey isKindOfClass:[NSString class]] && [selectedKey length] == 4 && !isDate) {
         NSDateFormatter *df = [[NSDateFormatter alloc]init];
         [df setDateFormat:@"HHmm"];
         datepicker.date = [df dateFromString:selectedKey];
         self.date = selectedKey;
-    } else
+    } else {
+        NSDateFormatter *df = [[NSDateFormatter alloc]init];
+        if(isDate)
+            [df setDateFormat:@"yyyyMMdd"];
+        else
+            [df setDateFormat:@"HHmm"];
         datepicker.date = [NSDate date];
+        self.date = [df stringFromDate:[NSDate date]];
+    }
     
     if([param[@"future"] boolValue])
         datepicker.minimumDate = [NSDate date];

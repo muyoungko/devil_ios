@@ -25,13 +25,24 @@
     DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
     UIDevice *device = [UIDevice currentDevice];
     NSString* udid = [[device identifierForVendor] UUIDString];
+    
+    BOOL targetDevice = false;
+    __block id debug_view_udid_list = [WildCardConstructor sharedInstance].project[@"debug_view_udid_list"];
+    if(debug_view_udid_list) {
+        for(id d in debug_view_udid_list){
+            if([udid isEqualToString:d[@"udid"]])
+                targetDevice = true;
+        }
+    }
+    
     if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"]
        && (![@"1605234988599" isEqualToString:dc.projectId] ||
-           [@"CD44C803-7AAE-420F-A1DE-276E81847FAE" isEqualToString:udid]
-           )
-       
+           [@"CD44C803-7AAE-420F-A1DE-276E81847FAE" isEqualToString:udid])
        )
     {
+        DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
+        [vc.view addSubview:debug];
+    } else if(targetDevice) {
         DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
         [vc.view addSubview:debug];
     }

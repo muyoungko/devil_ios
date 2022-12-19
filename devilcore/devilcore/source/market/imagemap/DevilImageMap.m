@@ -108,7 +108,7 @@ float borderWidth = 7;
 }
 
 -(void)onClickListener:(UIGestureRecognizer *)recognizer {
-//    NSLog(@"onClickListener");
+    NSLog(@"onClickListener");
     CGPoint tappedPoint = [recognizer locationInView:self];
     if([@"normal" isEqualToString:self.mode]) {
         for(id pin in self.pinList) {
@@ -123,35 +123,6 @@ float borderWidth = 7;
         if(self.clickCallback)
             self.clickCallback([@{} mutableCopy]);
     } else if([@"new" isEqualToString:self.mode]) {
-        CGPoint mp = [self clickToMapPoint:tappedPoint];
-        BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
-        if(inMap) {
-            id p = [@{} mutableCopy];
-            p[@"x"] = [NSNumber numberWithFloat:mp.x];
-            p[@"y"] = [NSNumber numberWithFloat:mp.y];
-            p[@"key"] = @"10000";
-            p[@"text"] = [NSString stringWithFormat:@"%lu", [self.pinList count]+1];
-            if(self.param && self.param[@"text"])
-                p[@"text"] = self.param[@"text"];
-
-            if(self.param[@"color"])
-                p[@"color"] = self.param[@"color"];
-            else
-                p[@"color"] = @"#90ff0000";
-            
-            p[@"degree"] = @0;
-            p[@"hideDirection"] = @TRUE;
-            self.insertingPin = p;
-            
-            [self syncPin];
-            
-            if(![self.param[@"autoComplete"] boolValue])
-                [self showPopup:@[@"취소"]];
-            
-            [self setMode:@"new_direction" : self.param];
-            if(self.pinCallback)
-                self.pinCallback([@{@"mode":self.mode} mutableCopy]);
-        }
         
     } else if([@"edit" isEqualToString:self.mode]) {
         
@@ -249,6 +220,9 @@ float borderWidth = 7;
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = point;
+    if([self.mode isEqualToString:@"new"])
+        return self;
+    
     if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
         if(_editingPin) {
             self.touchingPin = _editingPin;
@@ -267,11 +241,47 @@ float borderWidth = 7;
     return [super hitTest:point withEvent:event];
 }
 
+- (void)insertNewPin:(CGPoint)tappedPoint {
+    CGPoint mp = [self clickToMapPoint:tappedPoint];
+    BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
+    if(inMap) {
+        id p = [@{} mutableCopy];
+        p[@"x"] = [NSNumber numberWithFloat:mp.x];
+        p[@"y"] = [NSNumber numberWithFloat:mp.y];
+        p[@"key"] = @"10000";
+        p[@"text"] = [NSString stringWithFormat:@"%lu", [self.pinList count]+1];
+        if(self.param && self.param[@"text"])
+            p[@"text"] = self.param[@"text"];
+
+        if(self.param[@"color"])
+            p[@"color"] = self.param[@"color"];
+        else
+            p[@"color"] = @"#90ff0000";
+        
+        p[@"degree"] = @0;
+        p[@"hideDirection"] = @TRUE;
+        self.insertingPin = p;
+        
+        [self syncPin];
+        
+        if(![self.param[@"autoComplete"] boolValue])
+            [self showPopup:@[@"취소"]];
+        
+        [self setMode:@"new_direction" : self.param];
+        if(self.pinCallback)
+            self.pinCallback([@{@"mode":self.mode} mutableCopy]);
+    }
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 //    NSLog(@"touchesBegan");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
-    if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
+    //if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"])
+    if([self.mode isEqualToString:@"new"])
+    {
+        [self insertNewPin:clickP];
+        self.mode = @"new_direction";
         if(_editingPin) {
             self.touchingPin = _editingPin;
         } else {
@@ -432,6 +442,7 @@ float borderWidth = 7;
 
 - (void)setMode:(NSString*)mode :(id)param {
     if([@"normal" isEqualToString:mode]) {
+        [_pinLayer.pinList removeObject:self.insertingPin];
         self.editingPin = self.insertingPin = nil;
         [self.pinLayer highlight:nil];
     }
