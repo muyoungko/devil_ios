@@ -20,6 +20,7 @@
 #import "JevilInstance.h"
 #import "JevilCtx.h"
 #import "WildCardProgressBar.h"
+#import "WildCardUILabel.h"
 
 @implementation WildCardExtensionConstructor
 
@@ -91,22 +92,85 @@
             NSString* activeCircleColor = extension[@"select6"];
             NSString* inactiveCircleInnerColor = extension[@"select7"];
             NSString* inactiveCircleBorderColor = extension[@"select8"];
+            NSString* type = extension[@"select9"];
             
-            WildCardUIPageControl* pc = [[WildCardUIPageControl alloc] initWithFrame:CGRectMake(0, 0, extensionContainer.frame.size.width, extensionContainer.frame.size.height)];
-            if(inactiveCircleBorderColor)
-                pc.pageIndicatorTintColor = [WildCardUtil colorWithHexString:inactiveCircleBorderColor];
-            else
-                pc.pageIndicatorTintColor = [UIColor lightGrayColor];
+            if([@"number" isEqualToString:type]) {
+                UIView* vv = extensionContainer;
+                WildCardUILabel* tv = [[WildCardUILabel alloc] init];
+                [vv addSubview:tv];
+                
+                tv.frame = CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);
+                tv.lineBreakMode = NSLineBreakByTruncatingTail;
+                
+                NSDictionary* textSpec = [layer objectForKey:@"textSpec"];
+                
+                if([[textSpec objectForKey:@"stroke"] boolValue])
+                    tv.stroke = YES;
+                else
+                    tv.stroke = NO;
+                
+                int halignment = 1;
+                int valignment = 0;
+                if([textSpec objectForKey:@"alignment"] != nil)
+                    halignment = [[textSpec objectForKey:@"alignment"] intValue];
+                if([textSpec objectForKey:@"valignment"] != nil)
+                    valignment = [[textSpec objectForKey:@"valignment"] intValue];
+                
+                if(halignment == 3)
+                    halignment = GRAVITY_LEFT;
+                else if(halignment == 17)
+                    halignment = GRAVITY_HORIZONTAL_CENTER;
+                else if(halignment == 5)
+                    halignment = GRAVITY_RIGHT;
+                
+                if(valignment == 0) {
+                    valignment = GRAVITY_TOP;
+                }
+                else if(valignment == 1) {
+                    valignment = GRAVITY_VERTICAL_CENTER;
+                }
+                else if(valignment == 2) {
+                    valignment = GRAVITY_BOTTOM;
+                }
+                
+                tv.alignment = halignment | valignment;
+                
+                if([WildCardUtil hasGravityCenterHorizontal:tv.alignment])
+                    tv.textAlignment = NSTextAlignmentCenter;
+                else if([WildCardUtil hasGravityRight:tv.alignment])
+                    tv.textAlignment = NSTextAlignmentRight;
+                
+                
+                float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
+                
+                if([[textSpec objectForKey:@"bold"] boolValue])
+                {
+                    tv.font = [UIFont boldSystemFontOfSize:textSize];
+                }
+                else
+                {
+                    tv.font = [UIFont systemFontOfSize:textSize];
+                }
+                tv.textColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
+                return tv;
+            } else {
+                WildCardUIPageControl* pc = [[WildCardUIPageControl alloc] initWithFrame:CGRectMake(0, 0, extensionContainer.frame.size.width, extensionContainer.frame.size.height)];
+                if(inactiveCircleBorderColor)
+                    pc.pageIndicatorTintColor = [WildCardUtil colorWithHexString:inactiveCircleBorderColor];
+                else
+                    pc.pageIndicatorTintColor = [UIColor lightGrayColor];
+                
+                if(activeCircleColor)
+                    pc.currentPageIndicatorTintColor = [WildCardUtil colorWithHexString:activeCircleColor];
+                else
+                    pc.pageIndicatorTintColor = [UIColor grayColor];
+                pc.meta = meta;
+                pc.viewPagerNodeName = viewPagerNodeName;
+                [pc addTarget:[WildCardConstructor sharedInstance] action:@selector(onExtensionPageControlClickListener:) forControlEvents:UIControlEventValueChanged];
+                
+                return pc;
+            }
             
-            if(activeCircleColor)
-                pc.currentPageIndicatorTintColor = [WildCardUtil colorWithHexString:activeCircleColor];
-            else
-                pc.pageIndicatorTintColor = [UIColor grayColor];
-            pc.meta = meta;
-            pc.viewPagerNodeName = viewPagerNodeName;
-            [pc addTarget:[WildCardConstructor sharedInstance] action:@selector(onExtensionPageControlClickListener:) forControlEvents:UIControlEventValueChanged];
-            
-            return pc;
             break;
         }
     }
@@ -130,21 +194,30 @@
         case WILDCARD_EXTENSION_TYPE_BILL_BOARD_PAGER:
         {
             NSString* viewPagerNodeName = extension[@"select3"];
+            NSString* type = extension[@"select9"];
             WildCardUIView* vv = meta.generatedViews[viewPagerNodeName];
             if(vv != nil && [[vv subviews] count] > 0)
             {
                 UICollectionView* cv = [vv subviews][0];
                 WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
-                adapter.pageControl = [[rule.replaceView subviews] objectAtIndex:0];
-                adapter.pageControl.numberOfPages = [adapter.data count];
-                if([adapter.data count] == 1)
-                    adapter.pageControl.hidden = YES;
-                else
-                    adapter.pageControl.hidden = NO;
-                [adapter addViewPagerSelected:^(int index) {
-                    adapter.pageControl.currentPage = index;
-                }];
-                
+                if([@"number" isEqualToString:type]) {
+                    UILabel *label = [rule.replaceView subviews][0];
+                    label.text = [NSString stringWithFormat:@"%d / %d", 1, (int)[adapter.data count]];
+                    [adapter addViewPagerSelected:^(int index) {
+                        UILabel *label = [rule.replaceView subviews][0];
+                        label.text = [NSString stringWithFormat:@"%d / %d", (index)+1, (int)[adapter.data count]];
+                    }];
+                } else {
+                    adapter.pageControl = [[rule.replaceView subviews] objectAtIndex:0];
+                    adapter.pageControl.numberOfPages = [adapter.data count];
+                    if([adapter.data count] == 1)
+                        adapter.pageControl.hidden = YES;
+                    else
+                        adapter.pageControl.hidden = NO;
+                    [adapter addViewPagerSelected:^(int index) {
+                        adapter.pageControl.currentPage = index;
+                    }];
+                }
             }
             
             break;
