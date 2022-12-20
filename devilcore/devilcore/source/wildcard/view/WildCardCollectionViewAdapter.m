@@ -420,7 +420,7 @@
 
 -(void)autoSwipe:(BOOL)s{
     if(s) {
-        if(self.timer)
+        if(!self.timer)
             self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(swipe) userInfo:nil repeats:YES];
     } else {
         if(self.timer)
