@@ -75,7 +75,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)cameraQr:(NSDictionary*)param :(JSValue *)callback;
 + (void)cameraQrClose;
 + (void)share:(NSString*)url;
-+ (void)out:(NSString*)url;
++ (void)out:(NSString*)url :(BOOL)force;
 + (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback;
 + (void)downloadAndView:(NSString*)url;
 + (void)downloadAndShare:(NSString*)url;

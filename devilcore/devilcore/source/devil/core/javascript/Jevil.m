@@ -1125,8 +1125,8 @@
     [[JevilInstance currentInstance].vc presentViewController:activityViewControntroller animated:true completion:nil];
 }
 
-+ (void)out:(NSString*)url{
-    if([url hasPrefix:@"http"]) {
++ (void)out:(NSString*)url :(BOOL)force {
+    if([url hasPrefix:@"http"] && !force) {
         SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
         [[JevilInstance currentInstance].vc presentViewController:svc animated:YES completion:nil];
     } else {
