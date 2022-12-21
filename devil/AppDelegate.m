@@ -38,12 +38,13 @@
 
 #import "LoginController.h"
 
-@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate>
+@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate, GADFullScreenContentDelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
 @property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
 @property(nonatomic, strong) GADInterstitialAd *interstitial;
 @property (nonatomic, retain) GADRewardedAd* rewardedAd;
+@property void (^adsCallback)(id res);
 
 @end
 
@@ -567,29 +568,44 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 -(void)loadAds:(id)params complete:(void (^)(id res))callback{
     NSString* adUnitId = params[@"adUnitId"];
+    NSString* type = params[@"type"];
     GADRequest *request = [GADRequest request];
-      [GADRewardedAd
-           loadWithAdUnitID:adUnitId
-                    request:request
-          completionHandler:^(GADRewardedAd *ad, NSError *error) {
+    if([@"interstitial" isEqualToString:type]) {
+        [GADInterstitialAd loadWithAdUnitID:adUnitId
+                                      request:request
+                            completionHandler:^(GADInterstitialAd *ad, NSError *error) {
             if (error) {
-              NSLog(@"Rewarded ad failed to load with error: %@", [error localizedDescription]);
-                callback([@{@"r":@FALSE} mutableCopy]);
+                callback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
             } else {
-                self.rewardedAd = ad;
-                if(self.rewardedAd) {
-                    id r = [@{@"r":@TRUE,} mutableCopy];
-                    r[@"type"] = self.rewardedAd.adReward.type;
-                    r[@"reward"] = self.rewardedAd.adReward.amount;
-                    callback(r);
-                } else
-                    callback([@{@"r":@FALSE} mutableCopy]);
+                self.interstitial = ad;
+                self.interstitial.fullScreenContentDelegate = self;
+                id r = [@{@"r":@TRUE,} mutableCopy];
+                callback(r);
             }
           }];
+    } else {
+        [GADRewardedAd
+             loadWithAdUnitID:adUnitId
+                      request:request
+            completionHandler:^(GADRewardedAd *ad, NSError *error) {
+              if (error) {
+                  callback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
+              } else {
+                  self.rewardedAd = ad;
+                  id r = [@{@"r":@TRUE,} mutableCopy];
+                  r[@"type"] = self.rewardedAd.adReward.type;
+                  r[@"reward"] = self.rewardedAd.adReward.amount;
+                  callback(r);
+              }
+            }];
+    }
 }
 
 -(void)showAds:(id)params complete:(void (^)(id res))callback{
-    if(self.rewardedAd) {
+    if(self.interstitial) {
+        self.adsCallback = callback;
+        [self.interstitial presentFromRootViewController:[JevilInstance currentInstance].vc];
+    } else if(self.rewardedAd) {
         [self.rewardedAd presentFromRootViewController:[JevilInstance currentInstance].vc
                                       userDidEarnRewardHandler:^{
                                         GADAdReward *reward = self.rewardedAd.adReward;
@@ -610,6 +626,28 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     return r;
 }
 
+/// Tells the delegate that the ad failed to present full screen content.
+- (void)ad:(nonnull id<GADFullScreenPresentingAd>)ad didFailToPresentFullScreenContentWithError:(nonnull NSError *)error {
+    if(self.adsCallback) {
+        self.adsCallback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
+        self.adsCallback = nil;
+    }
+}
+
+/// Tells the delegate that the ad will present full screen content.
+- (void)adWillPresentFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+    NSLog(@"Ad will present full screen content.");
+}
+
+/// Tells the delegate that the ad dismissed full screen content.
+- (void)adDidDismissFullScreenContent:(nonnull id<GADFullScreenPresentingAd>)ad {
+    if(self.adsCallback) {
+        self.adsCallback([@{@"r":@TRUE} mutableCopy]);
+        self.adsCallback = nil;
+    }
+}
+
+    
 - (void)onScreen:(NSString *)projectId screenId:(NSString *)screenId screenName:(NSString *)screenName {
     if(projectId == nil || screenId == nil || screenName == nil)
         return;

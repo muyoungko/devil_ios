@@ -203,6 +203,7 @@
                 if([@"number" isEqualToString:type]) {
                     UILabel *label = [rule.replaceView subviews][0];
                     label.text = [NSString stringWithFormat:@"%d / %d", 1, (int)[adapter.data count]];
+                    rule.replaceView.hidden = [adapter.data count] <= 1;
                     [adapter addViewPagerSelected:^(int index) {
                         UILabel *label = [rule.replaceView subviews][0];
                         label.text = [NSString stringWithFormat:@"%d / %d", (index)+1, (int)[adapter.data count]];
