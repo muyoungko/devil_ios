@@ -127,7 +127,7 @@
 
 - (void)uiSet:(float)x {
     
-    float toX = 0, toY = 0;
+    float toX = _movingContentView.frame.origin.x, toY = _movingContentView.frame.origin.y;
     if(_horizontal) {
         if (_left) {
             if (x < _from)
@@ -303,6 +303,7 @@
 - (void)naviUp {
     [self naviUp:_to:true];
 }
+
 - (void)naviUp:(int)to:(BOOL)call
 {
     naviStatus = 1;
@@ -310,7 +311,9 @@
     float toX=0, toY=0;
     if(_horizontal) {
         toX = to;
+        toY = _movingContentView.frame.origin.y;
     } else {
+        toX = _movingContentView.frame.origin.x;
         toY = to;
     }
     
@@ -340,7 +343,9 @@
     float toX=0, toY=0;
     if(_horizontal) {
         toX = _from;
+        toY = _movingContentView.frame.origin.y;
     } else {
+        toX = _movingContentView.frame.origin.x;
         toY = _from;
     }
     
