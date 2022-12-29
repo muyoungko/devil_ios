@@ -35,15 +35,10 @@
     
 }
 
-//- (void)loginButton:(FBSDKLoginButton *)loginButton
-//didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
-//              error:(NSError *)error {
-//    if (error == nil && !result.isCancelled) {
-//
-//    } else {
-//        NSLog(error.localizedDescription);
-//    }
-//}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self hideNavigationBar];
+}
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
 {
@@ -74,8 +69,6 @@
     } else if([@"login_fb" isEqualToString:functionName]){
         return YES;
     } else if([@"login_google" isEqualToString:functionName]){
-        
-        GIDConfiguration* signInConfig = [[GIDConfiguration alloc] initWithClientID:@"257412051634-gnkm5n8p37jocftjutrbq2amj00qk34f.apps.googleusercontent.com"];
         [GIDSignIn.sharedInstance signInWithPresentingViewController:self completion:^(GIDSignInResult * _Nullable signInResult, NSError * _Nullable error) {
             if (error || signInResult == nil) {
               return;
@@ -87,6 +80,12 @@
         return YES;
     } else if([@"login_apple" isEqualToString:functionName]){
         [self haddleAppleLogin];
+        return YES;
+    } else if([@"login_force" isEqualToString:functionName]){
+        [self.navigationController popViewControllerAnimated:YES];
+        DevilController* v = [[DevilController alloc] init];
+        v.screenId = @"56560571";
+        [self.navigationController pushViewController:v animated:true];
         return YES;
     } else if([@"join" isEqualToString:functionName]){
         JoinController* vc = [[JoinController alloc] init];

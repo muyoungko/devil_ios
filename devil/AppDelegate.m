@@ -37,6 +37,7 @@
 #import "JevilLearning.h"
 
 #import "LoginController.h"
+#import "MainV2Controller.h"
 
 @interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate, GADFullScreenContentDelegate>
 
@@ -486,6 +487,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         [DevilSdk start:learn_project_id screenId:screen_id controller:[LearningController class] viewController:[JevilInstance currentInstance].vc complete:^(BOOL res) {
             [dc stopLoading];
         }];
+    } else if([@"login_success" isEqualToString:functionName]) {
+        NSString* token = [Jevil get:@"x-access-token"];
+        MainV2Controller* v = [[MainV2Controller alloc] init];
+        v.screenId = @"56553391";
+        [self.navigationController setViewControllers:@[v]];
     }
 }
 
