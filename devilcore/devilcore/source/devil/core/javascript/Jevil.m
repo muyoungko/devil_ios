@@ -1711,4 +1711,13 @@
     }
 }
 
++ (BOOL)isScreenOrientationLandscape{
+    DevilController* dc = [JevilInstance currentInstance].vc;
+    return dc.landscape;
+}
+
++ (BOOL)isTablet{
+    return [WildCardUtil isTablet];
+}
+
 @end
