@@ -168,10 +168,10 @@ static NSString *default_project_id = nil;
     [[NSUserDefaults standardUserDefaults] setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"x-access-token_1605234988599"]
                                               forKey:[NSString stringWithFormat:@"DEVIL_X_ACCESS_TOKEN_%@", project_id]];
     
+    [WildCardConstructor resetIsTablet];
     [[NSUserDefaults standardUserDefaults] setObject:IS_TABLET?@"Y":@"N" forKey:[NSString stringWithFormat:@"IS_TABLET_%@", project_id]];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [WildCardConstructor resetIsTablet];
     [WildCardConstructor resetSketchWidth];
 }
 

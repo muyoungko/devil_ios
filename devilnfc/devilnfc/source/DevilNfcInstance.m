@@ -48,15 +48,16 @@
 
 - (void)tagReaderSession:(NFCTagReaderSession *)session didInvalidateWithError:(NSError *)error API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos, macos, tvos) {
     NSLog(@"didInvalidateWithError");
-    if(self.callback) {
-        id r = [@{} mutableCopy];
-        r[@"r"] = @FALSE;
-        r[@"msg"] = @"cancel";
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.callback(r);
-            self.callback = nil;
-        });
-    }
+    //잘읽었는데도 여기가 호출된다
+//    if(self.callback) {
+//        id r = [@{} mutableCopy];
+//        r[@"r"] = @FALSE;
+//        r[@"msg"] = @"cancel";
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            self.callback(r);
+//            self.callback = nil;
+//        });
+//    }
 }
 
 - (void)tagReaderSessionDidBecomeActive:(NFCTagReaderSession *)session API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos, macos, tvos) {
@@ -71,6 +72,20 @@
         NSData* sn = [[tag asNFCISO7816Tag] identifier];
         NSString* idd = [DevilUtil byteToHex:sn];
         [session connectToTag:tag completionHandler:^(NSError * _Nullable error) {
+            if(error) {
+                if(self.callback) {
+                    id r = [@{} mutableCopy];
+                    r[@"r"] = @FALSE;
+                    r[@"id"] = idd;
+                    r[@"msg"] = [error localizedDescription];
+                    NSLog(@"%@", [error localizedDescription]);
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.callback(r);
+                        self.callback = nil;
+                    });
+                }
+                return ;
+            }
             [tag queryNDEFStatusWithCompletionHandler:^(NFCNDEFStatus status, NSUInteger capacity, NSError * _Nullable error) {
                 if(status == NFCNDEFStatusReadWrite || status == NFCNDEFStatusReadOnly) {
                     if(self.param[@"write"] && (self.param[@"write"][@"hex"] || self.param[@"write"][@"text"])) {

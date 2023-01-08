@@ -57,3 +57,15 @@ pod 'KakaoSDKStory', '2.11.3'  # 카카오스토리
 참고 https://devtalk.kakao.com/t/swift5-7-xcode14-beta3/124083/12
 
 facebook sdk의 team sigin은 적절히 변경 
+
+# NFC TAG ndef read troubleshooting 
+https://stackoverflow.com/questions/56453525/missing-required-entitlement-for-nfctagreadersession
+put it in the info plist
+<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+<array>
+    <string>D2760000850101</string>
+</array>
+<key>com.apple.developer.nfc.readersession.felica.systemcodes</key>
+<array>
+    <string>12FC</string>
+</array>

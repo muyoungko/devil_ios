@@ -100,6 +100,18 @@
     [n popViewControllerAnimated:NO];
     [n pushViewController:d animated:NO];
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_SCREEN title:screenName log:param];
+    
+    /**
+     만약 현재 화면이 루트 화면이면 orientation이 변경이 콜되지 않는다 강제로 콜해줘야함
+     */
+    if([WildCardConstructor isTablet] && [n.viewControllers count] == 2) {
+        NSString* orientation = [Jevil get:@"ORIENTATION"];
+        if(orientation != nil && [@"landscape" isEqualToString:orientation] )
+            [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationLandscapeLeft) forKey:@"orientation"];
+        else
+            [[UIDevice currentDevice] setValue:@(UIInterfaceOrientationPortrait) forKey:@"orientation"];
+        [UINavigationController attemptRotationToDeviceOrientation];
+    }
 }
 
 + (void)rootScreen:(NSString*)screenName :(id)param{

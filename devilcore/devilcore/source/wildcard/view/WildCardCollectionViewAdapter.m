@@ -437,7 +437,20 @@
     if(index >= count)
         index = 0;
     
-    [self scrollToIndex:index view:self.collectionView];
+    UIResponder* responder = [self.collectionView nextResponder];
+    BOOL active = NO;
+    while (responder != nil) {
+        if ([responder isKindOfClass:[UIViewController class]]) {
+            UIViewController* vc = (UIViewController*)responder;
+            if(vc.navigationController.topViewController == vc) {
+                active = YES;
+            }
+        }
+        responder = [responder nextResponder];
+    }
+    
+    if(active)
+        [self scrollToIndex:index view:self.collectionView];
 }
 
 

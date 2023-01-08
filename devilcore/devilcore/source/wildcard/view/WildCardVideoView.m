@@ -32,13 +32,11 @@
     _playerViewController.view.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
     _playerViewController.showsPlaybackControls = NO;
     _playerViewController.delegate = self;
-    _playerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill;
     _playerViewController.player.automaticallyWaitsToMinimizeStalling = NO;
     
     [self addSubview:_playerViewController.view];
     
     _imageView = (UIImageView*)[[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
-    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.imageView.hidden = YES;
     [self addSubview:_imageView];
@@ -200,6 +198,14 @@
 }
 
 - (void)setPreview:(NSString*)ppath video:(NSString*)vpath force:(BOOL)force{
+    
+    if(self.centerInside) {
+        _playerViewController.videoGravity = AVLayerVideoGravityResizeAspect;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    } else {
+        _playerViewController.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    }
     
     if(vpath == nil) {
         if(_playerViewController != nil)

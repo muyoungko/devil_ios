@@ -31,7 +31,9 @@
     NSString* autoPlay = video[@"autoPlay"];
     NSString* previewUrl = [MappingSyntaxInterpreter interpret:previewUrlJsonPath :opt];
     NSString* videoUrl = [MappingSyntaxInterpreter interpret:videoUrlJsonPath :opt];
+    
     WildCardVideoView* videoView = (WildCardVideoView*)self.replaceView;
+    videoView.centerInside = [@"center_inside" isEqualToString:video[@"scaleType"]];
     [videoView setAutoPlay:[@"Y" isEqualToString:autoPlay]];
     [videoView setPreview:previewUrl video:videoUrl];
     if(videoUrl) {

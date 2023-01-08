@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)play;
 +(void)autoPlay;
 @property BOOL autoPlay;
+@property BOOL centerInside;
 @property (nonatomic, retain) AVPlayerViewController *playerViewController;
 @property (nonatomic, retain) UIImageView* imageView;
 

@@ -214,6 +214,7 @@
                     [self naviDown];
                 else if(fling == FLING_UP)
                     [self naviUp];
+                
             }
         }
     }
