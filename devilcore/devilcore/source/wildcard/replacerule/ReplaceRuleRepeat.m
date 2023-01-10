@@ -658,9 +658,9 @@
                 return @"6";
             else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode7If data: targetDataJson[position]])
                 return @"7";
-            else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode8If data: targetDataJson[position]])
+            else if(targetLayer8 != nil && [MappingSyntaxInterpreter ifexpression:targetNode8If data: targetDataJson[position]])
                 return @"8";
-            else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
+            else if(targetLayer9 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
                 return @"9";
             return @"2";
         };
