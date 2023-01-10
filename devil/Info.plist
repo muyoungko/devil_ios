@@ -220,6 +220,14 @@
     <string>257412051634-gnkm5n8p37jocftjutrbq2amj00qk34f.apps.googleusercontent.com</string>
     <key>GADApplicationIdentifier</key>
     <string>ca-app-pub-5134106554966339~3381545842</string>
+    <key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
+    <array>
+        <string>D2760000850101</string>
+    </array>
+    <key>com.apple.developer.nfc.readersession.felica.systemcodes</key>
+    <array>
+        <string>12FC</string>
+    </array>
     <key>SKAdNetworkItems</key>
       <array>
         <dict>

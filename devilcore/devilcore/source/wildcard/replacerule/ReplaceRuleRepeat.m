@@ -250,6 +250,8 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"5"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"6"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"7"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"8"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"9"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         [container setShowsHorizontalScrollIndicator:false];
@@ -420,6 +422,8 @@
     NSString* targetNode5 = [arrayContent objectForKey:@"targetNode5"];
     NSString* targetNode6 = [arrayContent objectForKey:@"targetNode6"];
     NSString* targetNode7 = [arrayContent objectForKey:@"targetNode7"];
+    NSString* targetNode8 = [arrayContent objectForKey:@"targetNode8"];
+    NSString* targetNode9 = [arrayContent objectForKey:@"targetNode9"];
     NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
     NSString* targetNodeSurfixIf = [arrayContent objectForKey:@"targetNodeSurfixIf"];
     NSString* targetNodePrefixIf = [arrayContent objectForKey:@"targetNodePrefixIf"];
@@ -427,6 +431,8 @@
     NSString* targetNode5If = [arrayContent objectForKey:@"targetNode5If"];
     NSString* targetNode6If = [arrayContent objectForKey:@"targetNode6If"];
     NSString* targetNode7If = [arrayContent objectForKey:@"targetNode7If"];
+    NSString* targetNode8If = [arrayContent objectForKey:@"targetNode8If"];
+    NSString* targetNode9If = [arrayContent objectForKey:@"targetNode9If"];
     
     NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"]; 
     NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
@@ -445,6 +451,8 @@
     NSDictionary* targetLayer5 = nil;
     NSDictionary* targetLayer6 = nil;
     NSDictionary* targetLayer7 = nil;
+    NSDictionary* targetLayer8 = nil;
+    NSDictionary* targetLayer9 = nil;
     
     for(int i=0;i<[targetDataJson count];i++)
     {
@@ -470,6 +478,8 @@
     targetLayer5 = [self getReferenceBlock:targetNode5 :childLayers];
     targetLayer6 = [self getReferenceBlock:targetNode6 :childLayers];
     targetLayer7 = [self getReferenceBlock:targetNode7 :childLayers];
+    targetLayer8 = [self getReferenceBlock:targetNode8 :childLayers];
+    targetLayer9 = [self getReferenceBlock:targetNode9 :childLayers];
     
     if([REPEAT_TYPE_BOTTOM isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType])
     {
@@ -626,6 +636,10 @@
                 return targetLayer6;
             else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode7If data: targetDataJson[position]])
                 return targetLayer7;
+            else if(targetLayer8 != nil && [MappingSyntaxInterpreter ifexpression:targetNode8If data: targetDataJson[position]])
+                return targetLayer8;
+            else if(targetLayer9 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
+                return targetLayer9;
             return targetLayer;
         };
         
@@ -644,6 +658,10 @@
                 return @"6";
             else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode7If data: targetDataJson[position]])
                 return @"7";
+            else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode8If data: targetDataJson[position]])
+                return @"8";
+            else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
+                return @"9";
             return @"2";
         };
          

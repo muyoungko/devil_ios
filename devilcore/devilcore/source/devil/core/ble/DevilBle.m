@@ -72,7 +72,9 @@
     } else {
         [self.blue_list removeAllObjects];
 //        [self.characteristics removeAllObjects];
-        [self.cbmanager scanForPeripheralsWithServices:@[] options:nil];
+        [self.cbmanager scanForPeripheralsWithServices:@[
+            //[CBUUID UUIDWithString:@"fff0"], [CBUUID UUIDWithString:@"fff1"], [CBUUID UUIDWithString:@"fff2"]
+        ] options:nil];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
 }
