@@ -866,6 +866,9 @@
         if(nodeName && ![@"null" isEqualToString:nodeName] ) {
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             WildCardUICollectionView* list = (WildCardUICollectionView*)[[vc findView:nodeName] subviews][0];
+            int max = (int)[((WildCardCollectionViewAdapter*)list.delegate).data count];
+            if(index >= max)
+                index = max - 1;
             if(list != nil)
                 [list scrollTo:index:!noani];
         } else {
