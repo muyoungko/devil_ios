@@ -24,6 +24,7 @@
 
 @property NSTimeInterval startScanSec;
 @property float scanSec;
+@property BOOL reserveScan;
 
 @property (nonatomic, retain) id characteristics;
 @property (nonatomic, retain) CBCentralManager* cbmanager;
@@ -47,18 +48,45 @@
     self.blue_list = [@[] mutableCopy];
     self.characteristics = [@{} mutableCopy];
     self.cbmanager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    self.reserveScan = false;
+}
+
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central{
+    if(central.state == CBManagerStateUnknown){
+        
+    } else if(central.state == CBManagerStateResetting){
+        
+    } else if(central.state == CBManagerStateUnsupported){
+        
+    } else if(central.state == CBManagerStateUnauthorized){
+        
+    } else if(central.state == CBManagerStatePoweredOff){
+        
+    } else if(central.state == CBManagerStatePoweredOn){
+        if(self.reserveScan) {
+            self.reserveScan = false;
+            [self performSelector:@selector(scan) withObject: nil afterDelay:0.5f];
+        }
+    }
+}
+
+- (void)showBluetoothSettingAlert {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"App-Prefs:root=Bluetooth"] options:@{} completionHandler:nil];
 }
 
 - (void)list:(id)param :(void (^)(id res))callback{
     [self inititalize];
-        
+    
+    self.reserveScan = true;
     self.callbackList = callback;
     if(param[@"sec"])
         self.scanSec = [param[@"sec"] floatValue];
     else
         self.scanSec = 10;
     self.startScanSec = [[NSDate date] timeIntervalSince1970];
-    [self performSelector:@selector(scan) withObject: nil afterDelay:0.5f];
+    
+    
 }
 
 - (void)scan {
@@ -72,9 +100,7 @@
     } else {
         [self.blue_list removeAllObjects];
 //        [self.characteristics removeAllObjects];
-        [self.cbmanager scanForPeripheralsWithServices:@[
-            //[CBUUID UUIDWithString:@"fff0"], [CBUUID UUIDWithString:@"fff1"], [CBUUID UUIDWithString:@"fff2"]
-        ] options:nil];
+        [self.cbmanager scanForPeripheralsWithServices:@[] options:nil];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
 }
@@ -343,20 +369,6 @@
     }
 }
 
-- (void)centralManagerDidUpdateState:(CBCentralManager *)central{
-    if(central.state == CBManagerStateUnknown){
-    } else if(central.state == CBManagerStateResetting){
-    } else if(central.state == CBManagerStateUnsupported){
-    } else if(central.state == CBManagerStateUnauthorized){
-    } else if(central.state == CBManagerStatePoweredOff){
-    } else if(central.state == CBManagerStatePoweredOn){
-        
-    }
-}
-
-- (void)showBluetoothSettingAlert {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"App-Prefs:root=Bluetooth"] options:@{} completionHandler:nil];
-}
 
 - (void)destroy{
     if(self.cbmanager != nil) {
