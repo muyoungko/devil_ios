@@ -170,6 +170,7 @@
 }
 
 - (void)keyboardDidShow:(NSNotification*)noti {
+    self.keyboardOn = true;
     NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect rect = [keyboardFrameBegin CGRectValue];
     self.keyboardRect = rect;
@@ -271,6 +272,7 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)noti {
+    self.keyboardOn = NO;
     self.keypadTop.hidden = YES;
     if(self.footer)
         self.footer.frame = CGRectMake(self.footer.frame.origin.x, self.original_footer_y, self.footer.frame.size.width, self.footer.frame.size.height);

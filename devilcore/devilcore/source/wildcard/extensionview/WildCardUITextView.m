@@ -167,6 +167,7 @@
 - (void)setText:(NSString *)text{
     [super setText:text];
     [self updatePlaceHolderVisible];
+    [self updateHeight];
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{

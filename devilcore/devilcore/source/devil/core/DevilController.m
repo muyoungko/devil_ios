@@ -186,10 +186,18 @@
 }
 
 -(void) adjustFooterHeight {
-    if(self.footer && !self.original_footer_height)
-        self.original_footer_height = self.footer.frame.size.height;
-    else if(self.inside_footer && !self.original_footer_height)
-        self.original_footer_height = self.inside_footer.frame.size.height;
+    if(self.isFooterVariableHeight) {
+        if(self.footer)
+            self.original_footer_height = self.footer.frame.size.height;
+        else if(self.inside_footer)
+            self.original_footer_height = self.inside_footer.frame.size.height;
+    } else {
+        if(self.footer && !self.original_footer_height)
+            self.original_footer_height = self.footer.frame.size.height;
+        else if(self.inside_footer && !self.original_footer_height)
+            self.original_footer_height = self.inside_footer.frame.size.height;
+    }
+    
     
     if(self.footer) {
         int footerY = screenHeight - self.original_footer_height - self.bottomPadding - (self.header_sketch_height>0?[WildCardUtil headerHeightInPixcel]:0);
@@ -592,14 +600,23 @@
     
     if(self.footer) {
         [WildCardConstructor applyRule:self.footer withData:self.data];
-        if(self.isFooterVariableHeight)
+        if(self.isFooterVariableHeight) {
             [self adjustFooterHeight];
+            //만약 키보드가 올라가 있다면 올라간 키보드에 맞춰서 다시 옮겨줘야한다
+            if(self.keyboardOn)
+                [self adjustFooterPositionOnKeyboard];
+        }
     }
     
     if(self.inside_footer) {
         [WildCardConstructor applyRule:self.inside_footer withData:self.data];
-        if(self.isFooterVariableHeight)
+        if(self.isFooterVariableHeight) {
             [self adjustFooterHeight];
+            //만약 키보드가 올라가 있다면 올라간 키보드에 맞춰서 다시 옮겨줘야한다
+            if(self.keyboardOn)
+                [self adjustFooterPositionOnKeyboard];
+        }
+        
     }
     
     [[DevilDrawer sharedInstance] update:self];

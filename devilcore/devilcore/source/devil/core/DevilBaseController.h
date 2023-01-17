@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) UIAlertController* activeAlert;
 @property CGRect keyboardRect;
+@property BOOL keyboardOn;
 @property BOOL landscape;
 
 @property (nonatomic, retain) NSString* projectId;
