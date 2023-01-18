@@ -169,7 +169,9 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [self ui];
     
     self.session = [[AVCaptureSession alloc] init];
-    NSArray<AVCaptureDeviceType>* deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera, AVCaptureDeviceTypeBuiltInDualCamera, AVCaptureDeviceTypeBuiltInTrueDepthCamera];
+    NSArray<AVCaptureDeviceType>* deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera,
+                                                  AVCaptureDeviceTypeBuiltInDualWideCamera,
+                                                  AVCaptureDeviceTypeBuiltInTrueDepthCamera];
     self.videoDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionUnspecified];
     
     // Set up the preview view.
@@ -484,7 +486,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     if(self.front)
         videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
     else
-        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualWideCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
     if (!videoDevice) {
         // If a rear dual camera is not available, default to the rear wide angle camera.
         videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
@@ -1052,7 +1054,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             case AVCaptureDevicePositionUnspecified:
             case AVCaptureDevicePositionFront: {
                 preferredPosition = AVCaptureDevicePositionBack;
-                preferredDeviceType = AVCaptureDeviceTypeBuiltInDualCamera;
+                preferredDeviceType = AVCaptureDeviceTypeBuiltInDualWideCamera;
                 self.front = NO;
                 
                 dispatch_async(dispatch_get_main_queue(), ^{

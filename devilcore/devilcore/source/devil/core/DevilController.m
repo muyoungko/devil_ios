@@ -146,8 +146,8 @@
         [WildCardConstructor applyRule:self.footer withData:self.data];
         [self adjustFooterHeight];
         
-        self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] +
-            [WildCardUtil convertPixcelToSketch:bottomPadding];
+        self.footer_sketch_height = (self.isFooterVariableHeight?[footerCloudJson[@"frame"][@"oh"] intValue]:[footerCloudJson[@"frame"][@"h"] intValue])
+            + [WildCardUtil convertPixcelToSketch:bottomPadding];
         
         [self.view addSubview:self.footer];
     }
@@ -160,13 +160,14 @@
         self.inside_footer = [WildCardConstructor constructLayer:nil withLayer:inside_footer instanceDelegate:self];
         self.isFooterVariableHeight = [footerCloudJson[@"frame"][@"h"] intValue] == -2;
         [WildCardConstructor applyRule:self.inside_footer withData:self.data];
-        
-        self.footer_sketch_height = [footerCloudJson[@"frame"][@"h"] intValue] +
-            [WildCardUtil convertPixcelToSketch:bottomPadding];
         [self adjustFooterHeight];
+        
+        self.footer_sketch_height = (self.isFooterVariableHeight?[footerCloudJson[@"frame"][@"oh"] intValue]:[footerCloudJson[@"frame"][@"h"] intValue])
+            + [WildCardUtil convertPixcelToSketch:bottomPadding];
         
         [self.view addSubview:self.inside_footer];
     }
+    
     
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
     if([screen[@"footer_shadow"] boolValue]) {
