@@ -383,6 +383,36 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         
     } failure:nil];
 }
+    
+- (void)loadNetworkImageViewWithSize:(UIView*)networkImageView withUrl:(NSString*)url callback:(void (^)(CGSize size))callback
+{
+    __block UIImageView* nv = ((UIImageView*)networkImageView);
+    NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [nv setImageWithURLRequest:req placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
+        
+        callback(image.size);
+        
+        WildCardUIView* f = (WildCardUIView*)[networkImageView superview];
+        if([f isMemberOfClass:[WildCardUIView class]] && [f.name hasPrefix:@"profile"])
+            networkImageView.layer.cornerRadius = f.frame.size.width/2;
+        networkImageView.layer.cornerRadius = f.layer.cornerRadius;
+        f.layer.borderWidth = 0;
+        
+        if(nv.image == nil) {
+            [nv setImage:image];
+            [nv setAlpha:0];
+            [UIView animateWithDuration:0.3 animations:^{
+                [nv setAlpha:1.0];
+            }];
+        } else
+            [nv setImage:image];
+        
+    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
+        
+    }];
+}
+
 
 - (void)onNetworkRequest:(NSString*)url success:(void (^)(NSMutableDictionary* responseJsonObject))success {
     [self onNetworkRequestHttp:@"get" :url :nil :nil :^(NSMutableDictionary *responseJsonObject) {
