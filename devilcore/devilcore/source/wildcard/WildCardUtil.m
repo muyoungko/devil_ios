@@ -279,6 +279,8 @@ static BOOL IS_TABLET = NO;
 
 +(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
 {
+    if([@"chat_image_view_right" isEqualToString:cloudJson[@"name"]])
+        NSLog(@"measureHeight %@", cloudJson[@"name"]);
     float h = [cloudJson[@"frame"][@"h"] floatValue];
     /**
      TODO : match_h 구현해야함(관련성부터 파악)
@@ -287,7 +289,17 @@ static BOOL IS_TABLET = NO;
         return [WildCardConstructor convertSketchToPixel:h];
     
     h = 0;
-    if([@"text" isEqualToString:cloudJson[@"_class"]]){
+    /**
+     이미지인경우 scapeType wrap_heigth를 감안해야한다 이미지를 불러오고 그에 따라 높이를 변경하는 구조이며,
+     이미지가 불러오면 데이터에 해당 이미지의 w와 h를 넣어준다
+     각각 devil_image_width_pixcel, devil_image_height_pixcel
+     */
+    if([@"wrap_height" isEqualToString:cloudJson[@"scaleType"]]){
+        if(data[@"devil_image_height_pixcel"])
+            h = [data[@"devil_image_height_pixcel"] floatValue];
+        else
+            h = [WildCardUtil convertSketchToPixel:[cloudJson[@"frame"][@"oh"] floatValue]];
+    } else if([@"text" isEqualToString:cloudJson[@"_class"]]){
         NSString* textContent = cloudJson[@"textContent"];
         NSString* text = [MappingSyntaxInterpreter interpret:textContent :data];
         NSDictionary* textSpec = [cloudJson objectForKey:@"textSpec"];

@@ -26,6 +26,7 @@
 - (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success;
 
 @optional
+- (void)loadNetworkImageViewWithSize:(UIView*)networkImageView withUrl:(NSString*)url callback:(void (^)(CGSize size))callback;
 - (void)onNetworkRequestPut:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success;
 
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension;

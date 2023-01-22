@@ -10,17 +10,22 @@
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
 #import "DevilUtil.h"
+#import "WildCardUtil.h"
+#import "ReplaceRuleRepeat.h"
+#import "WildCardUICollectionView.h"
 
 @import Photos;
 
 @interface ReplaceRuleImage()
 @property (nonatomic, retain) NSString* currentUrl;
 @property (nonatomic, retain) UIImageView* flipImageView;
+@property (nonatomic, retain) WildCardMeta* meta;
 @end
 
 @implementation ReplaceRuleImage
 
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+    self.meta = wcMeta;
     {
         UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
         self.replaceView = iv;
@@ -143,7 +148,37 @@
             }];
         }
     } else {
-        [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:imageView withUrl:url];
+        if(self.replaceJsonLayer[@"scaleType"] && [@"wrap_height" isEqualToString:self.replaceJsonLayer[@"scaleType"]]) {
+            
+            float oh = [self.replaceJsonLayer[@"frame"][@"oh"] floatValue];
+            imageView.frame = CGRectMake(0,0,imageView.frame.size.width, [WildCardUtil convertSketchToPixel:oh]);
+            [[WildCardConstructor sharedInstance].delegate loadNetworkImageViewWithSize:imageView withUrl:url callback:^(CGSize size) {
+                float h =  imageView.frame.size.width * size.height / size.width;
+                imageView.frame = CGRectMake(0,0,imageView.frame.size.width, h);
+                WildCardUIView* parent = (WildCardUIView*)[imageView superview];
+                parent.frame = CGRectMake(parent.frame.origin.x, parent.frame.origin.y, imageView.frame.size.width, h);
+                opt[@"devil_image_height_pixcel"] = [NSNumber numberWithFloat:h];
+                [self.meta requestLayout];
+                
+                /**
+                 리스트 cell의 높이가 변경되면, 따라서 리스트의 cell에 reloadData(혹은 높이를 재계산하는 트리거)가 호출되어야한다
+                 TODO 의존성(ReplaceRuleImage와 ReplaceRuleRepeat간에)이 없는 재설계 필요
+                 */
+                
+                if(self.meta.parentMeta) {
+                    for(ReplaceRule* rule in self.self.meta.parentMeta.replaceRules) {
+                        if([rule isKindOfClass:[ReplaceRuleRepeat class]]) {
+                            ReplaceRuleRepeat* rr = (ReplaceRuleRepeat*)rule;
+                            if([REPEAT_TYPE_VLIST isEqualToString:rr.repeatType]) {
+                                WildCardUICollectionView* cv = (WildCardUICollectionView*)rr.createdContainer;
+                                [cv reloadData];
+                            }
+                        }
+                    }
+                }
+            }];
+        } else
+            [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:imageView withUrl:url];
     }
     
     return url;

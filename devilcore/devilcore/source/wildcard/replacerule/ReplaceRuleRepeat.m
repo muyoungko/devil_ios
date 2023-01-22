@@ -53,6 +53,7 @@
     result[@"shouldContinueChild"] = shouldContinueChild;
     
     NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
+    self.repeatType = repeatType;
     float margin = 0;
     if([arrayContent objectForKey:@"margin"] != nil)
         margin = [[arrayContent objectForKey:@"margin"] floatValue];

@@ -14,6 +14,7 @@
 #import "WildCardConstructor.h"
 #import "WildCardCollectionViewAdapter.h"
 #import "ReplaceRuleMarket.h"
+#import "ReplaceRuleRepeat.h"
 
 @interface WildCardMeta()
 @property (nonatomic, retain) NSMutableDictionary* viewPagerSelectedCallbackMap;
@@ -125,28 +126,47 @@
             WildCardUIView* headerView = [_wrapContentNodes objectForKey:unit.viewKey];
             if(!headerView.frameUpdateAvoid)
                 [self wrapContent:headerView];
-            //NSLog(@"path(%d) wrapContent - %@ (%f,%f) (%f-%f)" ,unit.depth, headerView.name, headerView.frame.origin.x, headerView.frame.origin.y, headerView.frame.size.width, headerView.frame.size.height);
+            if(self.requestLayoutDebug) NSLog(@"path(%d) wrapContent - %@ (%f,%f) (%f-%f)" ,unit.depth, headerView.name, headerView.frame.origin.x, headerView.frame.origin.y, headerView.frame.size.width, headerView.frame.size.height);
+            //NSLog(@"path(%d) wrapContent - %@" ,unit.depth, headerView.name);
         }
         else if(unit.type == WC_LAYOUT_TYPE_NEXT_VIEW)
         {
             WildCardUIView* headerView = [_nextChainHeaderNodes objectForKey:unit.viewKey];
             CGSize size = CGSizeMake(0, 0);
-            //NSLog(@"path(%d) nextView - %@",unit.depth, headerView.name);
+            if(self.requestLayoutDebug) NSLog(@"path(%d) nextView - %@",unit.depth, headerView.name);
             if(!headerView.frameUpdateAvoid)
                 [self fireOnLayout:headerView offsetX:headerView.frame.origin.x offsetY:headerView.frame.origin.y outSize:size];
         }
         else if(unit.type == WC_LAYOUT_TYPE_GRAVITY)
         {
             WildCardUIView* headerView = [_gravityNodes objectForKey:unit.viewKey];
-            //NSLog(@"path(%d) gravity - %@", unit.depth,headerView.name);
+            if(self.requestLayoutDebug) NSLog(@"path(%d) gravity - %@", unit.depth, headerView.name);
             if(!headerView.frameUpdateAvoid)
                 [self gravityView:headerView];
         } else if(unit.type == WC_LAYOUT_TYPE_MATCH_PARENT)
         {
             WildCardUIView* headerView = [_matchParentNodes objectForKey:unit.viewKey];
-            //NSLog(@"path(%d) match_parent - %@", unit.depth,headerView.name);
+            if(self.requestLayoutDebug) NSLog(@"path(%d) match_parent - %@", unit.depth,headerView.name);
             if(!headerView.frameUpdateAvoid)
                 [self matchParentView:headerView];
+        }
+    }
+    
+    /**
+     부모가 wrap_content인 gravity를 한번더 돌려야함
+     그래야 부모의 wrap_content 후의 높이가 vcenter  혹은 vbottom에 반영됨
+     */
+    for(int i=0;i<[_layoutPath count];i++)
+    {
+        WildCardLayoutPathUnit *unit = [_layoutPath objectAtIndex:i];
+        if(unit.type == WC_LAYOUT_TYPE_GRAVITY)
+        {
+            WildCardUIView* headerView = [_gravityNodes objectForKey:unit.viewKey];
+            if(((WildCardUIView*)[headerView superview]).wrap_height) {
+                if(self.requestLayoutDebug) NSLog(@"path(%d) gravity - %@", unit.depth, headerView.name);
+                if(!headerView.frameUpdateAvoid)
+                    [self gravityView:headerView];
+            }
         }
     }
     
@@ -204,8 +224,6 @@
 {
     WildCardUIView* parent = (WildCardUIView*)[view superview];
     
-    //NSLog(@"gravity - %@",view.name);
-    
     int newX = view.frame.origin.x;
     int newY = view.frame.origin.y;
     switch(view.alignment)
@@ -242,7 +260,23 @@
             break;
     }
     
+    //NSLog(@"gravity detail - newX, newY = %d %d in parent(%@) size (%d,%d)", (int)newX, (int)newY, parent.name,(int)parent.frame.size.width, (int)parent.frame.size.height);
     view.frame = CGRectMake(newX, newY, view.frame.size.width, view.frame.size.height);
+}
+
+-(BOOL) isVCenterOrVBottom:(WildCardUIView*)view {
+    switch(view.alignment) {
+        case GRAVITY_BOTTOM:
+        case GRAVITY_LEFT_BOTTOM:
+        case GRAVITY_HCENTER_BOTTOM:
+        case GRAVITY_RIGHT_BOTTOM:
+        case GRAVITY_VERTICAL_CENTER:
+        case GRAVITY_LEFT_VCENTER:
+        case GRAVITY_RIGHT_VCENTER:
+        case GRAVITY_CENTER:
+            return true;
+    }
+    return false;
 }
 
 -(void) wrapContent:(WildCardUIView*)parent
@@ -251,18 +285,24 @@
     float maxW = 0;
     float maxH = 0;
     for(int i=0;i<[childs count];i++)
-    {
+    { 
         UIView *child = [childs objectAtIndex:i];
-        //TODO check childs aligment is right or bottom
-        if(!child.hidden)
-        {
-            float childW = child.frame.origin.x + child.frame.size.width;
-            float childH = child.frame.origin.y + child.frame.size.height;
-            if(maxW < childW)
-                maxW = childW;
-            if(maxH < childH)
-                maxH = childH;
+        //TODO check childs aligment is horizontally ignored
+        if(child.hidden)
+            continue;
+        
+        if([child isKindOfClass:[WildCardUIView class]]) {
+            WildCardUIView* vchild = (WildCardUIView*)child;
+            if([self isVCenterOrVBottom:vchild])
+                continue;
         }
+        
+        float childW = child.frame.origin.x + child.frame.size.width;
+        float childH = child.frame.origin.y + child.frame.size.height;
+        if(maxW < childW)
+            maxW = childW;
+        if(maxH < childH)
+            maxH = childH;
     }
     maxW += parent.paddingRight;
     maxH += parent.paddingBottom;
@@ -448,13 +488,16 @@
      Gravity로 우측 할인가가 붙고 그 다음에 WrapContent된 오리지널 가격이 그 우측에 이어 붙는경우
      
      2022.01.12
-     Gravity가 최우선 되는 게 맞는가?
-     WrapContent Center 후에 우측에 화살표가 붙는 경우
-     일단 자기 width를 결정해야 자기가
+     - WrapContent Center 후에 우측에 화살표가 붙는 경우
+     - 일단 자기 width를 결정해야 자기가
      https://console.deavil.com/#/block/56548847
      
-     깊은 depth, wrap_content, Gravity,  Match_Prent, nextView,
-     wrap_content가 최우선이 되어야할듯
+     깊은 depth가 우선(단 gravity의 종류에 따라 뒤로 밀릴수있음) ,
+     그 후 wrap_content, Gravity,  Match_Prent, nextView,
+     
+     부모가 wrap_height이고 자식이 valign bottom 혹은 valige center이면
+     부모의 크기가 먼저 결정된 다음 gravity가 적용되어야한다. 이경우 무조건적인 depth가 적용되선 안된다
+        
      */
     _layoutPath = [temp sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
         WildCardLayoutPathUnit* aa = (WildCardLayoutPathUnit*)a;
