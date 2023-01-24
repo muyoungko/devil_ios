@@ -204,6 +204,7 @@
         if(res){
             if([res[@"r"] boolValue]){
                 [self showIndicator];
+                
                 [[Devil sharedInstance] login:@"google" email:@"noneed" passwordOrToken:token callback:^(id  _Nonnull res) {
                     [self hideIndicator];
                     if(res && [res[@"r"] boolValue])
