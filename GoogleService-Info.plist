@@ -3,23 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>257412051634-gnkm5n8p37jocftjutrbq2amj00qk34f.apps.googleusercontent.com</string>
+	<string>886217236574-7i222njqasg9pie9pjgg523qr5vs90h1.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.257412051634-gnkm5n8p37jocftjutrbq2amj00qk34f</string>
-	<key>ANDROID_CLIENT_ID</key>
-	<string>257412051634-o91qeikreosdob28ugcmha7135redib1.apps.googleusercontent.com</string>
+	<string>com.googleusercontent.apps.886217236574-7i222njqasg9pie9pjgg523qr5vs90h1</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCalJXtx8K1-nzrddVF16cI6Qyf2Dpf7YY</string>
+	<string>AIzaSyAvaiPCOTZYxMszkl45oiUXKBB7r6dbCXs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>257412051634</string>
+	<string>886217236574</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>kr.co.july.CloudJsonViewer</string>
 	<key>PROJECT_ID</key>
-	<string>sketchtoapp</string>
+	<string>devil-app-builder2</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sketchtoapp.appspot.com</string>
+	<string>devil-app-builder2.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,8 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:257412051634:ios:09650307919273faeecfab</string>
-	<key>DATABASE_URL</key>
-	<string>https://sketchtoapp.firebaseio.com</string>
+	<string>1:886217236574:ios:d988d3102b3d1afe3354cf</string>
 </dict>
 </plist>

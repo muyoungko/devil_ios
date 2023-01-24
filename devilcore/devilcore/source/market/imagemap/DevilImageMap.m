@@ -60,7 +60,7 @@ float borderWidth = 7;
     self.pinLayer = [[DevilPinLayer alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
     self.pinLayer.backgroundColor = [UIColor clearColor];
     self.pinLayer.userInteractionEnabled = NO;
-     
+    
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
     self.scrollView.bounces = NO;
     self.scrollView.bouncesZoom = NO;
@@ -68,7 +68,7 @@ float borderWidth = 7;
     self.scrollView.autoresizesSubviews = NO;
     _scrollView.userInteractionEnabled = YES;
     _scrollView.scrollEnabled = YES;
-
+    
     self.scrollView.maximumZoomScale = 1;
     _scrollView.delegate = self;
     
@@ -83,9 +83,9 @@ float borderWidth = 7;
     
     _singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
     [self addGestureRecognizer:_singleFingerTap];
-
+    
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-
+    
     self.mode = @"normal";
 }
 
@@ -96,6 +96,12 @@ float borderWidth = 7;
     CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
     return pinPointInScreen;
 }
+
+
+-(CGPoint) clickToMapPoint:(CGPoint)p {
+    return [self convertPoint:p toView:self.contentView];
+}
+
 
 -(BOOL) isNearPin:(id)pin tap:(CGPoint)tappedPoint {
     UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
@@ -108,7 +114,6 @@ float borderWidth = 7;
 }
 
 -(void)onClickListener:(UIGestureRecognizer *)recognizer {
-    NSLog(@"onClickListener");
     CGPoint tappedPoint = [recognizer locationInView:self];
     if([@"normal" isEqualToString:self.mode]) {
         for(id pin in self.pinList) {
@@ -124,18 +129,6 @@ float borderWidth = 7;
             self.clickCallback([@{} mutableCopy]);
     } else if([@"new" isEqualToString:self.mode]) {
         
-    } else if([@"edit" isEqualToString:self.mode]) {
-        
-        CGPoint mp = [self clickToMapPoint:tappedPoint];
-        BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
-        if(inMap) {
-            self.editingPin[@"x"] = [NSNumber numberWithFloat:mp.x];
-            self.editingPin[@"y"] = [NSNumber numberWithFloat:mp.y];
-            NSLog(@"%@, %@", self.editingPin[@"x"], self.editingPin[@"y"]);
-            [self.pinLayer syncPinWithAnimation:self.editingPin[@"key"]];
-            [self setMode:@"new_direction" : nil];
-            [self showPopup:@[@"취소", @"완료"]];
-        }
     } else if([self isPopupShow] && CGRectContainsPoint([WildCardUtil getGlobalFrame:self.popupView], tappedPoint)) {
         for(UIView* c in [self.popupView subviews]) {
             if(CGRectContainsPoint([WildCardUtil getGlobalFrame:c], tappedPoint)) {
@@ -156,13 +149,23 @@ float borderWidth = 7;
                     } mutableCopy]);
             }
         }
+    } else if([@"edit" isEqualToString:self.mode]
+              || ( self.editingPin && [@"new_direction" isEqualToString:self.mode])
+              || ( self.editingPin && [@"can_complete" isEqualToString:self.mode])
+              ) {
+        
+        CGPoint mp = [self clickToMapPoint:tappedPoint];
+        BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
+        if(inMap) {
+            self.editingPin[@"x"] = [NSNumber numberWithFloat:mp.x];
+            self.editingPin[@"y"] = [NSNumber numberWithFloat:mp.y];
+            NSLog(@"%@, %@", self.editingPin[@"x"], self.editingPin[@"y"]);
+            [self.pinLayer syncPinWithAnimation:self.editingPin[@"key"]];
+            [self setMode:@"new_direction" : nil];
+            [self showPopup:@[@"취소", @"완료"]];
+        }
     }
 }
-
--(CGPoint)clickToMapPoint:(CGPoint)p {
-    return [self convertPoint:p toView:self.contentView];
-}
-
 -(void)showImage:(NSString*)url{
     if([url hasPrefix:@"http"]) {
         NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -223,7 +226,9 @@ float borderWidth = 7;
     if([self.mode isEqualToString:@"new"])
         return self;
     
-    if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
+    if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]
+       || [self.mode isEqualToString:@"edit"]
+       ) {
         if(_editingPin) {
             self.touchingPin = _editingPin;
         } else {
@@ -304,7 +309,10 @@ float borderWidth = 7;
 //    NSLog(@"touchesMoved");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
-    if(self.shouldDirectionMove && ([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"])) {
+    if(self.shouldDirectionMove &&
+       ([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]
+        || [self.mode isEqualToString:@"edit"])
+       ) {
         [self pinDirection:self.touchingPin :clickP];
     }
 }
@@ -315,6 +323,21 @@ float borderWidth = 7;
     double degree = r * 180 / M_PI  + 90;
     //NSLog(@"degree - %f", degree);
     pin[@"degree"] = [NSNumber numberWithInt:(int)degree];
+    
+    CGPoint touchMapPoint = [self clickToMapPoint:see];
+    
+    CGPoint fromPoint = CGPointMake([pin[@"x"] floatValue], [pin[@"y"] floatValue]);
+    float distance = [DevilPinLayer distance:fromPoint :touchMapPoint];
+    float toBeDistance = distance/2;
+    if(toBeDistance < 29 / _scrollView.zoomScale) {
+        toBeDistance = 29 / _scrollView.zoomScale;
+    }
+    touchMapPoint = [DevilPinLayer moveOnLineDistance:fromPoint :touchMapPoint :toBeDistance];
+    
+//    NSLog(@"touchMapPoint (%i, %i)", (int)touchMapPoint.x, (int)touchMapPoint.y);
+    pin[@"toX"] = [NSNumber numberWithFloat:touchMapPoint.x];
+    pin[@"toY"] = [NSNumber numberWithFloat:touchMapPoint.y];
+    
     [_pinLayer updatePinDirection:pin[@"key"]];
 }
 
@@ -322,7 +345,8 @@ float borderWidth = 7;
 //    NSLog(@"touchesEnded");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
-    if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]) {
+    if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]
+       || [self.mode isEqualToString:@"edit"]) {
         if([self.param[@"autoComplete"] boolValue]) {
             [self complete];
             [self setMode:@"normal" : nil];
@@ -477,8 +501,10 @@ float borderWidth = 7;
 }
 
 -(void)hidePopup {
-    [self.popupView removeFromSuperview];
-    self.popupView = nil;
+    if(self.popupView) {
+        [self.popupView removeFromSuperview];
+        self.popupView = nil;
+    }
 }
 
 -(CGPoint)centerOfRect:(CGRect)rect {
@@ -504,6 +530,9 @@ float borderWidth = 7;
     }
 }
 -(void)showPopup:(id)selection {
+    
+    [self hidePopup];
+    
     float pw = 35;
     float ph = 35;
     float gap = 5;
@@ -609,7 +638,7 @@ float borderWidth = 7;
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    NSLog(@"contentOffset (%f, %f) %f contentSize (%f, %f)", _scrollView.contentOffset.x, _scrollView.contentOffset.y , _scrollView.zoomScale, _scrollView.contentSize.width, _scrollView.contentSize.height );
+//    NSLog(@"contentOffset (%f, %f) %f contentSize (%f, %f)", _scrollView.contentOffset.x, _scrollView.contentOffset.y , _scrollView.zoomScale, _scrollView.contentSize.width, _scrollView.contentSize.height );
 }
 
 @end

@@ -10,10 +10,21 @@
 
 @interface DevilPinLayer()
 @property (nonatomic, retain) id shapes;
-@property (nonatomic, retain) id shapeMapArrowLine;
-@property (nonatomic, retain) id shapeMapArrowHead;
 @property (nonatomic, retain) id shapeMapText;
 @property (nonatomic, retain) id shapeMapBody;
+@property (nonatomic, retain) id shapeMapArrowLine;
+@property (nonatomic, retain) id shapeMapArrowHead;
+/**
+ 실제가 아닌 방향을 나타내기 위한 화살표이며, shapeMapArrow와 둘중에 하나만 표시된다
+ arrow는 포인트가 가리키는 실제 좌표이다
+ fake는 줌아웃되어 포인트가 몸통 안으로 들어갈경우 방향을 표시하기 위한 포인트이다
+ arrow는 전체 scaling 되지 않고 width만 scaling된다
+ fake는 전체 scaling된다
+ (제거)어떤게 보일지는 fakeOrNot 함수에서 결정하고 그 기준은, arrowTo와 arrwFrom의 거리가 scaling된 radius*2보다 적을 경우 fake가 보이게 된다
+ 위와 같이 하려했으나 통일성을 위해 특정 줌 스케일 이하인 경우로 변경한다
+ */
+@property (nonatomic, retain) id shapeMapFakeArrowLine;
+@property (nonatomic, retain) id shapeMapFakeArrowHead;
 
 @property (nonatomic, retain) NSString* highlightKey;
 @end
@@ -37,18 +48,50 @@ float textSize = 15;
     
     float x = [pin[@"x"] floatValue];
     float y = [pin[@"y"] floatValue];
-    NSLog(@"base Point %d %d", (int)x, (int)y);
+    //NSLog(@"base Point %d %d", (int)x, (int)y);
+    
+    ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = NO;
+    ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = NO;
+    ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
+    ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
     
     float degree = [pin[@"degree"] floatValue] - 90.0f;
     float arrow_angle = degree * M_PI / 180.0f;
     
-    CGRect rect = CGRectMake(x-roundSize, y-roundSize, roundSize*2, roundSize*2);
     CGPoint arrowFrom = (CGPoint){x + cos(arrow_angle) * roundSize, y + sin(arrow_angle) * roundSize};
-    CGPoint arrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
-    NSLog(@"degree - %f, (x,y) =%d,%d arrowFrom=%d,%d arrowTo=%d,%d", degree, (int)x, (int)y, (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo.x, (int)arrowTo.y);
+    CGPoint arrowTo = [DevilPinLayer getToPointOf:pin];
+    
+    //    NSLog(@"degree - %f, (x,y)=%d,%d arrowFrom=%d,%d arrowTo=%d,%d", degree, (int)x, (int)y, (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo.x, (int)arrowTo.y);
+    // NSLog(@"arrowFrom=%d,%d arrowTo=%d,%d", (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo.x, (int)arrowTo.y);
+    //    NSLog(@"arrowFrom=%d,%d arrowT2=%d,%d", (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo2.x, (int)arrowTo2.y);
     {
-        CAShapeLayer *layer = self.shapeMapArrowHead[key];
-        [self arrowHead:layer :arrowFrom :arrowTo];
+        //바운스를 다음과 같이 바꾸면 에니메이션이 자동으로 입혀진다
+//        CAShapeLayer *layer = ((CAShapeLayer*)self.shapeMapArrowHead[key]);
+//        CGRect rectTo = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
+//        layer.bounds = rectTo;
+//        [self arrowHead:layer : arrowFrom: arrowTo];
+//        layer.position = CGPointMake(arrowTo.x, arrowTo.y);
+        
+        CAShapeLayer *player = ((CAShapeLayer*)self.shapeMapArrowHead[key]);
+        [player removeFromSuperlayer];
+        CGRect rectTo = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
+        float z = self.zoomScale;
+        
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        layer.fillColor = player.fillColor;
+        layer.strokeColor = player.strokeColor;
+        layer.borderWidth = 0;
+        layer.lineWidth = width;
+        layer.bounds = rectTo;
+        
+        [self arrowHead:layer : arrowFrom: arrowTo];
+        layer.position = CGPointMake(arrowTo.x, arrowTo.y);
+        
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        [self.layer insertSublayer:layer atIndex:0];
+        
+        [self.shapes addObject:layer];
+        self.shapeMapArrowHead[key] = layer;
     }
     
     {
@@ -58,6 +101,10 @@ float textSize = 15;
         [path addLineToPoint:arrowTo];
         layer.path = path.CGPath;
     }
+}
+
+- (float)distance:(CGPoint)a : (CGPoint)b {
+    return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
 }
 
 - (void)arrowHead:(CAShapeLayer*)layer :(CGPoint) arrowFrom :(CGPoint) arrowTo {
@@ -77,12 +124,45 @@ float textSize = 15;
     float x1 = (float)(to_x - radius*cos(lineangle - (anglerad / 2.0)));
     float y1 = (float)(to_y - radius*sin(lineangle - (anglerad / 2.0)));
     [path addLineToPoint:(CGPoint){x1,y1}];
-
+    
     //화살표 중앙 밑날개끝
     float x11 = (float)(to_x - (radius/2.0f)*cos(lineangle));
     float y11 = (float)(to_y - (radius/2.0f)*sin(lineangle));
     [path addLineToPoint:(CGPoint){x11,y11}];
+    
+    //화살표 반대쪽날개끝
+    float x2 = (float)(to_x - radius*cos(lineangle + (anglerad / 2.0)));
+    float y2 = (float)(to_y - radius*sin(lineangle + (anglerad / 2.0)));
+    [path addLineToPoint:(CGPoint){x2,y2}];
+    
+    [path closePath];
+    layer.path = path.CGPath;
+}
 
+
+- (void)arrowHeadFake:(CAShapeLayer*)layer :(CGPoint) arrowFrom :(CGPoint) arrowTo {
+    UIBezierPath *path = [UIBezierPath new];
+    [path moveToPoint:arrowTo];
+    
+    float from_x = arrowFrom.x;
+    float from_y = arrowFrom.y;
+    float to_x = arrowTo.x;
+    float to_y = arrowTo.y;
+    
+    float radius = 6; //화살표의 반경(반지름)
+    float angle = 60; //화살표 끝이 펼쳐진 각도
+    float anglerad = (float) (M_PI*angle/180.0f); //라디안
+    float lineangle = (float) (atan2(to_y-from_y,to_x-from_x));
+    
+    float x1 = (float)(to_x - radius*cos(lineangle - (anglerad / 2.0)));
+    float y1 = (float)(to_y - radius*sin(lineangle - (anglerad / 2.0)));
+    [path addLineToPoint:(CGPoint){x1,y1}];
+    
+    //화살표 중앙 밑날개끝
+    float x11 = (float)(to_x - (radius/2.0f)*cos(lineangle));
+    float y11 = (float)(to_y - (radius/2.0f)*sin(lineangle));
+    [path addLineToPoint:(CGPoint){x11,y11}];
+    
     //화살표 반대쪽날개끝
     float x2 = (float)(to_x - radius*cos(lineangle + (anglerad / 2.0)));
     float y2 = (float)(to_y - radius*sin(lineangle + (anglerad / 2.0)));
@@ -96,8 +176,52 @@ float textSize = 15;
     self.zoomScale = zoomScale;
     float z = zoomScale;
     //NSLog(@"updateZoom %f shapes count - %u", z, [self.shapes count]);
-    for(CAShapeLayer* layer in self.shapes) {
+    for(CAShapeLayer* layer in [self.shapeMapText allObjects]) {
         layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+    }
+    
+    for(CAShapeLayer* layer in [self.shapeMapBody allObjects]) {
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+    }
+    
+    for(CAShapeLayer* layer in [self.shapeMapArrowHead allObjects]) {
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+    }
+    
+    for(CAShapeLayer* layer in [self.shapeMapArrowLine allObjects]) {
+        layer.lineWidth = (float)width / z;
+    }
+    
+    for(CAShapeLayer* layer in [self.shapeMapFakeArrowHead allObjects]) {
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+    }
+    
+    for(CAShapeLayer* layer in [self.shapeMapFakeArrowLine allObjects]) {
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+    }
+    
+    for(id pin in _pinList) {
+        [self fakeOrReal:pin];
+    }
+}
+
+- (void)fakeOrReal:(id)pin {
+    float x = [pin[@"x"] floatValue];
+    float y = [pin[@"y"] floatValue];
+    float distance = [DevilPinLayer distance:CGPointMake(x, y) : [DevilPinLayer getToPointOf:pin]];
+    NSString* key = pin[@"key"];
+    if(distance * self.zoomScale > arrowLength) {
+        //real 보여주기
+        ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = NO;
+        ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = NO;
+        ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
+        ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
+    } else {
+        //fake 보여주기
+        ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
+        ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
+        ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = NO;
+        ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = NO;
     }
 }
 
@@ -114,9 +238,15 @@ float textSize = 15;
             CAShapeLayer *layer2 = self.shapeMapArrowLine[key];
             CAShapeLayer *layer3 = self.shapeMapArrowHead[key];
             CAShapeLayer *layer4 = self.shapeMapText[key];
+            CAShapeLayer *layer5 = self.shapeMapFakeArrowLine[key];
+            CAShapeLayer *layer6 = self.shapeMapFakeArrowHead[key];
             
             float x = [pin[@"x"] floatValue];
             float y = [pin[@"y"] floatValue];
+            pin[@"degree"] =
+                [NSNumber numberWithInt:
+                     [DevilPinLayer getDegree:CGPointMake(x,y) :[DevilPinLayer getToPointOf:pin]] + 90
+                ];
             
             [CATransaction begin];
             [CATransaction setCompletionBlock:^{
@@ -132,6 +262,12 @@ float textSize = 15;
             animation.toValue = [NSValue valueWithCGPoint:CGPointMake(x, y)];
             animation.duration = 0.3f;
             
+            //NSLog(@"to Point %d %d", (int)x, (int)y);
+            
+            ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
             
             layer.position = CGPointMake(x, y);
             [layer addAnimation:animation forKey:nil];
@@ -143,8 +279,14 @@ float textSize = 15;
             [layer3 addAnimation:animation forKey:nil];
             
             layer4.position = CGPointMake(x, y);
-            NSLog(@"to Point %d %d", (int)x, (int)y);
             [layer4 addAnimation:animation forKey:nil];
+            
+            layer5.position = CGPointMake(x, y);
+            [layer5 addAnimation:animation forKey:nil];
+            
+            layer6.position = CGPointMake(x, y);
+            [layer6 addAnimation:animation forKey:nil];
+            
             [CATransaction commit];
             
             break;
@@ -153,12 +295,14 @@ float textSize = 15;
 }
 
 - (void)syncPin {
-
+    
     for(id layer in self.shapes) {
         [layer removeFromSuperlayer];
     }
     self.shapeMapArrowLine = [@{} mutableCopy];
     self.shapeMapArrowHead = [@{} mutableCopy];
+    self.shapeMapFakeArrowLine = [@{} mutableCopy];
+    self.shapeMapFakeArrowHead = [@{} mutableCopy];
     self.shapeMapText = [@{} mutableCopy];
     self.shapeMapBody = [@{} mutableCopy];
     self.shapes = [@[] mutableCopy];
@@ -171,9 +315,9 @@ float textSize = 15;
     for(id pin in self.pinList) {
         NSString* color = pin[@"color"];
         NSString* key = pin[@"key"];
-
+        
         UIColor *c = [WildCardUtil colorWithHexString:color];
-
+        
         BOOL highlight = [key isEqualToString:self.highlightKey];
         BOOL selected = [pin[@"selected"] boolValue];
         BOOL hideDirection = [pin[@"hideDirection"] boolValue];
@@ -185,37 +329,38 @@ float textSize = 15;
         float arrow_angle = degree * M_PI / 180.0f;
         
         CGRect rect = CGRectMake(x-roundSize, y-roundSize, roundSize*2, roundSize*2);
+        CGPoint arrowTo = [DevilPinLayer getToPointOf:pin];
+        CGRect rectTo = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
         CGPoint arrowFrom = (CGPoint){x + cos(arrow_angle) * roundSize, y + sin(arrow_angle) * roundSize};
-        CGPoint arrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
+        CGPoint fakeArrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
         
-        
-        //화살표 머리
+        //페이크 화살표 머리
         {
             CAShapeLayer *layer = [[CAShapeLayer alloc] init];
             layer.fillColor = c.CGColor;
             layer.strokeColor = c.CGColor;
-
+            
             layer.borderWidth = 0;
             layer.lineWidth = width;
             layer.bounds = rect;
             
             if(!hideDirection)
-                [self arrowHead:layer : arrowFrom : arrowTo];
+                [self arrowHeadFake:layer : arrowFrom : fakeArrowTo];
             
             layer.position = CGPointMake(x, y);
             layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
             [self.layer insertSublayer:layer atIndex:0];
             
             [self.shapes addObject:layer];
-            self.shapeMapArrowHead[key] = layer;
+            self.shapeMapFakeArrowHead[key] = layer;
         }
         
-        //화살표 몸통
+        //페이크 화살표 몸통
         {
             CAShapeLayer *layer = [[CAShapeLayer alloc] init];
             layer.fillColor = c.CGColor;
             layer.strokeColor = c.CGColor;
-
+            
             layer.borderWidth = 0;
             layer.lineWidth = width;
             layer.bounds = rect;
@@ -223,7 +368,7 @@ float textSize = 15;
             if(!hideDirection) {
                 UIBezierPath *path = [UIBezierPath new];
                 [path moveToPoint:arrowFrom];
-                [path addLineToPoint:arrowTo];
+                [path addLineToPoint:fakeArrowTo];
                 layer.path = path.CGPath;
             }
             
@@ -232,7 +377,7 @@ float textSize = 15;
             [self.layer insertSublayer:layer atIndex:0];
             
             [self.shapes addObject:layer];
-            self.shapeMapArrowLine[key] = layer;
+            self.shapeMapFakeArrowLine[key] = layer;
         }
         
         //텍스트
@@ -251,12 +396,12 @@ float textSize = 15;
             else
                 layer.foregroundColor = c.CGColor;
             layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-
+            
             [self.layer insertSublayer:layer atIndex:0];
             [self.shapes addObject:layer];
             self.shapeMapText[key] = layer;
         }
-
+        
         //몸통
         {
             CAShapeLayer *layer = [[CAShapeLayer alloc] init];
@@ -268,7 +413,6 @@ float textSize = 15;
                 layer.strokeColor = c.CGColor;
             }
             
-
             layer.borderWidth = 0;
             layer.lineWidth = width;
             layer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
@@ -280,10 +424,114 @@ float textSize = 15;
             self.shapeMapBody[key] = layer;
         }
         
+        //        //테스트
+        //        {
+        //            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        //            layer.fillColor = c.CGColor;
+        //            layer.strokeColor = c.CGColor;
+        //            layer.borderWidth = 0;
+        //            layer.lineWidth = width;
+        //            layer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
+        //            layer.bounds = rect;
+        //            layer.position = [DevilPinLayer moveOnLineDistance:arrowFrom: arrowTo:-500];
+        //            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        //            [self.layer insertSublayer:layer atIndex:0];
+        //            [self.shapes addObject:layer];
+        //        }
+        
+        
+        //화살표 머리
+        {
+            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+            layer.fillColor = c.CGColor;
+            layer.strokeColor = c.CGColor;
+            layer.borderWidth = 0;
+            layer.lineWidth = width;
+            layer.bounds = rectTo;
+            
+            if(!hideDirection) {
+                [self arrowHead:layer : arrowFrom: arrowTo];
+            }
+            layer.position = CGPointMake(arrowTo.x, arrowTo.y);
+            
+            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+            [self.layer insertSublayer:layer atIndex:0];
+            
+            [self.shapes addObject:layer];
+            self.shapeMapArrowHead[key] = layer;
+        }
+        
+        //화살표 라인
+        {
+            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+            layer.fillColor = c.CGColor;
+            layer.strokeColor = c.CGColor;
+            
+            layer.borderWidth = 0;
+            layer.lineWidth = (float)width / z;
+            layer.bounds = rect;
+            
+            if(!hideDirection) {
+                UIBezierPath *path = [UIBezierPath new];
+                [path moveToPoint:arrowFrom];
+                [path addLineToPoint:arrowTo];
+                layer.path = path.CGPath;
+            }
+            
+            layer.position = CGPointMake(x, y);
+            //layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+            [self.layer insertSublayer:layer atIndex:0];
+            
+            [self.shapes addObject:layer];
+            self.shapeMapArrowLine[key] = layer;
+        }
+        
+        
+        [self fakeOrReal:pin];
+        
         index ++;
         
         //NSLog(@"pin %@ %@ %@", pin[@"text"] , color, c);
     }
+}
+
++ (CGPoint)getToPointOf:(id)pin {
+    
+    if(pin[@"toX"] && pin[@"toY"]) {
+        float toX = [pin[@"toX"] floatValue];
+        float toY = [pin[@"toY"] floatValue];
+        CGPoint r = CGPointMake(toX, toY);
+        return r;
+    } else {
+        
+        float degree = [pin[@"degree"] floatValue] - 90.0f;
+        float arrow_angle = degree * M_PI / 180.0f;
+        float x =[pin[@"x"] floatValue];
+        float y =[pin[@"y"] floatValue];
+        CGPoint r = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
+        return r;
+    }
+}
++ (CGPoint)moveOnLineDistance:(CGPoint)arrowFrom :(CGPoint) arrowTo :(float)distance {
+    double angle = atan2(arrowTo.y - arrowFrom.y, arrowTo.x - arrowFrom.x);
+    CGPoint r = (CGPoint){arrowFrom.x + cos(angle) * distance, arrowFrom.y + sin(angle) * distance};
+    return r;
+}
+
++ (CGPoint)moveOnLineDistanceWithDegree:(CGPoint)arrowFrom :(double) degree :(float)distance {
+    float angle = degree * M_PI / 180.0f;
+    CGPoint r = (CGPoint){arrowFrom.x + cos(angle) * distance, arrowFrom.y + sin(angle) * distance};
+    return r;
+}
+
++ (float)distance:(CGPoint)a : (CGPoint)b {
+    return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
+}
+
++ (float)getDegree:(CGPoint)from : (CGPoint)to {
+    double r = atan2(to.y - from.y, to.x - from.x);
+    double degree = r * 180 / M_PI;
+    return degree;
 }
 
 @end

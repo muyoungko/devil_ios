@@ -18,7 +18,12 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)syncPin;
 - (void)updateZoom:(float)zoomScale;
 - (void)updatePinDirection:(NSString*)key;
-
++ (CGPoint)getToPointOf:(id)pin;
++ (CGPoint)moveOnLineDistance:(CGPoint)arrowFrom :(CGPoint) arrowTo :(float)distance;
++ (CGPoint)moveOnLineDistanceWithDegree:(CGPoint)arrowFrom :(double) degree :(float)distance;
++ (float)distance:(CGPoint)a : (CGPoint)b;
++ (float)getDegree:(CGPoint)from : (CGPoint)to;
+    
 @end
 
 NS_ASSUME_NONNULL_END
