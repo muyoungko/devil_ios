@@ -43,6 +43,8 @@
 @property void (^clickCallback)(id res);
 
 
+@property double touchStartTime;
+
 @end
 
 @implementation DevilImageMap
@@ -282,6 +284,7 @@ float borderWidth = 7;
 //    NSLog(@"touchesBegan");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
+    self.touchStartTime = (double)[NSDate date].timeIntervalSince1970;
     //if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"])
     if([self.mode isEqualToString:@"new"])
     {
@@ -329,14 +332,24 @@ float borderWidth = 7;
     CGPoint fromPoint = CGPointMake([pin[@"x"] floatValue], [pin[@"y"] floatValue]);
     float distance = [DevilPinLayer distance:fromPoint :touchMapPoint];
     float toBeDistance = distance/2;
+
+    
+    //최소길이 검사 후 적용
     if(toBeDistance < 29 / _scrollView.zoomScale) {
         toBeDistance = 29 / _scrollView.zoomScale;
     }
-    touchMapPoint = [DevilPinLayer moveOnLineDistance:fromPoint :touchMapPoint :toBeDistance];
     
+    touchMapPoint = [DevilPinLayer moveOnLineDistance:fromPoint :touchMapPoint :toBeDistance];
 //    NSLog(@"touchMapPoint (%i, %i)", (int)touchMapPoint.x, (int)touchMapPoint.y);
     pin[@"toX"] = [NSNumber numberWithFloat:touchMapPoint.x];
     pin[@"toY"] = [NSNumber numberWithFloat:touchMapPoint.y];
+    
+    
+    //최소시간 검사 후 적용
+    double now = (double)[NSDate date].timeIntervalSince1970;
+    if(now - self.touchStartTime > 1.0f) {
+        pin[@"toX"] = pin[@"toY"] = nil;
+    }
     
     [_pinLayer updatePinDirection:pin[@"key"]];
 }

@@ -46,61 +46,11 @@ float textSize = 15;
     if(!pin)
         return;
     
-    float x = [pin[@"x"] floatValue];
-    float y = [pin[@"y"] floatValue];
-    //NSLog(@"base Point %d %d", (int)x, (int)y);
-    
-    ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = NO;
-    ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = NO;
-    ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
-    ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
-    
-    float degree = [pin[@"degree"] floatValue] - 90.0f;
-    float arrow_angle = degree * M_PI / 180.0f;
-    
-    CGPoint arrowFrom = (CGPoint){x + cos(arrow_angle) * roundSize, y + sin(arrow_angle) * roundSize};
-    CGPoint arrowTo = [DevilPinLayer getToPointOf:pin];
-    
-    //    NSLog(@"degree - %f, (x,y)=%d,%d arrowFrom=%d,%d arrowTo=%d,%d", degree, (int)x, (int)y, (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo.x, (int)arrowTo.y);
-    // NSLog(@"arrowFrom=%d,%d arrowTo=%d,%d", (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo.x, (int)arrowTo.y);
-    //    NSLog(@"arrowFrom=%d,%d arrowT2=%d,%d", (int)arrowFrom.x, (int)arrowFrom.y, (int)arrowTo2.x, (int)arrowTo2.y);
-    {
-        //바운스를 다음과 같이 바꾸면 에니메이션이 자동으로 입혀진다
-//        CAShapeLayer *layer = ((CAShapeLayer*)self.shapeMapArrowHead[key]);
-//        CGRect rectTo = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
-//        layer.bounds = rectTo;
-//        [self arrowHead:layer : arrowFrom: arrowTo];
-//        layer.position = CGPointMake(arrowTo.x, arrowTo.y);
-        
-        CAShapeLayer *player = ((CAShapeLayer*)self.shapeMapArrowHead[key]);
-        [player removeFromSuperlayer];
-        CGRect rectTo = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
-        float z = self.zoomScale;
-        
-        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-        layer.fillColor = player.fillColor;
-        layer.strokeColor = player.strokeColor;
-        layer.borderWidth = 0;
-        layer.lineWidth = width;
-        layer.bounds = rectTo;
-        
-        [self arrowHead:layer : arrowFrom: arrowTo];
-        layer.position = CGPointMake(arrowTo.x, arrowTo.y);
-        
-        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-        [self.layer insertSublayer:layer atIndex:0];
-        
-        [self.shapes addObject:layer];
-        self.shapeMapArrowHead[key] = layer;
-    }
-    
-    {
-        CAShapeLayer *layer = self.shapeMapArrowLine[key];
-        UIBezierPath *path = [UIBezierPath new];
-        [path moveToPoint:arrowFrom];
-        [path addLineToPoint:arrowTo];
-        layer.path = path.CGPath;
-    }
+    [self.shapeMapArrowLine[key] removeFromSuperlayer];
+    [self.shapeMapArrowHead[key] removeFromSuperlayer];
+    [self.shapeMapFakeArrowLine[key] removeFromSuperlayer];
+    [self.shapeMapFakeArrowHead[key] removeFromSuperlayer];
+    [self createArrow:pin];
 }
 
 - (float)distance:(CGPoint)a : (CGPoint)b {
@@ -294,6 +244,170 @@ float textSize = 15;
     }
 }
 
+- (void)createArrow:(id)pin {
+    float z = self.zoomScale;
+    
+    NSString* color = pin[@"color"];
+    NSString* key = pin[@"key"];
+    
+    UIColor *c = [WildCardUtil colorWithHexString:color];
+    
+    BOOL highlight = [key isEqualToString:self.highlightKey];
+    BOOL selected = [pin[@"selected"] boolValue];
+    BOOL hideDirection = [pin[@"hideDirection"] boolValue];
+    float x = [pin[@"x"] floatValue];
+    float y = [pin[@"y"] floatValue];
+    NSString* text = pin[@"text"];
+    
+    float degree = [pin[@"degree"] floatValue] - 90.0f;
+    float arrow_angle = degree * M_PI / 180.0f;
+    
+    CGRect rect = CGRectMake(x-roundSize, y-roundSize, roundSize*2, roundSize*2);
+    CGPoint arrowTo = [DevilPinLayer getToPointOf:pin];
+    CGRect rectTo = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
+    CGPoint arrowFrom = (CGPoint){x + cos(arrow_angle) * roundSize, y + sin(arrow_angle) * roundSize};
+    CGPoint fakeArrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
+    
+    //페이크 화살표 머리
+    {
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        layer.fillColor = c.CGColor;
+        layer.strokeColor = c.CGColor;
+        
+        layer.borderWidth = 0;
+        layer.lineWidth = width;
+        layer.bounds = rect;
+        
+        if(!hideDirection)
+            [self arrowHeadFake:layer : arrowFrom : fakeArrowTo];
+        
+        layer.position = CGPointMake(x, y);
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        [self.layer insertSublayer:layer atIndex:0];
+        
+        [self.shapes addObject:layer];
+        self.shapeMapFakeArrowHead[key] = layer;
+    }
+    
+    //페이크 화살표 몸통
+    {
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        layer.fillColor = c.CGColor;
+        layer.strokeColor = c.CGColor;
+        
+        layer.borderWidth = 0;
+        layer.lineWidth = width;
+        layer.bounds = rect;
+        
+        if(!hideDirection) {
+            UIBezierPath *path = [UIBezierPath new];
+            [path moveToPoint:arrowFrom];
+            [path addLineToPoint:fakeArrowTo];
+            layer.path = path.CGPath;
+        }
+        
+        layer.position = CGPointMake(x, y);
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        [self.layer insertSublayer:layer atIndex:0];
+        
+        [self.shapes addObject:layer];
+        self.shapeMapFakeArrowLine[key] = layer;
+    }
+    
+    //텍스트
+    {
+        CATextLayer* layer = [CATextLayer new];
+        layer.string = text;
+        layer.font = (__bridge CFTypeRef _Nullable)([UIFont boldSystemFontOfSize:textSize]);
+        layer.fontSize = textSize;
+        layer.frame = rect;
+        layer.position = CGPointMake(x, y);
+        layer.contentsScale = [UIScreen mainScreen].scale;
+        layer.anchorPoint = CGPointMake(0.5, 0.32);
+        layer.alignmentMode = kCAAlignmentCenter;
+        if(selected || highlight)
+            layer.foregroundColor = [UIColor whiteColor].CGColor;
+        else
+            layer.foregroundColor = c.CGColor;
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        
+        [self.layer insertSublayer:layer atIndex:0];
+        [self.shapes addObject:layer];
+        self.shapeMapText[key] = layer;
+    }
+    
+    //몸통
+    {
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        if(selected || highlight) {
+            layer.fillColor = c.CGColor;
+            layer.strokeColor = c.CGColor;
+        } else {
+            layer.fillColor = [UIColor whiteColor].CGColor;
+            layer.strokeColor = c.CGColor;
+        }
+        
+        layer.borderWidth = 0;
+        layer.lineWidth = width;
+        layer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
+        layer.bounds = rect;
+        layer.position = CGPointMake(x, y);
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        [self.layer insertSublayer:layer atIndex:0];
+        [self.shapes addObject:layer];
+        self.shapeMapBody[key] = layer;
+    }
+    
+    //화살표 머리
+    {
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        layer.fillColor = c.CGColor;
+        layer.strokeColor = c.CGColor;
+        layer.borderWidth = 0;
+        layer.lineWidth = width;
+        layer.bounds = rectTo;
+        
+        if(!hideDirection) {
+            [self arrowHead:layer : arrowFrom: arrowTo];
+        }
+        layer.position = CGPointMake(arrowTo.x, arrowTo.y);
+        
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        [self.layer insertSublayer:layer atIndex:0];
+        
+        [self.shapes addObject:layer];
+        self.shapeMapArrowHead[key] = layer;
+    }
+    
+    //화살표 라인
+    {
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        layer.fillColor = c.CGColor;
+        layer.strokeColor = c.CGColor;
+        
+        layer.borderWidth = 0;
+        layer.lineWidth = (float)width / z;
+        layer.bounds = rect;
+        
+        if(!hideDirection) {
+            UIBezierPath *path = [UIBezierPath new];
+            [path moveToPoint:arrowFrom];
+            [path addLineToPoint:arrowTo];
+            layer.path = path.CGPath;
+        }
+        
+        layer.position = CGPointMake(x, y);
+        //layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        [self.layer insertSublayer:layer atIndex:0];
+        
+        [self.shapes addObject:layer];
+        self.shapeMapArrowLine[key] = layer;
+    }
+    
+    
+    [self fakeOrReal:pin];
+}
+
 - (void)syncPin {
     
     for(id layer in self.shapes) {
@@ -313,184 +427,8 @@ float textSize = 15;
     int index = 0;
     
     for(id pin in self.pinList) {
-        NSString* color = pin[@"color"];
-        NSString* key = pin[@"key"];
-        
-        UIColor *c = [WildCardUtil colorWithHexString:color];
-        
-        BOOL highlight = [key isEqualToString:self.highlightKey];
-        BOOL selected = [pin[@"selected"] boolValue];
-        BOOL hideDirection = [pin[@"hideDirection"] boolValue];
-        float x = [pin[@"x"] floatValue];
-        float y = [pin[@"y"] floatValue];
-        NSString* text = pin[@"text"];
-        
-        float degree = [pin[@"degree"] floatValue] - 90.0f;
-        float arrow_angle = degree * M_PI / 180.0f;
-        
-        CGRect rect = CGRectMake(x-roundSize, y-roundSize, roundSize*2, roundSize*2);
-        CGPoint arrowTo = [DevilPinLayer getToPointOf:pin];
-        CGRect rectTo = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
-        CGPoint arrowFrom = (CGPoint){x + cos(arrow_angle) * roundSize, y + sin(arrow_angle) * roundSize};
-        CGPoint fakeArrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
-        
-        //페이크 화살표 머리
-        {
-            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-            layer.fillColor = c.CGColor;
-            layer.strokeColor = c.CGColor;
-            
-            layer.borderWidth = 0;
-            layer.lineWidth = width;
-            layer.bounds = rect;
-            
-            if(!hideDirection)
-                [self arrowHeadFake:layer : arrowFrom : fakeArrowTo];
-            
-            layer.position = CGPointMake(x, y);
-            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-            [self.layer insertSublayer:layer atIndex:0];
-            
-            [self.shapes addObject:layer];
-            self.shapeMapFakeArrowHead[key] = layer;
-        }
-        
-        //페이크 화살표 몸통
-        {
-            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-            layer.fillColor = c.CGColor;
-            layer.strokeColor = c.CGColor;
-            
-            layer.borderWidth = 0;
-            layer.lineWidth = width;
-            layer.bounds = rect;
-            
-            if(!hideDirection) {
-                UIBezierPath *path = [UIBezierPath new];
-                [path moveToPoint:arrowFrom];
-                [path addLineToPoint:fakeArrowTo];
-                layer.path = path.CGPath;
-            }
-            
-            layer.position = CGPointMake(x, y);
-            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-            [self.layer insertSublayer:layer atIndex:0];
-            
-            [self.shapes addObject:layer];
-            self.shapeMapFakeArrowLine[key] = layer;
-        }
-        
-        //텍스트
-        {
-            CATextLayer* layer = [CATextLayer new];
-            layer.string = text;
-            layer.font = (__bridge CFTypeRef _Nullable)([UIFont boldSystemFontOfSize:textSize]);
-            layer.fontSize = textSize;
-            layer.frame = rect;
-            layer.position = CGPointMake(x, y);
-            layer.contentsScale = [UIScreen mainScreen].scale;
-            layer.anchorPoint = CGPointMake(0.5, 0.32);
-            layer.alignmentMode = kCAAlignmentCenter;
-            if(selected || highlight)
-                layer.foregroundColor = [UIColor whiteColor].CGColor;
-            else
-                layer.foregroundColor = c.CGColor;
-            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-            
-            [self.layer insertSublayer:layer atIndex:0];
-            [self.shapes addObject:layer];
-            self.shapeMapText[key] = layer;
-        }
-        
-        //몸통
-        {
-            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-            if(selected || highlight) {
-                layer.fillColor = c.CGColor;
-                layer.strokeColor = c.CGColor;
-            } else {
-                layer.fillColor = [UIColor whiteColor].CGColor;
-                layer.strokeColor = c.CGColor;
-            }
-            
-            layer.borderWidth = 0;
-            layer.lineWidth = width;
-            layer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
-            layer.bounds = rect;
-            layer.position = CGPointMake(x, y);
-            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-            [self.layer insertSublayer:layer atIndex:0];
-            [self.shapes addObject:layer];
-            self.shapeMapBody[key] = layer;
-        }
-        
-        //        //테스트
-        //        {
-        //            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-        //            layer.fillColor = c.CGColor;
-        //            layer.strokeColor = c.CGColor;
-        //            layer.borderWidth = 0;
-        //            layer.lineWidth = width;
-        //            layer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
-        //            layer.bounds = rect;
-        //            layer.position = [DevilPinLayer moveOnLineDistance:arrowFrom: arrowTo:-500];
-        //            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-        //            [self.layer insertSublayer:layer atIndex:0];
-        //            [self.shapes addObject:layer];
-        //        }
-        
-        
-        //화살표 머리
-        {
-            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-            layer.fillColor = c.CGColor;
-            layer.strokeColor = c.CGColor;
-            layer.borderWidth = 0;
-            layer.lineWidth = width;
-            layer.bounds = rectTo;
-            
-            if(!hideDirection) {
-                [self arrowHead:layer : arrowFrom: arrowTo];
-            }
-            layer.position = CGPointMake(arrowTo.x, arrowTo.y);
-            
-            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-            [self.layer insertSublayer:layer atIndex:0];
-            
-            [self.shapes addObject:layer];
-            self.shapeMapArrowHead[key] = layer;
-        }
-        
-        //화살표 라인
-        {
-            CAShapeLayer *layer = [[CAShapeLayer alloc] init];
-            layer.fillColor = c.CGColor;
-            layer.strokeColor = c.CGColor;
-            
-            layer.borderWidth = 0;
-            layer.lineWidth = (float)width / z;
-            layer.bounds = rect;
-            
-            if(!hideDirection) {
-                UIBezierPath *path = [UIBezierPath new];
-                [path moveToPoint:arrowFrom];
-                [path addLineToPoint:arrowTo];
-                layer.path = path.CGPath;
-            }
-            
-            layer.position = CGPointMake(x, y);
-            //layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-            [self.layer insertSublayer:layer atIndex:0];
-            
-            [self.shapes addObject:layer];
-            self.shapeMapArrowLine[key] = layer;
-        }
-        
-        
-        [self fakeOrReal:pin];
-        
+        [self createArrow:pin];
         index ++;
-        
         //NSLog(@"pin %@ %@ %@", pin[@"text"] , color, c);
     }
 }

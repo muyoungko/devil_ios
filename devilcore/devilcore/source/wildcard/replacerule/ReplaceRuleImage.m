@@ -171,7 +171,16 @@
                             ReplaceRuleRepeat* rr = (ReplaceRuleRepeat*)rule;
                             if([REPEAT_TYPE_VLIST isEqualToString:rr.repeatType]) {
                                 WildCardUICollectionView* cv = (WildCardUICollectionView*)rr.createdContainer;
-                                [cv reloadData];
+                                
+                                [UIView animateWithDuration:0.3f
+                                                      delay:0.0f
+                                                    options:UIViewAnimationOptionCurveEaseOut
+                                                 animations:^{
+                                                    [cv.collectionViewLayout invalidateLayout];
+                                                 }
+                                                 completion:^(BOOL finished){
+
+                                                 }];
                             }
                         }
                     }
