@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)relocation:(NSString*)key;
 -(void)setMode:(NSString*)mode :(id)param;
 -(void)focus:(NSString*)key;
+-(void)config:(id)param;
 
 @end
 
