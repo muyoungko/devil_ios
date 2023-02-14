@@ -1684,6 +1684,12 @@
     [map focus:pinKey];
 }
 
++ (void)imageMapConfig:(NSString*)nodeName : (NSDictionary*)param {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    DevilImageMap* map = (DevilImageMap*)[[vc findView:nodeName] subviews][0];
+    [map config:param];
+}
+
 + (NSString*)getByte:(NSString*)text {
     return [DevilUtil byteToHex:[text dataUsingEncoding:NSUTF8StringEncoding]];
 }

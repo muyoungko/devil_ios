@@ -46,6 +46,8 @@ float textSize = 15;
     if(!pin)
         return;
     
+    [self.shapeMapText[key] removeFromSuperlayer];
+    [self.shapeMapBody[key] removeFromSuperlayer];
     [self.shapeMapArrowLine[key] removeFromSuperlayer];
     [self.shapeMapArrowHead[key] removeFromSuperlayer];
     [self.shapeMapFakeArrowLine[key] removeFromSuperlayer];

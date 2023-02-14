@@ -44,6 +44,7 @@
 
 
 @property double touchStartTime;
+@property double pinModeChangeTime;
 
 @end
 
@@ -195,7 +196,7 @@ float borderWidth = 7;
 -(void)initializeWithImage:(UIImage*) image {;
     [self.imageView setImage:image];
     //NSLog(@"%lu %f %f", (unsigned long)[mapData length] , image.size.width, image.size.height);
-            
+    
     _scrollView.contentSize = CGSizeMake(image.size.width, image.size.height);
     _pinLayer.frame = _contentView.frame = _imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     
@@ -259,7 +260,7 @@ float borderWidth = 7;
         p[@"text"] = [NSString stringWithFormat:@"%lu", [self.pinList count]+1];
         if(self.param && self.param[@"text"])
             p[@"text"] = self.param[@"text"];
-
+        
         if(self.param[@"color"])
             p[@"color"] = self.param[@"color"];
         else
@@ -281,7 +282,7 @@ float borderWidth = 7;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSLog(@"touchesBegan");
+    //    NSLog(@"touchesBegan");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     self.touchStartTime = (double)[NSDate date].timeIntervalSince1970;
@@ -303,13 +304,13 @@ float borderWidth = 7;
     }
 }
 
-    
+
 - (float)distance:(CGPoint)a : (CGPoint)b {
     return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
 }
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSLog(@"touchesMoved");
+    //    NSLog(@"touchesMoved");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     if(self.shouldDirectionMove &&
@@ -332,7 +333,7 @@ float borderWidth = 7;
     CGPoint fromPoint = CGPointMake([pin[@"x"] floatValue], [pin[@"y"] floatValue]);
     float distance = [DevilPinLayer distance:fromPoint :touchMapPoint];
     float toBeDistance = distance/2;
-
+    
     
     //최소길이 검사 후 적용
     if(toBeDistance < 29 / _scrollView.zoomScale) {
@@ -340,14 +341,14 @@ float borderWidth = 7;
     }
     
     touchMapPoint = [DevilPinLayer moveOnLineDistance:fromPoint :touchMapPoint :toBeDistance];
-//    NSLog(@"touchMapPoint (%i, %i)", (int)touchMapPoint.x, (int)touchMapPoint.y);
+    //    NSLog(@"touchMapPoint (%i, %i)", (int)touchMapPoint.x, (int)touchMapPoint.y);
     pin[@"toX"] = [NSNumber numberWithFloat:touchMapPoint.x];
     pin[@"toY"] = [NSNumber numberWithFloat:touchMapPoint.y];
     
     
     //최소시간 검사 후 적용
     double now = (double)[NSDate date].timeIntervalSince1970;
-    if(now - self.touchStartTime > 1.0f) {
+    if(now - self.touchStartTime < self.pinModeChangeTime) {
         pin[@"toX"] = pin[@"toY"] = nil;
     }
     
@@ -355,7 +356,7 @@ float borderWidth = 7;
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    NSLog(@"touchesEnded");
+    //    NSLog(@"touchesEnded");
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]
@@ -386,7 +387,7 @@ float borderWidth = 7;
     id children = [self.contentView subviews];
     for(id child in children) {
         if(child != self.imageView && child != self.popupView  && child != _pinLayer)
-           [child removeFromSuperview];
+            [child removeFromSuperview];
     }
     
     _pinLayer.pinList = [self.pinList mutableCopy];
@@ -398,12 +399,12 @@ float borderWidth = 7;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    NSLog(@"scrollViewDidScroll");
+    //    NSLog(@"scrollViewDidScroll");
     [self updatePopupPoint];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-//    NSLog(@"scrollViewWillBeginDragging");
+    //    NSLog(@"scrollViewWillBeginDragging");
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
@@ -411,11 +412,11 @@ float borderWidth = 7;
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView {
-//    NSLog(@"scrollViewDidZoom %f", scrollView.zoomScale);
+    //    NSLog(@"scrollViewDidZoom %f", scrollView.zoomScale);
     
     [_pinLayer updateZoom:scrollView.zoomScale];
-//    _pinLayer.zoomScale = scrollView.zoomScale;
-//    [_pinLayer setNeedsDisplay];
+    //    _pinLayer.zoomScale = scrollView.zoomScale;
+    //    [_pinLayer setNeedsDisplay];
     
     float z = scrollView.zoomScale;
     id children = [self.contentView subviews];
@@ -427,7 +428,7 @@ float borderWidth = 7;
                 pin = self.pinList[index];
             else
                 pin = self.insertingPin;
-                
+            
             UIView* pv = child;
             CGPoint p = pv.center;
             pv.frame = CGRectMake(0, 0, circleWidth / z, circleWidth / z);
@@ -485,6 +486,13 @@ float borderWidth = 7;
     }
     self.mode = mode;
     self.param = param;
+}
+
+- (void)config:(id)param {
+    if(param[@"pinModeChangeTime"]) {
+        self.pinModeChangeTime = [param[@"pinModeChangeTime"] intValue] / 1000.0f;
+    } else
+        self.pinModeChangeTime = 1.0f;
 }
 
 - (void)complete {

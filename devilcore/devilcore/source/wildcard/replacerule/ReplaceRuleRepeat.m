@@ -158,6 +158,13 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"1"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"2"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"3"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"4"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"5"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"6"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"7"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"8"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"9"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         //container.pagingEnabled = YES;
         
@@ -573,7 +580,6 @@
         WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)repeatRule.adapterForRetain;
         
         adapter.data = targetDataJson;
-        
         
         [adapter autoSwipe:[@"Y" isEqualToString:arrayContent[@"autoSwipe"]]];
         
