@@ -13,6 +13,7 @@
 @interface DevilBillInstance()
 @property void (^callback)(id res);
 @property void (^purchaseCallback)(id res);
+@property id fallbackInfo;
 @end
 
 @implementation DevilBillInstance
@@ -24,6 +25,12 @@
         sharedInstance = [[DevilBillInstance alloc] init];
     });
     return sharedInstance;
+}
+
+- (instancetype)init{
+    self = [super init];
+    self.fallbackInfo = [@{} mutableCopy];
+    return self;
 }
 
 - (void)requestProduct:(id)param callback:(void (^)(id res))callback {
@@ -38,14 +45,14 @@
             a[@"sku"] = sku;
             if(test) {
                 id fallback = test[i];
+                self.fallbackInfo[sku] = fallback;
                 a[@"type"] = fallback[@"type"];
-                
                 a[@"title"] = fallback[@"title"]?fallback[@"title"]:@"sku";
                 a[@"desc"] = fallback[@"desc"]?fallback[@"desc"]:@"sku";
                 a[@"price"] = fallback[@"price"]?fallback[@"price"]:@"1000";
                 a[@"price_text"] = fallback[@"price_text"]?fallback[@"price_text"]:@"1,000원";
                 
-                a[@"valid"] = fallback[@"valid"]?fallback[@"valid"]:@TRUE;
+                a[@"valid"] = [self loadTestPurchaseSubscribe:sku]?@TRUE:@NO;
                 a[@"order_id"] = [NSString stringWithFormat:@"devil_order_%@", [NSUUID UUID].UUIDString];
                 a[@"receipt"] = [NSString stringWithFormat:@"devil_receipt_%@", [NSUUID UUID].UUIDString];
             }
@@ -135,10 +142,34 @@
     }
 }
 
+- (void)saveTestPurchaseSubscribe:(NSString*)sku {
+    NSString* key = [NSString stringWithFormat:@"DEVIL_PURCHASE_%@", sku];
+    double now = (double)[NSDate date].timeIntervalSince1970;
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:now] forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)loadTestPurchaseSubscribe:(NSString*)sku {
+    NSString* key = [NSString stringWithFormat:@"DEVIL_PURCHASE_%@", sku];
+    NSNumber* p = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    double now = (double)[NSDate date].timeIntervalSince1970;
+    if(p && now - [p doubleValue] < 60*5) {
+        return YES;
+    } else
+        return NO;
+    
+}
+
+
 - (void)purchase:(NSString*)sku callback:(void (^)(id res))callback {
     
     self.purchaseCallback = callback;
     if([self isDevilAppTest]) {
+        
+        if(self.fallbackInfo[sku]) {
+            [self saveTestPurchaseSubscribe:sku];
+        }
+        
         self.purchaseCallback(@{
             @"r":@TRUE,
             @"order_id": [NSString stringWithFormat:@"devil_order_%@", [NSUUID UUID].UUIDString],
@@ -220,6 +251,7 @@
                  */
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
+                
                 if(self.purchaseCallback){
                     self.purchaseCallback(@{
                         @"r":@TRUE,
