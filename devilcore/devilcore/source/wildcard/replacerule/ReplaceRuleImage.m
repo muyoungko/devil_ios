@@ -109,8 +109,9 @@
         return self.currentUrl;
     }
     
-    if([url isEqualToString:self.currentUrl])
+    if([url isEqualToString:self.currentUrl]) {
         return self.currentUrl;
+    }
     
     [imageView setImage:nil];
     [imageView setNeedsDisplay];
@@ -147,48 +148,48 @@
                 *stop = true;
             }];
         }
-    } else {
-        if(self.replaceJsonLayer[@"scaleType"] && [@"wrap_height" isEqualToString:self.replaceJsonLayer[@"scaleType"]]) {
+    } else if(self.replaceJsonLayer[@"scaleType"] && [@"wrap_height" isEqualToString:self.replaceJsonLayer[@"scaleType"]]) {
+        
+        float oh = [self.replaceJsonLayer[@"frame"][@"oh"] floatValue];
+        imageView.frame = CGRectMake(0,0,imageView.frame.size.width, [WildCardUtil convertSketchToPixel:oh]);
+        [[WildCardConstructor sharedInstance].delegate loadNetworkImageViewWithSize:imageView withUrl:url callback:^(CGSize size) {
             
-            float oh = [self.replaceJsonLayer[@"frame"][@"oh"] floatValue];
-            imageView.frame = CGRectMake(0,0,imageView.frame.size.width, [WildCardUtil convertSketchToPixel:oh]);
-            [[WildCardConstructor sharedInstance].delegate loadNetworkImageViewWithSize:imageView withUrl:url callback:^(CGSize size) {
-                float h =  imageView.frame.size.width * size.height / size.width;
-                imageView.frame = CGRectMake(0,0,imageView.frame.size.width, h);
-                WildCardUIView* parent = (WildCardUIView*)[imageView superview];
-                parent.frame = CGRectMake(parent.frame.origin.x, parent.frame.origin.y, imageView.frame.size.width, h);
-                opt[@"devil_image_height_pixcel"] = [NSNumber numberWithFloat:h];
-                [self.meta requestLayout];
-                
-                /**
-                 리스트 cell의 높이가 변경되면, 따라서 리스트의 cell에 reloadData(혹은 높이를 재계산하는 트리거)가 호출되어야한다
-                 TODO 의존성(ReplaceRuleImage와 ReplaceRuleRepeat간에)이 없는 재설계 필요
-                 */
-                
-                if(self.meta.parentMeta) {
-                    for(ReplaceRule* rule in self.self.meta.parentMeta.replaceRules) {
-                        if([rule isKindOfClass:[ReplaceRuleRepeat class]]) {
-                            ReplaceRuleRepeat* rr = (ReplaceRuleRepeat*)rule;
-                            if([REPEAT_TYPE_VLIST isEqualToString:rr.repeatType]) {
-                                WildCardUICollectionView* cv = (WildCardUICollectionView*)rr.createdContainer;
-                                
-                                [UIView animateWithDuration:0.3f
-                                                      delay:0.0f
-                                                    options:UIViewAnimationOptionCurveEaseOut
-                                                 animations:^{
-                                                    [cv.collectionViewLayout invalidateLayout];
-                                                 }
-                                                 completion:^(BOOL finished){
-
-                                                 }];
-                            }
+            float h =  imageView.frame.size.width * size.height / size.width;
+            imageView.frame = CGRectMake(0,0,imageView.frame.size.width, h);
+            WildCardUIView* parent = (WildCardUIView*)[imageView superview];
+            parent.frame = CGRectMake(parent.frame.origin.x, parent.frame.origin.y, imageView.frame.size.width, h);
+            [WildCardUtil cachedImagePixcelHeight:url height:h];
+            [self.meta requestLayout];
+            
+            /**
+             리스트 cell의 높이가 변경되면, 따라서 리스트의 cell에 reloadData(혹은 높이를 재계산하는 트리거)가 호출되어야한다
+             TODO 의존성(ReplaceRuleImage와 ReplaceRuleRepeat간에)이 없는 재설계 필요
+             */
+            
+            if(self.meta.parentMeta) {
+                for(ReplaceRule* rule in self.self.meta.parentMeta.replaceRules) {
+                    if([rule isKindOfClass:[ReplaceRuleRepeat class]]) {
+                        ReplaceRuleRepeat* rr = (ReplaceRuleRepeat*)rule;
+                        if([REPEAT_TYPE_VLIST isEqualToString:rr.repeatType]) {
+                            WildCardUICollectionView* cv = (WildCardUICollectionView*)rr.createdContainer;
+                            
+                            //[cv.collectionViewLayout invalidateLayout];
+                            [UIView animateWithDuration:0.3f
+                                                  delay:0.0f
+                                                options:UIViewAnimationOptionCurveEaseOut
+                                             animations:^{
+                                                [cv.collectionViewLayout invalidateLayout];
+                                             }
+                                             completion:^(BOOL finished){
+                                                [cv.collectionViewLayout invalidateLayout];
+                                             }];
                         }
                     }
                 }
-            }];
-        } else
-            [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:imageView withUrl:url];
-    }
+            }
+        }];
+    } else
+        [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:imageView withUrl:url];
     
     return url;
 }

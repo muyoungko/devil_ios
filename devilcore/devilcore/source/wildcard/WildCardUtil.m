@@ -277,10 +277,24 @@ static BOOL IS_TABLET = NO;
 
 
 
++(float) cachedImagePixcelHeight:(NSString*)url height:(float)height{
+    static id heightMapByUrl = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        heightMapByUrl = [@{} mutableCopy];
+    });
+    
+    if(height > 0) {
+        heightMapByUrl[url] = [NSNumber numberWithFloat:height];
+    }
+    if(heightMapByUrl[url])
+        return [heightMapByUrl[url] floatValue];
+    else
+        return 0;
+}
+
 +(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
 {
-    if([@"chat_image_view_right" isEqualToString:cloudJson[@"name"]])
-        NSLog(@"measureHeight %@", cloudJson[@"name"]);
     float h = [cloudJson[@"frame"][@"h"] floatValue];
     /**
      TODO : match_h 구현해야함(관련성부터 파악)
@@ -292,13 +306,17 @@ static BOOL IS_TABLET = NO;
     /**
      이미지인경우 scapeType wrap_heigth를 감안해야한다 이미지를 불러오고 그에 따라 높이를 변경하는 구조이며,
      이미지가 불러오면 데이터에 해당 이미지의 w와 h를 넣어준다
-     각각 devil_image_width_pixcel, devil_image_height_pixcel
+     
      */
     if([@"wrap_height" isEqualToString:cloudJson[@"scaleType"]]){
-        if(data[@"devil_image_height_pixcel"])
-            h = [data[@"devil_image_height_pixcel"] floatValue];
-        else
+        NSString* imageContent = cloudJson[@"imageContent"];
+        NSString* url = [MappingSyntaxInterpreter interpret:imageContent :data];
+        float cachedH = [WildCardUtil cachedImagePixcelHeight:url height:0];
+        if(cachedH > 0) {
+            h = cachedH;
+        } else
             h = [WildCardUtil convertSketchToPixel:[cloudJson[@"frame"][@"oh"] floatValue]];
+        
     } else if([@"text" isEqualToString:cloudJson[@"_class"]]){
         NSString* textContent = cloudJson[@"textContent"];
         NSString* text = [MappingSyntaxInterpreter interpret:textContent :data];
