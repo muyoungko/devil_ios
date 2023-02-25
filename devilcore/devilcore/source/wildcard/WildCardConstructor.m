@@ -959,7 +959,13 @@ static BOOL IS_TABLET = NO;
                 tv.textAlignment = NSTextAlignmentRight;
             
             
-            float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
+            float sketchTextSize = [[textSpec objectForKey:@"textSize"] floatValue];
+            if(layer[@"dynamicTextSize"]) {
+                NSString* s = [Jevil get:layer[@"dynamicTextSize"]];
+                if(s)
+                    sketchTextSize = [s intValue];
+            }
+            float textSize = [WildCardConstructor convertTextSize:sketchTextSize];
             
             if([[textSpec objectForKey:@"bold"] boolValue])
             {

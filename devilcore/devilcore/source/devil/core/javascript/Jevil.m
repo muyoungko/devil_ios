@@ -1482,15 +1482,12 @@
     }];
 }
 
-
-
-
 + (void)setTimer:(NSString*)key :(int)milli_sec :(JSValue*)callback {
-    
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [NSObject cancelPreviousPerformRequestsWithTarget:[JevilInstance currentInstance] selector:@selector(timerFunction:) object:key];
     [[JevilInstance currentInstance] performSelector:@selector(timerFunction:) withObject:key afterDelay:milli_sec/1000.0f];
     [JevilInstance currentInstance].timerCallback = ^(id  _Nonnull res) {
-        [callback callWithArguments:@[]];
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[]];
     };
 }
 
