@@ -493,6 +493,11 @@ float borderWidth = 7;
         self.pinModeChangeTime = [param[@"pinModeChangeTime"] intValue] / 1000.0f;
     } else
         self.pinModeChangeTime = 1.0f;
+    
+    if(param[@"minPinSizeScale"])
+        self.pinLayer.minPinSizeScale = [param[@"minPinSizeScale"] floatValue];
+    else
+        self.pinLayer.minPinSizeScale = 10000;
 }
 
 - (void)complete {

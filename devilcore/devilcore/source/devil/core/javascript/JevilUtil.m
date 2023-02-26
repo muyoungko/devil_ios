@@ -120,7 +120,7 @@
         for(id k in ks){
             BOOL r = [JevilUtil findCore:node[k] :thisData :outList];
             if(r){
-                [outList insertObject:[NSString stringWithFormat:@".%@",k] atIndex:0];
+                [outList insertObject:[NSString stringWithFormat:@"['%@']",k] atIndex:0];
                 return true;
             }
         }

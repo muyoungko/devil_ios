@@ -415,11 +415,13 @@
     UIImage* photo = info[UIImagePickerControllerOriginalImage];
     NSString* targetPath = [self savePhotoToJpegFile:photo];
     if([self.param[@"multi"] boolValue]) {
+        
+        UIImageWriteToSavedPhotosAlbum(photo, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+
         [self.photoList addObject:[@{
             @"type":@"image",
             @"image" :targetPath,
         } mutableCopy]];
-        
     } else {
         [picker dismissViewControllerAnimated:YES completion:^{
             if(self.callback) {
@@ -433,6 +435,15 @@
         }];
     }
 }
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error) {
+        NSLog(@"error: %@", [error localizedDescription]);
+    } else {
+        NSLog(@"saved");
+    }
+}
+
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [picker dismissViewControllerAnimated:YES completion:^{

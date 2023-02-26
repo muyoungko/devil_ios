@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, retain) id pinList;
 @property float zoomScale;
+@property float minPinSizeScale;
+
 - (void)highlight:(NSString*)key;
 - (void)syncPinWithAnimation:(NSString*)key;
 - (void)syncPin;

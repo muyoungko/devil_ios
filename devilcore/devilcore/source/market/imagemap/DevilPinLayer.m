@@ -126,8 +126,11 @@ float textSize = 15;
 
 - (void)updateZoom:(float)zoomScale {
     self.zoomScale = zoomScale;
-    float z = zoomScale;
-    //NSLog(@"updateZoom %f shapes count - %u", z, [self.shapes count]);
+    if(zoomScale > self.minPinSizeScale)
+        self.zoomScale = self.minPinSizeScale;
+    
+    float z = self.zoomScale;
+    //NSLog(@"updateZoom %f", z);
     for(CAShapeLayer* layer in [self.shapeMapText allObjects]) {
         layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
     }

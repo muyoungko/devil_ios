@@ -92,7 +92,7 @@
     if([[data allKeys] count] == 0)
         data[@"atLeastOneKey"] = @"1";
     self.jscontext[@"data"] = data;
-    if(meta != nil){
+    if(meta != nil){ 
         NSString *d = [JevilUtil find:data :meta.correspondData];
         d = [NSString stringWithFormat:@"thisData = data%@\n", d];
         code = [d stringByAppendingString:code];
