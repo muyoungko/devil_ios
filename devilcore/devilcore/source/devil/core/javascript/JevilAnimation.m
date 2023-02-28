@@ -32,6 +32,15 @@
         animationGroup.animations = @[animation];
         
         [v.layer addAnimation:animationGroup forKey:nil];
+    } else if([type isEqualToString:@"fadein"]) {
+        v.alpha = 0.0;
+        CGFloat duration = 0.3f;
+        v.hidden = NO;
+        [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            v.alpha = 1.0;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
 }
 
