@@ -14,6 +14,7 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "DevilLang.h"
 
+
 @import AVFoundation;
 @import Photos;
 
@@ -83,6 +84,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) BOOL front;
 @property (nonatomic) BOOL flash;
 @property (nonatomic) BOOL video;
+@property (nonatomic) BOOL pictureTakening;
+@property (nonatomic) float oldVolume;
 
 @property (nonatomic) NSString* targetImagePath;
 @property (nonatomic) NSString* targetPreviewPath;
@@ -158,6 +161,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     NSString* outputFileName = [NSUUID UUID].UUIDString;
+    
+    self.pictureTakening = false;
     
     self.targetPreviewPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"jpg"]];
     self.targetVideoPathMov = [NSTemporaryDirectory() stringByAppendingPathComponent:[outputFileName stringByAppendingPathExtension:@"mov"]];
@@ -236,6 +241,15 @@ typedef NS_ENUM(NSInteger, UIMode) {
             }
         }
     });
+    
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    self.oldVolume = [[AVAudioSession sharedInstance] outputVolume];
+    [[AVAudioSession sharedInstance] addObserver:self forKeyPath:@"outputVolume" options:0 context:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[AVAudioSession sharedInstance] removeObserver:self forKeyPath:@"outputVolume"];
 }
 
 - (void) viewDidDisappear:(BOOL)animated
@@ -765,7 +779,13 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
         AVCaptureSystemPressureState* systemPressureState = change[NSKeyValueChangeNewKey];
         [self setRecommendedFrameRateRangeForPressureState:systemPressureState];
     }
-    else {
+    else if ([keyPath isEqual:@"outputVolume"]) {
+        float newVolume = [[AVAudioSession sharedInstance] outputVolume];
+        if(self.oldVolume > newVolume || newVolume == 0) {
+            self.oldVolume = newVolume;
+            [self onClickTake:nil];
+        }
+    } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -905,6 +925,10 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 }
 
 -(void)onClickTake:(id)sender {
+    if(self.pictureTakening)
+        return;
+    
+    self.pictureTakening = true;
     /*
      Retrieve the video preview layer's video orientation on the main queue before
      entering the session queue. We do this to ensure UI elements are accessed on
@@ -991,6 +1015,8 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
                 if(_front)
                     photo = [UIImage imageWithCGImage:photo.CGImage scale:photo.scale orientation:UIImageOrientationLeftMirrored];
                 [self.cropView setImage:photo];
+                
+                self.pictureTakening = false;
             });
         } photoProcessingHandler:^(BOOL animate) {
             // Animates a spinner while photo is processing

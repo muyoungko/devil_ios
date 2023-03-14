@@ -328,7 +328,7 @@
                 self.photoList = [@[] mutableCopy];
                 self.param = param;
                 DevilImagePickerController *picker = [[DevilImagePickerController alloc] init];
-                
+                 
                 BOOL isLandscape = [[UIApplication sharedApplication] statusBarOrientation] == UIDeviceOrientationLandscapeLeft ||
                 [[UIApplication sharedApplication] statusBarOrientation] == UIDeviceOrientationLandscapeRight;
                 picker.landscape = isLandscape;
