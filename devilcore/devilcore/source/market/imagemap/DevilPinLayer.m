@@ -59,7 +59,7 @@ float textSize = 15;
     return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
 }
 
-- (void)arrowHead:(CAShapeLayer*)layer :(CGPoint) arrowFrom :(CGPoint) arrowTo {
+- (void)arrowHead:(CAShapeLayer*)layer :(CGPoint) arrowFrom :(CGPoint) arrowTo :(int)arrowType{
     UIBezierPath *path = [UIBezierPath new];
     [path moveToPoint:arrowTo];
     
@@ -68,60 +68,33 @@ float textSize = 15;
     float to_x = arrowTo.x;
     float to_y = arrowTo.y;
     
-    float radius = 6; //화살표의 반경(반지름)
-    float angle = 60; //화살표 끝이 펼쳐진 각도
-    float anglerad = (float) (M_PI*angle/180.0f); //라디안
-    float lineangle = (float) (atan2(to_y-from_y,to_x-from_x));
-    
-    float x1 = (float)(to_x - radius*cos(lineangle - (anglerad / 2.0)));
-    float y1 = (float)(to_y - radius*sin(lineangle - (anglerad / 2.0)));
-    [path addLineToPoint:(CGPoint){x1,y1}];
-    
-    //화살표 중앙 밑날개끝
-    float x11 = (float)(to_x - (radius/2.0f)*cos(lineangle));
-    float y11 = (float)(to_y - (radius/2.0f)*sin(lineangle));
-    [path addLineToPoint:(CGPoint){x11,y11}];
-    
-    //화살표 반대쪽날개끝
-    float x2 = (float)(to_x - radius*cos(lineangle + (anglerad / 2.0)));
-    float y2 = (float)(to_y - radius*sin(lineangle + (anglerad / 2.0)));
-    [path addLineToPoint:(CGPoint){x2,y2}];
-    
-    [path closePath];
-    layer.path = path.CGPath;
-}
-
-
-- (void)arrowHeadFake:(CAShapeLayer*)layer :(CGPoint) arrowFrom :(CGPoint) arrowTo {
-    UIBezierPath *path = [UIBezierPath new];
-    [path moveToPoint:arrowTo];
-    
-    float from_x = arrowFrom.x;
-    float from_y = arrowFrom.y;
-    float to_x = arrowTo.x;
-    float to_y = arrowTo.y;
-    
-    float radius = 6; //화살표의 반경(반지름)
-    float angle = 60; //화살표 끝이 펼쳐진 각도
-    float anglerad = (float) (M_PI*angle/180.0f); //라디안
-    float lineangle = (float) (atan2(to_y-from_y,to_x-from_x));
-    
-    float x1 = (float)(to_x - radius*cos(lineangle - (anglerad / 2.0)));
-    float y1 = (float)(to_y - radius*sin(lineangle - (anglerad / 2.0)));
-    [path addLineToPoint:(CGPoint){x1,y1}];
-    
-    //화살표 중앙 밑날개끝
-    float x11 = (float)(to_x - (radius/2.0f)*cos(lineangle));
-    float y11 = (float)(to_y - (radius/2.0f)*sin(lineangle));
-    [path addLineToPoint:(CGPoint){x11,y11}];
-    
-    //화살표 반대쪽날개끝
-    float x2 = (float)(to_x - radius*cos(lineangle + (anglerad / 2.0)));
-    float y2 = (float)(to_y - radius*sin(lineangle + (anglerad / 2.0)));
-    [path addLineToPoint:(CGPoint){x2,y2}];
-    
-    [path closePath];
-    layer.path = path.CGPath;
+    if(arrowType == ARROW_TYPE_ROUND) {
+        float w = width * 1.5f;
+        CGRect rect = CGRectMake(arrowTo.x-w, arrowTo.y-w, w*2, w*2);
+        layer.path = [UIBezierPath bezierPathWithOvalInRect:rect].CGPath;
+    } else {
+        float radius = 6; //화살표의 반경(반지름)
+        float angle = 60; //화살표 끝이 펼쳐진 각도
+        float anglerad = (float) (M_PI*angle/180.0f); //라디안
+        float lineangle = (float) (atan2(to_y-from_y,to_x-from_x));
+        
+        float x1 = (float)(to_x - radius*cos(lineangle - (anglerad / 2.0)));
+        float y1 = (float)(to_y - radius*sin(lineangle - (anglerad / 2.0)));
+        [path addLineToPoint:(CGPoint){x1,y1}];
+        
+        //화살표 중앙 밑날개끝
+        float x11 = (float)(to_x - (radius/2.0f)*cos(lineangle));
+        float y11 = (float)(to_y - (radius/2.0f)*sin(lineangle));
+        [path addLineToPoint:(CGPoint){x11,y11}];
+        
+        //화살표 반대쪽날개끝
+        float x2 = (float)(to_x - radius*cos(lineangle + (anglerad / 2.0)));
+        float y2 = (float)(to_y - radius*sin(lineangle + (anglerad / 2.0)));
+        [path addLineToPoint:(CGPoint){x2,y2}];
+        
+        [path closePath];
+        layer.path = path.CGPath;
+    }
 }
 
 - (void)updateZoom:(float)zoomScale {
@@ -263,6 +236,9 @@ float textSize = 15;
     float x = [pin[@"x"] floatValue];
     float y = [pin[@"y"] floatValue];
     NSString* text = pin[@"text"];
+    int arrowType = ARROW_TYPE_ARROW;
+    if(pin[@"arrowType"])
+        arrowType = [pin[@"arrowType"] intValue];
     
     float degree = [pin[@"degree"] floatValue] - 90.0f;
     float arrow_angle = degree * M_PI / 180.0f;
@@ -284,7 +260,7 @@ float textSize = 15;
         layer.bounds = rect;
         
         if(!hideDirection)
-            [self arrowHeadFake:layer : arrowFrom : fakeArrowTo];
+            [self arrowHead:layer : arrowFrom : fakeArrowTo: arrowType];
         
         layer.position = CGPointMake(x, y);
         layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
@@ -372,9 +348,9 @@ float textSize = 15;
         layer.lineWidth = width;
         layer.bounds = rectTo;
         
-        if(!hideDirection) {
-            [self arrowHead:layer : arrowFrom: arrowTo];
-        }
+        if(!hideDirection)
+            [self arrowHead:layer : arrowFrom: arrowTo:arrowType];
+        
         layer.position = CGPointMake(arrowTo.x, arrowTo.y);
         
         layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);

@@ -9,6 +9,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+#define ARROW_TYPE_ARROW 0
+#define ARROW_TYPE_ROUND 1
+
 @interface DevilPinLayer : UIView
 
 @property (nonatomic, retain) id pinList;

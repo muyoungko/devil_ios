@@ -45,6 +45,7 @@
 
 @property double touchStartTime;
 @property double pinModeChangeTime;
+@property int arrowType;
 
 @end
 
@@ -268,6 +269,7 @@ float borderWidth = 7;
         
         p[@"degree"] = @0;
         p[@"hideDirection"] = @TRUE;
+        p[@"arrowType"] = [NSNumber numberWithInt:self.arrowType];
         self.insertingPin = p;
         
         [self syncPin];
@@ -498,6 +500,11 @@ float borderWidth = 7;
         self.pinLayer.minPinSizeScale = [param[@"minPinSizeScale"] floatValue];
     else
         self.pinLayer.minPinSizeScale = 10000;
+    
+    if([@"round" isEqualToString:param[@"arrowType"]])
+        self.arrowType = ARROW_TYPE_ROUND;
+    else
+        self.arrowType = ARROW_TYPE_ARROW;
 }
 
 - (void)complete {
