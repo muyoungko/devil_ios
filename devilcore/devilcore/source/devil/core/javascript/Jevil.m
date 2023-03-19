@@ -904,9 +904,12 @@
     NSString* yes = param[@"yes"];
     NSString* no = param[@"no"];
     NSString* show = param[@"show"];
+    
     [[JevilInstance currentInstance] syncData];
     DevilBlockDialog* d = [DevilBlockDialog popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no
                                              show:show
+                                            param:param
+                                         delegate:[JevilInstance currentInstance].vc
                                          onselect:^(BOOL yes, id res) {
         [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
         [[JevilInstance currentInstance] syncData];
@@ -949,9 +952,13 @@
 }
 
 
-+ (void)popupClose:(BOOL)yes {
-    if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
-        [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismissWithCallback:yes];
++ (void)popupClose:(id)yes {
+    if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog) {
+        if(yes == nil)
+            [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismiss];
+        else
+            [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismissWithCallback:yes];
+    }
 }
 
 + (void)popupSelect:(NSArray *)arrayString :(NSDictionary*)param :(JSValue *)callback {

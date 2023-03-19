@@ -94,6 +94,8 @@
     [JevilInstance globalInstance].callbackData = nil;
     [JevilInstance globalInstance].callbackFunction = nil;
     [self debugView];
+    
+    self.view.clipsToBounds = YES;
 }
 
 -(void)debugView {

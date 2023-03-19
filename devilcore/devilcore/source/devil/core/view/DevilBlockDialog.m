@@ -10,6 +10,7 @@
 #import "WildCardConstructor.h"
 #import "WildCardUIView.h"
 #import "JevilInstance.h"
+#import "WildCardUITapGestureRecognizer.h"
 
 static const CGFloat kDefaultSpringDamping = 0.8;
 static const CGFloat kDefaultSpringVelocity = 10.0;
@@ -146,16 +147,46 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 }
 
 + (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show delegate:(id)wildCardConstructorInstanceDelegate onselect:(void (^)(BOOL yes, id res))callback {
+    return [DevilBlockDialog popup:blockName data:data title:titleText yes:yes no:no show:show param:@{} delegate:wildCardConstructorInstanceDelegate  onselect:callback];
+}
+
++ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show  param:(id)param delegate:(id)wildCardConstructorInstanceDelegate onselect:(void (^)(BOOL yes, id res))callback {
+    
+    NSString* yes_node = param[@"yes_node"];
+    NSString* no_node = param[@"no_node"];
+    BOOL auto_dismiss = YES;
+    if(param[@"auto_dismiss"])
+        auto_dismiss = [param[@"auto_dismiss"] boolValue];
     
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
     WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:wildCardConstructorInstanceDelegate];
     wc.meta.correspondData = data;
     wc.meta.jevil = [JevilInstance currentInstance].jevil;
+    
     [wc.meta created];
     [WildCardConstructor applyRule:wc withData:data];
     
     DevilBlockDialog *popup = [[[self class] alloc] init];
+    popup.auto_dismiss = auto_dismiss;
+    
+    if(yes_node) {
+        UIView* vv = [wc.meta getView:yes_node];
+        WildCardUITapGestureRecognizer *singleFingerTap = [[WildCardUITapGestureRecognizer alloc] initWithTarget:popup action:@selector(buttonClick:)];
+        [singleFingerTap setTag:BUTTON_YES];
+        [vv addGestureRecognizer:singleFingerTap];
+        vv.userInteractionEnabled = YES;
+    }
+    
+    if(no_node) {
+        UIView* vv = [wc.meta getView:no_node];
+        [vv setTag:BUTTON_NO];
+        WildCardUITapGestureRecognizer *singleFingerTap = [[WildCardUITapGestureRecognizer alloc] initWithTarget:popup action:@selector(buttonClick:)];
+        [singleFingerTap setTag:BUTTON_NO];
+        [vv addGestureRecognizer:singleFingerTap];
+        vv.userInteractionEnabled = YES;
+    }
+    
     popup.callback = callback;
     popup.wc = wc;
     
@@ -205,7 +236,7 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
         [button setTag:BUTTON_YES];
         [b addSubview:button];
     }
-    
+     
     popup.contentView = b;
     popup.showType = DevilBlockDialogShowType_GrowIn;
     popup.dismissType = DevilBlockDialogDismissType_GrowOut;
@@ -226,19 +257,23 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 
 - (void)buttonClick:(UIView*)sender {
     if(sender.tag == BUTTON_NO){
+        [[JevilInstance currentInstance] pushData];
         self.callback(false, nil);
-        [self dismiss];
+        if(_auto_dismiss)
+            [self dismiss];
     } if(sender.tag == BUTTON_YES){
+        [[JevilInstance currentInstance] pushData];
         self.callback(true, nil);
-        [self dismiss];
+        if(_auto_dismiss)
+            [self dismiss];
     }
-    self.callback = nil;
 }
 
 - (void)dismissWithCallback:(BOOL)yes {
     if(self.callback!= nil) {
-        self.callback(yes, nil);
+        void (^fcallback)(BOOL yes, id res) = self.callback;
         self.callback = nil;
+        fcallback(yes, nil);
     }
     [self dismiss:YES];
 }

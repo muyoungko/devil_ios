@@ -296,8 +296,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)title yes:(NSString*)yes no:(NSString*)no show:(NSString*)show onselect:(void (^)(BOOL yes, id res))callback;
 + (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)title yes:(NSString*)yes no:(NSString*)no show:(NSString*)show delegate:(id)wildCardConstructorInstanceDelegate onselect:(void (^)(BOOL yes, id res))callback;
++ (DevilBlockDialog *)popup:(NSString*)blockName data:(id)data title:(NSString*)titleText yes:(NSString*)yes no:(NSString*)no show:(NSString*)show  param:(id)param delegate:(id)wildCardConstructorInstanceDelegate onselect:(void (^)(BOOL yes, id res))callback;
+- (void)buttonClick:(UIView*)sender;
 
 @property void (^callback)(BOOL yes, id res);
+@property (nonatomic, retain) NSString* yes_node_name;
+@property (nonatomic, retain) NSString* no_node_name;
+@property BOOL auto_dismiss;
 
 @end
 
