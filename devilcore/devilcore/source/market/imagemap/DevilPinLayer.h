@@ -12,6 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 #define ARROW_TYPE_ARROW 0
 #define ARROW_TYPE_ROUND 1
 
+#define PIN_FIRST_PIN 0
+#define PIN_FIRST_POINT 1
+
 @interface DevilPinLayer : UIView
 
 @property (nonatomic, retain) id pinList;

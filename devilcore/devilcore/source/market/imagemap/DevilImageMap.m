@@ -46,6 +46,7 @@
 @property double touchStartTime;
 @property double pinModeChangeTime;
 @property int arrowType;
+@property int pinFirst;
 
 @end
 
@@ -90,6 +91,9 @@ float borderWidth = 7;
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     
+    self.arrowType = ARROW_TYPE_ARROW;
+    self.pinFirst = PIN_FIRST_PIN;
+    
     self.mode = @"normal";
 }
 
@@ -101,6 +105,13 @@ float borderWidth = 7;
     return pinPointInScreen;
 }
 
+-(CGPoint) mapToClickPoint:(CGPoint)p {
+    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+    float x = p.x;
+    float y = p.y;
+    CGPoint r = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    return r;
+}
 
 -(CGPoint) clickToMapPoint:(CGPoint)p {
     return [self convertPoint:p toView:self.contentView];
@@ -246,7 +257,6 @@ float borderWidth = 7;
         }
     }
     
-    
     return [super hitTest:point withEvent:event];
 }
 
@@ -254,9 +264,23 @@ float borderWidth = 7;
     CGPoint mp = [self clickToMapPoint:tappedPoint];
     BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
     if(inMap) {
+        
         id p = [@{} mutableCopy];
-        p[@"x"] = [NSNumber numberWithFloat:mp.x];
-        p[@"y"] = [NSNumber numberWithFloat:mp.y];
+        
+        if(self.pinFirst == PIN_FIRST_PIN) {
+            p[@"x"] = [NSNumber numberWithFloat:mp.x];
+            p[@"y"] = [NSNumber numberWithFloat:mp.y];
+            p[@"pinFirst"] = [NSNumber numberWithInt:PIN_FIRST_PIN];
+        } else if(self.pinFirst == PIN_FIRST_POINT) {
+            p[@"x"] = [NSNumber numberWithFloat:mp.x];
+            p[@"y"] = [NSNumber numberWithFloat:mp.y];
+            p[@"toX"] = [NSNumber numberWithFloat:mp.x];
+            p[@"toY"] = [NSNumber numberWithFloat:mp.y];
+            p[@"pinFirst"] = [NSNumber numberWithInt:PIN_FIRST_POINT];
+        }
+        
+        p[@"hideDirection"] = @FALSE;
+        
         p[@"key"] = @"10000";
         p[@"text"] = [NSString stringWithFormat:@"%lu", [self.pinList count]+1];
         if(self.param && self.param[@"text"])
@@ -268,7 +292,6 @@ float borderWidth = 7;
             p[@"color"] = @"#90ff0000";
         
         p[@"degree"] = @0;
-        p[@"hideDirection"] = @TRUE;
         p[@"arrowType"] = [NSNumber numberWithInt:self.arrowType];
         self.insertingPin = p;
         
@@ -284,26 +307,43 @@ float borderWidth = 7;
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    //    NSLog(@"touchesBegan");
+    //NSLog(@"touchesBegan %d", [touches count]);
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
     self.touchStartTime = (double)[NSDate date].timeIntervalSince1970;
-    //if([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"])
-    if([self.mode isEqualToString:@"new"])
-    {
-        [self insertNewPin:clickP];
-        self.mode = @"new_direction";
-        if(_editingPin) {
-            self.touchingPin = _editingPin;
-        } else {
-            self.touchingPin = _insertingPin;
+    if(self.pinFirst == PIN_FIRST_PIN) {
+        if([self.mode isEqualToString:@"new"])
+        {
+            [self insertNewPin:clickP];
+            self.mode = @"new_direction";
+            if(_editingPin) {
+                self.touchingPin = _editingPin;
+            } else {
+                self.touchingPin = _insertingPin;
+            }
+            
+            if([self isNearPin:_insertingPin tap:clickP]) {
+                self.shouldDirectionMove = YES;
+                self.touchingPin[@"hideDirection"] = @FALSE;
+            } else
+                self.touchingPin[@"hideDirection"] = @TRUE;
         }
-        
-        if([self isNearPin:_insertingPin tap:clickP]) {
+    } else if(self.pinFirst == PIN_FIRST_POINT) {
+        if([self.mode isEqualToString:@"new"])
+        {
+            [self insertNewPin:clickP];
+            self.mode = @"new_direction";
+            if(_editingPin) {
+                self.touchingPin = _editingPin;
+            } else {
+                self.touchingPin = _insertingPin;
+            }
+            
             self.shouldDirectionMove = YES;
             self.touchingPin[@"hideDirection"] = @FALSE;
         }
     }
+    
 }
 
 
@@ -319,11 +359,41 @@ float borderWidth = 7;
        ([self.mode isEqualToString:@"new_direction"] || [self.mode isEqualToString:@"can_complete"]
         || [self.mode isEqualToString:@"edit"])
        ) {
-        [self pinDirection:self.touchingPin :clickP];
+        
+        if(self.pinFirst == PIN_FIRST_PIN)
+            [self pinMovePoint:self.touchingPin:clickP];
+        else if(self.pinFirst == PIN_FIRST_POINT)
+            [self pinMovePin:self.touchingPin:clickP];
     }
 }
 
-- (void)pinDirection:(id)pin :(CGPoint)see {
+- (void)pinMovePin:(id)pin :(CGPoint)see {
+    CGPoint pinBodyScreenPoint = [self mapToClickPoint:CGPointMake([pin[@"toX"] floatValue], [pin[@"toY"] floatValue])];
+    
+    double r = atan2(pinBodyScreenPoint.y - see.y, pinBodyScreenPoint.x - see.x);
+    double degree = r * 180 / M_PI  + 90;
+    pin[@"degree"] = [NSNumber numberWithInt:(int)degree];
+    CGPoint touchMapPoint = [self clickToMapPoint:see];
+    
+    CGPoint fromPoint = CGPointMake([pin[@"x"] floatValue], [pin[@"y"] floatValue]);
+    CGPoint toPoint = CGPointMake([pin[@"toX"] floatValue], [pin[@"toY"] floatValue]);
+    float distance = [DevilPinLayer distance:fromPoint :touchMapPoint];
+    float toBeDistance = distance / 2;
+    
+    //최소길이 검사 후 적용
+    if(toBeDistance < 29 / _scrollView.zoomScale) {
+        toBeDistance = 29 / _scrollView.zoomScale;
+    }
+    
+    touchMapPoint = [DevilPinLayer moveOnLineDistance:toPoint :touchMapPoint  :toBeDistance];
+    //    NSLog(@"touchMapPoint (%i, %i)", (int)touchMapPoint.x, (int)touchMapPoint.y);
+    pin[@"x"] = [NSNumber numberWithFloat:touchMapPoint.x];
+    pin[@"y"] = [NSNumber numberWithFloat:touchMapPoint.y];
+    
+    [_pinLayer updatePinDirection:pin[@"key"]];
+}
+
+- (void)pinMovePoint:(id)pin :(CGPoint)see {
     CGPoint pinScreenPoint = [self pinToScreenPoint:pin];
     double r = atan2(see.y - pinScreenPoint.y, see.x - pinScreenPoint.x);
     double degree = r * 180 / M_PI  + 90;
@@ -505,6 +575,11 @@ float borderWidth = 7;
         self.arrowType = ARROW_TYPE_ROUND;
     else
         self.arrowType = ARROW_TYPE_ARROW;
+    
+    if([@"pin" isEqualToString:param[@"pinFirst"]])
+        self.pinFirst = PIN_FIRST_PIN;
+    else if([@"point" isEqualToString:param[@"pinFirst"]])
+        self.pinFirst = PIN_FIRST_POINT;
 }
 
 - (void)complete {

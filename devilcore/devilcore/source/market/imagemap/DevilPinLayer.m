@@ -10,7 +10,6 @@
 
 @interface DevilPinLayer()
 @property (nonatomic, retain) id shapes;
-@property (nonatomic, retain) id shapeMapText;
 @property (nonatomic, retain) id shapeMapBody;
 @property (nonatomic, retain) id shapeMapArrowLine;
 @property (nonatomic, retain) id shapeMapArrowHead;
@@ -25,6 +24,14 @@
  */
 @property (nonatomic, retain) id shapeMapFakeArrowLine;
 @property (nonatomic, retain) id shapeMapFakeArrowHead;
+
+
+/**
+ pin포인트 우선에서는 몸통보다 pin포인트가 중요하다 따라서 최소 길이 유지시 몸통이 뒤로 빠져야한다
+ */
+@property (nonatomic, retain) id shapeMapFakeArrowPointFirstLine;
+@property (nonatomic, retain) id shapeMapFakeBody;
+
 
 @property (nonatomic, retain) NSString* highlightKey;
 @end
@@ -46,12 +53,18 @@ float textSize = 15;
     if(!pin)
         return;
     
-    [self.shapeMapText[key] removeFromSuperlayer];
+    NSLog(@"pin pinFirst %d", pin[@"pinFirst"] );
+    
     [self.shapeMapBody[key] removeFromSuperlayer];
     [self.shapeMapArrowLine[key] removeFromSuperlayer];
     [self.shapeMapArrowHead[key] removeFromSuperlayer];
+    
     [self.shapeMapFakeArrowLine[key] removeFromSuperlayer];
     [self.shapeMapFakeArrowHead[key] removeFromSuperlayer];
+    
+    [self.shapeMapFakeBody[key] removeFromSuperlayer];
+    [self.shapeMapFakeArrowPointFirstLine[key] removeFromSuperlayer];
+    
     [self createArrow:pin];
 }
 
@@ -104,9 +117,6 @@ float textSize = 15;
     
     float z = self.zoomScale;
     //NSLog(@"updateZoom %f", z);
-    for(CAShapeLayer* layer in [self.shapeMapText allObjects]) {
-        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
-    }
     
     for(CAShapeLayer* layer in [self.shapeMapBody allObjects]) {
         layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
@@ -128,6 +138,16 @@ float textSize = 15;
         layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
     }
     
+    for(CAShapeLayer* layer in [self.shapeMapFakeBody allObjects]) {
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+    }
+    
+    for(CAShapeLayer* layer in [self.shapeMapFakeArrowPointFirstLine allObjects]) {
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+    }
+    
+    
+    
     for(id pin in _pinList) {
         [self fakeOrReal:pin];
     }
@@ -137,20 +157,67 @@ float textSize = 15;
     float x = [pin[@"x"] floatValue];
     float y = [pin[@"y"] floatValue];
     float distance = [DevilPinLayer distance:CGPointMake(x, y) : [DevilPinLayer getToPointOf:pin]];
+    
+    int arrowType = ARROW_TYPE_ARROW;
+    if(pin[@"arrowType"])
+        arrowType = [pin[@"arrowType"] intValue];
+    
+    int pinFirst = PIN_FIRST_PIN;
+    if(pin[@"pinFirst"])
+        pinFirst = [pin[@"pinFirst"] intValue];
+    
     NSString* key = pin[@"key"];
     if(distance * self.zoomScale > arrowLength) {
         //real 보여주기
+        ((CAShapeLayer*)self.shapeMapBody[key]).hidden = NO;
         ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = NO;
         ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = NO;
+        
         ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
         ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
+        
+        ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = YES;
+        ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
     } else {
-        //fake 보여주기
-        ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
-        ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
-        ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = NO;
-        ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = NO;
+        
+        //pin first fake 보여주기
+        if(pinFirst == PIN_FIRST_PIN) {
+            
+            ((CAShapeLayer*)self.shapeMapBody[key]).hidden = NO;
+            ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
+            
+            ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = NO;
+            ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = NO;
+            
+            ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
+        }
+        //point first fake 보여주기
+        else if(pinFirst == PIN_FIRST_POINT) {
+            
+            ((CAShapeLayer*)self.shapeMapBody[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = NO;
+            
+            ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
+            
+            ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = NO;
+            ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = NO;
+        }
     }
+    
+    
+//    ((CAShapeLayer*)self.shapeMapBody[key]).hidden = YES;
+//    ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
+//    ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
+//
+//    ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
+//    ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
+//
+//    ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = YES;
+//    ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
 }
 
 - (void)highlight:(NSString*)key {
@@ -165,9 +232,12 @@ float textSize = 15;
             CAShapeLayer *layer = self.shapeMapBody[key];
             CAShapeLayer *layer2 = self.shapeMapArrowLine[key];
             CAShapeLayer *layer3 = self.shapeMapArrowHead[key];
-            CAShapeLayer *layer4 = self.shapeMapText[key];
+            
             CAShapeLayer *layer5 = self.shapeMapFakeArrowLine[key];
             CAShapeLayer *layer6 = self.shapeMapFakeArrowHead[key];
+            
+            CAShapeLayer *layer7 = self.shapeMapFakeBody[key];
+            CAShapeLayer *layer9 = self.shapeMapFakeArrowPointFirstLine[key];
             
             float x = [pin[@"x"] floatValue];
             float y = [pin[@"y"] floatValue];
@@ -192,10 +262,15 @@ float textSize = 15;
             
             //NSLog(@"to Point %d %d", (int)x, (int)y);
             
+            ((CAShapeLayer*)self.shapeMapBody[key]).hidden = NO;
             ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
             ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
+            
             ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
             ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
+            
+            ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
             
             layer.position = CGPointMake(x, y);
             [layer addAnimation:animation forKey:nil];
@@ -206,14 +281,17 @@ float textSize = 15;
             layer3.position = CGPointMake(x, y);
             [layer3 addAnimation:animation forKey:nil];
             
-            layer4.position = CGPointMake(x, y);
-            [layer4 addAnimation:animation forKey:nil];
-            
             layer5.position = CGPointMake(x, y);
             [layer5 addAnimation:animation forKey:nil];
             
             layer6.position = CGPointMake(x, y);
             [layer6 addAnimation:animation forKey:nil];
+            
+            layer7.position = CGPointMake(x, y);
+            [layer7 addAnimation:animation forKey:nil];
+            
+            layer9.position = CGPointMake(x, y);
+            [layer9 addAnimation:animation forKey:nil];
             
             [CATransaction commit];
             
@@ -242,6 +320,7 @@ float textSize = 15;
     
     float degree = [pin[@"degree"] floatValue] - 90.0f;
     float arrow_angle = degree * M_PI / 180.0f;
+    float flip_arrow_angle = (degree-180.0f) * M_PI / 180.0f;
     
     CGRect rect = CGRectMake(x-roundSize, y-roundSize, roundSize*2, roundSize*2);
     CGPoint arrowTo = [DevilPinLayer getToPointOf:pin];
@@ -249,7 +328,19 @@ float textSize = 15;
     CGPoint arrowFrom = (CGPoint){x + cos(arrow_angle) * roundSize, y + sin(arrow_angle) * roundSize};
     CGPoint fakeArrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
     
-    //페이크 화살표 머리
+    CGPoint fakeXY = (CGPoint){arrowTo.x + cos(flip_arrow_angle) * arrowLength, arrowTo.y + sin(flip_arrow_angle) * arrowLength};
+    float fakeX = fakeXY.x;
+    float fakeY = fakeXY.y;
+    CGPoint fakeArrowFrom = (CGPoint){fakeX + cos(arrow_angle) * roundSize, fakeY + sin(arrow_angle) * roundSize};
+    CGRect fakeRect = CGRectMake(fakeX-roundSize, fakeY-roundSize, roundSize*2, roundSize*2);
+    CGRect arrowToRect = CGRectMake(arrowTo.x-roundSize, arrowTo.y-roundSize, roundSize*2, roundSize*2);
+    
+    /**
+     shape 의 확대축소
+     확대 축소시 bounds를 중심으로 position의 위치가 축소 시 멀어졌다가 확대 시 가까워진다
+     */
+    
+    //페이크 화살표 머리 - PIN FIRST
     {
         CAShapeLayer *layer = [[CAShapeLayer alloc] init];
         layer.fillColor = c.CGColor;
@@ -270,7 +361,7 @@ float textSize = 15;
         self.shapeMapFakeArrowHead[key] = layer;
     }
     
-    //페이크 화살표 몸통
+    //페이크 화살표 몸통 - PIN FIRST
     {
         CAShapeLayer *layer = [[CAShapeLayer alloc] init];
         layer.fillColor = c.CGColor;
@@ -295,26 +386,72 @@ float textSize = 15;
         self.shapeMapFakeArrowLine[key] = layer;
     }
     
-    //텍스트
+    
+    //페이크 화살표 몸통 - POINT FIRST
     {
-        CATextLayer* layer = [CATextLayer new];
-        layer.string = text;
-        layer.font = (__bridge CFTypeRef _Nullable)([UIFont boldSystemFontOfSize:textSize]);
-        layer.fontSize = textSize;
-        layer.frame = rect;
-        layer.position = CGPointMake(x, y);
-        layer.contentsScale = [UIScreen mainScreen].scale;
-        layer.anchorPoint = CGPointMake(0.5, 0.32);
-        layer.alignmentMode = kCAAlignmentCenter;
-        if(selected || highlight)
-            layer.foregroundColor = [UIColor whiteColor].CGColor;
-        else
-            layer.foregroundColor = c.CGColor;
-        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        layer.fillColor = c.CGColor;
+        layer.strokeColor = c.CGColor;
         
+        layer.borderWidth = 0;
+        layer.lineWidth = width;
+        layer.bounds = arrowToRect;
+        
+        if(!hideDirection) {
+            UIBezierPath *path = [UIBezierPath new];
+            [path moveToPoint:arrowTo];
+            [path addLineToPoint:fakeArrowFrom];
+            layer.path = path.CGPath;
+        }
+        
+        layer.position = CGPointMake(arrowTo.x, arrowTo.y);
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        [self.layer insertSublayer:layer atIndex:0];
+        
+        [self.shapes addObject:layer];
+        self.shapeMapFakeArrowPointFirstLine[key] = layer;
+    }
+    
+    //몸통(FAKE)
+    {
+        CAShapeLayer *layer = [[CAShapeLayer alloc] init];
+        if(selected || highlight) {
+            layer.fillColor = c.CGColor;
+            layer.strokeColor = c.CGColor;
+        } else {
+            layer.fillColor = [UIColor whiteColor].CGColor;
+            layer.strokeColor = c.CGColor;
+        }
+        
+        layer.borderWidth = 0;
+        layer.lineWidth = width;
+        layer.path = [UIBezierPath bezierPathWithOvalInRect:fakeRect].CGPath;
+        layer.bounds = arrowToRect;
+        layer.position = CGPointMake(arrowTo.x, arrowTo.y);
+        layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+        layer.masksToBounds = NO;
         [self.layer insertSublayer:layer atIndex:0];
         [self.shapes addObject:layer];
-        self.shapeMapText[key] = layer;
+        self.shapeMapFakeBody[key] = layer;
+        
+        {
+            CATextLayer* layer = [CATextLayer new];
+            layer.string = text;
+            layer.font = (__bridge CFTypeRef _Nullable)([UIFont boldSystemFontOfSize:textSize]);
+            layer.fontSize = textSize;
+            layer.frame = arrowToRect;
+            layer.position = fakeXY;
+            layer.contentsScale = [UIScreen mainScreen].scale;
+            layer.anchorPoint = CGPointMake(0.5, 0.32);
+            layer.alignmentMode = kCAAlignmentCenter;
+            if(selected || highlight)
+                layer.foregroundColor = [UIColor whiteColor].CGColor;
+            else
+                layer.foregroundColor = c.CGColor;
+            layer.transform = CATransform3DMakeScale(1, 1, 1);
+            
+            [self.shapeMapFakeBody[key] addSublayer:layer];
+        }
     }
     
     //몸통
@@ -337,6 +474,26 @@ float textSize = 15;
         [self.layer insertSublayer:layer atIndex:0];
         [self.shapes addObject:layer];
         self.shapeMapBody[key] = layer;
+        
+        //텍스트
+        {
+            CATextLayer* layer = [CATextLayer new];
+            layer.string = text;
+            layer.font = (__bridge CFTypeRef _Nullable)([UIFont boldSystemFontOfSize:textSize]);
+            layer.fontSize = textSize;
+            layer.frame = rect;
+            layer.position = CGPointMake(x, y);
+            layer.contentsScale = [UIScreen mainScreen].scale;
+            layer.anchorPoint = CGPointMake(0.5, 0.32);
+            layer.alignmentMode = kCAAlignmentCenter;
+            if(selected || highlight)
+                layer.foregroundColor = [UIColor whiteColor].CGColor;
+            else
+                layer.foregroundColor = c.CGColor;
+//            layer.transform = CATransform3DMakeScale(1.0f/z, 1.0f/z, 1);
+            
+            [self.shapeMapBody[key] insertSublayer:layer atIndex:0];
+        }
     }
     
     //화살표 머리
@@ -398,9 +555,11 @@ float textSize = 15;
     self.shapeMapArrowHead = [@{} mutableCopy];
     self.shapeMapFakeArrowLine = [@{} mutableCopy];
     self.shapeMapFakeArrowHead = [@{} mutableCopy];
-    self.shapeMapText = [@{} mutableCopy];
     self.shapeMapBody = [@{} mutableCopy];
     self.shapes = [@[] mutableCopy];
+    
+    self.shapeMapFakeBody = [@{} mutableCopy];
+    self.shapeMapFakeArrowPointFirstLine = [@{} mutableCopy];
     
     float z = self.zoomScale;
     
