@@ -314,6 +314,33 @@
     }
 }
 
++ (void)alertThenOption:(id)param :(JSValue *)callback {
+    NSString* msg = param[@"msg"];
+    BOOL cancelable = [param[@"cancelable"] boolValue];
+    NSString* yes = trans(@"확인");
+    if(param[@"yes"])
+        yes = param[@"yes"];
+    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+            [callback callWithArguments:@[]];
+            [[JevilInstance currentInstance] syncData];
+        }]) {
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                                     message:nil
+                                                                              preferredStyle:UIAlertControllerStyleAlert];
+
+            [alertController addAction:[UIAlertAction actionWithTitle:yes
+                                                              style:UIAlertActionStyleCancel
+                                                            handler:^(UIAlertAction *action) {
+                [callback callWithArguments:@[]];
+                [[JevilInstance currentInstance] syncData];
+                                                                
+            }]];
+            [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{
+                
+            }];
+    }
+}
+
 + (void)save:(NSString *)key :(NSString *)value{
     if(value == nil) {
         [Jevil remove:key];
