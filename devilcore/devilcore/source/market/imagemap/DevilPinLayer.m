@@ -53,7 +53,7 @@ float textSize = 15;
     if(!pin)
         return;
     
-    NSLog(@"pin pinFirst %d", pin[@"pinFirst"] );
+    //NSLog(@"pin pinFirst %d", pin[@"pinFirst"] );
     
     [self.shapeMapBody[key] removeFromSuperlayer];
     [self.shapeMapArrowLine[key] removeFromSuperlayer];
@@ -229,16 +229,6 @@ float textSize = 15;
         NSString* mkey = pin[@"key"];
         if([mkey isEqualToString:key]) {
             
-            CAShapeLayer *layer = self.shapeMapBody[key];
-            CAShapeLayer *layer2 = self.shapeMapArrowLine[key];
-            CAShapeLayer *layer3 = self.shapeMapArrowHead[key];
-            
-            CAShapeLayer *layer5 = self.shapeMapFakeArrowLine[key];
-            CAShapeLayer *layer6 = self.shapeMapFakeArrowHead[key];
-            
-            CAShapeLayer *layer7 = self.shapeMapFakeBody[key];
-            CAShapeLayer *layer9 = self.shapeMapFakeArrowPointFirstLine[key];
-            
             float x = [pin[@"x"] floatValue];
             float y = [pin[@"y"] floatValue];
             pin[@"degree"] =
@@ -254,50 +244,43 @@ float textSize = 15;
                  */
                 [self syncPin];
             }];
-            CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"position"];
-            animation.cumulative = YES;
-            animation.fromValue = [NSValue valueWithCGPoint:layer.position];
-            animation.toValue = [NSValue valueWithCGPoint:CGPointMake(x, y)];
-            animation.duration = 0.3f;
+            
+            CAShapeLayer *layer = self.shapeMapBody[key];
             
             //NSLog(@"to Point %d %d", (int)x, (int)y);
             
-            ((CAShapeLayer*)self.shapeMapBody[key]).hidden = NO;
-            ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
-            ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
+            float dx = x - layer.position.x;
+            float dy = y - layer.position.y;
             
-            ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = YES;
-            ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = YES;
+            [self fakeOrReal:pin];
             
-            ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = YES;
-            ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
-            
-            layer.position = CGPointMake(x, y);
-            [layer addAnimation:animation forKey:nil];
-            
-            layer2.position = CGPointMake(x, y);
-            [layer2 addAnimation:animation forKey:nil];
-            
-            layer3.position = CGPointMake(x, y);
-            [layer3 addAnimation:animation forKey:nil];
-            
-            layer5.position = CGPointMake(x, y);
-            [layer5 addAnimation:animation forKey:nil];
-            
-            layer6.position = CGPointMake(x, y);
-            [layer6 addAnimation:animation forKey:nil];
-            
-            layer7.position = CGPointMake(x, y);
-            [layer7 addAnimation:animation forKey:nil];
-            
-            layer9.position = CGPointMake(x, y);
-            [layer9 addAnimation:animation forKey:nil];
+            [self startMoveAnimation:self.shapeMapBody[key] dx:dx dy:dy];
+            [self startMoveAnimation:self.shapeMapArrowLine[key] dx:dx dy:dy];
+            [self startMoveAnimation:self.shapeMapArrowHead[key] dx:dx dy:dy];
+            [self startMoveAnimation:self.shapeMapFakeArrowLine[key] dx:dx dy:dy];
+            [self startMoveAnimation:self.shapeMapFakeArrowHead[key] dx:dx dy:dy];
+            [self startMoveAnimation:self.shapeMapFakeBody[key] dx:dx dy:dy];
+            [self startMoveAnimation:self.shapeMapFakeArrowPointFirstLine[key] dx:dx dy:dy];
             
             [CATransaction commit];
             
             break;
         }
     }
+}
+
+- (CABasicAnimation*)startMoveAnimation:(CALayer*)layer dx:(float)dx dy:(float)dy {
+    CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"position"];
+    animation.cumulative = YES;
+    animation.fromValue = [NSValue valueWithCGPoint:layer.position];
+    float x = layer.position.x+dx;
+    float y = layer.position.y+dy;
+    animation.toValue = [NSValue valueWithCGPoint:CGPointMake(x, y)];
+    animation.duration = 0.3f;
+    
+    layer.position = CGPointMake(x, y);
+    [layer addAnimation:animation forKey:nil];
+    return animation;
 }
 
 - (void)createArrow:(id)pin {

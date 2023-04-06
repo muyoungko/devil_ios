@@ -157,7 +157,6 @@ float borderWidth = 7;
         return;
     
     if(recognizer.state == UIGestureRecognizerStateBegan) {
-        NSLog(@"onLongClickListener UIGestureRecognizerStateBegan");
         for(id pin in self.pinList) {
             if([self isNearPin:pin tap:clickP]) {
                 self.touchingPin = pin;
@@ -172,17 +171,13 @@ float borderWidth = 7;
         
     }
     else if(recognizer.state == UIGestureRecognizerStateChanged) {
-        //move your views here.
-        NSLog(@"onLongClickListener UIGestureRecognizerStateChanged");
         if(self.longClickTouchingPinFirst == PIN_FIRST_PIN)
             [self pinMovePoint:self.touchingPin:clickP];
         else if(self.longClickTouchingPinFirst == PIN_FIRST_POINT)
             [self pinMovePin:self.touchingPin:clickP];
     }
     else if(recognizer.state == UIGestureRecognizerStateEnded) {
-        //else do cleanup
-        NSLog(@"onLongClickListener UIGestureRecognizerStateEnded");
-        
+        self.editingPin = self.touchingPin;
         [self complete];
         [self setMode:@"normal" : nil];
         [self hidePopup];
@@ -238,9 +233,15 @@ float borderWidth = 7;
         CGPoint mp = [self clickToMapPoint:tappedPoint];
         BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
         if(inMap) {
+            float ox = [self.editingPin[@"x"] floatValue];
+            float oy = [self.editingPin[@"y"] floatValue];
             self.editingPin[@"x"] = [NSNumber numberWithFloat:mp.x];
             self.editingPin[@"y"] = [NSNumber numberWithFloat:mp.y];
-            NSLog(@"%@, %@", self.editingPin[@"x"], self.editingPin[@"y"]);
+            if(self.editingPin[@"toX"]) {
+                self.editingPin[@"toX"] = [NSNumber numberWithFloat:[self.editingPin[@"toX"] floatValue] - (ox - mp.x)];
+                self.editingPin[@"toY"] = [NSNumber numberWithFloat:[self.editingPin[@"toY"] floatValue] - (oy - mp.y)];
+            }
+            
             [self.pinLayer syncPinWithAnimation:self.editingPin[@"key"]];
             [self setMode:@"new_direction" : nil];
             [self showPopup:@[@"취소", @"완료"]];
