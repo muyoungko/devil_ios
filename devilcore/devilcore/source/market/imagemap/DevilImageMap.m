@@ -22,6 +22,7 @@
 @property (nonatomic, retain) UIView* contentView;
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic, retain) UITapGestureRecognizer * singleFingerTap;
+@property (nonatomic, retain) UILongPressGestureRecognizer * singleFingerLongTap;
 @property (nonatomic, retain) NSString* mode;
 @property (nonatomic, retain) id param;
 @property (nonatomic, retain) id editingPin;
@@ -47,6 +48,8 @@
 @property double pinModeChangeTime;
 @property int arrowType;
 @property int pinFirst;
+@property BOOL longClickToMove;
+@property int longClickTouchingPinFirst;
 
 @end
 
@@ -89,10 +92,14 @@ float borderWidth = 7;
     _singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
     [self addGestureRecognizer:_singleFingerTap];
     
+    _singleFingerLongTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongClickListener:)];
+    [self addGestureRecognizer:_singleFingerLongTap];
+    
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     
     self.arrowType = ARROW_TYPE_ARROW;
     self.pinFirst = PIN_FIRST_PIN;
+    self.longClickToMove = NO;
     
     self.mode = @"normal";
 }
@@ -126,6 +133,65 @@ float borderWidth = 7;
     float w = 40;
     CGRect pinRect = CGRectMake(pinPointInScreen.x -w/2, pinPointInScreen.y-w/2, w, w);
     return CGRectContainsPoint(pinRect, tappedPoint);
+}
+
+
+-(BOOL) isNearPinPoint:(id)pin tap:(CGPoint)tappedPoint {
+    if(!pin[@"toX"])
+        return NO;
+    
+    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
+    float x = [pin[@"toX"] floatValue];
+    float y = [pin[@"toY"] floatValue];
+    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    float w = 40;
+    CGRect pinRect = CGRectMake(pinPointInScreen.x -w/2, pinPointInScreen.y-w/2, w, w);
+    return CGRectContainsPoint(pinRect, tappedPoint);
+}
+
+
+-(void)onLongClickListener:(UIGestureRecognizer *)recognizer {
+    
+    CGPoint clickP = [recognizer locationInView:self];
+    if(!self.longClickToMove)
+        return;
+    
+    if(recognizer.state == UIGestureRecognizerStateBegan) {
+        NSLog(@"onLongClickListener UIGestureRecognizerStateBegan");
+        for(id pin in self.pinList) {
+            if([self isNearPin:pin tap:clickP]) {
+                self.touchingPin = pin;
+                self.longClickTouchingPinFirst = PIN_FIRST_POINT;
+                break;
+            } else if([self isNearPinPoint:pin tap:clickP]){
+                self.touchingPin = pin;
+                self.longClickTouchingPinFirst = PIN_FIRST_PIN;
+                break;
+            }
+        }
+        
+    }
+    else if(recognizer.state == UIGestureRecognizerStateChanged) {
+        //move your views here.
+        NSLog(@"onLongClickListener UIGestureRecognizerStateChanged");
+        if(self.longClickTouchingPinFirst == PIN_FIRST_PIN)
+            [self pinMovePoint:self.touchingPin:clickP];
+        else if(self.longClickTouchingPinFirst == PIN_FIRST_POINT)
+            [self pinMovePin:self.touchingPin:clickP];
+    }
+    else if(recognizer.state == UIGestureRecognizerStateEnded) {
+        //else do cleanup
+        NSLog(@"onLongClickListener UIGestureRecognizerStateEnded");
+        
+        [self complete];
+        [self setMode:@"normal" : nil];
+        [self hidePopup];
+        if(self.actionCallback)
+            self.actionCallback([@{
+                @"mode": self.mode,
+                @"key" : @"완료",
+            } mutableCopy]);
+    }
 }
 
 -(void)onClickListener:(UIGestureRecognizer *)recognizer {
@@ -346,7 +412,6 @@ float borderWidth = 7;
     
 }
 
-
 - (float)distance:(CGPoint)a : (CGPoint)b {
     return sqrt(pow((a.x - b.x), 2) + pow((a.y - b.y), 2));
 }
@@ -378,7 +443,7 @@ float borderWidth = 7;
     CGPoint fromPoint = CGPointMake([pin[@"x"] floatValue], [pin[@"y"] floatValue]);
     CGPoint toPoint = CGPointMake([pin[@"toX"] floatValue], [pin[@"toY"] floatValue]);
     float distance = [DevilPinLayer distance:fromPoint :touchMapPoint];
-    float toBeDistance = distance / 2;
+    float toBeDistance = distance / 1.5;
     
     //최소길이 검사 후 적용
     if(toBeDistance < 29 / _scrollView.zoomScale) {
@@ -404,7 +469,7 @@ float borderWidth = 7;
     
     CGPoint fromPoint = CGPointMake([pin[@"x"] floatValue], [pin[@"y"] floatValue]);
     float distance = [DevilPinLayer distance:fromPoint :touchMapPoint];
-    float toBeDistance = distance/2;
+    float toBeDistance = distance/1.5;
     
     
     //최소길이 검사 후 적용
@@ -580,6 +645,9 @@ float borderWidth = 7;
         self.pinFirst = PIN_FIRST_PIN;
     else if([@"point" isEqualToString:param[@"pinFirst"]])
         self.pinFirst = PIN_FIRST_POINT;
+    
+    if(param[@"longClickToMove"])
+        self.longClickToMove = [param[@"longClickToMove"] boolValue];
 }
 
 - (void)complete {
