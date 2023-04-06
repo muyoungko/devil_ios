@@ -181,11 +181,6 @@ float borderWidth = 7;
         [self complete];
         [self setMode:@"normal" : nil];
         [self hidePopup];
-        if(self.actionCallback)
-            self.actionCallback([@{
-                @"mode": self.mode,
-                @"key" : @"완료",
-            } mutableCopy]);
     }
 }
 
