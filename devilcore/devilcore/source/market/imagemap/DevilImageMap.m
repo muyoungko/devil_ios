@@ -95,7 +95,7 @@ float borderWidth = 7;
     _singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
     [self addGestureRecognizer:_singleFingerTap];
     
-    _singleFingerLongTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onLongClickListener:)];
+    _singleFingerLongTap = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(onClickLongListener:)];
     [self addGestureRecognizer:_singleFingerLongTap];
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -155,7 +155,7 @@ float borderWidth = 7;
 }
 
 
--(void)onLongClickListener:(UIGestureRecognizer *)recognizer {
+-(void)onClickLongListener:(UIGestureRecognizer *)recognizer {
     
     CGPoint clickP = [recognizer locationInView:self];
     if(!self.longClickToMove || ![@"normal" isEqualToString:_mode])
