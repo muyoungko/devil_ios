@@ -153,7 +153,7 @@ float borderWidth = 7;
 -(void)onLongClickListener:(UIGestureRecognizer *)recognizer {
     
     CGPoint clickP = [recognizer locationInView:self];
-    if(!self.longClickToMove)
+    if(!self.longClickToMove || [@"normal" isEqualToString:_mode])
         return;
     
     if(recognizer.state == UIGestureRecognizerStateBegan) {
