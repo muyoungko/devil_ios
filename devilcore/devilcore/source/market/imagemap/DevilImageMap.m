@@ -49,7 +49,10 @@
 @property int arrowType;
 @property int pinFirst;
 @property BOOL longClickToMove;
+@property BOOL longClickTouching;
+
 @property int longClickTouchingPinFirst;
+@property (nonatomic, retain) id longClickKeyList;
 
 @end
 
@@ -99,7 +102,9 @@ float borderWidth = 7;
     
     self.arrowType = ARROW_TYPE_ARROW;
     self.pinFirst = PIN_FIRST_PIN;
-    self.longClickToMove = NO;
+    self.longClickTouching = self.longClickToMove = NO;
+    self.longClickKeyList = [@[] mutableCopy];
+    
     
     self.mode = @"normal";
 }
@@ -153,34 +158,54 @@ float borderWidth = 7;
 -(void)onLongClickListener:(UIGestureRecognizer *)recognizer {
     
     CGPoint clickP = [recognizer locationInView:self];
-    if(!self.longClickToMove || [@"normal" isEqualToString:_mode])
+    if(!self.longClickToMove || ![@"normal" isEqualToString:_mode])
         return;
     
     if(recognizer.state == UIGestureRecognizerStateBegan) {
+        id map = [@{} mutableCopy];
+        for(id key in self.longClickKeyList) {
+            map[key] = key;
+        }
+        
         for(id pin in self.pinList) {
+            if(!map[pin[@"key"]])
+                continue;
+            
             if([self isNearPin:pin tap:clickP]) {
                 self.touchingPin = pin;
                 self.longClickTouchingPinFirst = PIN_FIRST_POINT;
+                self.longClickTouching = YES;
+                if(self.touchingPin[@"toX"])
+                    [self pinMovePin:self.touchingPin:clickP];
+                else
+                    [self pinMovePinWithoutToXY:self.touchingPin:clickP];
                 break;
             } else if([self isNearPinPoint:pin tap:clickP]){
                 self.touchingPin = pin;
                 self.longClickTouchingPinFirst = PIN_FIRST_PIN;
+                self.longClickTouching = YES;
+                [self pinMovePoint:self.touchingPin:clickP];
                 break;
             }
         }
         
     }
-    else if(recognizer.state == UIGestureRecognizerStateChanged) {
+    else if(recognizer.state == UIGestureRecognizerStateChanged && self.longClickTouching) {
         if(self.longClickTouchingPinFirst == PIN_FIRST_PIN)
             [self pinMovePoint:self.touchingPin:clickP];
-        else if(self.longClickTouchingPinFirst == PIN_FIRST_POINT)
-            [self pinMovePin:self.touchingPin:clickP];
+        else if(self.longClickTouchingPinFirst == PIN_FIRST_POINT) {
+            if(self.touchingPin[@"toX"])
+                [self pinMovePin:self.touchingPin:clickP];
+            else
+                [self pinMovePinWithoutToXY:self.touchingPin:clickP];
+        }
     }
-    else if(recognizer.state == UIGestureRecognizerStateEnded) {
+    else if(recognizer.state == UIGestureRecognizerStateEnded && self.longClickTouching) {
         self.editingPin = self.touchingPin;
         [self complete];
         [self setMode:@"normal" : nil];
         [self hidePopup];
+        self.longClickTouching = NO;
     }
 }
 
@@ -423,9 +448,18 @@ float borderWidth = 7;
         
         if(self.pinFirst == PIN_FIRST_PIN)
             [self pinMovePoint:self.touchingPin:clickP];
-        else if(self.pinFirst == PIN_FIRST_POINT)
+        else if(self.pinFirst == PIN_FIRST_POINT) {
             [self pinMovePin:self.touchingPin:clickP];
+        }
     }
+}
+
+- (void)pinMovePinWithoutToXY:(id)pin :(CGPoint)see {
+    CGPoint touchMapPoint = [self clickToMapPoint:see];
+    pin[@"x"] = [NSNumber numberWithFloat:touchMapPoint.x];
+    pin[@"y"] = [NSNumber numberWithFloat:touchMapPoint.y];
+    
+    [_pinLayer updatePinDirection:pin[@"key"]];
 }
 
 - (void)pinMovePin:(id)pin :(CGPoint)see {
@@ -644,6 +678,9 @@ float borderWidth = 7;
     
     if(param[@"longClickToMove"])
         self.longClickToMove = [param[@"longClickToMove"] boolValue];
+    
+    if(param[@"longClickKeyList"])
+        self.longClickKeyList = param[@"longClickKeyList"];
 }
 
 - (void)complete {
