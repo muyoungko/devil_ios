@@ -180,21 +180,9 @@ float textSize = 15;
         ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
     } else {
         
-        //pin first fake 보여주기
-        if(pinFirst == PIN_FIRST_PIN) {
-            
-            ((CAShapeLayer*)self.shapeMapBody[key]).hidden = NO;
-            ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
-            ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
-            
-            ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = NO;
-            ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = NO;
-            
-            ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = YES;
-            ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
-        }
+        
         //point first fake 보여주기
-        else if(pinFirst == PIN_FIRST_POINT) {
+        if(pinFirst == PIN_FIRST_POINT || pin[@"toX"]) {
             
             ((CAShapeLayer*)self.shapeMapBody[key]).hidden = YES;
             ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
@@ -205,6 +193,19 @@ float textSize = 15;
             
             ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = NO;
             ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = NO;
+        }
+        //pin first fake 보여주기
+        else if(pinFirst == PIN_FIRST_PIN) {
+            
+            ((CAShapeLayer*)self.shapeMapBody[key]).hidden = NO;
+            ((CAShapeLayer*)self.shapeMapArrowLine[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapArrowHead[key]).hidden = YES;
+            
+            ((CAShapeLayer*)self.shapeMapFakeArrowLine[key]).hidden = NO;
+            ((CAShapeLayer*)self.shapeMapFakeArrowHead[key]).hidden = NO;
+            
+            ((CAShapeLayer*)self.shapeMapFakeBody[key]).hidden = YES;
+            ((CAShapeLayer*)self.shapeMapFakeArrowPointFirstLine[key]).hidden = YES;
         }
     }
     

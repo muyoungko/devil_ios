@@ -142,12 +142,20 @@ float borderWidth = 7;
 
 
 -(BOOL) isNearPinPoint:(id)pin tap:(CGPoint)tappedPoint {
-    if(!pin[@"toX"])
-        return NO;
     
-    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     float x = [pin[@"toX"] floatValue];
     float y = [pin[@"toY"] floatValue];
+    
+    if(!pin[@"toX"]) {
+        float degree = [pin[@"degree"] floatValue] - 90.0f;
+        float arrowLength = 29;
+        float arrow_angle = degree * M_PI / 180.0f;
+        CGPoint fakeArrowTo = (CGPoint){x + cos(arrow_angle) * arrowLength, y + sin(arrow_angle) * arrowLength};
+        x = fakeArrowTo.x;
+        y = fakeArrowTo.y;
+    }
+    
+    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
     float w = 40;
     CGRect pinRect = CGRectMake(pinPointInScreen.x -w/2, pinPointInScreen.y-w/2, w, w);
@@ -176,7 +184,7 @@ float borderWidth = 7;
                 self.longClickTouchingPinFirst = PIN_FIRST_POINT;
                 self.longClickTouching = YES;
                 if(self.touchingPin[@"toX"])
-                    [self pinMovePin:self.touchingPin:clickP];
+                    [self pinMovePinWithoutToXY:self.touchingPin:clickP];
                 else
                     [self pinMovePinWithoutToXY:self.touchingPin:clickP];
                 break;
@@ -195,7 +203,7 @@ float borderWidth = 7;
             [self pinMovePoint:self.touchingPin:clickP];
         else if(self.longClickTouchingPinFirst == PIN_FIRST_POINT) {
             if(self.touchingPin[@"toX"])
-                [self pinMovePin:self.touchingPin:clickP];
+                [self pinMovePinWithoutToXY:self.touchingPin:clickP];
             else
                 [self pinMovePinWithoutToXY:self.touchingPin:clickP];
         }
@@ -456,8 +464,20 @@ float borderWidth = 7;
 
 - (void)pinMovePinWithoutToXY:(id)pin :(CGPoint)see {
     CGPoint touchMapPoint = [self clickToMapPoint:see];
+    float ox = [pin[@"x"] floatValue];
+    float oy = [pin[@"y"] floatValue];
+    
     pin[@"x"] = [NSNumber numberWithFloat:touchMapPoint.x];
     pin[@"y"] = [NSNumber numberWithFloat:touchMapPoint.y];
+    
+    if(pin[@"toX"]) {
+        float dx = touchMapPoint.x - ox;
+        float dy = touchMapPoint.y - oy;
+        float toX = [pin[@"toX"] floatValue] + dx;
+        float toY = [pin[@"toY"] floatValue] + dy;
+        pin[@"toX"] = [NSNumber numberWithFloat:toX];
+        pin[@"toY"] = [NSNumber numberWithFloat:toY];
+    }
     
     [_pinLayer updatePinDirection:pin[@"key"]];
 }
@@ -482,6 +502,7 @@ float borderWidth = 7;
     
     touchMapPoint = [DevilPinLayer moveOnLineDistance:toPoint :touchMapPoint  :toBeDistance];
     //    NSLog(@"touchMapPoint (%i, %i)", (int)touchMapPoint.x, (int)touchMapPoint.y);
+    
     pin[@"x"] = [NSNumber numberWithFloat:touchMapPoint.x];
     pin[@"y"] = [NSNumber numberWithFloat:touchMapPoint.y];
     

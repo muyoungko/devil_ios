@@ -51,6 +51,7 @@
     if(self.dragable) {
         self.moving = NO;
         self.progressGroup.userInteractionEnabled = YES;
+        self.bar.userInteractionEnabled = NO;
         [WildCardConstructor userInteractionEnableToParentPath:self.progressGroup depth:5];
         [self.progressGroup addTouchCallback:^(int action, CGPoint p) {
             float newBarWidth = self.startObjectX-(self.startX-p.x);
