@@ -303,6 +303,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSString* yes_node_name;
 @property (nonatomic, retain) NSString* no_node_name;
 @property BOOL auto_dismiss;
+@property BOOL cancelable;
+
 
 @end
 

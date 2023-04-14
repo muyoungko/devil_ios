@@ -121,7 +121,7 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
-    if (hitView == self) {
+    if (hitView == self && self.cancelable) {
         /// If backgroundTouch flag is set, try to dismiss.
         if (_shouldDismissOnBackgroundTouch) {
             [self dismissAnimated:YES];
@@ -158,6 +158,10 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     if(param[@"auto_dismiss"])
         auto_dismiss = [param[@"auto_dismiss"] boolValue];
     
+    BOOL cancelable = true;
+    if(param[@"cancelable"])
+        cancelable = [param[@"cancelable"] boolValue];
+    
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
     WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:wildCardConstructorInstanceDelegate];
@@ -169,13 +173,16 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     
     DevilBlockDialog *popup = [[[self class] alloc] init];
     popup.auto_dismiss = auto_dismiss;
+    popup.cancelable = cancelable;
     
     if(yes_node) {
         UIView* vv = [wc.meta getView:yes_node];
         WildCardUITapGestureRecognizer *singleFingerTap = [[WildCardUITapGestureRecognizer alloc] initWithTarget:popup action:@selector(buttonClick:)];
         [singleFingerTap setTag:BUTTON_YES];
         [vv addGestureRecognizer:singleFingerTap];
+        
         vv.userInteractionEnabled = YES;
+        [WildCardConstructor userInteractionEnableToParentPath:vv depth:5];
     }
     
     if(no_node) {
@@ -184,7 +191,9 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
         WildCardUITapGestureRecognizer *singleFingerTap = [[WildCardUITapGestureRecognizer alloc] initWithTarget:popup action:@selector(buttonClick:)];
         [singleFingerTap setTag:BUTTON_NO];
         [vv addGestureRecognizer:singleFingerTap];
+        
         vv.userInteractionEnabled = YES;
+        [WildCardConstructor userInteractionEnableToParentPath:vv depth:5];
     }
     
     popup.callback = callback;

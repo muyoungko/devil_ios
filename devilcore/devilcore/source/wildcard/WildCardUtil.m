@@ -11,6 +11,7 @@
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardConstructor.h"
 #import "ReplaceRuleRepeat.h"
+#import "Jevil.h"
 
 static float SKETCH_WIDTH = 360;
 static float SCREEN_WIDTH = 0;
@@ -322,6 +323,13 @@ static BOOL IS_TABLET = NO;
         NSString* text = [MappingSyntaxInterpreter interpret:textContent :data];
         NSDictionary* textSpec = [cloudJson objectForKey:@"textSpec"];
         float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
+        if(cloudJson[@"dynamicTextSize"]) {
+            NSString* s = [Jevil get:cloudJson[@"dynamicTextSize"]];
+            if(s) {
+                textSize = [s intValue];
+                textSize = [WildCardConstructor convertTextSize:textSize];
+            }
+        }
         UIFont* font = nil;
         if([[textSpec objectForKey:@"bold"] boolValue])
             font = [UIFont boldSystemFontOfSize:textSize];
