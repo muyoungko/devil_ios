@@ -96,8 +96,10 @@
         tf.secureTextEntry = YES;
     } else if([@"number" isEqualToString:extension[@"select7"]]){
         tf.keyboardType = UIKeyboardTypeNumberPad;
-//        tf.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     }
+//    else if([@"number" isEqualToString:extension[@"select7"]]){
+//        tf.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+//    }
     
     if(extension[@"select5"] != nil)
     {

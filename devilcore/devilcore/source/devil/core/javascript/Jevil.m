@@ -1205,11 +1205,12 @@
 
         NSString* ext = [DevilUtil getFileExt:url];
         NSString* name = [DevilUtil getFileName:url];
-        NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
-        [urlData writeToFile:path atomically:YES];
-        path = [NSString stringWithFormat:@"file:/%@", path];
+        NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
+        NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
         
-        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:path]]
+        BOOL success = [urlData writeToFile:pathDeconding atomically:YES];
+        
+        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]]
                                         applicationActivities:nil];
         [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
                                           animated:YES

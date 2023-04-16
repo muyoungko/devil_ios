@@ -74,6 +74,7 @@
     NSString* head = ss[[ss count]-2];
     id hh = [head componentsSeparatedByString:@"/"];
     NSString* name = hh[[hh count]-1];
+    //return urldecode(name);
     return name;
 }
 
