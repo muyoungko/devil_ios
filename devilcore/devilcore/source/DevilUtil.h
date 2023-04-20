@@ -58,6 +58,8 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(NSString*)sha256ToHex:(NSString*)text;
 +(NSString*)sha256ToHash:(NSString*)text;
 +(NSString*)sha512ToHash:(NSString*)text;
++(NSString*)fileNameToContentType:(NSString*)path;
++(void)multiPartUpload:(NSString*)url header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback;
 
 @end
 

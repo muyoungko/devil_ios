@@ -148,7 +148,7 @@
     if(foundMark)
         [[JevilInstance currentInstance].vc.navigationController setViewControllers:arr];
     else
-        [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];    
+        [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)finish:(id)callbackData {
@@ -231,17 +231,17 @@
 + (void)alert:(NSString*)msg{
     if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
         
-        }]) {
+    }]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
-
+        
         [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
-                                                          style:UIAlertActionStyleCancel
-                                                        handler:^(UIAlertAction *action) {
-                                                            
-        }]];
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
             
+        }]];
+        
         [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
         ((DevilController*)[JevilInstance currentInstance].vc).activeAlert = alertController;
     }
@@ -249,16 +249,16 @@
 
 + (void)alertFinish:(NSString*)msg{
     if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
-            [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
-        }]) {
+        [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+    }]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
-
+        
         [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
-                                                          style:UIAlertActionStyleCancel
-                                                        handler:^(UIAlertAction *action) {
-           [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
+            [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
         }]];
         [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
     }
@@ -274,18 +274,18 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
                                                                                  message:msg
                                                                           preferredStyle:UIAlertControllerStyleAlert];
-
+        
         [alertController addAction:[UIAlertAction actionWithTitle:yes
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction *action) {
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[@YES]];
             [[JevilInstance currentInstance] syncData];
-                                                            
+            
         }]];
         
         [alertController addAction:[UIAlertAction actionWithTitle:no
-                                                          style:UIAlertActionStyleCancel
-                                                        handler:^(UIAlertAction *action) {
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[@NO]];
             [[JevilInstance currentInstance] syncData];
         }]];
@@ -296,21 +296,21 @@
 + (void)alertThen:(NSString*)msg :(JSValue *)callback {
     
     if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+        [callback callWithArguments:@[]];
+        [[JevilInstance currentInstance] syncData];
+    }]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[]];
             [[JevilInstance currentInstance] syncData];
-        }]) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
-                                                                                     message:nil
-                                                                              preferredStyle:UIAlertControllerStyleAlert];
-
-            [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
-                                                              style:UIAlertActionStyleCancel
-                                                            handler:^(UIAlertAction *action) {
-                [callback callWithArguments:@[]];
-                [[JevilInstance currentInstance] syncData];
-                                                                
-            }]];
-            [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+            
+        }]];
+        [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
     }
 }
 
@@ -321,23 +321,23 @@
     if(param[@"yes"])
         yes = param[@"yes"];
     if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+        [callback callWithArguments:@[]];
+        [[JevilInstance currentInstance] syncData];
+    }]) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+                                                                                 message:nil
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:yes
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[]];
             [[JevilInstance currentInstance] syncData];
-        }]) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
-                                                                                     message:nil
-                                                                              preferredStyle:UIAlertControllerStyleAlert];
-
-            [alertController addAction:[UIAlertAction actionWithTitle:yes
-                                                              style:UIAlertActionStyleCancel
-                                                            handler:^(UIAlertAction *action) {
-                [callback callWithArguments:@[]];
-                [[JevilInstance currentInstance] syncData];
-                                                                
-            }]];
-            [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{
-                
-            }];
+            
+        }]];
+        [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{
+            
+        }];
     }
 }
 
@@ -379,7 +379,7 @@
         NSString* originalUrl = url;
         if([url hasPrefix:@"/"])
             url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+        
         id header = [@{} mutableCopy];
         id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
         for(id h in header_list){
@@ -443,6 +443,59 @@
             }
         }];
     }
+}
+
++ (void)httpWithMultipartPost:(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    NSString* originalUrl = url;
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    id header = [@{} mutableCopy];
+    if(headerObject)
+        header = [headerObject mutableCopy];
+    
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
+    
+    [DevilUtil multiPartUpload:url header:header name:param[@"name"] filename:param[@"filename"] filePath:param[@"path"] complete:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)httpWithFilePath:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSString*)filepath :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    NSString* originalUrl = url;
+    if([url hasPrefix:@"/"])
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
+
+    id header = [@{} mutableCopy];
+    if(headerObject)
+        header = [headerObject mutableCopy];
+    
+    NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
+    if([Jevil get:x_access_token_key])
+        header[@"x-access-token"] = [Jevil get:x_access_token_key];
+    
+    NSData* data = [[NSFileManager defaultManager] contentsAtPath:filepath];
+    if(data == nil) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[@{@"r":@FALSE, @"msg":@"File not exists"}]];
+        return;
+    }
+    NSString* contentType = [DevilUtil fileNameToContentType:filepath];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+    [DevilUtil httpPut:url contentType:contentType data:data complete:^(id _Nonnull res) {
+        if(res == nil)
+            res = [@{} mutableCopy];
+        else if([res isMemberOfClass:[NSError class]]){
+            NSString* error = [NSString stringWithFormat:@"%@", res];
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
+        } else
+            [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:res];
+        
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
 }
 
 + (void)http:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)body :(JSValue *)callback {
@@ -715,18 +768,7 @@
                     uploadedFile[thisIndex] = upload[@"key"];
                     NSData* data = [NSData dataWithContentsOfFile:path];
                     
-                    NSString* contentType = nil;
-                    if([path hasSuffix:@"jpg"] || [path hasSuffix:@"jpeg"])
-                        contentType = @"image/jpeg";
-                    else if([path hasSuffix:@"png"])
-                        contentType = @"image/png";
-                    else if([path hasSuffix:@"mp4"])
-                        contentType = @"video/mp4";
-                    else if([path hasSuffix:@"pdf"])
-                        contentType = @"application/pdf";
-                    else
-                        contentType = @"application/octet-stream";
-                    
+                    NSString* contentType = [DevilUtil fileNameToContentType:path];
                     if([data length] == 0) {
                         s3index++;
                         result[@"r"] = @FALSE;
@@ -1201,7 +1243,7 @@
     NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
     if(urlData) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString  *documentsDirectory = [paths objectAtIndex:0];
+        NSString *documentsDirectory = [paths objectAtIndex:0];
 
         NSString* ext = [DevilUtil getFileExt:url];
         NSString* name = [DevilUtil getFileName:url];

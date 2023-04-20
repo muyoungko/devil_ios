@@ -481,5 +481,69 @@
     return ret;
 }
 
++(NSString*)fileNameToContentType:(NSString*)path {
+    NSString* contentType = nil;
+    if([path hasSuffix:@"jpg"] || [path hasSuffix:@"jpeg"])
+        contentType = @"image/jpeg";
+    else if([path hasSuffix:@"png"])
+        contentType = @"image/png";
+    else if([path hasSuffix:@"mp4"])
+        contentType = @"video/mp4";
+    else if([path hasSuffix:@"pdf"])
+        contentType = @"application/pdf";
+    else
+        contentType = @"application/octet-stream";
+    return contentType;
+}
 
+
++(void)multiPartUpload:(NSString*)url header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback {
+    
+    dispatch_queue_t queue = dispatch_queue_create("multiPartUpload", NULL);
+    dispatch_async(queue, ^{
+        
+        NSData* filedata = [[NSFileManager defaultManager] contentsAtPath:filePath];
+        if(filedata == nil) {
+            id s = [filePath componentsSeparatedByString:@"/"];
+            NSString* file = s[[s count]-1];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+            NSString *documentsDirectory = paths[0];
+            NSString* path = [documentsDirectory stringByAppendingPathComponent:file];
+            filedata = [[NSFileManager defaultManager] contentsAtPath:path];
+        }
+        
+        if(!filedata) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                callback(@{@"r":@FALSE, @"msg":@"file not exists"});
+            });
+            return;
+        }
+        
+        // Create a multipart form request.
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        [request setURL:[NSURL URLWithString:url]];
+        [request setAllHTTPHeaderFields:header];
+        [request setHTTPMethod:@"POST"];
+        
+        NSString *boundary = [NSString stringWithString:@"0xKhTmLbOuNdArY"];  // important!!!
+        NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
+        [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
+        
+        NSMutableData *body = [NSMutableData data];
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", name, filename] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[[NSString stringWithString:@"Content-Type: application/octet-stream\r\n\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+        [body appendData:[NSData dataWithData:filedata]];
+        [body appendData:[[NSString stringWithFormat:@"\r\n--%@--\r\n",boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [request setHTTPBody:body];
+
+        NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+        NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            callback(@{@"r":@TRUE});
+        });
+        
+    });
+}
 @end
