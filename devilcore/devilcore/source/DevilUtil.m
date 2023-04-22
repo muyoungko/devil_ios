@@ -499,8 +499,7 @@
 
 +(void)multiPartUpload:(NSString*)url header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback {
     
-    dispatch_queue_t queue = dispatch_queue_create("multiPartUpload", NULL);
-    dispatch_async(queue, ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSData* filedata = [[NSFileManager defaultManager] contentsAtPath:filePath];
         if(filedata == nil) {
