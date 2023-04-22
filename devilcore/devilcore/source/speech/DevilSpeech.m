@@ -18,6 +18,7 @@
 @property (nonatomic, strong) AVAudioInputNode* inputNode;
 @property (nonatomic, strong) AVAudioPlayer* beepPlayer;
 @property (nonatomic, strong) NSString* text;
+@property BOOL ing;
 @property BOOL streaming;
 @end
 
@@ -73,6 +74,7 @@
 }
 
 - (void)listenCore:(id)param {
+    self.ing = true;
     self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ko-KR"] ];
     self.speechRecognizer.delegate = self;
     
@@ -109,7 +111,7 @@
 }
 
 - (void) finish {
-    
+    self.ing = false;
     if(self.callback != nil) {
         self.callback(@{
             @"r":@TRUE,
@@ -122,10 +124,13 @@
 }
 
 - (void) cancel {
+    self.ing = false;
     self.callback = nil;
     [self stop];
 }
+
 - (void) stop {
+    self.ing = false;
     if(self.audioEngine != nil && self.audioEngine.isRunning) {
         [self.audioEngine stop];
     }
@@ -177,13 +182,18 @@
     NSLog(@"didHypothesizeTranscription");
     self.text = [transcription formattedString];
     NSLog(@"%@", self.text);
-    if(self.streaming) {
+    if(self.streaming && self.callback) {
         self.callback(@{
             @"r":@TRUE,
             @"text":self.text,
             @"end":@FALSE,
         });
     }
+}
+
+
+- (BOOL)isRecording {
+    return _ing;
 }
 
 @end

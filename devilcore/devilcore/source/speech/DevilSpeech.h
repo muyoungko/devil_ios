@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)listenCore:(id)param;
 - (void)stop;
 - (void)cancel;
+- (BOOL)isRecording;
 
 @end
 

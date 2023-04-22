@@ -1342,9 +1342,15 @@
 }
 + (void)speechRecognizer:(NSDictionary*)param :(JSValue*)callback{
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    [[DevilSpeech sharedInstance] listen:param :^(id  _Nonnull res) {
-        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ res ]];
-    }];
+    if([[DevilSpeech sharedInstance] isRecording]) {
+        [[DevilSpeech sharedInstance] cancel];
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"r":@FALSE, @"end":@TRUE, @"msg":@"Recording"}]];
+    } else {
+        [[DevilSpeech sharedInstance] listen:param :^(id  _Nonnull res) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ res ]];
+        }];
+    }
+    
 }
 + (void)stopSpeechRecognizer {
     [[DevilSpeech sharedInstance] cancel];
