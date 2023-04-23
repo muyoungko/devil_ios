@@ -191,7 +191,7 @@
             int h = 45;
             int bw = 70;
             self.keypadTop = [[UIView alloc] initWithFrame:CGRectMake(0,sh, sw, h)];
-            self.keypadTop.backgroundColor = [UIColor lightGrayColor];
+            self.keypadTop.backgroundColor = UIColorFromRGBA(0x20000000);
             [self.view addSubview:self.keypadTop];
             
             self.keypadTopButton = [[UIButton alloc] initWithFrame:CGRectMake(sw-bw-10, 5, bw, h-10)];
@@ -203,7 +203,20 @@
             
             [self.keypadTopButton setTitle:text forState:UIControlStateNormal];
             [self.keypadTopButton addTarget:self  action:@selector(doneClick) forControlEvents:UIControlEventTouchUpInside];
+            self.keypadTopButton.layer.cornerRadius = 6.0;
+            [self.keypadTopButton setBackgroundColor:UIColorFromRGB(0x0071e3)];
             [self.keypadTop addSubview:self.keypadTopButton];
+            
+            if([@"number_decimal" isEqualToString:self.editingTextField.keypadType]) {
+                UIButton* dotButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+                dotButton.frame = CGRectMake(sw-bw*2-10*2, 5, bw, h-10);
+                dotButton.layer.cornerRadius = 6.0;
+                [dotButton setBackgroundColor:[UIColor lightGrayColor]];
+                dotButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
+                [dotButton setTitle:@"." forState:UIControlStateNormal];
+                [dotButton addTarget:self  action:@selector(dotClick) forControlEvents:UIControlEventTouchUpInside];
+                [self.keypadTop addSubview:dotButton];
+            }
         }
         
         NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
@@ -212,6 +225,12 @@
         float viewGap = self.view.frame.origin.y - self.originalY;
         int toUp = screenHeight - rect.size.height - self.keypadTop.frame.size.height - viewGap;
         self.keypadTop.frame = CGRectMake(self.keypadTop.frame.origin.x, toUp, self.keypadTop.frame.size.width, self.keypadTop.frame.size.height);
+    }
+}
+
+- (void)dotClick {
+    if(self.editingTextField) {
+        self.editingTextField.text = [NSString stringWithFormat:@"%@.", self.editingTextField.text];
     }
 }
 
