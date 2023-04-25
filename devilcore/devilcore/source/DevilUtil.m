@@ -328,8 +328,9 @@
             NSString *documentsDirectory = paths[0];
             NSString* path = [documentsDirectory stringByAppendingPathComponent:filename];
             BOOL success = [data writeToFile:path atomically:YES];
+            int size = (int)[data length];
             dispatch_async(dispatch_get_main_queue(), ^{
-                callback(@{@"r":@TRUE, @"dest":path});
+                callback(@{@"r":@TRUE, @"dest":path , @"size":[NSNumber numberWithInt:size]});
             });
         }
     }];

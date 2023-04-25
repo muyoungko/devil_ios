@@ -211,37 +211,39 @@
     for(id icon_layer in layers){
         NSString* name = icon_layer[@"name"];
         NSString* url = icon_layer[@"localImageContent"];
-        [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
-            if(byte == nil || ![byte isKindOfClass:[NSData class]])
-                return;
-            UIImage* icon_image = [UIImage imageWithData:byte];
-            CGRect rect = [WildCardConstructor getFrame:icon_layer:nil];
-            rect.origin.y = rect.origin.x = 0;
-            
-            WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];
-            [leftButton setImage:icon_image forState:UIControlStateNormal];
-            UIBarButtonItem* menuBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-            
-            NSLayoutConstraint* a = [menuBarItem.customView.widthAnchor constraintEqualToConstant:rect.size.width];
-            [a setActive:YES];
-            NSLayoutConstraint* b = [menuBarItem.customView.heightAnchor constraintEqualToConstant:rect.size.height];
-            [b setActive:YES];
-            self.barButtonByName[name] = menuBarItem;
-            
-            leftButton.isAccessibilityElement = YES;
-            leftButton.accessibilityTraits = UIAccessibilityTraitButton;
-            
-            if(icon_layer[@"clickJavascript"]){
-                [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];
-                leftButton.stringTag = icon_layer[@"clickJavascript"];
-            } else if(icon_layer[@"clickContent"]) {
-                [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
-                leftButton.stringTag = icon_layer[@"clickContent"];
-            }
-
-            
-            [self update];
-        }];
+        if(url) {
+            [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
+                if(byte == nil || ![byte isKindOfClass:[NSData class]])
+                    return;
+                UIImage* icon_image = [UIImage imageWithData:byte];
+                CGRect rect = [WildCardConstructor getFrame:icon_layer:nil];
+                rect.origin.y = rect.origin.x = 0;
+                
+                WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];
+                [leftButton setImage:icon_image forState:UIControlStateNormal];
+                UIBarButtonItem* menuBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+                
+                NSLayoutConstraint* a = [menuBarItem.customView.widthAnchor constraintEqualToConstant:rect.size.width];
+                [a setActive:YES];
+                NSLayoutConstraint* b = [menuBarItem.customView.heightAnchor constraintEqualToConstant:rect.size.height];
+                [b setActive:YES];
+                self.barButtonByName[name] = menuBarItem;
+                
+                leftButton.isAccessibilityElement = YES;
+                leftButton.accessibilityTraits = UIAccessibilityTraitButton;
+                
+                if(icon_layer[@"clickJavascript"]){
+                    [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];
+                    leftButton.stringTag = icon_layer[@"clickJavascript"];
+                } else if(icon_layer[@"clickContent"]) {
+                    [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
+                    leftButton.stringTag = icon_layer[@"clickContent"];
+                }
+                
+                
+                [self update];
+            }];
+        }
     }
 }
 
