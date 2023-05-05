@@ -206,17 +206,6 @@
             self.keypadTopButton.layer.cornerRadius = 6.0;
             [self.keypadTopButton setBackgroundColor:UIColorFromRGB(0x0071e3)];
             [self.keypadTop addSubview:self.keypadTopButton];
-            
-            if([@"number_decimal" isEqualToString:self.editingTextField.keypadType]) {
-                UIButton* dotButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-                dotButton.frame = CGRectMake(sw-bw*2-10*2, 5, bw, h-10);
-                dotButton.layer.cornerRadius = 6.0;
-                [dotButton setBackgroundColor:[UIColor lightGrayColor]];
-                dotButton.titleLabel.font = [UIFont boldSystemFontOfSize:20];
-                [dotButton setTitle:@"." forState:UIControlStateNormal];
-                [dotButton addTarget:self  action:@selector(dotClick) forControlEvents:UIControlEventTouchUpInside];
-                [self.keypadTop addSubview:dotButton];
-            }
         }
         
         NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
@@ -248,7 +237,7 @@
     numberKeyType = nil;
     if([tf isKindOfClass:[WildCardUITextField class]]) {
         self.editingTextField = (WildCardUITextField*)tf;
-        if(self.editingTextField.keyboardType == UIKeyboardTypeNumberPad ) {
+        if(self.editingTextField.keyboardType == UIKeyboardTypeNumberPad || self.editingTextField.keyboardType == UIKeyboardTypeDecimalPad ) {
             editingNumberKey = YES;
             numberKeyType = self.editingTextField.returnKeyType;
         }

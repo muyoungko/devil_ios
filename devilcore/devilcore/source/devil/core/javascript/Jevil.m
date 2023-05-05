@@ -1269,12 +1269,15 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString  *documentsDirectory = [paths objectAtIndex:0];
 
+        
         NSString* ext = [DevilUtil getFileExt:url];
         NSString* name = [DevilUtil getFileName:url];
-        NSString* path = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
-        [urlData writeToFile:path atomically:YES];
-        path = [NSString stringWithFormat:@"file:/%@", path];
-        UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:path]];
+        NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
+        NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
+        
+        
+        [urlData writeToFile:pathDeconding atomically:YES];
+        UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]];
         DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
         d.delegate = vc;
         [d presentPreviewAnimated:YES];

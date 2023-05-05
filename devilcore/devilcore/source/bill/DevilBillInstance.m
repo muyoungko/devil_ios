@@ -379,7 +379,7 @@
         @"receipt-data":encodedReceipt,
     } mutableCopy];
     if(devilConfig[@"InAppPurchasePassword"]) {
-        params[@"password"] = [devilConfig[@"InAppPurchasePassword"] stringValue];
+        params[@"password"] = devilConfig[@"InAppPurchasePassword"];
     }
     
     NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];

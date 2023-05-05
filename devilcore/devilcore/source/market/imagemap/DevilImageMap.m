@@ -286,7 +286,8 @@ float borderWidth = 7;
                 
             } else {
                 UIImage* image = [UIImage imageWithData:data];
-                [self initializeWithImage:image];
+                if(image != nil)
+                    [self initializeWithImage:image];
             }
         }];
         [task resume];

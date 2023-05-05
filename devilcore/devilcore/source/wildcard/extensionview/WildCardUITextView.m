@@ -88,6 +88,8 @@
         tf.secureTextEntry = YES;
     } else if([@"number" isEqualToString:extension[@"select7"]]){
         tf.keyboardType = UIKeyboardTypeNumberPad;
+    } else if([@"number_decimal" isEqualToString:extension[@"select7"]]){
+        tf.keyboardType = UIKeyboardTypeDecimalPad;
     }
     
     if(extension[@"select5"] != nil)

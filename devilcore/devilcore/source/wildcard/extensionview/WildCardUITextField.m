@@ -97,7 +97,7 @@
     } else if([@"number" isEqualToString:extension[@"select7"]]){
         tf.keyboardType = UIKeyboardTypeNumberPad;
     } else if([@"number_decimal" isEqualToString:extension[@"select7"]]){
-        tf.keyboardType = UIKeyboardTypeNumberPad;
+        tf.keyboardType = UIKeyboardTypeDecimalPad;
     }
     tf.keypadType = extension[@"select7"];
     
