@@ -172,6 +172,7 @@
         [container setShowsVerticalScrollIndicator:NO];
         container.backgroundColor = [UIColor clearColor];
         WildCardCollectionViewAdapter* adapter = [[WildCardCollectionViewAdapter alloc] init];
+        adapter.infinite = [@"Y" isEqualToString:arrayContent[@"infinite"]];
         adapter.collectionView = container;
         
         NSString* arrayContentTargetNode = [arrayContent objectForKey:@"targetNode"];
@@ -247,8 +248,6 @@
             self.pullToRefreshJavascript = pullToRefreshJavascript;
             [container.refreshControl addTarget:self action:@selector(pullToRefresh:) forControlEvents:UIControlEventValueChanged];
         }
-        
-        
         
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"0"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"1"];
@@ -615,7 +614,15 @@
             [adapter setViewPagerSelectedCallback:[meta getReserveViewPagerSelectedCallback:((WildCardUIView*)cv.superview).name]];
         }
         
-        [cv reloadData];
+        if([adapter shouldReload]) {
+            [cv reloadData];
+            if(adapter.infinite) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if(targetDataJson)
+                        [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([targetDataJson count] * 10) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                });
+            }
+        }
         
         if(adapter.reserveSelectedIndex >= 0 && [adapter getCount] > 0) {
             [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(adapter.reserveSelectedIndex) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];

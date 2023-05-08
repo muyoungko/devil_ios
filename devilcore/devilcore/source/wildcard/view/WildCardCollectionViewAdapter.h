@@ -39,6 +39,7 @@ typedef void (^ ViewPagerSelected)(int);
 @property (nonatomic, retain) NSMutableDictionary* visibleDataByIndexPath;
 @property (nonatomic, retain) NSMutableDictionary* visibleDataStringByIndexPath;
 @property (nonatomic, retain) NSString* repeatType;
+@property BOOL infinite;
 
 @property void (^lastItemCallback)(id res);
 @property void (^draggedCallback)(id res);

@@ -49,9 +49,7 @@
 {
     self.c = (WildCardUICollectionView*)collectionView;
     if(section == 0){
-        if(_data == nil)
-            return 0;
-        return [_data count];
+        return [self getCount];
     } else {
         return 1;
     }
@@ -99,12 +97,15 @@
 {
     if(_data == nil)
         return 0;
+    if(_infinite) {
+        return 2000;
+    }
     return [_data count];
 }
 
 -(int)getIndex
 {
-    return _selectedIndex;
+    return _selectedIndex % [_data count];
 }
 
 
@@ -249,9 +250,11 @@
 {
     if(indexPath.section == 0) {
         int position = (int)[indexPath row];
+        if(_infinite)
+            position = position % [_data count];
         if(position >= [_data count])
             return CGSizeMake(collectionView.frame.size.width, 0);
-
+        
         NSDictionary *cloudJson = _cloudJsonGetter(position);
         
         if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
@@ -287,6 +290,9 @@
     if(indexPath.section == 0) {
         int position = (int)[indexPath row];
         
+        if(_infinite)
+            position = position % [_data count];
+        
         if(position >= [_data count])
             return [collectionView dequeueReusableCellWithReuseIdentifier:@"0" forIndexPath:indexPath];
         
@@ -300,7 +306,7 @@
         } else {
             childUIView = [[cell subviews] objectAtIndex:0];
         }
-       
+        
         @try{
             if([[childUIView subviews] count] == 0)
             {
@@ -311,7 +317,7 @@
                 if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType] || [REPEAT_TYPE_BOTTOM isEqualToString:self.repeatType])
                     v.frame = CGRectMake(v.frame.origin.x, 0, v.frame.size.width, v.frame.size.height);
                 else if([REPEAT_TYPE_GRID isEqualToString:self.repeatType] || [REPEAT_TYPE_VIEWPAGER isEqualToString:self.repeatType])
-                        v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height);
+                    v.frame = CGRectMake(0, 0, v.frame.size.width, v.frame.size.height);
                 else
                     v.frame = CGRectMake(0, v.frame.origin.y, v.frame.size.width, v.frame.size.height);
                 
@@ -327,16 +333,16 @@
             }
             
             if(indexPath.section == 0) {
-                self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = self.data[indexPath.row];
-                self.visibleDataStringByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = [NSString stringWithFormat:@"%@", self.data[indexPath.row]];
-
-                self.lastDataCount = [self.data count];
+                self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = self.data[position];
+                self.visibleDataStringByIndexPath[[NSNumber numberWithInt:(int)position]] = [NSString stringWithFormat:@"%@", self.data[position]];
+                
+                self.lastDataCount = [self getCount];
             }
             
         }@catch(NSException* e){
             [DevilExceptionHandler handle:e];
         }
-
+        
         return cell;
     } else {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"FOOTER" forIndexPath:indexPath];
@@ -360,11 +366,11 @@
         if(index.row < [self.data count]) {
             NSNumber* key = [NSNumber numberWithInt:(int)index.row];
             /**
-            데이터를 문자로 변환해서 검사해야 변경 증분을 알수가 있다
+             데이터를 문자로 변환해서 검사해야 변경 증분을 알수가 있다
              */
             id alreadyString = self.visibleDataStringByIndexPath[key];
             /**
-            데이터의 문자는 같은데 주소가 변경되는 경우가 있다. 이경우는 무조건 리로드 해야한다
+             데이터의 문자는 같은데 주소가 변경되는 경우가 있다. 이경우는 무조건 리로드 해야한다
              */
             id alreadyAddress = self.visibleDataByIndexPath[key];
             if(!alreadyString) {
@@ -417,7 +423,7 @@
         return NO;
     }
 }
-
+    
 -(void)autoSwipe:(BOOL)s{
     if(s) {
         if(!self.timer)
@@ -524,7 +530,7 @@
             int tobeIndex = sindex+direction;
             if(tobeIndex < 0 )
                 tobeIndex = 0;
-            else if(tobeIndex > [_data count] -1 )
+            else if(!_infinite && tobeIndex > [_data count] -1 )
                 tobeIndex = [_data count] -1;
             newIndex = tobeIndex;
             float tobe = -start + contentWidth*(tobeIndex);
@@ -545,10 +551,10 @@
         for(int i=0;i<viewPagerSelectedIndex;i++)
         {
             @try{
-                viewPagerSelected[i](_selectedIndex);
+                viewPagerSelected[i](_selectedIndex % [_data count]);
                 
                 if(self.viewPagerSelectedCallback)
-                    self.viewPagerSelectedCallback(_selectedIndex);
+                    self.viewPagerSelectedCallback(_selectedIndex % [_data count]);
                 
             }@catch(NSException* e)
             {
