@@ -26,9 +26,15 @@
 
 + (void)consume:(NSDictionary*)param :(JSValue *)callback {
     [callback callWithArguments:@[@{@"r":@TRUE}]];
-//    [[DevilBillInstance sharedInstance] consume:param[@"sku"] callback:^(id  _Nonnull res) {
-//        [callback callWithArguments:@[res]];
-//    }];
+    //    [[DevilBillInstance sharedInstance] consume:param[@"sku"] callback:^(id  _Nonnull res) {
+    //        [callback callWithArguments:@[res]];
+    //    }];
+}
+
++ (void)restorePurchase:(JSValue *)callback {
+    [[DevilBillInstance sharedInstance] restorePurchase:^(id  _Nonnull res) {
+        [callback callWithArguments:@[res]];
+    }];
 }
 
 

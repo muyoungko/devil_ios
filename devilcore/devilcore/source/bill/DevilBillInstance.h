@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)requestProduct:(id)param callback:(void (^)(id res))callback;
 - (void)purchase:(NSString*)sku callback:(void (^)(id res))callback;
 - (void)requestPurchasedProduct:(id)param callback:(void (^)(id res))callback;
+- (void)restorePurchase:(void (^)(id res))callback;
 
 @end
 

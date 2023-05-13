@@ -13,6 +13,7 @@
 @interface DevilBillInstance()
 @property void (^callback)(id res);
 @property void (^purchaseCallback)(id res);
+@property void (^restoreCallback)(id res);
 @property id fallbackInfo;
 @end
 
@@ -97,7 +98,7 @@
                 @"price_text" : formattedString,
             } mutableCopy]];
         }
-
+        
         
         [self checkSkuPurchase:skus callback:^(id res2) {
             if(res2 && res2[@"r"]) {
@@ -188,7 +189,7 @@
 
 - (void)purchaseSKProduct:(SKProduct *)product{
     SKPayment *payment = [SKPayment paymentWithProduct:product];
-
+    
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     [[SKPaymentQueue defaultQueue] addPayment:payment];
 }
@@ -209,7 +210,7 @@
         if(transaction.transactionState == SKPaymentTransactionStateRestored){
             //called when the user successfully restores a purchase
             NSLog(@"Transaction state -> Restored");
-
+            
             //if you have more than one in-app purchase product,
             //you restore the correct product for the identifier.
             //For example, you could use
@@ -224,6 +225,11 @@
             break;
         }
     }
+    
+    if(self.restoreCallback) {
+        self.restoreCallback([@{@"r":@TRUE} mutableCopy]);
+        self.restoreCallback = nil;
+    }
 }
 
 
@@ -236,7 +242,7 @@
         //then, check the identifier against the product IDs
         //that you have defined to check which product the user
         //just purchased
-
+        
         switch(transaction.transactionState){
             case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
                 //called when the user is in the process of purchasing, do not add any of your own code here.
@@ -291,42 +297,42 @@
 
 /**
  {
-     "expires_date" = "2022-07-10 16:51:28 Etc/GMT";
-     "expires_date_ms" = 1657471888000;
-     "expires_date_pst" = "2022-07-10 09:51:28 America/Los_Angeles";
-     "in_app_ownership_type" = PURCHASED;
-     "is_in_intro_offer_period" = false;
-     "is_trial_period" = false;
-     "original_purchase_date" = "2022-07-10 15:51:30 Etc/GMT";
-     "original_purchase_date_ms" = 1657468290000;
-     "original_purchase_date_pst" = "2022-07-10 08:51:30 America/Los_Angeles";
-     "original_transaction_id" = 2000000101911988;
-     "product_id" = monthly;
-     "purchase_date" = "2022-07-10 15:51:28 Etc/GMT";
-     "purchase_date_ms" = 1657468288000;
-     "purchase_date_pst" = "2022-07-10 08:51:28 America/Los_Angeles";
-     quantity = 1;
-     "transaction_id" = 2000000101911988;
-     "web_order_line_item_id" = 2000000007214271;
+ "expires_date" = "2022-07-10 16:51:28 Etc/GMT";
+ "expires_date_ms" = 1657471888000;
+ "expires_date_pst" = "2022-07-10 09:51:28 America/Los_Angeles";
+ "in_app_ownership_type" = PURCHASED;
+ "is_in_intro_offer_period" = false;
+ "is_trial_period" = false;
+ "original_purchase_date" = "2022-07-10 15:51:30 Etc/GMT";
+ "original_purchase_date_ms" = 1657468290000;
+ "original_purchase_date_pst" = "2022-07-10 08:51:30 America/Los_Angeles";
+ "original_transaction_id" = 2000000101911988;
+ "product_id" = monthly;
+ "purchase_date" = "2022-07-10 15:51:28 Etc/GMT";
+ "purchase_date_ms" = 1657468288000;
+ "purchase_date_pst" = "2022-07-10 08:51:28 America/Los_Angeles";
+ quantity = 1;
+ "transaction_id" = 2000000101911988;
+ "web_order_line_item_id" = 2000000007214271;
  },
  {
-     "expires_date" = "2022-07-10 17:51:28 Etc/GMT";
-     "expires_date_ms" = 1657475488000;
-     "expires_date_pst" = "2022-07-10 10:51:28 America/Los_Angeles";
-     "in_app_ownership_type" = PURCHASED;
-     "is_in_intro_offer_period" = false;
-     "is_trial_period" = false;
-     "original_purchase_date" = "2022-07-10 15:51:30 Etc/GMT";
-     "original_purchase_date_ms" = 1657468290000;
-     "original_purchase_date_pst" = "2022-07-10 08:51:30 America/Los_Angeles";
-     "original_transaction_id" = 2000000101911988;
-     "product_id" = monthly;
-     "purchase_date" = "2022-07-10 16:51:28 Etc/GMT";
-     "purchase_date_ms" = 1657471888000;
-     "purchase_date_pst" = "2022-07-10 09:51:28 America/Los_Angeles";
-     quantity = 1;
-     "transaction_id" = 2000000101920780;
-     "web_order_line_item_id" = 2000000007214272;
+ "expires_date" = "2022-07-10 17:51:28 Etc/GMT";
+ "expires_date_ms" = 1657475488000;
+ "expires_date_pst" = "2022-07-10 10:51:28 America/Los_Angeles";
+ "in_app_ownership_type" = PURCHASED;
+ "is_in_intro_offer_period" = false;
+ "is_trial_period" = false;
+ "original_purchase_date" = "2022-07-10 15:51:30 Etc/GMT";
+ "original_purchase_date_ms" = 1657468290000;
+ "original_purchase_date_pst" = "2022-07-10 08:51:30 America/Los_Angeles";
+ "original_transaction_id" = 2000000101911988;
+ "product_id" = monthly;
+ "purchase_date" = "2022-07-10 16:51:28 Etc/GMT";
+ "purchase_date_ms" = 1657471888000;
+ "purchase_date_pst" = "2022-07-10 09:51:28 America/Los_Angeles";
+ quantity = 1;
+ "transaction_id" = 2000000101920780;
+ "web_order_line_item_id" = 2000000007214272;
  }
  )
  */
@@ -400,4 +406,11 @@
         callback(responseJsonObject);
     }];
 }
+
+- (void)restorePurchase:(void (^)(id res))callback {
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+    self.restoreCallback = callback;
+}
+
+
 @end
