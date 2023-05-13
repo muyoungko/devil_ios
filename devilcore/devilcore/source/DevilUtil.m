@@ -538,10 +538,16 @@
         [request setHTTPBody:body];
 
         NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSString *returnString = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
+        NSString *s = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         
+        __block id result = [@{@"r":@TRUE} mutableCopy];
+        if([s hasPrefix:@"{"]){
+            result = [NSJSONSerialization JSONObjectWithData:[s dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+        } else {
+            result[@"string"] = s;
+        }
         dispatch_async(dispatch_get_main_queue(), ^{
-            callback(@{@"r":@TRUE});
+            callback(result);
         });
         
     });

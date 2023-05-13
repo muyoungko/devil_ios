@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6D0224A126131F6500634842 /* devil_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224A026131F6500634842 /* devil_icon.png */; };
+		6D056FBD2A0FC535005C30EF /* devil_camera_flash_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */; };
 		6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B225ADDD9100221A4C /* WildCardTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B325ADDD9100221A4C /* WildCardTimer.m */; };
 		6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B825B07B3B00221A4C /* JevilInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -292,6 +293,7 @@
 /* Begin PBXFileReference section */
 		1032BFC6BE887F2D93A4D66B /* Pods-devilcore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.release.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.release.xcconfig"; sourceTree = "<group>"; };
 		6D0224A026131F6500634842 /* devil_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devil_icon.png; sourceTree = "<group>"; };
+		6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_flash_on@3x.png"; sourceTree = "<group>"; };
 		6D09C3B225ADDD9100221A4C /* WildCardTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardTimer.h; sourceTree = "<group>"; };
 		6D09C3B325ADDD9100221A4C /* WildCardTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardTimer.m; sourceTree = "<group>"; };
 		6D09C3B825B07B3B00221A4C /* JevilInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilInstance.h; sourceTree = "<group>"; };
@@ -614,6 +616,7 @@
 				6D9F7A9C2622E93C003A70EC /* devil_camera_cancel@3x.png */,
 				6D9F7AA32622E93C003A70EC /* devil_camera_complete@3x.png */,
 				6D9F7A9D2622E93C003A70EC /* devil_camera_flash@3x.png */,
+				6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */,
 				6D9F7A9F2622E93C003A70EC /* devil_camera_front_back@3x.png */,
 				6D9F7AA52622E93C003A70EC /* devil_camera_gallery@3x.png */,
 				6D9F7AA02622E93C003A70EC /* devil_camera_picture@3x.png */,
@@ -1376,6 +1379,7 @@
 				6D9F7AA62622E93C003A70EC /* devil_camera_cancel@3x.png in Resources */,
 				6D4679A6256A4980006D57DD /* LICENSE in Resources */,
 				6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */,
+				6D056FBD2A0FC535005C30EF /* devil_camera_flash_on@3x.png in Resources */,
 				6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */,
 				6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */,
 				6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */,

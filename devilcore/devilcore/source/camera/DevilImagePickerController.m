@@ -170,8 +170,38 @@
         [b setImage:image forState:UIControlStateNormal];
         [b addTarget:self action:@selector(onClickComplete) forControlEvents:UIControlEventTouchUpInside];
     }
+    
+    {
+        UIColor* color = [UIColor whiteColor];
+        UIButton * b = [r viewWithTag:8577];
+        b.tintColor = b.imageView.tintColor = color;
+        UIImage* image = [[UIImage imageNamed:@"devil_camera_flash.png" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b setImage:image forState:UIControlStateNormal];
+        [b addTarget:self action:@selector(onClickFlash) forControlEvents:UIControlEventTouchUpInside];
+    }
 
     return r;
+}
+
+
+-(void)onClickFlash {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    UIView* r = _over;
+    if(self.cameraFlashMode != UIImagePickerControllerCameraFlashModeOn) {
+        UIColor* color = [UIColor whiteColor];
+        UIButton * b = [r viewWithTag:8577];
+        b.tintColor = b.imageView.tintColor = color;
+        UIImage* image = [[UIImage imageNamed:@"devil_camera_flash_on.png" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b setImage:image forState:UIControlStateNormal];
+        self.cameraFlashMode = UIImagePickerControllerCameraFlashModeOn;
+    } else if(self.cameraFlashMode != UIImagePickerControllerCameraFlashModeAuto) {
+        UIColor* color = [UIColor whiteColor];
+        UIButton * b = [r viewWithTag:8577];
+        b.tintColor = b.imageView.tintColor = color;
+        UIImage* image = [[UIImage imageNamed:@"devil_camera_flash.png" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [b setImage:image forState:UIControlStateNormal];
+        self.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+    }
 }
 
 -(void)cameraOverlayUpdate:(UIView*)r :(BOOL)isLandscape :(BOOL)showFrame :(float)rate {
@@ -277,6 +307,7 @@
         [r bringSubviewToFront:[r viewWithTag:8574]];
         [r bringSubviewToFront:[r viewWithTag:8575]];
         [r bringSubviewToFront:[r viewWithTag:8576]];
+        [r bringSubviewToFront:[r viewWithTag:8577]];
     }
 }
 
@@ -295,6 +326,7 @@
         }
     }];
 }
+
 -(void)onClickComplete {
     [self dismissViewControllerAnimated:YES completion:^{
         if(self.callback) {
