@@ -46,10 +46,16 @@
     [self initHeader];
     [self update];
     
-    if(cj[@"backgroundColor"]){
-        UIColor* bgColor = [WildCardUtil colorWithHexString:cj[@"backgroundColor"]];
+    [self needAppearanceUpdate];
+    
+    return self;
+}
+
+-(void)needAppearanceUpdate {
+    if(_cj[@"backgroundColor"]){
+        UIColor* bgColor = [WildCardUtil colorWithHexString:_cj[@"backgroundColor"]];
         self.bgcolor = bgColor;
-        [vc.navigationController.navigationBar setTranslucent:false];
+        [_vc.navigationController.navigationBar setTranslucent:false];
 
         if (@available(iOS 15.0, *)) {
             UINavigationBarAppearance* a = [UINavigationBarAppearance new];
@@ -66,9 +72,9 @@
             self.vc.navigationController.navigationBar.scrollEdgeAppearance = self.vc.navigationController.navigationBar.standardAppearance = a;
             
         } else {
-            [vc.navigationController.navigationBar setBarTintColor:bgColor];
-            [vc.navigationController.navigationBar setBackgroundColor:bgColor];
-            [vc.navigationController.navigationBar setAlpha:1.0f];
+            [_vc.navigationController.navigationBar setBarTintColor:bgColor];
+            [_vc.navigationController.navigationBar setBackgroundColor:bgColor];
+            [_vc.navigationController.navigationBar setAlpha:1.0f];
             [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackOpaque];
             [[UINavigationBar appearance] setAlpha:1.0f];
             self.vc.navigationController.navigationBar.titleTextAttributes = @{
@@ -77,7 +83,6 @@
         }
         
     }
-    return self;
 }
 
 -(void)initHeader{
@@ -88,6 +93,7 @@
         for(int i=0;i<[layers count];i++){
             id layer = layers[i];
             id layer_name = layer[@"name"];
+            self.titleColor = [UIColor whiteColor];
             if([@"logo" isEqualToString:layer_name]){
                 NSString* url = layer[@"localImageContent"];
                 

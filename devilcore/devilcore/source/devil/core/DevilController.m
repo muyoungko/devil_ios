@@ -433,6 +433,8 @@
         }
         [[UIApplication sharedApplication].keyWindow viewWithTag:27362].backgroundColor = self.header.bgcolor;
     }
+    
+    [self.header needAppearanceUpdate];
 }
 
 - (void)hideNavigationBar{

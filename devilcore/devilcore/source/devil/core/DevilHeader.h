@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(id)initWithViewController:(UIViewController*)vc layer:(id)cj withData:(id)data instanceDelegate:(id)delegate;
 -(void)update;
 -(void)update:(id)correspondData;
+-(void)needAppearanceUpdate;
 
 @end
 
