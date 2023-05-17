@@ -216,6 +216,7 @@
     if(url == nil){
         [imageView setImage:nil];
         [imageView setNeedsDisplay];
+        return;
     }
     
     if([url isEqualToString:self.currentUrl])

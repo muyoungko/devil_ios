@@ -766,12 +766,15 @@
                 } else {
                     NSString* upload_url = upload[@"upload_url"];
                     uploadedFile[thisIndex] = upload[@"key"];
-                    NSData* data = [NSData dataWithContentsOfFile:path];
+                    
+                    NSData* data = [NSData dataWithContentsOfFile:[DevilUtil replaceUdidPrefixDir:path]];
                     
                     NSString* contentType = [DevilUtil fileNameToContentType:path];
                     if([data length] == 0) {
                         s3index++;
                         result[@"r"] = @FALSE;
+                        result[@"code"] = @"CODE_FILE_NOT_FOUND";
+                        result[@"msg"] = @"File not found";
                         if(s3index == s3length){
                             for(int j=0;j<[uploadedFile count];j++){
                                 [result[@"uploadedFile"] addObject:

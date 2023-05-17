@@ -160,6 +160,7 @@
 -(void)gallerySystem:(UIViewController*)vc param:(id)param callback:(void (^)(id res))callback{
     [DevilCamera requestCameraPermission:^(BOOL granted) {
         if(granted) {
+            self.param = param;
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
             picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             picker.delegate = [DevilCamera sharedInstance];
@@ -227,6 +228,7 @@
      [imageData writeToFile:targetPath atomically:YES];
     return targetPath;
 }
+
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
     
