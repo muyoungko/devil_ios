@@ -25,6 +25,7 @@
         self.cornerRadiusHalf = NO;
         self.tags = [@{} mutableCopy];
         self.frameUpdateAvoid = NO;
+        self.passHitTest = NO;
     }
     return self;
 }
@@ -39,16 +40,6 @@
     NSString *s = [super description];
     return [NSString stringWithFormat:@"%@ name : %@",s,  _name];
 }
-
-//- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
-//
-//    if(self.touchCallback) {
-//        NSLog(@"pointInside %@", self.name);
-//    }
-//
-//    BOOL r = [super pointInside:point withEvent:event];
-//    return r;
-//}
 
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
 //    NSLog(@"hitTest %@", self.name);
@@ -67,8 +58,13 @@
             //NSLog(@"hitTest return %@", ((WildCardUIView*)r).name);
             return [super hitTest:point withEvent:event];
         }
-    } else
-        return [super hitTest:point withEvent:event];
+    } else {
+        UIView* a = [super hitTest:point withEvent:event];
+        if(_passHitTest)
+            return a == self ? nil : a;
+        else
+            return a;
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

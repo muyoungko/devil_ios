@@ -72,9 +72,31 @@
         
         UIButton* cancel = [rootView viewWithTag:333];
         [cancel addTarget:self action:@selector(buttonCancel:) forControlEvents:UIControlEventTouchUpInside];
+        UIImage* back = [[UIImage imageNamed:@"devil_camera_cancel" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [cancel setImage:back forState:UIControlStateNormal];
         
         UIButton* front = [rootView viewWithTag:34];
         [front addTarget:self action:@selector(buttonFrontBack:) forControlEvents:UIControlEventTouchUpInside];
+        UIImage* front_back = [[UIImage imageNamed:@"devil_camera_front_back" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+        [front setImage:front_back forState:UIControlStateNormal];
+        
+        float sw = [UIScreen mainScreen].bounds.size.width;
+        float sh = [UIScreen mainScreen].bounds.size.height;
+        UIView* top = [[UIView alloc] initWithFrame:CGRectMake(0,0, sw, 200)];
+        top.backgroundColor = [UIColor blackColor];
+        top.alpha = 0.3;
+        [rootView addSubview:top];
+        
+        UIView* bottom = [[UIView alloc] initWithFrame:CGRectMake(0, sh-400 , sw, 400)];
+        bottom.backgroundColor = [UIColor blackColor];
+        bottom.alpha = 0.3;
+        [rootView addSubview:bottom];
+        
+        UILabel* text = [rootView viewWithTag:444];
+        
+        [[text superview] bringSubviewToFront:text];
+        [[cancel superview] bringSubviewToFront:cancel];
+        [[front superview] bringSubviewToFront:front];
     }
 }
 

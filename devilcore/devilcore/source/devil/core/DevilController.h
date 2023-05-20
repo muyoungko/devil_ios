@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class MetaAndViewResult;
 
 @interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardScreenTableViewDelegate, WildCardConstructorLoading,
-UIDocumentInteractionControllerDelegate>
+UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 {
 }
 
@@ -32,6 +32,7 @@ UIDocumentInteractionControllerDelegate>
 -(void)adjustFooterHeight;
 -(void)setActiveAlertMessage:(NSString*)msg;
 -(void)closeActiveAlertMessage;
+-(void) addFixedView:(id)layer x:(float)x y:(float)y;
 
 @property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) id startData;
@@ -44,7 +45,8 @@ UIDocumentInteractionControllerDelegate>
 @property (nonatomic, retain) UIView* viewMain;
 @property (nonatomic, retain) UIView* viewExtend;
 @property (nonatomic, retain) WildCardScreenTableView* tv;
-
+@property (nonatomic, retain) UIView* fixedViewContainer;
+@property (nonatomic, retain) UIView* fixedView;
 @property BOOL (^onBackPressCallback)();
 
 -(void)debugView;

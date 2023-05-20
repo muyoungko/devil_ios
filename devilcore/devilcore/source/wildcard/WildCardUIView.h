@@ -57,6 +57,7 @@
 @property (retain, nonatomic) NSString* name;
 
 @property (retain, nonatomic) NSMutableDictionary* tags;
+@property BOOL passHitTest;
 
 - (void)addTouchCallback:(void (^)(int action, CGPoint p))callback;
 

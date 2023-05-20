@@ -44,6 +44,7 @@
 #import "WildCardUIPageControl.h"
 #import "WildCardUICollectionView.h"
 #import "WildCardEventTracker.h"
+#import "JevilInstance.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -1059,6 +1060,16 @@ static BOOL IS_TABLET = NO;
             {
                 continue;
             }
+            else if(childLayer[@"fix"])
+            {
+                UIViewController* vc = [JevilInstance currentInstance].vc;
+                if([vc isMemberOfClass:[DevilController class]]) {
+                    DevilController* dc = (DevilController*)vc;
+                    [dc addFixedView:childLayer x:0 y:0];
+                }
+                
+                continue;
+            }
             else
             {
                 [WildCardConstructor constructLayer1:vv:childLayer:layer:wcMeta:depth+1:i];
@@ -1194,6 +1205,10 @@ static BOOL IS_TABLET = NO;
             continue;
         }
         else if([[childLayer objectForKey:@"ignore"] boolValue])
+        {
+            continue;
+        }
+        else if(childLayer[@"fix"])
         {
             continue;
         }

@@ -810,6 +810,40 @@
     NSLog(@"updateFlexScreen %@ %@ %@ %d %d", self.projectId, self.screenName, self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
 }
 
+-(void) addFixedView:(id)layer x:(float)x y:(float)y {
+    if(_fixedView)
+        return;
+    
+    if(_fixedViewContainer == nil) {
+        _fixedViewContainer = [[WildCardUIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
+        _fixedViewContainer.userInteractionEnabled = YES;
+        ((WildCardUIView*)_fixedViewContainer).passHitTest = YES;
+        ((WildCardUIView*)_fixedViewContainer).name = @"fixedViewContainer";
+        [_viewMain addSubview:_fixedViewContainer];
+    }
+    _fixedView = [WildCardConstructor constructLayer:_fixedViewContainer withLayer:layer instanceDelegate:self];
+    [WildCardConstructor applyRule:(WildCardUIView*)_fixedView withData:self.data];
+
+    id fix = layer[@"fix"];
+    NSString* showType = fix[@"showType"];
+    if([@"fadein" isEqualToString:showType]) {
+        _fixedView.alpha = 0.0f;
+        _scrollView.delegate = self;
+    }
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    float alpha = 0;
+    float max = screenHeight/5.0f;
+    
+    alpha = scrollView.contentOffset.y / max;
+    if(alpha > 1.0f)
+        alpha = 1.0f;
+    
+    _fixedView.alpha = alpha;
+}
+
 @end
 
 
