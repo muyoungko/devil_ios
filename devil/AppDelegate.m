@@ -447,7 +447,12 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (void)onNetworkRequestHttp:(NSString*)method :(NSString*)url :(NSDictionary*)header :(NSMutableDictionary*)body :(void (^)(NSMutableDictionary* responseJsonObject))success {
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    if([@"application/x-www-form-urlencoded" isEqualToString:header[@"Content-Type"]])
+        [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    else
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     
     id headers = [@{

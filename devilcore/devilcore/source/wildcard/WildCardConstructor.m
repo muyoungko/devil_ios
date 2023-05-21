@@ -164,7 +164,9 @@ static NSString *default_project_id = nil;
     
     [[NSUserDefaults standardUserDefaults] setObject:project_id forKey:[NSString stringWithFormat:@"PROJECT_ID_%@", project_id]];
     
-    
+    NSString* fcm = [[NSUserDefaults standardUserDefaults] objectForKey:@"FCM"];
+    if(fcm)
+        [[NSUserDefaults standardUserDefaults] setObject:fcm forKey:[NSString stringWithFormat:@"FCM_%@", project_id]];
     
     [[NSUserDefaults standardUserDefaults] setObject:[[NSUserDefaults standardUserDefaults] objectForKey:@"x-access-token_1605234988599"]
                                               forKey:[NSString stringWithFormat:@"DEVIL_X_ACCESS_TOKEN_%@", project_id]];

@@ -835,7 +835,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     float alpha = 0;
-    float max = screenHeight/5.0f;
+    float max = _fixedView.frame.size.height;
     
     alpha = scrollView.contentOffset.y / max;
     if(alpha > 1.0f)
