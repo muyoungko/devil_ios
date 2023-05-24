@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(WildCardEventTracker*)sharedInstance;
 
 -(void)onScreen:(NSString*)projectId screenId:(NSString*)screenId screenName:(NSString*)screenName;
--(void)onClickEvent:(NSString*)viewName;
+-(void)onClickEvent:(NSString*)viewName data:(id)data;
 
 @end
 

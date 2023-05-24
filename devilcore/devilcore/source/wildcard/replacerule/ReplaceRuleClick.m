@@ -27,12 +27,16 @@
     NSString* ga = layer[@"ga"];
     if(!ga)
         ga = vv.name;
+    
+    NSString* gaDataPath = layer[@"gaData"];
+    
     if(layer[@"clickContent"]) {
         WildCardUITapGestureRecognizer *singleFingerTap =
         [[WildCardUITapGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(onClickListener:)];
         singleFingerTap.meta = wcMeta;
         [vv addGestureRecognizer:singleFingerTap];
         singleFingerTap.ga = ga;
+        singleFingerTap.gaDataPath = gaDataPath;
         self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickContent"];
         
@@ -42,6 +46,7 @@
         singleFingerTap.meta = wcMeta;
         [vv addGestureRecognizer:singleFingerTap];
         singleFingerTap.ga = ga;
+        singleFingerTap.gaDataPath = gaDataPath;
         self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
     }

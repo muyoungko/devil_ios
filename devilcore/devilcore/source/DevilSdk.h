@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @required
 -(void)onScreen:(NSString*)projectId screenId:(NSString*)screenId screenName:(NSString*)screenName;
 -(void)onEvent:(NSString*)projectId eventType:(NSString*)eventType viewName:(NSString*)viewName;
+@optional
+-(void)onEventWithGaData:(NSString*)projectId eventType:(NSString*)eventType viewName:(NSString*)viewName gaData:(id)gaData;
 @end
 
 @protocol DevilSdkScreenDelegate<NSObject>

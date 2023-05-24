@@ -704,11 +704,28 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     if(projectId == nil || eventType == nil || viewName == nil)
         return;
     
-    [FIRAnalytics logEventWithName:kFIREventSelectContent
+    [FIRAnalytics logEventWithName:viewName
                         parameters:@{
                                      kFIRParameterGroupID : projectId,
                                      kFIRParameterItemName:viewName,
                                      }];
+}
+    
+- (void)onEventWithGaData:(NSString *)projectId eventType:(NSString *)eventType viewName:(NSString *)viewName gaData:(id)gaData {
+    if(projectId == nil || eventType == nil || viewName == nil)
+        return;
+    id p = [@{
+        kFIRParameterGroupID : projectId,
+        kFIRParameterItemName:viewName,
+    } mutableCopy];
+    if(gaData) {
+        id ks = [gaData allKeys];
+        for(id k in ks) {
+            p[k] = gaData[k];
+        }
+    }
+    [FIRAnalytics logEventWithName:viewName
+                        parameters:p];
 }
     
 @end

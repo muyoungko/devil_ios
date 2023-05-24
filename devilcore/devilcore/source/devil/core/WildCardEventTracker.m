@@ -26,9 +26,13 @@
     }
 }
 
--(void)onClickEvent:(NSString*)viewName {
+-(void)onClickEvent:(NSString*)viewName data:(id)data{
     if([DevilSdk sharedInstance].devilSdkGADelegate) {
-        [[DevilSdk sharedInstance].devilSdkGADelegate onEvent:[WildCardConstructor sharedInstance].project_id eventType:@"click" viewName:viewName];
+        if([[DevilSdk sharedInstance].devilSdkGADelegate respondsToSelector:@selector(onEventWithGaData:eventType:viewName:gaData:)]) {
+            [[DevilSdk sharedInstance].devilSdkGADelegate onEventWithGaData:[WildCardConstructor sharedInstance].project_id eventType:@"click" viewName:viewName gaData:data];
+        } else {
+            [[DevilSdk sharedInstance].devilSdkGADelegate onEvent:[WildCardConstructor sharedInstance].project_id eventType:@"click" viewName:viewName];
+        }
     }
 }
 @end
