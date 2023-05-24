@@ -43,12 +43,14 @@
     if(self.textContentHighLightKey && self.textContentHighLightColor) {
         NSString* textContentHighLightText = [MappingSyntaxInterpreter interpret:self.textContentHighLightKey:opt];
         if(textContentHighLightText) {
+            [lv setText:text];
             NSRange range = [text rangeOfString:textContentHighLightText options:NSCaseInsensitiveSearch];
             if (range.location != NSNotFound) {
                 NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithString:text];
                 [string addAttribute:NSForegroundColorAttributeName value:self.textContentHighLightColor range:range];
                 lv.attributedText = string;
             }
+            
         } else
             [lv setText:text];
     } else {
