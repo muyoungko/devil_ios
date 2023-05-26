@@ -164,6 +164,9 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"7"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"8"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"9"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"10"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"11"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"12"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         //container.pagingEnabled = YES;
@@ -431,6 +434,9 @@
     NSString* targetNode7 = [arrayContent objectForKey:@"targetNode7"];
     NSString* targetNode8 = [arrayContent objectForKey:@"targetNode8"];
     NSString* targetNode9 = [arrayContent objectForKey:@"targetNode9"];
+    NSString* targetNode10 = [arrayContent objectForKey:@"targetNode10"];
+    NSString* targetNode11 = [arrayContent objectForKey:@"targetNode11"];
+    NSString* targetNode12 = [arrayContent objectForKey:@"targetNode12"];
     NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
     NSString* targetNodeSurfixIf = [arrayContent objectForKey:@"targetNodeSurfixIf"];
     NSString* targetNodePrefixIf = [arrayContent objectForKey:@"targetNodePrefixIf"];
@@ -440,6 +446,9 @@
     NSString* targetNode7If = [arrayContent objectForKey:@"targetNode7If"];
     NSString* targetNode8If = [arrayContent objectForKey:@"targetNode8If"];
     NSString* targetNode9If = [arrayContent objectForKey:@"targetNode9If"];
+    NSString* targetNode10If = [arrayContent objectForKey:@"targetNode10If"];
+    NSString* targetNode11If = [arrayContent objectForKey:@"targetNode11If"];
+    NSString* targetNode12If = [arrayContent objectForKey:@"targetNode12If"];
     
     NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"]; 
     NSString* repeatType = [arrayContent objectForKey:@"repeatType"];
@@ -460,6 +469,9 @@
     NSDictionary* targetLayer7 = nil;
     NSDictionary* targetLayer8 = nil;
     NSDictionary* targetLayer9 = nil;
+    NSDictionary* targetLayer10 = nil;
+    NSDictionary* targetLayer11 = nil;
+    NSDictionary* targetLayer12 = nil;
     
     for(int i=0;i<[targetDataJson count];i++)
     {
@@ -487,6 +499,9 @@
     targetLayer7 = [self getReferenceBlock:targetNode7 :childLayers];
     targetLayer8 = [self getReferenceBlock:targetNode8 :childLayers];
     targetLayer9 = [self getReferenceBlock:targetNode9 :childLayers];
+    targetLayer10 = [self getReferenceBlock:targetNode10 :childLayers];
+    targetLayer11 = [self getReferenceBlock:targetNode11 :childLayers];
+    targetLayer12 = [self getReferenceBlock:targetNode12 :childLayers];
     
     if([REPEAT_TYPE_BOTTOM isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType])
     {
@@ -654,6 +669,12 @@
                 return targetLayer8;
             else if(targetLayer9 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
                 return targetLayer9;
+            else if(targetLayer10 != nil && [MappingSyntaxInterpreter ifexpression:targetNode10If data: targetDataJson[position]])
+                return targetLayer10;
+            else if(targetLayer11 != nil && [MappingSyntaxInterpreter ifexpression:targetNode11If data: targetDataJson[position]])
+                return targetLayer11;
+            else if(targetLayer12 != nil && [MappingSyntaxInterpreter ifexpression:targetNode12If data: targetDataJson[position]])
+                return targetLayer12;
             return targetLayer;
         };
         
@@ -676,6 +697,12 @@
                 return @"8";
             else if(targetLayer9 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
                 return @"9";
+            else if(targetLayer10 != nil && [MappingSyntaxInterpreter ifexpression:targetNode10If data: targetDataJson[position]])
+                return @"10";
+            else if(targetLayer11 != nil && [MappingSyntaxInterpreter ifexpression:targetNode11If data: targetDataJson[position]])
+                return @"11";
+            else if(targetLayer12 != nil && [MappingSyntaxInterpreter ifexpression:targetNode12If data: targetDataJson[position]])
+                return @"12";
             return @"2";
         };
          

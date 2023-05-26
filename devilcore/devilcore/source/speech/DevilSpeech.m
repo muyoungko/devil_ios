@@ -46,12 +46,14 @@
     self.beepPlayer.volume = 1.0f;
     
     BOOL playback = [self.beepPlayer play];
-    
     self.beepPlayer.delegate = self;
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     NSLog(@"audioPlayerDidFinishPlaying");
+    if(!self.ing)
+        [[AVAudioSession sharedInstance] setActive:NO error:nil];
+    
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError * __nullable)error{
@@ -61,6 +63,7 @@
 - (void)listen:(id)param :(void (^)(id text))callback {
     self.audioEngine = [[AVAudioEngine alloc] init];
     self.streaming = [param[@"streaming"] boolValue];
+    self.ing = true;
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         if(status == SFSpeechRecognizerAuthorizationStatusAuthorized){
             self.callback = callback;
@@ -74,7 +77,6 @@
 }
 
 - (void)listenCore:(id)param {
-    self.ing = true;
     self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ko-KR"] ];
     self.speechRecognizer.delegate = self;
     
@@ -144,8 +146,6 @@
     self.recognitionTask = nil;
     self.recognitionRequest = nil;
     self.audioEngine = nil;
-    
-    //[[AVAudioSession sharedInstance] setActive:NO error:nil];
     
     [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.5f];
 }
