@@ -262,6 +262,9 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"7"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"8"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"9"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"10"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"11"];
+        [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"12"];
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         [container setShowsHorizontalScrollIndicator:false];

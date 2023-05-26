@@ -800,7 +800,7 @@
                             s3index++;
                             
                             if(showUploadingPopup)
-                                [vc setActiveAlertMessage:[NSString stringWithFormat:@"업로드 중입니다 %d / %d", s3index, [paths count]]];
+                                [vc setActiveAlertMessage:[NSString stringWithFormat:@"업로드 중입니다 %d / %d", s3index, (int)[paths count]]];
                             
                             if(res != nil)
                                 uploadedFileSuccess[thisIndex] = @TRUE;
