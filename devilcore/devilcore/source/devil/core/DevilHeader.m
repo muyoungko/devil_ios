@@ -51,6 +51,7 @@
     return self;
 }
 
+
 -(void)needAppearanceUpdate {
     if(_cj[@"backgroundColor"]){
         UIColor* bgColor = [WildCardUtil colorWithHexString:_cj[@"backgroundColor"]];
@@ -89,11 +90,11 @@
 
     id layers = self.cj[@"layers"];
     if(layers){
+        self.titleColor = [UIColor blackColor];
         BOOL hasline = false;
         for(int i=0;i<[layers count];i++){
             id layer = layers[i];
             id layer_name = layer[@"name"];
-            self.titleColor = [UIColor whiteColor];
             if([@"logo" isEqualToString:layer_name]){
                 NSString* url = layer[@"localImageContent"];
                 
