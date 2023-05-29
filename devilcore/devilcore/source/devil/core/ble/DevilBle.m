@@ -143,6 +143,13 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     if(now - self.startScanSec > self.scanSec) {
         [self.cbmanager stopScan];
+        if(self.callbackList) {
+            self.callbackList([@{
+                @"r":@TRUE,
+                @"stop":@TRUE,
+                @"list":[self bleListArray]
+            } mutableCopy]);
+        }
     }
 }
 
