@@ -9,6 +9,7 @@
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
 #import "JevilCtx.h"
+#import "WildCardUITapGestureRecognizer.h"
 
 @interface WildCardProgressBar ()
 
@@ -17,6 +18,7 @@
 @property float startObjectX;
 @property float startObjectY;
 @property NSTimeInterval downtime;
+@property (nonatomic, retain) WildCardUITapGestureRecognizer* singleFingerTap;
 
 @end
 
@@ -47,12 +49,38 @@
     
 }
 
+-(void)click:(WildCardUITapGestureRecognizer *)recognizer {
+    CGPoint xy = [recognizer locationOfTouch:0 inView:self.progressGroup];
+    
+    float barBgWidth = self.bar_bg.frame.size.width;
+    float barBgLeft = self.bar_bg.frame.origin.x;
+    float newBarWidth = xy.x - barBgLeft;
+    __block float newRate = newBarWidth / (barBgWidth - barBgLeft) * 100;
+    self.meta.correspondData[self.watch] = [NSNumber numberWithInt:(int)(newRate)];
+    [UIView animateWithDuration:0.25 delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        __block float barBgWidth = self.bar_bg.frame.size.width;
+        float newBarWidth = barBgWidth*newRate/100.0f;
+        self.bar.frame = CGRectMake(self.bar.frame.origin.x, self.bar.frame.origin.y,
+                                            newBarWidth, self.bar.frame.size.height);
+        if(self.cap) {
+            self.cap.center = CGPointMake(self.bar_bg.frame.origin.x +
+                                         barBgWidth*newRate/100.0f, self.cap.center.y);
+        }
+    } completion:NULL];
+}
+
 -(void)construct{
     if(self.dragable) {
         self.moving = NO;
         self.progressGroup.userInteractionEnabled = YES;
         self.bar.userInteractionEnabled = NO;
         [WildCardConstructor userInteractionEnableToParentPath:self.progressGroup depth:5];
+        
+        WildCardUITapGestureRecognizer *singleFingerTap =
+        [[WildCardUITapGestureRecognizer alloc] initWithTarget:self action:@selector(click:)];
+        [self.progressGroup addGestureRecognizer:singleFingerTap];
+        self.singleFingerTap = singleFingerTap;
+        
         [self.progressGroup addTouchCallback:^(int action, CGPoint p) {
             float newBarWidth = self.startObjectX-(self.startX-p.x);
             float barBgWidth = self.bar_bg.frame.size.width;

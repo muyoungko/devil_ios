@@ -220,6 +220,13 @@
 }
 
 - (NSString*)savePhotoToJpegFile:(UIImage*)photo {
+    if(photo.imageOrientation == UIImageOrientationRight)
+        photo = [DevilUtil rotateImage:photo degrees:90];
+    else if(photo.imageOrientation == UIImageOrientationLeft)
+        photo = [DevilUtil rotateImage:photo degrees:-90];
+    else if(photo.imageOrientation != nil && photo.imageOrientation == UIImageOrientationUp)
+        photo = [DevilUtil rotateImage:photo degrees:180];
+    
      id aaa = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
      NSString *prefix = aaa[0];
      NSString* outputFileName = [NSUUID UUID].UUIDString;
@@ -231,6 +238,7 @@
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info{
+    
     
     UIImage* photo = info[UIImagePickerControllerOriginalImage];
     NSString* targetPath = [self savePhotoToJpegFile:photo];
