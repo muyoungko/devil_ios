@@ -149,13 +149,14 @@
             }];
         }
     } else if(self.replaceJsonLayer[@"scaleType"] && [@"wrap_height" isEqualToString:self.replaceJsonLayer[@"scaleType"]]) {
-        
         float oh = [self.replaceJsonLayer[@"frame"][@"oh"] floatValue];
-        imageView.frame = CGRectMake(0,0,imageView.frame.size.width, [WildCardUtil convertSketchToPixel:oh]);
+        imageView.frame = CGRectMake(0,0, [imageView superview].frame.size.width, [WildCardUtil convertSketchToPixel:oh]);
         [[WildCardConstructor sharedInstance].delegate loadNetworkImageViewWithSize:imageView withUrl:url callback:^(CGSize size) {
             
             float h =  imageView.frame.size.width * size.height / size.width;
+            
             imageView.frame = CGRectMake(0,0,imageView.frame.size.width, h);
+            
             WildCardUIView* parent = (WildCardUIView*)[imageView superview];
             parent.frame = CGRectMake(parent.frame.origin.x, parent.frame.origin.y, imageView.frame.size.width, h);
             [WildCardUtil cachedImagePixcelHeight:url height:h];
