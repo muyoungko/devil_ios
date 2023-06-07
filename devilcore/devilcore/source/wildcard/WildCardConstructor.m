@@ -117,6 +117,27 @@ static NSString *default_project_id = nil;
     }];
 }
 
+-(void)saveLastProject:(NSMutableDictionary*)json {
+    NSData * jsonData = [NSJSONSerialization  dataWithJSONObject:json options:0 error:nil];
+    id aaa = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *prefix = aaa[0];
+    NSString* targetPath = [prefix stringByAppendingPathComponent:[@"last_project" stringByAppendingPathExtension:@"json"]];
+    [jsonData writeToFile:targetPath atomically:YES];
+}
+
+-(NSMutableDictionary*)readLastProject {
+    id aaa = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *prefix = aaa[0];
+    NSString* targetPath = [prefix stringByAppendingPathComponent:[@"last_project" stringByAppendingPathExtension:@"json"]];
+    if([[NSFileManager defaultManager] fileExistsAtPath:targetPath]) {
+        NSData* data = [NSData dataWithContentsOfFile:targetPath];
+        if(data) {
+            return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        }
+    }
+    return nil;
+}
+
 -(void) initWithOnlineVersion:(NSString*)version onComplete:(void (^_Nonnull)(BOOL success))complete
 {
     [WildCardConstructor sharedInstance].onLineMode = YES;
@@ -128,13 +149,19 @@ static NSString *default_project_id = nil;
     [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* responseJsonObject) {
         if(responseJsonObject != nil)
         {
+            [self saveLastProject:responseJsonObject];
             [self initWithProject:self.project_id json:responseJsonObject];
-            
             complete(YES);
         }
         else
         {
-            complete(NO);
+            id project = [self readLastProject];
+            if(project) {
+                [self initWithProject:self.project_id json:project];
+                complete(YES);
+            }
+            else
+                complete(NO);
         }
     }];
 }
