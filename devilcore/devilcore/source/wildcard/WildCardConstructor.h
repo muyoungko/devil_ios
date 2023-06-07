@@ -61,6 +61,7 @@
 @property (nonatomic, retain) NSString* _Nullable project_id;
 
 @property BOOL onLineMode;
+@property BOOL localImageMode;
 @property (nonatomic, weak, nullable) id <WildCardConstructorGlobalDelegate> delegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextConvertDelegate> textConvertDelegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextTransDelegate> textTransDelegate;

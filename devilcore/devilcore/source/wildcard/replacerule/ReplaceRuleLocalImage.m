@@ -14,7 +14,7 @@
 
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result {
     
-    if([WildCardConstructor sharedInstance].onLineMode)
+    if([WildCardConstructor sharedInstance].onLineMode && ![WildCardConstructor sharedInstance].localImageMode)
     {
         UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
         iv.contentMode = UIViewContentModeScaleAspectFill;

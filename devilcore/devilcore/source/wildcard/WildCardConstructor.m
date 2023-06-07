@@ -76,6 +76,7 @@ static NSString *default_project_id = nil;
 {
     self = [super init];
     self.xButtonImageName = nil;
+    self.localImageMode = NO;
     return self;
 }
 
