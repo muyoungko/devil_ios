@@ -11,7 +11,11 @@
 #import "JulyUtil.h"
 #import "AppDelegate.h"
 #import "MainController.h"
+#import "DeepLink.h"
+
 @import devilcore;
+@import FirebaseCore;
+@import FirebaseDynamicLinks;
 
 @interface Devil ()
 
@@ -205,6 +209,53 @@
     }
 }
 
+-(BOOL)openUrl:(NSURL*)url {
+    
+    if([url.scheme isEqualToString:@"devil-app-builder"]){
+        [Devil sharedInstance].reservedUrl = url;
+        [[Devil sharedInstance] consumeReservedUrl];
+        return true;
+    }
+    
+    if([DevilLoginSdk application:(UIApplication *)[UIApplication sharedApplication]
+                               openURL:(NSURL *)url
+                       options:nil])
+        return true;
+    
+                
+    if([[GIDSignIn sharedInstance] handleURL:url])
+        return true;
+                
+    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
+    if (dynamicLink && dynamicLink.url) {
+        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+        [[DeepLink sharedInstance] consumeDeepLink];
+        
+        [[DevilLink sharedInstance] setReserveUrl:[NSString stringWithFormat:@"%@", dynamicLink.url]];
+        return YES;
+    }
 
+    //구글 딥링크가 발동했을 했을때
+    //url    NSURL *    @"kr.co.trix.sticar://google/link/?deep_link_id=http%3A%2F%2Fwww%2Ecarmile%2Eco%2Ekr%2Finvitation%2Ehtml%3Fcode%3DMTU2Mjg0MTgyNzc5MA&match_type=unique&match_message=Link%20is%20uniquely%20matched%20for%20this%20device%2E"    0x00000002804b0b00
+    
+    if([[url host] isEqualToString:@"kakaolink"]){
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        for (NSString *param in [[url query] componentsSeparatedByString:@"&"]) {
+            NSArray *elts = [param componentsSeparatedByString:@"="];
+            if([elts count] < 2) continue;
+            [params setObject:[elts lastObject] forKey:[elts firstObject]];
+        }
+        NSString* type = params[@"type"];
+        if([type isEqualToString:@"product"]){
+            NSString* sticar_no = params[@"type"];
+        }
+        else if([type isEqualToString:@"invite"]){
+            NSString* code = params[@"code"];
+        }
+        return true;
+    }
+                
+    return false;
+}
 
 @end

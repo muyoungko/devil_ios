@@ -212,46 +212,58 @@
     }
 }
 
--(void)everyIconButton:(id)layers viewController:(UIViewController*)vc isLeft:(BOOL)isLeft{
-
-    __block int i = 0;
-    for(id icon_layer in layers){
-        NSString* name = icon_layer[@"name"];
-        NSString* url = icon_layer[@"localImageContent"];
+-(void)everyIconButton:(id)layers viewController:(UIViewController*)vc isLeft:(BOOL)isLeft {
+    for(id layer in layers){
+        NSString* name = layer[@"name"];
+        NSString* url = layer[@"localImageContent"];
         if(url) {
-            [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
-                if(byte == nil || ![byte isKindOfClass:[NSData class]])
-                    return;
-                UIImage* icon_image = [UIImage imageWithData:byte];
-                CGRect rect = [WildCardConstructor getFrame:icon_layer:nil];
-                rect.origin.y = rect.origin.x = 0;
-                
-                WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];
-                [leftButton setImage:icon_image forState:UIControlStateNormal];
-                UIBarButtonItem* menuBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
-                
-                NSLayoutConstraint* a = [menuBarItem.customView.widthAnchor constraintEqualToConstant:rect.size.width];
-                [a setActive:YES];
-                NSLayoutConstraint* b = [menuBarItem.customView.heightAnchor constraintEqualToConstant:rect.size.height];
-                [b setActive:YES];
-                self.barButtonByName[name] = menuBarItem;
-                
-                leftButton.isAccessibilityElement = YES;
-                leftButton.accessibilityTraits = UIAccessibilityTraitButton;
-                
-                if(icon_layer[@"clickJavascript"]){
-                    [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];
-                    leftButton.stringTag = icon_layer[@"clickJavascript"];
-                } else if(icon_layer[@"clickContent"]) {
-                    [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
-                    leftButton.stringTag = icon_layer[@"clickContent"];
-                }
-                
-                
-                [self update];
-            }];
+            if([WildCardConstructor sharedInstance].onLineMode && ![WildCardConstructor sharedInstance].localImageMode)
+            {
+                [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
+                    if(byte == nil || ![byte isKindOfClass:[NSData class]])
+                        return;
+                    [self eventIconButtonCore:name layer:layer byte:byte];
+                }];
+            }
+            else
+            {
+                NSString* imageName = [layer objectForKey:@"localImageContent"];
+                NSUInteger index = [imageName rangeOfString:@"/" options:NSBackwardsSearch].location;
+                imageName = [imageName substringFromIndex:index+1];
+                NSData* byte = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/images/%@", imageName]];
+                [self eventIconButtonCore:name layer:layer byte:byte];
+            }
         }
     }
+}
+
+-(void)eventIconButtonCore:(NSString*)name layer:(id)layer byte:(NSData*)byte {
+    UIImage* icon_image = [UIImage imageWithData:byte];
+    CGRect rect = [WildCardConstructor getFrame:layer:nil];
+    rect.origin.y = rect.origin.x = 0;
+    
+    WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];
+    [leftButton setImage:icon_image forState:UIControlStateNormal];
+    UIBarButtonItem* menuBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];
+    
+    NSLayoutConstraint* a = [menuBarItem.customView.widthAnchor constraintEqualToConstant:rect.size.width];
+    [a setActive:YES];
+    NSLayoutConstraint* b = [menuBarItem.customView.heightAnchor constraintEqualToConstant:rect.size.height];
+    [b setActive:YES];
+    self.barButtonByName[name] = menuBarItem;
+    
+    leftButton.isAccessibilityElement = YES;
+    leftButton.accessibilityTraits = UIAccessibilityTraitButton;
+    
+    if(layer[@"clickJavascript"]){
+        [leftButton addTarget:self action:@selector(scriptClick:)forControlEvents:UIControlEventTouchUpInside];
+        leftButton.stringTag = layer[@"clickJavascript"];
+    } else if(layer[@"clickContent"]) {
+        [leftButton addTarget:self action:@selector(aClick:)forControlEvents:UIControlEventTouchUpInside];
+        leftButton.stringTag = layer[@"clickContent"];
+    }
+    
+    [self update];
 }
 
 -(void)handleLogoTap{

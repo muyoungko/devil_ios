@@ -10,6 +10,7 @@
 #import "Lottie.h"
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
+#import "DevilUtil.h"
 
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
@@ -214,12 +215,12 @@
         _playerViewController.player = nil;
     }
     
-    if([ppath hasPrefix:@"http"]) {
+    if(ppath && [ppath hasPrefix:@"http"]) {
         if(![ppath isEqualToString:self.previewPath]) {
             [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:self.imageView withUrl:ppath];
             self.imageView.hidden = NO;
         }
-    } else {
+    } else if(ppath) {
         NSData *imageData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:ppath]];
         UIImage *image = [UIImage imageWithData:imageData];
         [self.imageView setImage:image];
@@ -231,7 +232,7 @@
         [WildCardVideoView unregistView:self];
     
     self.previewPath = ppath;
-    self.videoPath = vpath;
+    self.videoPath = [DevilUtil replaceUdidPrefixDir:vpath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object

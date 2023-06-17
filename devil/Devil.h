@@ -40,8 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)login:(NSString*)type email:(NSString*)email passwordOrToken:(NSString*)passwordOrToken callback:(void (^)(id res))callback;
 
 -(void)logout;
-
-- (void)sendPush;
+-(void)sendPush;
+-(BOOL)openUrl:(NSURL*)url;
 
 @end
 

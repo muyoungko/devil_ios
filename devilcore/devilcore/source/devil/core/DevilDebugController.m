@@ -106,7 +106,7 @@ alpha:1.0]
         type.tag = 2124;
         [cell addSubview:type];
         
-        UILabel* title = [[UILabel alloc] initWithFrame:CGRectMake(15, 22, sw-30, 40)];
+        UILabel* title = [[UILabel alloc] initWithFrame:CGRectMake(15, 22, sw-30, 60)];
         title.tag = 2123;
         title.numberOfLines = 3;
         [cell addSubview:title];
@@ -128,7 +128,9 @@ alpha:1.0]
     
     cell.tag = index;
     ((UILabel*)[cell viewWithTag:2124]).text = [NSString stringWithFormat:@"%@ - %@", item[@"type"], item[@"reg_date"]];
-    ((UILabel*)[cell viewWithTag:2123]).text = item[@"title"];
+    UILabel* title = ((UILabel*)[cell viewWithTag:2123]);
+    title.text = item[@"title"];
+    [title sizeThatFits:CGSizeMake(title.frame.size.width, 0)];
     return cell;
 }
 
