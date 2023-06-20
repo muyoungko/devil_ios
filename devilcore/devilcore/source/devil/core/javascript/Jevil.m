@@ -1090,11 +1090,18 @@
 }
 
 + (void)setViewPagerSelectedIndex:(NSString *)nodeName :(int)index{
-    id meta = ((DevilController*)[JevilInstance currentInstance].vc).mainWc.meta;
+    DevilController* dc = ((DevilController*)[JevilInstance currentInstance].vc);
+    id meta = dc.mainWc.meta;
     WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
     UICollectionView* cv = (UICollectionView*)[vv subviews][0];
     WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
-    adapter.reserveSelectedIndex = index;
+    if(index < [adapter.data count])
+        [adapter scrollToIndex:index view:adapter.collectionView];
+    else {
+        if(!dc.viewPagerReservedSelectedIndexMap)
+            dc.viewPagerReservedSelectedIndexMap = [@{} mutableCopy];
+        dc.viewPagerReservedSelectedIndexMap[nodeName] = [NSNumber numberWithInt:index];
+    }
 }
 
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName{
@@ -1106,14 +1113,29 @@
 }
 
 + (void)viewPagerSelectedCallback:(NSString*)nodeName :(JSValue*)callback{
-    id meta = ((DevilController*)[JevilInstance currentInstance].vc).mainWc.meta;
+    DevilController* dc = ((DevilController*)[JevilInstance currentInstance].vc);
+    id meta = dc.mainWc.meta;
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    [meta reserveViewPagerSelected:nodeName callback:^(int index) {
-        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
-            nodeName,
-            [NSNumber numberWithInt:index]
-        ]];
-    }];
+    WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
+    if(vv) {
+        UICollectionView* cv = (UICollectionView*)[vv subviews][0];
+        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
+        [adapter setViewPagerSelectedCallback:^(int index) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
+                nodeName,
+                [NSNumber numberWithInt:index]
+            ]];
+        }];
+    } else {
+        if(!dc.viewPagerReservedSelectedCallbackMap)
+            dc.viewPagerReservedSelectedCallbackMap = [@{} mutableCopy];
+        dc.viewPagerReservedSelectedCallbackMap[nodeName] = ^(int index) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
+                nodeName,
+                [NSNumber numberWithInt:index]
+            ]];
+        };
+    }
 }
 
 + (void)isWifi:(JSValue *)callback {

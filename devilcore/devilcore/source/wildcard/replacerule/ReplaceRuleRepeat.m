@@ -30,6 +30,7 @@
 
 -(void)constructRule:(WildCardMeta*)wcMeta parent:(UIView*)parent vv:(WildCardUIView*)vv layer:(id)layer depth:(int)depth result:(id)result{
     self.createdRepeatView = [[NSMutableArray alloc] init];
+    self.replaceView = vv;
     
     id layers = layer[@"layers"];
     NSDictionary* triggerMap = layer[@"trigger"];
@@ -628,8 +629,10 @@
             return @"2";
         };
         
-        if([meta getReserveViewPagerSelectedCallback:((WildCardUIView*)cv.superview).name]) {
-            [adapter setViewPagerSelectedCallback:[meta getReserveViewPagerSelectedCallback:((WildCardUIView*)cv.superview).name]];
+        NSString* vvname = ((WildCardUIView*)self.replaceView).name;
+        DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+        if(dc.viewPagerReservedSelectedCallbackMap && dc.viewPagerReservedSelectedCallbackMap[vvname]) {
+            [adapter setViewPagerSelectedCallback:dc.viewPagerReservedSelectedCallbackMap[vvname]];
         }
         
         if([adapter shouldReload]) {
@@ -642,9 +645,12 @@
             }
         }
         
-        if(adapter.reserveSelectedIndex >= 0 && [adapter getCount] > 0) {
-            [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:(adapter.reserveSelectedIndex) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-            adapter.reserveSelectedIndex = -1;
+        if(dc.viewPagerReservedSelectedIndexMap && dc.viewPagerReservedSelectedIndexMap[vvname] && [adapter getCount] > 0) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                int index = [dc.viewPagerReservedSelectedIndexMap[vvname] intValue];
+                [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                [dc.viewPagerReservedSelectedIndexMap removeObjectForKey:vvname];
+            });
         }
     }
     else if([REPEAT_TYPE_HLIST isEqualToString:repeatType] || [REPEAT_TYPE_VLIST isEqualToString:repeatType])

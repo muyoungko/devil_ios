@@ -75,8 +75,6 @@
 -(void)update;
 
 -(void)viewPagerMove:(NSString*)vp to:(int)distance;
--(void)reserveViewPagerSelected:(NSString*)nodeName callback:(void (^)(int index))callback;
--(id)getReserveViewPagerSelectedCallback:(NSString*)nodeName;
 
 -(void)created;
 -(void)paused;

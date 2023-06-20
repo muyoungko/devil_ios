@@ -38,6 +38,8 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
+    self.viewPagerReservedSelectedCallbackMap = self.viewPagerReservedSelectedIndexMap = nil;
+    
     if(!self.screenId){
         [self alertFinish:@"No Screen Id. Check screen name"];
         return;

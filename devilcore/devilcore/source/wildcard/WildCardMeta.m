@@ -17,7 +17,6 @@
 #import "ReplaceRuleRepeat.h"
 
 @interface WildCardMeta()
-@property (nonatomic, retain) NSMutableDictionary* viewPagerSelectedCallbackMap;
 @end
 
 @implementation WildCardMeta
@@ -35,7 +34,6 @@
         self.gravityNodes = nil;
         self.parentMeta = nil;
         self.forRetain = [[NSMutableDictionary alloc] init];
-        self.viewPagerSelectedCallbackMap = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -636,18 +634,6 @@
             [((ReplaceRuleMarket*)rule).marketComponent keypad:up :keyboardRect];
         }
     }
-}
-
--(void)reserveViewPagerSelected:(NSString*)nodeName callback:(void (^)(int index))callback {
-    self.viewPagerSelectedCallbackMap[nodeName] = callback;
-}
-
--(id)getReserveViewPagerSelectedCallback:(NSString*)nodeName {
-    id r = self.viewPagerSelectedCallbackMap[nodeName];
-    if(r == nil && _parentMeta != nil) {
-        return [_parentMeta getReserveViewPagerSelectedCallback:nodeName];
-    }
-    return r;
 }
 
 

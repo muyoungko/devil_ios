@@ -50,6 +50,8 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 @property BOOL (^onBackPressCallback)();
 
 -(void)debugView;
+@property (nonatomic, retain) NSMutableDictionary* viewPagerReservedSelectedIndexMap;
+@property (nonatomic, retain) NSMutableDictionary* viewPagerReservedSelectedCallbackMap;
 
 @end
 
