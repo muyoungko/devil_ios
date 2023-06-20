@@ -643,7 +643,11 @@
 }
 
 -(id)getReserveViewPagerSelectedCallback:(NSString*)nodeName {
-    return self.viewPagerSelectedCallbackMap[nodeName];
+    id r = self.viewPagerSelectedCallbackMap[nodeName];
+    if(r == nil && _parentMeta != nil) {
+        return [_parentMeta getReserveViewPagerSelectedCallback:nodeName];
+    }
+    return r;
 }
 
 
