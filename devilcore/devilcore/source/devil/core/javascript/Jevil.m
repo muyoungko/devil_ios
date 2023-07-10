@@ -1516,6 +1516,8 @@
                 [JevilInstance currentInstance].meta = meta;
                 [[JevilInstance currentInstance] pushData];
                 [callback callWithArguments:@[(focus?@TRUE:@FALSE)]];
+                [[JevilInstance currentInstance] syncData];
+                
             };
         } else {
             WildCardUITextView* c = o;
@@ -1523,6 +1525,7 @@
                 [JevilInstance currentInstance].meta = meta;
                 [[JevilInstance currentInstance] pushData];
                 [callback callWithArguments:@[(focus?@TRUE:@FALSE)]];
+                [[JevilInstance currentInstance] syncData];
             };
         }
     }
