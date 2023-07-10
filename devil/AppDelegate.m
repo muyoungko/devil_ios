@@ -39,6 +39,8 @@
 #import "LoginController.h"
 #import "MainV2Controller.h"
 
+#import "CapblMainViewController.h"
+
 @interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate, GADFullScreenContentDelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
@@ -480,6 +482,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         MainV2Controller* v = [[MainV2Controller alloc] init];
         v.screenId = @"56553391";
         [self.navigationController setViewControllers:@[v]];
+    } else if([@"capbl" isEqualToString:functionName]) {
+        CapblMainViewController* v = [[CapblMainViewController alloc] init];
+        [self.navigationController pushViewController:v animated:YES];
     }
 }
 

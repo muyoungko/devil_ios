@@ -57,6 +57,17 @@
 		6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF4278B3CBC008344DE /* devil_learning_icon@3x.png */; };
 		6DE2BAF8278B4B0F008344DE /* JevilLearning.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF7278B4B0F008344DE /* JevilLearning.m */; };
 		6DEC18832861427500B3FE88 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18822861427500B3FE88 /* README.md */; };
+		6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF50F7F2A5C75E8006160A0 /* libcapbl.a */; };
+		6DF50F952A5C75E8006160A0 /* CapblSecureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F802A5C75E8006160A0 /* CapblSecureViewController.m */; };
+		6DF50F962A5C75E8006160A0 /* CapblMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F812A5C75E8006160A0 /* CapblMainViewController.xib */; };
+		6DF50F972A5C75E8006160A0 /* CapblPartialController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F872A5C75E8006160A0 /* CapblPartialController.xib */; };
+		6DF50F982A5C75E8006160A0 /* CapblTableController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F882A5C75E8006160A0 /* CapblTableController.xib */; };
+		6DF50F992A5C75E8006160A0 /* CapblWebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F8A2A5C75E8006160A0 /* CapblWebController.m */; };
+		6DF50F9A2A5C75E8006160A0 /* CapblMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F8B2A5C75E8006160A0 /* CapblMainViewController.m */; };
+		6DF50F9B2A5C75E8006160A0 /* CapblTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F8C2A5C75E8006160A0 /* CapblTableController.m */; };
+		6DF50F9C2A5C75E8006160A0 /* CapblWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F8D2A5C75E8006160A0 /* CapblWebController.xib */; };
+		6DF50F9D2A5C75E8006160A0 /* CapblSecureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F8E2A5C75E8006160A0 /* CapblSecureViewController.xib */; };
+		6DF50F9E2A5C75E8006160A0 /* CapblPartialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F902A5C75E8006160A0 /* CapblPartialController.m */; };
 		9B7B4E0CEBBA2413AE8C1398 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1C06C8A0516C97794C167D4 /* Pods_devil.framework */; };
 /* End PBXBuildFile section */
 
@@ -153,6 +164,25 @@
 		6DE2BAF7278B4B0F008344DE /* JevilLearning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilLearning.m; sourceTree = "<group>"; };
 		6DEC18822861427500B3FE88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DF50F7F2A5C75E8006160A0 /* libcapbl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcapbl.a; sourceTree = "<group>"; };
+		6DF50F802A5C75E8006160A0 /* CapblSecureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapblSecureViewController.m; sourceTree = "<group>"; };
+		6DF50F812A5C75E8006160A0 /* CapblMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CapblMainViewController.xib; sourceTree = "<group>"; };
+		6DF50F842A5C75E8006160A0 /* capbl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = capbl.h; sourceTree = "<group>"; };
+		6DF50F852A5C75E8006160A0 /* SecureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureView.h; sourceTree = "<group>"; };
+		6DF50F862A5C75E8006160A0 /* SecureWKWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecureWKWebView.h; sourceTree = "<group>"; };
+		6DF50F872A5C75E8006160A0 /* CapblPartialController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CapblPartialController.xib; sourceTree = "<group>"; };
+		6DF50F882A5C75E8006160A0 /* CapblTableController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CapblTableController.xib; sourceTree = "<group>"; };
+		6DF50F892A5C75E8006160A0 /* CapblPartialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblPartialController.h; sourceTree = "<group>"; };
+		6DF50F8A2A5C75E8006160A0 /* CapblWebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapblWebController.m; sourceTree = "<group>"; };
+		6DF50F8B2A5C75E8006160A0 /* CapblMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapblMainViewController.m; sourceTree = "<group>"; };
+		6DF50F8C2A5C75E8006160A0 /* CapblTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapblTableController.m; sourceTree = "<group>"; };
+		6DF50F8D2A5C75E8006160A0 /* CapblWebController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CapblWebController.xib; sourceTree = "<group>"; };
+		6DF50F8E2A5C75E8006160A0 /* CapblSecureViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CapblSecureViewController.xib; sourceTree = "<group>"; };
+		6DF50F8F2A5C75E8006160A0 /* CapblWebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblWebController.h; sourceTree = "<group>"; };
+		6DF50F902A5C75E8006160A0 /* CapblPartialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapblPartialController.m; sourceTree = "<group>"; };
+		6DF50F912A5C75E8006160A0 /* CapblSecureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblSecureViewController.h; sourceTree = "<group>"; };
+		6DF50F922A5C75E8006160A0 /* CapblTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblTableController.h; sourceTree = "<group>"; };
+		6DF50F932A5C75E8006160A0 /* CapblMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblMainViewController.h; sourceTree = "<group>"; };
 		9B5B059AE94B9215ABD12468 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
 		A1C06C8A0516C97794C167D4 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -163,6 +193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DACD00328DD61E7002E7409 /* devilextra.framework in Frameworks */,
+				6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */,
 				6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */,
 				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
 				9B7B4E0CEBBA2413AE8C1398 /* Pods_devil.framework in Frameworks */,
@@ -299,6 +330,7 @@
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
+				6DF50F7E2A5C75E8006160A0 /* capbl */,
 				6DBC7CF9286AF4C90037ED1A /* Podfile.lock */,
 				6DEC18822861427500B3FE88 /* README.md */,
 				6DC1624926917AC900FD769C /* c.sh */,
@@ -324,6 +356,48 @@
 				6DF137F320D7469A00071B9F /* devil.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		6DF50F7E2A5C75E8006160A0 /* capbl */ = {
+			isa = PBXGroup;
+			children = (
+				6DF50F822A5C75E8006160A0 /* include */,
+				6DF50F7F2A5C75E8006160A0 /* libcapbl.a */,
+				6DF50F892A5C75E8006160A0 /* CapblPartialController.h */,
+				6DF50F902A5C75E8006160A0 /* CapblPartialController.m */,
+				6DF50F872A5C75E8006160A0 /* CapblPartialController.xib */,
+				6DF50F912A5C75E8006160A0 /* CapblSecureViewController.h */,
+				6DF50F802A5C75E8006160A0 /* CapblSecureViewController.m */,
+				6DF50F8E2A5C75E8006160A0 /* CapblSecureViewController.xib */,
+				6DF50F922A5C75E8006160A0 /* CapblTableController.h */,
+				6DF50F8C2A5C75E8006160A0 /* CapblTableController.m */,
+				6DF50F882A5C75E8006160A0 /* CapblTableController.xib */,
+				6DF50F932A5C75E8006160A0 /* CapblMainViewController.h */,
+				6DF50F8B2A5C75E8006160A0 /* CapblMainViewController.m */,
+				6DF50F812A5C75E8006160A0 /* CapblMainViewController.xib */,
+				6DF50F8F2A5C75E8006160A0 /* CapblWebController.h */,
+				6DF50F8A2A5C75E8006160A0 /* CapblWebController.m */,
+				6DF50F8D2A5C75E8006160A0 /* CapblWebController.xib */,
+			);
+			path = capbl;
+			sourceTree = "<group>";
+		};
+		6DF50F822A5C75E8006160A0 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				6DF50F832A5C75E8006160A0 /* capbl */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		6DF50F832A5C75E8006160A0 /* capbl */ = {
+			isa = PBXGroup;
+			children = (
+				6DF50F842A5C75E8006160A0 /* capbl.h */,
+				6DF50F852A5C75E8006160A0 /* SecureView.h */,
+				6DF50F862A5C75E8006160A0 /* SecureWKWebView.h */,
+			);
+			path = capbl;
 			sourceTree = "<group>";
 		};
 		F0CDCB8A11149BBB3516D5E1 /* Pods */ = {
@@ -408,17 +482,22 @@
 				6D46791E25699108006D57DD /* back_black@3x.png in Resources */,
 				6DEC18832861427500B3FE88 /* README.md in Resources */,
 				6D132BC5255E76F400004E1F /* loading.json in Resources */,
+				6DF50F9D2A5C75E8006160A0 /* CapblSecureViewController.xib in Resources */,
 				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
 				6DC1624A26917AC900FD769C /* c.sh in Resources */,
 				6DBC7CFA286AF4C90037ED1A /* Podfile.lock in Resources */,
+				6DF50F962A5C75E8006160A0 /* CapblMainViewController.xib in Resources */,
 				6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */,
 				6D4679AA256A51B9006D57DD /* devil.podspec in Resources */,
 				6D0224EE2613959900634842 /* devillogin.podspec in Resources */,
+				6DF50F982A5C75E8006160A0 /* CapblTableController.xib in Resources */,
 				6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */,
 				6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */,
 				6D52E6112619988700935D3A /* devil.plist in Resources */,
 				6D62FAFA28DD75F00094426E /* devilnfc.podspec in Resources */,
 				6D132BC6255E76F400004E1F /* lang.json in Resources */,
+				6DF50F9C2A5C75E8006160A0 /* CapblWebController.xib in Resources */,
+				6DF50F972A5C75E8006160A0 /* CapblPartialController.xib in Resources */,
 				6D0224F026143D8300634842 /* devilcore.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,13 +597,18 @@
 				6D467A35256AAE12006D57DD /* Void.swift in Sources */,
 				6DD47A9E26AE946600F4B3E4 /* MyDevilController.m in Sources */,
 				6DDAC3B9260C89F400E76300 /* Test.swift in Sources */,
+				6DF50F9B2A5C75E8006160A0 /* CapblTableController.m in Sources */,
 				6DE2BAF0278B2B1F008344DE /* LearningController.m in Sources */,
+				6DF50F9A2A5C75E8006160A0 /* CapblMainViewController.m in Sources */,
 				6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */,
 				6D4678D62567B1E2006D57DD /* SubController.m in Sources */,
 				6D4678D52567B1E2006D57DD /* AppDelegate.m in Sources */,
+				6DF50F992A5C75E8006160A0 /* CapblWebController.m in Sources */,
 				6D132B9D255E6E0F00004E1F /* Lang.m in Sources */,
+				6DF50F9E2A5C75E8006160A0 /* CapblPartialController.m in Sources */,
 				6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */,
 				6D4678D42567B1E2006D57DD /* main.m in Sources */,
+				6DF50F952A5C75E8006160A0 /* CapblSecureViewController.m in Sources */,
 				6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */,
 				6D4678CD2567B1E2006D57DD /* MainController.m in Sources */,
 				6DE2BAED278AC802008344DE /* MainV2Controller.m in Sources */,
@@ -655,7 +739,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 211;
+				CURRENT_PROJECT_VERSION = 212;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
@@ -673,8 +757,9 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
+					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.211;
+				MARKETING_VERSION = 0.0.212;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil development";
@@ -702,7 +787,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 211;
+				CURRENT_PROJECT_VERSION = 212;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -719,8 +804,9 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
+					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.211;
+				MARKETING_VERSION = 0.0.212;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil distribution";
