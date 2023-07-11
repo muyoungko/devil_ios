@@ -1445,6 +1445,19 @@
     }
 }
 
+
++ (void)webScript:(NSString*)node :(NSString *)javascript :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(vc.mainWc != nil) {
+        WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+        DevilWebView* web = [vv subviews][0];
+        [web evaluateJavaScript:javascript completionHandler:^(id _Nullable, NSError * _Nullable error) {
+            [callback callWithArguments:@[]];
+        }];
+    }
+}
+
+
 + (void)scrollDragged:(NSString*)node :(JSValue *)callback {
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
     if(node == nil || [@"null" isEqualToString:node] ) {

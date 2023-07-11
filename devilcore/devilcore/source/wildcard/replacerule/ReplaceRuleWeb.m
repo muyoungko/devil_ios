@@ -56,7 +56,14 @@
             else
                 url = [url stringByAppendingFormat:@"?token=%@", token];
         }
-    } if(url != nil && ![url isEqualToString:self.lastUrl]){
+    }
+    
+    if(url != nil && [url hasPrefix:@"javascript:"]) {
+        [web evaluateJavaScript:url completionHandler:^(id _Nullable, NSError * _Nullable error) {
+            
+        }];
+    }
+    else if(url != nil && ![url isEqualToString:self.lastUrl]){
         self.lastUrl = url;
         [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     }
