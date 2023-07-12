@@ -17,7 +17,7 @@
     if([WildCardConstructor sharedInstance].onLineMode && ![WildCardConstructor sharedInstance].localImageMode)
     {
         UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
-        iv.contentMode = UIViewContentModeScaleAspectFill;
+        iv.contentMode = UIViewContentModeScaleToFill;
         [vv addSubview:iv];
         [WildCardConstructor followSizeFromFather:vv child:iv];
         //[outRules addObject:ReplaceRuleLocalImage(iv, layer, [layer objectForKey:@"localImageContent"])];
@@ -33,7 +33,7 @@
         NSString* imageName = [layer objectForKey:@"localImageContent"];
         NSUInteger index = [imageName rangeOfString:@"/" options:NSBackwardsSearch].location;
         imageName = [imageName substringFromIndex:index+1];
-        NSString* imgData = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/images/%@", imageName]];
+        NSData* imgData = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/images/%@", imageName]];
         [iv setImage: [UIImage imageWithData:imgData]];
         [WildCardConstructor followSizeFromFather:vv child:iv];
     }
