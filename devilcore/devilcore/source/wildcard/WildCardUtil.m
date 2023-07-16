@@ -561,14 +561,20 @@ static BOOL IS_TABLET = NO;
                  next가 hidden이더라도 relative margin은 적용되어야하는데 이경우는 적용되면 안된다?
                  if(!nextHidden)의 주석을 다시 품
                  
+                 2023/7/16
+                 nextBottomMargin 감안해서 높이 계산
                  */
                 float vNextToMargin = 0;
+                float nextBottomMargin = 0;
                 if(!nextHidden)
                 {
                     vNextToMargin = [layersByName[nextName][@"vNextToMargin"] floatValue];
+                    if(layersByName[nextName][@"margin"] && layersByName[nextName][@"margin"][@"marginBottom"])
+                        nextBottomMargin = [layersByName[nextName][@"margin"][@"marginBottom"] floatValue];
                 }
                 
-                float nexty = thisy + thish + [WildCardConstructor convertSketchToPixel:(vNextToMargin)];
+                float nexty = thisy + thish + [WildCardConstructor convertSketchToPixel:(nextBottomMargin)]
+                    + [WildCardConstructor convertSketchToPixel:(vNextToMargin)];
                 float nexth = [rects[nextName] CGRectValue].size.height;
                 //A1 경우를 검사해서 h에 영향을 주지 않도록 해야한다
                 /**
