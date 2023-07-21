@@ -1556,11 +1556,11 @@
 }
 
 + (void)getCurrentPlace:(NSDictionary*)param :(JSValue*)callback {
-    [[DevilLocation sharedInstance] getCurrentPlace:^(id  _Nonnull result) {
+    [[DevilLocation sharedInstance] getCurrentPlace:param:^(id  _Nonnull result) {
         [callback callWithArguments:@[ result ]];
     }];
 }
-
+ 
 + (void)searchPlace:(NSDictionary*)param :(JSValue*)callback {
     [[DevilLocation sharedInstance] searchKoreanDongWithKakao:param[@"keyword"] :^(id  _Nonnull result) {
         [callback callWithArguments:@[ result ]];

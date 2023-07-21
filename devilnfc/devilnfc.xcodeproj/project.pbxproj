@@ -14,6 +14,7 @@
 		6D62FB0328DD794C0094426E /* JevilNfc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62FB0128DD794C0094426E /* JevilNfc.m */; };
 		6D62FB0628DD79A10094426E /* DevilNfcInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FB0428DD79A10094426E /* DevilNfcInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D62FB0728DD79A10094426E /* DevilNfcInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62FB0528DD79A10094426E /* DevilNfcInstance.m */; };
+		6DF50FA22A6813A1006160A0 /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF50FA12A6813A1006160A0 /* CoreNFC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		6D62FB0128DD794C0094426E /* JevilNfc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilNfc.m; sourceTree = "<group>"; };
 		6D62FB0428DD79A10094426E /* DevilNfcInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilNfcInstance.h; sourceTree = "<group>"; };
 		6D62FB0528DD79A10094426E /* DevilNfcInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilNfcInstance.m; sourceTree = "<group>"; };
+		6DF50FA12A6813A1006160A0 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
 		CA6F70E166B71333C6511FBD /* Pods-devilnfc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilnfc.release.xcconfig"; path = "Target Support Files/Pods-devilnfc/Pods-devilnfc.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -34,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DF50FA22A6813A1006160A0 /* CoreNFC.framework in Frameworks */,
 				6D62FAFD28DD772E0094426E /* devilcore.framework in Frameworks */,
 				4460E377B4670D2C8118DBB3 /* Pods_devilnfc.framework in Frameworks */,
 			);
@@ -93,6 +96,7 @@
 		D887310E6710BA8960A0B31B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6DF50FA12A6813A1006160A0 /* CoreNFC.framework */,
 				6D62FAFC28DD772E0094426E /* devilcore.framework */,
 				3F958F5FD528CD437DA947E6 /* Pods_devilnfc.framework */,
 			);
@@ -343,7 +347,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -372,7 +376,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

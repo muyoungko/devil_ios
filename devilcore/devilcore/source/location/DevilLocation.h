@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (DevilLocation*)sharedInstance;
 
 - (void)getCurrentLocation:(void (^)(id result))callback;
-- (void)getCurrentPlace:(void (^)(id result))callback;
+- (void)getCurrentPlace:(id)param :(void (^)(id result))callback;
 - (void)search:(NSString*)keyword :(void (^)(id result))callback;
 - (void)searchKoreanDongWithKakao:(NSString*)keyword :(void (^)(id result))callback;
 
