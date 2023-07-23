@@ -193,14 +193,18 @@
                 r[@"r"] = @TRUE;
                 r[@"address1"] = address[@"region_1depth_name"];
                 r[@"address2"] = address[@"region_2depth_name"];
-                if(address[@"region_3depth_name"])
-                    r[@"address3"] = address[@"region_3depth_name"];
-                if(address[@"region_4depth_name"])
-                    r[@"address4"] = address[@"region_4depth_name"];
-                r[@"address_name"] = address[@"address_name"];
+                r[@"address3"] = address[@"region_3depth_name"];
+                r[@"address4"] = address[@"region_3depth_h_name"];
+                
+                NSString* address_name = [NSString stringWithFormat:@"%@ %@ %@", r[@"address1"], r[@"address2"], r[@"address3"]];
+                if(r[@"address4"])
+                    address_name = [address_name stringByAppendingFormat:@" %@", r[@"address4"]];
+                
+                r[@"address"] = address_name;
+                
                 NSString* url2 = [NSString stringWithFormat:
                                  @"https://dapi.kakao.com/v2/local/search/address.json?query=%@",
-                                 urlencode(r[@"address_name"])
+                                 urlencode(address[@"address_name"])
                                  ];
                 [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url2 header:@{
                     @"Authorization":[NSString stringWithFormat:@"KakaoAK %@", api_key]
@@ -276,11 +280,13 @@
             id list = [@[] mutableCopy];
             for(id d in dd) {
                 id j = [@{} mutableCopy];
-                j[@"address"] = d[@"address_name"];
+                j[@"address"] = d[@"address"][@"address_name"];
                 j[@"address1"] = d[@"address"][@"region_1depth_name"];
                 j[@"address2"] = d[@"address"][@"region_2depth_name"];
-                j[@"address3"] = d[@"address"][@"region_3depth_h_name"];
-                j[@"address4"] = d[@"address"][@"region_3depth_name"];
+                j[@"address3"] = d[@"address"][@"region_3depth_name"];
+                j[@"address4"] = d[@"address"][@"region_3depth_h_name"];
+                j[@"lng"] = d[@"address"][@"x"];
+                j[@"lat"] = d[@"address"][@"y"];
                 if(!empty(j[@"address3"]) || !empty(j[@"address4"]))
                     [list addObject:j];
             }

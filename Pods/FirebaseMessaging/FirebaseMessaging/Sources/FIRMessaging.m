@@ -239,11 +239,13 @@ BOOL FIRMessagingIsContextManagerMessage(NSDictionary *message) {
                                                        scope:kFIRMessagingDefaultTokenScope]
           .token;
   // When there is a cached token, do the token refresh.
+  // Before fetching FCM token, confirm there is an APNS token to avoid validation error
+  // This error is innocuous since we refetch after APNS token is set but it can seem alarming
   if (cachedToken) {
     // Clean up expired tokens by checking the token refresh policy.
     [self.installations installationIDWithCompletion:^(NSString *_Nullable identifier,
                                                        NSError *_Nullable error) {
-      if ([self.tokenManager checkTokenRefreshPolicyWithIID:identifier]) {
+      if ([self.tokenManager checkTokenRefreshPolicyWithIID:identifier] && self.APNSToken) {
         // Default token is expired, fetch default token from server.
         [self retrieveFCMTokenForSenderID:self.tokenManager.fcmSenderID
                                completion:^(NSString *_Nullable FCMToken, NSError *_Nullable error){
@@ -255,7 +257,7 @@ BOOL FIRMessagingIsContextManagerMessage(NSDictionary *message) {
       // TODO(chliangGoogle) Need to investigate better solution.
       [self updateDefaultFCMToken:self.FCMToken];
     }];
-  } else if (self.isAutoInitEnabled) {
+  } else if (self.isAutoInitEnabled && self.APNSToken) {
     // When there is no cached token, must check auto init is enabled.
     // If it's disabled, don't initiate token generation/refresh.
     // If no cache token and auto init is enabled, fetch a token from server.
@@ -418,9 +420,11 @@ BOOL FIRMessagingIsContextManagerMessage(NSDictionary *message) {
   SEL openURLWithOptionsSelector = @selector(application:openURL:options:);
   SEL openURLWithSourceApplicationSelector = @selector(application:
                                                            openURL:sourceApplication:annotation:);
-#if TARGET_OS_IOS
+// TODO(Xcode 15): When Xcode 15 is the minimum supported Xcode version, it will be unnecessary to
+// check if `TARGET_OS_XR` is defined.
+#if TARGET_OS_IOS && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
   SEL handleOpenURLSelector = @selector(application:handleOpenURL:);
-#endif
+#endif  // TARGET_OS_IOS && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
   // Due to FIRAAppDelegateProxy swizzling, this selector will most likely get chosen, whether or
   // not the actual application has implemented
   // |application:continueUserActivity:restorationHandler:|. A warning will be displayed to the user
@@ -437,14 +441,13 @@ BOOL FIRMessagingIsContextManagerMessage(NSDictionary *message) {
           }];
 
   } else if ([appDelegate respondsToSelector:openURLWithOptionsSelector]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wunguarded-availability"
     [appDelegate application:application openURL:url options:@{}];
-#pragma clang diagnostic pop
     // Similarly, |application:openURL:sourceApplication:annotation:| will also always be called,
     // due to the default swizzling done by FIRAAppDelegateProxy in Firebase Analytics
   } else if ([appDelegate respondsToSelector:openURLWithSourceApplicationSelector]) {
-#if TARGET_OS_IOS
+// TODO(Xcode 15): When Xcode 15 is the minimum supported Xcode version, it will be unnecessary to
+// check if `TARGET_OS_XR` is defined.
+#if TARGET_OS_IOS && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [appDelegate application:application
@@ -457,9 +460,9 @@ BOOL FIRMessagingIsContextManagerMessage(NSDictionary *message) {
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [appDelegate application:application handleOpenURL:url];
 #pragma clang diagnostic pop
-#endif
+#endif  // TARGET_OS_IOS && (!defined(TARGET_OS_XR) || !TARGET_OS_XR)
   }
-#endif
+#endif  // TARGET_OS_IOS || TARGET_OS_TV
 }
 
 - (NSURL *)linkURLFromMessage:(NSDictionary *)message {
@@ -578,7 +581,7 @@ BOOL FIRMessagingIsContextManagerMessage(NSDictionary *message) {
   } else {
     FIRMessagingLoggerWarn(kFIRMessagingMessageCodeAPNSTokenNotAvailableDuringTokenFetch,
                            @"APNS device token not set before retrieving FCM Token for Sender ID "
-                           @"'%@'. Notifications to this FCM Token will not be delivered over APNS."
+                           @"'%@'."
                            @"Be sure to re-retrieve the FCM token once the APNS device token is "
                            @"set.",
                            senderID);
