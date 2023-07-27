@@ -1455,8 +1455,38 @@
             [callback callWithArguments:@[]];
         }];
     }
+} 
+
++ (void)webLoadUrl:(NSString*)node :(NSString*)url {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+    DevilWebView* web = [vv subviews][0];
+    if([url hasPrefix:@"/"]) {
+        url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"web_host"], url];
+    }
+    [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
 }
 
++ (NSString*)webCurrentUrl:(NSString*)node {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+    DevilWebView* web = [vv subviews][0];
+    return [web.URL absoluteString];
+}
+
++ (void)webForward:(NSString*)node {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+    DevilWebView* web = [vv subviews][0];
+    [web goForward];
+}
+
++ (void)webRefresh:(NSString*)node {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
+    DevilWebView* web = [vv subviews][0];
+    [web reload];
+}
 
 + (void)scrollDragged:(NSString*)node :(JSValue *)callback {
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
