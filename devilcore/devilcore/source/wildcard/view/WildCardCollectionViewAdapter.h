@@ -44,6 +44,7 @@ typedef void (^ ViewPagerSelected)(int);
 @property void (^draggedCallback)(id res);
 @property void (^scrolledCallback)(id res);
 @property void (^viewPagerSelectedCallback)(int index);
+@property void (^cellUpdateCallback)(int index);
 
 @property BOOL autoSwipeViewPager;
 -(void)autoSwipe:(BOOL)s;

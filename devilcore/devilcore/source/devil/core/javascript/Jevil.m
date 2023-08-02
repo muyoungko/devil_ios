@@ -933,19 +933,30 @@
     
 }
 
-+ (void)scrollTo:(NSString*)nodeName :(int)index :(BOOL)noani {
++ (void)scrollTo:(NSString*)nodeName :(int)index :(id)param {
     
     @try{
         [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.001f];
-        
         if(nodeName && ![@"null" isEqualToString:nodeName] ) {
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             WildCardUICollectionView* list = (WildCardUICollectionView*)[[vc findView:nodeName] subviews][0];
             int max = (int)[((WildCardCollectionViewAdapter*)list.delegate).data count];
             if(index >= max)
                 index = max - 1;
-            if(list != nil)
-                [list scrollTo:index:!noani];
+            if(list != nil) {
+                BOOL ani = param[@"animation"] ? [param[@"animation"] boolValue] : YES;
+                int offset = param[@"offset"] ? [WildCardConstructor convertSketchToPixel:[param[@"offset"] doubleValue]] : 0;
+                if(offset > 0) {
+                    
+                    UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+                    float adjustAreaHeight = window.safeAreaInsets.top;
+                    
+                    UICollectionViewLayoutAttributes *firstCellAttributes = [list layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
+                    int y = firstCellAttributes.frame.origin.y - offset - adjustAreaHeight;
+                    [list setContentOffset:CGPointMake(0, y) animated:YES];
+                } else
+                    [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:ani];
+            }
         } else {
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             if(vc.tv != nil)

@@ -24,6 +24,8 @@
 @interface ReplaceRuleRepeat()
 @property int tagOffsetX;
 @property int tagOffsetY;
+@property(nonatomic, retain) UIView* stickyView;
+@property int stickyPosition;
 @end
 
 @implementation ReplaceRuleRepeat
@@ -31,6 +33,7 @@
 -(void)constructRule:(WildCardMeta*)wcMeta parent:(UIView*)parent vv:(WildCardUIView*)vv layer:(id)layer depth:(int)depth result:(id)result{
     self.createdRepeatView = [[NSMutableArray alloc] init];
     self.replaceView = vv;
+    self.stickyPosition = -1;
     
     id layers = layer[@"layers"];
     NSDictionary* triggerMap = layer[@"trigger"];
@@ -359,6 +362,56 @@
         vv.userInteractionEnabled = YES;
         [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
         
+        if([REPEAT_TYPE_VLIST isEqualToString:repeatType] && arrayContent[@"sticky"]) {
+            NSString* sticky_node = arrayContent[@"sticky"];
+            NSArray* childLayers = [layer objectForKey:@"layers"];
+            id stickyNodeLayer = [self getReferenceBlock:sticky_node :childLayers];
+            WildCardUIView* stickyViewCore = [WildCardConstructor constructLayer:nil withLayer : stickyNodeLayer withParentMeta:wcMeta depth:0 instanceDelegate:wcMeta.wildCardConstructorInstanceDelegate];
+            
+            UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+            float adjustAreaHeight = window.safeAreaInsets.top;
+            stickyViewCore.frame = CGRectMake(stickyViewCore.frame.origin.x, adjustAreaHeight,
+                                              stickyViewCore.frame.size.width, stickyViewCore.frame.size.height);
+            self.stickyView = [[WildCardUIView alloc] initWithFrame:CGRectMake(0, 0, stickyViewCore.frame.size.width,
+                                                                               stickyViewCore.frame.size.height + adjustAreaHeight)];
+            self.stickyView.backgroundColor = stickyViewCore.backgroundColor;
+            [self.stickyView addSubview:stickyViewCore];
+            self.stickyView.hidden = YES;
+            [vv addSubview:self.stickyView];
+            
+            __block WildCardCollectionViewAdapter* fadapter = adapter;
+            
+            [adapter setScrolledCallback:^(id res) {
+                id index_list = container.indexPathsForVisibleItems;
+                if([index_list count] > 0 && self.stickyPosition >= 0) {
+                    NSIndexPath* first = index_list[0];
+                    UICollectionViewLayoutAttributes *firstCellAttributes = [container layoutAttributesForItemAtIndexPath:first];
+                    CGFloat y = firstCellAttributes.frame.origin.y - container.contentOffset.y;
+                    //NSLog(@"self.stickyPosition= %d, first.row = %d, y=%f", self.stickyPosition, first.row, y);
+                    
+                    if(first.row > self.stickyPosition)
+                        self.stickyView.hidden = NO;
+                    else if(first.row == self.stickyPosition )
+                        self.stickyView.hidden = YES;
+                    else
+                        self.stickyView.hidden = YES;
+                }
+            }];
+            
+            [adapter setCellUpdateCallback:^(int index) {
+                
+                id cloudJson = fadapter.cloudJsonGetter(index);
+                if([cloudJson[@"name"] isEqualToString:sticky_node]) {
+                    self.stickyPosition = index;
+                    NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
+                    NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
+                                                          getJsonWithPath:wcMeta.correspondData : targetJsonString];
+                    [WildCardConstructor applyRule:stickyViewCore withData:[targetDataJson objectAtIndex:index]];
+                }
+            }];
+            
+        }
+        
     } else if([REPEAT_TYPE_TAG isEqualToString:repeatType]) {
         int minLeft = 1000000;
         int minTop = 1000000;
@@ -387,6 +440,8 @@
     if(arrayContentContainer != nil) {
         [vv addSubview:arrayContentContainer];
         [WildCardConstructor followSizeFromFather:vv child:arrayContentContainer];
+        if(self.stickyView)
+           [vv bringSubviewToFront:self.stickyView];
     }
 }
 

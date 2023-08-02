@@ -338,6 +338,8 @@
                 self.lastDataCount = [self getCount];
             }
             
+            if(self.cellUpdateCallback)
+                self.cellUpdateCallback(position);
         }@catch(NSException* e){
             [DevilExceptionHandler handle:e];
         }
@@ -474,7 +476,6 @@
     if(self.scrolledCallback)
         self.scrolledCallback(scrollView);
     
-    //NSLog(@"scrollViewDidScroll %f", scrollView.contentOffset.y);
 }
 
 //프로그램에 의한 스크롤 콜
