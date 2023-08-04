@@ -29,6 +29,20 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6D7EC2FF25F4A37D00FAE7D8"
+               BuildableName = "devilbill.framework"
+               BlueprintName = "devilbill"
+               ReferencedContainer = "container:devilbill/devilbill.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6D7EC2FF25F4A37D00FAE7D8"
                BuildableName = "devillogin.framework"
                BlueprintName = "devillogin"
                ReferencedContainer = "container:devillogin/devillogin.xcodeproj">
