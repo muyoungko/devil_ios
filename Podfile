@@ -90,11 +90,6 @@ target 'devilextra' do
   project 'devilextra/devilextra.xcodeproj'
 end
 
-target 'devilbill' do
-  project 'devilbill/devilbill.xcodeproj'
-#  pod 'TossPayments'
-end
-
 #target 'devilads' do
 #  project 'devilads/devilads.xcodeproj'
 ##  google_ads # 이걸 넣으면, 아카이브에서 오류남, GoogleUtilities가 Firebase와 중복됨

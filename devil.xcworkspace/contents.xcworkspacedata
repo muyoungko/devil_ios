@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:devilbill/devilbill.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:devilnfc/devilnfc.xcodeproj">
    </FileRef>
    <FileRef

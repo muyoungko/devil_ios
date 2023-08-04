@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E913325AAC1EE7F6BE51345 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 291170B93C4DF195DA4C8621 /* Pods_devil.framework */; };
 		6D0224EE2613959900634842 /* devillogin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224ED2613959900634842 /* devillogin.podspec */; };
 		6D0224F026143D8300634842 /* devilcore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224EF26143D8300634842 /* devilcore.podspec */; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
@@ -58,8 +57,6 @@
 		6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF4278B3CBC008344DE /* devil_learning_icon@3x.png */; };
 		6DE2BAF8278B4B0F008344DE /* JevilLearning.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF7278B4B0F008344DE /* JevilLearning.m */; };
 		6DEC18832861427500B3FE88 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18822861427500B3FE88 /* README.md */; };
-		6DF458EC2A7D4FD600E20636 /* devilextra.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DF458EB2A7D4FD600E20636 /* devilextra.podspec */; };
-		6DF458F42A7D508B00E20636 /* devilbill.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DF458F32A7D508B00E20636 /* devilbill.podspec */; };
 		6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF50F7F2A5C75E8006160A0 /* libcapbl.a */; };
 		6DF50F952A5C75E8006160A0 /* CapblSecureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F802A5C75E8006160A0 /* CapblSecureViewController.m */; };
 		6DF50F962A5C75E8006160A0 /* CapblMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F812A5C75E8006160A0 /* CapblMainViewController.xib */; };
@@ -71,6 +68,7 @@
 		6DF50F9C2A5C75E8006160A0 /* CapblWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F8D2A5C75E8006160A0 /* CapblWebController.xib */; };
 		6DF50F9D2A5C75E8006160A0 /* CapblSecureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F8E2A5C75E8006160A0 /* CapblSecureViewController.xib */; };
 		6DF50F9E2A5C75E8006160A0 /* CapblPartialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F902A5C75E8006160A0 /* CapblPartialController.m */; };
+		9B7B4E0CEBBA2413AE8C1398 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1C06C8A0516C97794C167D4 /* Pods_devil.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,9 +89,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		07EC45E00B8B3E17BD4373F5 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
-		15FD26AC556ED41D1BEE5CF0 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
-		291170B93C4DF195DA4C8621 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C8B580526BB1E7D6C7A21E9 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
 		6D0224ED2613959900634842 /* devillogin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devillogin.podspec; sourceTree = "<group>"; };
 		6D0224EF26143D8300634842 /* devilcore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilcore.podspec; sourceTree = "<group>"; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
@@ -168,8 +164,6 @@
 		6DE2BAF7278B4B0F008344DE /* JevilLearning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilLearning.m; sourceTree = "<group>"; };
 		6DEC18822861427500B3FE88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DF458EB2A7D4FD600E20636 /* devilextra.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilextra.podspec; sourceTree = "<group>"; };
-		6DF458F32A7D508B00E20636 /* devilbill.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilbill.podspec; sourceTree = "<group>"; };
 		6DF50F7F2A5C75E8006160A0 /* libcapbl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcapbl.a; sourceTree = "<group>"; };
 		6DF50F802A5C75E8006160A0 /* CapblSecureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CapblSecureViewController.m; sourceTree = "<group>"; };
 		6DF50F812A5C75E8006160A0 /* CapblMainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CapblMainViewController.xib; sourceTree = "<group>"; };
@@ -189,6 +183,8 @@
 		6DF50F912A5C75E8006160A0 /* CapblSecureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblSecureViewController.h; sourceTree = "<group>"; };
 		6DF50F922A5C75E8006160A0 /* CapblTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblTableController.h; sourceTree = "<group>"; };
 		6DF50F932A5C75E8006160A0 /* CapblMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblMainViewController.h; sourceTree = "<group>"; };
+		9B5B059AE94B9215ABD12468 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
+		A1C06C8A0516C97794C167D4 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,7 +196,7 @@
 				6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */,
 				6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */,
 				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
-				2E913325AAC1EE7F6BE51345 /* Pods_devil.framework in Frameworks */,
+				9B7B4E0CEBBA2413AE8C1398 /* Pods_devil.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +212,7 @@
 				6D86290A287E50BA00E62B7B /* StoreKit.framework */,
 				6D22CF6125FFB25C00A1CB25 /* devillogin.framework */,
 				6D467AED256AB1B0006D57DD /* devilcore.framework */,
-				291170B93C4DF195DA4C8621 /* Pods_devil.framework */,
+				A1C06C8A0516C97794C167D4 /* Pods_devil.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -343,8 +339,6 @@
 				6D0224ED2613959900634842 /* devillogin.podspec */,
 				6DACD01328DD64AA002E7409 /* devilhealth.podspec */,
 				6D62FAF928DD75F00094426E /* devilnfc.podspec */,
-				6DF458EB2A7D4FD600E20636 /* devilextra.podspec */,
-				6DF458F32A7D508B00E20636 /* devilbill.podspec */,
 				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
 				6D46791C25699107006D57DD /* image */,
 				6D4678B52567B1E2006D57DD /* devil */,
@@ -409,8 +403,8 @@
 		F0CDCB8A11149BBB3516D5E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				07EC45E00B8B3E17BD4373F5 /* Pods-devil.debug.xcconfig */,
-				15FD26AC556ED41D1BEE5CF0 /* Pods-devil.release.xcconfig */,
+				9B5B059AE94B9215ABD12468 /* Pods-devil.debug.xcconfig */,
+				4C8B580526BB1E7D6C7A21E9 /* Pods-devil.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -422,14 +416,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "devil" */;
 			buildPhases = (
-				A5A0BC38B43327B7A18A8B9B /* [CP] Check Pods Manifest.lock */,
+				2A2451A73D870DAC57EB37F6 /* [CP] Check Pods Manifest.lock */,
 				6DF137EF20D7469A00071B9F /* Sources */,
 				6DF137F020D7469A00071B9F /* Frameworks */,
 				6DF137F120D7469A00071B9F /* Resources */,
 				6D467998256A174F006D57DD /* Embed Frameworks */,
 				6DC676ED26E5B36C0005728A /* ShellScript */,
-				FD15CBCB7758CFCC22D6C719 /* [CP] Embed Pods Frameworks */,
-				09C298DEC02209181BB74397 /* [CP] Copy Pods Resources */,
+				1370100835AA0D1ABB4C18A9 /* [CP] Embed Pods Frameworks */,
+				444859C1B99DF0603BEE52A2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -491,8 +485,6 @@
 				6DF50F9D2A5C75E8006160A0 /* CapblSecureViewController.xib in Resources */,
 				6D4678D22567B1E2006D57DD /* LaunchScreen.storyboard in Resources */,
 				6DC1624A26917AC900FD769C /* c.sh in Resources */,
-				6DF458F42A7D508B00E20636 /* devilbill.podspec in Resources */,
-				6DF458EC2A7D4FD600E20636 /* devilextra.podspec in Resources */,
 				6DBC7CFA286AF4C90037ED1A /* Podfile.lock in Resources */,
 				6DF50F962A5C75E8006160A0 /* CapblMainViewController.xib in Resources */,
 				6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */,
@@ -513,7 +505,47 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09C298DEC02209181BB74397 /* [CP] Copy Pods Resources */ = {
+		1370100835AA0D1ABB4C18A9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework/NaverThirdPartyLogin",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2A2451A73D870DAC57EB37F6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-devil-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		444859C1B99DF0603BEE52A2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -549,46 +581,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
-		};
-		A5A0BC38B43327B7A18A8B9B /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-devil-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD15CBCB7758CFCC22D6C719 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework/NaverThirdPartyLogin",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -738,7 +730,7 @@
 		};
 		6DF1380E20D7469B00071B9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07EC45E00B8B3E17BD4373F5 /* Pods-devil.debug.xcconfig */;
+			baseConfigurationReference = 9B5B059AE94B9215ABD12468 /* Pods-devil.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -747,7 +739,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 220;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
@@ -767,7 +759,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.222;
+				MARKETING_VERSION = 0.0.220;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil development";
@@ -786,7 +778,7 @@
 		};
 		6DF1380F20D7469B00071B9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15FD26AC556ED41D1BEE5CF0 /* Pods-devil.release.xcconfig */;
+			baseConfigurationReference = 4C8B580526BB1E7D6C7A21E9 /* Pods-devil.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -795,7 +787,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 222;
+				CURRENT_PROJECT_VERSION = 220;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -814,7 +806,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.222;
+				MARKETING_VERSION = 0.0.220;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "devil distribution";

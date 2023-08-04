@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D52E6D22619D82A00935D3A /* devilcore.framework */; };
 		6DEC184F2860BB6700B3FE88 /* devilbill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183E2860BB6700B3FE88 /* devilbill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC18882865ED0900B3FE88 /* DevilBillSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18862865ED0900B3FE88 /* DevilBillSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC18892865ED0900B3FE88 /* DevilBillSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18872865ED0900B3FE88 /* DevilBillSdk.m */; };
+		6DEC188C2865ED2100B3FE88 /* JevilBill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC188A2865ED2100B3FE88 /* JevilBill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DEC188D2865ED2100B3FE88 /* JevilBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC188B2865ED2100B3FE88 /* JevilBill.m */; };
+		6DEC18942865F21700B3FE88 /* DevilBillInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC18922865F21600B3FE88 /* DevilBillInstance.m */; };
+		6DEC18952865F21700B3FE88 /* DevilBillInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC18932865F21600B3FE88 /* DevilBillInstance.h */; };
 		D1370C1545C7B6489506C40A /* Pods_devilbill.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5CA8E039F332DFB61B067329 /* Pods_devilbill.framework */; };
 /* End PBXBuildFile section */
 
@@ -19,6 +25,12 @@
 		6D52E6D22619D82A00935D3A /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7EC30025F4A37D00FAE7D8 /* devilbill.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devilbill.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DEC183E2860BB6700B3FE88 /* devilbill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilbill.h; sourceTree = "<group>"; };
+		6DEC18862865ED0900B3FE88 /* DevilBillSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBillSdk.h; sourceTree = "<group>"; };
+		6DEC18872865ED0900B3FE88 /* DevilBillSdk.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBillSdk.m; sourceTree = "<group>"; };
+		6DEC188A2865ED2100B3FE88 /* JevilBill.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilBill.h; sourceTree = "<group>"; };
+		6DEC188B2865ED2100B3FE88 /* JevilBill.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilBill.m; sourceTree = "<group>"; };
+		6DEC18922865F21600B3FE88 /* DevilBillInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilBillInstance.m; sourceTree = "<group>"; };
+		6DEC18932865F21600B3FE88 /* DevilBillInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilBillInstance.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +75,23 @@
 		6DEC183D2860BB6700B3FE88 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DEC18852865ECF700B3FE88 /* bill */,
 				6DEC183E2860BB6700B3FE88 /* devilbill.h */,
 			);
 			path = source;
+			sourceTree = "<group>";
+		};
+		6DEC18852865ECF700B3FE88 /* bill */ = {
+			isa = PBXGroup;
+			children = (
+				6DEC18862865ED0900B3FE88 /* DevilBillSdk.h */,
+				6DEC18872865ED0900B3FE88 /* DevilBillSdk.m */,
+				6DEC188A2865ED2100B3FE88 /* JevilBill.h */,
+				6DEC188B2865ED2100B3FE88 /* JevilBill.m */,
+				6DEC18932865F21600B3FE88 /* DevilBillInstance.h */,
+				6DEC18922865F21600B3FE88 /* DevilBillInstance.m */,
+			);
+			path = bill;
 			sourceTree = "<group>";
 		};
 		9F1645EDDEBFFD8ACCEAB80C /* Frameworks */ = {
@@ -95,6 +121,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DEC184F2860BB6700B3FE88 /* devilbill.h in Headers */,
+				6DEC18952865F21700B3FE88 /* DevilBillInstance.h in Headers */,
+				6DEC18882865ED0900B3FE88 /* DevilBillSdk.h in Headers */,
+				6DEC188C2865ED2100B3FE88 /* JevilBill.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +221,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DEC18892865ED0900B3FE88 /* DevilBillSdk.m in Sources */,
+				6DEC18942865F21700B3FE88 /* DevilBillInstance.m in Sources */,
+				6DEC188D2865ED2100B3FE88 /* JevilBill.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,16 +355,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = devilbill/Info.plist;
+				INFOPLIST_FILE = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -357,16 +388,15 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = devilbill/Info.plist;
+				INFOPLIST_FILE = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
