@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		6DACD00128DD61CE002E7409 /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DACD00028DD61CE002E7409 /* devilcore.framework */; };
-		6DDAC3D3260C9DE500E76300 /* devilextra.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DDAC3D1260C9DE500E76300 /* devilextra.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DF458E92A7D4F3300E20636 /* devilextra.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF458E82A7D4F3300E20636 /* devilextra.h */; };
 		8A337CB4B695844BAA5BB44E /* Pods_devilextra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6A0975D4D8C073C77281B6A /* Pods_devilextra.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6DACD00028DD61CE002E7409 /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DDAC3CE260C9DE500E76300 /* devilextra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devilextra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6DDAC3D1260C9DE500E76300 /* devilextra.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = devilextra.h; sourceTree = "<group>"; };
 		6DDAC3D2260C9DE500E76300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DF458E82A7D4F3300E20636 /* devilextra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilextra.h; sourceTree = "<group>"; };
 		8E82C9F7D55546295E6346D4 /* Pods-devilextra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilextra.release.xcconfig"; path = "Target Support Files/Pods-devilextra/Pods-devilextra.release.xcconfig"; sourceTree = "<group>"; };
 		A6A0975D4D8C073C77281B6A /* Pods_devilextra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilextra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA28EB07E1F387AA19748651 /* Pods-devilextra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilextra.debug.xcconfig"; path = "Target Support Files/Pods-devilextra/Pods-devilextra.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,10 +75,26 @@
 		6DDAC3D0260C9DE500E76300 /* devilextra */ = {
 			isa = PBXGroup;
 			children = (
-				6DDAC3D1260C9DE500E76300 /* devilextra.h */,
+				6DF458EA2A7D4F3900E20636 /* resource */,
+				6DF458E72A7D4F3300E20636 /* source */,
 				6DDAC3D2260C9DE500E76300 /* Info.plist */,
 			);
 			path = devilextra;
+			sourceTree = "<group>";
+		};
+		6DF458E72A7D4F3300E20636 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				6DF458E82A7D4F3300E20636 /* devilextra.h */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		6DF458EA2A7D4F3900E20636 /* resource */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -88,7 +104,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DDAC3D3260C9DE500E76300 /* devilextra.h in Headers */,
+				6DF458E92A7D4F3300E20636 /* devilextra.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

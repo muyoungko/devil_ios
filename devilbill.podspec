@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
-  s.name             = 'devilcore'
+  s.name             = 'devilbill'
   s.platform         = :ios
   s.version          = '0.0.240'
-  s.summary          = 'Devil Core'
+  s.summary          = 'Devil Bill'
   s.description      = <<-DESC
     This is Devil Login
                        DESC
@@ -16,12 +16,11 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
-  s.source_files = 'devilcore/devilcore/source/**/*.*', 'devilcore/devilcore/header/**/*.h'
-  s.public_header_files = 'devilcore/devilcore/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
-  s.dependency 'lottie-ios', '~> 2.5.3'
-  s.dependency 'MQTTClient'
-  s.dependency 'ZXingObjC', '~> 3.2.1'
-  s.dependency 'Charts', '~> 4.1.0'
-  s.resources = 'devilcore/devilcore/resource/*'
-
+  s.source_files = 'devilbill/devilbill/source/**/*.*', 'devilbill/devilbill/header/**/*.h'
+  s.public_header_files = 'devilbill/devilbill/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.static_framework = true
+  s.dependency 'devilcore', '~> 0.0.238'
+  #s.dependency 'TossPayments', '0.1.19'
+  #s.resources = 'devilbill/devilbill/resource/*'
+   
 end
