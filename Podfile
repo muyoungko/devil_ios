@@ -92,7 +92,7 @@ end
 
 target 'devilbill' do
   project 'devilbill/devilbill.xcodeproj'
-#  pod 'TossPayments'
+  pod 'TossPayments'
 end
 
 #target 'devilads' do

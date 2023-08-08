@@ -532,7 +532,7 @@
     NSDictionary* targetLayer11 = nil;
     NSDictionary* targetLayer12 = nil;
     
-    for(int i=0;i<[targetDataJson count];i++)
+    for(int i=0;targetDataJson != [NSNull null] && i<[targetDataJson count];i++)
     {
         if(i == 0)
         {
@@ -565,7 +565,7 @@
     if([REPEAT_TYPE_BOTTOM isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType])
     {
         int i;
-        for(i=0;i<[targetDataJson count];i++)
+        for(i=0;targetDataJson != [NSNull null] && i<[targetDataJson count];i++)
         {
             WildCardUIView* thisNode = nil;
             NSDictionary* thisLayer = targetLayer;

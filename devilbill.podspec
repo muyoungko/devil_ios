@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilbill'
   s.platform         = :ios
-  s.version          = '0.0.240'
+  s.version          = '0.0.243'
   s.summary          = 'Devil Bill'
   s.description      = <<-DESC
     This is Devil Login
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.public_header_files = 'devilbill/devilbill/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
   s.dependency 'devilcore', '~> 0.0.238'
-  #s.dependency 'TossPayments', '0.1.19'
-  #s.resources = 'devilbill/devilbill/resource/*'
+  s.dependency 'TossPayments', '0.1.19'
+  s.resources = 'devilbill/devilbill/resource/*'
    
 end
