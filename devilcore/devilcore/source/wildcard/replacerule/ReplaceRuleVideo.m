@@ -22,6 +22,7 @@
     
     [vv addSubview:videoView];
     [WildCardConstructor followSizeFromFather:vv child:videoView];
+    [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

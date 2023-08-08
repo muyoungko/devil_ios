@@ -182,6 +182,7 @@ PODS:
   - PromisesSwift (2.3.1):
     - PromisesObjC (= 2.3.1)
   - SwiftAlgorithms (1.0.0)
+  - TossPayments (0.1.21)
   - ZXingObjC (3.2.2):
     - ZXingObjC/All (= 3.2.2)
   - ZXingObjC/All (3.2.2)
@@ -205,6 +206,7 @@ DEPENDENCIES:
   - lottie-ios (~> 2.5.3)
   - MQTTClient
   - naveridlogin-sdk-ios
+  - TossPayments
   - ZXingObjC (~> 3.2.1)
 
 SPEC REPOS:
@@ -245,6 +247,7 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - SwiftAlgorithms
+    - TossPayments
     - ZXingObjC
 
 SPEC CHECKSUMS:
@@ -284,8 +287,9 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
+  TossPayments: fb41900669627e9cb22b4046c55b5ebfdd32c8f2
   ZXingObjC: 2c95a0dc52daac69b23ec78fad8fa2fec05f8981
 
-PODFILE CHECKSUM: 5ee3074833aa90a916bc6e335aecc8b2de9b218a
+PODFILE CHECKSUM: dfd996ddbb9fe1f4ca4de5c714a8391ba84f9583
 
 COCOAPODS: 1.12.1
