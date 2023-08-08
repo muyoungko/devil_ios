@@ -284,19 +284,12 @@
 			<key>orderHint</key>
 			<integer>48</integer>
 		</dict>
-		<key>TossPayments.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-			<key>orderHint</key>
-			<integer>49</integer>
-		</dict>
 		<key>ZXingObjC.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
-			<integer>50</integer>
+			<integer>49</integer>
 		</dict>
 		<key>lottie-ios.xcscheme</key>
 		<dict>

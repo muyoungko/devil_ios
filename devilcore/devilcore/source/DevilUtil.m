@@ -17,14 +17,21 @@
 #import "DevilAlertDialog.h"
 #import "DevilController.h"
 
-@interface DevilUtil()
+@interface DevilUtil()<NSURLSessionDownloadDelegate>
 @property (nonatomic, retain) NSMutableArray* httpPutWaitQueue;
 @property (nonatomic, retain) NSMutableArray* httpPutIngQueue;
+@property long long downloadSize;
+@property (nonatomic, retain) NSMutableData* downloadData;
+@property (nonatomic, retain) NSString* dest_file_name;
+@property void (^progress_callback)(int rate);
+@property void (^complete_callback)(id res);
+@property (nonatomic, retain) NSURLConnection *connection;
+
 @end
 
 @implementation DevilUtil
 
-+(DevilUtil*)sharedInstance{
++(DevilUtil*)sharedInstance {
     static DevilUtil *sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -312,29 +319,95 @@
     return iPhoneX;
 }
 
-+(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename callback:(void (^)(id res))callback {
-    
-    NSURLSessionConfiguration* configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession* session = [NSURLSession sessionWithConfiguration:configuration];
 
-    NSURL *URL = [NSURL URLWithString:url];
-    NSURLSessionDataTask* task = [session dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        if(error) {
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
+{
+    self.downloadSize = response.expectedContentLength;
+    self.downloadData = [NSMutableData data];
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    [self.downloadData appendData:data];
+    
+    if([DevilUtil sharedInstance].progress_callback) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            int rate = (int)((float)[self.downloadData length] / self.downloadSize * 100);
+            [DevilUtil sharedInstance].progress_callback(rate);
+        });
+    }
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    
+    if([DevilUtil sharedInstance].complete_callback) {
+        NSData* data = self.downloadData;
+        int size = (int)[data length];
+        if(self.downloadSize != size) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                callback(@{@"r":@FALSE, @"msg":[error description]});
+                [DevilUtil sharedInstance].complete_callback(@{@"r":@FALSE, @"msg":@"Download size is different"});
+                [DevilUtil sharedInstance].complete_callback = nil;
             });
-        } else {
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-            NSString *documentsDirectory = paths[0];
-            NSString* path = [documentsDirectory stringByAppendingPathComponent:filename];
-            BOOL success = [data writeToFile:path atomically:YES];
-            int size = (int)[data length];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                callback(@{@"r":@TRUE, @"dest":path , @"size":[NSNumber numberWithInt:size]});
-            });
+            return;
         }
-    }];
-    [task resume];
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectory = paths[0];
+        NSString* path = [documentsDirectory stringByAppendingPathComponent:self.dest_file_name];
+        BOOL success = [data writeToFile:path atomically:YES];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [DevilUtil sharedInstance].complete_callback(@{@"r":(success?@TRUE:@FALSE), @"dest":path , @"size":[NSNumber numberWithInt:size]});
+            [DevilUtil sharedInstance].complete_callback = nil;
+        });
+    }
+}
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    if([DevilUtil sharedInstance].complete_callback) {
+        [DevilUtil sharedInstance].complete_callback(@{@"r":@FALSE, @"msg":[error description]});
+        [DevilUtil sharedInstance].complete_callback = nil;
+    }
+}
+
++(void)cancelDownloadingFile {
+    if([DevilUtil sharedInstance].connection){
+        [[DevilUtil sharedInstance].connection cancel];
+        [DevilUtil sharedInstance].connection = nil;
+    }
+}
+
++(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback {
+    
+    NSURL *nsurl = [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:nsurl];
+    
+    [DevilUtil sharedInstance].progress_callback = progress_callback;
+    [DevilUtil sharedInstance].complete_callback = complete_callback;
+    [DevilUtil sharedInstance].dest_file_name = filename;
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:[DevilUtil sharedInstance] startImmediately:YES];
+    [DevilUtil sharedInstance].connection = connection;
+    [connection start];
+    
+    
+//    NSURLSessionDataTask* task = [session dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        if(error) {
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                complete_callback(@{@"r":@FALSE, @"msg":[error description]});
+//            });
+//        } else {
+//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//            NSString *documentsDirectory = paths[0];
+//            NSString* path = [documentsDirectory stringByAppendingPathComponent:filename];
+//            BOOL success = [data writeToFile:path atomically:YES];
+//            int size = (int)[data length];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                complete_callback(@{@"r":@TRUE, @"dest":path , @"size":[NSNumber numberWithInt:size]});
+//            });
+//        }
+//    }];
+//    [task resume];
 }
 
 +(NSString*)replaceUdidPrefixDir:(NSString*)url {

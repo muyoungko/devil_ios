@@ -1268,7 +1268,27 @@
 
 + (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    [DevilUtil saveFileFromUrl:param[@"url"] to:param[@"destFileName"] callback:^(id  _Nonnull res) {
+    
+    __block BOOL showProgress = [param[@"showProgress"] boolValue];
+    __block DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(showProgress) {
+        [DevilUtil showAlert:vc msg:@"Downloading..." showYes:YES yesText:@"Cancel" cancelable:false callback:^(BOOL yes) {
+            if(yes) {
+                [DevilUtil cancelDownloadingFile];
+                [vc closeActiveAlertMessage];
+                id r = [@{@"r":@FALSE, @"msg":@"Canceled"} mutableCopy];
+                [callback callWithArguments:@[r]];
+            }
+        }];
+    }
+    
+    [DevilUtil saveFileFromUrl:param[@"url"] to:param[@"destFileName"] progress:^(int rate) {
+        if(showProgress) {
+            [vc setActiveAlertMessage:[NSString stringWithFormat:@"Downloading... %d%%", rate]];
+        }
+    } complete:^(id  _Nonnull res) {
+        if(showProgress)
+            [vc closeActiveAlertMessage];
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
 }

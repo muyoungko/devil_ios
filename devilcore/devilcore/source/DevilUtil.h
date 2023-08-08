@@ -32,6 +32,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 
 @interface DevilUtil : NSObject
 
++(DevilUtil*)sharedInstance;
 + (UIImage *)rotateImage:(UIImage *)image degrees:(CGFloat)degrees;
 + (void) convertMovToMp4:(NSString*)path to:(NSString*)outputPath callback:(void (^)(id res))callback;
 + (NSString*) changeFileExt:(NSString*)path to:(NSString*)ext;
@@ -48,7 +49,8 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (UIImage *)resizeImageProperly:(UIImage *)image;
 + (BOOL)isWifiConnection;
 + (BOOL)isPhoneX;
-+(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename callback:(void (^)(id res))callback;
++(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback;
++(void)cancelDownloadingFile;
 +(NSString*)replaceUdidPrefixDir:(NSString*)url;
 +(void)showAlert:(DevilController*)vc msg:(NSString*)msg showYes:(BOOL)showYes yesText:(NSString*)yesText cancelable:(BOOL)cancelable callback:(void (^)(BOOL res))callback;
 +(NSString*)orientationToString:(UIInterfaceOrientationMask)mask;
