@@ -50,7 +50,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (BOOL)isWifiConnection;
 + (BOOL)isPhoneX;
 +(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback;
-+(void)cancelDownloadingFile;
++(void)cancelDownloadingFile:(NSString*)url;
 +(NSString*)replaceUdidPrefixDir:(NSString*)url;
 +(void)showAlert:(DevilController*)vc msg:(NSString*)msg showYes:(BOOL)showYes yesText:(NSString*)yesText cancelable:(BOOL)cancelable callback:(void (^)(BOOL res))callback;
 +(NSString*)orientationToString:(UIInterfaceOrientationMask)mask;

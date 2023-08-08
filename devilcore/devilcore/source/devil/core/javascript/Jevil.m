@@ -1274,7 +1274,7 @@
     if(showProgress) {
         [DevilUtil showAlert:vc msg:@"Downloading..." showYes:YES yesText:@"Cancel" cancelable:false callback:^(BOOL yes) {
             if(yes) {
-                [DevilUtil cancelDownloadingFile];
+                [DevilUtil cancelDownloadingFile:param[@"url"]];
                 [vc closeActiveAlertMessage];
                 id r = [@{@"r":@FALSE, @"msg":@"Canceled"} mutableCopy];
                 [callback callWithArguments:@[r]];
@@ -1282,6 +1282,7 @@
         }];
     }
     
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:@"saveFileFromUrl" log:param];
     [DevilUtil saveFileFromUrl:param[@"url"] to:param[@"destFileName"] progress:^(int rate) {
         if(showProgress) {
             [vc setActiveAlertMessage:[NSString stringWithFormat:@"Downloading... %d%%", rate]];

@@ -8,6 +8,7 @@
 #import "DevilUtil.h"
 #import <CoreServices/UTType.h>
 #import <CommonCrypto/CommonDigest.h>
+#import "JevilInstance.h"
 
 @import AVKit;
 @import AVFoundation;
@@ -330,23 +331,23 @@
 {
     [self.downloadData appendData:data];
     
-    if([DevilUtil sharedInstance].progress_callback) {
+    if(self.progress_callback) {
         dispatch_async(dispatch_get_main_queue(), ^{
             int rate = (int)((float)[self.downloadData length] / self.downloadSize * 100);
-            [DevilUtil sharedInstance].progress_callback(rate);
+            self.progress_callback(rate);
         });
     }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
-    if([DevilUtil sharedInstance].complete_callback) {
+    if(self.complete_callback) {
         NSData* data = self.downloadData;
         int size = (int)[data length];
         if(self.downloadSize != size) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [DevilUtil sharedInstance].complete_callback(@{@"r":@FALSE, @"msg":@"Download size is different"});
-                [DevilUtil sharedInstance].complete_callback = nil;
+                self.complete_callback(@{@"r":@FALSE, @"msg":@"Download size is different"});
+                self.complete_callback = nil;
             });
             return;
         }
@@ -357,23 +358,26 @@
         
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [DevilUtil sharedInstance].complete_callback(@{@"r":(success?@TRUE:@FALSE), @"dest":path , @"size":[NSNumber numberWithInt:size]});
-            [DevilUtil sharedInstance].complete_callback = nil;
+            self.complete_callback(@{@"r":(success?@TRUE:@FALSE), @"dest":path , @"size":[NSNumber numberWithInt:size]});
+            self.complete_callback = nil;
         });
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    if([DevilUtil sharedInstance].complete_callback) {
-        [DevilUtil sharedInstance].complete_callback(@{@"r":@FALSE, @"msg":[error description]});
-        [DevilUtil sharedInstance].complete_callback = nil;
+    if(self.complete_callback) {
+        self.complete_callback(@{@"r":@FALSE, @"msg":[error description]});
+        self.complete_callback = nil;
     }
 }
 
-+(void)cancelDownloadingFile {
-    if([DevilUtil sharedInstance].connection){
-        [[DevilUtil sharedInstance].connection cancel];
-        [DevilUtil sharedInstance].connection = nil;
++(void)cancelDownloadingFile:(NSString*)url {
+    NSString* key = [NSString stringWithFormat:@"saveFileFromUrl,%@", url];
+    DevilUtil* devilUtil = [JevilInstance currentInstance].forRetain[key];
+    
+    if(devilUtil && devilUtil.connection){
+        [devilUtil.connection cancel];
+        devilUtil.connection = nil;
     }
 }
 
@@ -382,32 +386,18 @@
     NSURL *nsurl = [NSURL URLWithString:url];
     NSURLRequest *request = [NSURLRequest requestWithURL:nsurl];
     
-    [DevilUtil sharedInstance].progress_callback = progress_callback;
-    [DevilUtil sharedInstance].complete_callback = complete_callback;
-    [DevilUtil sharedInstance].dest_file_name = filename;
+    DevilUtil* devilUtil = [[DevilUtil alloc] init];
+    devilUtil.progress_callback = progress_callback;
+    devilUtil.complete_callback = complete_callback;
+    devilUtil.dest_file_name = filename;
     
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:[DevilUtil sharedInstance] startImmediately:YES];
-    [DevilUtil sharedInstance].connection = connection;
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:devilUtil startImmediately:YES];
+    
+    NSString* key = [NSString stringWithFormat:@"saveFileFromUrl,%@", url];
+    [JevilInstance currentInstance].forRetain[key] = devilUtil;
+    devilUtil.connection = connection;
     [connection start];
-    
-    
-//    NSURLSessionDataTask* task = [session dataTaskWithURL:URL completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        if(error) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                complete_callback(@{@"r":@FALSE, @"msg":[error description]});
-//            });
-//        } else {
-//            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//            NSString *documentsDirectory = paths[0];
-//            NSString* path = [documentsDirectory stringByAppendingPathComponent:filename];
-//            BOOL success = [data writeToFile:path atomically:YES];
-//            int size = (int)[data length];
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                complete_callback(@{@"r":@TRUE, @"dest":path , @"size":[NSNumber numberWithInt:size]});
-//            });
-//        }
-//    }];
-//    [task resume];
+
 }
 
 +(NSString*)replaceUdidPrefixDir:(NSString*)url {
