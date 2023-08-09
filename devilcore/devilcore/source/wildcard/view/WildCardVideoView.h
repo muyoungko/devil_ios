@@ -24,6 +24,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) AVPlayerViewController *playerViewController;
 @property (nonatomic, retain) UIImageView* imageView;
 
+-(void)constructController;
+    
 @end
 
 NS_ASSUME_NONNULL_END

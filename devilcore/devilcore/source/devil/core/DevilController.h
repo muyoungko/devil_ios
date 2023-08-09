@@ -33,6 +33,8 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 -(void)setActiveAlertMessage:(NSString*)msg;
 -(void)closeActiveAlertMessage;
 -(void) addFixedView:(id)layer x:(float)x y:(float)y;
+- (void)toLandscape;
+- (void)toPortrait;
 
 @property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) id startData;

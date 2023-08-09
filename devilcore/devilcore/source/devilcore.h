@@ -51,3 +51,4 @@ FOUNDATION_EXPORT const unsigned char devilcoreVersionString[];
 #import "DevilPhotoController.h"
 #import "DevilDebugView.h"
 #import "JevilFunctionUtil.h"
+#import "DevilVideoPlayerController.h"

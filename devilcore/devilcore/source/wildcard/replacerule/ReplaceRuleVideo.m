@@ -23,6 +23,10 @@
     [vv addSubview:videoView];
     [WildCardConstructor followSizeFromFather:vv child:videoView];
     [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
+    
+    NSString* showController = layer[@"video"][@"showController"];
+    if([@"Y" isEqualToString:showController])
+        [videoView constructController];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

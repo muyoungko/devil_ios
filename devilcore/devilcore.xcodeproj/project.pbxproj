@@ -272,8 +272,10 @@
 		6DED70DD28B1F5E1004A180F /* devil_camera_system_landscape.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DED70DC28B1F5E1004A180F /* devil_camera_system_landscape.xib */; };
 		6DF377C627B3AC360050E1DA /* DevilLang.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF377C427B3AC360050E1DA /* DevilLang.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DF377C727B3AC360050E1DA /* DevilLang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF377C527B3AC360050E1DA /* DevilLang.m */; };
-		6DF458FB2A82827300E20636 /* DevilVideoPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF458F92A82827300E20636 /* DevilVideoPlayerController.h */; };
+		6DF458FB2A82827300E20636 /* DevilVideoPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF458F92A82827300E20636 /* DevilVideoPlayerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DF458FC2A82827300E20636 /* DevilVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF458FA2A82827300E20636 /* DevilVideoPlayerController.m */; };
+		6DF458FF2A829C8800E20636 /* devil_video_full_screen_exit@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DF458FD2A829C8700E20636 /* devil_video_full_screen_exit@3x.png */; };
+		6DF459002A829C8800E20636 /* devil_video_full_screen@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DF458FE2A829C8700E20636 /* devil_video_full_screen@3x.png */; };
 		6DF53B602657D005001FB1D6 /* DevilSound.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B5E2657D005001FB1D6 /* DevilSound.h */; };
 		6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF53B5F2657D005001FB1D6 /* DevilSound.m */; };
 		6DF53B672657F854001FB1D6 /* DevilSpeech.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF53B652657F854001FB1D6 /* DevilSpeech.h */; };
@@ -562,6 +564,8 @@
 		6DF377C527B3AC360050E1DA /* DevilLang.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLang.m; sourceTree = "<group>"; };
 		6DF458F92A82827300E20636 /* DevilVideoPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilVideoPlayerController.h; sourceTree = "<group>"; };
 		6DF458FA2A82827300E20636 /* DevilVideoPlayerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilVideoPlayerController.m; sourceTree = "<group>"; };
+		6DF458FD2A829C8700E20636 /* devil_video_full_screen_exit@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_video_full_screen_exit@3x.png"; sourceTree = "<group>"; };
+		6DF458FE2A829C8700E20636 /* devil_video_full_screen@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_video_full_screen@3x.png"; sourceTree = "<group>"; };
 		6DF53B5E2657D005001FB1D6 /* DevilSound.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSound.h; sourceTree = "<group>"; };
 		6DF53B5F2657D005001FB1D6 /* DevilSound.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSound.m; sourceTree = "<group>"; };
 		6DF53B652657F854001FB1D6 /* DevilSpeech.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSpeech.h; sourceTree = "<group>"; };
@@ -629,6 +633,8 @@
 				6D9F7A9E2622E93C003A70EC /* devil_camera_recording@3x.png */,
 				6D9F7AA42622E93C003A70EC /* devil_camera_shutter@3x.png */,
 				6D9F7AA22622E93C003A70EC /* devil_camera_video@3x.png */,
+				6DF458FD2A829C8700E20636 /* devil_video_full_screen_exit@3x.png */,
+				6DF458FE2A829C8700E20636 /* devil_video_full_screen@3x.png */,
 				6D0224A026131F6500634842 /* devil_icon.png */,
 				6DF577A726D09C6B009D41A1 /* DevilQrCameraController.xib */,
 				6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */,
@@ -1181,6 +1187,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DF458FB2A82827300E20636 /* DevilVideoPlayerController.h in Headers */,
 				6DD097DD26A1AE29000A913A /* JevilFunctionUtil.h in Headers */,
 				6D7F7A9928D6F1F100F67029 /* DevilPhotoController.h in Headers */,
 				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
@@ -1196,7 +1203,6 @@
 				6DF377C627B3AC360050E1DA /* DevilLang.h in Headers */,
 				6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */,
 				6D12857127773A990086B1CB /* DevilPicker.h in Headers */,
-				6DF458FB2A82827300E20636 /* DevilVideoPlayerController.h in Headers */,
 				6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */,
 				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
 				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
@@ -1373,6 +1379,7 @@
 				6D9A864B28AE08BA001002D8 /* devil_camera_system.xib in Resources */,
 				6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */,
 				6D9A9DED28A569E1003302B3 /* devil_imagemap_pointer@3x.png in Resources */,
+				6DF458FF2A829C8800E20636 /* devil_video_full_screen_exit@3x.png in Resources */,
 				6D9F7AAA2622E93C003A70EC /* devil_camera_picture@3x.png in Resources */,
 				6D9F7AA72622E93C003A70EC /* devil_camera_flash@3x.png in Resources */,
 				6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */,
@@ -1394,6 +1401,7 @@
 				6D1009252807C3F4004806A0 /* devil_camera_play@3x.png in Resources */,
 				6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */,
 				6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */,
+				6DF459002A829C8800E20636 /* devil_video_full_screen@3x.png in Resources */,
 				6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,

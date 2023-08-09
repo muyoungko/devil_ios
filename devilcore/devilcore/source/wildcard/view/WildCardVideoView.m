@@ -11,16 +11,19 @@
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "DevilUtil.h"
+#import "DevilVideoPlayerController.h"
 
-@interface WildCardVideoView() <AVPlayerViewControllerDelegate>
+@interface WildCardVideoView() <AVPlayerViewControllerDelegate, DevilVideoPlayerControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
 @property (nonatomic, retain) NSString* videoPath;
 @property (nonatomic, retain) NSString* lastPlayingVideoPath;
 @property (nonatomic, retain) LOTAnimationView* playPause;
 @property (nonatomic, retain) UIActivityIndicatorView* loading;
-@property (nonatomic,retain) id observer;
+@property (nonatomic, retain) id observer;
 @property BOOL ready;
 @property BOOL playing;
+
+@property (nonatomic, retain) DevilVideoPlayerController* controler;
 @end
 
 @implementation WildCardVideoView
@@ -50,14 +53,12 @@
     [_loading startAnimating];
     _loading.hidden = YES;
     
-    CGRect s = [[UIScreen mainScreen] bounds];
-    int sw = s.size.width;
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     LOTAnimationView* loading = [LOTAnimationView animationNamed:@"play_pause" inBundle:bundle];
     int w = 240;
     int h = 170;
-    loading.frame = CGRectMake( (sw-w)/2, (sw-h)/2 , w, h);
+    loading.frame = CGRectMake( (frame.size.width-w)/2, (frame.size.height-h)/2 , w, h);
     loading.userInteractionEnabled = NO;
     loading.tag = 5123;
     loading.loopAnimation = NO;
@@ -69,14 +70,59 @@
     self.userInteractionEnabled = YES;
     
     
+    loading.translatesAutoresizingMaskIntoConstraints = NO;
+    // loading 뷰의 가로 너비 제약 (고정된 값)
+    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:loading
+                                                                       attribute:NSLayoutAttributeWidth
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:nil
+                                                                       attribute:NSLayoutAttributeNotAnAttribute
+                                                                      multiplier:1.0
+                                                                        constant:240.0];
+    
+    // 가로 방향 가운데 정렬을 위한 제약 추가
+    NSLayoutConstraint *centerXConstraint = [NSLayoutConstraint constraintWithItem:loading
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self
+                                                                         attribute:NSLayoutAttributeCenterX
+                                                                        multiplier:1.0
+                                                                          constant:0.0];
+
+    // loading 뷰의 세로 너비 제약 (고정된 값)
+    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:loading
+                                                                       attribute:NSLayoutAttributeHeight
+                                                                       relatedBy:NSLayoutRelationEqual
+                                                                          toItem:nil
+                                                                       attribute:NSLayoutAttributeNotAnAttribute
+                                                                      multiplier:1.0
+                                                                        constant:170.0];
+    
+    // 세로 방향 가운데 정렬을 위한 제약 추가
+    NSLayoutConstraint *centerYConstraint = [NSLayoutConstraint constraintWithItem:loading
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                         relatedBy:NSLayoutRelationEqual
+                                                                            toItem:self
+                                                                         attribute:NSLayoutAttributeCenterY
+                                                                        multiplier:1.0
+                                                                          constant:0.0];
+    
+    // 위에서 생성한 두 제약을 활성화
+    [NSLayoutConstraint activateConstraints:@[widthConstraint, centerXConstraint, heightConstraint, centerYConstraint]];
+    
+    
     UITapGestureRecognizer* singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickVideoView:)];
     [self addGestureRecognizer:singleFingerTap];
+    
     
     _ready = NO;
     _playing = NO;
     
+    self.clipsToBounds = TRUE;
+    
     return self;
 }
+
 
 -(BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event {
     for (UIView *view in self.subviews) {
@@ -106,6 +152,7 @@
             [_playerViewController.player play];
             self.imageView.hidden = YES;
             [self blinkPlay];
+            [self tick];
         } else {
             if(self.playerViewController.player.timeControlStatus == AVPlayerTimeControlStatusPlaying) {
                 [self stop];
@@ -258,6 +305,9 @@
     NSLog(@"didFinishPlaying");
     self.playing = NO;
     self.imageView.hidden = NO;
+    if(_controler) {
+        [_controler finished];
+    }
 }
 
 -(void)onPrepared {
@@ -338,6 +388,8 @@
         
         NSLog(@"Player Init Pass");
     }
+    
+    [self tick];
 }
 
 -(void)stop{
@@ -353,4 +405,32 @@
 }
 
 
+-(void)constructController {
+    self.controler = [[DevilVideoPlayerController alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    [self addSubview:self.controler];
+    _controler.fullScreenView = self;
+    _controler.zoomView = _playerViewController.view;
+    _controler.delegate = self;
+    [WildCardConstructor followSizeFromFather:self child:_controler];
+}
+
+- (void)onSeek:(int)time_sec{
+    [_playerViewController.player seekToTime:CMTimeMake(time_sec, 1)];
+    if(!_playing)
+        [self play];
+}
+
+
+- (void)tick {
+    if(_playing && _controler){
+        CMTime currentTime = [_playerViewController.player.currentItem currentTime];
+        CMTime endTime = [_playerViewController.player.currentItem duration];
+        
+        int seconds = (int)CMTimeGetSeconds(currentTime);
+        int duration = (int)CMTimeGetSeconds(endTime);
+        [_controler setTime:seconds :duration];
+        
+        [self performSelector:@selector(tick) withObject:nil afterDelay:1];
+    }
+}
 @end
