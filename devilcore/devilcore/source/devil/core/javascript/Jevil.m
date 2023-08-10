@@ -1264,7 +1264,7 @@
             
         }];
     }
-}
+} 
 
 + (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
@@ -1295,55 +1295,74 @@
 }
 
 + (void)downloadAndView:(NSString*)url {
-    [self download:url];
+    __block BOOL showProgress = true;
+    __block DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(showProgress) {
+        [DevilUtil showAlert:vc msg:@"Downloading..." showYes:YES yesText:@"Cancel" cancelable:false callback:^(BOOL yes) {
+            if(yes) {
+                [DevilUtil cancelDownloadingFile:url];
+                [vc closeActiveAlertMessage];
+            }
+        }];
+    }
+    
+    NSString* ext = [DevilUtil getFileExt:url];
+    NSString* name = [DevilUtil getFileName:url];
+    NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
+    NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
+    
+    [DevilUtil download:url to:pathDeconding progress:^(int rate) {
+        if(showProgress) {
+            [vc setActiveAlertMessage:[NSString stringWithFormat:@"Downloading... %d%%", rate]];
+        }
+    } complete:^(id  _Nonnull res) {
+        if(showProgress)
+            [vc closeActiveAlertMessage];
+        if([res[@"r"] boolValue]) {
+            UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]];
+            DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+            d.delegate = vc;
+            [d presentPreviewAnimated:YES];
+            [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
+        }
+    }];
 }
 
 + (void)downloadAndShare:(NSString*)url {
     
-    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    if(urlData) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = [paths objectAtIndex:0];
-
-        NSString* ext = [DevilUtil getFileExt:url];
-        NSString* name = [DevilUtil getFileName:url];
-        NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
-        NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
-        
-        BOOL success = [urlData writeToFile:pathDeconding atomically:YES];
-        
-        UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]]
-                                        applicationActivities:nil];
-        [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
-                                          animated:YES
-                                        completion:^{
-
+    __block BOOL showProgress = true;
+    __block DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    if(showProgress) {
+        [DevilUtil showAlert:vc msg:@"Downloading..." showYes:YES yesText:@"Cancel" cancelable:false callback:^(BOOL yes) {
+            if(yes) {
+                [DevilUtil cancelDownloadingFile:url];
+                [vc closeActiveAlertMessage];
+            }
         }];
     }
-}
-
-+ (void)download:(NSString*)url {
     
-    NSData *urlData = [NSData dataWithContentsOfURL:[NSURL URLWithString:url]];
-    if(urlData) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString  *documentsDirectory = [paths objectAtIndex:0];
+    NSString* ext = [DevilUtil getFileExt:url];
+    NSString* name = [DevilUtil getFileName:url];
+    NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
+    NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
+    
+    [DevilUtil download:url to:pathDeconding progress:^(int rate) {
+        if(showProgress) {
+            [vc setActiveAlertMessage:[NSString stringWithFormat:@"Downloading... %d%%", rate]];
+        }
+    } complete:^(id  _Nonnull res) {
+        if(showProgress)
+            [vc closeActiveAlertMessage];
+        if([res[@"r"] boolValue]) {
+            UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]]
+                                            applicationActivities:nil];
+            [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
+                                              animated:YES
+                                            completion:^{
 
-        
-        NSString* ext = [DevilUtil getFileExt:url];
-        NSString* name = [DevilUtil getFileName:url];
-        NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
-        NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
-        
-        
-        [urlData writeToFile:pathDeconding atomically:YES];
-        UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]];
-        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-        d.delegate = vc;
-        [d presentPreviewAnimated:YES];
-        //[d presentOptionsMenuFromRect:vc.view.bounds inView:vc.view animated:YES];
-        [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
-    }
+            }];
+        }
+    }];
 }
 
 

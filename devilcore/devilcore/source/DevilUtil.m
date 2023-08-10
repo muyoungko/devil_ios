@@ -22,11 +22,12 @@
 @property (nonatomic, retain) NSMutableArray* httpPutWaitQueue;
 @property (nonatomic, retain) NSMutableArray* httpPutIngQueue;
 @property long long downloadSize;
-@property (nonatomic, retain) NSMutableData* downloadData;
-@property (nonatomic, retain) NSString* dest_file_name;
+@property long long currentDownloadSize;
+@property (nonatomic, retain) NSString* dest_file_path;
 @property void (^progress_callback)(int rate);
 @property void (^complete_callback)(id res);
 @property (nonatomic, retain) NSURLConnection *connection;
+@property (nonatomic, strong) NSFileHandle *fileHandle;
 
 @end
 
@@ -324,47 +325,47 @@
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     self.downloadSize = response.expectedContentLength;
-    self.downloadData = [NSMutableData data];
+    self.currentDownloadSize = 0;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:self.dest_file_path])
+        [[NSFileManager defaultManager] removeItemAtPath:self.dest_file_path error:nil];
+    [[NSFileManager defaultManager] createFileAtPath:self.dest_file_path contents:nil attributes:nil];
+    self.fileHandle = [NSFileHandle fileHandleForWritingAtPath:self.dest_file_path];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
-    [self.downloadData appendData:data];
+    self.currentDownloadSize += [data length];
+    [self.fileHandle writeData:data];
     
     if(self.progress_callback) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            int rate = (int)((float)[self.downloadData length] / self.downloadSize * 100);
+            int rate = (int)((float)self.currentDownloadSize / self.downloadSize * 100);
             self.progress_callback(rate);
         });
     }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    
+    [self.fileHandle closeFile];
     if(self.complete_callback) {
-        NSData* data = self.downloadData;
-        int size = (int)[data length];
-        if(self.downloadSize != size) {
+        if(self.currentDownloadSize != self.downloadSize) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.complete_callback(@{@"r":@FALSE, @"msg":@"Download size is different"});
                 self.complete_callback = nil;
             });
             return;
         }
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectory = paths[0];
-        NSString* path = [documentsDirectory stringByAppendingPathComponent:self.dest_file_name];
-        BOOL success = [data writeToFile:path atomically:YES];
-        
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            self.complete_callback(@{@"r":(success?@TRUE:@FALSE), @"dest":path , @"size":[NSNumber numberWithInt:size]});
+            self.complete_callback(@{@"r":@TRUE, @"dest":self.dest_file_path , @"size":[NSNumber numberWithLongLong:self.currentDownloadSize]});
             self.complete_callback = nil;
         });
     }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
+    [self.fileHandle closeFile];
     if(self.complete_callback) {
         self.complete_callback(@{@"r":@FALSE, @"msg":[error description]});
         self.complete_callback = nil;
@@ -389,7 +390,10 @@
     DevilUtil* devilUtil = [[DevilUtil alloc] init];
     devilUtil.progress_callback = progress_callback;
     devilUtil.complete_callback = complete_callback;
-    devilUtil.dest_file_name = filename;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    devilUtil.dest_file_path = [documentsDirectory stringByAppendingPathComponent:filename];
     
     NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:devilUtil startImmediately:YES];
     
@@ -398,6 +402,24 @@
     devilUtil.connection = connection;
     [connection start];
 
+}
+
++(void)download:(NSString*)url to:(NSString*)file_path progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback {
+    NSURL *nsurl = [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:nsurl];
+    
+    DevilUtil* devilUtil = [[DevilUtil alloc] init];
+    devilUtil.progress_callback = progress_callback;
+    devilUtil.complete_callback = complete_callback;
+    
+    devilUtil.dest_file_path = file_path;
+    
+    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:devilUtil startImmediately:YES];
+    
+    NSString* key = [NSString stringWithFormat:@"saveFileFromUrl,%@", url];
+    [JevilInstance currentInstance].forRetain[key] = devilUtil;
+    devilUtil.connection = connection;
+    [connection start];
 }
 
 +(NSString*)replaceUdidPrefixDir:(NSString*)url {

@@ -114,7 +114,7 @@
     CGFloat deltaX = (v.center.x - point.x)/2 * (scale-1) / scale;
     CGFloat deltaY = (v.center.y - point.y)/2 * (scale-1) / scale;
     
-    NSLog(@"WildCardVideoView %.2f %.2f %.2f %.2f %.2f", point.x, point.y, scale, deltaX, deltaY);
+    //NSLog(@"WildCardVideoView %.2f %.2f %.2f %.2f %.2f", point.x, point.y, scale, deltaX, deltaY);
     
     newTransform = CGAffineTransformTranslate(newTransform, deltaX, deltaY);
     
