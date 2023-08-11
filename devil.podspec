@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devil'
   s.platform         = :ios
-  s.version          = '0.0.246'
+  s.version          = '0.0.247'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil
@@ -10,30 +10,30 @@ Pod::Spec.new do |s|
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'muyoungko' => 'muyoungko@gmail.com' }
   s.source           = { :git => 'https://github.com/muyoungko/devil_ios.git', :tag => s.version.to_s }
-  s.ios.deployment_target = '14.0'
+  s.ios.deployment_target = '13.0'
   s.swift_version = '5.3'
   s.pod_target_xcconfig = {
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
   s.subspec 'DevilCore' do |ss|
-    ss.dependency 'devilcore', '~> 0.0.246'
+    ss.dependency 'devilcore', '~> 0.0.247'
   end
 
   s.subspec 'DevilLogin' do |ss|
-    ss.dependency 'devillogin', '~> 0.0.246'
+    ss.dependency 'devillogin', '~> 0.0.247'
   end
   
   s.subspec 'DevilHealth' do |ss|
-    ss.dependency 'devilhealth', '~> 0.0.246'
+    ss.dependency 'devilhealth', '~> 0.0.247'
   end
   
   s.subspec 'DevilNfc' do |ss|
-    ss.dependency 'devilnfc', '~> 0.0.246'
+    ss.dependency 'devilnfc', '~> 0.0.247'
   end
   
   s.subspec 'DevilBill' do |ss|
-    ss.dependency 'devilbill', '~> 0.0.246'
+    ss.dependency 'devilbill', '~> 0.0.247'
   end
 
 end

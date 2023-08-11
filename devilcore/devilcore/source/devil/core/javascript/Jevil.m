@@ -953,9 +953,9 @@
                     
                     UICollectionViewLayoutAttributes *firstCellAttributes = [list layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]];
                     int y = firstCellAttributes.frame.origin.y - offset - adjustAreaHeight;
-                    [list setContentOffset:CGPointMake(0, y) animated:YES];
+                    [list setContentOffset:CGPointMake(0, y) animated:ani];
                 } else
-                    [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredVertically animated:ani];
+                    [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:ani];
             }
         } else {
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
@@ -1250,9 +1250,16 @@
 
 + (void)share:(NSString*)url{
     NSArray *activityItems = @[[NSURL URLWithString:url]];
-    UIActivityViewController *activityViewControntroller = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
-    activityViewControntroller.excludedActivityTypes = @[];
-    [[JevilInstance currentInstance].vc presentViewController:activityViewControntroller animated:true completion:nil];
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    if(activityViewController.popoverPresentationController) {
+        activityViewController.popoverPresentationController.sourceView = [JevilInstance currentInstance].vc.view;
+        float sw = [UIScreen mainScreen].bounds.size.width;
+        float sh = [UIScreen mainScreen].bounds.size.height;
+        activityViewController.popoverPresentationController.sourceRect = CGRectMake(sw*0.5, sh*0.5, 0, 0);
+        activityViewController.popoverPresentationController.permittedArrowDirections = nil;
+    }
+   activityViewController.excludedActivityTypes = @[];
+    [[JevilInstance currentInstance].vc presentViewController:activityViewController animated:true completion:nil];
 }
 
 + (void)out:(NSString*)url :(BOOL)force {
@@ -1356,6 +1363,14 @@
         if([res[@"r"] boolValue]) {
             UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]]
                                             applicationActivities:nil];
+            if(activityViewController.popoverPresentationController) {
+                activityViewController.popoverPresentationController.sourceView = [JevilInstance currentInstance].vc.view;
+                
+                float sw = [UIScreen mainScreen].bounds.size.width;
+                float sh = [UIScreen mainScreen].bounds.size.height;
+                activityViewController.popoverPresentationController.sourceRect = CGRectMake(sw*0.5, sh*0.5, 0, 0);
+                activityViewController.popoverPresentationController.permittedArrowDirections = nil;
+            }
             [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
                                               animated:YES
                                             completion:^{

@@ -242,6 +242,11 @@
     CGRect rect = [WildCardConstructor getFrame:layer:nil];
     rect.origin.y = rect.origin.x = 0;
     
+    if([WildCardConstructor isTablet]) {
+        rect.size.width /= 2;
+        rect.size.height /= 2;
+    }
+    
     WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];
     [leftButton setImage:icon_image forState:UIControlStateNormal];
     UIBarButtonItem* menuBarItem = [[UIBarButtonItem alloc] initWithCustomView:leftButton];

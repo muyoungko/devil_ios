@@ -259,7 +259,8 @@
         editingPoint = [tf convertPoint:tf.frame.origin toView:self.view];
         if(editingView != tf)
         {
-            if(self.devilBlockDialog == nil && editingPoint.y > screenHeight/4)
+            //아이패드의 경우 키보드가 작아서 화면을 올릴 필요가 없다
+            if(self.devilBlockDialog == nil && editingPoint.y > screenHeight/4 && ![WildCardConstructor isTablet])
             {
                 [UIView animateWithDuration:0.3f animations:^{
                     int toUp = screenHeight/4 - editingPoint.y;
