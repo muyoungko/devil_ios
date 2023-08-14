@@ -133,6 +133,7 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D51C7412A8A1BAD006AB423 /* Blank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D51C7402A8A1BAD006AB423 /* Blank.swift */; };
 		6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D530D05274B539E006EDD58 /* DevilGalleryController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D530D06274B539E006EDD58 /* DevilGalleryController.m */; };
 		6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */; };
@@ -423,6 +424,7 @@
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
 		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
+		6D51C7402A8A1BAD006AB423 /* Blank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blank.swift; sourceTree = "<group>"; };
 		6D530D05274B539E006EDD58 /* DevilGalleryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGalleryController.h; sourceTree = "<group>"; };
 		6D530D06274B539E006EDD58 /* DevilGalleryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGalleryController.m; sourceTree = "<group>"; };
 		6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevilGalleryController.xib; sourceTree = "<group>"; };
@@ -741,6 +743,7 @@
 				6D4679E4256AA5E9006D57DD /* devilcore.h */,
 				6D9F7AC526234431003A70EC /* DevilUtil.h */,
 				6D9F7AC626234431003A70EC /* DevilUtil.m */,
+				6D51C7402A8A1BAD006AB423 /* Blank.swift */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -1349,7 +1352,7 @@
 				TargetAttributes = {
 					6D46792D256A16DB006D57DD = {
 						CreatedOnToolsVersion = 12.1;
-						LastSwiftMigration = 1230;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -1523,6 +1526,7 @@
 				6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */,
 				6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */,
 				6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */,
+				6D51C7412A8A1BAD006AB423 /* Blank.swift in Sources */,
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,
 				6DD0944D269C85A8000A913A /* MarketInstance.m in Sources */,
 				6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */,

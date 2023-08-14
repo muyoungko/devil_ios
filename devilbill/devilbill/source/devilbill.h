@@ -15,3 +15,5 @@ FOUNDATION_EXPORT const unsigned char devilbillVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <devilbill/PublicHeader.h>
 
+#import "JevilToss.h"
+#import "DevilBillSdk.h"

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4460E377B4670D2C8118DBB3 /* Pods_devilnfc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F958F5FD528CD437DA947E6 /* Pods_devilnfc.framework */; };
+		6D51C73D2A8A1B1A006AB423 /* Blank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D51C73C2A8A1B1A006AB423 /* Blank.swift */; };
 		6D62FAF328DD755C0094426E /* devilnfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FAF228DD755C0094426E /* devilnfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D62FAFD28DD772E0094426E /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FAFC28DD772E0094426E /* devilcore.framework */; };
 		6D62FB0228DD794C0094426E /* JevilNfc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D62FB0028DD794C0094426E /* JevilNfc.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		3F958F5FD528CD437DA947E6 /* Pods_devilnfc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilnfc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62303FEC0CFB4C5277065B53 /* Pods-devilnfc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilnfc.debug.xcconfig"; path = "Target Support Files/Pods-devilnfc/Pods-devilnfc.debug.xcconfig"; sourceTree = "<group>"; };
+		6D51C73C2A8A1B1A006AB423 /* Blank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blank.swift; sourceTree = "<group>"; };
 		6D62FAEF28DD755C0094426E /* devilnfc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devilnfc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D62FAF228DD755C0094426E /* devilnfc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = devilnfc.h; sourceTree = "<group>"; };
 		6D62FAFC28DD772E0094426E /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +81,7 @@
 				6D62FB0528DD79A10094426E /* DevilNfcInstance.m */,
 				6D62FB0028DD794C0094426E /* JevilNfc.h */,
 				6D62FB0128DD794C0094426E /* JevilNfc.m */,
+				6D51C73C2A8A1B1A006AB423 /* Blank.swift */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -149,6 +152,7 @@
 				TargetAttributes = {
 					6D62FAEE28DD755C0094426E = {
 						CreatedOnToolsVersion = 13.4.1;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -210,6 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D51C73D2A8A1B1A006AB423 /* Blank.swift in Sources */,
 				6D62FB0728DD79A10094426E /* DevilNfcInstance.m in Sources */,
 				6D62FB0328DD794C0094426E /* JevilNfc.m in Sources */,
 			);
@@ -338,6 +343,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 62303FEC0CFB4C5277065B53 /* Pods-devilnfc.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -361,6 +367,8 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -369,6 +377,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CA6F70E166B71333C6511FBD /* Pods-devilnfc.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -392,6 +401,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

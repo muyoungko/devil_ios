@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D51C73F2A8A1B27006AB423 /* Blank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D51C73E2A8A1B27006AB423 /* Blank.swift */; };
 		6DACD00128DD61CE002E7409 /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DACD00028DD61CE002E7409 /* devilcore.framework */; };
 		6DF458E92A7D4F3300E20636 /* devilextra.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DF458E82A7D4F3300E20636 /* devilextra.h */; };
 		8A337CB4B695844BAA5BB44E /* Pods_devilextra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6A0975D4D8C073C77281B6A /* Pods_devilextra.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D51C73E2A8A1B27006AB423 /* Blank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blank.swift; sourceTree = "<group>"; };
 		6DACD00028DD61CE002E7409 /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DDAC3CE260C9DE500E76300 /* devilextra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devilextra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DDAC3D2260C9DE500E76300 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				6DF458E82A7D4F3300E20636 /* devilextra.h */,
+				6D51C73E2A8A1B27006AB423 /* Blank.swift */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 				TargetAttributes = {
 					6DDAC3CD260C9DE500E76300 = {
 						CreatedOnToolsVersion = 12.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -201,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D51C73F2A8A1B27006AB423 /* Blank.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +334,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CA28EB07E1F387AA19748651 /* Pods-devilextra.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -347,6 +353,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -355,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8E82C9F7D55546295E6346D4 /* Pods-devilextra.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
@@ -373,6 +382,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

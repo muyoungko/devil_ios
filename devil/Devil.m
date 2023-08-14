@@ -14,6 +14,7 @@
 #import "DeepLink.h"
 
 @import devilcore;
+@import devilbill;
 @import FirebaseCore;
 @import FirebaseDynamicLinks;
 
@@ -222,7 +223,14 @@
                        options:nil])
         return true;
     
-                
+    
+    if([DevilBillSdk application:(UIApplication *)[UIApplication sharedApplication]
+                               openURL:(NSURL *)url
+                       options:nil])
+        return true;
+    
+        
+    
     if([[GIDSignIn sharedInstance] handleURL:url])
         return true;
                 

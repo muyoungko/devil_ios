@@ -14,6 +14,8 @@
 @import devillogin;
 //@import devilhealth;
 @import devilnfc;
+@import devilbill;
+
 @import FirebaseDynamicLinks;
 @import FirebaseAnalytics;
 @import FirebaseAuth;
@@ -177,6 +179,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilAds class]];
     //[[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilNfc class]];
+    [[DevilSdk sharedInstance] addCustomJevil:[JevilToss class]];
     
     [DevilSdk sharedInstance].devilSdkGADelegate = self;
     [GADMobileAds.sharedInstance startWithCompletionHandler:nil];
@@ -652,7 +655,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         return;
     
     [FIRAnalytics logEventWithName:kFIREventScreenView
-                        parameters:@{kFIRParameterScreenClass: [DevilController class],
+                        parameters:@{kFIRParameterScreenClass: screenName,
                                      kFIRParameterScreenName: screenName,
                                      kFIRParameterGroupID : projectId,
                                    }];
@@ -665,7 +668,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [FIRAnalytics logEventWithName:viewName
                         parameters:@{
                                      kFIRParameterGroupID : projectId,
-                                     kFIRParameterItemName:viewName,
+                                     kFIRParameterItemName: urlencode(viewName),
                                      }];
 }
     
