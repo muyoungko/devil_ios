@@ -22,6 +22,9 @@ public class DevilTossPaymentsController: UIViewController {
     public var amount: Double!
     public var orderId: String!
     public var orderName: String!
+    public var name: String!
+    public var phone: String!
+    public var email: String!
     public var completion: ((Any?) -> Void)?
     
     public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -138,14 +141,15 @@ extension DevilTossPaymentsController: TossPaymentsDelegate {
         
         var res: [String: Any] = [
             "r": true,
-            "payment" : [
-                "type": "toss",
-                "payment_key" : success.paymentKey,
-                "order_id" : orderId,
-                "order_name" : orderName,
-                "customer_id" : customerKey,
-                "package" : bundleIdentifier,
-            ]
+            "type": "toss",
+            "payment_key" : success.paymentKey,
+            "order_id" : orderId,
+            "order_name" : orderName,
+            "customer_id" : customerKey,
+            "package" : bundleIdentifier,
+            "name": name,
+            "email": email,
+            "phone": phone,
         ]
         
         self.dismiss(animated: true) {

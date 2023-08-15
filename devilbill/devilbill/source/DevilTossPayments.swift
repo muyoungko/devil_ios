@@ -16,7 +16,8 @@ public class DevilTossPayments: NSObject {
     }
     
 //    open func path(forResource name: String?, ofType ext: String?) -> String?
-    @objc static public func pay(on vc: UIViewController, customerKey: String, orderId: String, orderName: String, amount: double_t, completion:@escaping (Any?)->()) {
+    @objc static public func pay(on vc: UIViewController, customerKey: String, orderId: String, orderName: String, amount: double_t,
+                                 name: String, email: String, phone: String, completion:@escaping (Any?)->()) {
         
         //        let tossPayments = TossPayments(clientKey: customerKey)
         //        tossPayments.delegate = self
@@ -27,6 +28,9 @@ public class DevilTossPayments: NSObject {
         popupVC.orderId = orderId
         popupVC.orderName = orderName
         popupVC.customerKey = customerKey
+        popupVC.name = name
+        popupVC.email = email
+        popupVC.phone = phone
         popupVC.completion = completion;
         popupVC.modalPresentationStyle = .popover // 팝업 스타일 설정
         popupVC.preferredContentSize = CGSize(width: 300, height: 200) // 팝업 크기 설정
