@@ -158,6 +158,7 @@ extension DevilTossPaymentsController: TossPaymentsDelegate {
         
         var res: [String: Any] = [
             "r": false,
+            "error_code": fail.errorCode,
             "msg": fail.errorMessage
         ]
         
