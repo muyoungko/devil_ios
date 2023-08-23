@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSString* holder;
 @property (nonatomic, retain) NSString* xbuttonImageName;
 @property BOOL showXButton;
+@property BOOL autoComma;
 @property (nonatomic, retain) NSString* doneClickAction;
 @property int maxLength;
 @property (nonatomic, retain) NSString* keypadType;

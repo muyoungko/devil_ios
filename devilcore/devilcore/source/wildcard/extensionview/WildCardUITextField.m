@@ -92,12 +92,16 @@
         tf.showXButton = YES;
     }
     
+    tf.autoComma = NO;
     if(extension[@"select4"] != nil && [@"Y" isEqualToString:extension[@"select4"]]){
         tf.secureTextEntry = YES;
     } else if([@"number" isEqualToString:extension[@"select7"]]){
         tf.keyboardType = UIKeyboardTypeNumberPad;
     } else if([@"number_decimal" isEqualToString:extension[@"select7"]]){
         tf.keyboardType = UIKeyboardTypeDecimalPad;
+    } else if([@"number_comma" isEqualToString:extension[@"select7"]]){
+        tf.keyboardType = UIKeyboardTypeNumberPad;
+        tf.autoComma = YES;
     }
     tf.keypadType = extension[@"select7"];
     
@@ -166,12 +170,47 @@
         else
             b.hidden = YES;
     }
+    
+    if(_autoComma) {
+        NSString* text = [self.text stringByReplacingOccurrencesOfString:@"," withString:@""];
+        self.text = [self formatString:text];
+    }
+    
     [_meta.correspondData setObject:[textField text] forKey:_holder];
     
     if(self.textChangedCallback != nil && ![[textField text] isEqualToString:self.lastText]) {
         self.lastText = [textField text];
         self.textChangedCallback([textField text]);
     }
+}
+
+-(NSString*) formatString:(NSString*)input {
+    int chunkSize = 3;
+    const char *cStr = [input UTF8String];
+    int length = (int)strlen(cStr);
+    
+    // 0이 아닌 문자가 처음으로 나오는 인덱스 찾기
+    int nonZeroIndex = 0;
+    while (nonZeroIndex < length && cStr[nonZeroIndex] == '0') {
+        nonZeroIndex++;
+    }
+    
+    // 앞의 0을 제외한 부분을 NSString으로 변환
+    NSString *result = [NSString stringWithUTF8String:&cStr[nonZeroIndex]];
+    
+    // 3글자마다 콤마 추가
+    NSMutableString *formatted = [NSMutableString string];
+    int count = 0;
+    for (int i = 0; i < result.length; i++) {
+        [formatted appendFormat:@"%c", [result characterAtIndex:i]];
+        count++;
+        if (count == chunkSize && i < result.length - 1) {
+            [formatted appendString:@","];
+            count = 0;
+        }
+    }
+    
+    return formatted;
 }
 
 -(void)clearAll:(id)sender
@@ -187,7 +226,6 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text
 {
-    
     if(self.maxLength == -1)
         return true;
     else if(range.location == self.maxLength-1)
@@ -196,6 +234,7 @@
         return true;
     else
         return false;
+    
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
