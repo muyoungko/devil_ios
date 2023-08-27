@@ -477,7 +477,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         [WildCardConstructor sharedInstance:learn_project_id].textTransDelegate = appDelegate;
         DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
         [dc startLoading];
-        [DevilSdk start:learn_project_id screenId:screen_id controller:[LearningController class] viewController:[JevilInstance currentInstance].vc complete:^(BOOL res) {
+        [DevilSdk start:learn_project_id screenId:screen_id controller:[LearningController class] viewController:[JevilInstance currentInstance].vc version:nil complete:^(BOOL res) {
             [dc stopLoading];
         }];
     } else if([@"login_success" isEqualToString:functionName]) {

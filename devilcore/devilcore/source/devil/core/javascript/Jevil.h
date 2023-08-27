@@ -169,7 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)gaEvent:(NSDictionary*)param;
 + (BOOL)isScreenOrientationLandscape;
 + (BOOL)isTablet;
-
++ (void)previewProject:(NSString *)project_id :(NSString *)start_screen_id;
 @end
 
 @interface Jevil : NSObject <Jevil>

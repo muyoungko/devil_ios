@@ -450,7 +450,7 @@
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     id header = [@{} mutableCopy];
     if(headerObject)
         header = [headerObject mutableCopy];
@@ -469,7 +469,7 @@
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     id header = [@{} mutableCopy];
     if(headerObject)
         header = [headerObject mutableCopy];
@@ -503,7 +503,7 @@
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     id header = [@{} mutableCopy];
     if(headerObject)
         header = [headerObject mutableCopy];
@@ -547,7 +547,7 @@
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     id header = [@{} mutableCopy];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
@@ -593,12 +593,12 @@
 }
 
 + (void)post:(NSString *)url :(id)param then:(JSValue *)callback {
-
+    
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     id header = [@{} mutableCopy];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
@@ -641,7 +641,7 @@
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     id header = [@{} mutableCopy];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
@@ -704,7 +704,7 @@
         NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
         if([Jevil get:x_access_token_key])
             header[@"x-access-token"] = [Jevil get:x_access_token_key];
-
+        
         __block int s3index = 0;
         __block int s3length = (int)[paths count];
         __block id uploadedFile = [@[] mutableCopy];
@@ -754,7 +754,7 @@
                              [@{@"original" : paths[j],
                                 @"key" : uploadedFile[j],
                                 @"success" : uploadedFileSuccess[j]
-                             } mutableCopy]];
+                              } mutableCopy]];
                         }
                         
                         if(showUploadingPopup)
@@ -781,7 +781,7 @@
                                  [@{@"original" : paths[j],
                                     @"key" : uploadedFile[j],
                                     @"success" : uploadedFileSuccess[j]
-                                 } mutableCopy]];
+                                  } mutableCopy]];
                             }
                             
                             if(showUploadingPopup)
@@ -791,7 +791,7 @@
                             [[JevilInstance currentInstance] syncData];
                         }
                         
-//                        @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
+                        //                        @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
                     } else {
                         [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
                             if(cancelled)
@@ -811,9 +811,9 @@
                                 for(int j=0;j<[uploadedFile count];j++){
                                     [result[@"uploadedFile"] addObject:
                                      [@{
-                                         @"original" : paths[j],
-                                         @"key" : uploadedFile[j],
-                                         @"success" : uploadedFileSuccess[j]
+                                        @"original" : paths[j],
+                                        @"key" : uploadedFile[j],
+                                        @"success" : uploadedFileSuccess[j]
                                      } mutableCopy]];
                                 }
                                 
@@ -841,7 +841,7 @@
     NSString* udid = [[device identifierForVendor] UUIDString];
     NSString* url = [NSString stringWithFormat:@"/push/key?fcm=%@&udid=%@&os=iOS&package=%@", urlencode(fcm), urlencode(udid),
                      urlencode([[[NSBundle mainBundle] bundleIdentifier] lowercaseString])
-                     ];
+    ];
     url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
     id header = [@{} mutableCopy];
@@ -857,11 +857,11 @@
 }
 
 + (void)getThenWithHeader:(NSString *)url :(id)header :(JSValue *)callback {
-
+    
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
@@ -874,11 +874,11 @@
 }
 
 + (void)postThenWithHeader:(NSString *)url :(id)header :(id)param :(JSValue *)callback {
-
+    
     NSString* originalUrl = url;
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
-
+    
     if(!header)
         header = [@{} mutableCopy];
     
@@ -1258,7 +1258,7 @@
         activityViewController.popoverPresentationController.sourceRect = CGRectMake(sw*0.5, sh*0.5, 0, 0);
         activityViewController.popoverPresentationController.permittedArrowDirections = nil;
     }
-   activityViewController.excludedActivityTypes = @[];
+    activityViewController.excludedActivityTypes = @[];
     [[JevilInstance currentInstance].vc presentViewController:activityViewController animated:true completion:nil];
 }
 
@@ -1362,7 +1362,7 @@
             [vc closeActiveAlertMessage];
         if([res[@"r"] boolValue]) {
             UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]]
-                                            applicationActivities:nil];
+                                                                                                 applicationActivities:nil];
             if(activityViewController.popoverPresentationController) {
                 activityViewController.popoverPresentationController.sourceView = [JevilInstance currentInstance].vc.view;
                 
@@ -1372,9 +1372,9 @@
                 activityViewController.popoverPresentationController.permittedArrowDirections = nil;
             }
             [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
-                                              animated:YES
-                                            completion:^{
-
+                                                                                  animated:YES
+                                                                                completion:^{
+                
             }];
         }
     }];
@@ -1656,7 +1656,7 @@
         [callback callWithArguments:@[ result ]];
     }];
 }
- 
+
 + (void)searchPlace:(NSDictionary*)param :(JSValue*)callback {
     [[DevilLocation sharedInstance] searchKoreanDongWithKakao:param[@"keyword"] :^(id  _Nonnull result) {
         [callback callWithArguments:@[ result ]];
@@ -1967,4 +1967,14 @@
     return [WildCardUtil isTablet];
 }
 
++ (void)previewProject:(NSString *)project_id :(NSString *)start_screen_id :(NSString *)version {
+    NSString* previous_project_id = [WildCardConstructor sharedInstance].project_id;
+    [WildCardConstructor sharedInstance:project_id].delegate = [WildCardConstructor sharedInstance:previous_project_id].delegate;
+    [WildCardConstructor sharedInstance:project_id].textConvertDelegate = [WildCardConstructor sharedInstance:previous_project_id].textConvertDelegate;
+    [WildCardConstructor sharedInstance:project_id].textTransDelegate = [WildCardConstructor sharedInstance:previous_project_id].textTransDelegate;
+    
+    [DevilSdk start:project_id screenId:start_screen_id controller:[DevilController class] viewController:[JevilInstance currentInstance].vc version:version complete:^(BOOL res) {
+        
+    }];
+}
 @end

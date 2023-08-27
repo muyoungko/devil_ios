@@ -102,6 +102,8 @@ static NSString *default_project_id = nil;
 {
     [WildCardConstructor sharedInstance].onLineMode = YES;
     NSString* path = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", self.project_id];
+//    NSString* path = [NSString stringWithFormat:@"http://192.168.45.205:6111/api/project/%@", self.project_id];
+
     NSString* url = [NSString stringWithFormat:path, self.project_id];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* responseJsonObject) {
         if(responseJsonObject != nil)

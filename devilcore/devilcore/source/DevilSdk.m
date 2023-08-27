@@ -28,7 +28,7 @@
     return sharedInstance;
 }
 
-+(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback{
++(void)start:(NSString*)project_id viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback{    
     [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:^(BOOL success) {
         [DevilLang load];
         [WildCardConstructor sharedInstance:project_id];
@@ -51,8 +51,9 @@
     }];
 }
 
-+(void)start:(NSString*)project_id screenId:(NSString*)screen_id controller:(Class)controllerClass viewController:(UIViewController*)vc complete:(void (^)(BOOL res))callback {
-    [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:^(BOOL success) {
++(void)start:(NSString*)project_id screenId:(NSString*)screen_id controller:(Class)controllerClass viewController:(UIViewController*)vc version:(NSString*)version complete:(void (^)(BOOL res))callback {
+    
+    void (^init)(BOOL res) = ^(BOOL success) {
         [WildCardConstructor sharedInstance:project_id];
         [[NSUserDefaults standardUserDefaults] setObject:project_id forKey:@"PROJECT_ID"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -60,7 +61,12 @@
         d.screenId = screen_id;
         [vc.navigationController pushViewController:d animated:YES];
         callback(success);
-    }];
+    };
+    
+    if(version)
+        [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:init];
+    else
+        [[WildCardConstructor sharedInstance:project_id] initWithOnlineVersion:version onComplete:init];
 }
 
 -(id)getCustomJevil{
