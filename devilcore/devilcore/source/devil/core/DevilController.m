@@ -178,11 +178,20 @@
         float offsetX = 0;
         float offsetY = -5;
         float blurRadius = 5;
-        self.footer.layer.masksToBounds = NO;
-        self.footer.layer.shadowOffset = CGSizeMake(offsetX, offsetY);
-        self.footer.layer.shadowRadius = blurRadius;
-        self.footer.layer.shadowOpacity = 0.05f;
-        self.footer.layer.shadowColor = [[UIColor blackColor] CGColor];
+        
+        if(self.footer) {
+            self.footer.layer.masksToBounds = NO;
+            self.footer.layer.shadowOffset = CGSizeMake(offsetX, offsetY);
+            self.footer.layer.shadowRadius = blurRadius;
+            self.footer.layer.shadowOpacity = 0.05f;
+            self.footer.layer.shadowColor = [[UIColor blackColor] CGColor];
+        } else if(self.inside_footer) {
+            self.inside_footer.layer.masksToBounds = NO;
+            self.inside_footer.layer.shadowOffset = CGSizeMake(offsetX, offsetY);
+            self.inside_footer.layer.shadowRadius = blurRadius;
+            self.inside_footer.layer.shadowOpacity = 0.05f;
+            self.inside_footer.layer.shadowColor = [[UIColor blackColor] CGColor];
+        }
     }
     
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)
@@ -209,7 +218,7 @@
         self.original_footer_y = footerY;
         self.original_footer_height_plus_bottom_padding = self.original_footer_height + self.bottomPadding;
         self.footer.frame = CGRectMake(0, footerY, self.footer.frame.size.width,
-                                  self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
+                                  self.original_footer_height_plus_bottom_padding + 5);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
     } else if(self.inside_footer) {
         //inside footer는 바텀 패딩을 자동으로 더하지 않는다 알아서 해야한다
         //TODO 그럼 bottom 패딩이 0인 기기에서는 어떻게 해야하나? footerY에 마이너스 패딩을 적용해야할듯
@@ -217,7 +226,7 @@
         self.original_footer_y = footerY;
         self.original_footer_height_plus_bottom_padding = self.original_footer_height + self.bottomPadding;
         self.inside_footer.frame = CGRectMake(0, footerY, self.inside_footer.frame.size.width,
-                                  self.original_footer_height_plus_bottom_padding + 1);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
+                                  self.original_footer_height_plus_bottom_padding + 5);//푸터 하단에 0.x픽셀정도 구멍뚤릴때가 있음
         
         //inside_footer의 경우 를 tab_bg를 self.bottomPadding만큼 널려준다
         WildCardUIView* inside_footer_tab_bg = (WildCardUIView*)[self.inside_footer.meta getView:@"tab_bg"];
