@@ -12,6 +12,7 @@
 #import "WildCardAction.h"
 #import "WildCardUtil.h"
 #import "WildCardConstructor.h"
+#import "JevilInstance.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -117,6 +118,29 @@
     
     tf.delegate = tf;
     
+    
+    if(extension[@"select13"]) {
+        __block NSString* script = extension[@"select13"];
+        tf.textChangedCallback = ^(NSString * _Nonnull text) {
+            [JevilInstance currentInstance].meta = meta;
+            [[JevilInstance currentInstance] pushData];
+            
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            [WildCardAction execute:trigger script:script meta:meta];
+        };
+    }
+    
+    if(extension[@"select14"]) {
+        __block NSString* script = extension[@"select14"];
+        tf.textFocusChangedCallback = ^(BOOL focus) {
+            [JevilInstance currentInstance].meta = meta;
+            [[JevilInstance currentInstance] pushData];
+            
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            [WildCardAction execute:trigger script:script meta:meta];
+        };
+    }
+    
     return tf;
 }
 
@@ -138,8 +162,15 @@
 - (void)doneClick {
     if(self.doneClickAction != nil)
     {
-        WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-        [WildCardAction parseAndConducts:trigger action:self.doneClickAction meta:self.meta];
+        if([self.doneClickAction hasPrefix:@"Jevil.script"]) {
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            trigger.node = (WildCardUIView*)[self superview];
+            [WildCardAction parseAndConducts:trigger action:self.doneClickAction meta:self.meta];
+        } else {
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            trigger.node = (WildCardUIView*)[self superview];
+            [WildCardAction execute:trigger script:self.doneClickAction meta:self.meta];
+        }
     }
 }
 

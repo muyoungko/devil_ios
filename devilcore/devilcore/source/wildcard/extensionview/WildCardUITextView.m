@@ -140,6 +140,28 @@
         tf.topInset = tf.minHeight/2-tf.lineHeight/2;
     tf.textContainerInset = UIEdgeInsetsMake(tf.topInset, 0, 0, 0);
     
+    if(extension[@"select13"]) {
+        __block NSString* script = extension[@"select13"];
+        tf.textChangedCallback = ^(NSString * _Nonnull text) {
+            [JevilInstance currentInstance].meta = meta;
+            [[JevilInstance currentInstance] pushData];
+            
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            [WildCardAction execute:trigger script:script meta:meta];
+        };
+    }
+    
+    if(extension[@"select14"]) {
+        __block NSString* script = extension[@"select14"];
+        tf.textFocusChangedCallback = ^(BOOL focus) {
+            [JevilInstance currentInstance].meta = meta;
+            [[JevilInstance currentInstance] pushData];
+            
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            [WildCardAction execute:trigger script:script meta:meta];
+        };
+    }
+    
     return tf;
 }
 
@@ -202,8 +224,16 @@
     if([text length] > 0 && [text characterAtIndex:0] == '\n') {
         if(self.doneClickAction != nil)
         {
-            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-            [WildCardAction parseAndConducts:trigger action:self.doneClickAction meta:self.meta];
+            if([self.doneClickAction hasPrefix:@"Jevil.script"]) {
+                WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+                trigger.node = (WildCardUIView*)[self superview];
+                [WildCardAction parseAndConducts:trigger action:self.doneClickAction meta:self.meta];
+            } else {
+                WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+                trigger.node = (WildCardUIView*)[self superview];
+                [WildCardAction execute:trigger script:self.doneClickAction meta:self.meta];
+            }
+            
             [_meta.correspondData setObject:@"" forKey:_holder];
         }
     }
