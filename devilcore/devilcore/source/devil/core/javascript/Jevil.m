@@ -1883,14 +1883,12 @@
         }
     }];
 }
+
 + (void)pdfInfo:(NSString*)url :(JSValue*)callback{
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    NSURL *pdfUrl = [NSURL fileURLWithPath:url];
-    CGPDFDocumentRef document = CGPDFDocumentCreateWithURL((CFURLRef)pdfUrl);
-    int size = (int)CGPDFDocumentGetNumberOfPages(document);
-    [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[@{@"r":@TRUE,
-                                                                         @"file":url,
-                                                                         @"pageCount":[NSNumber numberWithInt:size]}]];
+    [DevilPdf pdfInfo:url callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
 }
 
 + (void)pdfToImage:(NSString*)url :(NSDictionary*)param :(JSValue*)callback{

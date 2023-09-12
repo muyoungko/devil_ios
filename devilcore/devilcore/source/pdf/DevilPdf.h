@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilPdf : NSObject
 
++(void)pdfInfo:(NSString*)url callback:(void (^)(id res))callback;
 +(void)pdfToImage:(NSString*)url :(id)param callback:(void (^)(id res))callback;
 
 @end
