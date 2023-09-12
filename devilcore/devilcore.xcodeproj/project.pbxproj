@@ -265,6 +265,8 @@
 		6DDE20402924D7BE00AD7F3C /* DevilFlingChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */; };
 		6DE2BAFB27A8F2A7008344DE /* DevilRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE2BAF927A8F2A7008344DE /* DevilRecord.h */; };
 		6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */; };
+		6DE55C9C2AAEBDF6004B7612 /* DevilPdf.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE55C9A2AAEBDF6004B7612 /* DevilPdf.h */; };
+		6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55C9B2AAEBDF6004B7612 /* DevilPdf.m */; };
 		6DEC183628484A0300B3FE88 /* DevilBle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183428484A0300B3FE88 /* DevilBle.h */; };
 		6DEC183728484A0300B3FE88 /* DevilBle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC183528484A0300B3FE88 /* DevilBle.m */; };
 		6DECCD4A2943694D007FBBD9 /* devil_record_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DECCD492943694D007FBBD9 /* devil_record_start.mp3 */; };
@@ -556,6 +558,8 @@
 		6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilFlingChecker.m; sourceTree = "<group>"; };
 		6DE2BAF927A8F2A7008344DE /* DevilRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilRecord.h; sourceTree = "<group>"; };
 		6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilRecord.m; sourceTree = "<group>"; };
+		6DE55C9A2AAEBDF6004B7612 /* DevilPdf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPdf.h; sourceTree = "<group>"; };
+		6DE55C9B2AAEBDF6004B7612 /* DevilPdf.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPdf.m; sourceTree = "<group>"; };
 		6DEC183428484A0300B3FE88 /* DevilBle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBle.h; sourceTree = "<group>"; };
 		6DEC183528484A0300B3FE88 /* DevilBle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBle.m; sourceTree = "<group>"; };
 		6DECCD492943694D007FBBD9 /* devil_record_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = devil_record_start.mp3; sourceTree = "<group>"; };
@@ -726,6 +730,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DE55C992AAEBD55004B7612 /* pdf */,
 				6D9A864528AA7B4C001002D8 /* filechooser */,
 				6D8628EE287AAC5700E62B7B /* ads */,
 				6D8628F5287AAC5700E62B7B /* bill */,
@@ -1118,6 +1123,15 @@
 			path = blockdrawer;
 			sourceTree = "<group>";
 		};
+		6DE55C992AAEBD55004B7612 /* pdf */ = {
+			isa = PBXGroup;
+			children = (
+				6DE55C9A2AAEBDF6004B7612 /* DevilPdf.h */,
+				6DE55C9B2AAEBDF6004B7612 /* DevilPdf.m */,
+			);
+			path = pdf;
+			sourceTree = "<group>";
+		};
 		6DEC1833284849EE00B3FE88 /* ble */ = {
 			isa = PBXGroup;
 			children = (
@@ -1236,6 +1250,7 @@
 				6D9F7B102629658F003A70EC /* UIImage+PECrop.h in Headers */,
 				6DF53B6E2658F3D3001FB1D6 /* DevilLocation.h in Headers */,
 				6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */,
+				6DE55C9C2AAEBDF6004B7612 /* DevilPdf.h in Headers */,
 				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
 				6D9F7B0D2629658F003A70EC /* PEResizeControl.h in Headers */,
@@ -1496,6 +1511,7 @@
 				6D9A864928AA7B6C001002D8 /* DevilFileChooser.m in Sources */,
 				6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */,
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
+				6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */,
 				6DD09443269C7A28000A913A /* DevilCalendar.m in Sources */,
 				6D9F7B1D26298952003A70EC /* WildCardProgressBar.m in Sources */,
 				6D9F7B112629658F003A70EC /* PECropView.m in Sources */,

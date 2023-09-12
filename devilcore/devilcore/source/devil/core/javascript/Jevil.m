@@ -50,6 +50,7 @@
 #import "DevilBlockDrawerMarketComponent.h"
 #import "MarketInstance.h"
 #import "DevilUtil.h"
+#import "DevilPdf.h"
 
 @interface Jevil()
 
@@ -1876,10 +1877,26 @@
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [[DevilFileChooser sharedInstance] fileChooser:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
-            [callback callWithArguments:@[res]];
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
         } else if(res[@"msg"]){
             [Jevil alert:res[@"msg"]];
         }
+    }];
+}
++ (void)pdfInfo:(NSString*)url :(JSValue*)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    NSURL *pdfUrl = [NSURL fileURLWithPath:url];
+    CGPDFDocumentRef document = CGPDFDocumentCreateWithURL((CFURLRef)pdfUrl);
+    int size = (int)CGPDFDocumentGetNumberOfPages(document);
+    [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[@{@"r":@TRUE,
+                                                                         @"file":url,
+                                                                         @"pageCount":[NSNumber numberWithInt:size]}]];
+}
+
++ (void)pdfToImage:(NSString*)url :(NSDictionary*)param :(JSValue*)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [DevilPdf pdfToImage:url :param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
 }
 

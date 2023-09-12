@@ -154,6 +154,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)bleWriteDescriptor:(NSDictionary*)param :(JSValue*)callback;
 + (void)bleReadDescriptor:(NSDictionary*)param :(JSValue*)callback;
 + (void)fileChooser:(NSDictionary*)param :(JSValue*)callback;
++ (void)pdfInfo:(NSString*)url :(JSValue*)callback;
++ (void)pdfToImage:(NSString*)url :(NSDictionary*)param :(JSValue*)callback;
 + (void)imageMapCallback:(NSString*)nodeName :(NSString*)command :(JSValue*)callback;
 + (void)imageMapLocation:(NSString*)nodeName :(NSString*)key :(JSValue*)callback;
 + (void)imageMapMode:(NSString*)nodeName :(NSString*)mode :(NSDictionary*)param;
@@ -169,7 +171,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)gaEvent:(NSDictionary*)param;
 + (BOOL)isScreenOrientationLandscape;
 + (BOOL)isTablet;
-+ (void)previewProject:(NSString *)project_id :(NSString *)start_screen_id;
++ (void)previewProject:(NSString *)project_id :(NSString *)start_screen_id :(NSString *)version;
 @end
 
 @interface Jevil : NSObject <Jevil>

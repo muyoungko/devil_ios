@@ -64,9 +64,9 @@
     };
     
     if(version)
-        [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:init];
-    else
         [[WildCardConstructor sharedInstance:project_id] initWithOnlineVersion:version onComplete:init];
+    else
+        [[WildCardConstructor sharedInstance:project_id] initWithOnlineOnComplete:init];
 }
 
 -(id)getCustomJevil{

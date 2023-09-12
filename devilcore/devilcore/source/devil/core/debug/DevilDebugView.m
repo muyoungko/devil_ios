@@ -37,7 +37,7 @@
     
     if([bundleIdentifier isEqualToString:@"kr.co.july.CloudJsonViewer"]
        && (![@"1605234988599" isEqualToString:dc.projectId] ||
-           [@"CD44C803-7AAE-420F-A1DE-276E81847FAE" isEqualToString:udid])
+           [@"84F1E569-A722-49A8-972C-F41B166966F2" isEqualToString:udid])
        )
     {
         DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
