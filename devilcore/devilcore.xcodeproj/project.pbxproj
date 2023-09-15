@@ -158,9 +158,7 @@
 		6D862900287AAC5700E62B7B /* DevilAdsSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F3287AAC5700E62B7B /* DevilAdsSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D862901287AAC5700E62B7B /* JevilAds.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F4287AAC5700E62B7B /* JevilAds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D862902287AAC5700E62B7B /* JevilBill.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F6287AAC5700E62B7B /* JevilBill.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D862903287AAC5700E62B7B /* DevilBillSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628F7287AAC5700E62B7B /* DevilBillSdk.m */; };
 		6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F8287AAC5700E62B7B /* DevilBillInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D862905287AAC5700E62B7B /* DevilBillSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D862906287AAC5700E62B7B /* JevilBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FA287AAC5700E62B7B /* JevilBill.m */; };
 		6D862907287AAC5700E62B7B /* DevilBillInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */; };
 		6D8A40EB2674B77E006999FC /* play_pause.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D8A40EA2674B77E006999FC /* play_pause.json */; };
@@ -451,9 +449,7 @@
 		6D8628F3287AAC5700E62B7B /* DevilAdsSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilAdsSdk.h; sourceTree = "<group>"; };
 		6D8628F4287AAC5700E62B7B /* JevilAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JevilAds.h; sourceTree = "<group>"; };
 		6D8628F6287AAC5700E62B7B /* JevilBill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JevilBill.h; sourceTree = "<group>"; };
-		6D8628F7287AAC5700E62B7B /* DevilBillSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilBillSdk.m; sourceTree = "<group>"; };
 		6D8628F8287AAC5700E62B7B /* DevilBillInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilBillInstance.h; sourceTree = "<group>"; };
-		6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilBillSdk.h; sourceTree = "<group>"; };
 		6D8628FA287AAC5700E62B7B /* JevilBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilBill.m; sourceTree = "<group>"; };
 		6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilBillInstance.m; sourceTree = "<group>"; };
 		6D8A40EA2674B77E006999FC /* play_pause.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = play_pause.json; sourceTree = "<group>"; };
@@ -985,10 +981,8 @@
 			isa = PBXGroup;
 			children = (
 				6D8628F6287AAC5700E62B7B /* JevilBill.h */,
-				6D8628F7287AAC5700E62B7B /* DevilBillSdk.m */,
-				6D8628F8287AAC5700E62B7B /* DevilBillInstance.h */,
-				6D8628F9287AAC5700E62B7B /* DevilBillSdk.h */,
 				6D8628FA287AAC5700E62B7B /* JevilBill.m */,
+				6D8628F8287AAC5700E62B7B /* DevilBillInstance.h */,
 				6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */,
 			);
 			path = bill;
@@ -1213,7 +1207,6 @@
 				6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */,
 				6DDE203B2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.h in Headers */,
 				6DC0CE3228E5974E00195F60 /* DevilChartMarketComponent.h in Headers */,
-				6D862905287AAC5700E62B7B /* DevilBillSdk.h in Headers */,
 				6D8628FF287AAC5700E62B7B /* DevilAdsInstance.h in Headers */,
 				6D862900287AAC5700E62B7B /* DevilAdsSdk.h in Headers */,
 				6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */,
@@ -1460,7 +1453,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D862903287AAC5700E62B7B /* DevilBillSdk.m in Sources */,
 				6D467AAA256AB07A006D57DD /* WildCardUIView.m in Sources */,
 				6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */,
 				6DC162462691711000FD769C /* DevilNavigationController.m in Sources */,

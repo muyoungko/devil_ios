@@ -58,6 +58,7 @@
 		6DE2BAF3278B3011008344DE /* DebugLearningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF2278B3011008344DE /* DebugLearningView.m */; };
 		6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF4278B3CBC008344DE /* devil_learning_icon@3x.png */; };
 		6DE2BAF8278B4B0F008344DE /* JevilLearning.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAF7278B4B0F008344DE /* JevilLearning.m */; };
+		6DE55C9F2AB04460004B7612 /* devilwebrtc.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DE55C9E2AB04460004B7612 /* devilwebrtc.podspec */; };
 		6DEC18832861427500B3FE88 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6DEC18822861427500B3FE88 /* README.md */; };
 		6DF458EC2A7D4FD600E20636 /* devilextra.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DF458EB2A7D4FD600E20636 /* devilextra.podspec */; };
 		6DF458F42A7D508B00E20636 /* devilbill.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6DF458F32A7D508B00E20636 /* devilbill.podspec */; };
@@ -169,6 +170,7 @@
 		6DE2BAF4278B3CBC008344DE /* devil_learning_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_learning_icon@3x.png"; sourceTree = "<group>"; };
 		6DE2BAF6278B4B0F008344DE /* JevilLearning.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilLearning.h; sourceTree = "<group>"; };
 		6DE2BAF7278B4B0F008344DE /* JevilLearning.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilLearning.m; sourceTree = "<group>"; };
+		6DE55C9E2AB04460004B7612 /* devilwebrtc.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilwebrtc.podspec; sourceTree = "<group>"; };
 		6DEC18822861427500B3FE88 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		6DF137F320D7469A00071B9F /* devil.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = devil.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DF458EB2A7D4FD600E20636 /* devilextra.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilextra.podspec; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				6D62FAF928DD75F00094426E /* devilnfc.podspec */,
 				6DF458EB2A7D4FD600E20636 /* devilextra.podspec */,
 				6DF458F32A7D508B00E20636 /* devilbill.podspec */,
+				6DE55C9E2AB04460004B7612 /* devilwebrtc.podspec */,
 				6D132BBA255E751C00004E1F /* GoogleService-Info.plist */,
 				6D46791C25699107006D57DD /* image */,
 				6D4678B52567B1E2006D57DD /* devil */,
@@ -511,6 +514,7 @@
 				6DF50F9C2A5C75E8006160A0 /* CapblWebController.xib in Resources */,
 				6DF50F972A5C75E8006160A0 /* CapblPartialController.xib in Resources */,
 				6D0224F026143D8300634842 /* devilcore.podspec in Resources */,
+				6DE55C9F2AB04460004B7612 /* devilwebrtc.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
