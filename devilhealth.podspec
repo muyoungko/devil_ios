@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilhealth'
   s.platform         = :ios
-  s.version          = '0.0.250'
+  s.version          = '0.0.251'
   s.summary          = 'Devil Health'
   s.description      = <<-DESC
     This is Devil Login
