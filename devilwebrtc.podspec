@@ -1,8 +1,8 @@
 Pod::Spec.new do |s|
-  s.name             = 'devilbill'
+  s.name             = 'devilwebrtc'
   s.platform         = :ios
   s.version          = '0.0.251'
-  s.summary          = 'Devil Bill'
+  s.summary          = 'Devil WebRtc'
   s.description      = <<-DESC
     This is Devil Login
                        DESC
@@ -16,8 +16,8 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
-  s.source_files = 'devilbill/devilbill/source/**/*.*', 'devilbill/devilbill/header/**/*.h'
-  s.public_header_files = 'devilbill/devilbill/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
+  s.source_files = 'devilwebrtc/devilwebrtc/source/**/*.*', 'devilwebrtc/devilwebrtc/header/**/*.h'
+  s.public_header_files = 'devilwebrtc/devilwebrtc/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
   s.dependency 'devilcore', '~> 0.0.251'
    

@@ -159,6 +159,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (7.11.4):
     - GoogleUtilities/Logger
+  - GoogleWebRTC (1.1.32000)
   - GTMAppAuth (2.0.0):
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 4.0, >= 1.5)
@@ -222,6 +223,7 @@ DEPENDENCIES:
   - FirebaseMessaging
   - Google-Mobile-Ads-SDK
   - GoogleSignIn
+  - GoogleWebRTC
   - KakaoSDKAuth (= 2.11.3)
   - KakaoSDKCommon (= 2.11.3)
   - KakaoSDKStory (= 2.11.3)
@@ -265,6 +267,7 @@ SPEC REPOS:
     - GoogleSignIn
     - GoogleUserMessagingPlatform
     - GoogleUtilities
+    - GoogleWebRTC
     - GTMAppAuth
     - GTMSessionFetcher
     - KakaoSDKAuth
@@ -314,6 +317,7 @@ SPEC CHECKSUMS:
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GoogleUserMessagingPlatform: 5f8b30daf181805317b6b985bb51c1ff3beca054
   GoogleUtilities: c63691989bf362ba0505507da00eeb326192e83e
+  GoogleWebRTC: 4d261187b30512efdb711d21fa961a6adf138717
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
   KakaoSDKAuth: a64dde90516e18fdfc35b83bbad2677c3675c329
@@ -333,6 +337,6 @@ SPEC CHECKSUMS:
   TossPayments: fb41900669627e9cb22b4046c55b5ebfdd32c8f2
   ZXingObjC: 2c95a0dc52daac69b23ec78fad8fa2fec05f8981
 
-PODFILE CHECKSUM: ef86f666ef538191d454da7b5767466410ff622b
+PODFILE CHECKSUM: 854a605668c9910f33986f31e4c2a86317b50a72
 
 COCOAPODS: 1.12.1

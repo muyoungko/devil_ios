@@ -8,23 +8,39 @@
 
 /* Begin PBXBuildFile section */
 		64CD3EEF27A6ADC7DAC5C275 /* Pods_devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B960CAA8FE4BF26B918DE16F /* Pods_devilwebrtc.framework */; };
-		6D0A69A12AB5408000140B43 /* DevilWebRtcSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A699C2AB5408000140B43 /* DevilWebRtcSdk.m */; };
-		6D0A69A22AB5408000140B43 /* DevilWebRtcSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0A699D2AB5408000140B43 /* DevilWebRtcSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D0A69A32AB5408000140B43 /* devilwebrtc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0A699E2AB5408000140B43 /* devilwebrtc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D0A69AC2AB58C2F00140B43 /* WebRtcSwftTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69AB2AB58C2F00140B43 /* WebRtcSwftTest.swift */; };
-		6D0A69B12AB5A6BF00140B43 /* JevilWebRtc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0A69AF2AB5A6BF00140B43 /* JevilWebRtc.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D0A69B22AB5A6BF00140B43 /* JevilWebRtc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69B02AB5A6BF00140B43 /* JevilWebRtc.m */; };
+		6D0A69C72AB5DB7A00140B43 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69B62AB5DB7A00140B43 /* Constants.swift */; };
+		6D0A69C82AB5DB7A00140B43 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0A69B72AB5DB7A00140B43 /* VideoViewController.xib */; };
+		6D0A69C92AB5DB7A00140B43 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69B82AB5DB7A00140B43 /* Message.swift */; };
+		6D0A69CA2AB5DB7A00140B43 /* DevilWebRtcSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0A69B92AB5DB7A00140B43 /* DevilWebRtcSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D0A69CC2AB5DB7A00140B43 /* DevilWebRtcSdk.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69BB2AB5DB7A00140B43 /* DevilWebRtcSdk.m */; };
+		6D0A69CD2AB5DB7A00140B43 /* KVSSigner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69BC2AB5DB7A00140B43 /* KVSSigner.swift */; };
+		6D0A69CE2AB5DB7A00140B43 /* JevilWebRtc.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69BD2AB5DB7A00140B43 /* JevilWebRtc.m */; };
+		6D0A69CF2AB5DB7A00140B43 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69BE2AB5DB7A00140B43 /* VideoViewController.swift */; };
+		6D0A69D02AB5DB7A00140B43 /* JevilWebRtc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0A69BF2AB5DB7A00140B43 /* JevilWebRtc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D0A69D12AB5DB7A00140B43 /* DevilWebRtcInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69C02AB5DB7A00140B43 /* DevilWebRtcInstance.swift */; };
+		6D0A69D22AB5DB7A00140B43 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69C12AB5DB7A00140B43 /* Event.swift */; };
+		6D0A69D32AB5DB7A00140B43 /* devilwebrtc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0A69C22AB5DB7A00140B43 /* devilwebrtc.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D0A69D42AB5DB7A00140B43 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69C32AB5DB7A00140B43 /* SignalingClient.swift */; };
+		6D0A69D62AB5DB7A00140B43 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69C52AB5DB7A00140B43 /* WebRTCClient.swift */; };
 		6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D52E6D22619D82A00935D3A /* devilcore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6D0A699C2AB5408000140B43 /* DevilWebRtcSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilWebRtcSdk.m; sourceTree = "<group>"; };
-		6D0A699D2AB5408000140B43 /* DevilWebRtcSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilWebRtcSdk.h; sourceTree = "<group>"; };
-		6D0A699E2AB5408000140B43 /* devilwebrtc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilwebrtc.h; sourceTree = "<group>"; };
 		6D0A69A02AB5408000140B43 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6D0A69AB2AB58C2F00140B43 /* WebRtcSwftTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRtcSwftTest.swift; sourceTree = "<group>"; };
-		6D0A69AF2AB5A6BF00140B43 /* JevilWebRtc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilWebRtc.h; sourceTree = "<group>"; };
-		6D0A69B02AB5A6BF00140B43 /* JevilWebRtc.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilWebRtc.m; sourceTree = "<group>"; };
+		6D0A69B62AB5DB7A00140B43 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		6D0A69B72AB5DB7A00140B43 /* VideoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoViewController.xib; sourceTree = "<group>"; };
+		6D0A69B82AB5DB7A00140B43 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		6D0A69B92AB5DB7A00140B43 /* DevilWebRtcSdk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DevilWebRtcSdk.h; sourceTree = "<group>"; };
+		6D0A69BB2AB5DB7A00140B43 /* DevilWebRtcSdk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilWebRtcSdk.m; sourceTree = "<group>"; };
+		6D0A69BC2AB5DB7A00140B43 /* KVSSigner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KVSSigner.swift; sourceTree = "<group>"; };
+		6D0A69BD2AB5DB7A00140B43 /* JevilWebRtc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilWebRtc.m; sourceTree = "<group>"; };
+		6D0A69BE2AB5DB7A00140B43 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
+		6D0A69BF2AB5DB7A00140B43 /* JevilWebRtc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JevilWebRtc.h; sourceTree = "<group>"; };
+		6D0A69C02AB5DB7A00140B43 /* DevilWebRtcInstance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DevilWebRtcInstance.swift; sourceTree = "<group>"; };
+		6D0A69C12AB5DB7A00140B43 /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		6D0A69C22AB5DB7A00140B43 /* devilwebrtc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = devilwebrtc.h; sourceTree = "<group>"; };
+		6D0A69C32AB5DB7A00140B43 /* SignalingClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignalingClient.swift; sourceTree = "<group>"; };
+		6D0A69C52AB5DB7A00140B43 /* WebRTCClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
 		6D52E6D22619D82A00935D3A /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D7EC30025F4A37D00FAE7D8 /* devilwebrtc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = devilwebrtc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7496253E881651955BF7F8D9 /* Pods-devilwebrtc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilwebrtc.release.xcconfig"; path = "Target Support Files/Pods-devilwebrtc/Pods-devilwebrtc.release.xcconfig"; sourceTree = "<group>"; };
@@ -58,12 +74,20 @@
 		6D0A699B2AB5408000140B43 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				6D0A699C2AB5408000140B43 /* DevilWebRtcSdk.m */,
-				6D0A699D2AB5408000140B43 /* DevilWebRtcSdk.h */,
-				6D0A699E2AB5408000140B43 /* devilwebrtc.h */,
-				6D0A69AB2AB58C2F00140B43 /* WebRtcSwftTest.swift */,
-				6D0A69AF2AB5A6BF00140B43 /* JevilWebRtc.h */,
-				6D0A69B02AB5A6BF00140B43 /* JevilWebRtc.m */,
+				6D0A69C22AB5DB7A00140B43 /* devilwebrtc.h */,
+				6D0A69BF2AB5DB7A00140B43 /* JevilWebRtc.h */,
+				6D0A69BD2AB5DB7A00140B43 /* JevilWebRtc.m */,
+				6D0A69B92AB5DB7A00140B43 /* DevilWebRtcSdk.h */,
+				6D0A69BB2AB5DB7A00140B43 /* DevilWebRtcSdk.m */,
+				6D0A69C02AB5DB7A00140B43 /* DevilWebRtcInstance.swift */,
+				6D0A69B62AB5DB7A00140B43 /* Constants.swift */,
+				6D0A69C12AB5DB7A00140B43 /* Event.swift */,
+				6D0A69BC2AB5DB7A00140B43 /* KVSSigner.swift */,
+				6D0A69B82AB5DB7A00140B43 /* Message.swift */,
+				6D0A69C32AB5DB7A00140B43 /* SignalingClient.swift */,
+				6D0A69BE2AB5DB7A00140B43 /* VideoViewController.swift */,
+				6D0A69B72AB5DB7A00140B43 /* VideoViewController.xib */,
+				6D0A69C52AB5DB7A00140B43 /* WebRTCClient.swift */,
 			);
 			path = source;
 			sourceTree = "<group>";
@@ -119,9 +143,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D0A69A22AB5408000140B43 /* DevilWebRtcSdk.h in Headers */,
-				6D0A69B12AB5A6BF00140B43 /* JevilWebRtc.h in Headers */,
-				6D0A69A32AB5408000140B43 /* devilwebrtc.h in Headers */,
+				6D0A69D02AB5DB7A00140B43 /* JevilWebRtc.h in Headers */,
+				6D0A69D32AB5DB7A00140B43 /* devilwebrtc.h in Headers */,
+				6D0A69CA2AB5DB7A00140B43 /* DevilWebRtcSdk.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +209,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D0A69C82AB5DB7A00140B43 /* VideoViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,9 +262,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D0A69AC2AB58C2F00140B43 /* WebRtcSwftTest.swift in Sources */,
-				6D0A69A12AB5408000140B43 /* DevilWebRtcSdk.m in Sources */,
-				6D0A69B22AB5A6BF00140B43 /* JevilWebRtc.m in Sources */,
+				6D0A69CD2AB5DB7A00140B43 /* KVSSigner.swift in Sources */,
+				6D0A69D12AB5DB7A00140B43 /* DevilWebRtcInstance.swift in Sources */,
+				6D0A69CF2AB5DB7A00140B43 /* VideoViewController.swift in Sources */,
+				6D0A69CE2AB5DB7A00140B43 /* JevilWebRtc.m in Sources */,
+				6D0A69D62AB5DB7A00140B43 /* WebRTCClient.swift in Sources */,
+				6D0A69CC2AB5DB7A00140B43 /* DevilWebRtcSdk.m in Sources */,
+				6D0A69D42AB5DB7A00140B43 /* SignalingClient.swift in Sources */,
+				6D0A69C72AB5DB7A00140B43 /* Constants.swift in Sources */,
+				6D0A69D22AB5DB7A00140B43 /* Event.swift in Sources */,
+				6D0A69C92AB5DB7A00140B43 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
