@@ -1,0 +1,11 @@
+framework module devilbill {
+  umbrella header "devilbill.h"
+
+  export *
+  module * { export * }
+}
+
+module devilbill.Swift {
+  header "devilbill-Swift.h"
+  requires objc
+}

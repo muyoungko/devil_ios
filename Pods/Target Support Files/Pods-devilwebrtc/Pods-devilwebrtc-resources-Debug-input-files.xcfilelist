@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-devilwebrtc/Pods-devilwebrtc-resources.sh
+${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/CommonCryptoBridge.h
+${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/module.modulemap

@@ -21,10 +21,28 @@ PODS:
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
+  - AWSAuthCore (2.33.3):
+    - AWSCore (= 2.33.3)
+  - AWSCognitoIdentityProvider (2.33.3):
+    - AWSCognitoIdentityProviderASF (= 2.33.3)
+    - AWSCore (= 2.33.3)
+  - AWSCognitoIdentityProviderASF (2.33.3):
+    - AWSCore (= 2.33.3)
+  - AWSCore (2.33.3)
+  - AWSKinesisVideo (2.33.3):
+    - AWSCore (= 2.33.3)
+  - AWSKinesisVideoSignaling (2.33.3):
+    - AWSCore (= 2.33.3)
+  - AWSMobileClient (2.33.3):
+    - AWSAuthCore (= 2.33.3)
+    - AWSCognitoIdentityProvider (= 2.33.3)
+    - AWSCognitoIdentityProviderASF (= 2.33.3)
+    - AWSCore (= 2.33.3)
   - Charts (4.1.0):
     - Charts/Core (= 4.1.0)
   - Charts/Core (4.1.0):
     - SwiftAlgorithms (~> 1.0)
+  - CommonCryptoModule (1.0.2)
   - FirebaseAnalytics (10.12.0):
     - FirebaseAnalytics/AdIdSupport (= 10.12.0)
     - FirebaseCore (~> 10.0)
@@ -181,6 +199,7 @@ PODS:
   - PromisesObjC (2.3.1)
   - PromisesSwift (2.3.1):
     - PromisesObjC (= 2.3.1)
+  - Starscream (3.1.1)
   - SwiftAlgorithms (1.0.0)
   - TossPayments (0.1.21)
   - ZXingObjC (3.2.2):
@@ -190,7 +209,12 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - Alamofire
+  - AWSCognitoIdentityProvider
+  - AWSKinesisVideo
+  - AWSKinesisVideoSignaling
+  - AWSMobileClient
   - Charts (~> 4.1.0)
+  - CommonCryptoModule
   - FirebaseAnalytics
   - FirebaseAuth
   - FirebaseCrashlytics
@@ -206,6 +230,7 @@ DEPENDENCIES:
   - lottie-ios (~> 2.5.3)
   - MQTTClient
   - naveridlogin-sdk-ios
+  - Starscream (~> 3.0)
   - TossPayments
   - ZXingObjC (~> 3.2.1)
 
@@ -214,7 +239,15 @@ SPEC REPOS:
     - AFNetworking
     - Alamofire
     - AppAuth
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSKinesisVideo
+    - AWSKinesisVideoSignaling
+    - AWSMobileClient
     - Charts
+    - CommonCryptoModule
     - FirebaseAnalytics
     - FirebaseAppCheckInterop
     - FirebaseAuth
@@ -246,6 +279,7 @@ SPEC REPOS:
     - naveridlogin-sdk-ios
     - PromisesObjC
     - PromisesSwift
+    - Starscream
     - SwiftAlgorithms
     - TossPayments
     - ZXingObjC
@@ -254,7 +288,15 @@ SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
+  AWSAuthCore: 3dcc62cc325ff736e38b7a6e913cce4c9da27943
+  AWSCognitoIdentityProvider: 8cffbb9bd503b55798973a162a4ee0851b7a1c9d
+  AWSCognitoIdentityProviderASF: 16982d711fba00bcbd735ced555514e017d66f90
+  AWSCore: 49a03831c1c50d52a31168083598c7bcfc389b62
+  AWSKinesisVideo: 0e3ffc23b239b473dfade9577f136a627130e091
+  AWSKinesisVideoSignaling: 7dd5dd23afd888ec098f1926eed9bc4cd3088826
+  AWSMobileClient: e76c894b6ffd833d1290b329397e22071f87f1dd
   Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
+  CommonCryptoModule: 63a68b57abed79655b3a01011419bf037a05b0a0
   FirebaseAnalytics: 0270389efbe3022b54ec4588862dabec3477ee98
   FirebaseAppCheckInterop: f95a4feb9089867aff1a4bdc2ce309137e07736a
   FirebaseAuth: a66c1e14ec58f41d154a4b41ce1a23ea00ad4805
@@ -286,10 +328,11 @@ SPEC CHECKSUMS:
   naveridlogin-sdk-ios: cdd34e3585a3d5aaf37c1d84c1f41faba4a25d1a
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
+  Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   TossPayments: fb41900669627e9cb22b4046c55b5ebfdd32c8f2
   ZXingObjC: 2c95a0dc52daac69b23ec78fad8fa2fec05f8981
 
-PODFILE CHECKSUM: dfd996ddbb9fe1f4ca4de5c714a8391ba84f9583
+PODFILE CHECKSUM: ef86f666ef538191d454da7b5767466410ff622b
 
 COCOAPODS: 1.12.1

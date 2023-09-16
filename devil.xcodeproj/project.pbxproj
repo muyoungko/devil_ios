@@ -10,6 +10,8 @@
 		2E913325AAC1EE7F6BE51345 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 291170B93C4DF195DA4C8621 /* Pods_devil.framework */; };
 		6D0224EE2613959900634842 /* devillogin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224ED2613959900634842 /* devillogin.podspec */; };
 		6D0224F026143D8300634842 /* devilcore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224EF26143D8300634842 /* devilcore.podspec */; };
+		6D0A69A82AB589F500140B43 /* devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; };
+		6D0A69A92AB589F500140B43 /* devilwebrtc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
 		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
 		6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */; };
@@ -86,6 +88,7 @@
 				6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */,
 				6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */,
 				6DACD00428DD61E7002E7409 /* devilextra.framework in Embed Frameworks */,
+				6D0A69A92AB589F500140B43 /* devilwebrtc.framework in Embed Frameworks */,
 				6D62FB0A28DD7A0B0094426E /* devilnfc.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -99,6 +102,8 @@
 		291170B93C4DF195DA4C8621 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D0224ED2613959900634842 /* devillogin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devillogin.podspec; sourceTree = "<group>"; };
 		6D0224EF26143D8300634842 /* devilcore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilcore.podspec; sourceTree = "<group>"; };
+		6D0A69A52AB5824300140B43 /* devilwebrtc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilwebrtc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D0A69AA2AB58A6500140B43 /* devilbill.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = devilbill.framework; sourceTree = "<group>"; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
 		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
 		6D132B91255E6E0F00004E1F /* HttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUtil.h; sourceTree = "<group>"; };
@@ -205,6 +210,7 @@
 				6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */,
 				6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */,
 				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
+				6D0A69A82AB589F500140B43 /* devilwebrtc.framework in Frameworks */,
 				2E913325AAC1EE7F6BE51345 /* Pods_devil.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +221,8 @@
 		0BCC150E47406F73DA50155A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D0A69AA2AB58A6500140B43 /* devilbill.framework */,
+				6D0A69A52AB5824300140B43 /* devilwebrtc.framework */,
 				6D62FB0828DD7A0B0094426E /* devilnfc.framework */,
 				6DACD00228DD61E7002E7409 /* devilextra.framework */,
 				6D482D8C28C3CA920041A149 /* HealthKit.framework */,
@@ -693,7 +701,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = I;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -737,7 +745,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = I;
 				LD_RUNPATH_SEARCH_PATHS = "";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
@@ -750,7 +758,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 07EC45E00B8B3E17BD4373F5 /* Pods-devil.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
@@ -798,7 +805,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 15FD26AC556ED41D1BEE5CF0 /* Pods-devil.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;

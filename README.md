@@ -69,3 +69,9 @@ put it in the info plist
 <array>
     <string>12FC</string>
 </array>
+
+# Multiple commands produce Error 해결법
+target의 Copy Bundle Resource 에서 문제되는 파일 제거
+
+
+# Library not loaded 해결

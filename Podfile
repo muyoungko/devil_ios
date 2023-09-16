@@ -95,6 +95,17 @@ target 'devilbill' do
   pod 'TossPayments'
 end
 
+target 'devilwebrtc' do
+  project 'devilwebrtc/devilwebrtc.xcodeproj'
+  pod 'AWSCognitoIdentityProvider'
+  pod 'AWSMobileClient'
+  pod 'CommonCryptoModule'
+  pod 'AWSKinesisVideo'
+  pod 'AWSKinesisVideoSignaling'
+#  pod 'GoogleWebRTC', '~> 1.1'
+  pod 'Starscream', '~> 3.0'
+end
+
 #target 'devilads' do
 #  project 'devilads/devilads.xcodeproj'
 ##  google_ads # 이걸 넣으면, 아카이브에서 오류남, GoogleUtilities가 Firebase와 중복됨

@@ -15,6 +15,7 @@
 //@import devilhealth;
 @import devilnfc;
 @import devilbill;
+@import devilwebrtc;
 
 @import FirebaseDynamicLinks;
 @import FirebaseAnalytics;
@@ -180,6 +181,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     //[[DevilSdk sharedInstance] addCustomJevil:[JevilHealth class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilNfc class]];
     [[DevilSdk sharedInstance] addCustomJevil:[JevilToss class]];
+    [[DevilSdk sharedInstance] addCustomJevil:[JevilWebRtc class]];
     
     [DevilSdk sharedInstance].devilSdkGADelegate = self;
     [GADMobileAds.sharedInstance startWithCompletionHandler:nil];
