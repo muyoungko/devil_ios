@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		64CD3EEF27A6ADC7DAC5C275 /* Pods_devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B960CAA8FE4BF26B918DE16F /* Pods_devilwebrtc.framework */; };
 		6D0A69C72AB5DB7A00140B43 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69B62AB5DB7A00140B43 /* Constants.swift */; };
 		6D0A69C82AB5DB7A00140B43 /* VideoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D0A69B72AB5DB7A00140B43 /* VideoViewController.xib */; };
 		6D0A69C92AB5DB7A00140B43 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69B82AB5DB7A00140B43 /* Message.swift */; };
@@ -22,6 +21,7 @@
 		6D0A69D32AB5DB7A00140B43 /* devilwebrtc.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D0A69C22AB5DB7A00140B43 /* devilwebrtc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D0A69D42AB5DB7A00140B43 /* SignalingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69C32AB5DB7A00140B43 /* SignalingClient.swift */; };
 		6D0A69D62AB5DB7A00140B43 /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D0A69C52AB5DB7A00140B43 /* WebRTCClient.swift */; };
+		6D0A69F22AB9DEF700140B43 /* Pods_devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B960CAA8FE4BF26B918DE16F /* Pods_devilwebrtc.framework */; };
 		6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D52E6D22619D82A00935D3A /* devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -53,8 +53,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D0A69F22AB9DEF700140B43 /* Pods_devilwebrtc.framework in Frameworks */,
 				6D52E6D32619D82A00935D3A /* devilcore.framework in Frameworks */,
-				64CD3EEF27A6ADC7DAC5C275 /* Pods_devilwebrtc.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +161,7 @@
 				6D7EC2FC25F4A37D00FAE7D8 /* Sources */,
 				6D7EC2FD25F4A37D00FAE7D8 /* Frameworks */,
 				6D7EC2FE25F4A37D00FAE7D8 /* Resources */,
-				1B2240867CC6FD21990FD1EB /* [CP] Copy Pods Resources */,
+				5E9C1B3B85A586F121582D86 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -216,7 +216,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B2240867CC6FD21990FD1EB /* [CP] Copy Pods Resources */ = {
+		5E9C1B3B85A586F121582D86 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -400,7 +400,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 762FDA4BCA479D856EE83FF8 /* Pods-devilwebrtc.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -434,7 +433,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7496253E881651955BF7F8D9 /* Pods-devilwebrtc.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";

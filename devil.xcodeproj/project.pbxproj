@@ -7,11 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E913325AAC1EE7F6BE51345 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 291170B93C4DF195DA4C8621 /* Pods_devil.framework */; };
 		6D0224EE2613959900634842 /* devillogin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224ED2613959900634842 /* devillogin.podspec */; };
 		6D0224F026143D8300634842 /* devilcore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224EF26143D8300634842 /* devilcore.podspec */; };
-		6D0A69A82AB589F500140B43 /* devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; };
-		6D0A69A92AB589F500140B43 /* devilwebrtc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D0A69EC2AB9DB2D00140B43 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7272D425B6C30572295CD1 /* Pods_devil.framework */; };
+		6D0A69EE2AB9DB5700140B43 /* devilnfc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; };
+		6D0A69EF2AB9DB5700140B43 /* devilnfc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D0A69F02AB9DB8100140B43 /* devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; };
+		6D0A69F12AB9DB8100140B43 /* devilwebrtc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D0A69F72AB9E10700140B43 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */; };
+		6D0A69F82AB9E10700140B43 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D0A69FA2AB9E12A00140B43 /* devilbill.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F92AB9E12A00140B43 /* devilbill.framework */; };
+		6D0A69FB2AB9E12B00140B43 /* devilbill.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F92AB9E12A00140B43 /* devilbill.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
 		6D132B9D255E6E0F00004E1F /* Lang.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B95255E6E0F00004E1F /* Lang.m */; };
 		6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B98255E6E0F00004E1F /* CustomIOSAlertView.m */; };
@@ -38,11 +44,8 @@
 		6D467A35256AAE12006D57DD /* Void.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A34256AAE12006D57DD /* Void.swift */; };
 		6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D467AED256AB1B0006D57DD /* devilcore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
-		6D51C7392A89F129006AB423 /* devilbill.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D51C7382A89F129006AB423 /* devilbill.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
 		6D62FAFA28DD75F00094426E /* devilnfc.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D62FAF928DD75F00094426E /* devilnfc.podspec */; };
-		6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; };
-		6D62FB0A28DD7A0B0094426E /* devilnfc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22CF6125FFB25C00A1CB25 /* devillogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D7F7A9628D40BD100F67029 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7F7A9528D40BD100F67029 /* SceneDelegate.m */; };
 		6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86290A287E50BA00E62B7B /* StoreKit.framework */; };
@@ -84,12 +87,13 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6D51C7392A89F129006AB423 /* devilbill.framework in Embed Frameworks */,
 				6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */,
 				6D467AF4256AB3DF006D57DD /* devilcore.framework in Embed Frameworks */,
+				6D0A69EF2AB9DB5700140B43 /* devilnfc.framework in Embed Frameworks */,
+				6D0A69FB2AB9E12B00140B43 /* devilbill.framework in Embed Frameworks */,
+				6D0A69F12AB9DB8100140B43 /* devilwebrtc.framework in Embed Frameworks */,
 				6DACD00428DD61E7002E7409 /* devilextra.framework in Embed Frameworks */,
-				6D0A69A92AB589F500140B43 /* devilwebrtc.framework in Embed Frameworks */,
-				6D62FB0A28DD7A0B0094426E /* devilnfc.framework in Embed Frameworks */,
+				6D0A69F82AB9E10700140B43 /* WebRTC.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,13 +101,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		07EC45E00B8B3E17BD4373F5 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
-		15FD26AC556ED41D1BEE5CF0 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
-		291170B93C4DF195DA4C8621 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2C62D2C300C12F33B6DD4A1C /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
+		2D7272D425B6C30572295CD1 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		56A327FF4E9BB40D9C0A5C96 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
 		6D0224ED2613959900634842 /* devillogin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devillogin.podspec; sourceTree = "<group>"; };
 		6D0224EF26143D8300634842 /* devilcore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilcore.podspec; sourceTree = "<group>"; };
 		6D0A69A52AB5824300140B43 /* devilwebrtc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilwebrtc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D0A69AA2AB58A6500140B43 /* devilbill.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = devilbill.framework; sourceTree = "<group>"; };
+		6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
+		6D0A69F92AB9E12A00140B43 /* devilbill.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilbill.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
 		6D132B90255E6E0F00004E1F /* JulyUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JulyUtil.m; sourceTree = "<group>"; };
 		6D132B91255E6E0F00004E1F /* HttpUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpUtil.h; sourceTree = "<group>"; };
@@ -149,7 +155,6 @@
 		6D467AED256AB1B0006D57DD /* devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D467B68257A2E17006D57DD /* refresh@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh@3x.png"; sourceTree = "<group>"; };
 		6D482D8C28C3CA920041A149 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
-		6D51C7382A89F129006AB423 /* devilbill.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = devilbill.framework; path = "../../../Library/Developer/Xcode/DerivedData/devil-ghnnlovlkwwdciayhgedkgdonhbn/Build/Products/Debug-iphoneos/devilbill.framework"; sourceTree = "<group>"; };
 		6D52E6102619988700935D3A /* devil.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = devil.plist; sourceTree = "<group>"; };
 		6D62FAF928DD75F00094426E /* devilnfc.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilnfc.podspec; sourceTree = "<group>"; };
 		6D62FB0828DD7A0B0094426E /* devilnfc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilnfc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,11 +212,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DACD00328DD61E7002E7409 /* devilextra.framework in Frameworks */,
+				6D0A69EC2AB9DB2D00140B43 /* Pods_devil.framework in Frameworks */,
 				6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */,
-				6D62FB0928DD7A0B0094426E /* devilnfc.framework in Frameworks */,
+				6D0A69F72AB9E10700140B43 /* WebRTC.framework in Frameworks */,
+				6D0A69EE2AB9DB5700140B43 /* devilnfc.framework in Frameworks */,
+				6D0A69F02AB9DB8100140B43 /* devilwebrtc.framework in Frameworks */,
+				6D0A69FA2AB9E12A00140B43 /* devilbill.framework in Frameworks */,
 				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
-				6D0A69A82AB589F500140B43 /* devilwebrtc.framework in Frameworks */,
-				2E913325AAC1EE7F6BE51345 /* Pods_devil.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +228,8 @@
 		0BCC150E47406F73DA50155A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D0A69F92AB9E12A00140B43 /* devilbill.framework */,
+				6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */,
 				6D0A69AA2AB58A6500140B43 /* devilbill.framework */,
 				6D0A69A52AB5824300140B43 /* devilwebrtc.framework */,
 				6D62FB0828DD7A0B0094426E /* devilnfc.framework */,
@@ -229,7 +238,7 @@
 				6D86290A287E50BA00E62B7B /* StoreKit.framework */,
 				6D22CF6125FFB25C00A1CB25 /* devillogin.framework */,
 				6D467AED256AB1B0006D57DD /* devilcore.framework */,
-				291170B93C4DF195DA4C8621 /* Pods_devil.framework */,
+				2D7272D425B6C30572295CD1 /* Pods_devil.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -347,7 +356,6 @@
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
-				6D51C7382A89F129006AB423 /* devilbill.framework */,
 				6DF50F7E2A5C75E8006160A0 /* capbl */,
 				6DBC7CF9286AF4C90037ED1A /* Podfile.lock */,
 				6DEC18822861427500B3FE88 /* README.md */,
@@ -424,8 +432,8 @@
 		F0CDCB8A11149BBB3516D5E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				07EC45E00B8B3E17BD4373F5 /* Pods-devil.debug.xcconfig */,
-				15FD26AC556ED41D1BEE5CF0 /* Pods-devil.release.xcconfig */,
+				2C62D2C300C12F33B6DD4A1C /* Pods-devil.debug.xcconfig */,
+				56A327FF4E9BB40D9C0A5C96 /* Pods-devil.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -437,14 +445,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "devil" */;
 			buildPhases = (
-				A5A0BC38B43327B7A18A8B9B /* [CP] Check Pods Manifest.lock */,
+				EB062D4AC26E8B7E9C042070 /* [CP] Check Pods Manifest.lock */,
 				6DF137EF20D7469A00071B9F /* Sources */,
 				6DF137F020D7469A00071B9F /* Frameworks */,
 				6DF137F120D7469A00071B9F /* Resources */,
 				6D467998256A174F006D57DD /* Embed Frameworks */,
 				6DC676ED26E5B36C0005728A /* ShellScript */,
-				FD15CBCB7758CFCC22D6C719 /* [CP] Embed Pods Frameworks */,
-				09C298DEC02209181BB74397 /* [CP] Copy Pods Resources */,
+				445ABB5B85F0CE89FE83E4E8 /* [CP] Embed Pods Frameworks */,
+				B17B2FBCEB028E1D7A5ACDF8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -529,22 +537,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		09C298DEC02209181BB74397 /* [CP] Copy Pods Resources */ = {
+		445ABB5B85F0CE89FE83E4E8 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework/NaverThirdPartyLogin",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		6DC676ED26E5B36C0005728A /* ShellScript */ = {
@@ -566,7 +574,25 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		A5A0BC38B43327B7A18A8B9B /* [CP] Check Pods Manifest.lock */ = {
+		B17B2FBCEB028E1D7A5ACDF8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EB062D4AC26E8B7E9C042070 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -586,24 +612,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FD15CBCB7758CFCC22D6C719 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework/NaverThirdPartyLogin",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -756,22 +764,24 @@
 		};
 		6DF1380E20D7469B00071B9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 07EC45E00B8B3E17BD4373F5 /* Pods-devil.debug.xcconfig */;
+			baseConfigurationReference = 2C62D2C300C12F33B6DD4A1C /* Pods-devil.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 227;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 3675B8UJSV;
+				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Devil App Buildler";
@@ -787,7 +797,7 @@
 				MARKETING_VERSION = 0.0.227;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "devil development";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "devil development";
 				SKIP_INSTALL = NO;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -803,7 +813,7 @@
 		};
 		6DF1380F20D7469B00071B9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15FD26AC556ED41D1BEE5CF0 /* Pods-devil.release.xcconfig */;
+			baseConfigurationReference = 56A327FF4E9BB40D9C0A5C96 /* Pods-devil.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -818,6 +828,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
+					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Devil App Buildler";

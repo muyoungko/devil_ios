@@ -14,37 +14,37 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
-  - Alamofire (5.7.1)
+  - Alamofire (5.8.0)
   - AppAuth (1.6.2):
     - AppAuth/Core (= 1.6.2)
     - AppAuth/ExternalUserAgent (= 1.6.2)
   - AppAuth/Core (1.6.2)
   - AppAuth/ExternalUserAgent (1.6.2):
     - AppAuth/Core
-  - AWSAuthCore (2.33.3):
-    - AWSCore (= 2.33.3)
-  - AWSCognitoIdentityProvider (2.33.3):
-    - AWSCognitoIdentityProviderASF (= 2.33.3)
-    - AWSCore (= 2.33.3)
-  - AWSCognitoIdentityProviderASF (2.33.3):
-    - AWSCore (= 2.33.3)
-  - AWSCore (2.33.3)
-  - AWSKinesisVideo (2.33.3):
-    - AWSCore (= 2.33.3)
-  - AWSKinesisVideoSignaling (2.33.3):
-    - AWSCore (= 2.33.3)
-  - AWSMobileClient (2.33.3):
-    - AWSAuthCore (= 2.33.3)
-    - AWSCognitoIdentityProvider (= 2.33.3)
-    - AWSCognitoIdentityProviderASF (= 2.33.3)
-    - AWSCore (= 2.33.3)
+  - AWSAuthCore (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AWSCognitoIdentityProvider (2.33.4):
+    - AWSCognitoIdentityProviderASF (= 2.33.4)
+    - AWSCore (= 2.33.4)
+  - AWSCognitoIdentityProviderASF (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AWSCore (2.33.4)
+  - AWSKinesisVideo (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AWSKinesisVideoSignaling (2.33.4):
+    - AWSCore (= 2.33.4)
+  - AWSMobileClient (2.33.4):
+    - AWSAuthCore (= 2.33.4)
+    - AWSCognitoIdentityProvider (= 2.33.4)
+    - AWSCognitoIdentityProviderASF (= 2.33.4)
+    - AWSCore (= 2.33.4)
   - Charts (4.1.0):
     - Charts/Core (= 4.1.0)
   - Charts/Core (4.1.0):
     - SwiftAlgorithms (~> 1.0)
   - CommonCryptoModule (1.0.2)
-  - FirebaseAnalytics (10.12.0):
-    - FirebaseAnalytics/AdIdSupport (= 10.12.0)
+  - FirebaseAnalytics (10.15.0):
+    - FirebaseAnalytics/AdIdSupport (= 10.15.0)
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
@@ -52,31 +52,32 @@ PODS:
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseAnalytics/AdIdSupport (10.12.0):
+  - FirebaseAnalytics/AdIdSupport (10.15.0):
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
-    - GoogleAppMeasurement (= 10.12.0)
+    - GoogleAppMeasurement (= 10.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseAppCheckInterop (10.12.0)
-  - FirebaseAuth (10.12.0):
+  - FirebaseAppCheckInterop (10.15.0)
+  - FirebaseAuth (10.15.0):
     - FirebaseAppCheckInterop (~> 10.0)
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.8)
     - GoogleUtilities/Environment (~> 7.8)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
-  - FirebaseCore (10.12.0):
+    - RecaptchaInterop (~> 100.0)
+  - FirebaseCore (10.15.0):
     - FirebaseCoreInternal (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/Logger (~> 7.8)
-  - FirebaseCoreExtension (10.12.0):
+  - FirebaseCoreExtension (10.15.0):
     - FirebaseCore (~> 10.0)
-  - FirebaseCoreInternal (10.12.0):
+  - FirebaseCoreInternal (10.15.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
-  - FirebaseCrashlytics (10.12.0):
+  - FirebaseCrashlytics (10.15.0):
     - FirebaseCore (~> 10.5)
     - FirebaseInstallations (~> 10.0)
     - FirebaseSessions (~> 10.5)
@@ -84,14 +85,14 @@ PODS:
     - GoogleUtilities/Environment (~> 7.8)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (~> 2.1)
-  - FirebaseDynamicLinks (10.12.0):
+  - FirebaseDynamicLinks (10.15.0):
     - FirebaseCore (~> 10.0)
-  - FirebaseInstallations (10.12.0):
+  - FirebaseInstallations (10.15.0):
     - FirebaseCore (~> 10.0)
     - GoogleUtilities/Environment (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - PromisesObjC (~> 2.1)
-  - FirebaseMessaging (10.12.0):
+  - FirebaseMessaging (10.15.0):
     - FirebaseCore (~> 10.0)
     - FirebaseInstallations (~> 10.0)
     - GoogleDataTransport (~> 9.2)
@@ -100,7 +101,7 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.8)
     - GoogleUtilities/UserDefaults (~> 7.8)
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - FirebaseSessions (10.12.0):
+  - FirebaseSessions (10.15.0):
     - FirebaseCore (~> 10.5)
     - FirebaseCoreExtension (~> 10.0)
     - FirebaseInstallations (~> 10.0)
@@ -108,30 +109,30 @@ PODS:
     - GoogleUtilities/Environment (~> 7.10)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesSwift (~> 2.1)
-  - Google-Mobile-Ads-SDK (10.8.0):
+  - Google-Mobile-Ads-SDK (10.10.0):
     - GoogleAppMeasurement (< 11.0, >= 7.0)
     - GoogleUserMessagingPlatform (>= 1.1)
-  - GoogleAppMeasurement (10.12.0):
-    - GoogleAppMeasurement/AdIdSupport (= 10.12.0)
+  - GoogleAppMeasurement (10.15.0):
+    - GoogleAppMeasurement/AdIdSupport (= 10.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (10.12.0):
-    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.12.0)
+  - GoogleAppMeasurement/AdIdSupport (10.15.0):
+    - GoogleAppMeasurement/WithoutAdIdSupport (= 10.15.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleAppMeasurement/WithoutAdIdSupport (10.12.0):
+  - GoogleAppMeasurement/WithoutAdIdSupport (10.15.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
     - GoogleUtilities/MethodSwizzler (~> 7.11)
     - GoogleUtilities/Network (~> 7.11)
     - "GoogleUtilities/NSData+zlib (~> 7.11)"
     - nanopb (< 2.30910.0, >= 2.30908.0)
-  - GoogleDataTransport (9.2.3):
+  - GoogleDataTransport (9.2.5):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
@@ -139,25 +140,25 @@ PODS:
     - AppAuth (~> 1.5)
     - GTMAppAuth (< 3.0, >= 1.3)
     - GTMSessionFetcher/Core (< 4.0, >= 1.1)
-  - GoogleUserMessagingPlatform (2.0.1)
-  - GoogleUtilities/AppDelegateSwizzler (7.11.4):
+  - GoogleUserMessagingPlatform (2.1.0)
+  - GoogleUtilities/AppDelegateSwizzler (7.11.5):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.11.4):
+  - GoogleUtilities/Environment (7.11.5):
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/Logger (7.11.4):
+  - GoogleUtilities/Logger (7.11.5):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (7.11.4):
+  - GoogleUtilities/MethodSwizzler (7.11.5):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (7.11.4):
+  - GoogleUtilities/Network (7.11.5):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.11.4)"
-  - GoogleUtilities/Reachability (7.11.4):
+  - "GoogleUtilities/NSData+zlib (7.11.5)"
+  - GoogleUtilities/Reachability (7.11.5):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.11.4):
+  - GoogleUtilities/UserDefaults (7.11.5):
     - GoogleUtilities/Logger
   - GoogleWebRTC (1.1.32000)
   - GTMAppAuth (2.0.0):
@@ -200,9 +201,10 @@ PODS:
   - PromisesObjC (2.3.1)
   - PromisesSwift (2.3.1):
     - PromisesObjC (= 2.3.1)
+  - RecaptchaInterop (100.0.0)
   - Starscream (3.1.1)
   - SwiftAlgorithms (1.0.0)
-  - TossPayments (0.1.21)
+  - TossPayments (0.1.23)
   - ZXingObjC (3.2.2):
     - ZXingObjC/All (= 3.2.2)
   - ZXingObjC/All (3.2.2)
@@ -282,6 +284,7 @@ SPEC REPOS:
     - naveridlogin-sdk-ios
     - PromisesObjC
     - PromisesSwift
+    - RecaptchaInterop
     - Starscream
     - SwiftAlgorithms
     - TossPayments
@@ -289,34 +292,34 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
-  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
   AppAuth: 3bb1d1cd9340bd09f5ed189fb00b1cc28e1e8570
-  AWSAuthCore: 3dcc62cc325ff736e38b7a6e913cce4c9da27943
-  AWSCognitoIdentityProvider: 8cffbb9bd503b55798973a162a4ee0851b7a1c9d
-  AWSCognitoIdentityProviderASF: 16982d711fba00bcbd735ced555514e017d66f90
-  AWSCore: 49a03831c1c50d52a31168083598c7bcfc389b62
-  AWSKinesisVideo: 0e3ffc23b239b473dfade9577f136a627130e091
-  AWSKinesisVideoSignaling: 7dd5dd23afd888ec098f1926eed9bc4cd3088826
-  AWSMobileClient: e76c894b6ffd833d1290b329397e22071f87f1dd
+  AWSAuthCore: 0584cee14bd5a692b8daa1c43b06df9524533692
+  AWSCognitoIdentityProvider: 74464aeebddb8546586f979c8ed055180a4b1855
+  AWSCognitoIdentityProviderASF: 28c6a2916512c08ded36b1aab4d92a1b5805d868
+  AWSCore: 83e3416d2224ba98b61d8eadcfcb1f90f48fab82
+  AWSKinesisVideo: 78d90313ce0e2ede721d31aadaa2012447c51432
+  AWSKinesisVideoSignaling: 4778b45fc03e18d244dd9e645d77cb41228a56b1
+  AWSMobileClient: ff115272d8b29f05443f82f5800036c498c5ca8b
   Charts: ce0768268078eee0336f122c3c4ca248e4e204c5
   CommonCryptoModule: 63a68b57abed79655b3a01011419bf037a05b0a0
-  FirebaseAnalytics: 0270389efbe3022b54ec4588862dabec3477ee98
-  FirebaseAppCheckInterop: f95a4feb9089867aff1a4bdc2ce309137e07736a
-  FirebaseAuth: a66c1e14ec58f41d154a4b41ce1a23ea00ad4805
-  FirebaseCore: f86a1394906b97ac445ae49c92552a9425831bed
-  FirebaseCoreExtension: 0ce5ac36042001cfa233ce7bfa28e5c313cf80f4
-  FirebaseCoreInternal: 950500ad8a08963657f6d8c67b579740c06d6aa1
-  FirebaseCrashlytics: c4d111b7430c49744c74bcc6346ea00868661ac8
-  FirebaseDynamicLinks: 1a387da899779e5ef34f4d6f8bdba882f90d0e67
-  FirebaseInstallations: 7b99ef103f013624444c614397038219c45f8e63
-  FirebaseMessaging: bb2c4f6422a753038fe137d90ae7c1af57251316
-  FirebaseSessions: a4ee211eeb31a2224cd8d9d4e30a0fccde9aa00c
-  Google-Mobile-Ads-SDK: 69daa7fb42061b425340706e382e87fab3e666a3
-  GoogleAppMeasurement: 2d800fab85e7848b1e66a6f8ce5bca06c5aad892
-  GoogleDataTransport: f0308f5905a745f94fb91fea9c6cbaf3831cb1bd
+  FirebaseAnalytics: 47cef43728f81a839cf1306576bdd77ffa2eac7e
+  FirebaseAppCheckInterop: a8c555b1c2db1d9445e6c3a08a848167ddb7eb51
+  FirebaseAuth: a55ec5f7f8a5b1c2dd750235c1bb419bfb642445
+  FirebaseCore: 2cec518b43635f96afe7ac3a9c513e47558abd2e
+  FirebaseCoreExtension: d3f1ea3725fb41f56e8fbfb29eeaff54e7ffb8f6
+  FirebaseCoreInternal: 2f4bee5ed00301b5e56da0849268797a2dd31fb4
+  FirebaseCrashlytics: a83f26fb922a3fe181eb738fb4dcf0c92bba6455
+  FirebaseDynamicLinks: 206d4ed3efd2b722822598017f3980d9fda89815
+  FirebaseInstallations: cae95cab0f965ce05b805189de1d4c70b11c76fb
+  FirebaseMessaging: 0c0ae1eb722ef0c07f7801e5ded8dccd1357d6d4
+  FirebaseSessions: ee59a7811bef4c15f65ef6472f3210faa293f9c8
+  Google-Mobile-Ads-SDK: 509e53bd31c6accb2d9c33b0eb66df1d54dda622
+  GoogleAppMeasurement: 722db6550d1e6d552b08398b69a975ac61039338
+  GoogleDataTransport: 54dee9d48d14580407f8f5fbf2f496e92437a2f2
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
-  GoogleUserMessagingPlatform: 5f8b30daf181805317b6b985bb51c1ff3beca054
-  GoogleUtilities: c63691989bf362ba0505507da00eeb326192e83e
+  GoogleUserMessagingPlatform: dce302b8f1b84d6e945812ee7a15c3f65a102cbf
+  GoogleUtilities: 13e2c67ede716b8741c7989e26893d151b2b2084
   GoogleWebRTC: 4d261187b30512efdb711d21fa961a6adf138717
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
@@ -332,11 +335,12 @@ SPEC CHECKSUMS:
   naveridlogin-sdk-ios: cdd34e3585a3d5aaf37c1d84c1f41faba4a25d1a
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
+  RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
-  TossPayments: fb41900669627e9cb22b4046c55b5ebfdd32c8f2
+  TossPayments: 2106484a18ad5175a1a611a7de538c4d95ec0dff
   ZXingObjC: 2c95a0dc52daac69b23ec78fad8fa2fec05f8981
 
-PODFILE CHECKSUM: 854a605668c9910f33986f31e4c2a86317b50a72
+PODFILE CHECKSUM: 8635bb71d921bb09f88bd1dabcde39de8e3fde6d
 
 COCOAPODS: 1.12.1

@@ -347,33 +347,40 @@
 			<key>orderHint</key>
 			<integer>58</integer>
 		</dict>
-		<key>Starscream.xcscheme</key>
+		<key>RecaptchaInterop.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>59</integer>
 		</dict>
-		<key>SwiftAlgorithms.xcscheme</key>
+		<key>Starscream.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>60</integer>
 		</dict>
-		<key>TossPayments.xcscheme</key>
+		<key>SwiftAlgorithms.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>61</integer>
 		</dict>
-		<key>ZXingObjC.xcscheme</key>
+		<key>TossPayments.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 			<key>orderHint</key>
 			<integer>62</integer>
+		</dict>
+		<key>ZXingObjC.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>63</integer>
 		</dict>
 		<key>lottie-ios.xcscheme</key>
 		<dict>

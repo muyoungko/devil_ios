@@ -291,10 +291,10 @@ class SessionStartEvent: NSObject, GDTCOREventDataObject {
           subtype = firebase_appquality_sessions_NetworkConnectionInfo_MobileSubtype_NR
         }
       }
-    #else
+    #else // os(iOS) && !targetEnvironment(macCatalyst)
       subtype =
         firebase_appquality_sessions_NetworkConnectionInfo_MobileSubtype_UNKNOWN_MOBILE_SUBTYPE
-    #endif
+    #endif // os(iOS) && !targetEnvironment(macCatalyst)
 
     return subtype
   }
