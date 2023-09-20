@@ -211,7 +211,7 @@ public class DevilWebRtcInstance: NSObject {
             equivalent AWS CLI command:
             aws kinesis-video-signaling get-ice-server-config --channel-arn channelARN --client-id clientId --region cognitoIdentityUserPoolRegion
         */
-        let credentialsProvider = AWSStaticCredentialsProvider(accessKey: "AKIATLXC6DG566WPULMH", secretKey: "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")
+        let credentialsProvider = AWSStaticCredentialsProvider(accessKey: self.accessKey, secretKey: self.secretKey)
         let configuration =
             AWSServiceConfiguration(region: regionType,
                                     endpoint: endpoint,
@@ -296,7 +296,7 @@ public class DevilWebRtcInstance: NSObject {
             AWSCredentials = credentials
         }
         
-        let credentialsProvider = AWSStaticCredentialsProvider(accessKey: "AKIATLXC6DG566WPULMH", secretKey: "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")
+        let credentialsProvider = AWSStaticCredentialsProvider(accessKey: self.accessKey, secretKey: self.secretKey)
         
         var sessionKey: String?
         credentialsProvider.credentials().continueWith(block: { (task) -> Void in
@@ -332,8 +332,8 @@ public class DevilWebRtcInstance: NSObject {
         
         let wssURL = KVSSigner
             .sign(signRequest: httpRequestURL!,
-                  secretKey: "ah+TDByNpk8zyNPOSMNAuTlxPnfGbsiI1FF7/afy",
-                  accessKey: "AKIATLXC6DG566WPULMH",
+                  secretKey: self.secretKey,
+                  accessKey: self.accessKey,
                   sessionToken: "",
                   wssRequest: wssRequestURL!,
                   region: region)
