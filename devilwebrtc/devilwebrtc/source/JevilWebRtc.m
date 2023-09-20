@@ -6,11 +6,23 @@
 //
 
 #import "JevilWebRtc.h"
+#import <devilwebrtc/devilwebrtc-Swift.h>
+@import devilcore;
 
 @implementation JevilWebRtc
 
 + (void)start:(id)param :(JSValue *)callback {
+    DevilWebRtcInstance* d = [[DevilWebRtcInstance alloc] init];
+    d.regionName = param[@"region"];
+    d.channelName = @"test1";
+    d.channelARN = param[@"arn"];
+    d.accessKey = param[@"accessKeyId"];
+    d.secretKey = param[@"secretAccessKey"];
+    d.isMaster = true;
+    d.currentVc = [JevilInstance currentInstance].vc;
+    [d connectAsRole];
     
+    [JevilInstance currentInstance].forRetain[@"webrtc"] = d;
 }
 
 @end

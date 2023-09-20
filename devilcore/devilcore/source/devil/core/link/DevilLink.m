@@ -56,7 +56,7 @@
         if([bundle isEqualToString:@"kr.co.july.CloudJsonViewer"]) {
             param[@"package_android"] = @"kr.co.july.cloudjsonviewer";
             param[@"package_ios"] = @"kr.co.july.CloudJsonViewer";
-            param[@"prefix"] = @"https://sketchtoapp.page.link";
+            param[@"prefix"] = @"https://dab.page.link";
             param[@"appstore_id"] = @"1540234300";
         }
         

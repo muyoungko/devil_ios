@@ -86,7 +86,6 @@
 				6D0A69B82AB5DB7A00140B43 /* Message.swift */,
 				6D0A69C32AB5DB7A00140B43 /* SignalingClient.swift */,
 				6D0A69BE2AB5DB7A00140B43 /* VideoViewController.swift */,
-				6D0A69B72AB5DB7A00140B43 /* VideoViewController.xib */,
 				6D0A69C52AB5DB7A00140B43 /* WebRTCClient.swift */,
 			);
 			path = source;
@@ -95,6 +94,7 @@
 		6D0A699F2AB5408000140B43 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6D0A69B72AB5DB7A00140B43 /* VideoViewController.xib */,
 			);
 			path = resource;
 			sourceTree = "<group>";

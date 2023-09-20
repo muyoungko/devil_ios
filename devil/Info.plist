@@ -76,7 +76,7 @@
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
 		<string>http://m.deavil.com/share</string>
-		<string>https://sketchtoapp.page.link</string>
+		<string>https://dab.page.link</string>
 	</array>
 	<key>KAKAO_APP_KEY</key>
 	<string>d0c7657dc3cd93575cc590b87c0dc624</string>

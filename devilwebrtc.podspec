@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
   s.public_header_files = 'devilwebrtc/devilwebrtc/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
   s.dependency 'devilcore', '~> 0.0.251'
-   
+  s.dependency 'GoogleWebRTC', '~> 1.1'
 end

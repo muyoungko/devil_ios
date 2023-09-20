@@ -192,8 +192,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
     [[GADMobileAds sharedInstance] startWithCompletionHandler:nil];
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber=0;
-    
     [WildCardConstructor sharedInstance:@"1605234988599"];
     [WildCardConstructor sharedInstance].delegate = self;
     [WildCardConstructor sharedInstance].textConvertDelegate = self;

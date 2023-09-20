@@ -16,6 +16,7 @@
 #import "JevilUtil.h"
 #import "DevilSdk.h"
 #import "DevilLang.h"
+#import "DevilController.h"
 
 @interface JevilCtx ()
 
@@ -62,10 +63,26 @@
                                                                 
             }]];
             [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
+            
+            [self sendLogIf];
         }];
         
     }
     return self;
+}
+
+-(void)sendLogIf {
+    if(![[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"]) {
+        id param = [@{} mutableCopy];
+        param[@"package"] = [[NSBundle mainBundle] bundleIdentifier];
+        param[@"project_id"] = [Jevil get:@"PROJECT_ID"];
+        param[@"screen"] = ((DevilController*)[JevilInstance currentInstance].vc).screenName;
+        param[@"os_version"] = [[UIDevice currentDevice] systemVersion];
+        param[@"os"] = @"ios";
+        [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:@"https://console-api.deavil.com/api/report/abnormal" header:@{} json:param success:^(NSMutableDictionary *responseJsonObject) {
+            
+        }];
+    }
 }
 
 -(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta {

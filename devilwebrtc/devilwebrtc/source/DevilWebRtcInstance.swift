@@ -22,14 +22,17 @@ public class DevilWebRtcInstance: NSObject {
 
     // variables controlled by UI
     var sendAudioEnabled: Bool = true
-    var isMaster: Bool = false
+    
+    @objc public var isMaster: Bool = false
     var signalingConnected: Bool = false
     
-    var channelName: String = ""
-    var regionName: String = ""
-    var clientID: String = ""
-    var accessKey: String = "AKIATLXC6DG566WPULMH"
-    var secretKey: String = "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"
+    @objc public var channelName: String = ""
+    @objc public var regionName: String = ""
+    @objc public var clientID: String = ""
+    @objc public var accessKey: String = ""
+    @objc public var secretKey: String = ""
+    
+    @objc public var channelARN: String = ""
     
     // clients for WEBRTC Connection
     var signalingClient: SignalingClient?
@@ -43,9 +46,13 @@ public class DevilWebRtcInstance: NSObject {
 
     
     var vc: VideoViewController?
-    
+    @objc public var currentVc : UIViewController!
     var peerConnection: RTCPeerConnection?
 
+    
+    @objc public override init() {
+        super.init()
+    }
     
     /*
      This function sets up the WEBRTC Connection
@@ -61,7 +68,8 @@ public class DevilWebRtcInstance: NSObject {
 
      After the connection is established switch to VideoView
      */
-    func connectAsRole() {
+    @objc
+    public func connectAsRole() {
         // Attempt to gather User Inputs
         let awsRegionValue = self.regionName
         let awsRegionType = self.regionName.aws_regionTypeValue()
@@ -119,8 +127,8 @@ public class DevilWebRtcInstance: NSObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             
             //연결 완료 TODO
-//            self.vc = VideoViewController(webRTCClient: self.webRTCClient!, signalingClient: self.signalingClient!, localSenderClientID: self.localSenderId, isMaster: self.isMaster, mediaServerEndPoint: endpoints["WEBRTC"] ?? nil)
-//            self.present(self.vc!, animated: true, completion: nil)
+            self.vc = VideoViewController(webRTCClient: self.webRTCClient!, signalingClient: self.signalingClient!, localSenderClientID: self.localSenderId, isMaster: self.isMaster, mediaServerEndPoint: endpoints["WEBRTC"] ?? nil)
+            self.currentVc.present(self.vc!, animated: true, completion: nil)
         }
     }
 
