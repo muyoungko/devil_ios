@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JevilWebRtc <JSExport>
 
 + (void)start:(id)param :(JSValue *)callback;
++ (void)startView:(id)param :(JSValue *)callback;
 
 @end
 

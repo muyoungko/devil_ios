@@ -6,10 +6,14 @@ class VideoViewController: UIViewController {
     @IBOutlet var localVideoView: UIView?
     @IBOutlet var joinStorageButton: UIButton?
     
+    public var sendVideo: Bool = true
+    public var sendAudio: Bool = true
+    
     private let webRTCClient: WebRTCClient
     private let signalingClient: SignalingClient
     private let localSenderClientID: String
-    private let isMaster: Bool 
+    private let isMaster: Bool
+    
 
     init(webRTCClient: WebRTCClient, signalingClient: SignalingClient, localSenderClientID: String, isMaster: Bool, mediaServerEndPoint: String?) {
         self.webRTCClient = webRTCClient
@@ -43,17 +47,22 @@ class VideoViewController: UIViewController {
         super.viewDidLoad()
         #if arch(arm64)
         // Using metal (arm64 only)
+        
         let localRenderer = RTCMTLVideoView(frame: localVideoView?.frame ?? CGRect.zero)
-        let remoteRenderer = RTCMTLVideoView(frame: view.frame)
         localRenderer.videoContentMode = .scaleAspectFill
+        
+        let remoteRenderer = RTCMTLVideoView(frame: view.frame)
         remoteRenderer.videoContentMode = .scaleAspectFill
+        
         #else
         // Using OpenGLES for the rest
         let localRenderer = RTCEAGLVideoView(frame: localVideoView?.frame ?? CGRect.zero)
         let remoteRenderer = RTCEAGLVideoView(frame: view.frame)
         #endif
 
-        webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
+        if(sendVideo) {
+            webRTCClient.startCaptureLocalVideo(renderer: localRenderer)
+        }
         webRTCClient.renderRemoteVideo(to: remoteRenderer)
 
         if let localVideoView = self.localVideoView {

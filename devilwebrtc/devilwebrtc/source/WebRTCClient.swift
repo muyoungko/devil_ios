@@ -32,7 +32,10 @@ final class WebRTCClient: NSObject {
     private var peerConnectionFoundMap = [String: RTCPeerConnection]()
     private var pendingIceCandidatesMap = [String: Set<RTCIceCandidate>]()
 
-    required init(iceServers: [RTCIceServer], isAudioOn: Bool) {
+    private var sendVideo: Bool?
+    private var sendAudio: Bool?
+    
+    required init(iceServers: [RTCIceServer], sendAudio: Bool, sendVideo: Bool) {
         let config = RTCConfiguration()
         config.iceServers = iceServers
         config.sdpSemantics = .unifiedPlan
@@ -48,10 +51,12 @@ final class WebRTCClient: NSObject {
         super.init()
         configureAudioSession()
 
-        if (isAudioOn) {
-        createLocalAudioStream()
+        if (sendAudio) {
+            createLocalAudioStream()
         }
-        createLocalVideoStream()
+        
+        createVideoStream(sendVideo:sendVideo)
+        
         peerConnection.delegate = self
     }
 
@@ -205,13 +210,16 @@ final class WebRTCClient: NSObject {
         remoteVideoTrack?.add(renderer)
     }
 
-    private func createLocalVideoStream() {
-        localVideoTrack = createVideoTrack()
-
-        if let localVideoTrack = localVideoTrack {
-            peerConnection.add(localVideoTrack, streamIds: [streamId])
-            remoteVideoTrack = peerConnection.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
+    private func createVideoStream(sendVideo : Bool) {
+        //여기서 createStream해도 되며 VideoViewController에서 send를 안하면된다
+        if(sendVideo || true) {
+            localVideoTrack = createVideoTrack()
+            if let localVideoTrack = localVideoTrack {
+                peerConnection.add(localVideoTrack, streamIds: [streamId])
+            }
         }
+
+        remoteVideoTrack = peerConnection.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
 
     }
 

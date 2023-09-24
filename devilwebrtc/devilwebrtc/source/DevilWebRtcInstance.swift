@@ -19,9 +19,6 @@ public class DevilWebRtcInstance: NSObject {
     var pool: AWSCognitoIdentityUserPool?
     var userDetailsResponse: AWSCognitoIdentityUserGetDetailsResponse?
     var userSessionResponse: AWSCognitoIdentityUserSession?
-
-    // variables controlled by UI
-    var sendAudioEnabled: Bool = true
     
     @objc public var isMaster: Bool = false
     var signalingConnected: Bool = false
@@ -34,6 +31,9 @@ public class DevilWebRtcInstance: NSObject {
     
     @objc public var channelARN: String = ""
     @objc public var channelInfo: NSMutableDictionary = [:]
+    
+    @objc public var sendVideo: Bool = true
+    @objc public var sendAudio: Bool = true
     
     // clients for WEBRTC Connection
     var signalingClient: SignalingClient?
@@ -93,7 +93,7 @@ public class DevilWebRtcInstance: NSObject {
         if self.isMaster {
             usingMediaServer = isUsingMediaServer(channelARN: self.channelARN, channelName: self.channelName)
             // Make sure that audio is enabled if ingesting webrtc connection
-            if(usingMediaServer && !self.sendAudioEnabled) {
+            if(usingMediaServer && !self.sendAudio) {
 //                popUpError(title: "Invalid Configuration", message: "Audio must be enabled to use MediaServer")
                 return
             }
@@ -109,7 +109,7 @@ public class DevilWebRtcInstance: NSObject {
                         service: .KinesisVideo,
                         url: URL(string: endpoints["HTTPS"]!!))
         let RTCIceServersList = getIceCandidates(channelARN: self.channelARN, endpoint: httpsEndpoint!, regionType: awsRegionType, clientId: localSenderId)
-        webRTCClient = WebRTCClient(iceServers: RTCIceServersList, isAudioOn: sendAudioEnabled)
+        webRTCClient = WebRTCClient(iceServers: RTCIceServersList, sendAudio: self.sendAudio, sendVideo: self.sendVideo )
         webRTCClient!.delegate = self
 
         // Connect to signalling channel with wss endpoint
@@ -124,6 +124,10 @@ public class DevilWebRtcInstance: NSObject {
             
             //연결 완료 TODO
             self.vc = VideoViewController(webRTCClient: self.webRTCClient!, signalingClient: self.signalingClient!, localSenderClientID: self.localSenderId, isMaster: self.isMaster, mediaServerEndPoint: endpoints["WEBRTC"] ?? nil)
+            
+            self.vc?.sendVideo = self.sendVideo
+            self.vc?.sendAudio = self.sendAudio
+            
             self.currentVc.present(self.vc!, animated: true, completion: nil)
         }
     }
@@ -369,8 +373,9 @@ extension DevilWebRtcInstance: SignalClientDelegate {
         setRemoteSenderClientId()
         webRTCClient!.set(remoteSdp: sdp, clientId: senderClientId) { _ in
             print("Setting remote sdp and sending answer.")
-            self.vc!.sendAnswer(recipientClientID: self.remoteSenderClientId!)
-
+            if(self.vc != nil) {
+                self.vc!.sendAnswer(recipientClientID: self.remoteSenderClientId!)
+            }
         }
     }
 
