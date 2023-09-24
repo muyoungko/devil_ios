@@ -33,6 +33,7 @@ public class DevilWebRtcInstance: NSObject {
     @objc public var secretKey: String = ""
     
     @objc public var channelARN: String = ""
+    @objc public var channelInfo: NSMutableDictionary = [:]
     
     // clients for WEBRTC Connection
     var signalingClient: SignalingClient?
@@ -85,17 +86,12 @@ public class DevilWebRtcInstance: NSObject {
         let configuration = AWSServiceConfiguration(region: awsRegionType, credentialsProvider: credentialsProvider)
         AWSKinesisVideo.register(with: configuration!, forKey: awsKinesisVideoKey)
 
-        // Attempt to retrieve signalling channel.  If it does not exist create the channel
-        var channelARN = retrieveChannelARN(channelName: self.channelName)
-        if channelARN == nil {
-//            channelARN = createChannel(channelName: self.channelName)
-        }
         
         // check whether signalling channel will save its recording to a stream
         // only applies for master
         var usingMediaServer : Bool = false
         if self.isMaster {
-            usingMediaServer = isUsingMediaServer(channelARN: channelARN!, channelName: self.channelName)
+            usingMediaServer = isUsingMediaServer(channelARN: self.channelARN, channelName: self.channelName)
             // Make sure that audio is enabled if ingesting webrtc connection
             if(usingMediaServer && !self.sendAudioEnabled) {
 //                popUpError(title: "Invalid Configuration", message: "Audio must be enabled to use MediaServer")
@@ -104,15 +100,15 @@ public class DevilWebRtcInstance: NSObject {
         }
         
         // get signalling channel endpoints
-        let endpoints = getSignallingEndpoints(channelARN: channelARN!, region: awsRegionValue, isMaster: self.isMaster, useMediaServer: usingMediaServer)
-        let wssURL = createSignedWSSUrl(channelARN: channelARN!, region: awsRegionValue, wssEndpoint: endpoints["WSS"]!, isMaster: self.isMaster)
+        let endpoints = getSignallingEndpoints(channelARN: self.channelARN, region: awsRegionValue, isMaster: self.isMaster, useMediaServer: usingMediaServer)
+        let wssURL = createSignedWSSUrl(channelARN: self.channelARN, region: awsRegionValue, wssEndpoint: endpoints["WSS"]!, isMaster: self.isMaster)
         print("WSS URL :", wssURL?.absoluteString as Any)
         // get ice candidates using https endpoint
         let httpsEndpoint =
             AWSEndpoint(region: awsRegionType,
                         service: .KinesisVideo,
                         url: URL(string: endpoints["HTTPS"]!!))
-        let RTCIceServersList = getIceCandidates(channelARN: channelARN!, endpoint: httpsEndpoint!, regionType: awsRegionType, clientId: localSenderId)
+        let RTCIceServersList = getIceCandidates(channelARN: self.channelARN, endpoint: httpsEndpoint!, regionType: awsRegionType, clientId: localSenderId)
         webRTCClient = WebRTCClient(iceServers: RTCIceServersList, isAudioOn: sendAudioEnabled)
         webRTCClient!.delegate = self
 

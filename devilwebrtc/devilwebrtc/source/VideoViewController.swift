@@ -9,14 +9,15 @@ class VideoViewController: UIViewController {
     private let webRTCClient: WebRTCClient
     private let signalingClient: SignalingClient
     private let localSenderClientID: String
-    private let isMaster: Bool
+    private let isMaster: Bool 
 
     init(webRTCClient: WebRTCClient, signalingClient: SignalingClient, localSenderClientID: String, isMaster: Bool, mediaServerEndPoint: String?) {
         self.webRTCClient = webRTCClient
         self.signalingClient = signalingClient
         self.localSenderClientID = localSenderClientID
         self.isMaster = isMaster
-        super.init(nibName: String(describing: VideoViewController.self), bundle: Bundle.main)
+        
+        super.init(nibName: String(describing: VideoViewController.self), bundle: Bundle(for: type(of: self)))
         
         if !isMaster {
             // In viewer mode send offer once connection is established
@@ -62,6 +63,11 @@ class VideoViewController: UIViewController {
         view.sendSubviewToBack(remoteRenderer)
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.signalingClient.disconnect();
+        self.webRTCClient.shutdown();
+    }
     private func embedView(_ view: UIView, into containerView: UIView) {
         containerView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false

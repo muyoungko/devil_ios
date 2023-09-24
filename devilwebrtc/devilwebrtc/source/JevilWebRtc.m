@@ -18,8 +18,9 @@
     d.channelARN = param[@"arn"];
     d.accessKey = param[@"accessKeyId"];
     d.secretKey = param[@"secretAccessKey"];
-    d.isMaster = true;
+    d.isMaster = [param[@"isMaster"] boolValue];
     d.currentVc = [JevilInstance currentInstance].vc;
+    d.channelInfo = param[@"channelInfo"];
     [d connectAsRole];
     
     [JevilInstance currentInstance].forRetain[@"webrtc"] = d;

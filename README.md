@@ -74,4 +74,17 @@ put it in the info plist
 target의 Copy Bundle Resource 에서 문제되는 파일 제거
 
 
-# Library not loaded 해결
+# @rpath Library not loaded WebRTC.framework 해결법
+
+Pods에 있는 framwork를 devil / framework에 추가함
+그후 embeded and sign 옵션 켜기
+
+# WebRtc에서 "Unsupported architectures. Your executable contains unsupported architectures '[x86_64, i386]'" 해결법
+
+Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework
+lipo -remove i386 WebRTC -o WebRTC
+lipo -remove x86_64 WebRTC -o WebRTC
+
+에서 위 커맨드로 불필요한 아키텍처를 제거한다
+
+
