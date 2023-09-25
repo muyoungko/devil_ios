@@ -23,12 +23,13 @@
     d.channelInfo = param[@"channelInfo"];
     d.sendVideo = [param[@"isVideoSent"] boolValue];
     d.sendAudio = [param[@"isAudioSent"] boolValue];
+    d.parentView = nil;
     [d connectAsRole];
     
     [JevilInstance currentInstance].forRetain[@"webrtc"] = d;
 }
 
-+ (void)startView:(id)param :(JSValue *)callback {
++ (void)startView:(NSString*)nodeName :(id)param :(JSValue *)callback {
     DevilWebRtcInstance* d = [[DevilWebRtcInstance alloc] init];
     d.regionName = param[@"region"];
     d.channelName = @"test1";
@@ -40,6 +41,11 @@
     d.channelInfo = param[@"channelInfo"];
     d.sendVideo = [param[@"isVideoSent"] boolValue];
     d.sendAudio = [param[@"isAudioSent"] boolValue];
+    
+    DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* view = [dc findView:nodeName];
+    
+    d.parentView = view;
     [d connectAsRole];
     
     [JevilInstance currentInstance].forRetain[@"webrtc"] = d;

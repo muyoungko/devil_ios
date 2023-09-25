@@ -47,6 +47,9 @@ public class DevilWebRtcInstance: NSObject {
 
     
     var vc: VideoViewController?
+    @objc public var parentView: UIView?
+    private var devilWebRtcVideoView: DevilWebRtcVideoView?
+    
     @objc public var currentVc : UIViewController!
     var peerConnection: RTCPeerConnection?
 
@@ -122,13 +125,22 @@ public class DevilWebRtcInstance: NSObject {
         let seconds = 2.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
             
-            //연결 완료 TODO
-            self.vc = VideoViewController(webRTCClient: self.webRTCClient!, signalingClient: self.signalingClient!, localSenderClientID: self.localSenderId, isMaster: self.isMaster, mediaServerEndPoint: endpoints["WEBRTC"] ?? nil)
-            
-            self.vc?.sendVideo = self.sendVideo
-            self.vc?.sendAudio = self.sendAudio
-            
-            self.currentVc.present(self.vc!, animated: true, completion: nil)
+            if(self.parentView != nil) {
+                self.devilWebRtcVideoView = DevilWebRtcVideoView(webRTCClient: self.webRTCClient!, signalingClient: self.signalingClient!, localSenderClientID: self.localSenderId, isMaster: self.isMaster, mediaServerEndPoint: endpoints["WEBRTC"] ?? nil)
+                self.devilWebRtcVideoView?.frame = CGRect(x: 0, y: 0, width: self.parentView!.frame.size.width, height: self.parentView!.frame.size.height)
+                self.devilWebRtcVideoView?.sendVideo = self.sendVideo
+                self.devilWebRtcVideoView?.sendAudio = self.sendAudio
+                self.parentView!.addSubview(self.devilWebRtcVideoView!)
+                
+                self.devilWebRtcVideoView!.start(parentView: self.parentView!)
+            } else {
+                self.vc = VideoViewController(webRTCClient: self.webRTCClient!, signalingClient: self.signalingClient!, localSenderClientID: self.localSenderId, isMaster: self.isMaster, mediaServerEndPoint: endpoints["WEBRTC"] ?? nil)
+                
+                self.vc?.sendVideo = self.sendVideo
+                self.vc?.sendAudio = self.sendAudio
+                
+                self.currentVc.present(self.vc!, animated: true, completion: nil)
+            }
         }
     }
 

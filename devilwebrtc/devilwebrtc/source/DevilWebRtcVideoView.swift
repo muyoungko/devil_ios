@@ -1,36 +1,42 @@
+//
+//  DevilWebRtcVideoView.swift
+//  devilwebrtc
+//
+//  Created by Mu Young Ko on 2023/09/25.
+//
+
+import Foundation
 import UIKit
 import AWSKinesisVideo
 import WebRTC
 
-class VideoViewController: UIViewController {
-    @IBOutlet var localVideoView: UIView?
-    @IBOutlet var joinStorageButton: UIButton?
+class DevilWebRtcVideoView: UIView {
     
-    public var sendVideo: Bool = true 
+    public var localVideoView: UIView?
+    
+    public var sendVideo: Bool = true
     public var sendAudio: Bool = true
     
-    private let webRTCClient: WebRTCClient
-    private let signalingClient: SignalingClient
-    private let localSenderClientID: String
-    private let isMaster: Bool
+    private var webRTCClient: WebRTCClient
+    private var signalingClient: SignalingClient
+    private var localSenderClientID: String
+    private var isMaster: Bool
     
-
+    
     init(webRTCClient: WebRTCClient, signalingClient: SignalingClient, localSenderClientID: String, isMaster: Bool, mediaServerEndPoint: String?) {
+        
         self.webRTCClient = webRTCClient
         self.signalingClient = signalingClient
         self.localSenderClientID = localSenderClientID
         self.isMaster = isMaster
         
-        super.init(nibName: String(describing: VideoViewController.self), bundle: Bundle(for: type(of: self)))
+        super.init(frame: CGRect.zero)
         
         if !isMaster {
             // In viewer mode send offer once connection is established
             webRTCClient.offer { sdp in
                 self.signalingClient.sendOffer(rtcSdp: sdp, senderClientid: self.localSenderClientID)
             }
-        }
-        if mediaServerEndPoint == nil {
-            self.joinStorageButton?.isHidden = true
         }
     }
     
@@ -39,19 +45,15 @@ class VideoViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        //AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func start(parentView : UIView) {
+        
         #if arch(arm64)
         // Using metal (arm64 only)
         
         let localRenderer = RTCMTLVideoView(frame: localVideoView?.frame ?? CGRect.zero)
         localRenderer.videoContentMode = .scaleAspectFill
         
-        let remoteRenderer = RTCMTLVideoView(frame: view.frame)
+        let remoteRenderer = RTCMTLVideoView(frame: self.frame)
         remoteRenderer.videoContentMode = .scaleAspectFill
         
         #else
@@ -68,15 +70,15 @@ class VideoViewController: UIViewController {
         if let localVideoView = self.localVideoView {
             embedView(localRenderer, into: localVideoView)
         }
-        embedView(remoteRenderer, into: view)
-        view.sendSubviewToBack(remoteRenderer)
+        embedView(remoteRenderer, into: self)
+        self.sendSubviewToBack(remoteRenderer)
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    func destroy() {
         self.signalingClient.disconnect();
         self.webRTCClient.shutdown();
     }
+    
     private func embedView(_ view: UIView, into containerView: UIView) {
         containerView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -90,18 +92,6 @@ class VideoViewController: UIViewController {
                                                                     metrics: nil,
                                                                     views: ["view": view]))
         containerView.layoutIfNeeded()
-    }
-
-    @IBAction func backDidTap(_: Any) {
-        webRTCClient.shutdown()
-        signalingClient.disconnect()
-        dismiss(animated: true)
-    }
-    
-    @IBAction func joinStorageSession(_: Any) {
-        print("button pressed")
-        joinStorageButton?.isHidden = true
-        
     }
 
     func sendAnswer(recipientClientID: String) {
