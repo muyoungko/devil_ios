@@ -49,17 +49,17 @@ class DevilWebRtcVideoView: UIView {
         
         #if arch(arm64)
         // Using metal (arm64 only)
-        
+
         let localRenderer = RTCMTLVideoView(frame: localVideoView?.frame ?? CGRect.zero)
         localRenderer.videoContentMode = .scaleAspectFill
-        
+
         let remoteRenderer = RTCMTLVideoView(frame: self.frame)
         remoteRenderer.videoContentMode = .scaleAspectFill
-        
+
         #else
         // Using OpenGLES for the rest
         let localRenderer = RTCEAGLVideoView(frame: localVideoView?.frame ?? CGRect.zero)
-        let remoteRenderer = RTCEAGLVideoView(frame: view.frame)
+        let remoteRenderer = RTCEAGLVideoView(frame: self.frame)
         #endif
 
         if(sendVideo) {
