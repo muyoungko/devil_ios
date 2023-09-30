@@ -107,7 +107,6 @@
 		6D0224ED2613959900634842 /* devillogin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devillogin.podspec; sourceTree = "<group>"; };
 		6D0224EF26143D8300634842 /* devilcore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilcore.podspec; sourceTree = "<group>"; };
 		6D0A69A52AB5824300140B43 /* devilwebrtc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilwebrtc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6D0A69AA2AB58A6500140B43 /* devilbill.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = devilbill.framework; sourceTree = "<group>"; };
 		6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebRTC.framework; path = Pods/GoogleWebRTC/Frameworks/frameworks/WebRTC.framework; sourceTree = "<group>"; };
 		6D0A69F92AB9E12A00140B43 /* devilbill.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilbill.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D132B8F255E6E0F00004E1F /* JulyUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JulyUtil.h; sourceTree = "<group>"; };
@@ -230,7 +229,6 @@
 			children = (
 				6D0A69F92AB9E12A00140B43 /* devilbill.framework */,
 				6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */,
-				6D0A69AA2AB58A6500140B43 /* devilbill.framework */,
 				6D0A69A52AB5824300140B43 /* devilwebrtc.framework */,
 				6D62FB0828DD7A0B0094426E /* devilnfc.framework */,
 				6DACD00228DD61E7002E7409 /* devilextra.framework */,
@@ -772,7 +770,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
@@ -794,7 +792,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.229;
+				MARKETING_VERSION = 0.0.230;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -821,7 +819,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 229;
+				CURRENT_PROJECT_VERSION = 230;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -841,7 +839,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.229;
+				MARKETING_VERSION = 0.0.230;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

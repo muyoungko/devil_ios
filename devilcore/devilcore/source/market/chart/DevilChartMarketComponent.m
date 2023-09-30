@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSString* type;
 @property (nonatomic, retain) NSString* dataPath;
 @property (nonatomic, retain) BarLineChartViewBase* chart;
+@property (nonatomic, retain) PieChartView* pie_chart;
 @property (nonatomic, retain) NSMutableArray* list;
 
 @end
@@ -32,10 +33,72 @@
         self.chart = [[BarChartView alloc] init];
         ((BarChartView*)_chart).drawBarShadowEnabled = NO;
         ((BarChartView*)_chart).drawValueAboveBarEnabled = YES;
+        [self createBarChart];
     } else if([@"line" isEqualToString:self.type]) {
         self.chart = [[LineChartView alloc] init];
+        [self createBarChart];
+    } else if([@"pie" isEqualToString:self.type]) {
+        self.pie_chart = [[PieChartView alloc] init];
+        [self createPieChart];
     }
     
+    
+}
+
+- (void) createPieChart {
+    [self.vv addSubview:self.pie_chart];
+    [WildCardConstructor followSizeFromFather:self.vv child:self.pie_chart];
+    
+    PieChartView* chartView = self.pie_chart;
+    
+    chartView.usePercentValuesEnabled = YES;
+    chartView.drawSlicesUnderHoleEnabled = NO;
+    chartView.holeRadiusPercent = 0.58;
+    chartView.transparentCircleRadiusPercent = 0.61;
+    chartView.chartDescription.enabled = NO;
+    [chartView setExtraOffsetsWithLeft:5.f top:10.f right:5.f bottom:5.f];
+    
+    chartView.drawCenterTextEnabled = YES;
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    
+    chartView.drawHoleEnabled = YES;
+    chartView.rotationAngle = 0.0;
+    chartView.rotationEnabled = YES;
+    chartView.highlightPerTapEnabled = YES;
+    
+    ChartLegend *l = chartView.legend;
+    l.horizontalAlignment = ChartLegendHorizontalAlignmentRight;
+    l.verticalAlignment = ChartLegendVerticalAlignmentTop;
+    l.orientation = ChartLegendOrientationVertical;
+    l.drawInside = NO;
+    l.xEntrySpace = 7.0;
+    l.yEntrySpace = 0.0;
+    l.yOffset = 0.0;
+    chartView.delegate = self;
+    
+    // entry label styling
+    chartView.entryLabelColor = UIColor.blackColor;
+    chartView.entryLabelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.f];
+    
+    //    _sliderX.value = 4.0;
+    //    _sliderY.value = 100.0;
+    [self slidersValueChanged:nil];
+    
+    [chartView animateWithXAxisDuration:1.4 easingOption:ChartEasingOptionEaseOutBack];
+}
+
+- (IBAction)slidersValueChanged:(id)sender
+{
+    //    _sliderTextX.text = [@((int)_sliderX.value) stringValue];
+    //    _sliderTextY.text = [@((int)_sliderY.value) stringValue];
+    
+}
+
+- (void) createBarChart {
     _chart.delegate = self;
     
     [self.vv addSubview:self.chart];
@@ -63,7 +126,7 @@
     rightAxis.spaceTop = 0.15;
     rightAxis.axisMinimum = 0.0; // this replaces startAtZero = YES
     rightAxis.valueFormatter = self;
-
+    
     ChartLegend *l = _chart.legend;
     l.horizontalAlignment = ChartLegendHorizontalAlignmentLeft;
     l.verticalAlignment = ChartLegendVerticalAlignmentBottom;
@@ -79,22 +142,82 @@
     _chart.extraBottomOffset = 8.0f;
 }
 
-- (void)created {
-    [super created];
-}
-
-
 - (void)update:(id)opt {
     [super update:opt];
     
-    id DEFAULT_COLOR_LIST = @[@"#6597EA",
-            @"#9AB84E",
-            @"#E14835",
-            @"#EF8733",
-            @"#5ECDD7",
-            @"#CC7CCC",
-            @"#F5C042",];
+    if([@"bar" isEqualToString:self.type] || [@"line" isEqualToString:self.type]) {
+        [self updateBarChart:opt];
+    } else if([@"pie" isEqualToString:self.type]){
+        [self updatePieChart:opt];
+    }
+}
 
+- (void)updatePieChart:(id)opt {
+    
+    id DEFAULT_COLOR_LIST = @[@"#6597EA",
+                              @"#9AB84E",
+                              @"#E14835",
+                              @"#EF8733",
+                              @"#5ECDD7",
+                              @"#CC7CCC",
+                              @"#F5C042",];
+    
+    id chart_data = [MappingSyntaxInterpreter getJsonWithPath:opt :self.dataPath];
+    
+    id list = chart_data[@"list"];
+    self.list = list;
+    id keys = chart_data[@"keys"];
+    
+    id values = list[0];
+    NSMutableArray *entiries = [[NSMutableArray alloc] init];
+    NSMutableArray *colors = [[NSMutableArray alloc] init];
+    for (int i = 0; i < [keys count]; i++)
+    {
+        id m = keys[i];
+        NSString* key = m[@"key"];
+        NSString* legend = m[@"legend"];
+        NSString* color = m[@"color"];
+        if(!color)
+            color = DEFAULT_COLOR_LIST[i % [DEFAULT_COLOR_LIST count]];
+        [colors addObject:[WildCardUtil colorWithHexString:color]];
+        double value = [values[key] floatValue];
+        
+        [entiries addObject:[[PieChartDataEntry alloc] initWithValue:value label:legend]];
+    }
+    
+    PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithEntries:entiries label:@""];
+    
+    dataSet.drawIconsEnabled = NO;
+    
+    dataSet.sliceSpace = 2.0;
+    dataSet.iconsOffset = CGPointMake(0, 40);
+    
+    dataSet.colors = colors;
+    
+    PieChartData *data = [[PieChartData alloc] initWithDataSet:dataSet];
+    
+    NSNumberFormatter *pFormatter = [[NSNumberFormatter alloc] init];
+    pFormatter.numberStyle = NSNumberFormatterPercentStyle;
+    pFormatter.maximumFractionDigits = 1;
+    pFormatter.multiplier = @1.f;
+    pFormatter.percentSymbol = @" %";
+    [data setValueFormatter:[[ChartDefaultValueFormatter alloc] initWithFormatter:pFormatter]];
+    [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:11.f]];
+    [data setValueTextColor:UIColor.blackColor];
+    
+    self.pie_chart.data = data;
+    [self.pie_chart highlightValues:nil];
+}
+
+- (void)updateBarChart:(id)opt {
+    
+    id DEFAULT_COLOR_LIST = @[@"#6597EA",
+                              @"#9AB84E",
+                              @"#E14835",
+                              @"#EF8733",
+                              @"#5ECDD7",
+                              @"#CC7CCC",
+                              @"#F5C042",];
     
     id chart_data = [MappingSyntaxInterpreter getJsonWithPath:opt :self.dataPath];
     id list = chart_data[@"list"];
