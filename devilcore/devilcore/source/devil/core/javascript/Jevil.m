@@ -48,6 +48,7 @@
 #import "ReplaceRuleMarket.h"
 #import "ReplaceRule.h"
 #import "DevilBlockDrawerMarketComponent.h"
+#import "DevilGoogleMapMarketComponent.h"
 #import "MarketInstance.h"
 #import "DevilUtil.h"
 #import "DevilPdf.h"
@@ -1991,5 +1992,30 @@
     [DevilSdk start:project_id screenId:start_screen_id controller:[DevilController class] viewController:[JevilInstance currentInstance].vc version:version complete:^(BOOL res) {
         
     }];
+}
+
++ (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback{
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+    [mc camera:param];
+}
++ (void)mapAddMarker:(NSString*)nodeName :(id)param :(JSValue*)callback{
+    
+}
++ (void)mapUpdateMarker:(NSString*)nodeName :(id)param :(JSValue*)callback{
+    
+}
++ (void)mapRemoveMarker:(NSString*)nodeName :(NSString*)key{
+    
+}
++ (void)mapAddCircle:(NSString*)nodeName :(id)param :(JSValue*)callback{
+    
+}
++ (void)mapRemoveCircle:(NSString*)nodeName :(NSString*)key{
+    
+}
++ (void)mapCallback:(NSString*)nodeName :(NSString*)event :(JSValue*)callback{
+    
 }
 @end

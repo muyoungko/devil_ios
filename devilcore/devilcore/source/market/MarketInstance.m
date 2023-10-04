@@ -17,6 +17,7 @@
 #import "WildCardMeta.h"
 #import "ReplaceRule.h"
 #import "ReplaceRuleMarket.h"
+#import "DevilGoogleMapMarketComponent.h"
 
 @implementation MarketInstance
 
@@ -36,8 +37,10 @@
         r = [[DevilChartMarketComponent alloc] initWithLayer:market meta:meta];
     } else if([@"kr.co.july.blockdrawer" isEqualToString:type]) {
         r = [[DevilBlockDrawerMarketComponent alloc] initWithLayer:market meta:meta];
-    }  else if([@"kr.co.july.googleads" isEqualToString:type]) {
+    } else if([@"kr.co.july.googleads" isEqualToString:type]) {
         r = [[DevilGoogleAdsBannerMarketComponent alloc] initWithLayer:market meta:meta];
+    } else if([@"kr.co.july.map" isEqualToString:type]) {
+        r = [[DevilGoogleMapMarketComponent alloc] initWithLayer:market meta:meta];
     } else {
         r = [[MarketComponent alloc] initWithLayer:market meta:meta];
     }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -292,6 +292,8 @@
 		6DFA289B28ED19DE007463FB /* WildCardEventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFA289928ED19DE007463FB /* WildCardEventTracker.m */; };
 		6DFB74A02824255A00A64539 /* ReplaceRulePullToRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFB749E2824255A00A64539 /* ReplaceRulePullToRefresh.h */; };
 		6DFB74A12824255A00A64539 /* ReplaceRulePullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */; };
+		6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */; };
+		6DFC0CA02ACD68E900F26849 /* DevilGoogleMapMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -583,6 +585,8 @@
 		6DFA289928ED19DE007463FB /* WildCardEventTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardEventTracker.m; sourceTree = "<group>"; };
 		6DFB749E2824255A00A64539 /* ReplaceRulePullToRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRulePullToRefresh.h; sourceTree = "<group>"; };
 		6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRulePullToRefresh.m; sourceTree = "<group>"; };
+		6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGoogleMapMarketComponent.h; sourceTree = "<group>"; };
+		6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGoogleMapMarketComponent.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1057,6 +1061,7 @@
 		6DD09434269C79CC000A913A /* market */ = {
 			isa = PBXGroup;
 			children = (
+				6DFC0C9C2ACD68C800F26849 /* map */,
 				6DECCD4B294AFAE0007FBBD9 /* ads */,
 				6DDE20382923BFF500AD7F3C /* blockdrawer */,
 				6DC0CE2F28E5973600195F60 /* chart */,
@@ -1191,6 +1196,15 @@
 			path = beacon;
 			sourceTree = "<group>";
 		};
+		6DFC0C9C2ACD68C800F26849 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */,
+				6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */,
+			);
+			path = map;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1257,6 +1271,7 @@
 				6DE2BAFB27A8F2A7008344DE /* DevilRecord.h in Headers */,
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
 				6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */,
+				6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */,
 				6D9F7B91262C8380003A70EC /* ReplaceRuleVideo.h in Headers */,
 				6D9A9DE628A3730F003302B3 /* DevilImageMapMarketComponent.h in Headers */,
 				6D467A8A256AB07A006D57DD /* WildCardLCAnimatedPageControl.h in Headers */,
@@ -1340,6 +1355,7 @@
 				6D46792A256A16DB006D57DD /* Sources */,
 				6D46792B256A16DB006D57DD /* Frameworks */,
 				6D46792C256A16DB006D57DD /* Resources */,
+				42EFF064E7C6B31944734584 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1424,6 +1440,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		42EFF064E7C6B31944734584 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		E320C26C342F5B62C4CDCE46 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1517,6 +1550,7 @@
 				6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */,
 				6D467A92256AB07A006D57DD /* ReplaceRuleImage.m in Sources */,
 				6D467AB4256AB07A006D57DD /* WildCardCollectionViewAdapter.m in Sources */,
+				6DFC0CA02ACD68E900F26849 /* DevilGoogleMapMarketComponent.m in Sources */,
 				6D467B7F257A3010006D57DD /* DevilWebView.m in Sources */,
 				6D467A9B256AB07A006D57DD /* ReplaceRule.m in Sources */,
 				6D9E2B2025BB4A920027D16D /* ReplaceRuleStrip.m in Sources */,

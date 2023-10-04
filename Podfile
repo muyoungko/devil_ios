@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '12.0'
+platform :ios, '14.0'
 
 #use_frameworks!
 #use_modular_headers!
@@ -56,6 +56,8 @@ target 'devilcore' do
   pod 'MQTTClient'
   pod 'ZXingObjC', '~> 3.2.1'
   pod 'Charts', '~> 4.1.0'
+  pod 'GoogleMaps', '7.3.0'
+  pod 'Google-Maps-iOS-Utils', '4.2.2'
 end
 
 target 'devillogin' do
