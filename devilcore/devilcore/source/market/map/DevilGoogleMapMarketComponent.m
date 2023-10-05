@@ -34,6 +34,7 @@
     self.mapView.myLocationEnabled = YES;
     [self.vv addSubview:self.mapView];
     [WildCardConstructor followSizeFromFather:self.vv child:self.mapView];
+    [WildCardConstructor userInteractionEnableToParentPath:self.mapView depth:5];
 }
 
 -(void)update:(id)opt{
