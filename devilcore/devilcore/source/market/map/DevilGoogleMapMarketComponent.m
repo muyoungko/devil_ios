@@ -13,6 +13,7 @@
 
 @interface DevilGoogleMapMarketComponent()
 @property (nonatomic, retain) GMSMapView* mapView;
+@property (nonatomic, retain) NSMutableArray* markers;
 @end
 
 @implementation DevilGoogleMapMarketComponent
@@ -23,6 +24,8 @@
     id dict = [NSDictionary dictionaryWithContentsOfFile:path];
     NSString* api_key = dict[@"GoogleMapKey"];
     [GMSServices provideAPIKey:api_key];
+    self.markers = [NSMutableArray array];
+
 }
 
 -(void)created{
@@ -48,4 +51,33 @@
                                                                  zoom:6.0];
     [self.mapView moveCamera:camera];
 }
+
+-(void)addMarker:(id)param{
+    CLLocationCoordinate2D mapCenter = CLLocationCoordinate2DMake(self.mapView.camera.target.latitude, self.mapView.camera.target.longitude);
+    GMSMarker *marker = [GMSMarker markerWithPosition:mapCenter];
+    [self.markers addObject:marker];
+    marker.icon = [UIImage imageNamed:@"pin.png"];
+    marker.map = self.mapView;
+}
+
+
+-(void)updateMarker:(id)param{
+}
+
+-(void)removeMarker:(id)param{
+
+    for (GMSMarker* marker in self.markers) {
+        marker.map = nil;
+    }
+}
+
+-(void)addCircle:(id)param{
+}
+
+-(void)removeCircle:(id)param{
+}
+
+-(void)callback:(id)param{
+}
+
 @end

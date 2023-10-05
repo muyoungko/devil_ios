@@ -2001,21 +2001,36 @@
     [mc camera:param];
 }
 + (void)mapAddMarker:(NSString*)nodeName :(id)param :(JSValue*)callback{
-    
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+    [mc addMarker:nodeName];
 }
+
 + (void)mapUpdateMarker:(NSString*)nodeName :(id)param :(JSValue*)callback{
-    
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+    [mc updateMarker:nodeName];
 }
 + (void)mapRemoveMarker:(NSString*)nodeName :(NSString*)key{
-    
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+    [mc removeMarker:nodeName];
 }
 + (void)mapAddCircle:(NSString*)nodeName :(id)param :(JSValue*)callback{
-    
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+    [mc removeMarker:nodeName];
 }
 + (void)mapRemoveCircle:(NSString*)nodeName :(NSString*)key{
-    
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+    [mc removeMarker:nodeName];
 }
 + (void)mapCallback:(NSString*)nodeName :(NSString*)event :(JSValue*)callback{
-    
 }
 @end
