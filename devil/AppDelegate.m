@@ -172,7 +172,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [FIRApp configure];
     
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
-    //[[DevilSdk sharedInstance] registScreenController:@"view" class:[MyDevilController class]];
+    [[DevilSdk sharedInstance] registScreenController:@"project" class:[MainV2Controller class]];
     [DevilSdk sharedInstance].devilSdkScreenDelegate = self;
     [DevilSdk sharedInstance].devilSdkGoogleAdsDelegate = self;
     [[DevilSdk sharedInstance] addCustomJevil:[JevilLearning class]];

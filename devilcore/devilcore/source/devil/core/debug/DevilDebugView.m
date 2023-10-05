@@ -104,8 +104,9 @@
     UINavigationController* nc = self.vc.navigationController;
     [[WildCardConstructor sharedInstance] initWithOnlineOnComplete:^(BOOL success) {
         NSString* project_id = [WildCardConstructor sharedInstance].project_id;
-        id startData = ((DevilController*)self.vc.navigationController.topViewController).startData;
-        id screenId = ((DevilController*)self.vc.navigationController.topViewController).screenId;
+        DevilController* dc = ((DevilController*)self.vc.navigationController.topViewController);
+        id startData = dc.startData;
+        id screenId = dc.screenId;
         [self.vc.navigationController popViewControllerAnimated:YES];
 
         NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
@@ -117,7 +118,8 @@
         if(savedWebHost)
             [WildCardConstructor sharedInstance:project_id].project[@"web_host"] = savedWebHost;
         
-        DevilController* d = [[DevilController alloc] init];
+        DevilController* d = (DevilController*)[[DevilSdk sharedInstance] getRegisteredScreenViewController:dc.screenName];
+        
         d.startData = startData;
         d.screenId = screenId;
         d.projectId = project_id;
