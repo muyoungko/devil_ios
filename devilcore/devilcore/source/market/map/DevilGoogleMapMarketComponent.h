@@ -13,10 +13,15 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)camera:(id)param;
 -(void)addMarker:(id)param;
 -(void)updateMarker:(id)param;
--(void)removeMarker:(id)param;
+-(void)removeMarker:(NSString*)strKey;
 -(void)addCircle:(id)param;
--(void)removeCircle:(id)param;
--(void)callback:(id)param;
+-(void)removeCircle:(NSString*)strKey;
+
+-(void)callbackMarkerClick :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback;
+-(void)callbackMapClick :(void (^)(double lat, double longi))callback;
+-(void)callbackCamera :(void (^)(double lat, double longi))callback;
+-(void)callbackDragStart :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback;
+-(void)callbackDragEnd :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback;
 
 @end
 

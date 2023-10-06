@@ -1995,42 +1995,76 @@
 }
 
 + (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback{
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
-    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
     [mc camera:param];
 }
 + (void)mapAddMarker:(NSString*)nodeName :(id)param :(JSValue*)callback{
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
-    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
-    [mc addMarker:nodeName];
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+    [mc addMarker:param];
 }
 
 + (void)mapUpdateMarker:(NSString*)nodeName :(id)param :(JSValue*)callback{
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
-    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
-    [mc updateMarker:nodeName];
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+    [mc updateMarker:param];
 }
 + (void)mapRemoveMarker:(NSString*)nodeName :(NSString*)key{
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
-    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
-    [mc removeMarker:nodeName];
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+    [mc removeMarker:key];
 }
 + (void)mapAddCircle:(NSString*)nodeName :(id)param :(JSValue*)callback{
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
-    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
-    [mc removeMarker:nodeName];
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+    [mc addCircle:param];
 }
 + (void)mapRemoveCircle:(NSString*)nodeName :(NSString*)key{
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
-    DevilGoogleMapMarketComponent* mc = (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
-    [mc removeMarker:nodeName];
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+    [mc removeCircle:key];
 }
 + (void)mapCallback:(NSString*)nodeName :(NSString*)event :(JSValue*)callback{
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+
+    if ([event isEqualToString:@"click"]) {
+        [mc callbackMarkerClick: ^(double lat, double longi, NSString* title, NSString* desc) {
+            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
+            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi, @"title":title == nil ? @"": title ,@"desc":desc == nil ? @"" : desc}]];
+        }];
+
+    } else if ([event isEqualToString:@"map_click"]) {
+        [mc callbackMapClick: ^(double lat, double longi) {
+            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
+            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi}]];
+        }];
+
+    } else if ([event isEqualToString:@"camera"]) {
+        [mc callbackCamera: ^(double lat, double longi) {
+            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
+            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi}]];
+        }];
+
+    } else if ([event isEqualToString:@"drag_start"]) {
+        [mc callbackDragStart: ^(double lat, double longi, NSString* title, NSString* desc) {
+            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
+            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi, @"title":title == nil ? @"": title ,@"desc":desc == nil ? @"" : desc}]];
+        }];
+
+    } else if ([event isEqualToString:@"drag_end"]) {
+        [mc callbackDragEnd: ^(double lat, double longi, NSString* title, NSString* desc) {
+            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
+            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi, @"title":title == nil ? @"": title ,@"desc":desc == nil ? @"" : desc}]];
+        }];
+    }
 }
+
++ (DevilGoogleMapMarketComponent*)getDevilGoogleMapMarketComponent:(NSString*)nodeName {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    return (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+}
+
 @end
