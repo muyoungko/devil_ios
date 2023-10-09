@@ -24,6 +24,7 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[DevilSdk alloc] init];
         sharedInstance.currentOrientation = UIInterfaceOrientationMaskPortrait;
+        sharedInstance.autoChangeOrientation = true;
     });
     return sharedInstance;
 }
@@ -39,7 +40,7 @@
         if(firstScreenId) {
             
             [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:firstScreenId :[Jevil get:@"ORIENTATION"]];
-            d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+            d.landscape = [DevilUtil shouldLandscape];
             
             d.screenId = firstScreenId;
             [vc.navigationController pushViewController:d animated:YES];

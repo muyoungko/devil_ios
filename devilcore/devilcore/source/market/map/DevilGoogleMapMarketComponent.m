@@ -7,6 +7,7 @@
 
 #import "DevilGoogleMapMarketComponent.h"
 #import "WildCardConstructor.h"
+#import "MappingSyntaxInterpreter.h"
 
 @import GoogleMaps;
 @import GoogleMapsUtils;
@@ -17,11 +18,12 @@
 @property (nonatomic, retain) NSMutableDictionary* markerDic;
 @property (nonatomic, retain) NSMutableDictionary* circleDic;
 @property (nonatomic, assign) float zoom;
-@property (nonatomic, copy) void (^markerClick)(double, double, NSString*, NSString*);
-@property (nonatomic, copy) void (^mapClick)(double, double);
-@property (nonatomic, copy) void (^camera)(double, double);
-@property (nonatomic, copy) void (^dragStart)(double, double, NSString*, NSString*);
-@property (nonatomic, copy) void (^dragEnd)(double, double, NSString*, NSString*);
+@property BOOL consumeStartLocation;
+@property (nonatomic, copy) void (^markerClick)(id);
+@property (nonatomic, copy) void (^mapClick)(id);
+@property (nonatomic, copy) void (^camera)(id);
+@property (nonatomic, copy) void (^dragStart)(id);
+@property (nonatomic, copy) void (^dragEnd)(id);
 
 
 
@@ -38,21 +40,12 @@
     self.markerDic = [NSMutableDictionary dictionary];
     self.circleDic = [NSMutableDictionary dictionary];
     self.zoom = 14;
+    self.consumeStartLocation = false;
 
 }
 
 -(void)created{
     [super created];
-    CLLocationCoordinate2D coordinate = [self currentLocation];
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:coordinate.latitude
-                                                            longitude:coordinate.longitude
-                                                                 zoom:self.zoom];
-    self.mapView = [[GMSMapView alloc] initWithFrame: CGRectZero camera:camera];
-    self.mapView.delegate = self;
-    self.mapView.myLocationEnabled = YES;
-    [self.vv addSubview:self.mapView];
-    [WildCardConstructor followSizeFromFather:self.vv child:self.mapView];
-    [WildCardConstructor userInteractionEnableToParentPath:self.mapView depth:5];
 }
 
 -(CLLocationCoordinate2D) currentLocation {
@@ -69,6 +62,31 @@
 
 -(void)update:(id)opt{
     [super update:opt];
+    if(!self.consumeStartLocation) {
+        CLLocationCoordinate2D position = [self currentLocation];
+        self.consumeStartLocation = true;
+        id start_location_path = self.marketJson[@"select3"];
+        id start_location = [MappingSyntaxInterpreter getJsonWithPath:opt : start_location_path];
+        if(start_location) {
+            double lat = [start_location[@"lat"] doubleValue];
+            double lng = [start_location[@"lng"] doubleValue];
+            if(start_location[@"zoom"])
+                self.zoom = [start_location[@"zoom"] intValue];
+            
+            position = CLLocationCoordinate2DMake(lat, lng);
+        }
+        
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:position.latitude
+                                                                longitude:position.longitude
+                                                                     zoom:self.zoom];
+        self.mapView = [[GMSMapView alloc] initWithFrame: CGRectZero camera:camera];
+        self.mapView.delegate = self;
+        self.mapView.myLocationEnabled = NO;
+        [self.vv addSubview:self.mapView];
+        [WildCardConstructor followSizeFromFather:self.vv child:self.mapView];
+        [WildCardConstructor userInteractionEnableToParentPath:self.mapView depth:5];
+        
+    }
 }
 
 
@@ -94,16 +112,35 @@
     NSString* strKey = [NSString stringWithFormat:@"%@", param[@"key"]];
     NSString* strLat = [NSString stringWithFormat:@"%@", param[@"lat"]];
     NSString* strLogi = [NSString stringWithFormat:@"%@", param[@"lng"]];
+    NSString* type = param[@"type"];
+    NSString* title = param[@"title"];
     CLLocationDegrees latitude = [strLat doubleValue];
     CLLocationDegrees longitude = [strLogi doubleValue];
 
     CLLocationCoordinate2D mapCenter = CLLocationCoordinate2DMake(latitude, longitude);
     GMSMarker *marker = [GMSMarker markerWithPosition:mapCenter];
-    marker.draggable = YES;
-    marker.icon = [UIImage imageNamed:@"pin.png"];
-    marker.map = self.mapView;
+    
+    marker.draggable = [param[@"draggable"] boolValue];
+    //marker.icon = [UIImage imageNamed:@"pin.png"];
+    
+    if([@"bubble" isEqualToString:type]) {
+        UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
+        infoView.backgroundColor = [UIColor whiteColor];
 
-    [self.markerDic setValue:marker forKey:strKey];
+        // 라벨을 추가하여 텍스트를 표시합니다.
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 180, 80)];
+        label.text = title;
+        label.numberOfLines = 0; // 여러 줄의 텍스트를 표시하려면 0으로 설정합니다.
+        [infoView addSubview:label];
+
+        // 마커의 정보 창에 사용자 지정 뷰를 설정합니다.
+        marker.infoWindowAnchor = CGPointMake(0.5, 0.2);
+        marker.iconView = infoView;
+    }
+    
+    marker.map = self.mapView;
+    marker.userData = param;
+    self.markerDic[strKey] = marker;
 }
 
 -(void)updateMarker:(id)param{
@@ -136,24 +173,15 @@
     NSString* strRadius = [NSString stringWithFormat:@"%@", param[@"radius"]];
     CLLocationDegrees latitude = [strLat doubleValue];
     CLLocationDegrees longitude = [strLogi doubleValue];
-    CLLocationDistance radius = [strRadius doubleValue] * 10 * 1000;
+    CLLocationDistance radius = [strRadius doubleValue] * 1000;
 
     GMSCircle* circle = [GMSCircle circleWithPosition:(CLLocationCoordinate2DMake(latitude, longitude)) radius:radius];
-
-    // 원의 윤곽선 색상 설정
-    circle.strokeColor = [UIColor redColor];
-
-    // 원의 윤곽선 두께 설정
-    circle.strokeWidth = 3;
-
-    // 원의 채우기 색상 설정
-    circle.fillColor = [UIColor colorWithRed:0.25 green:0 blue:0 alpha:0.05];
-
-    // 원을 지도에 추가
+    circle.strokeColor = UIColorFromRGB(0x2559AB);
+    circle.strokeWidth = 1;
+    circle.fillColor = UIColorFromRGBA(0x202559AB);
     circle.map = self.mapView;
 
     [self.circleDic setValue:circle forKey:strKey];
-    [self.mapView animateToLocation:CLLocationCoordinate2DMake(latitude, longitude)];
 }
 
 -(void)removeCircle:(NSString*)strKey{
@@ -165,22 +193,22 @@
 }
 
 
--(void)callbackMarkerClick :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback {
+-(void)callbackMarkerClick :(void (^)(id markerJson))callback {
     self.markerClick = callback;
 }
 
--(void)callbackMapClick :(void (^)(double lat, double longi))callback {
+-(void)callbackMapClick :(void (^)(id camera))callback {
     self.mapClick = callback;
 }
 
--(void)callbackCamera :(void (^)(double lat, double longi))callback {
+-(void)callbackCamera :(void (^)(id))callback {
     self.camera = callback;
 }
 
--(void)callbackDragStart :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback {
+-(void)callbackDragStart :(void (^)(id))callback {
     self.dragStart = callback;
 }
--(void)callbackDragEnd :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback {
+-(void)callbackDragEnd :(void (^)(id))callback {
     self.dragEnd = callback;
 }
 
@@ -189,7 +217,7 @@
 - (void)mapView:(GMSMapView *)mapView didBeginDraggingMarker:(GMSMarker *)marker {
     NSLog(@"Marker dragging begin");
     if(self.dragStart != nil) {
-        self.dragStart(marker.position.latitude, marker.position.longitude, marker.title, marker.snippet);
+        self.dragStart([self getMarkerJsonFromMarker:marker]);
     }
 }
 
@@ -200,24 +228,40 @@
 - (void)mapView:(GMSMapView *)mapView didEndDraggingMarker:(GMSMarker *)marker {
     NSLog(@"Marker dragging end");
     if(self.dragEnd != nil) {
-        self.dragEnd(marker.position.latitude, marker.position.longitude, marker.title, marker.snippet);
+        self.dragEnd([self getMarkerJsonFromMarker:marker]);
     }
+}
+
+- (id)getMarkerJsonFromMarker:(GMSMarker *)marker {
+    return marker.userData;
 }
 
 - (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
     NSLog(@"Marker touch");
     if(self.mapClick != nil) {
-        self.mapClick(coordinate.latitude, coordinate.longitude);
+        self.mapClick(@{
+            @"lat":[NSNumber numberWithDouble:coordinate.latitude],
+            @"lng":[NSNumber numberWithDouble:coordinate.longitude],
+            @"zoom":[NSNumber numberWithInt:mapView.camera.zoom],
+            });
     }
 }
 
-- (void)mapView:(GMSMapView *)mapView didChangeCameraPosition:(GMSCameraPosition *)position {
+- (void)mapView:(GMSMapView *)mapView idleAtCameraPosition:(GMSCameraPosition *)position {
     if(self.camera != nil) {
-        self.camera(position.target.latitude, position.target.longitude);
+        self.zoom = position.zoom;
+        self.camera(@{
+            @"lat" : [NSNumber numberWithDouble:position.target.latitude],
+            @"lng" : [NSNumber numberWithDouble:position.target.longitude],
+            @"zoom" : [NSNumber numberWithInt:position.zoom]
+        });
     }
 }
+
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
-    self.markerClick(marker.position.latitude, marker.position.longitude, marker.title, marker.snippet);
+    if(self.markerClick)
+        self.markerClick([self getMarkerJsonFromMarker:marker]);
+    
     return NO;
 }
 
@@ -225,7 +269,7 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     // 현재 위치 업데이트
     CLLocation *currentLocation = [locations objectAtIndex:0];
-    [self.mapView animateToLocation:currentLocation.coordinate];
+//    [self.mapView animateToLocation:currentLocation.coordinate];
 }
 
 

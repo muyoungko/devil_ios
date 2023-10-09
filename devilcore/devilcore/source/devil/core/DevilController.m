@@ -55,13 +55,11 @@
     self.jevil = [[JevilCtx alloc] init];
     self.thisMetas = [@{} mutableCopy];
     
-    _viewExtend = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
-    _viewExtend.userInteractionEnabled = YES;
-    [self.view addSubview:_viewExtend];
-    
     _viewMain = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
     _viewMain.userInteractionEnabled = YES;
     [self.view addSubview:_viewMain];
+    [WildCardConstructor followSizeFromFather:self.view child:_viewMain];
+    
     
     if(self.startData) {
         self.data = self.startData;
@@ -73,7 +71,6 @@
     
     self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
-    self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     
     NSString* common_javascript = [WildCardConstructor sharedInstance].project[@"common_javascript"];
     NSString* declared =[[WildCardConstructor sharedInstance] getDeclaredCode];
@@ -238,8 +235,6 @@
 }
 
 -(void)tab:(NSString*)screenId {
-    if(self.tv)
-        [self.tv removeFromSuperview];
     if(self.mainWc)
         [self.mainWc removeFromSuperview];
     
@@ -453,7 +448,6 @@
     
     self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
-    self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setNeedsStatusBarAppearanceUpdate];
@@ -479,9 +473,7 @@
         return;
     }
     
-    if([list count] > 1 || ![list[0][@"type"] isEqualToString:@"sketch"])
-        [self createWildCardScreenListView:self.screenId];
-    else if([[WildCardConstructor sharedInstance] isFirstBlockFitScreen:self.screenId]) {
+    if([[WildCardConstructor sharedInstance] isFirstBlockFitScreen:self.screenId]) {
         [self constructBlockUnder:[[WildCardConstructor sharedInstance] getFirstBlock:self.screenId]];
         _mainWc.meta.jevil = self.jevil;
         [_mainWc.meta created];
@@ -504,10 +496,6 @@
     if(self.scrollView != nil) {
         [self.scrollView removeFromSuperview];
         self.scrollView = nil;
-    }
-    if(self.tv != nil) {
-        [self.tv removeFromSuperview];
-        self.tv = nil;
     }
 }
 
@@ -548,16 +536,6 @@
     self.scrollView.bounces = NO;
 }
 
-- (void)createWildCardScreenListView:(NSString*)screenId{
-    [self releaseScreen];
-    self.tv = [[WildCardScreenTableView alloc] initWithScreenId:screenId];
-    self.tv.data = self.data;
-    self.tv.wildCardConstructorInstanceDelegate = self;
-    self.tv.tableViewDelegate = self;
-    int footerHeight = self.original_footer_height_plus_bottom_padding;
-    self.tv.frame =  CGRectMake(0, 0, self.viewMain.frame.size.width, self.viewMain.frame.size.height - footerHeight);
-    [self.viewMain addSubview:self.tv];
-}
 
 - (void)cellUpdated:(int)index view:(WildCardUIView *)v{
     _mainWc = v;
@@ -602,9 +580,7 @@
 
 
 -(void)updateMeta {
-    if(self.tv != nil)
-        [self.tv reloadData];
-    else if(_mainWc != nil) {
+    if(_mainWc != nil) {
         [_mainWc.meta update];
         if(self.scrollView) {
             self.scrollView.contentSize = CGSizeMake(screenWidth, self.mainWc.frame.size.height);
@@ -733,12 +709,15 @@
 
 
 - (BOOL)shouldAutorotate {
-    return NO;
+    return [DevilSdk sharedInstance].autoChangeOrientation;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
     
-    if(self.landscape){
+    if([DevilSdk sharedInstance].autoChangeOrientation) {
+        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+    }
+    else if(self.landscape){
         NSLog(@"supportedInterfaceOrientations landscape");
         return UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
     } else {
@@ -748,7 +727,9 @@
 }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
-    if(self.landscape) {
+    if([DevilSdk sharedInstance].autoChangeOrientation) {
+        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
+    } else if(self.landscape) {
         NSLog(@"preferredInterfaceOrientationForPresentation landscape");
         return UIInterfaceOrientationLandscapeLeft
         | UIInterfaceOrientationLandscapeRight;
@@ -801,9 +782,16 @@
 }
 
 -(void)orientationChanged:(NSNotification*)noti {
-    float sw = [UIScreen mainScreen].bounds.size.width;
     [super orientationChanged:noti];
-    NSLog(@"orientationChanged sw - %f", sw);
+    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication].windows firstObject].windowScene.interfaceOrientation;
+    NSLog(@"orientationChanged sw - %d", orientation);
+    BOOL newIsLandscape = (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight);
+    
+    if(self.landscape != newIsLandscape) {
+        self.landscape = newIsLandscape;
+        [self reconstructOnOrientation:self.landscape];
+    }
 }
 
 -(void)updateFlexScreen {
@@ -818,7 +806,7 @@
         screenHeight = screenRect.size.width;
     }
     [WildCardConstructor updateScreenWidthHeight:screenWidth:screenHeight];
-    NSLog(@"updateFlexScreen %@ %@ %@ %d %d", self.projectId, self.screenName, self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
+    //NSLog(@"updateFlexScreen %@ %@ %@ %d %d", self.projectId, self.screenName, self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
 }
 
 -(void) addFixedView:(id)layer x:(float)x y:(float)y {
@@ -853,6 +841,20 @@
         alpha = 1.0f;
     
     _fixedView.alpha = alpha;
+}
+
+-(void)reconstructOnOrientation:(BOOL)isLandscape {
+    if(self.mainWc)
+        [self.mainWc removeFromSuperview];
+    [self.thisMetas removeAllObjects];
+    
+    [self updateFlexScreen];
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)
+                                                          landscape:self.landscape
+    ];
+    [[JevilInstance currentInstance] syncData];
+    [self construct];
+    [self onResume];
 }
 
 @end

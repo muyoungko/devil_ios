@@ -45,8 +45,6 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 @property (nonatomic, retain) WildCardUIView* mainWc;
 @property (nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic, retain) UIView* viewMain;
-@property (nonatomic, retain) UIView* viewExtend;
-@property (nonatomic, retain) WildCardScreenTableView* tv;
 @property (nonatomic, retain) UIView* fixedViewContainer;
 @property (nonatomic, retain) UIView* fixedView;
 @property BOOL (^onBackPressCallback)();

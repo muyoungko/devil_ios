@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id <DevilSdkScreenDelegate> devilSdkScreenDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGoogleAdsDelegate> devilSdkGoogleAdsDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGADelegate> devilSdkGADelegate;
-
+@property BOOL autoChangeOrientation;
 @property (nonatomic, retain) NSMutableDictionary* registeredClass;
 @property UIInterfaceOrientationMask currentOrientation;
 

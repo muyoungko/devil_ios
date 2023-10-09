@@ -17,11 +17,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)addCircle:(id)param;
 -(void)removeCircle:(NSString*)strKey;
 
--(void)callbackMarkerClick :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback;
--(void)callbackMapClick :(void (^)(double lat, double longi))callback;
--(void)callbackCamera :(void (^)(double lat, double longi))callback;
--(void)callbackDragStart :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback;
--(void)callbackDragEnd :(void (^)(double lat, double longi, NSString* title, NSString* desc))callback;
+-(void)callbackMarkerClick :(void (^)(id markerJson))callback;
+-(void)callbackMapClick :(void (^)(id))callback;
+-(void)callbackCamera :(void (^)(id))callback;
+-(void)callbackDragStart :(void (^)(id))callback;
+-(void)callbackDragEnd :(void (^)(id))callback;
 
 @end
 

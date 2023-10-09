@@ -1468,6 +1468,8 @@ static BOOL IS_TABLET = NO;
             }
         } else {
             r = UIInterfaceOrientationMaskPortrait;
+            if([DevilSdk sharedInstance].autoChangeOrientation)
+                r = UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskLandscapeLeft | UIInterfaceOrientationMaskLandscapeRight;
         }
     }
     

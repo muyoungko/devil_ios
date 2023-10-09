@@ -243,8 +243,8 @@
     rect.origin.y = rect.origin.x = 0;
     
     if([WildCardConstructor isTablet]) {
-        rect.size.width /= 2;
-        rect.size.height /= 2;
+//        rect.size.width /= 2;
+//        rect.size.height /= 2;
     }
     
     WildCardUIButton *leftButton = [[WildCardUIButton alloc] initWithFrame:rect];

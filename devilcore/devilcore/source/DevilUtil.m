@@ -17,6 +17,7 @@
 @import Foundation;
 #import "DevilAlertDialog.h"
 #import "DevilController.h"
+#import "DevilSdk.h"
 
 @interface DevilUtil()<NSURLSessionDownloadDelegate>
 @property (nonatomic, retain) NSMutableArray* httpPutWaitQueue;
@@ -483,8 +484,9 @@
 }
 
 +(NSString*)orientationToString:(UIInterfaceOrientationMask)mask{
-    NSString* r = @"";
-    if(mask & UIInterfaceOrientationMaskPortrait) {
+    if(mask & UIInterfaceOrientationMaskPortrait && mask & UIInterfaceOrientationMaskLandscape) {
+        return @"all";
+    } else if(mask & UIInterfaceOrientationMaskPortrait) {
         return @"portrait";
     } else if(mask & UIInterfaceOrientationMaskLandscapeLeft) {
         return @"landscape";
@@ -637,4 +639,19 @@
         
     });
 }
+
++(BOOL)shouldLandscape {
+    UIInterfaceOrientationMask c = [DevilSdk sharedInstance].currentOrientation;
+    if(c & UIInterfaceOrientationMaskLandscape && UIInterfaceOrientationMaskPortrait) {
+        //현재 Device Orienation에 따라 결정
+        //그런데 현재 화면이 potrait이고 다음화면이 landscape이면 현재화면이 나온다.
+        //결국 현재 화면 상태는 의미없고 현재 기기의 가로/세로 상태를 구해야한다
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication].windows firstObject].windowScene.interfaceOrientation;
+        return (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight);
+
+    } else {
+        return [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+    }
+}
+
 @end

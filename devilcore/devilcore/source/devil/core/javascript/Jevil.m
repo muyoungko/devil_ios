@@ -71,7 +71,7 @@
         d.startData = param;
     }
     [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
-    d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+    d.landscape = [DevilUtil shouldLandscape];
     
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
@@ -95,7 +95,7 @@
         d.startData = param;
     }
     [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
-    d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+    d.landscape = [DevilUtil shouldLandscape];
     
     d.screenId = screenId;
     UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
@@ -124,7 +124,7 @@
     }
     
     [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
-    d.landscape = [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
+    d.landscape = [DevilUtil shouldLandscape];
     
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];
@@ -959,10 +959,6 @@
                 } else
                     [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:ani];
             }
-        } else {
-            DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-            if(vc.tv != nil)
-                [vc.tv asyncScrollTo:index];
         }
     }@catch(NSException* e){
         [DevilExceptionHandler handle:e];
@@ -975,10 +971,6 @@
         id meta = [JevilInstance currentInstance].meta;
         WildCardUICollectionView* list = [[meta getView:nodeName] subviews][0];
         [list scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-    } else {
-        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-        if(vc.tv != nil)
-            [vc.tv scrollsToTop];
     }
 }
 
@@ -1558,11 +1550,7 @@
 
 + (void)scrollDragged:(NSString*)node :(JSValue *)callback {
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    if(node == nil || [@"null" isEqualToString:node] ) {
-        [vc.tv setDraggedCallback:^(id res) {
-            [callback callWithArguments:@[]];
-        }];
-    } else if(vc.mainWc != nil) {
+    if(vc.mainWc != nil) {
         WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
         UICollectionView* c = [vv subviews][0];
         WildCardCollectionViewAdapter* adapter = c.delegate;
@@ -1574,11 +1562,7 @@
 
 + (void)scrollEnd:(NSString*)node :(JSValue *)callback {
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    if(node == nil || [@"null" isEqualToString:node] ) {
-        [vc.tv setLastItemCallback:^(id res) {
-            [callback callWithArguments:@[]];
-        }];
-    } else if(vc.mainWc != nil) {
+    if(vc.mainWc != nil) {
         WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
         UICollectionView* c = [vv subviews][0];
         WildCardCollectionViewAdapter* adapter = c.delegate;
@@ -2025,38 +2009,28 @@
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
 
     if ([event isEqualToString:@"click"]) {
-        [mc callbackMarkerClick: ^(double lat, double longi, NSString* title, NSString* desc) {
-            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
-            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
-            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi, @"title":title == nil ? @"": title ,@"desc":desc == nil ? @"" : desc}]];
+        [mc callbackMarkerClick: ^(id marker) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[marker]];
         }];
 
     } else if ([event isEqualToString:@"map_click"]) {
-        [mc callbackMapClick: ^(double lat, double longi) {
-            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
-            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
-            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi}]];
+        [mc callbackMapClick: ^(id res) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
         }];
 
     } else if ([event isEqualToString:@"camera"]) {
-        [mc callbackCamera: ^(double lat, double longi) {
-            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
-            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
-            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi}]];
+        [mc callbackCamera: ^(id res) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ res ]];
         }];
 
     } else if ([event isEqualToString:@"drag_start"]) {
-        [mc callbackDragStart: ^(double lat, double longi, NSString* title, NSString* desc) {
-            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
-            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
-            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi, @"title":title == nil ? @"": title ,@"desc":desc == nil ? @"" : desc}]];
+        [mc callbackDragStart: ^(id marker) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ marker]];
         }];
 
     } else if ([event isEqualToString:@"drag_end"]) {
-        [mc callbackDragEnd: ^(double lat, double longi, NSString* title, NSString* desc) {
-            NSString* strLat = [NSString stringWithFormat:@"%f", lat];
-            NSString* strlongi = [NSString stringWithFormat:@"%f", longi];
-            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ @{@"lat": strLat, @"lng":strlongi, @"title":title == nil ? @"": title ,@"desc":desc == nil ? @"" : desc}]];
+        [mc callbackDragEnd: ^(id marker) {
+            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ marker]];
         }];
     }
 }

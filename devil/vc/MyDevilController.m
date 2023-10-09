@@ -16,7 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.viewExtend.backgroundColor = [UIColor redColor];
 }
 
 /*

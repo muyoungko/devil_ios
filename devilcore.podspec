@@ -22,6 +22,8 @@ Pod::Spec.new do |s|
   s.dependency 'MQTTClient'
   s.dependency 'ZXingObjC', '~> 3.2.1'
   s.dependency 'Charts', '~> 4.1.0'
+  s.dependency 'GoogleMaps', '7.3.0'
+  s.dependency 'Google-Maps-iOS-Utils', '4.2.2'
   s.resources = 'devilcore/devilcore/resource/*'
 
 end
