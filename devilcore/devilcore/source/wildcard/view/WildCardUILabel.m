@@ -21,7 +21,7 @@
         self.stroke = NO;
         self.wrap_width = NO;
         self.wrap_height = NO;
-        self.lineBreakMode = NSLineBreakByCharWrapping;
+        self.lineBreakMode = NSLineBreakByTruncatingTail;
         self.alignment = GRAVITY_LEFT_TOP;
         self.max_height = -1;
         self.textSelection = NO;
@@ -59,7 +59,7 @@
     {
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         NSDictionary *attributes = @{NSFontAttributeName: self.font};
-        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.max_width?self.max_width - parent.paddingLeft - parent.paddingRight + 4 :CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.max_width?self.max_width - parent.paddingLeft - parent.paddingRight :CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
         self.frame = CGRectMake(parent.paddingLeft, parent.paddingTop, textSize.size.width, textSize.size.height);
         CGRect superFrame = parent.frame;
         parent.frame = CGRectMake(superFrame.origin.x, superFrame.origin.y, parent.paddingLeft + self.frame.size.width + parent.paddingRight, parent.paddingTop + self.frame.size.height + parent.paddingBottom);
@@ -68,7 +68,7 @@
     {
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         NSDictionary *attributes = @{NSFontAttributeName: self.font};
-        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, self.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, self.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
         self.frame = CGRectMake(parent.paddingLeft, 0, textSize.size.width, self.frame.size.height);
         
         CGRect superFrame = parent.frame;
@@ -78,7 +78,7 @@
     {
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         NSDictionary *attributes = @{NSFontAttributeName: self.font};
-        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
         self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
         
         CGRect superFrame = parent.frame;
@@ -104,7 +104,7 @@
             }
             else
             {
-                CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, self.max_height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+                CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, self.max_height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
                 self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
             }
         }

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilwebrtc'
   s.platform         = :ios
-  s.version          = '0.0.254'
+  s.version          = '0.0.255'
   s.summary          = 'Devil WebRtc'
   s.description      = <<-DESC
     This is Devil Login

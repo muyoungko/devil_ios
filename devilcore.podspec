@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilcore'
   s.platform         = :ios
-  s.version          = '0.0.254'
+  s.version          = '0.0.255'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Login
@@ -16,11 +16,12 @@ Pod::Spec.new do |s|
     'HEADER_SEARCH_PATHS' => '"${PODS_TARGET_SRCROOT}"'
   }
   
+  s.static_framework = true
   s.source_files = 'devilcore/devilcore/source/**/*.*', 'devilcore/devilcore/header/**/*.h'
   s.public_header_files = 'devilcore/devilcore/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.dependency 'lottie-ios', '~> 2.5.3'
   s.dependency 'MQTTClient'
-  s.dependency 'ZXingObjC', '~> 3.2.1'
+  s.dependency 'ZXingObjC', '~> 3.6.9'
   s.dependency 'Charts', '~> 4.1.0'
   s.dependency 'GoogleMaps', '7.3.0'
   s.dependency 'Google-Maps-iOS-Utils', '4.2.2'

@@ -54,7 +54,7 @@ target 'devilcore' do
   project 'devilcore/devilcore.xcodeproj'
   lottie_libs
   pod 'MQTTClient'
-  pod 'ZXingObjC', '~> 3.2.1'
+  pod 'ZXingObjC', '~> 3.6.9'
   pod 'Charts', '~> 4.1.0'
   pod 'GoogleMaps', '7.3.0'
   pod 'Google-Maps-iOS-Utils', '4.2.2'

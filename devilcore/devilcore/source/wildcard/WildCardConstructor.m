@@ -1023,7 +1023,7 @@ static BOOL IS_TABLET = NO;
             else
             {
                 //default should be 100 because static text
-                tv.numberOfLines = 100;
+                tv.numberOfLines = 1000;
             }
             
             //tv.backgroundColor = [UIColor yellowColor];

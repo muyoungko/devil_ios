@@ -346,10 +346,10 @@ static BOOL IS_TABLET = NO;
         float paddingLeft = 0;
         float paddingRight = 0;
         if(cloudJson[@"padding"]) {
-            if(cloudJson[@"paddingLeft"])
-                paddingLeft = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingLeft"] intValue]];
-            if(cloudJson[@"paddingRight"])
-                paddingRight = [WildCardUtil convertSketchToPixel:[cloudJson[@"paddingRight"] intValue]];
+            if(cloudJson[@"padding"][@"paddingLeft"])
+                paddingLeft = [WildCardUtil convertSketchToPixel:[cloudJson[@"padding"][@"paddingLeft"] intValue]];
+            if(cloudJson[@"padding"][@"paddingRight"])
+                paddingRight = [WildCardUtil convertSketchToPixel:[cloudJson[@"padding"][@"paddingRight"] intValue]];
         }
         
         if(w == -2)
@@ -364,7 +364,7 @@ static BOOL IS_TABLET = NO;
          */
         if(text == nil)
             text = @"";
-        CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
 
         h = rect.size.height;
         
