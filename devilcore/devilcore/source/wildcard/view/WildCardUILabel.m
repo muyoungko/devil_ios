@@ -60,15 +60,18 @@
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         NSDictionary *attributes = @{NSFontAttributeName: self.font};
         CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.max_width?self.max_width - parent.paddingLeft - parent.paddingRight :CGFLOAT_MAX, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
-        self.frame = CGRectMake(parent.paddingLeft, parent.paddingTop, textSize.size.width, textSize.size.height);
+        
+        //i 나 j, g가 조금씩 짤리니 조금씩 키워줘야함
+        self.frame = CGRectMake(parent.paddingLeft, parent.paddingTop, textSize.size.width+4, textSize.size.height+4);
         CGRect superFrame = parent.frame;
         parent.frame = CGRectMake(superFrame.origin.x, superFrame.origin.y, parent.paddingLeft + self.frame.size.width + parent.paddingRight, parent.paddingTop + self.frame.size.height + parent.paddingBottom);
+        
     }
     else if(_wrap_width)
     {
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         NSDictionary *attributes = @{NSFontAttributeName: self.font};
-        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, self.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
+        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, self.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
         self.frame = CGRectMake(parent.paddingLeft, 0, textSize.size.width, self.frame.size.height);
         
         CGRect superFrame = parent.frame;
@@ -78,7 +81,7 @@
     {
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         NSDictionary *attributes = @{NSFontAttributeName: self.font};
-        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
+        CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
         self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
         
         CGRect superFrame = parent.frame;

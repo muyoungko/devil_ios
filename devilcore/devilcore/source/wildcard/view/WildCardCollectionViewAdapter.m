@@ -186,7 +186,7 @@
                             font = [UIFont systemFontOfSize:textSize];
                         
                         NSDictionary *attributes = @{NSFontAttributeName: font};
-                        CGRect size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
+                        CGRect size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
                         w = size.size.width + [self getPaddingLeftRightConverted:arr[i]];
                         rects[name] = [NSValue valueWithCGRect:CGRectMake(0,0,w,0)];
                     }
