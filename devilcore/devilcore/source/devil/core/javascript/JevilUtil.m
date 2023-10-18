@@ -33,7 +33,8 @@
                 dest[srcK] = [@{} mutableCopy];
             [JevilUtil sync:srcValue :dest[srcK] :depth+1 :0];
         } else if([srcValue isKindOfClass:[NSArray class]] ){
-            //NSLog(@"%@srcK - %@ %d", [[NSString string] stringByPaddingToLength: depth withString: @" " startingAtIndex: 0], srcK , subindex);
+            if([srcK isEqualToString:@"ingredient_list"])
+                NSLog(@"%@srcK - %@ %d", [[NSString string] stringByPaddingToLength: depth withString: @" " startingAtIndex: 0], srcK , subindex);
             if(dest[srcK] == nil || dest[srcK] == [NSNull null] || ![dest[srcK] isKindOfClass:[NSArray class]] )
                 dest[srcK] = [@[] mutableCopy];
             [JevilUtil syncList:srcValue :dest[srcK] :depth :subindex];

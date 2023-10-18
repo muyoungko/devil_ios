@@ -24,7 +24,7 @@
     dispatch_once(&onceToken, ^{
         sharedInstance = [[DevilSdk alloc] init];
         sharedInstance.currentOrientation = UIInterfaceOrientationMaskPortrait;
-        sharedInstance.autoChangeOrientation = true;
+        sharedInstance.autoChangeOrientation = false;
     });
     return sharedInstance;
 }

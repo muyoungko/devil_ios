@@ -49,7 +49,9 @@
 -(void)syncData{
     JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
     id newData = [dataJs toDictionary];
+    id ingredient_list = newData[@"ingredient_list"];
     [JevilUtil sync:newData :self.data];
+    id ingredient_list2 = self.data[@"ingredient_list"];
 }
 
 -(void)pushData{

@@ -65,7 +65,7 @@
         self.frame = CGRectMake(parent.paddingLeft, parent.paddingTop, textSize.size.width+4, textSize.size.height+4);
         CGRect superFrame = parent.frame;
         parent.frame = CGRectMake(superFrame.origin.x, superFrame.origin.y, parent.paddingLeft + self.frame.size.width + parent.paddingRight, parent.paddingTop + self.frame.size.height + parent.paddingBottom);
-        
+        self.lineBreakMode = NSLineBreakByWordWrapping;
     }
     else if(_wrap_width)
     {

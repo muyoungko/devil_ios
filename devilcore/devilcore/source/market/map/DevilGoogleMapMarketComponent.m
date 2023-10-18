@@ -8,6 +8,7 @@
 #import "DevilGoogleMapMarketComponent.h"
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
+#import "DevilLocation.h"
 
 @import GoogleMaps;
 @import GoogleMapsUtils;
@@ -68,12 +69,15 @@
         id start_location_path = self.marketJson[@"select3"];
         id start_location = [MappingSyntaxInterpreter getJsonWithPath:opt : start_location_path];
         if(start_location) {
-            double lat = [start_location[@"lat"] doubleValue];
-            double lng = [start_location[@"lng"] doubleValue];
+            if([start_location[@"my_location"] boolValue]) {
+                ;
+            } else {
+                double lat = [start_location[@"lat"] doubleValue];
+                double lng = [start_location[@"lng"] doubleValue];
+                position = CLLocationCoordinate2DMake(lat, lng);
+            }
             if(start_location[@"zoom"])
                 self.zoom = [start_location[@"zoom"] intValue];
-            
-            position = CLLocationCoordinate2DMake(lat, lng);
         }
         
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:position.latitude
@@ -81,7 +85,17 @@
                                                                      zoom:self.zoom];
         self.mapView = [[GMSMapView alloc] initWithFrame: CGRectZero camera:camera];
         self.mapView.delegate = self;
-        self.mapView.myLocationEnabled = NO;
+        
+        if(start_location) {
+            if([start_location[@"my_location"] boolValue]) {
+                self.mapView.myLocationEnabled = YES;
+                self.mapView.settings.myLocationButton = YES;
+                self.mapView.settings.compassButton = YES;
+            } else {
+                self.mapView.myLocationEnabled = NO;
+            }
+        }
+        
         [self.vv addSubview:self.mapView];
         [WildCardConstructor followSizeFromFather:self.vv child:self.mapView];
         [WildCardConstructor userInteractionEnableToParentPath:self.mapView depth:5];
@@ -121,41 +135,104 @@
     GMSMarker *marker = [GMSMarker markerWithPosition:mapCenter];
     
     marker.draggable = [param[@"draggable"] boolValue];
-    //marker.icon = [UIImage imageNamed:@"pin.png"];
     
     if([@"bubble" isEqualToString:type]) {
-        UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];
-        infoView.backgroundColor = [UIColor whiteColor];
-
+        
+        NSString* color_text = param[@"color"];
+        UIColor* color = [UIColor blueColor];
+        if([@"blue" isEqualToString:color_text])
+            color = [UIColor blueColor];
+        else if([@"white" isEqualToString:color_text])
+            color = [UIColor whiteColor];
+        else if([@"red" isEqualToString:color_text])
+            color = [UIColor redColor];
+        else if([@"green" isEqualToString:color_text])
+            color = [UIColor greenColor];
+        else if([@"purple" isEqualToString:color_text])
+            color = [UIColor purpleColor];
+        else if([@"orange" isEqualToString:color_text])
+            color = [UIColor orangeColor];
+        
+        UIFont* font = [UIFont systemFontOfSize:15];
+        CGSize textSize = [DevilUtil getTextSize:font text:title maxWidth:10000];
+        if(textSize.width > 200)
+            textSize.width = 200;
+        UIView *bubbleView = [self createBubbleView:textSize color:color];
+        
+        UIView *infoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, bubbleView.frame.size.width, bubbleView.frame.size.height)];
+        infoView.backgroundColor = [UIColor clearColor];
+        [infoView addSubview:bubbleView];
+        
+        int arrow_gap = 10;
         // 라벨을 추가하여 텍스트를 표시합니다.
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 180, 80)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bubbleView.frame.size.width, bubbleView.frame.size.height - arrow_gap)];
+        label.textAlignment = NSTextAlignmentCenter;
         label.text = title;
-        label.numberOfLines = 0; // 여러 줄의 텍스트를 표시하려면 0으로 설정합니다.
+        label.font = font;
+        label.textColor = [UIColor whiteColor];
+        label.numberOfLines = 1; // 여러 줄의 텍스트를 표시하려면 0으로 설정합니다.
         [infoView addSubview:label];
 
         // 마커의 정보 창에 사용자 지정 뷰를 설정합니다.
-        marker.infoWindowAnchor = CGPointMake(0.5, 0.2);
+        marker.infoWindowAnchor = CGPointMake(0.5, 0.5);
         marker.iconView = infoView;
     }
+    
+    //marker.snippet = @"Current location";
     
     marker.map = self.mapView;
     marker.userData = param;
     self.markerDic[strKey] = marker;
 }
 
+-(UIView*) createBubbleView:(CGSize)textSize color:(UIColor*)color {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    UIImage *bubble_body = [UIImage imageNamed:@"devil_map_bubble_body.png" inBundle:bundle compatibleWithTraitCollection:nil];
+    UIImage *bubble_arrow = [UIImage imageNamed:@"devil_map_bubble_arrow.png" inBundle:bundle compatibleWithTraitCollection:nil];
+    
+    UIEdgeInsets imageInset = UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0);
+    bubble_body = [bubble_body resizableImageWithCapInsets:imageInset];
+    bubble_body = [bubble_body imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    bubble_arrow = [bubble_arrow imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    
+    int arrow_gap = 10;
+    int padding = 10;
+    UIImageView* bubbleView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, textSize.width+padding*2, textSize.height+padding*2)];
+    bubbleView.image = bubble_body;
+    bubbleView.tintColor = color;
+    
+    UIImageView* bubbleArrowView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 111/3.0f, 111/3.0f)];
+    bubbleArrowView.image = bubble_arrow;
+    bubbleArrowView.tintColor = color;
+    
+    UIView *r = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, textSize.width+padding*2, textSize.height+padding*2+arrow_gap)];
+    r.backgroundColor = [UIColor clearColor];
+    [r addSubview:bubbleArrowView];
+    bubbleArrowView.center = CGPointMake(r.frame.size.width/2, r.frame.size.height-bubbleArrowView.frame.size.height/2);
+    [r addSubview:bubbleView];
+    
+    return r;
+}
+
 -(void)updateMarker:(id)param{
-    NSString* strKey = [NSString stringWithFormat:@"%@", param[@"key"]];
-    __weak typeof(self) weakSelf = self;
-    [self.markerDic enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-        __strong typeof(self) strongSelf = weakSelf;
-        if (!strongSelf) return;
-
-        if([((NSString*)key) isEqualToString:strKey]) {
-            [strongSelf removeMarker: strKey];
+    NSString* key = [NSString stringWithFormat:@"%@", param[@"key"]];
+    
+    if(self.markerDic[key]){
+        //기존 마커와 비교
+        id old = ((GMSMarker*)self.markerDic[key]).userData;
+        if(![old[@"lat"] isEqual:param[@"lat"]] ||
+           ![old[@"lng"] isEqual:param[@"lng"]] ||
+           ![old[@"title"] isEqual:param[@"title"]]) {
+            [self removeMarker:key];
+            [self addMarker:param];
+        } else {
+            ((GMSMarker*)self.markerDic[key]).userData = param;
         }
-    }];
-
-    [self addMarker:param];
+    } else {
+        [self addMarker:param];
+    }
 }
 
 -(void)removeMarker:(NSString*)strKey{
@@ -262,7 +339,11 @@
     if(self.markerClick)
         self.markerClick([self getMarkerJsonFromMarker:marker]);
     
-    return NO;
+    [self camera:@{
+        @"lat":[NSNumber numberWithDouble:marker.position.latitude],
+        @"lng":[NSNumber numberWithDouble:marker.position.longitude],
+    }];
+    return YES;
 }
 
 #pragma mark - CLLocationManagerDelegate

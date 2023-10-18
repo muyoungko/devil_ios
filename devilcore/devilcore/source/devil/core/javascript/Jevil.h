@@ -175,7 +175,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapAddMarker:(NSString*)nodeName :(id)param :(JSValue*)callback;
++ (void)mapAddMarkers:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapUpdateMarker:(NSString*)nodeName :(id)param :(JSValue*)callback;
++ (void)mapUpdateMarkers:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapRemoveMarker:(NSString*)nodeName :(NSString*)key;
 + (void)mapAddCircle:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapRemoveCircle:(NSString*)nodeName :(NSString*)key;

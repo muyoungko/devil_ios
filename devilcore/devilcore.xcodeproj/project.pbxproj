@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -140,6 +140,9 @@
 		6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */; };
 		6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */; };
 		6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */; };
+		6D5C4AB32ADFCB3500DD1978 /* devil_map_bubble@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */; };
+		6D5C4AB62ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */; };
+		6D5C4AB72ADFD62800DD1978 /* devil_map_bubble_body@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */; };
 		6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */; };
 		6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */; };
 		6D62FB0D28DF24780094426E /* devil_imagemap_ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */; };
@@ -294,7 +297,6 @@
 		6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */; };
 		6DFC0CA02ACD68E900F26849 /* DevilGoogleMapMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
-		CE67403F2ACEEDE900258185 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = CE67403E2ACEEDE800258185 /* pin.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -433,6 +435,9 @@
 		6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_cancel@3x.png"; sourceTree = "<group>"; };
 		6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox_on@3x.png"; sourceTree = "<group>"; };
 		6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox@3x.png"; sourceTree = "<group>"; };
+		6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble@3x.png"; sourceTree = "<group>"; };
+		6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble_arrow@3x.png"; sourceTree = "<group>"; };
+		6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble_body@3x.png"; sourceTree = "<group>"; };
 		6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDateTimePopup.h; sourceTree = "<group>"; };
 		6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDateTimePopup.m; sourceTree = "<group>"; };
 		6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_imagemap_ok@3x.png"; sourceTree = "<group>"; };
@@ -587,7 +592,6 @@
 		6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGoogleMapMarketComponent.h; sourceTree = "<group>"; };
 		6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGoogleMapMarketComponent.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE67403E2ACEEDE800258185 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -616,7 +620,9 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
-				CE67403E2ACEEDE800258185 /* pin.png */,
+				6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */,
+				6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */,
+				6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */,
 				6D62FB0C28DF24780094426E /* devil_imagemap_cancel@3x.png */,
 				6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */,
 				6D9A9DEC28A569E1003302B3 /* devil_imagemap_pointer@3x.png */,
@@ -1404,7 +1410,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D9A864B28AE08BA001002D8 /* devil_camera_system.xib in Resources */,
-				CE67403F2ACEEDE900258185 /* pin.png in Resources */,
 				6D9F7AAF2622E93C003A70EC /* devil_camera_gallery@3x.png in Resources */,
 				6D9A9DED28A569E1003302B3 /* devil_imagemap_pointer@3x.png in Resources */,
 				6DF458FF2A829C8800E20636 /* devil_video_full_screen_exit@3x.png in Resources */,
@@ -1422,6 +1427,7 @@
 				6D4679A6256A4980006D57DD /* LICENSE in Resources */,
 				6DD0987726A6AAF0000A913A /* devil_camera_record.wav in Resources */,
 				6D056FBD2A0FC535005C30EF /* devil_camera_flash_on@3x.png in Resources */,
+				6D5C4AB72ADFD62800DD1978 /* devil_map_bubble_body@3x.png in Resources */,
 				6D9F7AAD2622E93C003A70EC /* devil_camera_complete@3x.png in Resources */,
 				6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */,
 				6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */,
@@ -1434,7 +1440,9 @@
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
 				6D3DD34E275B93C600707521 /* devil_camera_close@3x.png in Resources */,
+				6D5C4AB62ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png in Resources */,
 				6DED70DD28B1F5E1004A180F /* devil_camera_system_landscape.xib in Resources */,
+				6D5C4AB32ADFCB3500DD1978 /* devil_map_bubble@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

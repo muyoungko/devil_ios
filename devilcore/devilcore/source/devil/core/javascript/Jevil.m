@@ -1986,10 +1986,17 @@
     DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
     [mc addMarker:param];
 }
-
++ (void)mapAddMarkers:(NSString*)nodeName :(id)param :(JSValue*)callback{
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+    for(id p in param) [mc addMarker:p];
+}
 + (void)mapUpdateMarker:(NSString*)nodeName :(id)param :(JSValue*)callback{
     DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
     [mc updateMarker:param];
+}
++ (void)mapUpdateMarkers:(NSString*)nodeName :(id)param :(JSValue*)callback{
+    DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
+    for(id p in param) [mc updateMarker:p];
 }
 + (void)mapRemoveMarker:(NSString*)nodeName :(NSString*)key{
     DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
