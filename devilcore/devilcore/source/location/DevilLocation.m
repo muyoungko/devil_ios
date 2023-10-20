@@ -280,15 +280,30 @@
             id list = [@[] mutableCopy];
             for(id d in dd) {
                 id j = [@{} mutableCopy];
-                j[@"address"] = d[@"address"][@"address_name"];
-                j[@"address1"] = d[@"address"][@"region_1depth_name"];
-                j[@"address2"] = d[@"address"][@"region_2depth_name"];
-                j[@"address3"] = d[@"address"][@"region_3depth_name"];
-                j[@"address4"] = d[@"address"][@"region_3depth_h_name"];
-                j[@"lng"] = d[@"address"][@"x"];
-                j[@"lat"] = d[@"address"][@"y"];
-                if(!empty(j[@"address3"]) || !empty(j[@"address4"]))
-                    [list addObject:j];
+                if(d[@"address"] && ![d[@"address"] isNull]) {
+                    j[@"address"] = d[@"address"][@"address_name"];
+                    j[@"address1"] = d[@"address"][@"region_1depth_name"];
+                    j[@"address2"] = d[@"address"][@"region_2depth_name"];
+                    j[@"address3"] = d[@"address"][@"region_3depth_name"];
+                    j[@"address4"] = d[@"address"][@"region_3depth_h_name"];
+                    j[@"lng"] = d[@"address"][@"x"];
+                    j[@"lat"] = d[@"address"][@"y"];
+                    if(!empty(j[@"address3"]) || !empty(j[@"address4"]))
+                        [list addObject:j];
+                } else if(d[@"road_address"]){
+                    /**
+                     중앙로로 검색할 경우 address가 없고 road_address만 있다
+                     */
+                    j[@"address"] = d[@"road_address"][@"address_name"];
+                    j[@"address1"] = d[@"road_address"][@"region_1depth_name"];
+                    j[@"address2"] = d[@"road_address"][@"region_2depth_name"];
+                    j[@"address3"] = d[@"road_address"][@"region_3depth_name"];
+                    j[@"address4"] = d[@"road_address"][@"region_3depth_h_name"];
+                    j[@"lng"] = d[@"road_address"][@"x"];
+                    j[@"lat"] = d[@"road_address"][@"y"];
+                    if(!empty(j[@"address3"]) || !empty(j[@"address4"]))
+                        [list addObject:j];
+                }
             }
         
             r[@"r"] = @TRUE;
