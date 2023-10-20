@@ -9,8 +9,10 @@
 #import "AppDelegate.h"
 #import "FirstController.h"
 #import "Devil.h"
+#import "DeepLink.h"
 
 @import devilcore;
+@import FirebaseDynamicLinks;
 
 @interface SceneDelegate ()
 
@@ -79,5 +81,22 @@
     [[Devil sharedInstance] openUrl:url];
 }
 
+
+- (void)scene:(UIScene *)scene continueUserActivity:(NSUserActivity *)userActivity {
+    
+    BOOL handled = [[FIRDynamicLinks dynamicLinks] handleUniversalLink:userActivity.webpageURL
+                                                              completion:^(FIRDynamicLink * _Nullable dynamicLink,
+                                                                           NSError * _Nullable error) {
+                                                                
+        NSLog(@"%@", dynamicLink.url);
+        
+        //[[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+        //[[DeepLink sharedInstance] consumeDeepLink];
+        
+        [[DevilLink sharedInstance] setReserveUrl:dynamicLink.url.absoluteString];
+        
+    }];
+
+}
 
 @end

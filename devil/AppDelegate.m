@@ -276,8 +276,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         [((DevilController*)top) onResume];
 }
 
-
-
 //이미 앱을 설치 했다면
 - (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:
     #if defined(__IPHONE_12_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_12_0)
@@ -302,7 +300,17 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    return [[Devil sharedInstance] openUrl:url];            
+    
+    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
+    if (dynamicLink) {
+        if (dynamicLink.url) {
+            [[DevilLink sharedInstance] setReserveUrl:[url absoluteString]];
+        }
+        return YES;
+    }
+
+                
+    return [[Devil sharedInstance] openUrl:url];
 }
 
 -(float)convertTextSize:(int)sketchTextSize
