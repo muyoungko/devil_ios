@@ -143,6 +143,8 @@
 		6D5C4AB32ADFCB3500DD1978 /* devil_map_bubble@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */; };
 		6D5C4AB62ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */; };
 		6D5C4AB72ADFD62800DD1978 /* devil_map_bubble_body@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */; };
+		6D5C4ABA2AE2A98E00DD1978 /* DevilSwipeBackGesture.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5C4AB82AE2A98E00DD1978 /* DevilSwipeBackGesture.h */; };
+		6D5C4ABB2AE2A98E00DD1978 /* DevilSwipeBackGesture.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB92AE2A98E00DD1978 /* DevilSwipeBackGesture.m */; };
 		6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */; };
 		6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */; };
 		6D62FB0D28DF24780094426E /* devil_imagemap_ok@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */; };
@@ -438,6 +440,8 @@
 		6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble@3x.png"; sourceTree = "<group>"; };
 		6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble_arrow@3x.png"; sourceTree = "<group>"; };
 		6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble_body@3x.png"; sourceTree = "<group>"; };
+		6D5C4AB82AE2A98E00DD1978 /* DevilSwipeBackGesture.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilSwipeBackGesture.h; sourceTree = "<group>"; };
+		6D5C4AB92AE2A98E00DD1978 /* DevilSwipeBackGesture.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilSwipeBackGesture.m; sourceTree = "<group>"; };
 		6D5D419F267F064100B01F2F /* DevilDateTimePopup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDateTimePopup.h; sourceTree = "<group>"; };
 		6D5D41A0267F064100B01F2F /* DevilDateTimePopup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDateTimePopup.m; sourceTree = "<group>"; };
 		6D62FB0B28DF24780094426E /* devil_imagemap_ok@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_imagemap_ok@3x.png"; sourceTree = "<group>"; };
@@ -943,6 +947,8 @@
 				6DFA289928ED19DE007463FB /* WildCardEventTracker.m */,
 				6DDE203D2924D7BE00AD7F3C /* DevilFlingChecker.h */,
 				6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */,
+				6D5C4AB82AE2A98E00DD1978 /* DevilSwipeBackGesture.h */,
+				6D5C4AB92AE2A98E00DD1978 /* DevilSwipeBackGesture.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1331,6 +1337,7 @@
 				6D9F7ABF262310D7003A70EC /* DevilAVCamPreviewView.h in Headers */,
 				6D9E2B1925BB49540027D16D /* WildCardPagerTabStripMaker.h in Headers */,
 				6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */,
+				6D5C4ABA2AE2A98E00DD1978 /* DevilSwipeBackGesture.h in Headers */,
 				6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */,
 				6DF5779026D00C1D009D41A1 /* DevilQrCameraController.h in Headers */,
 				6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */,
@@ -1621,6 +1628,7 @@
 				6D467AB6256AB07A006D57DD /* WildCardViewPagerRightAction.m in Sources */,
 				6D44337025881C3800B0E616 /* Jevil.m in Sources */,
 				6DF53B6F2658F3D3001FB1D6 /* DevilLocation.m in Sources */,
+				6D5C4ABB2AE2A98E00DD1978 /* DevilSwipeBackGesture.m in Sources */,
 				6DDE203629222AEC00AD7F3C /* JevilAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

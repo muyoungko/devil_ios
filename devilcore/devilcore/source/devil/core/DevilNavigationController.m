@@ -6,6 +6,7 @@
 //
 
 #import "DevilNavigationController.h"
+#import "DevilSwipeBackGesture.h"
 
 @interface DevilNavigationController ()
 
@@ -21,6 +22,11 @@
 
 - (UIViewController *)childViewControllerForStatusBarStyle {
     return self.topViewController;
+}
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
+    [super pushViewController:viewController animated:animated];
+    [DevilSwipeBackGesture sharedInstance].duringTransition = YES;
 }
 
 @end

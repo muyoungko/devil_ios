@@ -94,7 +94,6 @@
         //[[DeepLink sharedInstance] consumeDeepLink];
         
         [[DevilLink sharedInstance] setReserveUrl:dynamicLink.url.absoluteString];
-        
     }];
 
 }

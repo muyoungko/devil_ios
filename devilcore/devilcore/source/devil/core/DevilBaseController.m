@@ -12,6 +12,7 @@
 #import "WildCardUtil.h"
 #import "WildCardConstructor.h"
 #import "WildCardEventTracker.h"
+#import "DevilSwipeBackGesture.h"
 
 @interface DevilBaseController ()<UIGestureRecognizerDelegate>
 
@@ -38,13 +39,12 @@
                                             action:@selector(handleSingleTap:)];
     [self.view addGestureRecognizer:singleFingerTap2];
     
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    self.navigationController.interactivePopGestureRecognizer.delegate = [DevilSwipeBackGesture sharedInstance];
+    self.navigationController.delegate = [DevilSwipeBackGesture sharedInstance];
+    [DevilSwipeBackGesture sharedInstance].nav = self.navigationController;
     self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveEvent:(UIEvent *)event{
-    return YES;
-}
+ 
 
 -(void)updateFlexScreen {
     
@@ -64,8 +64,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
     self.originalY = self.view.frame.origin.y;
     
     [[WildCardEventTracker sharedInstance] onScreen:self.projectId screenId:self.screenId screenName:self.screenName];
@@ -75,8 +73,6 @@
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer
