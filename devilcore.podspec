@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilcore'
   s.platform         = :ios
-  s.version          = '0.0.258'
+  s.version          = '0.0.259'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Login
