@@ -47,6 +47,8 @@
         if([url.path isEqualToString:@"/share"]){
             
         } 
+        
+        self.url = nil;
     }
 }
 

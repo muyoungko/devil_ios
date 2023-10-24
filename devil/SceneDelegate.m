@@ -22,15 +22,17 @@
 
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
-    // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-    // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-    // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     AppDelegate* app = (AppDelegate*)[UIApplication sharedApplication].delegate;
     app.window = [[UIWindow alloc] initWithWindowScene:scene];
     UIViewController* vc = [[FirstController alloc] initWithNibName:@"FirstController" bundle:nil];
     app.navigationController = [[DevilNavigationController alloc] initWithRootViewController:vc];
     app.window.rootViewController = app.navigationController;
     [app.window makeKeyAndVisible];
+    
+    if([connectionOptions.userActivities count] > 0) {
+        NSUserActivity* userActivity = [connectionOptions.userActivities allObjects][0];
+        [[Devil sharedInstance] openUrl:userActivity.webpageURL.absoluteURL];
+    }
 }
 
 
@@ -80,18 +82,19 @@
     NSURL* url = [URLContexts anyObject].URL;
     [[Devil sharedInstance] openUrl:url];
 }
-
+ 
 
 - (void)scene:(UIScene *)scene continueUserActivity:(NSUserActivity *)userActivity {
     
+    NSLog(@"%@", userActivity.webpageURL.absoluteString);
     BOOL handled = [[FIRDynamicLinks dynamicLinks] handleUniversalLink:userActivity.webpageURL
                                                               completion:^(FIRDynamicLink * _Nullable dynamicLink,
                                                                            NSError * _Nullable error) {
                                                                 
         NSLog(@"%@", dynamicLink.url);
         
-        //[[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
-        //[[DeepLink sharedInstance] consumeDeepLink];
+        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+        [[DeepLink sharedInstance] consumeDeepLink];
         
         [[DevilLink sharedInstance] setReserveUrl:dynamicLink.url.absoluteString];
     }];

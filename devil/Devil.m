@@ -212,6 +212,29 @@
 
 -(BOOL)openUrl:(NSURL*)url {
     
+    if([[FIRDynamicLinks dynamicLinks] handleUniversalLink:url
+                                                              completion:^(FIRDynamicLink * _Nullable dynamicLink,
+                                                                           NSError * _Nullable error) {
+                                                                
+        NSLog(@"%@", dynamicLink.url);
+        
+        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+        [[DeepLink sharedInstance] consumeDeepLink];
+        
+        [[DevilLink sharedInstance] setReserveUrl:dynamicLink.url.absoluteString];
+    }])
+        return YES;
+
+    
+    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
+    if (dynamicLink && dynamicLink.url) {
+        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+        [[DeepLink sharedInstance] consumeDeepLink];
+        
+        [[DevilLink sharedInstance] setReserveUrl:[NSString stringWithFormat:@"%@", dynamicLink.url]];
+        return YES;
+    }
+    
     if([url.scheme isEqualToString:@"devil-app-builder"]){
         [Devil sharedInstance].reservedUrl = url;
         [[Devil sharedInstance] consumeReservedUrl];
@@ -233,15 +256,7 @@
     
     if([[GIDSignIn sharedInstance] handleURL:url])
         return true;
-                
-    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
-    if (dynamicLink && dynamicLink.url) {
-        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
-        [[DeepLink sharedInstance] consumeDeepLink];
-        
-        [[DevilLink sharedInstance] setReserveUrl:[NSString stringWithFormat:@"%@", dynamicLink.url]];
-        return YES;
-    }
+    
 
     //구글 딥링크가 발동했을 했을때
     //url    NSURL *    @"kr.co.trix.sticar://google/link/?deep_link_id=http%3A%2F%2Fwww%2Ecarmile%2Eco%2Ekr%2Finvitation%2Ehtml%3Fcode%3DMTU2Mjg0MTgyNzc5MA&match_type=unique&match_message=Link%20is%20uniquely%20matched%20for%20this%20device%2E"    0x00000002804b0b00

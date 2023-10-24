@@ -300,15 +300,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
             options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    
-    FIRDynamicLink *dynamicLink = [[FIRDynamicLinks dynamicLinks] dynamicLinkFromCustomSchemeURL:url];
-    if (dynamicLink) {
-        if (dynamicLink.url) {
-            [[DevilLink sharedInstance] setReserveUrl:[url absoluteString]];
-        }
-        return YES;
-    }
-
                 
     return [[Devil sharedInstance] openUrl:url];
 }
