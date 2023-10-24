@@ -67,8 +67,10 @@
         
     } else {
         NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-        UIView *rootView = [[bundle loadNibNamed:@"DevilQrCameraController" owner:self options:nil] objectAtIndex:0];
-        [self.view addSubview:rootView];
+        UIView *rootView = [[bundle loadNibNamed:@"DevilQrCameraController" owner:self options:nil] objectAtIndex:0]; 
+        
+        if([rootView superview] == nil && rootView != self.view)
+            [self.view addSubview:rootView];
         
         UIButton* cancel = [rootView viewWithTag:333];
         [cancel addTarget:self action:@selector(buttonCancel:) forControlEvents:UIControlEventTouchUpInside];

@@ -108,12 +108,12 @@
 }
 
 
--(float) mesureWidth:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
+-(float) measureWidth:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
 {
     float w = [cloudJson[@"frame"][@"w"] floatValue];
     if(w == -2)
     {
-        w = 0;
+        w = 0; 
         //TODO 가변 텍스트에 의한 가변 높이는 성능상 이슈로 아직 구현 못함
         if(cloudJson[@"arrayContent"] != nil && [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_RIGHT])
         {
@@ -186,14 +186,24 @@
                             font = [UIFont systemFontOfSize:textSize];
                         
                         NSDictionary *attributes = @{NSFontAttributeName: font};
+                        
                         CGRect size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
                         w = size.size.width + [self getPaddingLeftRightConverted:arr[i]];
-                        rects[name] = [NSValue valueWithCGRect:CGRectMake(0,0,w,0)];
+                        
+                        
+                        float thisx = [WildCardConstructor convertSketchToPixel:[arr[i][@"frame"][@"x"] floatValue]];
+                        //현재 노드가 hNextTo를 가진다면 thisx는 0이 나와야한다. next검사에서 조정된 x에 따라 w를 넓혀야하므로
+                        if(arr[i][@"hNextTo"])
+                            thisx = 0;
+                        rects[name] = [NSValue valueWithCGRect:CGRectMake(thisx,0,w,0)];
                     }
                     else
                     {
-                        float thisx = [arr[i][@"frame"][@"x"] floatValue];
-                        float thisw = [self mesureWidth:arr[i] data:data];
+                        float thisx = [WildCardConstructor convertSketchToPixel:[arr[i][@"frame"][@"x"] floatValue]];
+                        float thisw = [self measureWidth:arr[i] data:data];
+                        //현재 노드가 hNextTo를 가진다면 thisx는 0이 나와야한다. next검사에서 조정된 x에 따라 w를 넓혀야하므로
+                        if(arr[i][@"hNextTo"])
+                            thisx = 0;
                         rects[name] = [NSValue valueWithCGRect:CGRectMake(thisx, 0, thisw, 0)];
                         if(thisx + thisw > w)
                             w = thisx + thisw;
@@ -223,6 +233,7 @@
     {
         w = [WildCardConstructor convertSketchToPixel:w];
     }
+    
     return w + [self getPaddingLeftRightConverted:cloudJson];
 }
 
@@ -258,12 +269,12 @@
         
         if([REPEAT_TYPE_VLIST isEqualToString:self.repeatType]){
             float h = [WildCardUtil measureHeight:cloudJson data:_data[position]];
-            float w = [self mesureWidth:cloudJson data:_data[position]];
+            float w = [self measureWidth:cloudJson data:_data[position]];
             if(w > collectionView.frame.size.width * 0.6)
                 w = collectionView.frame.size.width;
             return CGSizeMake(w, h);
         } else {
-            float w = [self mesureWidth:cloudJson data:_data[position]];
+            float w = [self measureWidth:cloudJson data:_data[position]];
             return CGSizeMake(w, collectionView.frame.size.height);
         }
     } else {

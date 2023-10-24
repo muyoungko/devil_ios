@@ -37,7 +37,10 @@
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     UIView *rootView = [[bundle loadNibNamed:@"DevilGalleryController" owner:self options:nil] objectAtIndex:0];
-    [self.view addSubview:rootView];
+    
+    if([rootView superview] == nil && rootView != self.view)
+        [self.view addSubview:rootView];
+    
     rootView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
     
