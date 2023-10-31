@@ -352,7 +352,8 @@ static BOOL IS_TABLET = NO;
                 paddingRight = [WildCardUtil convertSketchToPixel:[cloudJson[@"padding"][@"paddingRight"] intValue]];
         }
         
-        if(w == -2)
+        BOOL wrap_width = (w == -2);
+        if(wrap_width)
             w = [WildCardUtil convertSketchToPixel:[cloudJson[@"frame"][@"max_width"] intValue]] - paddingLeft - paddingRight;
         else
             w = [WildCardUtil convertSketchToPixel:w];
@@ -364,11 +365,16 @@ static BOOL IS_TABLET = NO;
          */
         if(text == nil)
             text = @"";
-        CGRect rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
+        CGRect rect;
+        
+        if(wrap_width)
+            rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
+        else
+            rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
 
         h = rect.size.height;
         
-        //NSLog(@"text height - %@ %f", cloudJson[@"name"], h);
+        //NSLog(@"text height - %@ %@ %f", cloudJson[@"name"], text, h);
     } else if(cloudJson[@"arrayContent"] != nil && ([cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_GRID] || [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_BOTTOM]))
     {
         NSMutableDictionary* arrayContent = cloudJson[@"arrayContent"];
@@ -516,7 +522,7 @@ static BOOL IS_TABLET = NO;
              혹은 hidden 처리되었더라도 그 노드의 next체인이 hidden이 아니라면, 이 노드의 y좌표는 높이에 반영되어야한다.
              따라서 어떤 노드부터 y좌표에 반영되어야하는지 먼저 확보해야한다
              TODO : MeasureWidth도 같은 방식으로 처리해야함
-             */
+             */ 
             NSString* cursorNodeName = name;
             id nextChainList = [@[name] mutableCopy];
             while(nextLayers[cursorNodeName]){
