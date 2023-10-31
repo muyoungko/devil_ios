@@ -25,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) UIImageView* imageView;
 
 -(void)constructController;
-    
+-(void)callback:(NSString*)command callback:(void (^)(id))callback;
+
 @end
 
 NS_ASSUME_NONNULL_END

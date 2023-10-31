@@ -24,6 +24,8 @@
 @property BOOL playing;
 
 @property (nonatomic, retain) DevilVideoPlayerController* controler;
+@property (nonatomic, copy) void (^readyCallback)(id);
+
 @end
 
 @implementation WildCardVideoView
@@ -291,6 +293,11 @@
             _ready = YES;
             if(_playing)
                 [self play];
+            
+            if(self.readyCallback) {
+                self.readyCallback(@{});
+                self.readyCallback = nil;
+            }
         } else if (player.status == AVPlayerStatusFailed) {
             NSLog(@"Fail to Ready");
         } else {
@@ -432,5 +439,9 @@
         
         [self performSelector:@selector(tick) withObject:nil afterDelay:1];
     }
+}
+
+-(void)callback:(NSString*)command callback:(void (^)(id))callback {
+    self.readyCallback = callback;
 }
 @end

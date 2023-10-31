@@ -176,7 +176,7 @@
             int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
             self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
         }];
-    }
+    } 
     
     
     if(editingNumberKey && self.footer == nil) {
@@ -211,19 +211,6 @@
         int toUp = screenHeight - rect.size.height - self.keypadTop.frame.size.height - viewGap;
         self.keypadTop.frame = CGRectMake(self.keypadTop.frame.origin.x, toUp, self.keypadTop.frame.size.width, self.keypadTop.frame.size.height);
     }
-}
-
-- (void)dotClick {
-    if(self.editingTextField) {
-        self.editingTextField.text = [NSString stringWithFormat:@"%@.", self.editingTextField.text];
-    }
-}
-
-- (void)doneClick {
-    if(self.editingTextField) {
-        [self.editingTextField doneClick];
-    }
-    [self.view endEditing:YES];
 }
 
 - (void)textEditing:(NSNotification*)noti
@@ -283,6 +270,20 @@
         self.footer.frame = CGRectMake(self.footer.frame.origin.x, self.original_footer_y, self.footer.frame.size.width, self.footer.frame.size.height);
     editingView = nil;
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
+}
+
+
+- (void)dotClick {
+    if(self.editingTextField) {
+        self.editingTextField.text = [NSString stringWithFormat:@"%@.", self.editingTextField.text];
+    }
+}
+
+- (void)doneClick {
+    if(self.editingTextField) {
+        [self.editingTextField doneClick];
+    }
+    [self.view endEditing:YES];
 }
 
 - (UIViewController *)documentInteractionControllerViewControllerForPreview:(UIDocumentInteractionController *)controller{

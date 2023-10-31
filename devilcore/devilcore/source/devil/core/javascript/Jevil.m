@@ -1265,7 +1265,7 @@
             
         }];
     }
-} 
+}
 
 + (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
@@ -1515,7 +1515,7 @@
             [callback callWithArguments:@[]];
         }];
     }
-} 
+}
 
 + (void)webLoadUrl:(NSString*)node :(NSString*)url {
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
@@ -1630,6 +1630,17 @@
     //TODO
     [[JevilInstance currentInstance] performSelector:@selector(videoViewAutoPlay) withObject:nil afterDelay:0.5f];
 }
+
++ (void)videoCallback:(NSString*)nodeName :(NSString*)event :(JSValue*)callback{
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* view = [vc findView:nodeName];
+    WildCardVideoView* vv = (WildCardVideoView*)[view subviews][0];
+    [vv callback:nodeName callback:^(id _Nonnull res) {
+        [callback callWithArguments:@[ res ]];
+    }];
+}
+
+
 
 + (void)getCurrentLocation:(NSDictionary*)param :(JSValue*)callback{
     [[DevilLocation sharedInstance] getCurrentLocation:^(id  _Nonnull result) {
