@@ -306,6 +306,10 @@
 - (void)mapView:(GMSMapView *)mapView didEndDraggingMarker:(GMSMarker *)marker {
     NSLog(@"Marker dragging end");
     if(self.dragEnd != nil) {
+        
+        marker.userData[@"lat"] = [NSNumber numberWithDouble:marker.position.latitude];
+        marker.userData[@"lng"] = [NSNumber numberWithDouble:marker.position.longitude];
+        
         self.dragEnd([self getMarkerJsonFromMarker:marker]);
     }
 }
