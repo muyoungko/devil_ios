@@ -21,6 +21,8 @@
 @property (retain, nonatomic) UIButton* keypadTopButton;
 @property (retain, nonatomic) WildCardUITextField* editingTextField;
 
+@property (retain, nonatomic) UIView* should_up_footer;
+
 @end
 
 @implementation DevilBaseController
@@ -161,7 +163,7 @@
     CGRect rect = self.keyboardRect;
     float viewGap = self.view.frame.origin.y - self.originalY;
     int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
-    self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
+    self.should_up_footer.frame = CGRectMake(self.should_up_footer.frame.origin.x, toUp, self.should_up_footer.frame.size.width, self.should_up_footer.frame.size.height);
     
 }
 
@@ -170,16 +172,16 @@
     NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect rect = [keyboardFrameBegin CGRectValue];
     self.keyboardRect = rect;
-    if(self.footer && !self.fix_footer) {
+    if(self.should_up_footer && !self.fix_footer) {
         [UIView animateWithDuration:0.15f animations:^{
             float viewGap = self.view.frame.origin.y - self.originalY;
             int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
-            self.footer.frame = CGRectMake(self.footer.frame.origin.x, toUp, self.footer.frame.size.width, self.footer.frame.size.height);
+            self.should_up_footer.frame = CGRectMake(self.should_up_footer.frame.origin.x, toUp, self.should_up_footer.frame.size.width, self.should_up_footer.frame.size.height);
         }];
     } 
     
     
-    if(editingNumberKey && self.footer == nil) {
+    if(editingNumberKey && self.should_up_footer == nil) {
         if(self.keypadTop == nil) {
             CGRect screenRect = [[UIScreen mainScreen] bounds];
             int sw = screenRect.size.width;
@@ -213,8 +215,31 @@
     }
 }
 
+- (BOOL)hasEditText:(UIView*)view {
+    if([view isKindOfClass:[UITextField class]] || [view isKindOfClass:[UITextView class]])
+        return YES;
+        
+    for(UIView* v in [view subviews]) {
+        BOOL r = [self hasEditText:v];
+        if(r)
+            return r;
+    }
+    
+    return NO;
+}
+
 - (void)textEditing:(NSNotification*)noti
 {
+    if(self.footer)
+        self.should_up_footer = self.footer;
+    else if(self.inside_footer)
+        self.should_up_footer = self.inside_footer;
+    
+    if([self hasEditText:self.should_up_footer])
+        ;
+    else
+        self.should_up_footer = nil;
+    
     UIView* tf = (UIView*)noti.object;
     editingNumberKey = NO;
     numberKeyType = nil;
@@ -229,7 +254,7 @@
     editingInFooter = NO;
     UIView* parent = [tf superview];
     for(int i=0;parent!= nil && i<10;i++) {
-        if(parent == self.footer) {
+        if(parent == self.should_up_footer) {
             editingInFooter = YES;
             break;
         }
@@ -266,8 +291,8 @@
 - (void)keyboardWillHide:(NSNotification*)noti {
     self.keyboardOn = NO;
     self.keypadTop.hidden = YES;
-    if(self.footer)
-        self.footer.frame = CGRectMake(self.footer.frame.origin.x, self.original_footer_y, self.footer.frame.size.width, self.footer.frame.size.height);
+    if(self.should_up_footer)
+        self.should_up_footer.frame = CGRectMake(self.should_up_footer.frame.origin.x, self.original_footer_y, self.should_up_footer.frame.size.width, self.should_up_footer.frame.size.height);
     editingView = nil;
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
 }
