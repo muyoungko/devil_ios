@@ -52,6 +52,7 @@
 #import "MarketInstance.h"
 #import "DevilUtil.h"
 #import "DevilPdf.h"
+#import "DevilReview.h"
 
 @interface Jevil()
 
@@ -2057,6 +2058,10 @@
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
     MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
     return (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+}
+
++ (BOOL)review {
+    return [[DevilReview sharedInstance] review];
 }
 
 @end

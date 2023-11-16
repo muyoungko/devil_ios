@@ -88,6 +88,8 @@
     NSURL* url = [NSURL URLWithString:urls];
     NSString* path = [url path];
     id pp = [path componentsSeparatedByString:@"/"];
+    if([pp count] <= 1)
+        return YES;
     NSString* command = pp[1];
     if([@"screen" isEqualToString:command]){
         NSString* screenName = pp[2];

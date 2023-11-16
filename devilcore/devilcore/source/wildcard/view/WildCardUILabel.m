@@ -21,10 +21,10 @@
         self.stroke = NO;
         self.wrap_width = NO;
         self.wrap_height = NO;
-        self.lineBreakMode = NSLineBreakByTruncatingTail;
         self.alignment = GRAVITY_LEFT_TOP;
         self.max_height = -1;
         self.textSelection = NO;
+        self.word_wrap = NO;
     }
     return self;
 }
@@ -55,6 +55,13 @@
 {
     [super setText:text];
 
+    /**
+     한줄처리 ... 처리
+     두줄이상 ... 처리 charwrap, wordwrap
+     wrap_height - charwrap, wordwrap
+     wrap_height, wrap_width - charwrap, wordwrap
+     */
+    
     if(_wrap_width && _wrap_height)
     {
         WildCardUIView* parent = (WildCardUIView*)[self superview];
@@ -107,7 +114,7 @@
             }
             else
             {
-                CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, self.max_height) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
+                CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, self.max_height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
                 self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
             }
         }

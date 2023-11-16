@@ -753,6 +753,7 @@
         UICollectionView *cv = (UICollectionView *)repeatRule.createdContainer;
         WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)repeatRule.adapterForRetain;
         
+        id beforeData = adapter.data;
         adapter.data = targetDataJson;
         adapter.cloudJsonGetter = ^NSDictionary *(int position) {
             if(targetNodeSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data: targetDataJson[position]])
@@ -813,6 +814,16 @@
         
         if([adapter shouldReload])
             [cv reloadData];
+//        if(beforeData == nil || [beforeData count] != [targetDataJson count])
+//            [cv reloadData];
+//        else {
+//            id a = cv.indexPathsForVisibleItems;
+//            for(NSIndexPath* p in a) {
+//                UICollectionViewCell* c = [cv cellForItemAtIndexPath:p];
+//                [c subviews][0];
+//            }
+//        }
+        
     } else if([REPEAT_TYPE_TAG isEqualToString:repeatType]) {
         int i;
         float offsetX = self.tagOffsetX;

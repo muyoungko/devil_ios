@@ -183,6 +183,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mapAddCircle:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapRemoveCircle:(NSString*)nodeName :(NSString*)key;
 + (void)mapCallback:(NSString*)nodeName :(NSString*)event :(JSValue*)callback;
++ (BOOL)review;
 @end
 
 @interface Jevil : NSObject <Jevil>

@@ -955,7 +955,7 @@ static BOOL IS_TABLET = NO;
             }
             
             tv.frame = CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);
-            tv.lineBreakMode = NSLineBreakByTruncatingTail;
+            tv.lineBreakMode = NSLineBreakByTruncatingTail;// | NSLineBreakByCharWrapping;
             
             NSDictionary* textSpec = [layer objectForKey:@"textSpec"];
             
@@ -963,7 +963,6 @@ static BOOL IS_TABLET = NO;
                 tv.stroke = YES;
             else
                 tv.stroke = NO;
-            
             
             int halignment = 1;
             int valignment = 0;
@@ -1060,6 +1059,9 @@ static BOOL IS_TABLET = NO;
                     text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
                 [tv setText:text];
             }
+            
+            if(layer[@"lineBreak"] && [layer[@"lineBreak"] isEqualToString:@"word_wrap"])
+                tv.word_wrap = YES;
             
             //tv.backgroundColor = [UIColor redColor];
             if(layer[@"timer"]){

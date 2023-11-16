@@ -105,7 +105,7 @@
     NSError *error;
 
     // Recording settings
-    NSDictionary *settings = @{AVEncoderAudioQualityKey: @(AVAudioQualityMedium),
+    NSDictionary *settings = @{AVEncoderAudioQualityKey: @(AVAudioQualityHigh),
                                      AVFormatIDKey: @(kAudioFormatMPEG4AAC),
                                      AVEncoderBitRateKey: @(128000),
                                      AVNumberOfChannelsKey: @(1),

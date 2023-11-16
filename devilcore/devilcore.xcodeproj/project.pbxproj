@@ -265,6 +265,8 @@
 		6DDE203C2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE203A2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m */; };
 		6DDE203F2924D7BE00AD7F3C /* DevilFlingChecker.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DDE203D2924D7BE00AD7F3C /* DevilFlingChecker.h */; };
 		6DDE20402924D7BE00AD7F3C /* DevilFlingChecker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */; };
+		6DE10D432AFB24E000E90394 /* DevilReview.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE10D412AFB24E000E90394 /* DevilReview.h */; };
+		6DE10D442AFB24E000E90394 /* DevilReview.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE10D422AFB24E000E90394 /* DevilReview.m */; };
 		6DE2BAFB27A8F2A7008344DE /* DevilRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE2BAF927A8F2A7008344DE /* DevilRecord.h */; };
 		6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */; };
 		6DE55C9C2AAEBDF6004B7612 /* DevilPdf.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE55C9A2AAEBDF6004B7612 /* DevilPdf.h */; };
@@ -562,6 +564,8 @@
 		6DDE203A2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBlockDrawerMarketComponent.m; sourceTree = "<group>"; };
 		6DDE203D2924D7BE00AD7F3C /* DevilFlingChecker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilFlingChecker.h; sourceTree = "<group>"; };
 		6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilFlingChecker.m; sourceTree = "<group>"; };
+		6DE10D412AFB24E000E90394 /* DevilReview.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilReview.h; sourceTree = "<group>"; };
+		6DE10D422AFB24E000E90394 /* DevilReview.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilReview.m; sourceTree = "<group>"; };
 		6DE2BAF927A8F2A7008344DE /* DevilRecord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilRecord.h; sourceTree = "<group>"; };
 		6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilRecord.m; sourceTree = "<group>"; };
 		6DE55C9A2AAEBDF6004B7612 /* DevilPdf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPdf.h; sourceTree = "<group>"; };
@@ -741,6 +745,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DE10D402AFB24CF00E90394 /* review */,
 				6DE55C992AAEBD55004B7612 /* pdf */,
 				6D9A864528AA7B4C001002D8 /* filechooser */,
 				6D8628EE287AAC5700E62B7B /* ads */,
@@ -1134,6 +1139,15 @@
 			path = blockdrawer;
 			sourceTree = "<group>";
 		};
+		6DE10D402AFB24CF00E90394 /* review */ = {
+			isa = PBXGroup;
+			children = (
+				6DE10D412AFB24E000E90394 /* DevilReview.h */,
+				6DE10D422AFB24E000E90394 /* DevilReview.m */,
+			);
+			path = review;
+			sourceTree = "<group>";
+		};
 		6DE55C992AAEBD55004B7612 /* pdf */ = {
 			isa = PBXGroup;
 			children = (
@@ -1317,6 +1331,7 @@
 				6D467A91256AB07A006D57DD /* ReplaceRule.h in Headers */,
 				6D467B78257A2FFC006D57DD /* DevilWebViewController.h in Headers */,
 				6D467B7E257A3010006D57DD /* DevilWebView.h in Headers */,
+				6DE10D432AFB24E000E90394 /* DevilReview.h in Headers */,
 				6D467B72257A2F27006D57DD /* DevilController.h in Headers */,
 				6D467B6C257A2F16006D57DD /* DevilBaseController.h in Headers */,
 				6D467B62257A268C006D57DD /* DevilHeader.h in Headers */,
@@ -1554,6 +1569,7 @@
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
 				6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */,
 				6DD09443269C7A28000A913A /* DevilCalendar.m in Sources */,
+				6DE10D442AFB24E000E90394 /* DevilReview.m in Sources */,
 				6D9F7B1D26298952003A70EC /* WildCardProgressBar.m in Sources */,
 				6D9F7B112629658F003A70EC /* PECropView.m in Sources */,
 				6D9F7C8926396318003A70EC /* DevilToast.m in Sources */,

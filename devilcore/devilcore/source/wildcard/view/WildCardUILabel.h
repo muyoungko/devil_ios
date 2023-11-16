@@ -17,6 +17,7 @@
 @property float max_height;
 @property BOOL wrap_height;
 @property BOOL textSelection;
+@property BOOL word_wrap;
 
 @property CGRect strokeRect;
 
