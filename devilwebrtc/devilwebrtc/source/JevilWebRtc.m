@@ -21,6 +21,8 @@
     d.isMaster = [param[@"isMaster"] boolValue];
     d.currentVc = [JevilInstance currentInstance].vc;
     d.channelInfo = param[@"channelInfo"];
+    d.wssSignedUrl = param[@"channelInfo"][@"endpointsByProtocol"][@"WSSSignedUrl"];
+    d.clientID = param[@"channelInfo"][@"endpointsByProtocol"][@"clientID"];
     d.sendVideo = [param[@"isVideoSent"] boolValue];
     d.sendAudio = [param[@"isAudioSent"] boolValue];
     d.parentView = nil;
@@ -39,6 +41,8 @@
     d.isMaster = [param[@"isMaster"] boolValue];
     d.currentVc = [JevilInstance currentInstance].vc;
     d.channelInfo = param[@"channelInfo"];
+    d.wssSignedUrl = param[@"channelInfo"][@"endpointsByProtocol"][@"WSSSignedUrl"];
+    d.clientID = param[@"channelInfo"][@"endpointsByProtocol"][@"clientID"];
     d.sendVideo = [param[@"isVideoSent"] boolValue];
     d.sendAudio = [param[@"isAudioSent"] boolValue];
     

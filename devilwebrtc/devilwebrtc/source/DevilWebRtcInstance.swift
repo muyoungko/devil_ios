@@ -31,6 +31,7 @@ public class DevilWebRtcInstance: NSObject {
     
     @objc public var channelARN: String = ""
     @objc public var channelInfo: NSMutableDictionary = [:]
+    @objc public var wssSignedUrl: String = ""
     
     @objc public var sendVideo: Bool = true
     @objc public var sendAudio: Bool = true
@@ -104,7 +105,15 @@ public class DevilWebRtcInstance: NSObject {
         
         // get signalling channel endpoints
         let endpoints = getSignallingEndpoints(channelARN: self.channelARN, region: awsRegionValue, isMaster: self.isMaster, useMediaServer: usingMediaServer)
-        let wssURL = createSignedWSSUrl(channelARN: self.channelARN, region: awsRegionValue, wssEndpoint: endpoints["WSS"]!, isMaster: self.isMaster)
+        
+        
+        var wssURL = createSignedWSSUrl(channelARN: self.channelARN, region: awsRegionValue, wssEndpoint: endpoints["WSS"]!, isMaster: self.isMaster)
+        
+        if !self.wssSignedUrl.isEmpty {
+            wssURL = URL(string: self.wssSignedUrl);
+        }
+            
+        
         print("WSS URL :", wssURL?.absoluteString as Any)
         // get ice candidates using https endpoint
         let httpsEndpoint =

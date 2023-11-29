@@ -37,7 +37,6 @@
             [self hideIndicator];
             if(res){
                 if([res[@"r"] boolValue]) {
-                    //[self.navigationController setViewControllers:@[[[MainController alloc] init]]];
                     MainV2Controller* v = [[MainV2Controller alloc] init];
                     v.screenId = @"56553391";
                     [self.navigationController setViewControllers:@[v]];

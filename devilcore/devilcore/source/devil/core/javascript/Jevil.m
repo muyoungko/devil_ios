@@ -91,7 +91,7 @@
 
 + (void)replaceScreen:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
-    DevilController* d = [[DevilController alloc] init];
+    DevilController* d = (DevilController*)[[DevilSdk sharedInstance] getRegisteredScreenViewController:screenName];
     if(param != nil) {
         d.startData = param;
     }
@@ -119,7 +119,7 @@
 
 + (void)rootScreen:(NSString*)screenName :(id)param{
     NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
-    DevilController* d = [[DevilController alloc] init];
+    DevilController* d = (DevilController*)[[DevilSdk sharedInstance] getRegisteredScreenViewController:screenName];
     if(param != nil) {
         d.startData = param;
     }
@@ -165,7 +165,23 @@
     }
     if(callbackData){
         [JevilInstance globalInstance].callbackData = callbackData;
+        
+        if(callbackData[@"to"]) {
+            UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
+            id arr = [@[] mutableCopy];
+            NSString* to = callbackData[@"to"];
+            for(id v in n.viewControllers) {
+                [arr addObject:v];
+                if([v isKindOfClass:[DevilController class]]
+                   && [((DevilController*)v).screenName isEqualToString:to]) {
+                    [[JevilInstance currentInstance].vc.navigationController setViewControllers:arr];
+                    [JevilInstance globalInstance].callbackData = nil;
+                    return;
+                }
+            }
+        }
     }
+    
     [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
