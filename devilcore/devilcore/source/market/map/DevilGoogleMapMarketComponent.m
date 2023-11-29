@@ -18,6 +18,8 @@
 @property (nonatomic, retain) GMSMapView* mapView;
 @property (nonatomic, retain) NSMutableDictionary* markerDic;
 @property (nonatomic, retain) NSMutableDictionary* circleDic;
+@property (nonatomic, retain) NSMutableDictionary* cachedImage;
+@property (nonatomic, retain) NSMutableDictionary* asyncMarkerTask;
 @property (nonatomic, assign) float zoom;
 @property BOOL consumeStartLocation;
 @property (nonatomic, copy) void (^markerClick)(id);
@@ -40,6 +42,8 @@
     [GMSServices provideAPIKey:api_key];
     self.markerDic = [NSMutableDictionary dictionary];
     self.circleDic = [NSMutableDictionary dictionary];
+    self.cachedImage = [NSMutableDictionary dictionary];
+    self.asyncMarkerTask = [NSMutableDictionary dictionary];
     self.zoom = 14;
     self.consumeStartLocation = false;
 
@@ -176,6 +180,46 @@
         // 마커의 정보 창에 사용자 지정 뷰를 설정합니다.
         marker.infoWindowAnchor = CGPointMake(0.5, 0.5);
         marker.iconView = infoView;
+    } else if([@"image" isEqualToString:type]){
+        NSString* url = param[@"url"];
+        if(_cachedImage[url] != nil) {
+            UIImage *image = _cachedImage[url];
+            UIImageView* imageView = [[UIImageView alloc] initWithImage:image];
+            imageView.frame = CGRectMake(0, 0, 60, 100);
+            marker.infoWindowAnchor = CGPointMake(0.5, 0.9);
+            marker.iconView = imageView;
+        } else {
+            if(_asyncMarkerTask[url] == nil) {
+                _asyncMarkerTask[url] = [@[] mutableCopy];
+                [_asyncMarkerTask[url] addObject:param];
+                [[WildCardConstructor sharedInstance].delegate onNetworkRequestToByte:url success:^(NSData *byte) {
+                    
+                    if(byte == nil || ![byte isKindOfClass:[NSData class]])
+                        return;
+                    
+                    UIImage* image = [UIImage imageWithData:byte];
+                    _cachedImage[url] = image;
+                    
+                    for(id marker_param in _asyncMarkerTask[url]) {
+                        [self addMarker:marker_param];
+                    }
+                    
+                    [_asyncMarkerTask removeObjectForKey:url];
+                    
+                }];
+            } else {
+                [_asyncMarkerTask[url] addObject:param];
+            }
+            return;
+        }
+        
+        
+//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+//        
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                
+//            });
+//        });
     }
     
     //marker.snippet = @"Current location";
