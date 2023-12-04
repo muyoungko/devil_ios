@@ -160,11 +160,13 @@
 }
 
 - (void)adjustFooterPositionOnKeyboard {
-    CGRect rect = self.keyboardRect;
-    float viewGap = self.view.frame.origin.y - self.originalY;
-    int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
-    self.should_up_footer.frame = CGRectMake(self.should_up_footer.frame.origin.x, toUp, self.should_up_footer.frame.size.width, self.should_up_footer.frame.size.height);
-    
+    //이미 keyboard가 내려갔는지 검사
+    if(self.keyboardOn) {
+        CGRect rect = self.keyboardRect;
+        float viewGap = self.view.frame.origin.y - self.originalY;
+        int toUp = self.view.frame.size.height - rect.size.height - self.original_footer_height - viewGap;
+        self.should_up_footer.frame = CGRectMake(self.should_up_footer.frame.origin.x, toUp, self.should_up_footer.frame.size.width, self.should_up_footer.frame.size.height);
+    }
 }
 
 - (void)keyboardDidShow:(NSNotification*)noti {
@@ -290,7 +292,7 @@
 
 - (void)keyboardWillHide:(NSNotification*)noti {
     self.keyboardOn = NO;
-    self.keypadTop.hidden = YES;
+    self.keypadTop.hidden = YES; 
     if(self.should_up_footer)
         self.should_up_footer.frame = CGRectMake(self.should_up_footer.frame.origin.x, self.original_footer_y, self.should_up_footer.frame.size.width, self.should_up_footer.frame.size.height);
     editingView = nil;

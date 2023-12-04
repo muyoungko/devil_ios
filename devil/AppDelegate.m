@@ -623,7 +623,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
 - (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
     UIInterfaceOrientationMask r = [DevilSdk sharedInstance].currentOrientation;
-    NSLog(@"supportedInterfaceOrientationsForWindow %@" , [DevilUtil orientationToString:r]);
+    //NSLog(@"supportedInterfaceOrientationsForWindow %@" , [DevilUtil orientationToString:r]);
     return r;
 }
 

@@ -288,6 +288,12 @@
                     j[@"address4"] = d[@"address"][@"region_3depth_h_name"];
                     j[@"lng"] = d[@"address"][@"x"];
                     j[@"lat"] = d[@"address"][@"y"];
+                    
+                    if(empty(j[@"address3"]) && !empty(j[@"address4"])) {
+                        j[@"address3"] = j[@"address4"];
+                        j[@"address4"] = @"";
+                    }
+                       
                     if(!empty(j[@"address3"]) || !empty(j[@"address4"]))
                         [list addObject:j];
                 } else if(d[@"road_address"]){
@@ -301,6 +307,12 @@
                     j[@"address4"] = d[@"road_address"][@"region_3depth_h_name"];
                     j[@"lng"] = d[@"road_address"][@"x"];
                     j[@"lat"] = d[@"road_address"][@"y"];
+                    
+                    if(empty(j[@"address3"]) && !empty(j[@"address4"])) {
+                        j[@"address3"] = j[@"address4"];
+                        j[@"address4"] = @"";
+                    }
+                    
                     if(!empty(j[@"address3"]) || !empty(j[@"address4"]))
                         [list addObject:j];
                 }

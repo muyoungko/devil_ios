@@ -119,7 +119,6 @@
 }
 
 -(void)constructHeaderAndFooter{
-    NSLog(@"constructHeaderAndFooter");
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId:self.landscape]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId:self.landscape];
         [WildCardConstructor updateSketchWidth:headerCloudJson];
