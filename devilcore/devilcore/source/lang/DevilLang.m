@@ -24,7 +24,6 @@ NSRegularExpression *regex;
         if(currentLang == nil)
             currentLang = [[[NSLocale preferredLanguages] firstObject] substringToIndex:2];
     }
-    
     return currentLang;
 }
 
@@ -66,6 +65,25 @@ NSRegularExpression *regex;
     if(r2 == nil || [[r2 class] isEqual:[NSNull class]])
         return oname;
     return r2;
+}
+
++(void)parseLanguage:(id)language {
+    id ks = [language allKeys];
+    NSString *regexToReplaceRawLinks = @"[\t\n\r ]";
+    NSError *error;
+    regex = [NSRegularExpression regularExpressionWithPattern:regexToReplaceRawLinks
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:&error];
+    for(id key in ks) {
+        id value = language[key];
+        
+        NSString *trimKey = [regex stringByReplacingMatchesInString:key
+                                                                   options:0
+                                                                     range:NSMakeRange(0, [key length])
+                                                              withTemplate:@""];
+        
+        lang[trimKey] = value;
+    }
 }
 
 @end

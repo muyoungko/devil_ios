@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)setCurrentLang:(NSString*)lang;
 +(NSString*)getCurrentLang;
 +(void)load;
++(void)parseLanguage:(id)language;
 +(NSString*)trans:(NSString*)name;
 
 @end

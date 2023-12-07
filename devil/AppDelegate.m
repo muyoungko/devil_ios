@@ -492,7 +492,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
 
 -(NSString*)translateLanguage:(NSString*)text{
-    return trans(text);
+    return [DevilLang trans:text];
 }
 
 /**

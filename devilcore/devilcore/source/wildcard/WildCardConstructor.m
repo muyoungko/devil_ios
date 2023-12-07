@@ -208,6 +208,10 @@ static NSString *default_project_id = nil;
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     [WildCardConstructor resetSketchWidth];
+    
+    if(projectJson[@"language"]) {
+        [DevilLang parseLanguage:projectJson[@"language"]];
+    }
 }
 
 -(NSMutableDictionary*_Nullable) getAllBlockJson
