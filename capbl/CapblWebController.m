@@ -36,7 +36,7 @@
         sh = [UIScreen mainScreen].bounds.size.height;
     }
     
-    self.webView = [[SecureWKWebView alloc] initWithFrame:CGRectMake(0,0,sw,sh)];
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,sw,sh)];
     [self.view addSubview:self.webView];
     [self followSizeFromFather:self.view child:self.webView];
 

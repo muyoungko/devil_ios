@@ -53,6 +53,8 @@
 #import "DevilUtil.h"
 #import "DevilPdf.h"
 #import "DevilReview.h"
+@import ContactsUI;
+@import Contacts;
 
 @interface Jevil()
 
@@ -2004,6 +2006,22 @@
     [DevilSdk start:project_id screenId:start_screen_id controller:[DevilController class] viewController:[JevilInstance currentInstance].vc version:version complete:^(BOOL res) {
         
     }];
+}
+
++ (void)contactAdd:(id)param {
+    CNMutableContact* c = [[CNMutableContact alloc] init];
+    c.givenName = param[@"name"];
+    if(param[@"email"])
+        c.emailAddresses = @[
+            [[CNLabeledValue alloc] initWithLabel:CNLabelEmailiCloud value:param[@"email"]]
+        ];
+    
+    if(param[@"phone"])
+        c.phoneNumbers = @[
+            [[CNLabeledValue alloc] initWithLabel:CNLabelPhoneNumberMobile value:[[CNPhoneNumber alloc] initWithStringValue:param[@"phone"]]]
+        ];
+    CNContactViewController* vc = [CNContactViewController viewControllerForUnknownContact:c];
+    [[JevilInstance currentInstance].vc.navigationController pushViewController:vc animated:YES];
 }
 
 + (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback{

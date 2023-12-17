@@ -14,6 +14,7 @@ static NSString* currentLang;
 NSRegularExpression *regex;
 
 +(void)setCurrentLang:(NSString*)lang{
+    currentLang = lang;
     [[NSUserDefaults standardUserDefaults] setObject:lang forKey:@"LANG"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
