@@ -12,6 +12,7 @@
 #import "WildCardTrigger.h"
 #import "WildCardAction.h"
 #import "MappingSyntaxInterpreter.h"
+#import "DevilLang.h"
 
 @interface DevilHeader ()
 
@@ -204,7 +205,7 @@
                 self.vc.navigationItem.rightBarButtonItems = barbuttons;
             } else if([@"title" isEqualToString:layer_name]){
                 if(self.meta.correspondData[@"title"])
-                    self.vc.title = self.meta.correspondData[@"title"];
+                    self.vc.title = trans(self.meta.correspondData[@"title"]);
                 else
                     self.vc.title = layer[@"textSpec"][@"text"];
             }

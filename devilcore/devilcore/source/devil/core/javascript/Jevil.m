@@ -2097,10 +2097,13 @@
 + (BOOL)review {
     return [[DevilReview sharedInstance] review];
 }
-+ (void)setLanguage:(id)lang{
++ (void)setLanguage:(NSString*)lang{
     [DevilLang setCurrentLang:lang];
 }
 + (NSString*)getLanguage{
     return [DevilLang getCurrentLang];
+}
++ (NSString*)languageTrans:(NSString*)key {
+    return [DevilLang trans:key];
 }
 @end

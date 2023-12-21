@@ -14,6 +14,7 @@
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
 #import "DevilController.h"
+#import "DevilLang.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -43,7 +44,7 @@
         NSString* text = [textSpec objectForKey:@"text"];
         if([WildCardConstructor sharedInstance].textTransDelegate != nil )
             text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
-        tf.placeholderText = text;
+        tf.placeholderText = trans(text);
         
         int halignment = 1;
         int valignment = 0;

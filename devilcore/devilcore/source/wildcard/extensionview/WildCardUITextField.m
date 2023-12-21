@@ -13,6 +13,7 @@
 #import "WildCardUtil.h"
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
+#import "DevilLang.h"
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -51,7 +52,7 @@
             tf.maxLength = -1;
             
         if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
-            tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:textSpec[@"text"] attributes:@{NSForegroundColorAttributeName:[WildCardUtil colorWithHexString:placeHolderTextColor]}];
+            tf.attributedPlaceholder = [[NSAttributedString alloc] initWithString:trans(textSpec[@"text"]) attributes:@{NSForegroundColorAttributeName:[WildCardUtil colorWithHexString:placeHolderTextColor]}];
         else
             [tf setValue:[WildCardUtil colorWithHexString:placeHolderTextColor] forKeyPath:@"_placeholderLabel.textColor"];
         
@@ -253,7 +254,7 @@
         UIButton* b = [p viewWithTag:5192837];
         b.hidden = YES;
     }
-}
+} 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)text
 {

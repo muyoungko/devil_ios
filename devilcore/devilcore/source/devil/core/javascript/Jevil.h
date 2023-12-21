@@ -184,8 +184,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mapRemoveCircle:(NSString*)nodeName :(NSString*)key;
 + (void)mapCallback:(NSString*)nodeName :(NSString*)event :(JSValue*)callback;
 + (BOOL)review;
-+ (void)setLanguage:(id)lang;
++ (void)setLanguage:(NSString*)lang;
 + (NSString*)getLanguage;
++ (NSString*)languageTrans:(NSString*)key;
 @end
 
 @interface Jevil : NSObject <Jevil>
