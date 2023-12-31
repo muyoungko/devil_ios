@@ -13,11 +13,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilLang : NSObject
 
+@property BOOL multiLanguage;
+@property BOOL collectLanguage;
+@property (nonatomic, retain) NSMutableDictionary* sent;
+@property (nonatomic, retain) NSMutableDictionary* sentWait;
+
++(DevilLang*)sharedInstance;
 +(void)setCurrentLang:(NSString*)lang;
 +(NSString*)getCurrentLang;
 +(void)load;
 +(void)parseLanguage:(id)language;
 +(NSString*)trans:(NSString*)name;
+-(void)flush;
 
 @end
 

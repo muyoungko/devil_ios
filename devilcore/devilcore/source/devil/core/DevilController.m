@@ -382,6 +382,8 @@
 //    if(self.landscape) {
 //        [self toLandscape];
 //    }
+    
+    [[DevilLang sharedInstance] flush];
 }
 
 -(void)onPause {
