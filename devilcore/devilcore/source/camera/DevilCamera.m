@@ -98,6 +98,7 @@
             
             BOOL hasPicture = param && param[@"hasPicture"] ? [param[@"hasPicture"] boolValue] : YES;
             BOOL hasVideo = param && param[@"hasVideo"] ? [param[@"hasVideo"] boolValue] : NO;
+            BOOL gps = param && param[@"gps"] ? [param[@"gps"] boolValue] : NO;
             
             id r = [@[] mutableCopy];
             int end = 100000;
@@ -109,13 +110,20 @@
                 [results enumerateObjectsUsingBlock:^(PHAsset *obj, NSUInteger idx, BOOL * _Nonnull stop) {
                     NSDate* cdate = obj.creationDate;
                     long d = (long)([cdate timeIntervalSince1970] * 1000);
-                    [r addObject:[@{
+                    id a = [@{
                         @"id":[NSNumber numberWithInt:(int)idx],
                         @"url":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
                         @"image":[NSString stringWithFormat:@"gallery://%@", obj.localIdentifier],
                         @"date": [NSNumber numberWithLong:d],
                         @"type":@"image",
-                    } mutableCopy]];
+                    } mutableCopy];
+                    
+                    if (gps && obj.location) {
+                        a[@"lat"] = [NSNumber numberWithDouble:obj.location.coordinate.latitude];
+                        a[@"lng"] = [NSNumber numberWithDouble:obj.location.coordinate.longitude];
+                    }
+                    
+                    [r addObject:a];
                     if(idx < end)
                         *stop = false;
                     else

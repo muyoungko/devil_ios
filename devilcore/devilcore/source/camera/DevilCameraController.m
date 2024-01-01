@@ -13,7 +13,7 @@
 #import "WildCardVideoView.h"
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "DevilLang.h"
-
+#import "DevilLocation.h"
 
 @import AVFoundation;
 @import Photos;
@@ -99,6 +99,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) BOOL hasPicture;
 @property (nonatomic) BOOL hasVideo;
 @property (nonatomic) BOOL hasGallery;
+@property (nonatomic) BOOL hasGps;
 @property (nonatomic) int minSec;
 @property (nonatomic) int maxSec;
 @property (nonatomic) float ratio;
@@ -292,6 +293,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.startFlash = YES;
     self.hasPicture = YES;
     self.hasVideo = YES;
+    self.hasGps = NO;
     self.hasGallery = YES;
     self.minSec = 3;
     self.maxSec = 10;
@@ -309,6 +311,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
             self.hasVideo = [self.param[@"hasVideo"] boolValue];
         if(self.param[@"hasGallery"])
             self.hasGallery = [self.param[@"hasGallery"] boolValue];
+        if(self.param[@"gps"])
+            self.hasGps = [self.param[@"gps"] boolValue];
         
         if(self.param[@"minSec"])
             self.minSec = [self.param[@"minSec"] intValue];
@@ -1248,11 +1252,27 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     NSData *imageData = UIImageJPEGRepresentation(image, 0.6f);
     [imageData writeToFile:filePath atomically:YES];
     
-    [self.navigationController popViewControllerAnimated:YES];
-    if(self.delegate)
-        [self.delegate completeCapture:self result:[@{
-            @"image": filePath
-        } mutableCopy]];
+    if(self.hasGps) {
+        [[DevilLocation sharedInstance] getCurrentLocation:^(id  _Nonnull location) {
+            [self.navigationController popViewControllerAnimated:YES];
+            if(self.delegate) {
+                id a = [@{
+                    @"image": filePath
+                } mutableCopy];
+                if(location) {
+                    a[@"lat"] = [NSNumber numberWithDouble:[location[@"lat"] doubleValue]];
+                    a[@"lng"] = [NSNumber numberWithDouble:[location[@"lng"] doubleValue]];
+                }
+                [self.delegate completeCapture:self result:a];
+            }
+        }];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+        if(self.delegate)
+            [self.delegate completeCapture:self result:[@{
+                @"image": filePath
+            } mutableCopy]];
+    }
 }
 
 -(void)onClickCancel2:(id)sender {
@@ -1260,11 +1280,12 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 }
 -(void)onClickComplete2:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-    if(self.delegate)
+    if(self.delegate) {
         [self.delegate completeCapture:self result:[@{
             @"video": self.targetVideoPathMp4,
             @"preview": self.targetPreviewPath
         } mutableCopy]];
+    }
 }
 
 -(void)onClickBack:(id)sender {

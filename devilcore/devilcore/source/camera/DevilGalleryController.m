@@ -23,6 +23,7 @@
 @property BOOL startFront;
 @property BOOL hasPicture;
 @property BOOL hasVideo;
+@property BOOL gps;
 @property int max;
 @property int min;
 @property int minSec;
@@ -47,6 +48,7 @@
     self.title = self.titleText = self.param && self.param[@"title"]? [self.param[@"title"] stringValue] : @"사진 선택";
     self.hasPicture = self.param && self.param[@"hasPicture"]? [self.param[@"hasPicture"] boolValue] : YES;
     self.hasVideo = self.param && self.param[@"hasVideo"] ? [self.param[@"hasVideo"] boolValue] : NO;
+    self.gps = self.param && self.param[@"gps"] ? [self.param[@"gps"] boolValue] : NO;
     self.startFront = self.param && self.param[@"startFront"] ? [self.param[@"startFront"] boolValue] : NO;
     self.min = self.param && self.param[@"min"]? [self.param[@"min"] intValue] : 1;
     self.max = self.param && self.param[@"max"]? [self.param[@"max"] intValue] : 10;
@@ -68,6 +70,7 @@
     [DevilCamera galleryList:self param:[@{
         @"hasPicture": self.hasPicture?@TRUE:@FALSE,
         @"hasVideo": self.hasVideo?@TRUE:@FALSE,
+        @"gps": self.gps?@TRUE:@FALSE,
     } mutableCopy] callback:^(id  _Nonnull res) {
         [self hideIndicator];
         if(res && [res[@"r"] boolValue]) {
@@ -358,6 +361,7 @@
         @"startFront": self.startFront?@TRUE:@FALSE,
         @"hasPicture": self.hasPicture?@TRUE:@FALSE,
         @"hasVideo": self.hasVideo?@TRUE:@FALSE,
+        @"gps": self.gps?@TRUE:@FALSE,
         @"minSec": [NSNumber numberWithInt:self.minSec],
         @"maxSec": [NSNumber numberWithInt:self.maxSec],
         @"hasGallery": @FALSE,
@@ -368,6 +372,10 @@
             o[@"type"] = type;
             if([@"image" isEqual:type]) {
                 o[@"url"] = o[@"image"] = res[@"image"];
+                if(self.gps) {
+                    o[@"lat"] = res[@"lat"];
+                    o[@"lng"] = res[@"lng"];
+                }
             } else {
                 o[@"url"] = res[@"video"];
                 o[@"preview"] = res[@"preview"];
