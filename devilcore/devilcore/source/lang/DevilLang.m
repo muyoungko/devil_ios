@@ -30,16 +30,12 @@ NSRegularExpression *regex;
 
 +(void)setCurrentLang:(NSString*)lang{
     currentLang = lang;
-    [[NSUserDefaults standardUserDefaults] setObject:lang forKey:@"LANG"];
+    NSString* key = [NSString stringWithFormat:@"LANG_%@", [WildCardConstructor sharedInstance].project_id];
+    [[NSUserDefaults standardUserDefaults] setObject:lang forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 +(NSString*)getCurrentLang{
-    if(!currentLang) {
-        currentLang = [[NSUserDefaults standardUserDefaults] objectForKey:@"LANG"];
-        if(currentLang == nil)
-            currentLang = [[[NSLocale preferredLanguages] firstObject] substringToIndex:2];
-    }
     return currentLang;
 }
 
@@ -68,6 +64,11 @@ NSRegularExpression *regex;
     }
 }
 +(void)parseLanguage:(id)language {
+    
+    NSString* key = [NSString stringWithFormat:@"LANG_%@", [WildCardConstructor sharedInstance].project_id];
+    NSString* savedLang = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if(savedLang)
+        currentLang = savedLang;
     
     [DevilLang sharedInstance].multiLanguage = [language count] > 0;
     [DevilLang sharedInstance].collectLanguage = [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"];
