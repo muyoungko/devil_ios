@@ -76,8 +76,10 @@ target의 Copy Bundle Resource 에서 문제되는 파일 제거
 
 # @rpath Library not loaded WebRTC.framework 해결법
 
-Pods에 있는 framwork를 devil / framework에 추가함
+Pods에 있는 WebRTC.framwork를 devil / framework에 추가함
 그후 embeded and sign 옵션 켜기
+
+template1 프로젝트에서도 똑같이 한다
 
 # WebRtc에서 "Unsupported architectures. Your executable contains unsupported architectures '[x86_64, i386]'" 해결법
 
@@ -87,4 +89,4 @@ lipo -remove x86_64 WebRTC -o WebRTC
 
 에서 위 커맨드로 불필요한 아키텍처를 제거한다
 
-
+template1 프로젝트에서도 똑같이 한다

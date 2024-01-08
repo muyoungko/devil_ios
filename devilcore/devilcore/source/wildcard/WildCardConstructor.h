@@ -39,6 +39,7 @@
 @protocol WildCardConstructorTextTransDelegate<NSObject>
 @required
 -(NSString*)translateLanguage:(NSString*)text;
+-(NSString*)translateLanguage:(NSString*)text:(NSString*)node;
 @end
 
 @protocol WildCardConstructorTextConvertDelegate<NSObject>

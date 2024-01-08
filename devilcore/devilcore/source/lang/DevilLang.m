@@ -63,7 +63,7 @@ NSRegularExpression *regex;
         lang[trimKey] = dic[k];
     }
 }
-+(void)parseLanguage:(id)language {
++(void)parseLanguage:(id)language :(BOOL)collect_prod {
     
     NSString* key = [NSString stringWithFormat:@"LANG_%@", [WildCardConstructor sharedInstance].project_id];
     NSString* savedLang = [[NSUserDefaults standardUserDefaults] objectForKey:key];
@@ -71,7 +71,7 @@ NSRegularExpression *regex;
         currentLang = savedLang;
     
     [DevilLang sharedInstance].multiLanguage = [language count] > 0;
-    [DevilLang sharedInstance].collectLanguage = [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"];
+    [DevilLang sharedInstance].collectLanguage = [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"] || collect_prod;
     [DevilLang sharedInstance].sent = [[NSMutableDictionary alloc] init];
     [DevilLang sharedInstance].sentWait = [[NSMutableDictionary alloc] init];
     
@@ -93,7 +93,10 @@ NSRegularExpression *regex;
     }
 }
 
-+(NSString*)trans:(NSString*)name{
++(NSString*)trans:(NSString*)name {
+    return [DevilLang trans:name:nil];
+}
++(NSString*)trans:(NSString*)name :(NSString*)node {
     if(![DevilLang sharedInstance].multiLanguage)
         return name;
     
@@ -103,7 +106,7 @@ NSRegularExpression *regex;
                                                    withTemplate:@""];
     id r = lang[name];
     if(r == nil) {
-        [[DevilLang sharedInstance] sendLanguageKey:oname];
+        [[DevilLang sharedInstance] sendLanguageKey:oname :node];
         return oname;
     }
     
@@ -114,7 +117,7 @@ NSRegularExpression *regex;
     return r2;
 }
 
--(void)sendLanguageKey:(NSString*)key {
+-(void)sendLanguageKey:(NSString*)key :(NSString*)node {
     if(![DevilLang sharedInstance].collectLanguage)
         return;
     
@@ -127,6 +130,8 @@ NSRegularExpression *regex;
     id param = [@{} mutableCopy];
     param[@"project_id"] = ((DevilController*)[JevilInstance currentInstance].vc).projectId;
     param[@"screen_id"] = ((DevilController*)[JevilInstance currentInstance].vc).screenId;
+    if(node)
+        param[@"node"] = node;
     [DevilLang sharedInstance].sentWait[key] = param;
 }
 
@@ -143,11 +148,15 @@ NSRegularExpression *regex;
     id ks = [[DevilLang sharedInstance].sentWait allKeys];
     for(id key in ks) {
         id value = [DevilLang sharedInstance].sentWait[key];
-        [param[@"list"] addObject: @{
+        id a = [@{
             @"key":key,
             @"project_id":[NSNumber numberWithInt:[value[@"project_id"] intValue]],
             @"screen_id":[NSNumber numberWithInt:[value[@"screen_id"] intValue]],
-        }];
+        } mutableCopy];
+        
+        if(value[@"node"])
+            a[@"node"] = value[@"screen_id"];
+        [param[@"list"] addObject: a];
     }
     
     NSString* tokenKey = @"x-access-token_1605234988599";

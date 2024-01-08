@@ -210,7 +210,8 @@ static NSString *default_project_id = nil;
     [WildCardConstructor resetSketchWidth];
     
     if(projectJson[@"language"]) {
-        [DevilLang parseLanguage:projectJson[@"language"]];
+        BOOL collect_prod = [projectJson[@"language_collect_prod"] boolValue];
+        [DevilLang parseLanguage:projectJson[@"language"] :collect_prod];
     }
 }
 

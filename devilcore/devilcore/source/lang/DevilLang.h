@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 #define trans( str ) [DevilLang trans:str]
+#define trans2( str, node ) [DevilLang trans:str:node]
 
 @interface DevilLang : NSObject
 
@@ -22,8 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(void)setCurrentLang:(NSString*)lang;
 +(NSString*)getCurrentLang;
 +(void)load;
-+(void)parseLanguage:(id)language;
++(void)parseLanguage:(id)language :(BOOL)collect_prod;
 +(NSString*)trans:(NSString*)name;
++(NSString*)trans:(NSString*)name :(NSString*)node;
 -(void)flush;
 
 @end

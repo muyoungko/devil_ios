@@ -13,6 +13,7 @@
 
 @interface ReplaceRuleText()
 
+@property (nonatomic, retain) NSString* name;
 @property (nonatomic, retain) NSString* textContentHighLightKey;
 @property (nonatomic, retain) UIColor* textContentHighLightColor;
 
@@ -23,7 +24,7 @@
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
     [super constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
     self.replaceJsonKey = layer[@"textContent"];
-    
+    self.name = layer[@"name"];
     self.textContentHighLightKey = layer[@"textContentHighLight"];
     
     NSString* color = layer[@"textContentHighLightColor"];
@@ -38,7 +39,7 @@
         text = @"";//self.replaceJsonLayer[@"textSpec"][@"text"];
 
     if([WildCardConstructor sharedInstance].textTransDelegate != nil )
-        text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
+        text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text :self.name];
     
     if(self.textContentHighLightKey && self.textContentHighLightColor) {
         NSString* textContentHighLightText = [MappingSyntaxInterpreter interpret:self.textContentHighLightKey:opt];

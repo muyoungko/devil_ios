@@ -8,6 +8,7 @@
 #import "DevilToast.h"
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
+#import "DevilLang.h"
 
 @interface DevilToast ()
 
@@ -130,7 +131,7 @@ static const NSString *DevilToastTimerKey = @"DevilToastTimerKey";
 }
 
 + (DevilToast *)makeText:(NSString *)text {
-    return [[DevilToast alloc] initWithText:text duration:DevilToastDefaultDuration];
+    return [[DevilToast alloc] initWithText:trans(text) duration:DevilToastDefaultDuration];
 }
 
 + (DevilToast *)makeText:(NSString *)text duration:(NSTimeInterval)duration {

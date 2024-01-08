@@ -19,12 +19,12 @@ Pod::Spec.new do |s|
   s.source_files = 'devilwebrtc/devilwebrtc/source/**/*.*', 'devilwebrtc/devilwebrtc/header/**/*.h'
   s.public_header_files = 'devilwebrtc/devilwebrtc/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
-  s.dependency 'devilcore', '~> 0.0.251'
+  s.dependency 'devilcore', '~> 0.0.267'
   s.dependency 'AWSCognitoIdentityProvider'
   s.dependency 'AWSMobileClient'
   s.dependency 'CommonCryptoModule'
   s.dependency 'AWSKinesisVideo'
   s.dependency 'AWSKinesisVideoSignaling'
   s.dependency 'Starscream', '~> 3.0'
-  s.dependency 'GoogleWebRTC', '~> 1.1'
+  s.dependency 'GoogleWebRTC' 
 end
