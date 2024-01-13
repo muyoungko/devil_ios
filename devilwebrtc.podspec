@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilwebrtc'
   s.platform         = :ios
-  s.version          = '0.0.268'
+  s.version          = '0.0.270'
   s.summary          = 'Devil WebRtc'
   s.description      = <<-DESC
     This is Devil Login
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.source_files = 'devilwebrtc/devilwebrtc/source/**/*.*', 'devilwebrtc/devilwebrtc/header/**/*.h'
   s.public_header_files = 'devilwebrtc/devilwebrtc/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
   s.static_framework = true
-  s.dependency 'devilcore', '~> 0.0.268'
+  s.dependency 'devilcore', '~> 0.0.270'
   s.dependency 'AWSCognitoIdentityProvider'
   s.dependency 'AWSMobileClient'
   s.dependency 'CommonCryptoModule'
