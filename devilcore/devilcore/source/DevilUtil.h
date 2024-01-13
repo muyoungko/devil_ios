@@ -47,6 +47,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(id) queryToJson:(NSURL*)url;
 + (void)clearTmpDirectory;
 + (UIImage *)resizeImageProperly:(UIImage *)image;
++ (UIImage *)resizeImage:(UIImage *)image width:(float)width;
 + (BOOL)isWifiConnection;
 + (BOOL)isPhoneX;
 +(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback;

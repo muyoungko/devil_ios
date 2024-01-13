@@ -185,8 +185,8 @@
         if(_cachedImage[url] != nil) {
             UIImage *image = _cachedImage[url];
             UIImageView* imageView = [[UIImageView alloc] initWithImage:image];
-            imageView.frame = CGRectMake(0, 0, 60, 100);
-            marker.infoWindowAnchor = CGPointMake(0.5, 0.9);
+            imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+            marker.infoWindowAnchor = CGPointMake(0.5, 1.0);
             marker.iconView = imageView;
         } else {
             if(_asyncMarkerTask[url] == nil) {
@@ -198,6 +198,12 @@
                         return;
                     
                     UIImage* image = [UIImage imageWithData:byte];
+                    float width = image.size.width;
+                    if(param[@"url_image_width"]) {
+                        width = [WildCardConstructor convertSketchToPixel:
+                                 (float)[param[@"url_image_width"] intValue]];
+                        image = [DevilUtil resizeImage:image width:width];
+                    }
                     _cachedImage[url] = image;
                     
                     for(id marker_param in _asyncMarkerTask[url]) {
@@ -268,7 +274,9 @@
         id old = ((GMSMarker*)self.markerDic[key]).userData;
         if(![old[@"lat"] isEqual:param[@"lat"]] ||
            ![old[@"lng"] isEqual:param[@"lng"]] ||
-           ![old[@"title"] isEqual:param[@"title"]]) {
+           !(old[@"title"] == param[@"title"] || [old[@"title"] isEqual:param[@"title"]]) ||
+           !(old[@"url"] == param[@"url"] || [old[@"url"] isEqual:param[@"url"]])
+           ) {
             [self removeMarker:key];
             [self addMarker:param];
         } else {
