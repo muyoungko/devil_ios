@@ -39,7 +39,7 @@ NSRegularExpression *regex;
     return currentLang;
 }
 
-+(void)load{
++(void)load {
     NSString *filepath = [[NSBundle mainBundle] pathForResource:@"lang" ofType:@"json"];
     NSError *error;
     NSString *fileContents = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
@@ -63,13 +63,19 @@ NSRegularExpression *regex;
         lang[trimKey] = dic[k];
     }
 }
+
 +(void)parseLanguage:(id)language :(BOOL)collect_prod {
     
     NSString* key = [NSString stringWithFormat:@"LANG_%@", [WildCardConstructor sharedInstance].project_id];
     NSString* savedLang = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     if(savedLang)
         currentLang = savedLang;
+    else
+        currentLang = [[[NSLocale preferredLanguages] firstObject] substringToIndex:2];
     
+    [lang removeAllObjects];
+    [self load];
+
     [DevilLang sharedInstance].multiLanguage = [language count] > 0;
     [DevilLang sharedInstance].collectLanguage = [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"] || collect_prod;
     [DevilLang sharedInstance].sent = [[NSMutableDictionary alloc] init];
@@ -161,18 +167,26 @@ NSRegularExpression *regex;
     
     NSString* tokenKey = @"x-access-token_1605234988599";
     NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:tokenKey];
-    [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:@"https://console-api.deavil.com/api/language/candidate" header:@{
-        @"x-access-token" : token
-    } json:param success:^(NSMutableDictionary *res) {
-        if(res && [res[@"r"] boolValue]) {
-            
-            id ks = [[DevilLang sharedInstance].sentWait allKeys];
-            for(id key in ks)
-                [DevilLang sharedInstance].sent[key] = key;
-            
-            [[DevilLang sharedInstance].sentWait removeAllObjects];
-        }
-    }];
+    if(token) {
+        [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:@"https://console-api.deavil.com/api/language/candidate" header:@{
+            @"x-access-token" : token
+        } json:param success:^(NSMutableDictionary *res) {
+            if(res && [res[@"r"] boolValue]) {
+                
+                id ks = [[DevilLang sharedInstance].sentWait allKeys];
+                for(id key in ks)
+                    [DevilLang sharedInstance].sent[key] = key;
+                
+                [[DevilLang sharedInstance].sentWait removeAllObjects];
+            }
+        }];
+    }
+}
+
+-(void)clear {
+    [lang removeAllObjects];
+    [DevilLang sharedInstance].sent = [[NSMutableDictionary alloc] init];
+    [DevilLang sharedInstance].sentWait = [[NSMutableDictionary alloc] init];
 }
 
 @end

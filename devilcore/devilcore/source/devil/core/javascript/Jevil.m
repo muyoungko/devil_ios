@@ -74,7 +74,7 @@
         d.startData = param;
     }
     [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
-    d.landscape = [DevilUtil shouldLandscape];
+    d.landscape = [DevilUtil isLandscape:[DevilSdk sharedInstance].currentOrientation];
     
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
@@ -98,7 +98,7 @@
         d.startData = param;
     }
     [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
-    d.landscape = [DevilUtil shouldLandscape];
+    d.landscape = [DevilUtil isLandscape:[DevilSdk sharedInstance].currentOrientation];
     
     d.screenId = screenId;
     UINavigationController* n = [JevilInstance currentInstance].vc.navigationController;
@@ -127,7 +127,7 @@
     }
     
     [DevilSdk sharedInstance].currentOrientation = [[WildCardConstructor sharedInstance] supportedOrientation:screenId :[Jevil get:@"ORIENTATION"]];
-    d.landscape = [DevilUtil shouldLandscape];
+    d.landscape = [DevilUtil isLandscape:[DevilSdk sharedInstance].currentOrientation];
     
     d.screenId = screenId;
     [[JevilInstance currentInstance].vc.navigationController setViewControllers:@[d]];

@@ -63,6 +63,7 @@
 
 @property BOOL onLineMode;
 @property BOOL localImageMode;
+@property BOOL default_word_wrap;
 @property (nonatomic, weak, nullable) id <WildCardConstructorGlobalDelegate> delegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextConvertDelegate> textConvertDelegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextTransDelegate> textTransDelegate;

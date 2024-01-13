@@ -1,14 +1,18 @@
 {
   "확인":{
-      "ko": "확인",
       "en": "OK",
+      "es": "OK",
       "fr": "OK",
+      "kr": "OK",
+      "ar": "OK",
       "it": "OK"
   },
   "취소":{
-      "ko": "취소",
       "en": "Cancel",
+      "es": "Cancel",
       "fr": "Cancel",
+      "kr": "Cancel",
+      "ar": "Cancel",
       "it": "Cancel"
   }
 }

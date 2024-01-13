@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSString*)trans:(NSString*)name;
 +(NSString*)trans:(NSString*)name :(NSString*)node;
 -(void)flush;
+-(void)clear;
 
 @end
 

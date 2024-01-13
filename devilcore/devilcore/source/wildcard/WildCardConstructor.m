@@ -212,7 +212,12 @@ static NSString *default_project_id = nil;
     if(projectJson[@"language"]) {
         BOOL collect_prod = [projectJson[@"language_collect_prod"] boolValue];
         [DevilLang parseLanguage:projectJson[@"language"] :collect_prod];
+    } else {
+        [[DevilLang sharedInstance] clear];
     }
+    
+    if(projectJson[@"default_word_wrap"])
+        self.default_word_wrap = [projectJson[@"default_word_wrap"] boolValue];
 }
 
 -(NSMutableDictionary*_Nullable) getAllBlockJson
