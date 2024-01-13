@@ -53,8 +53,7 @@
 #import "DevilUtil.h"
 #import "DevilPdf.h"
 #import "DevilReview.h"
-@import ContactsUI;
-@import Contacts;
+#import "DevilContact.h"
 
 @interface Jevil()
 
@@ -2008,22 +2007,6 @@
     }];
 }
 
-+ (void)contactAdd:(id)param {
-    CNMutableContact* c = [[CNMutableContact alloc] init];
-    c.givenName = param[@"name"];
-    if(param[@"email"])
-        c.emailAddresses = @[
-            [[CNLabeledValue alloc] initWithLabel:CNLabelEmailiCloud value:param[@"email"]]
-        ];
-    
-    if(param[@"phone"])
-        c.phoneNumbers = @[
-            [[CNLabeledValue alloc] initWithLabel:CNLabelPhoneNumberMobile value:[[CNPhoneNumber alloc] initWithStringValue:param[@"phone"]]]
-        ];
-    CNContactViewController* vc = [CNContactViewController viewControllerForUnknownContact:c];
-    [[JevilInstance currentInstance].vc.navigationController pushViewController:vc animated:YES];
-}
-
 + (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback{
     DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
     [mc camera:param];
@@ -2105,5 +2088,22 @@
 }
 + (NSString*)languageTrans:(NSString*)key {
     return [DevilLang trans:key];
+}
+
++ (void)contactAdd:(id)param {
+    [[DevilContact sharedInstance] addContact:param];
+}
+
++ (void)contactList:(NSDictionary*)param :(JSValue *)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilContact sharedInstance] getContactList:param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
++ (void)contactSelect:(NSDictionary*)param :(JSValue *)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilContact sharedInstance] popupContactSelect:param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
 }
 @end

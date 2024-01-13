@@ -173,7 +173,6 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isScreenOrientationLandscape;
 + (BOOL)isTablet;
 + (void)previewProject:(NSString *)project_id :(NSString *)start_screen_id :(NSString *)version;
-+ (void)contactAdd:(id)param;
 + (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapAddMarker:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapAddMarkers:(NSString*)nodeName :(id)param :(JSValue*)callback;
@@ -187,6 +186,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)setLanguage:(NSString*)lang;
 + (NSString*)getLanguage;
 + (NSString*)languageTrans:(NSString*)key;
++ (void)contactAdd:(id)param;
++ (void)contactList:(NSDictionary*)param :(JSValue *)callback;
++ (void)contactSelect:(NSDictionary*)param :(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

@@ -271,6 +271,8 @@
 		6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */; };
 		6DE55C9C2AAEBDF6004B7612 /* DevilPdf.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE55C9A2AAEBDF6004B7612 /* DevilPdf.h */; };
 		6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE55C9B2AAEBDF6004B7612 /* DevilPdf.m */; };
+		6DE58FCE2B52BCD0006E27FF /* DevilContact.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DE58FCC2B52BCD0006E27FF /* DevilContact.h */; };
+		6DE58FCF2B52BCD0006E27FF /* DevilContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE58FCD2B52BCD0006E27FF /* DevilContact.m */; };
 		6DEC183628484A0300B3FE88 /* DevilBle.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DEC183428484A0300B3FE88 /* DevilBle.h */; };
 		6DEC183728484A0300B3FE88 /* DevilBle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC183528484A0300B3FE88 /* DevilBle.m */; };
 		6DECCD4A2943694D007FBBD9 /* devil_record_start.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6DECCD492943694D007FBBD9 /* devil_record_start.mp3 */; };
@@ -570,6 +572,8 @@
 		6DE2BAFA27A8F2A7008344DE /* DevilRecord.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilRecord.m; sourceTree = "<group>"; };
 		6DE55C9A2AAEBDF6004B7612 /* DevilPdf.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPdf.h; sourceTree = "<group>"; };
 		6DE55C9B2AAEBDF6004B7612 /* DevilPdf.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPdf.m; sourceTree = "<group>"; };
+		6DE58FCC2B52BCD0006E27FF /* DevilContact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilContact.h; sourceTree = "<group>"; };
+		6DE58FCD2B52BCD0006E27FF /* DevilContact.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilContact.m; sourceTree = "<group>"; };
 		6DEC183428484A0300B3FE88 /* DevilBle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilBle.h; sourceTree = "<group>"; };
 		6DEC183528484A0300B3FE88 /* DevilBle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBle.m; sourceTree = "<group>"; };
 		6DECCD492943694D007FBBD9 /* devil_record_start.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = devil_record_start.mp3; sourceTree = "<group>"; };
@@ -922,6 +926,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6DE58FC72B52B55F006E27FF /* contact */,
 				6DDE203729222BA400AD7F3C /* animation */,
 				6DEC1833284849EE00B3FE88 /* ble */,
 				6D98A83E2700D964004F3ECF /* alert */,
@@ -1157,6 +1162,15 @@
 			path = pdf;
 			sourceTree = "<group>";
 		};
+		6DE58FC72B52B55F006E27FF /* contact */ = {
+			isa = PBXGroup;
+			children = (
+				6DE58FCC2B52BCD0006E27FF /* DevilContact.h */,
+				6DE58FCD2B52BCD0006E27FF /* DevilContact.m */,
+			);
+			path = contact;
+			sourceTree = "<group>";
+		};
 		6DEC1833284849EE00B3FE88 /* ble */ = {
 			isa = PBXGroup;
 			children = (
@@ -1318,6 +1332,7 @@
 				6D467ACA256AB07A006D57DD /* WildCardScreenTableView.h in Headers */,
 				6DDE203F2924D7BE00AD7F3C /* DevilFlingChecker.h in Headers */,
 				6D467A94256AB07A006D57DD /* ReplaceRuleLocalImage.h in Headers */,
+				6DE58FCE2B52BCD0006E27FF /* DevilContact.h in Headers */,
 				6D9F7B1C26298952003A70EC /* WildCardProgressBar.h in Headers */,
 				6D467AC2256AB07A006D57DD /* WildCardSetTextAction.h in Headers */,
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
@@ -1553,6 +1568,7 @@
 				6DF377C727B3AC360050E1DA /* DevilLang.m in Sources */,
 				6D862906287AAC5700E62B7B /* JevilBill.m in Sources */,
 				6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */,
+				6DE58FCF2B52BCD0006E27FF /* DevilContact.m in Sources */,
 				6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */,
 				6DF5779126D00C1D009D41A1 /* DevilQrCameraController.m in Sources */,
 				6DC0CE3328E5974E00195F60 /* DevilChartMarketComponent.m in Sources */,
