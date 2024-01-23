@@ -249,10 +249,10 @@
 }
 
 + (void)alert:(NSString*)msg{
-    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+    if(![DevilAlertDialog showAlertTemplate: trans(msg) :^(BOOL yes) {
         
     }]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:trans(msg)
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
@@ -268,7 +268,7 @@
 }
 
 + (void)alertFinish:(NSString*)msg{
-    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+    if(![DevilAlertDialog showAlertTemplate:trans(msg) :^(BOOL yes) {
         [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
     }]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
@@ -287,12 +287,12 @@
 
 + (void)confirm:(NSString*)msg :(NSString*)yes :(NSString*)no :(JSValue *)callback {
     
-    if(![DevilAlertDialog showConfirmTemplate:msg :yes :no :^(BOOL yes) {
+    if(![DevilAlertDialog showConfirmTemplate:trans(msg) :yes :no :^(BOOL yes) {
         [callback callWithArguments:@[(yes?@YES:@NO)]];
         [[JevilInstance currentInstance] syncData];
     }]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
-                                                                                 message:msg
+                                                                                 message:trans(msg)
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
         [alertController addAction:[UIAlertAction actionWithTitle:yes
@@ -315,11 +315,11 @@
 
 + (void)alertThen:(NSString*)msg :(JSValue *)callback {
     
-    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+    if(![DevilAlertDialog showAlertTemplate:trans(msg) :^(BOOL yes) {
         [callback callWithArguments:@[]];
         [[JevilInstance currentInstance] syncData];
     }]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:trans(msg)
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
@@ -340,11 +340,11 @@
     NSString* yes = trans(@"확인");
     if(param[@"yes"])
         yes = param[@"yes"];
-    if(![DevilAlertDialog showAlertTemplate:msg :^(BOOL yes) {
+    if(![DevilAlertDialog showAlertTemplate:trans(msg) :^(BOOL yes) {
         [callback callWithArguments:@[]];
         [[JevilInstance currentInstance] syncData];
     }]) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:trans(msg)
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
