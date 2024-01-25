@@ -11,6 +11,7 @@
 #import "WildCardUIView.h"
 #import "JevilInstance.h"
 #import "WildCardUITapGestureRecognizer.h"
+#import "ReplaceRuleRepeat.h"
 
 static const CGFloat kDefaultSpringDamping = 0.8;
 static const CGFloat kDefaultSpringVelocity = 10.0;
@@ -165,7 +166,12 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
+    
+    
+    [ReplaceRuleRepeat disableInset];
     WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:wildCardConstructorInstanceDelegate];
+    [ReplaceRuleRepeat enableInset];
+    
     wc.meta.correspondData = data;
     wc.meta.jevil = [JevilInstance currentInstance].jevil;
     

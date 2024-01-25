@@ -272,8 +272,6 @@
         [container registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"FOOTER"];
         
         [container setShowsHorizontalScrollIndicator:false];
-        //[container setShowsHorizontalScrollIndicator:[REPEAT_TYPE_HLIST isEqualToString:repeatType]];
-        //[container setShowsVerticalScrollIndicator:[REPEAT_TYPE_VLIST isEqualToString:repeatType]];
         
         container.backgroundColor = [UIColor clearColor];
         WildCardCollectionViewAdapter* adapter = [[WildCardCollectionViewAdapter alloc] init];
@@ -355,8 +353,9 @@
                 autoPaddingAdjust = -window.safeAreaInsets.top;
             }
         }
-        container.contentInset = UIEdgeInsetsMake(minTop + autoPaddingAdjust, minLeft, 0, 0);
         
+        if(enableReplaceRuleRepeatVListInset)
+            container.contentInset = UIEdgeInsetsMake(minTop + autoPaddingAdjust, minLeft, 0, 0);
         arrayContentContainer = self.createdContainer = container;
         
         vv.userInteractionEnabled = YES;
@@ -938,6 +937,14 @@
     return [WildCardConstructor convertSketchToPixel:h];
 }
 
+
+static BOOL enableReplaceRuleRepeatVListInset = YES;
++(void)disableInset {
+    enableReplaceRuleRepeatVListInset = NO;
+}
++(void)enableInset {
+    enableReplaceRuleRepeatVListInset = YES;
+}
 @end
 
 @implementation CreatedViewInfo
@@ -948,4 +955,5 @@
     self.type = type;
     return self;
 }
+
 @end

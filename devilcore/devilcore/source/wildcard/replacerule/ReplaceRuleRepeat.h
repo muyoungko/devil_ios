@@ -29,6 +29,9 @@
 @property(nonatomic, retain) NSString* pullToRefreshJavascript;
 @property(nonatomic, retain) NSString* repeatType;
 
++(void)disableInset;
++(void)enableInset;
+
 @end
 
 #define CREATED_VIEW_TYPE_NORMAL 1

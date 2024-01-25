@@ -67,6 +67,8 @@
         r[@"phone"] = phone;
         
         self.callback(r);
+    } else {
+        self.callback([@{@"r":@FALSE} mutableCopy]);
     }
 }
 
