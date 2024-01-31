@@ -369,7 +369,7 @@
     if(self.hasOnCreated && self.navigationController.topViewController == self){
         [self.jevil code:@"onCreated()" viewController:self data:self.data meta:nil];
     }
-}
+} 
 
 -(void)onResume {
     for(NSString* key in [self.thisMetas allKeys])
@@ -789,7 +789,8 @@
     NSLog(@"orientationChanged sw - %d", orientation);
     BOOL newIsLandscape = (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight);
     
-    if(self.landscape != newIsLandscape) {
+    //player controller에 의한 전체화면시, orientation 변경은 막아야한다
+    if(self.landscape != newIsLandscape && !self.blockOrientationChange) {
         self.landscape = newIsLandscape;
         [self reconstructOnOrientation:self.landscape];
     }

@@ -49,7 +49,7 @@
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
-    NSLog(@"url - %@",navigationAction.request.URL.absoluteString);
+    //NSLog(@"url - %@",navigationAction.request.URL.absoluteString);
     NSString* url = navigationAction.request.URL.absoluteString;
     NSString* scheme = navigationAction.request.URL.scheme;
     

@@ -151,7 +151,9 @@
 -(void)full_click:(id)sender {
     DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
     NSString* image_name = @"devil_video_full_screen";
+    //풀 스크린해제
     if(_is_full_screen) {
+        dc.blockOrientationChange = NO;
         [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskPortrait;
         [dc toPortrait];
         image_name = @"devil_video_full_screen";
@@ -168,7 +170,8 @@
         }
         
         [_before_view_info_list removeAllObjects];
-    } else {
+    } else { // 풀스크린
+        dc.blockOrientationChange = YES;
         [DevilSdk sharedInstance].currentOrientation = UIInterfaceOrientationMaskLandscape;
         [dc toLandscape];
         image_name = @"devil_video_full_screen_exit";

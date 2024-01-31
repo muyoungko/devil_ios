@@ -48,6 +48,7 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 @property (nonatomic, retain) UIView* fixedViewContainer;
 @property (nonatomic, retain) UIView* fixedView;
 @property BOOL (^onBackPressCallback)();
+@property BOOL blockOrientationChange;
 
 -(void)debugView;
 @property (nonatomic, retain) NSMutableDictionary* viewPagerReservedSelectedIndexMap;
