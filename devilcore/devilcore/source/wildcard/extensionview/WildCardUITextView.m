@@ -127,9 +127,7 @@
     else
         [tf setValue:[WildCardUtil colorWithHexString:placeHolderTextColor] forKeyPath:@"_placeholderLabel.textColor"];
     
-    NSDictionary *attributes = @{NSFontAttributeName: tf.font};
-    CGRect rect = [@"sample text" boundingRectWithSize:CGSizeMake(200, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
-    
+    CGRect rect = [WildCardUtil getTextSize:@"sample text" font:tf.font maxWidth:200 maxHeight:CGFLOAT_MAX];
     tf.lineHeight = rect.size.height;
     
     /**

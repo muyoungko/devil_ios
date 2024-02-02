@@ -45,6 +45,6 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
 +(UIView*)findView:(id)layer name:(NSString*)name;
 +(BOOL)isTablet;
-+(float) cachedImagePixcelHeight:(NSString*)url height:(float)height;
-
++(float)cachedImagePixcelHeight:(NSString*)url height:(float)height;
++(CGRect)getTextSize:(NSString*)text font:(UIFont*)font maxWidth:(CGFloat)width maxHeight:(CGFloat)height;
 @end

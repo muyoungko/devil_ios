@@ -662,10 +662,4 @@
     return orientation == UIInterfaceOrientationMaskLandscape || orientation == UIInterfaceOrientationMaskLandscapeLeft || orientation == UIInterfaceOrientationMaskLandscapeRight;
 }
 
-+(CGSize)getTextSize:(UIFont*)font text:(NSString*)text maxWidth:(int)max_width {
-    NSDictionary *attributes = @{NSFontAttributeName: font};
-    CGRect textSize = [text boundingRectWithSize:CGSizeMake(max_width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
-    
-    return CGSizeMake(textSize.size.width, textSize.size.height) ;
-}
 @end

@@ -9,6 +9,7 @@
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
 #import "DevilLocation.h"
+#import "WildCardUtil.h"
 
 @import GoogleMaps;
 @import GoogleMapsUtils;
@@ -158,10 +159,10 @@
             color = [UIColor orangeColor];
         
         UIFont* font = [UIFont systemFontOfSize:15];
-        CGSize textSize = [DevilUtil getTextSize:font text:title maxWidth:10000];
-        if(textSize.width > 200)
-            textSize.width = 200;
-        UIView *bubbleView = [self createBubbleView:textSize color:color];
+        CGRect textSize = [WildCardUtil getTextSize:title font:font maxWidth:CGFLOAT_MAX maxHeight:CGFLOAT_MAX];
+        if(textSize.size.width > 200)
+            textSize.size.width = 200;
+        UIView *bubbleView = [self createBubbleView:textSize.size color:color];
         
         UIView *infoView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, bubbleView.frame.size.width, bubbleView.frame.size.height)];
         infoView.backgroundColor = [UIColor clearColor];

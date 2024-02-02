@@ -106,8 +106,11 @@
     if(url == nil){
         [imageView setImage:nil];
         [imageView setNeedsDisplay];
+        self.currentUrl = nil;
+        imageView.hidden = YES;
         return self.currentUrl;
     }
+    imageView.hidden = NO;
     
     if([url isEqualToString:self.currentUrl]) {
         return self.currentUrl;

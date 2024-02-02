@@ -67,7 +67,6 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(void)multiPartUpload:(NSString*)url header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback;
 +(BOOL)shouldLandscape;
 +(BOOL)isLandscape:(UIInterfaceOrientationMask)orientation;
-+(CGSize)getTextSize:(UIFont*)font text:(NSString*)text maxWidth:(int)max_width;
 @end
 
 NS_ASSUME_NONNULL_END

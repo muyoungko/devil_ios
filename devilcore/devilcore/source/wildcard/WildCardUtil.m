@@ -357,21 +357,13 @@ static BOOL IS_TABLET = NO;
             w = [WildCardUtil convertSketchToPixel:[cloudJson[@"frame"][@"max_width"] intValue]] - paddingLeft - paddingRight;
         else
             w = [WildCardUtil convertSketchToPixel:w];
-            
-        NSDictionary *attributes = @{NSFontAttributeName: font};
         /**
          wrap_content 텍스트의 경우 높이가 text가 nil이면 0이 나오고, @"" 이면 한 줄만큼나온다.
          실제 meta에서 그릴때는 한줄로 취급된다
          */
         if(text == nil)
             text = @"";
-        CGRect rect;
-        
-        if(wrap_width)
-            rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading|NSStringDrawingUsesDeviceMetrics attributes:attributes context:nil];
-        else
-            rect = [text boundingRectWithSize:CGSizeMake(w, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-
+        CGRect rect = [self getTextSize:text font:font maxWidth:w maxHeight:CGFLOAT_MAX];
         h = rect.size.height;
         
         //NSLog(@"text height - %@ %@ %f", cloudJson[@"name"], text, h);
@@ -653,5 +645,12 @@ static BOOL IS_TABLET = NO;
     return IS_TABLET;
 }
 
++(CGRect)getTextSize:(NSString*)text font:(UIFont*)font maxWidth:(CGFloat)width maxHeight:(CGFloat)height {
+    NSDictionary *attributes = @{NSFontAttributeName: font};
+    if(width == CGFLOAT_MAX)
+        return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    else
+        return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil];
+}
 
 @end
