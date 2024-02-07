@@ -3,7 +3,7 @@
 //  devilcore
 //
 //  Created by Mu Young Ko on 2024/02/07.
-//  Code is from https://stackoverflow.com/questions/39660219/how-to-draw-signature-on-uiview
+//  Code is from https://github.com/michalkonturek/SignatureView
 //
 
 #import <UIKit/UIKit.h>
