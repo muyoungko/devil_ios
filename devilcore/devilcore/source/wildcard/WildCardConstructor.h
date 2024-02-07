@@ -26,13 +26,11 @@
 - (void)onNetworkRequestPost:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success;
 
 @optional
+- (void)cancelNetworkImageView:(UIView*)networkImageView;
 - (void)loadNetworkImageViewWithSize:(UIView*)networkImageView withUrl:(NSString*)url callback:(void (^)(CGSize size))callback;
 - (void)onNetworkRequestPut:(NSString*)url header:(NSDictionary*)header json:(NSDictionary*)json success:(void (^)(NSMutableDictionary* responseJsonObject))success;
-
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension;
-
 -(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data;
-
 -(void)onCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node;
 @end
 

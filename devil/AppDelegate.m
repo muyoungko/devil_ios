@@ -317,6 +317,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     return r;
 }
 
+- (void)cancelNetworkImageView:(UIView*)networkImageView {
+    __block UIImageView* nv = ((UIImageView*)networkImageView);
+    [nv cancelImageDownloadTask];
+}
+
 - (void)loadNetworkImageView:(UIView*)networkImageView withUrl:(NSString*)url
 {
     __block UIImageView* nv = ((UIImageView*)networkImageView);

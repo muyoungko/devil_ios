@@ -118,9 +118,10 @@
     
     [imageView setImage:nil];
     [imageView setNeedsDisplay];
-    
     if([url hasPrefix:@"/"]) {
-        
+        if([[WildCardConstructor sharedInstance].delegate respondsToSelector:@selector(cancelNetworkImageView:)])
+            [[WildCardConstructor sharedInstance].delegate cancelNetworkImageView:imageView];
+         
         if([[NSFileManager defaultManager] fileExistsAtPath:url])
             [imageView setImage:[UIImage imageWithContentsOfFile:url]];
         else {
@@ -129,6 +130,9 @@
         }
     } else if([url hasPrefix:@"gallery://"]) {
         if(![url isEqualToString:self.currentUrl]) {
+            if([[WildCardConstructor sharedInstance].delegate respondsToSelector:@selector(cancelNetworkImageView:)])
+                [[WildCardConstructor sharedInstance].delegate cancelNetworkImageView:imageView];
+            
             PHImageRequestOptions* requestOptions = [[PHImageRequestOptions alloc] init];
             requestOptions.resizeMode   = PHImageRequestOptionsResizeModeExact;
             requestOptions.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
@@ -192,8 +196,9 @@
                 }
             }
         }];
-    } else
+    } else {
         [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:imageView withUrl:url];
+    }
     
     return url;
 }
