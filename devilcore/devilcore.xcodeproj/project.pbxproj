@@ -22,6 +22,10 @@
 		6D1009252807C3F4004806A0 /* devil_camera_play@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1009242807C3F4004806A0 /* devil_camera_play@3x.png */; };
 		6D12857127773A990086B1CB /* DevilPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D12856F27773A990086B1CB /* DevilPicker.h */; };
 		6D12857227773A990086B1CB /* DevilPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D12857027773A990086B1CB /* DevilPicker.m */; };
+		6D1611DD2B7361A5001C0E3B /* DevilPaintMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1611DB2B7361A5001C0E3B /* DevilPaintMarketComponent.h */; };
+		6D1611DE2B7361A5001C0E3B /* DevilPaintMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */; };
+		6D1611E12B7362A3001C0E3B /* DevilPaintView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */; };
+		6D1611E22B7362A3001C0E3B /* DevilPaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611E02B7362A3001C0E3B /* DevilPaintView.m */; };
 		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
 		6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */; };
 		6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3DD349275B778000707521 /* DevilPlayerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -322,6 +326,10 @@
 		6D1009242807C3F4004806A0 /* devil_camera_play@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_play@3x.png"; sourceTree = "<group>"; };
 		6D12856F27773A990086B1CB /* DevilPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPicker.h; sourceTree = "<group>"; };
 		6D12857027773A990086B1CB /* DevilPicker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPicker.m; sourceTree = "<group>"; };
+		6D1611DB2B7361A5001C0E3B /* DevilPaintMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPaintMarketComponent.h; sourceTree = "<group>"; };
+		6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintMarketComponent.m; sourceTree = "<group>"; };
+		6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPaintView.h; sourceTree = "<group>"; };
+		6D1611E02B7362A3001C0E3B /* DevilPaintView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintView.m; sourceTree = "<group>"; };
 		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
 		6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIPageControl.m; sourceTree = "<group>"; };
 		6D3DD349275B778000707521 /* DevilPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPlayerController.h; sourceTree = "<group>"; };
@@ -678,6 +686,17 @@
 				6D09C3BF25B08B2A00221A4C /* DevilDebugView.m */,
 			);
 			path = debug;
+			sourceTree = "<group>";
+		};
+		6D1611DA2B736183001C0E3B /* paint */ = {
+			isa = PBXGroup;
+			children = (
+				6D1611DB2B7361A5001C0E3B /* DevilPaintMarketComponent.h */,
+				6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */,
+				6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */,
+				6D1611E02B7362A3001C0E3B /* DevilPaintView.m */,
+			);
+			path = paint;
 			sourceTree = "<group>";
 		};
 		6D22CF9326079A0C00A1CB25 /* Frameworks */ = {
@@ -1083,6 +1102,7 @@
 		6DD09434269C79CC000A913A /* market */ = {
 			isa = PBXGroup;
 			children = (
+				6D1611DA2B736183001C0E3B /* paint */,
 				6DFC0C9C2ACD68C800F26849 /* map */,
 				6DECCD4B294AFAE0007FBBD9 /* ads */,
 				6DDE20382923BFF500AD7F3C /* blockdrawer */,
@@ -1256,6 +1276,7 @@
 				6DD097DD26A1AE29000A913A /* JevilFunctionUtil.h in Headers */,
 				6D7F7A9928D6F1F100F67029 /* DevilPhotoController.h in Headers */,
 				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
+				6D1611DD2B7361A5001C0E3B /* DevilPaintMarketComponent.h in Headers */,
 				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
 				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
 				6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */,
@@ -1349,6 +1370,7 @@
 				6DE10D432AFB24E000E90394 /* DevilReview.h in Headers */,
 				6D467B72257A2F27006D57DD /* DevilController.h in Headers */,
 				6D467B6C257A2F16006D57DD /* DevilBaseController.h in Headers */,
+				6D1611E12B7362A3001C0E3B /* DevilPaintView.h in Headers */,
 				6D467B62257A268C006D57DD /* DevilHeader.h in Headers */,
 				6D467AB5256AB07A006D57DD /* WildCardUILabel.h in Headers */,
 				6D467AA9256AB07A006D57DD /* WildCardUtil.h in Headers */,
@@ -1578,6 +1600,7 @@
 				6D9F7B122629658F003A70EC /* UIImage+PECrop.m in Sources */,
 				6D3EBE8425D92DB00006ADD5 /* WifiManager.m in Sources */,
 				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,
+				6D1611DE2B7361A5001C0E3B /* DevilPaintMarketComponent.m in Sources */,
 				6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */,
 				6D862907287AAC5700E62B7B /* DevilBillInstance.m in Sources */,
 				6D9A864928AA7B6C001002D8 /* DevilFileChooser.m in Sources */,
@@ -1586,6 +1609,7 @@
 				6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */,
 				6DD09443269C7A28000A913A /* DevilCalendar.m in Sources */,
 				6DE10D442AFB24E000E90394 /* DevilReview.m in Sources */,
+				6D1611E22B7362A3001C0E3B /* DevilPaintView.m in Sources */,
 				6D9F7B1D26298952003A70EC /* WildCardProgressBar.m in Sources */,
 				6D9F7B112629658F003A70EC /* PECropView.m in Sources */,
 				6D9F7C8926396318003A70EC /* DevilToast.m in Sources */,

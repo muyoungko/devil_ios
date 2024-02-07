@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "WildCardMeta.h"
+#import "MarketComponent.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class JevilCtx;
@@ -36,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) UIViewController* mark;
 
 -(void)videoViewAutoPlay;
-
+-(MarketComponent*)findMarketComponent:(NSString*)nodeName;
 
 @end
 

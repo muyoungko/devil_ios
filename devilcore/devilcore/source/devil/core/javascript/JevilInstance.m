@@ -8,6 +8,8 @@
 #import "JevilInstance.h"
 #import "JevilUtil.h"
 #import "WildCardVideoView.h"
+#import "DevilController.h"
+#import "MarketInstance.h"
 
 @implementation JevilInstance
 
@@ -69,5 +71,10 @@
     }
 }
 
+-(MarketComponent*)findMarketComponent:(NSString*)nodeName {
+    DevilController* vc = (DevilController*)self.vc;
+    MetaAndViewResult* mv = [vc findViewWithMeta:nodeName];
+    return [MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
+}
 
 @end

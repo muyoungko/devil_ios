@@ -54,6 +54,7 @@
 #import "DevilPdf.h"
 #import "DevilReview.h"
 #import "DevilContact.h"
+#import "DevilPaintMarketComponent.h"
 
 @interface Jevil()
 
@@ -2106,4 +2107,20 @@
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
 }
+
++ (void)paintSave:(NSString*)nodeName :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [((DevilPaintMarketComponent*)[[JevilInstance currentInstance] findMarketComponent:nodeName]) saveImage:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (BOOL)paintIsEmpty:(NSString*)nodeName {
+    return [((DevilPaintMarketComponent*)[[JevilInstance currentInstance] findMarketComponent:nodeName]) isEmpty];
+}
+
++ (void)paintClear:(NSString*)nodeName {
+    [((DevilPaintMarketComponent*)[[JevilInstance currentInstance] findMarketComponent:nodeName]) clear];
+}
+
 @end

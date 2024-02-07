@@ -189,6 +189,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)contactAdd:(id)param;
 + (void)contactList:(NSDictionary*)param :(JSValue *)callback;
 + (void)contactSelect:(NSDictionary*)param :(JSValue *)callback;
++ (void)paintSave:(NSString*)nodeName :(JSValue *)callback;
++ (BOOL)paintIsEmpty:(NSString*)nodeName;
++ (void)paintClear:(NSString*)nodeName;
 @end
 
 @interface Jevil : NSObject <Jevil>

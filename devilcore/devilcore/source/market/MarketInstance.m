@@ -18,6 +18,7 @@
 #import "ReplaceRule.h"
 #import "ReplaceRuleMarket.h"
 #import "DevilGoogleMapMarketComponent.h"
+#import "DevilPaintMarketComponent.h"
 
 @implementation MarketInstance
 
@@ -41,6 +42,8 @@
         r = [[DevilGoogleAdsBannerMarketComponent alloc] initWithLayer:market meta:meta];
     } else if([@"kr.co.july.map" isEqualToString:type]) {
         r = [[DevilGoogleMapMarketComponent alloc] initWithLayer:market meta:meta];
+    } else if([@"kr.co.july.paint" isEqualToString:type]) {
+        r = [[DevilPaintMarketComponent alloc] initWithLayer:market meta:meta];
     } else {
         r = [[MarketComponent alloc] initWithLayer:market meta:meta];
     }
