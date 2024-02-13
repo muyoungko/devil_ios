@@ -24,7 +24,7 @@
     self.devilPaintView.userInteractionEnabled = YES;
     [WildCardConstructor followSizeFromFather:self.vv child:self.devilPaintView];
     [WildCardConstructor userInteractionEnableToParentPath:self.devilPaintView depth:5];
-    [self.devilPaintView clear];
+    //[self.devilPaintView clear];
 }
 
 -(void)saveImage:(void (^)(id res))callback{

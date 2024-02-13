@@ -54,7 +54,7 @@
 - (void)setText:(NSString *)text
 {
     [super setText:text];
-
+    
     /**
      한줄처리 ... 처리
      두줄이상 ... 처리 charwrap, wordwrap
@@ -94,8 +94,6 @@
         textSize.size.height = MIN(self.font.lineHeight * self.numberOfLines, textSize.size.height);
             
         self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
-        if(self.numberOfLines == 2)
-            NSLog(@"a");
         CGRect superFrame = parent.frame;
         parent.frame = CGRectMake(superFrame.origin.x, superFrame.origin.y, self.frame.size.width, self.frame.size.height);
     }
@@ -119,10 +117,14 @@
             }
             else
             {
-                CGRect textSize = [WildCardUtil getTextSize:self.text font:self.font
-                                                    maxWidth:self.frame.size.width
-                                                   maxHeight:self.max_height];
+                CGRect textSize = [self.text boundingRectWithSize:CGSizeMake(self.frame.size.width, self.max_height) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
                 self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
+
+                //고정된 사이즈를 넘어섰을때
+//                CGRect textSize = [WildCardUtil getTextSize:self.text font:self.font
+//                                                    maxWidth:self.frame.size.width
+//                                                   maxHeight:self.max_height];
+//                self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, MIN(textSize.size.height, self.max_height));
             }
         }
     }
