@@ -174,6 +174,8 @@ static NSString *default_project_id = nil;
     _tabletCloudJsonMap = projectJson[@"tabletCloudJsonMap"] ;
     _landscapeCloudJsonMap = projectJson[@"landscapeCloudJsonMap"] ;
     _tabletLandscapeCloudJsonMap = projectJson[@"tabletLandscapeCloudJsonMap"] ;
+    _themeCloudJsonMap = projectJson[@"themeCloudJsonMap"] ;
+    _use_theme = [projectJson[@"use_theme"] boolValue];
     _screenMap = projectJson[@"screenMap"];
     _blockMap = projectJson[@"block"];
     _project = projectJson[@"project"];
@@ -241,16 +243,35 @@ static NSString *default_project_id = nil;
 
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey :(BOOL)landscape
 {
-    if(IS_TABLET && landscape && _tabletCloudJsonMap[blockKey] != nil)
-        return _tabletLandscapeCloudJsonMap[blockKey];
-    else if(IS_TABLET && _tabletCloudJsonMap[blockKey] != nil)
-        return _tabletCloudJsonMap[blockKey];
-    else if(_landscapeCloudJsonMap[blockKey] != nil && landscape)
-        return _landscapeCloudJsonMap[blockKey];
-    else if(_cloudJsonMap[blockKey] != nil)
-        return _cloudJsonMap[blockKey];
-    else
-        return nil;
+    id r = nil;
+    if(_use_theme) {
+        NSString* theme = [Jevil get:@"THEME"];
+        if (theme != nil && _themeCloudJsonMap != nil && _themeCloudJsonMap[blockKey] != nil) {
+            id theTheme = _themeCloudJsonMap[blockKey][theme];
+            if (theTheme != nil) {
+                if (IS_TABLET && landscape && theTheme[@"tablet_landscape_cloud_json"] != nil)
+                    r = theTheme[@"cloud_json"];
+                else if (IS_TABLET && theTheme[@"tablet_cloud_json"] != nil)
+                    r = theTheme[@"tablet_cloud_json"];
+                else if (landscape && theTheme[@"landscape_cloud_json"] != nil)
+                    r = theTheme[@"landscape_cloud_json"];
+                else if (theTheme[@"cloud_json"] != nil)
+                    r = theTheme[@"cloud_json"];
+            }
+        }
+    }
+    
+    if(r == nil) {
+        if(IS_TABLET && landscape && _tabletCloudJsonMap[blockKey] != nil)
+            return _tabletLandscapeCloudJsonMap[blockKey];
+        else if(IS_TABLET && _tabletCloudJsonMap[blockKey] != nil)
+            return _tabletCloudJsonMap[blockKey];
+        else if(_landscapeCloudJsonMap[blockKey] != nil && landscape)
+            return _landscapeCloudJsonMap[blockKey];
+        else if(_cloudJsonMap[blockKey] != nil)
+            return _cloudJsonMap[blockKey];
+    }
+    return r;
 }
 
 -(NSMutableDictionary*_Nullable) getBlockJson:(NSString*_Nonnull)blockKey withName:(NSString*)nodeName

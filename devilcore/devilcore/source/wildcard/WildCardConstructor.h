@@ -62,6 +62,7 @@
 @property BOOL onLineMode;
 @property BOOL localImageMode;
 @property BOOL default_word_wrap;
+@property BOOL use_theme;
 @property (nonatomic, weak, nullable) id <WildCardConstructorGlobalDelegate> delegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextConvertDelegate> textConvertDelegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextTransDelegate> textTransDelegate;
@@ -71,6 +72,7 @@
 @property (nonatomic, retain) NSMutableDictionary* _Nullable tabletCloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable landscapeCloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable tabletLandscapeCloudJsonMap;
+@property (nonatomic, retain) NSMutableDictionary* _Nullable themeCloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable screenMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable blockMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable project;
