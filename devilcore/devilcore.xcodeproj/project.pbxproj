@@ -141,7 +141,6 @@
 		6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D530D06274B539E006EDD58 /* DevilGalleryController.m */; };
 		6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */; };
 		6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */; };
-		6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */; };
 		6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */; };
 		6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */; };
 		6D5C4AB32ADFCB3500DD1978 /* devil_map_bubble@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */; };
@@ -446,7 +445,6 @@
 		6D530D06274B539E006EDD58 /* DevilGalleryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGalleryController.m; sourceTree = "<group>"; };
 		6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevilGalleryController.xib; sourceTree = "<group>"; };
 		6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_icon@3x.png"; sourceTree = "<group>"; };
-		6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_cancel@3x.png"; sourceTree = "<group>"; };
 		6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox_on@3x.png"; sourceTree = "<group>"; };
 		6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox@3x.png"; sourceTree = "<group>"; };
 		6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble@3x.png"; sourceTree = "<group>"; };
@@ -650,7 +648,6 @@
 				6DD0987626A6AAEF000A913A /* devil_camera_record.wav */,
 				6DECCD492943694D007FBBD9 /* devil_record_start.mp3 */,
 				6D8A40EA2674B77E006999FC /* play_pause.json */,
-				6D530D0E274B7D6F006EDD58 /* devil_camera_cancel@3x.png */,
 				6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */,
 				6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */,
 				6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */,
@@ -1495,7 +1492,6 @@
 				6DF577A826D09C6B009D41A1 /* DevilQrCameraController.xib in Resources */,
 				6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */,
 				6DF459002A829C8800E20636 /* devil_video_full_screen@3x.png in Resources */,
-				6D530D12274B7D6F006EDD58 /* devil_camera_cancel@3x.png in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
 				6D3DD34E275B93C600707521 /* devil_camera_close@3x.png in Resources */,
