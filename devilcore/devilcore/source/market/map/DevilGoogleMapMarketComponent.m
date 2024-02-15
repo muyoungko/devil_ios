@@ -12,8 +12,6 @@
 #import "WildCardUtil.h"
 
 @import GoogleMaps;
-@import GoogleMapsUtils;
-
 
 @interface DevilGoogleMapMarketComponent() <GMSMapViewDelegate, CLLocationManagerDelegate>
 @property (nonatomic, retain) GMSMapView* mapView;

@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilcore'
   s.platform         = :ios
-  s.version          = '0.0.274'
+  s.version          = '0.0.275'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Login
@@ -24,7 +24,6 @@ Pod::Spec.new do |s|
   s.dependency 'ZXingObjC', '~> 3.6.9'
   s.dependency 'Charts', '~> 4.1.0'
   s.dependency 'GoogleMaps', '7.3.0'
-  s.dependency 'Google-Maps-iOS-Utils', '4.2.2'
   s.resources = 'devilcore/devilcore/resource/*'
 
 end
