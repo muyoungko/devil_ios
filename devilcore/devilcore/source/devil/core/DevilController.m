@@ -784,9 +784,8 @@
 -(void)orientationChanged:(NSNotification*)noti {
     [super orientationChanged:noti];
     
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication].windows firstObject].windowScene.interfaceOrientation;
-    NSLog(@"orientationChanged sw - %d", orientation);
-    BOOL newIsLandscape = (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight);
+    BOOL newIsLandscape = UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication].windows firstObject].windowScene.interfaceOrientation);
+    NSLog(@"orientationChanged current - %d old %d", newIsLandscape, self.landscape);
     
     //player controller에 의한 전체화면시, orientation 변경은 막아야한다
     if(self.landscape != newIsLandscape && !self.blockOrientationChange) {

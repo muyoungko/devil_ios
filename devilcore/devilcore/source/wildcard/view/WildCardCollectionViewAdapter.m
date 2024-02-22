@@ -13,6 +13,7 @@
 #import "WildCardUtil.h"
 #import "WildCardUICollectionView.h"
 #import "DevilExceptionHandler.h"
+#import "DevilLang.h"
 
 @interface WildCardCollectionViewAdapter()
 
@@ -176,6 +177,7 @@
                     if(arr[i][@"textContent"] != nil)
                     {
                         NSString* text = [MappingSyntaxInterpreter interpret:arr[i][@"textContent"] : data];
+                        text = trans(text);
                         NSDictionary* textSpec = [arr[i] objectForKey:@"textSpec"];
                         float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
                         

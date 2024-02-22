@@ -112,6 +112,7 @@
 -(NSMutableDictionary*)getFooterCloudJson:(NSString*)screenId :(BOOL)isLandscape;
 -(NSMutableDictionary*)getInsideFooterCloudJson:(NSString*)screenId :(BOOL)isLandscape;
 +(BOOL)isTablet;
++(void)resetIsTablet;
 +(void)updateSketchWidth:(id)layer;
 +(void)updateScreenWidthHeight:(float)w :(float)h;
 -(UIInterfaceOrientationMask) supportedOrientation : (NSString*)screenId :(NSString*)limitOrientation;

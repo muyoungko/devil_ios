@@ -250,7 +250,7 @@ static NSString *default_project_id = nil;
             id theTheme = _themeCloudJsonMap[blockKey][theme];
             if (theTheme != nil) {
                 if (IS_TABLET && landscape && theTheme[@"tablet_landscape_cloud_json"] != nil)
-                    r = theTheme[@"cloud_json"];
+                    r = theTheme[@"tablet_landscape_cloud_json"];
                 else if (IS_TABLET && theTheme[@"tablet_cloud_json"] != nil)
                     r = theTheme[@"tablet_cloud_json"];
                 else if (landscape && theTheme[@"landscape_cloud_json"] != nil)
@@ -1072,7 +1072,7 @@ static BOOL IS_TABLET = NO;
             if(frame[@"max_width"])
                 tv.max_width = [WildCardUtil convertSketchToPixel:[frame[@"max_width"] intValue]];
             
-            NSString* text = [textSpec objectForKey:@"text"];
+            NSString* text = trans2([textSpec objectForKey:@"text"], name);
             if(text == nil)
                 text = name;
             
@@ -1486,14 +1486,14 @@ static BOOL IS_TABLET = NO;
     }
 }
 
--(UIInterfaceOrientationMask) supportedOrientation : (NSString*)screenId :(NSString*)limitOrientation {
+-(UIInterfaceOrientationMask) supportedOrientation : (NSString*)screenId :(NSString*)forceOrientation {
     UIInterfaceOrientationMask r = UIInterfaceOrientationMaskPortrait;
     id s = _screenMap[screenId];
     id list = s[@"list"];
     if([list count] > 0) {
         id blockKey = [list[0][@"block_id"] stringValue];
         
-        if([@"landscape" isEqualToString:limitOrientation]) {
+        if([@"landscape" isEqualToString:forceOrientation]) {
             if(IS_TABLET && _tabletLandscapeCloudJsonMap[blockKey] != nil) {
                 r = UIInterfaceOrientationMaskLandscape;
             } else if(!IS_TABLET && _landscapeCloudJsonMap[blockKey] != nil) {

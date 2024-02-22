@@ -106,10 +106,16 @@ NSRegularExpression *regex;
     if(![DevilLang sharedInstance].multiLanguage)
         return name;
     
+    //if([name hasPrefix:@"No Video"])
+    {
+        NSLog(@"%@", name);
+    }
+    
     NSString* oname = name;
     name = [regex stringByReplacingMatchesInString:name options:0
                                                           range:NSMakeRange(0, [name length])
                                                    withTemplate:@""];
+    
     id r = lang[name];
     if(r == nil) {
         [[DevilLang sharedInstance] sendLanguageKey:oname :node];
@@ -117,7 +123,7 @@ NSRegularExpression *regex;
     }
     
     NSString* r2 = r[[DevilLang getCurrentLang]];
-    if(r2 == nil || [[r2 class] isEqual:[NSNull class]])
+    if(r2 == nil || [r2 isEqualToString:@""] || [[r2 class] isEqual:[NSNull class]])
         return oname;
     
     return r2;

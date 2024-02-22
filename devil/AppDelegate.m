@@ -172,6 +172,9 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [FIRApp configure];
     
     [DevilLoginSdk application:application didFinishLaunchingWithOptions:launchOptions];
+    [WildCardConstructor resetIsTablet];
+    if([WildCardConstructor isTablet])
+        [DevilSdk sharedInstance].autoChangeOrientation = true;
     [[DevilSdk sharedInstance] registScreenController:@"project" class:[MainV2Controller class]];
     [DevilSdk sharedInstance].devilSdkScreenDelegate = self;
     [DevilSdk sharedInstance].devilSdkGoogleAdsDelegate = self;

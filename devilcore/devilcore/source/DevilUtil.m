@@ -646,12 +646,13 @@
 
 +(BOOL)shouldLandscape {
     UIInterfaceOrientationMask c = [DevilSdk sharedInstance].currentOrientation;
-    if(c & UIInterfaceOrientationMaskLandscape && UIInterfaceOrientationMaskPortrait) {
+    if((c & UIInterfaceOrientationMaskLandscape) && (c & UIInterfaceOrientationMaskPortrait)) {
         //현재 Device Orienation에 따라 결정
         //그런데 현재 화면이 potrait이고 다음화면이 landscape이면 현재화면이 나온다.
         //결국 현재 화면 상태는 의미없고 현재 기기의 가로/세로 상태를 구해야한다
         UIInterfaceOrientation orientation = [[UIApplication sharedApplication].windows firstObject].windowScene.interfaceOrientation;
-        return (orientation == UIInterfaceOrientationLandscapeLeft || orientation == UIInterfaceOrientationLandscapeRight);
+        UIDeviceOrientation device_orientation = [[UIDevice currentDevice] orientation];
+        return (device_orientation == UIInterfaceOrientationLandscapeLeft || device_orientation == UIInterfaceOrientationLandscapeRight);
 
     } else {
         return [DevilSdk sharedInstance].currentOrientation == UIInterfaceOrientationMaskLandscape;
@@ -659,6 +660,7 @@
 }
 
 +(BOOL)isLandscape:(UIInterfaceOrientationMask)orientation {
+    
     return orientation == UIInterfaceOrientationMaskLandscape || orientation == UIInterfaceOrientationMaskLandscapeLeft || orientation == UIInterfaceOrientationMaskLandscapeRight;
 }
 

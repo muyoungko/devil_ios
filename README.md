@@ -90,3 +90,29 @@ lipo -remove x86_64 WebRTC -o WebRTC
 에서 위 커맨드로 불필요한 아키텍처를 제거한다
 
 template1 프로젝트에서도 똑같이 한다
+
+
+#Google map bundle 못찾는 문제(webrtc와 충돌)
+
+google map 7.3.0에서 sub project devil에서
+instance 프로젝트에서 webrtc를 포함시
+template1 > webrtc > devilcore > googlemap 과
+template1 > devilcore > googlemap 이렇게 중복되서 
+ 
+bundle을 못찾고 tile만들때 크래시남
+webrtc를 프로젝트 단위로 import하지말고 그냥 코드를 import해서
+template1 > webrtc > devilcore(삭제) > googlemap
+template1 > devilcore > googlemap 
+이상태로 만들어야함
+
+
+#Google map bundle 못찾는 문제(0.8)
+google map 8.x.0 사용시 devilcore에서 GoogleMap.bundle을 못찾음
+
+self.mapView = [[GMSMapView alloc] initWithFrame: CGRectZero camera:camera];
+위 코드에서 오류남
+
+그러므로 google map 8.x 를 사용할 수 없음  
+target 'devilcore' do
+  pod 'GoogleMaps', '8.4.0'
+end
