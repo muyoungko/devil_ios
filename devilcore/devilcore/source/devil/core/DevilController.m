@@ -425,7 +425,6 @@
     
     self.viewMain.frame = CGRectMake(0, self.offsetY, screenWidth, _viewHeight);
     
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setNeedsStatusBarAppearanceUpdate];
     
     if(![DevilUtil isPhoneX]) {
@@ -450,7 +449,6 @@
     self.offsetY = 0;
     self.viewHeight = screenHeight - self.offsetY;
     
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     [self setNeedsStatusBarAppearanceUpdate];
     
     if(![DevilUtil isPhoneX]) {

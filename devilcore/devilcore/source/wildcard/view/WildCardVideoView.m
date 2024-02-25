@@ -39,6 +39,7 @@
     _playerViewController.showsPlaybackControls = NO;
     _playerViewController.delegate = self;
     _playerViewController.player.automaticallyWaitsToMinimizeStalling = NO;
+    [_playerViewController.player addObserver:self forKeyPath:@"status" options:0 context:nil];
     
     [self addSubview:_playerViewController.view];
     
@@ -354,10 +355,6 @@
     _playing = YES;
     //self.videoPath = @"https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_640_3MG.mp4";
     if(self.videoPath == nil || ![self.videoPath isEqualToString:self.lastPlayingVideoPath]){
-        if(_playerViewController.player){
-            NSLog(@"Remove Observer");
-            [_playerViewController.player removeObserver:self forKeyPath:@"status"];
-        }
         
         _loading.hidden = NO;
         if([self.videoPath hasPrefix:@"http"])
@@ -366,7 +363,7 @@
             _playerViewController.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:self.videoPath]];
         
         self.lastPlayingVideoPath = self.videoPath;
-        [_playerViewController.player addObserver:self forKeyPath:@"status" options:0 context:nil];
+        
         [self onPreparedTimerStart];
         
         _ready = NO;

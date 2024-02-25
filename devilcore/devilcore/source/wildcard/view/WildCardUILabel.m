@@ -91,7 +91,8 @@
         WildCardUIView* parent = (WildCardUIView*)[self superview];
         CGRect textSize = [WildCardUtil getTextSize:self.text font:self.font maxWidth:self.frame.size.width maxHeight:self.frame.size.height];
         
-        textSize.size.height = MIN(self.font.lineHeight * self.numberOfLines, textSize.size.height);
+        //상하가 너무 딱맞다
+        textSize.size.height = MIN(self.font.lineHeight * self.numberOfLines + 2, textSize.size.height);
             
         self.frame = CGRectMake(0, parent.paddingTop, self.frame.size.width, textSize.size.height);
         CGRect superFrame = parent.frame;

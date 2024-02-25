@@ -647,10 +647,15 @@ static BOOL IS_TABLET = NO;
 
 +(CGRect)getTextSize:(NSString*)text font:(UIFont*)font maxWidth:(CGFloat)width maxHeight:(CGFloat)height {
     NSDictionary *attributes = @{NSFontAttributeName: font};
-    if(width == CGFLOAT_MAX)
-        return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-    else
-        return [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil];
+    if(width == CGFLOAT_MAX) {
+        CGRect r = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+        return r;
+    } else {
+        CGRect r = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil];
+        //상하가 너무 딱맞음
+        r.size.height+=2;
+        return r;
+    }
 }
 
 @end
