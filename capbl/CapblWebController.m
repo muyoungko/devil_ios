@@ -39,8 +39,8 @@
     self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0,0,sw,sh)];
     [self.view addSubview:self.webView];
     [self followSizeFromFather:self.view child:self.webView];
-
-    [(SecureWKWebView*)_webView makeSecure];
+    
+    [SecureWKWebView makeSecure:_webView];
     
     [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_url]]];
 }

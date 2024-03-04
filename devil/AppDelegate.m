@@ -466,6 +466,28 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     return nil;
 }
 
+- (void)onMultiPartPost:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager POST:urlString parameters:nil headers:header constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        NSURL* fileUri = [NSURL fileURLWithPath:filePath];
+        NSError *error;
+        [formData appendPartWithFileURL:fileUri name:name fileName:filename mimeType:@"application/octet-stream" error:&error];
+        if(error){
+            NSLog(@"%@", [error localizedDescription]);
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        NSLog(@"progress %lld", uploadProgress.completedUnitCount);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"success");
+        callback(responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"error %@", [error localizedDescription]);
+        callback(@{@"r":@FALSE, @"msg":[error localizedDescription]});
+    }];
+}
+    
 -(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data
 {
 }

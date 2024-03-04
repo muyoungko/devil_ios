@@ -19,16 +19,18 @@
 #import "DevilController.h"
 #import "DevilSdk.h"
 
-@interface DevilUtil()<NSURLSessionDownloadDelegate>
+@interface DevilUtil()<NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 @property (nonatomic, retain) NSMutableArray* httpPutWaitQueue;
 @property (nonatomic, retain) NSMutableArray* httpPutIngQueue;
 @property long long downloadSize;
 @property long long currentDownloadSize;
 @property (nonatomic, retain) NSString* dest_file_path;
+@property (nonatomic, retain) NSString* upload_file_path;
 @property void (^progress_callback)(int rate);
 @property void (^complete_callback)(id res);
 @property (nonatomic, retain) NSURLConnection *connection;
 @property (nonatomic, strong) NSFileHandle *fileHandle;
+
 
 @end
 
@@ -206,7 +208,7 @@
         if([data length] == 0)
             @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte."] userInfo:nil];
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             NSError *err;
             NSURLResponse *response;
             NSData *responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
@@ -588,10 +590,49 @@
     return contentType;
 }
 
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+                                didSendBodyData:(int64_t)bytesSent
+                                 totalBytesSent:(int64_t)totalBytesSent totalBytesExpectedToSend:(int64_t)totalBytesExpectedToSend {
+    if(self.progress_callback) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.progress_callback(totalBytesSent*100 / totalBytesExpectedToSend);
+        });
+    }
+}
 
-+(void)multiPartUpload:(NSString*)url header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback {
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task needNewBodyStream:(void (^)(NSInputStream * _Nullable bodyStream))completionHandler {
+    // Create an input stream from the file
+    NSInputStream *fileStream = [NSInputStream inputStreamWithFileAtPath:self.upload_file_path];
+    completionHandler(fileStream);
+}
+
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error {
+    if (error) {
+        NSLog(@"Upload error: %@", error);
+    } else {
+        NSLog(@"Upload success!");
+    }
+}
+
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data {
+    // Handle the received data
+    NSLog(@"Received data");
+}
+
+
+
++(void)multiPartUpload:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback {
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    filePath = [DevilUtil replaceUdidPrefixDir:filePath];
+    if(![[NSFileManager defaultManager] fileExistsAtPath:filePath])
+        return callback(@{@"r":@FALSE, @"msg":@"File Not Found"});
+    
+    if([[WildCardConstructor sharedInstance].delegate respondsToSelector:@selector(onMultiPartPost: header: name: filename: filePath: complete:)])
+        return [[WildCardConstructor sharedInstance].delegate onMultiPartPost:urlString header:header name:name filename:filename filePath:filePath complete:^(id res) {
+            dispatch_async(dispatch_get_main_queue(), ^{callback(res);});
+        }];
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         NSData* filedata = [[NSFileManager defaultManager] contentsAtPath:filePath];
         if(filedata == nil) {
@@ -612,11 +653,11 @@
         
         // Create a multipart form request.
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-        [request setURL:[NSURL URLWithString:url]];
+        [request setURL:[NSURL URLWithString:urlString]];
         [request setAllHTTPHeaderFields:header];
         [request setHTTPMethod:@"POST"];
         
-        NSString *boundary = [NSString stringWithString:@"0xKhTmLbOuNdArY"];  // important!!!
+        NSString *boundary = [NSString stringWithString:@"0xKhTmLbOuNdArY"];
         NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
         [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
         
