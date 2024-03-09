@@ -46,7 +46,7 @@
     int w = [UIScreen mainScreen].bounds.size.width * 0.8f, h = 200;
     
     int offsetY = 10;
-    NSString* yes = trans(@"확인");
+    NSString* yes = trans(@"OK");
     NSString* no = trans(@"취소");
     int titleHeight = 0;
     if(titleText)

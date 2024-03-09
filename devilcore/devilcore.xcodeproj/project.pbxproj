@@ -26,6 +26,7 @@
 		6D1611DE2B7361A5001C0E3B /* DevilPaintMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */; };
 		6D1611E12B7362A3001C0E3B /* DevilPaintView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */; };
 		6D1611E22B7362A3001C0E3B /* DevilPaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611E02B7362A3001C0E3B /* DevilPaintView.m */; };
+		6D23ECD32B9C602D00D1E106 /* lang.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D23ECD22B9C602D00D1E106 /* lang.json */; };
 		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
 		6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */; };
 		6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3DD349275B778000707521 /* DevilPlayerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -329,6 +330,7 @@
 		6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintMarketComponent.m; sourceTree = "<group>"; };
 		6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPaintView.h; sourceTree = "<group>"; };
 		6D1611E02B7362A3001C0E3B /* DevilPaintView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintView.m; sourceTree = "<group>"; };
+		6D23ECD22B9C602D00D1E106 /* lang.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lang.json; sourceTree = "<group>"; };
 		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
 		6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIPageControl.m; sourceTree = "<group>"; };
 		6D3DD349275B778000707521 /* DevilPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPlayerController.h; sourceTree = "<group>"; };
@@ -670,6 +672,7 @@
 				6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */,
 				6D9A864A28AE08BA001002D8 /* devil_camera_system.xib */,
 				6DED70DC28B1F5E1004A180F /* devil_camera_system_landscape.xib */,
+				6D23ECD22B9C602D00D1E106 /* lang.json */,
 			);
 			path = resource;
 			sourceTree = "<group>";
@@ -1496,6 +1499,7 @@
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
 				6D3DD34E275B93C600707521 /* devil_camera_close@3x.png in Resources */,
 				6D5C4AB62ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png in Resources */,
+				6D23ECD32B9C602D00D1E106 /* lang.json in Resources */,
 				6DED70DD28B1F5E1004A180F /* devil_camera_system_landscape.xib in Resources */,
 				6D5C4AB32ADFCB3500DD1978 /* devil_map_bubble@3x.png in Resources */,
 			);

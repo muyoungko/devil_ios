@@ -10,7 +10,6 @@
 #import "WebController.h"
 #import "Devil.h"
 #import "MainV2Controller.h"
-#import "Lang.h"
 
 @interface JoinController ()
 
@@ -32,20 +31,14 @@
         WebController* vc = [[WebController alloc] init];
         NSString* title = trans(@"Terms of Privacy");
         vc.topTitle = title;
-        if([[Lang getCurrentLang] isEqualToString:@"ko"])
-            vc.url = [NSString stringWithFormat:@"%@/agree/private.html", HOST_WEB];
-        else
-            vc.url = [NSString stringWithFormat:@"%@/agree/private_en.html", HOST_WEB];
+        vc.url = [NSString stringWithFormat:@"%@/agree/private_en.html", HOST_WEB];
         [self.navigationController pushViewController:vc animated:YES];
         
     } else if([functionName hasPrefix:@"detail2"]){
         WebController* vc = [[WebController alloc] init];
         NSString* title = trans(@"Terms of Use");
         vc.topTitle = title;
-        if([[Lang getCurrentLang] isEqualToString:@"ko"])
-            vc.url = [NSString stringWithFormat:@"%@/agree/service.html", HOST_WEB];
-        else
-            vc.url = [NSString stringWithFormat:@"%@/agree/service_en.html", HOST_WEB];
+        vc.url = [NSString stringWithFormat:@"%@/agree/service_en.html", HOST_WEB];
         [self.navigationController pushViewController:vc animated:YES];
         
     } else if([functionName isEqualToString:@"check1"]){

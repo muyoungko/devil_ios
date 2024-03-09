@@ -195,7 +195,7 @@
             [self.view addSubview:self.keypadTop];
             
             self.keypadTopButton = [[UIButton alloc] initWithFrame:CGRectMake(sw-bw-10, 5, bw, h-10)];
-            NSString* text = trans(@"확인");
+            NSString* text = trans(@"OK");
             if(self.editingTextField.returnKeyType == UIReturnKeySearch)
                 text = @"검색";
             else if(self.editingTextField.returnKeyType == UIReturnKeyNext)
@@ -334,7 +334,7 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
 
-    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"OK")
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
        [self.navigationController popViewControllerAnimated:YES];

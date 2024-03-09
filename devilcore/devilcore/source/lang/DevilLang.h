@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 +(DevilLang*)sharedInstance;
 +(void)setCurrentLang:(NSString*)lang;
 +(NSString*)getCurrentLang;
-+(void)load;
 +(void)parseLanguage:(id)language :(BOOL)collect_prod;
 +(NSString*)trans:(NSString*)name;
 +(NSString*)trans:(NSString*)name :(NSString*)node;

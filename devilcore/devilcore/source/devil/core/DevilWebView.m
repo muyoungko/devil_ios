@@ -157,7 +157,7 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:message
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"OK")
                                                         style:UIAlertActionStyleCancel
                                                       handler:^(UIAlertAction *action) {
         completionHandler();
@@ -178,7 +178,7 @@
                                                         completionHandler(false);
     }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"OK")
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
                                                           completionHandler(true);

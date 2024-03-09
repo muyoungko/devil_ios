@@ -28,7 +28,7 @@
 +(BOOL)showAlertTemplate:(NSString*)msg :(void (^)(BOOL yes))callback {
     id data = [@{} mutableCopy];
     data[@"alert_msg"] = msg;
-    data[@"alert_yes_text"] = trans(@"확인");
+    data[@"alert_yes_text"] = trans(@"OK");
     [DevilAlertDialog sharedInstance].callback = callback;
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:@"alert-devil-template"];
     if(blockId) {

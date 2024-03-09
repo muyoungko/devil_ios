@@ -8,11 +8,8 @@
 
 #import "MainController.h"
 #import "Devil.h"
-#import "Lang.h"
 #import <devil-Swift.h>
 #import <devillogin/devillogin-Swift.h>
-
-@import devilcore;
 
 @class Test;
 @class DevilKakaoLogin;

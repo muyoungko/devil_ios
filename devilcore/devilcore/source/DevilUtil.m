@@ -476,7 +476,7 @@
                                                                                      message:nil
                                                                               preferredStyle:UIAlertControllerStyleAlert];
 
-            [alertController addAction:[UIAlertAction actionWithTitle:@"확인"
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
                                                               style:UIAlertActionStyleCancel
                                                             handler:^(UIAlertAction *action) {
                 callback(true);

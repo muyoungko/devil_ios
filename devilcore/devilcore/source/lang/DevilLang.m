@@ -39,8 +39,9 @@ NSRegularExpression *regex;
     return currentLang;
 }
 
-+(void)load {
-    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"lang" ofType:@"json"];
++(void)loadDefault {
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSString *filepath = [bundle pathForResource:@"lang" ofType:@"json"];
     NSError *error;
     NSString *fileContents = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:&error];
     
@@ -48,7 +49,6 @@ NSRegularExpression *regex;
     NSError *e;
     id dic = [NSJSONSerialization JSONObjectWithData:jsonData options:nil error:&e];
     id ks = [dic allKeys];
-    lang = [@{} mutableCopy];
     
     NSString *regexToReplaceRawLinks = @"[\t\n\r ]";
     regex = [NSRegularExpression regularExpressionWithPattern:regexToReplaceRawLinks
@@ -73,8 +73,8 @@ NSRegularExpression *regex;
     else
         currentLang = [[[NSLocale preferredLanguages] firstObject] substringToIndex:2];
     
-    [lang removeAllObjects];
-    [self load];
+    lang = [@{} mutableCopy];
+    [DevilLang loadDefault];
 
     [DevilLang sharedInstance].multiLanguage = [language count] > 0;
     [DevilLang sharedInstance].collectLanguage = [[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"] || collect_prod;
@@ -87,6 +87,8 @@ NSRegularExpression *regex;
     regex = [NSRegularExpression regularExpressionWithPattern:regexToReplaceRawLinks
                                                                            options:NSRegularExpressionCaseInsensitive
                                                                             error:&error];
+    
+    [DevilLang loadDefault];
     for(id key in ks) {
         id value = language[key];
         

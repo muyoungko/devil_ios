@@ -257,7 +257,7 @@
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+        [alertController addAction:[UIAlertAction actionWithTitle:trans(@"OK")
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
             
@@ -276,7 +276,7 @@
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+        [alertController addAction:[UIAlertAction actionWithTitle:trans(@"OK")
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
             [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
@@ -324,7 +324,7 @@
                                                                                  message:nil
                                                                           preferredStyle:UIAlertControllerStyleAlert];
         
-        [alertController addAction:[UIAlertAction actionWithTitle:trans(@"확인")
+        [alertController addAction:[UIAlertAction actionWithTitle:trans(@"OK")
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[]];
@@ -338,7 +338,7 @@
 + (void)alertThenOption:(id)param :(JSValue *)callback {
     NSString* msg = param[@"msg"];
     BOOL cancelable = [param[@"cancelable"] boolValue];
-    NSString* yes = trans(@"확인");
+    NSString* yes = trans(@"OK");
     if(param[@"yes"])
         yes = param[@"yes"];
     if(![DevilAlertDialog showAlertTemplate:trans(msg) :^(BOOL yes) {

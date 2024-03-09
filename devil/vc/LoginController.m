@@ -10,7 +10,6 @@
 #import "MainController.h"
 #import "JoinController.h"
 #import "Devil.h"
-#import "Lang.h"
 #import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
 #import "MainV2Controller.h"
