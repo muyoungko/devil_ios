@@ -340,7 +340,6 @@
 
         
         CMTime currentPosition = self.playerViewController.player.currentItem.currentTime;
-        NSLog(@"%f", ((float)currentPosition.value) / currentPosition.timescale);
         float currentPositionSec = ((float)currentPosition.value / currentPosition.timescale);
         if(currentPositionSec > 0) {
             [self.playerViewController.player removeTimeObserver:self.observer];
@@ -367,7 +366,6 @@
         [self onPreparedTimerStart];
         
         _ready = NO;
-        NSLog(@"Player Init");
         
         if(_playerViewController.player != nil) {
             _playerViewController.view.hidden = NO;
@@ -377,6 +375,8 @@
             }
             [_playerViewController.player play];
         }
+        
+        [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: nil];
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishPlaying) name:AVPlayerItemDidPlayToEndTimeNotification object:nil];
     } else {
@@ -389,8 +389,6 @@
             }
             self.imageView.hidden = YES;
         }
-        
-        NSLog(@"Player Init Pass");
     }
     
     [self tick];

@@ -108,11 +108,6 @@ NSRegularExpression *regex;
     if(![DevilLang sharedInstance].multiLanguage)
         return name;
     
-    //if([name hasPrefix:@"No Video"])
-    {
-        NSLog(@"%@", name);
-    }
-    
     NSString* oname = name;
     name = [regex stringByReplacingMatchesInString:name options:0
                                                           range:NSMakeRange(0, [name length])

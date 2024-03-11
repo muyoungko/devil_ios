@@ -44,6 +44,13 @@
     if(videoUrl) {
         [videoView superview].userInteractionEnabled = YES;
     }
+    
+    if([@"Y" isEqualToString:autoPlay]) {
+        [self performSelector:@selector(autoPlay) withObject:nil afterDelay:0.2f];
+    }
 }
 
+-(void)autoPlay {
+    [WildCardVideoView autoPlay];
+}
 @end
