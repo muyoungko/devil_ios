@@ -18,6 +18,7 @@
 #import "DevilAlertDialog.h"
 #import "DevilController.h"
 #import "DevilSdk.h"
+#import "DevilLang.h"
 
 @interface DevilUtil()<NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
 @property (nonatomic, retain) NSMutableArray* httpPutWaitQueue;
@@ -30,7 +31,7 @@
 @property void (^complete_callback)(id res);
 @property (nonatomic, retain) NSURLConnection *connection;
 @property (nonatomic, strong) NSFileHandle *fileHandle;
-
+@property double lastTime;
 
 @end
 
@@ -476,7 +477,7 @@
                                                                                      message:nil
                                                                               preferredStyle:UIAlertControllerStyleAlert];
 
-            [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+            [alertController addAction:[UIAlertAction actionWithTitle:yesText
                                                               style:UIAlertActionStyleCancel
                                                             handler:^(UIAlertAction *action) {
                 callback(true);
@@ -621,16 +622,56 @@
 
 
 
-+(void)multiPartUpload:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback {
++(void)multiPartUpload:(BOOL)showProgress url:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath progress:(void (^)(id res))progress_callback complete:(void (^)(id res))callback {
     
     filePath = [DevilUtil replaceUdidPrefixDir:filePath];
     if(![[NSFileManager defaultManager] fileExistsAtPath:filePath])
         return callback(@{@"r":@FALSE, @"msg":@"File Not Found"});
     
-    if([[WildCardConstructor sharedInstance].delegate respondsToSelector:@selector(onMultiPartPost: header: name: filename: filePath: complete:)])
-        return [[WildCardConstructor sharedInstance].delegate onMultiPartPost:urlString header:header name:name filename:filename filePath:filePath complete:^(id res) {
+    if([[WildCardConstructor sharedInstance].delegate respondsToSelector:@selector(onMultiPartPost: header: name: filename: filePath: progress: complete:)]) {
+        
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        if(showProgress) {
+            [DevilUtil showAlert:vc msg:trans(@"Uploading") showYes:YES yesText:trans(@"Cancel") cancelable:false callback:^(BOOL yes) {
+                if(yes) {
+                    [vc closeActiveAlertMessage];
+                    id r = [@{@"r":@FALSE, @"msg":@"Canceled"} mutableCopy];
+                    dispatch_async(dispatch_get_main_queue(), ^{callback(r);});
+                }
+            }];
+        }
+        
+        [[WildCardConstructor sharedInstance].delegate onMultiPartPost:urlString header:header name:name filename:filename filePath:filePath progress:^(long byteSent, long totalByte) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                double now = (double)[NSDate date].timeIntervalSince1970;
+                if( (now - [DevilUtil sharedInstance].lastTime) < 1 || byteSent == totalByte) {
+                    return;
+                }
+                
+                [DevilUtil sharedInstance].lastTime = now;
+                
+                NSLog(@"progress %ld %ld", byteSent, totalByte);
+                if(showProgress)
+                    [vc setActiveAlertMessage:[NSString stringWithFormat:@"%@... %d%%", trans(@"Uploading"), (int)(byteSent*100/totalByte)]];
+                else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        progress_callback(@{
+                            @"sent": [NSNumber numberWithLong:byteSent],
+                            @"total": [NSNumber numberWithLong:totalByte],
+                            @"rate": [NSNumber numberWithInt:(int)(byteSent*100/totalByte)],
+                        });
+                    });
+               }
+            });
+        } complete:^(id res) {
+            if(showProgress)
+                [vc closeActiveAlertMessage];
             dispatch_async(dispatch_get_main_queue(), ^{callback(res);});
         }];
+        
+        return;
+    }
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
@@ -670,9 +711,12 @@
         [request setHTTPBody:body];
 
         NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSString *s = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
-        
         __block id result = [@{@"r":@TRUE} mutableCopy];
+        if(returnData == nil) {
+            result[@"r"] = @FALSE;
+        }
+        
+        NSString *s = [[NSString alloc] initWithData:returnData encoding:NSUTF8StringEncoding];
         if([s hasPrefix:@"{"]){
             result = [NSJSONSerialization JSONObjectWithData:[s dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
         } else {

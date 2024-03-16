@@ -465,7 +465,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     return nil;
 }
 
-- (void)onMultiPartPost:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath complete:(void (^)(id res))callback {
+- (void)onMultiPartPost:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath progress:(void (^)(long sentByte, long totalByte))progress_callback complete:(void (^)(id res))callback {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -477,7 +477,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             NSLog(@"%@", [error localizedDescription]);
         }
     } progress:^(NSProgress * _Nonnull uploadProgress) {
-        NSLog(@"progress %lld", uploadProgress.completedUnitCount);
+        progress_callback(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"success");
         callback(responseObject);

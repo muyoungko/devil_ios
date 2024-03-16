@@ -466,9 +466,10 @@
     }
 }
 
-+ (void)httpWithMultipartPost:(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)param :(JSValue *)callback {
++ (void)httpWithMultipartPost:(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)param :(JSValue *)progress_callback :(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    NSString* originalUrl = url;
+    [[JevilFunctionUtil sharedInstance] registFunction:progress_callback];
+    
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
@@ -480,7 +481,11 @@
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
-    [DevilUtil multiPartUpload:url header:header name:param[@"name"] filename:param[@"filename"] filePath:param[@"path"] complete:^(id  _Nonnull res) {
+    [DevilUtil multiPartUpload:[param[@"showProgress"] boolValue] url:url header:header name:param[@"name"] filename:param[@"filename"] filePath:param[@"path"] progress:^(id  _Nonnull res) {
+        if(progress_callback) {
+            [[JevilFunctionUtil sharedInstance] callFunction:progress_callback params:@[res]];
+        }
+    } complete:^(id  _Nonnull res) {
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
 }

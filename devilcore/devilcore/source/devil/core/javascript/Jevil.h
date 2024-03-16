@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)save:(NSString *)key :(NSString *)value;
 + (void)remove:(NSString *)key;
 + (NSString*)get:(NSString *)key;
-+ (void)httpWithMultipartPost:(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)param :(JSValue *)callback;
++ (void)httpWithMultipartPost:(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)param :(JSValue *)progress_callback :(JSValue *)callback;
 + (void)httpWithFilePath:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSString*)filepath :(JSValue *)callback;
 + (void)http:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)body :(JSValue *)callback;
 + (void)get:(NSString *)url then:(JSValue *)callback;
