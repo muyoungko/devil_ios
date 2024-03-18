@@ -650,19 +650,20 @@
                 }
                 
                 [DevilUtil sharedInstance].lastTime = now;
-                
-                NSLog(@"progress %ld %ld", byteSent, totalByte);
-                if(showProgress)
-                    [vc setActiveAlertMessage:[NSString stringWithFormat:@"%@... %d%%", trans(@"Uploading"), (int)(byteSent*100/totalByte)]];
-                else {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        progress_callback(@{
-                            @"sent": [NSNumber numberWithLong:byteSent],
-                            @"total": [NSNumber numberWithLong:totalByte],
-                            @"rate": [NSNumber numberWithInt:(int)(byteSent*100/totalByte)],
+                if(totalByte > 0 && byteSent > 0) {
+                    NSLog(@"progress %ld %ld", byteSent, totalByte);
+                    if(showProgress)
+                        [vc setActiveAlertMessage:[NSString stringWithFormat:@"%@... %d%%", trans(@"Uploading"), (int)(byteSent*100/totalByte)]];
+                    else {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            progress_callback(@{
+                                @"sent": [NSNumber numberWithLong:byteSent],
+                                @"total": [NSNumber numberWithLong:totalByte],
+                                @"rate": [NSNumber numberWithInt:(int)(byteSent*100/totalByte)],
+                            });
                         });
-                    });
-               }
+                   }
+                }
             });
         } complete:^(id res) {
             if(showProgress)

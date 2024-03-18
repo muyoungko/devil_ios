@@ -17,23 +17,23 @@ Pod::Spec.new do |s|
   }
   
   s.subspec 'DevilCore' do |ss|
-    ss.dependency 'devilcore', '~> 0.0.276'
+    ss.dependency 'devilcore', '~> 0.0.277'
   end
 
   s.subspec 'DevilLogin' do |ss|
-    ss.dependency 'devillogin', '~> 0.0.276'
+    ss.dependency 'devillogin', '~> 0.0.277'
   end
   
   s.subspec 'DevilHealth' do |ss|
-    ss.dependency 'devilhealth', '~> 0.0.276'
+    ss.dependency 'devilhealth', '~> 0.0.277'
   end
   
   s.subspec 'DevilNfc' do |ss|
-    ss.dependency 'devilnfc', '~> 0.0.276'
+    ss.dependency 'devilnfc', '~> 0.0.277'
   end
   
   s.subspec 'DevilBill' do |ss|
-    ss.dependency 'devilbill', '~> 0.0.276'
+    ss.dependency 'devilbill', '~> 0.0.277'
   end
 
 end
