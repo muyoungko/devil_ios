@@ -1072,12 +1072,11 @@ static BOOL IS_TABLET = NO;
             if(frame[@"max_width"])
                 tv.max_width = [WildCardUtil convertSketchToPixel:[frame[@"max_width"] intValue]];
             
-            NSString* text = trans2([textSpec objectForKey:@"text"], name);
+            NSString* text = [textSpec objectForKey:@"text"];
             if(text == nil)
                 text = name;
             
             tv.textColor = [WildCardUtil colorWithHexString:[textSpec objectForKey:@"textColor"]];
-            
             if ([layer objectForKey:@"textContent"]) {
                 ReplaceRuleText* rule = [[ReplaceRuleText alloc] initWithRuleJson:layer];
                 [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
@@ -1087,7 +1086,7 @@ static BOOL IS_TABLET = NO;
             else
             {
                 if([WildCardConstructor sharedInstance].textTransDelegate != nil )
-                    text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
+                    text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text :name];
                 [tv setText:text];
             }
             

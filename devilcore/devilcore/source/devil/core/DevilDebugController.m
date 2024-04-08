@@ -61,8 +61,15 @@ alpha:1.0]
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     int index = (int)[[DevilDebugView sharedInstance].logList count]-1;
-    if(index >= 0)
-        [self.tv scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+    if(index >= 0) {
+        @try {
+            [self.tv scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+        }
+        @catch(NSException* e) {
+            
+        }
+        
+    }
 }
 
 - (void)showNavigationBar{

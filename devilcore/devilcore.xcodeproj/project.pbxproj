@@ -138,6 +138,8 @@
 		6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B8B257CF2F7006D57DD /* JevilAction.m */; };
 		6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467B93257CF51A006D57DD /* WildCardDrawerView.m */; };
 		6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467B92257CF518006D57DD /* WildCardDrawerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D49DDAA2BC3A707008F0142 /* DevilMultiPartUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D49DDA82BC3A707008F0142 /* DevilMultiPartUploader.h */; };
+		6D49DDAB2BC3A707008F0142 /* DevilMultiPartUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D49DDA92BC3A707008F0142 /* DevilMultiPartUploader.m */; };
 		6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D530D05274B539E006EDD58 /* DevilGalleryController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D530D06274B539E006EDD58 /* DevilGalleryController.m */; };
 		6D530D0C274B5884006EDD58 /* DevilGalleryController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */; };
@@ -443,6 +445,8 @@
 		6D467B8B257CF2F7006D57DD /* JevilAction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilAction.m; sourceTree = "<group>"; };
 		6D467B92257CF518006D57DD /* WildCardDrawerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WildCardDrawerView.h; sourceTree = "<group>"; };
 		6D467B93257CF51A006D57DD /* WildCardDrawerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WildCardDrawerView.m; sourceTree = "<group>"; };
+		6D49DDA82BC3A707008F0142 /* DevilMultiPartUploader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilMultiPartUploader.h; sourceTree = "<group>"; };
+		6D49DDA92BC3A707008F0142 /* DevilMultiPartUploader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilMultiPartUploader.m; sourceTree = "<group>"; };
 		6D530D05274B539E006EDD58 /* DevilGalleryController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGalleryController.h; sourceTree = "<group>"; };
 		6D530D06274B539E006EDD58 /* DevilGalleryController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGalleryController.m; sourceTree = "<group>"; };
 		6D530D0B274B5884006EDD58 /* DevilGalleryController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DevilGalleryController.xib; sourceTree = "<group>"; };
@@ -945,6 +949,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6D49DDA72BC3A6DF008F0142 /* multipart */,
 				6DE58FC72B52B55F006E27FF /* contact */,
 				6DDE203729222BA400AD7F3C /* animation */,
 				6DEC1833284849EE00B3FE88 /* ble */,
@@ -980,6 +985,15 @@
 				6D5C4AB92AE2A98E00DD1978 /* DevilSwipeBackGesture.m */,
 			);
 			path = core;
+			sourceTree = "<group>";
+		};
+		6D49DDA72BC3A6DF008F0142 /* multipart */ = {
+			isa = PBXGroup;
+			children = (
+				6D49DDA82BC3A707008F0142 /* DevilMultiPartUploader.h */,
+				6D49DDA92BC3A707008F0142 /* DevilMultiPartUploader.m */,
+			);
+			path = multipart;
 			sourceTree = "<group>";
 		};
 		6D7E267625A89ABA00600978 /* view */ = {
@@ -1332,6 +1346,7 @@
 				6DE2BAFB27A8F2A7008344DE /* DevilRecord.h in Headers */,
 				6D467AA4256AB07A006D57DD /* ReplaceRuleReplaceUrl.h in Headers */,
 				6D3EBCC025CAACAC0006ADD5 /* DevilDebugController.h in Headers */,
+				6D49DDAA2BC3A707008F0142 /* DevilMultiPartUploader.h in Headers */,
 				6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */,
 				6D9F7B91262C8380003A70EC /* ReplaceRuleVideo.h in Headers */,
 				6D9A9DE628A3730F003302B3 /* DevilImageMapMarketComponent.h in Headers */,
@@ -1604,6 +1619,7 @@
 				6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */,
 				6D862907287AAC5700E62B7B /* DevilBillInstance.m in Sources */,
 				6D9A864928AA7B6C001002D8 /* DevilFileChooser.m in Sources */,
+				6D49DDAB2BC3A707008F0142 /* DevilMultiPartUploader.m in Sources */,
 				6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */,
 				6D467A99256AB07A006D57DD /* ReplaceRuleReplaceUrl.m in Sources */,
 				6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */,

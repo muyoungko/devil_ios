@@ -316,6 +316,7 @@ static BOOL IS_TABLET = NO;
      이미지가 불러오면 데이터에 해당 이미지의 w와 h를 넣어준다
      
      */
+    
     if([@"wrap_height" isEqualToString:cloudJson[@"scaleType"]]){
         NSString* imageContent = cloudJson[@"imageContent"];
         NSString* url = [MappingSyntaxInterpreter interpret:imageContent :data];
@@ -653,7 +654,7 @@ static BOOL IS_TABLET = NO;
     } else {
         CGRect r = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading | NSStringDrawingUsesDeviceMetrics | NSStringDrawingTruncatesLastVisibleLine attributes:attributes context:nil];
         //상하가 너무 딱맞음
-        r.size.height+=2;
+        r.size.height+=3;
         return r;
     }
 }

@@ -55,6 +55,7 @@
 #import "DevilReview.h"
 #import "DevilContact.h"
 #import "DevilPaintMarketComponent.h"
+#import "DevilMultiPartUploader.h"
 
 @interface Jevil()
 
@@ -481,7 +482,8 @@
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
-    [DevilUtil multiPartUpload:[param[@"showProgress"] boolValue] url:url header:header name:param[@"name"] filename:param[@"filename"] filePath:param[@"path"] progress:^(id  _Nonnull res) {
+    DevilMultiPartUploader* devilMultiPartUploader = [[DevilMultiPartUploader alloc] init];
+    [devilMultiPartUploader multiPartUpload:[param[@"showProgress"] boolValue] url:url header:header name:param[@"name"] filename:param[@"filename"] filePath:param[@"path"] progress:^(id  _Nonnull res) {
         if(progress_callback) {
             [[JevilFunctionUtil sharedInstance] callFunction:progress_callback params:@[res]];
         }
