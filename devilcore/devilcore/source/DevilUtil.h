@@ -50,15 +50,10 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (UIImage *)resizeImage:(UIImage *)image width:(float)width;
 + (BOOL)isWifiConnection;
 + (BOOL)isPhoneX;
-+(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback;
-+(void)download:(NSString*)url to:(NSString*)file_path progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback;
-
-+(void)cancelDownloadingFile:(NSString*)url;
 +(NSString*)replaceUdidPrefixDir:(NSString*)url;
 +(void)showAlert:(DevilController*)vc msg:(NSString*)msg showYes:(BOOL)showYes yesText:(NSString*)yesText cancelable:(BOOL)cancelable callback:(void (^)(BOOL res))callback;
 +(NSString*)orientationToString:(UIInterfaceOrientationMask)mask;
 +(NSString *) byteToHex : (NSData*)data;
-
 +(NSString*)sha256:(NSString*)text;
 +(NSString*)sha256ToHex:(NSString*)text;
 +(NSString*)sha256ToHash:(NSString*)text;
@@ -66,6 +61,10 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(NSString*)fileNameToContentType:(NSString*)path;
 +(BOOL)shouldLandscape;
 +(BOOL)isLandscape:(UIInterfaceOrientationMask)orientation;
++(NSString*)generateDocumentFilePath:(NSString*)ext;
++(NSString*)generateTempFilePath:(NSString*)ext;
++(NSString*)generateDocumentFilePathWithName:(NSString*)name;
++(NSString*)generateTempFilePathWithName:(NSString*)name;
 @end
 
 NS_ASSUME_NONNULL_END

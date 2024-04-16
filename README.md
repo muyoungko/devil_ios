@@ -116,3 +116,9 @@ self.mapView = [[GMSMapView alloc] initWithFrame: CGRectZero camera:camera];
 target 'devilcore' do
   pod 'GoogleMaps', '8.4.0'
 end
+
+# Firebase 최신버전 문제 해결
+푸시가 안옴
+푸시키가 할당못됨
+Firebase Invlid Api 키에 제한이 걸려있음
+https://stackoverflow.com/questions/58495985/firebase-403-permission-denied-firebaseerror-installations-requests-are-blo

@@ -64,7 +64,7 @@
         [request setAllHTTPHeaderFields:header];
         [request setHTTPMethod:@"POST"];
         
-        NSString *boundary = @"0xKhTmLbOuNdArY";
+        NSString *boundary = @"^-----^";
         NSString *contentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@",boundary];
         [request addValue:contentType forHTTPHeaderField: @"Content-Type"];
         

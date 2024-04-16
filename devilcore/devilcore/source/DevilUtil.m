@@ -20,17 +20,9 @@
 #import "DevilSdk.h"
 #import "DevilLang.h"
 
-@interface DevilUtil()<NSURLSessionDownloadDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate>
+@interface DevilUtil()
 @property (nonatomic, retain) NSMutableArray* httpPutWaitQueue;
 @property (nonatomic, retain) NSMutableArray* httpPutIngQueue;
-@property long long downloadSize;
-@property long long currentDownloadSize;
-@property (nonatomic, retain) NSString* dest_file_path;
-@property (nonatomic, retain) NSString* upload_file_path;
-@property void (^progress_callback)(int rate);
-@property void (^complete_callback)(id res);
-@property (nonatomic, retain) NSURLConnection *connection;
-@property (nonatomic, strong) NSFileHandle *fileHandle;
 
 @end
 
@@ -328,107 +320,6 @@
     return iPhoneX;
 }
 
-
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    self.downloadSize = response.expectedContentLength;
-    self.currentDownloadSize = 0;
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:self.dest_file_path])
-        [[NSFileManager defaultManager] removeItemAtPath:self.dest_file_path error:nil];
-    [[NSFileManager defaultManager] createFileAtPath:self.dest_file_path contents:nil attributes:nil];
-    self.fileHandle = [NSFileHandle fileHandleForWritingAtPath:self.dest_file_path];
-}
-
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    self.currentDownloadSize += [data length];
-    [self.fileHandle writeData:data];
-    
-    if(self.progress_callback) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            int rate = (int)((float)self.currentDownloadSize / self.downloadSize * 100);
-            self.progress_callback(rate);
-        });
-    }
-}
-
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [self.fileHandle closeFile];
-    if(self.complete_callback) {
-        if(self.currentDownloadSize != self.downloadSize) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.complete_callback(@{@"r":@FALSE, @"msg":@"Download size is different"});
-                self.complete_callback = nil;
-            });
-            return;
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            self.complete_callback(@{@"r":@TRUE, @"dest":self.dest_file_path , @"size":[NSNumber numberWithLongLong:self.currentDownloadSize]});
-            self.complete_callback = nil;
-        });
-    }
-}
-
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    [self.fileHandle closeFile];
-    if(self.complete_callback) {
-        self.complete_callback(@{@"r":@FALSE, @"msg":[error description]});
-        self.complete_callback = nil;
-    }
-}
-
-+(void)cancelDownloadingFile:(NSString*)url {
-    NSString* key = [NSString stringWithFormat:@"saveFileFromUrl,%@", url];
-    DevilUtil* devilUtil = [JevilInstance currentInstance].forRetain[key];
-    
-    if(devilUtil && devilUtil.connection){
-        [devilUtil.connection cancel];
-        devilUtil.connection = nil;
-    }
-}
-
-+(void)saveFileFromUrl:(NSString*)url to:(NSString*)filename progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback {
-    
-    NSURL *nsurl = [NSURL URLWithString:url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:nsurl];
-    
-    DevilUtil* devilUtil = [[DevilUtil alloc] init];
-    devilUtil.progress_callback = progress_callback;
-    devilUtil.complete_callback = complete_callback;
-    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = paths[0];
-    devilUtil.dest_file_path = [documentsDirectory stringByAppendingPathComponent:filename];
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:devilUtil startImmediately:YES];
-    
-    NSString* key = [NSString stringWithFormat:@"saveFileFromUrl,%@", url];
-    [JevilInstance currentInstance].forRetain[key] = devilUtil;
-    devilUtil.connection = connection;
-    [connection start];
-
-}
-
-+(void)download:(NSString*)url to:(NSString*)file_path progress:(void (^)(int rate))progress_callback complete:(void (^)(id res))complete_callback {
-    NSURL *nsurl = [NSURL URLWithString:url];
-    NSURLRequest *request = [NSURLRequest requestWithURL:nsurl];
-    
-    DevilUtil* devilUtil = [[DevilUtil alloc] init];
-    devilUtil.progress_callback = progress_callback;
-    devilUtil.complete_callback = complete_callback;
-    
-    devilUtil.dest_file_path = file_path;
-    
-    NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:devilUtil startImmediately:YES];
-    
-    NSString* key = [NSString stringWithFormat:@"saveFileFromUrl,%@", url];
-    [JevilInstance currentInstance].forRetain[key] = devilUtil;
-    devilUtil.connection = connection;
-    [connection start];
-}
-
 +(NSString*)replaceUdidPrefixDir:(NSString*)url {
     //ios document path 가 매번 달라진다
     //예) /private/var/mobile/Containers/Data/Application/0B572ED5-40EC-4EDD-A98C-B2A7E3DCE077/tmp/EA9D3098-4566-4A69-859D-D00638981094.jpg
@@ -610,4 +501,26 @@
     return orientation == UIInterfaceOrientationMaskLandscape || orientation == UIInterfaceOrientationMaskLandscapeLeft || orientation == UIInterfaceOrientationMaskLandscapeRight;
 }
 
++(NSString*)generateDocumentFilePath:(NSString*)ext {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    
+    NSString* outputFileName = [NSString stringWithFormat:@"%ld.%@", (long)([NSDate now].timeIntervalSince1970 * 1000), ext];
+    return [documentsDirectory stringByAppendingPathComponent:outputFileName];
+}
+
++(NSString*)generateTempFilePath:(NSString*)ext {
+    NSString* outputFileName = [NSString stringWithFormat:@"%ld.%@", (long)([NSDate now].timeIntervalSince1970 * 1000), ext];
+    return [NSTemporaryDirectory() stringByAppendingPathComponent:outputFileName];
+}
+
++(NSString*)generateDocumentFilePathWithName:(NSString*)name{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths[0];
+    return [documentsDirectory stringByAppendingPathComponent:name];
+}
+
++(NSString*)generateTempFilePathWithName:(NSString*)name{
+    return [NSTemporaryDirectory() stringByAppendingPathComponent:name];
+}
 @end

@@ -172,6 +172,8 @@
 		6D862906287AAC5700E62B7B /* JevilBill.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FA287AAC5700E62B7B /* JevilBill.m */; };
 		6D862907287AAC5700E62B7B /* DevilBillInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */; };
 		6D8A40EB2674B77E006999FC /* play_pause.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D8A40EA2674B77E006999FC /* play_pause.json */; };
+		6D9259C22BCE58040023EB79 /* DevilDownloader.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9259C02BCE58040023EB79 /* DevilDownloader.h */; };
+		6D9259C32BCE58040023EB79 /* DevilDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9259C12BCE58040023EB79 /* DevilDownloader.m */; };
 		6D9824B025C5A91E0000BB12 /* JevilUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9824AE25C5A91E0000BB12 /* JevilUtil.h */; };
 		6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9824AF25C5A91E0000BB12 /* JevilUtil.m */; };
 		6D98A8412700D97D004F3ECF /* DevilAlertDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D98A83F2700D97D004F3ECF /* DevilAlertDialog.h */; };
@@ -479,6 +481,8 @@
 		6D8628FA287AAC5700E62B7B /* JevilBill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JevilBill.m; sourceTree = "<group>"; };
 		6D8628FB287AAC5700E62B7B /* DevilBillInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DevilBillInstance.m; sourceTree = "<group>"; };
 		6D8A40EA2674B77E006999FC /* play_pause.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = play_pause.json; sourceTree = "<group>"; };
+		6D9259C02BCE58040023EB79 /* DevilDownloader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDownloader.h; sourceTree = "<group>"; };
+		6D9259C12BCE58040023EB79 /* DevilDownloader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDownloader.m; sourceTree = "<group>"; };
 		6D9824AE25C5A91E0000BB12 /* JevilUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilUtil.h; sourceTree = "<group>"; };
 		6D9824AF25C5A91E0000BB12 /* JevilUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JevilUtil.m; sourceTree = "<group>"; };
 		6D98A83F2700D97D004F3ECF /* DevilAlertDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilAlertDialog.h; sourceTree = "<group>"; };
@@ -992,6 +996,8 @@
 			children = (
 				6D49DDA82BC3A707008F0142 /* DevilMultiPartUploader.h */,
 				6D49DDA92BC3A707008F0142 /* DevilMultiPartUploader.m */,
+				6D9259C02BCE58040023EB79 /* DevilDownloader.h */,
+				6D9259C12BCE58040023EB79 /* DevilDownloader.m */,
 			);
 			path = multipart;
 			sourceTree = "<group>";
@@ -1418,6 +1424,7 @@
 				6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */,
 				6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */,
 				6D4679E7256AA5EA006D57DD /* DevilSdk.h in Headers */,
+				6D9259C22BCE58040023EB79 /* DevilDownloader.h in Headers */,
 				6D9F7B1726298930003A70EC /* WildCardVideoView.h in Headers */,
 				6DF579A826D8D27F009D41A1 /* DevilBeacon.h in Headers */,
 			);
@@ -1614,6 +1621,7 @@
 				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,
 				6D9F7B122629658F003A70EC /* UIImage+PECrop.m in Sources */,
 				6D3EBE8425D92DB00006ADD5 /* WifiManager.m in Sources */,
+				6D9259C32BCE58040023EB79 /* DevilDownloader.m in Sources */,
 				6D467A83256AB07A006D57DD /* WildCardNextChain.m in Sources */,
 				6D1611DE2B7361A5001C0E3B /* DevilPaintMarketComponent.m in Sources */,
 				6DF53B612657D005001FB1D6 /* DevilSound.m in Sources */,

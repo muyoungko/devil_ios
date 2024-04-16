@@ -56,6 +56,7 @@
 #import "DevilContact.h"
 #import "DevilPaintMarketComponent.h"
 #import "DevilMultiPartUploader.h"
+#import "DevilDownloader.h"
 
 @interface Jevil()
 
@@ -1297,55 +1298,28 @@
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     
     __block BOOL showProgress = [param[@"showProgress"] boolValue];
-    __block DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    if(showProgress) {
-        [DevilUtil showAlert:vc msg:@"Downloading..." showYes:YES yesText:@"Cancel" cancelable:false callback:^(BOOL yes) {
-            if(yes) {
-                [DevilUtil cancelDownloadingFile:param[@"url"]];
-                [vc closeActiveAlertMessage];
-                id r = [@{@"r":@FALSE, @"msg":@"Canceled"} mutableCopy];
-                [callback callWithArguments:@[r]];
-            }
-        }];
-    }
     
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:@"saveFileFromUrl" log:param];
-    [DevilUtil saveFileFromUrl:param[@"url"] to:param[@"destFileName"] progress:^(int rate) {
-        if(showProgress) {
-            [vc setActiveAlertMessage:[NSString stringWithFormat:@"Downloading... %d%%", rate]];
-        }
+    DevilDownloader* downloder = [[DevilDownloader alloc] init];
+    NSString* destFilePath = [DevilUtil generateDocumentFilePathWithName:param[@"destFileName"]];
+    [downloder download:showProgress url:param[@"url"] header:@{} filePath:destFilePath progress:^(id  _Nonnull res) {
+        
     } complete:^(id  _Nonnull res) {
-        if(showProgress)
-            [vc closeActiveAlertMessage];
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
+    [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];
+
 }
 
 + (void)downloadAndView:(NSString*)url {
-    __block BOOL showProgress = true;
-    __block DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    if(showProgress) {
-        [DevilUtil showAlert:vc msg:@"Downloading..." showYes:YES yesText:@"Cancel" cancelable:false callback:^(BOOL yes) {
-            if(yes) {
-                [DevilUtil cancelDownloadingFile:url];
-                [vc closeActiveAlertMessage];
-            }
-        }];
-    }
     
-    NSString* ext = [DevilUtil getFileExt:url];
-    NSString* name = [DevilUtil getFileName:url];
-    NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
-    NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
-    
-    [DevilUtil download:url to:pathDeconding progress:^(int rate) {
-        if(showProgress) {
-            [vc setActiveAlertMessage:[NSString stringWithFormat:@"Downloading... %d%%", rate]];
-        }
+    DevilDownloader* downloder = [[DevilDownloader alloc] init];
+    [downloder download:true url:url header:@{} filePath:nil progress:^(id  _Nonnull res) {
+        
     } complete:^(id  _Nonnull res) {
-        if(showProgress)
-            [vc closeActiveAlertMessage];
         if([res[@"r"] boolValue]) {
+            NSString* path = res[@"dest"];
+            NSString* pathEncoding = res[@"dest_encoding"];
             UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]];
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             d.delegate = vc;
@@ -1353,39 +1327,25 @@
             [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
         }
     }];
+    [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];
 }
 
 + (void)downloadAndShare:(NSString*)url {
     
     __block BOOL showProgress = true;
-    __block DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    if(showProgress) {
-        [DevilUtil showAlert:vc msg:@"Downloading..." showYes:YES yesText:@"Cancel" cancelable:false callback:^(BOOL yes) {
-            if(yes) {
-                [DevilUtil cancelDownloadingFile:url];
-                [vc closeActiveAlertMessage];
-            }
-        }];
-    }
     
-    NSString* ext = [DevilUtil getFileExt:url];
-    NSString* name = [DevilUtil getFileName:url];
-    NSString* pathEncoding = [NSTemporaryDirectory() stringByAppendingPathComponent:[name stringByAppendingPathExtension:ext]];
-    NSString* pathDeconding = [NSTemporaryDirectory() stringByAppendingPathComponent:[urldecode(name) stringByAppendingPathExtension:ext]];
-    
-    [DevilUtil download:url to:pathDeconding progress:^(int rate) {
-        if(showProgress) {
-            [vc setActiveAlertMessage:[NSString stringWithFormat:@"Downloading... %d%%", rate]];
-        }
+    DevilDownloader* downloder = [[DevilDownloader alloc] init];
+    [downloder download:showProgress url:url header:@{} filePath:nil progress:^(id  _Nonnull res) {
+        
     } complete:^(id  _Nonnull res) {
-        if(showProgress)
-            [vc closeActiveAlertMessage];
         if([res[@"r"] boolValue]) {
+            NSString* path = res[@"dest"];
+            NSString* pathEncoding = res[@"dest_encoding"];
             UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]]
-                                                                                                 applicationActivities:nil];
+                                                                                                             applicationActivities:nil];
             if(activityViewController.popoverPresentationController) {
                 activityViewController.popoverPresentationController.sourceView = [JevilInstance currentInstance].vc.view;
-                
+
                 float sw = [UIScreen mainScreen].bounds.size.width;
                 float sh = [UIScreen mainScreen].bounds.size.height;
                 activityViewController.popoverPresentationController.sourceRect = CGRectMake(sw*0.5, sh*0.5, 0, 0);
@@ -1394,10 +1354,11 @@
             [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
                                                                                   animated:YES
                                                                                 completion:^{
-                
+
             }];
         }
     }];
+    [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];
 }
 
 
