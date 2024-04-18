@@ -186,7 +186,10 @@
         }
     }
     
-    [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
+    if([[JevilInstance currentInstance].vc.navigationController.viewControllers count] == 1)
+        exit(0);
+    else
+        [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 + (void)finishThen:(JSValue *)callback {
@@ -1325,6 +1328,11 @@
             d.delegate = vc;
             [d presentPreviewAnimated:YES];
             [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
+        } else {
+            if(res[@"msg"])
+                [Jevil alert:res[@"msg"]];
+            else
+                [Jevil alert:trans(@"Unknown Error")];
         }
     }];
     [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];
@@ -1356,6 +1364,11 @@
                                                                                 completion:^{
 
             }];
+        } else {
+            if(res[@"msg"])
+                [Jevil alert:res[@"msg"]];
+            else
+                [Jevil alert:trans(@"Unknown Error")];
         }
     }];
     [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];

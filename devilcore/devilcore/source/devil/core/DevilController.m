@@ -23,7 +23,6 @@
 @interface DevilController ()
 
 @property (nonatomic, retain) DevilHeader* header;
-@property BOOL hasOnResume;
 @property BOOL hasOnFinish;
 @property BOOL hasOnCreated;
 @property (nonatomic, retain) id thisMetas;
