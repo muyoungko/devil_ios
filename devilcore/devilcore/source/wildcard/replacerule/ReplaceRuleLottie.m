@@ -12,6 +12,9 @@
 @implementation ReplaceRuleLottie
 
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
+    self.replaceView = vv;
+    self.replaceJsonLayer = layer;
+    
     id lottie = layer[@"lottie"];
     NSString* url = lottie[@"url"];
     if([WildCardConstructor sharedInstance].localImageMode) {
@@ -29,6 +32,9 @@
 }
 
 - (void)startLottie:(id)json {
+    if(json == nil)
+        return;
+    
     UIView* vv = self.replaceView;
     id lottie = self.replaceJsonLayer[@"lottie"];
     

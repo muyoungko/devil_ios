@@ -936,7 +936,6 @@ static BOOL IS_TABLET = NO;
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         } else if ([layer objectForKey:(@"lottie")] != nil) {
-            id lottie = layer[@"lottie"];
             ReplaceRuleLottie* rule = [[ReplaceRuleLottie alloc] init];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
