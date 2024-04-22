@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DevilContact : NSObject<CNContactPickerDelegate>
+@interface DevilContact : NSObject<CNContactPickerDelegate, CNContactViewControllerDelegate>
 
 + (DevilContact*)sharedInstance;
 - (void)addContact:(id)param;

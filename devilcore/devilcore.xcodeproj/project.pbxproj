@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		6D0224A126131F6500634842 /* devil_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224A026131F6500634842 /* devil_icon.png */; };
 		6D056FBD2A0FC535005C30EF /* devil_camera_flash_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */; };
+		6D05924D2BD64ABE0050CF94 /* ReplaceRuleLottie.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */; };
+		6D05924E2BD64ABE0050CF94 /* ReplaceRuleLottie.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D05924C2BD64ABE0050CF94 /* ReplaceRuleLottie.m */; };
 		6D09C3B425ADDD9100221A4C /* WildCardTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B225ADDD9100221A4C /* WildCardTimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D09C3B325ADDD9100221A4C /* WildCardTimer.m */; };
 		6D09C3BA25B07B3B00221A4C /* JevilInstance.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D09C3B825B07B3B00221A4C /* JevilInstance.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -317,6 +319,8 @@
 		1032BFC6BE887F2D93A4D66B /* Pods-devilcore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.release.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.release.xcconfig"; sourceTree = "<group>"; };
 		6D0224A026131F6500634842 /* devil_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devil_icon.png; sourceTree = "<group>"; };
 		6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_flash_on@3x.png"; sourceTree = "<group>"; };
+		6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleLottie.h; sourceTree = "<group>"; };
+		6D05924C2BD64ABE0050CF94 /* ReplaceRuleLottie.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleLottie.m; sourceTree = "<group>"; };
 		6D09C3B225ADDD9100221A4C /* WildCardTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardTimer.h; sourceTree = "<group>"; };
 		6D09C3B325ADDD9100221A4C /* WildCardTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardTimer.m; sourceTree = "<group>"; };
 		6D09C3B825B07B3B00221A4C /* JevilInstance.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilInstance.h; sourceTree = "<group>"; };
@@ -890,6 +894,8 @@
 				6DD0987226A69987000A913A /* ReplaceRuleQrcode.m */,
 				6DFB749E2824255A00A64539 /* ReplaceRulePullToRefresh.h */,
 				6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */,
+				6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */,
+				6D05924C2BD64ABE0050CF94 /* ReplaceRuleLottie.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -1402,6 +1408,7 @@
 				6D467AB1256AB07A006D57DD /* WildCardCollectionViewAdapter.h in Headers */,
 				6D4679E8256AA5EA006D57DD /* devilcore.h in Headers */,
 				6D467B86257CD9F3006D57DD /* WildCardUIButton.h in Headers */,
+				6D05924D2BD64ABE0050CF94 /* ReplaceRuleLottie.h in Headers */,
 				6D44336F25881C3800B0E616 /* Jevil.h in Headers */,
 				6D9A864828AA7B6C001002D8 /* DevilFileChooser.h in Headers */,
 				6D3EBD4925D4001A0006ADD5 /* DevilJsonViewer.h in Headers */,
@@ -1616,6 +1623,7 @@
 				6D3EB57325C70B6C0006ADD5 /* DevilBlockDialog.m in Sources */,
 				6DF5779126D00C1D009D41A1 /* DevilQrCameraController.m in Sources */,
 				6DC0CE3328E5974E00195F60 /* DevilChartMarketComponent.m in Sources */,
+				6D05924E2BD64ABE0050CF94 /* ReplaceRuleLottie.m in Sources */,
 				6DA615F928C8F5E10078979D /* DevilPinLayer.m in Sources */,
 				6D467AA0256AB07A006D57DD /* ReplaceRuleLocalImage.m in Sources */,
 				6D467AA3256AB07A006D57DD /* ReplaceRuleText.m in Sources */,

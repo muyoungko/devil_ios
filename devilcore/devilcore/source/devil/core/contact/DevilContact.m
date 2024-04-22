@@ -35,7 +35,10 @@
         c.phoneNumbers = @[
             [[CNLabeledValue alloc] initWithLabel:CNLabelPhoneNumberMobile value:[[CNPhoneNumber alloc] initWithStringValue:param[@"phone"]]]
         ];
-    CNContactViewController* vc = [CNContactViewController viewControllerForUnknownContact:c];
+    CNContactViewController* vc = [CNContactViewController viewControllerForNewContact:c];
+    vc.delegate = self;
+    vc.allowsActions = YES;
+    vc.allowsEditing = YES;
     [[JevilInstance currentInstance].vc.navigationController pushViewController:vc animated:YES];
 }
 

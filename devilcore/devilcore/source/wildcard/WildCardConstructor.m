@@ -21,6 +21,7 @@
 #import "ReplaceRuleIcon.h"
 #import "ReplaceRuleVideo.h"
 #import "ReplaceRuleWeb.h"
+#import "ReplaceRuleLottie.h"
 #import "ReplaceRuleMarket.h"
 #import "ReplaceRuleQrcode.h"
 #import "ReplaceRuleAccessibility.h"
@@ -39,7 +40,6 @@
 #import "WildCardTimer.h"
 #import "WildCardPagerTabStrip.h"
 #import "WildCardPagerTabStripMaker.h"
-#import "Lottie/Lottie.h"
 #import "WildCardUITextView.h"
 #import "WildCardUIPageControl.h"
 #import "WildCardUICollectionView.h"
@@ -937,36 +937,9 @@ static BOOL IS_TABLET = NO;
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         } else if ([layer objectForKey:(@"lottie")] != nil) {
             id lottie = layer[@"lottie"];
-            NSString* url = lottie[@"url"];
-            
-            [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* json) {
-                
-                float lw = [json[@"w"] floatValue];
-                float lh = [json[@"h"] floatValue];
-                float todow, todoh;
-                float w = vv.frame.size.width;
-                float h = vv.frame.size.height;
-                if(w/lw > h/lh){
-                    //높이에 맞춤
-                    todoh = h;
-                    todow = lw * h/lh;
-                } else {
-                    todow = w;
-                    todoh = lh * w/lw;
-                }
-                 
-                LOTAnimationView* lv = [LOTAnimationView animationFromJSON:json];
-                lv.contentMode = UIViewContentModeScaleAspectFit;
-                lv.frame = CGRectMake(0, 0, todow, todoh);
-                lv.center = CGPointMake(w/2.0f, h/2.0f);
-                [vv addSubview:lv];
-                
-                if([@"Y" isEqualToString:lottie[@"infinite"]])
-                    lv.loopAnimation = YES;
-                
-                if([@"Y" isEqualToString:lottie[@"autoStart"]])
-                    [lv play];
-            }];
+            ReplaceRuleLottie* rule = [[ReplaceRuleLottie alloc] init];
+            [outRules addObject:rule];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
         }
         
         if(layer[@"strip"]){
