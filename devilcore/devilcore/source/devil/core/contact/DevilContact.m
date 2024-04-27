@@ -39,7 +39,16 @@
     vc.delegate = self;
     vc.allowsActions = YES;
     vc.allowsEditing = YES;
+    [[JevilInstance currentInstance].vc.navigationController setNavigationBarHidden:NO animated:YES];
     [[JevilInstance currentInstance].vc.navigationController pushViewController:vc animated:YES];
+}
+
+- (BOOL)contactViewController:(CNContactViewController *)viewController shouldPerformDefaultActionForContactProperty:(CNContactProperty *)property {
+    return YES;
+}
+
+- (void)contactViewController:(CNContactViewController *)viewController didCompleteWithContact:(nullable CNContact *)contact {
+    [[JevilInstance currentInstance].vc.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)getContactList:(id)param callback:(void (^)(id res))callback{
