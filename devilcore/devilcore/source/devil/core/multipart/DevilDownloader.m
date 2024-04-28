@@ -98,7 +98,6 @@
                 }
             }
         }
-        
         self.filePath = [DevilUtil generateTempFilePathWithName:filename];
         self.filePathEncoding = [self.filePath stringByReplacingOccurrencesOfString:filename withString:urlencode(filename)];
     }
@@ -153,10 +152,6 @@
 }
 
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(nullable NSError *)error {
-    if(self.showProgress) {
-        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-        [vc closeActiveAlertMessage];
-    }
     
     [self.fileHandle closeFile];
     self.fileHandle = nil;
@@ -175,10 +170,20 @@
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.complete_callback(result);
-        self.filePathEncoding = self.filePath = nil;
-        self.progress_callback = self.complete_callback = nil;
+        if(self.showProgress) {
+            DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+            [vc closeActiveAlertMessage];
+        }
     });
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.complete_callback(result);
+            self.filePathEncoding = self.filePath = nil;
+            self.progress_callback = self.complete_callback = nil;
+        });
+    });
+    
 }
 
 
