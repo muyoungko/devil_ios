@@ -22,7 +22,7 @@
 
 NSString *const AWSCognitoAuthErrorDomain = @"com.amazon.cognito.AWSCognitoAuthErrorDomain";
 
-@interface AWSCognitoAuth()<SFSafariViewControllerDelegate, NSURLConnectionDelegate>
+@interface AWSCognitoAuth()<SFSafariViewControllerDelegate, NSURLConnectionDelegate, UIAdaptivePresentationControllerDelegate>
 
 @property (atomic, readwrite) AWSCognitoAuthGetSessionBlock getSessionBlock;
 @property (atomic, readwrite) AWSCognitoAuthSignOutBlock signOutBlock;
@@ -51,7 +51,7 @@ NSString *const AWSCognitoAuthErrorDomain = @"com.amazon.cognito.AWSCognitoAuthE
 API_AVAILABLE(ios(11.0))
 @interface AWSCognitoAuth()
 
-@property (nonatomic, strong) SFAuthenticationSession *sfAuthSession;
+@property (nonatomic, strong) ASWebAuthenticationSession *sfAuthSession;
 
 @end
 
@@ -80,7 +80,7 @@ API_AVAILABLE(ios(13.0))
 
 @implementation AWSCognitoAuth
 
-NSString *const AWSCognitoAuthSDKVersion = @"2.33.4";
+NSString *const AWSCognitoAuthSDKVersion = @"2.36.0";
 
 
 static NSMutableDictionary *_instanceDictionary = nil;
@@ -358,10 +358,10 @@ withPresentingViewController:(UIViewController *)presentingViewController {
     self.sfAuthenticationSessionAvailable = YES;
     NSString *callbackURLScheme = [[self urlEncode:self.authConfiguration.signInRedirectUri] copy];
     __weak AWSCognitoAuth *weakSelf = self;
-    self.sfAuthSession = [[SFAuthenticationSession alloc] initWithURL:hostedUIURL
-                                                    callbackURLScheme:callbackURLScheme
-                                                    completionHandler:^(NSURL * _Nullable url,
-                                                                        NSError * _Nullable error) {
+    self.sfAuthSession = [[ASWebAuthenticationSession alloc] initWithURL:hostedUIURL
+                                                       callbackURLScheme:callbackURLScheme
+                                                       completionHandler:^(NSURL * _Nullable url,
+                                                                           NSError * _Nullable error) {
         __strong AWSCognitoAuth *strongSelf = weakSelf;
         [strongSelf handleSignInCallbackWithURL:url error:error];
     }];
@@ -403,11 +403,14 @@ withPresentingViewController:(UIViewController *)presentingViewController {
 
 -(void)showSFSafariViewControllerForURL:(NSURL *)url
            withPresentingViewController:(UIViewController *)presentingViewController{
-    self.svc = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:NO];
+    SFSafariViewControllerConfiguration *configuration = [[SFSafariViewControllerConfiguration alloc] init];
+    configuration.entersReaderIfAvailable = NO;
+    self.svc = [[SFSafariViewController alloc] initWithURL:url configuration:configuration];
     self.svc.delegate = self;
     self.svc.modalPresentationStyle = UIModalPresentationPopover;
     self.isProcessingSignIn = YES;
     dispatch_async(dispatch_get_main_queue(), ^{
+        self.svc.presentationController.delegate = self;
         __block UIViewController * sourceVC = presentingViewController;
         if(!sourceVC){
             if(!self.delegate){
@@ -654,15 +657,15 @@ withPresentingViewController:(UIViewController *)presentingViewController {
     self.sfAuthenticationSessionAvailable = YES;
     NSString *callbackURLScheme = [[self urlEncode:self.authConfiguration.signOutRedirectUri] copy];
     __weak AWSCognitoAuth *weakSelf = self;
-    self.sfAuthSession = [[SFAuthenticationSession alloc] initWithURL:url
-                                                    callbackURLScheme:callbackURLScheme
-                                                    completionHandler:^(NSURL * _Nullable url,
-                                                                        NSError * _Nullable error) {
+    self.sfAuthSession = [[ASWebAuthenticationSession alloc] initWithURL:url
+                                                       callbackURLScheme:callbackURLScheme
+                                                       completionHandler:^(NSURL * _Nullable url,
+                                                                           NSError * _Nullable error) {
         __strong AWSCognitoAuth *strongSelf = weakSelf;
         if (url) {
             [strongSelf processURL:url forRedirection:NO];
         } else {
-            if (error.code != SFAuthenticationErrorCanceledLogin) {
+            if (error.code != ASWebAuthenticationSessionErrorCodeCanceledLogin) {
                 [strongSelf signOutLocallyAndClearLastKnownUser];
             }
             [strongSelf dismissSafariViewControllerAndCompleteSignOut:error];
@@ -673,7 +676,9 @@ withPresentingViewController:(UIViewController *)presentingViewController {
 
 - (void)signOutSFSafariVC: (UIViewController *) vc
                       url:(NSURL *)url {
-    self.svc = [[SFSafariViewController alloc] initWithURL:url entersReaderIfAvailable:NO];
+    SFSafariViewControllerConfiguration *configuration = [[SFSafariViewControllerConfiguration alloc] init];
+    configuration.entersReaderIfAvailable = NO;
+    self.svc = [[SFSafariViewController alloc] initWithURL:url configuration:configuration];
     self.svc.delegate = self;
     self.svc.modalPresentationStyle = UIModalPresentationPopover;
     self.isProcessingSignOut = YES;
@@ -745,6 +750,18 @@ withPresentingViewController:(UIViewController *)presentingViewController {
 
 /*! @abstract Delegate callback called when the user taps the Done button. Upon this call, the view controller is dismissed modally. */
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
+    NSError *error = [self getError:@"User cancelled operation" code:AWSCognitoAuthClientErrorUserCanceledOperation];
+    if(self.getSessionBlock){
+        [self setInternalGetSessionErrorAndCancelSignInOperations:error];
+        [self cleanUpAndCallGetSessionBlock:nil error:error];
+    } else {
+        [self setInternalSignOutErrorAndCancelSignOutOperations:error];
+        [self cleanUpAndCallSignOutBlock:error];
+    }
+}
+
+//handle user swipe down to dismiss the SafariViewController
+- (void)presentationControllerDidDismiss:(UIPresentationController *) presentationController {
     NSError *error = [self getError:@"User cancelled operation" code:AWSCognitoAuthClientErrorUserCanceledOperation];
     if(self.getSessionBlock){
         [self setInternalGetSessionErrorAndCancelSignInOperations:error];

@@ -1,3 +1,10 @@
 ${PODS_ROOT}/Target Support Files/Pods-devilwebrtc/Pods-devilwebrtc-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/AWSAuthCore/AWSAuthCore.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/AWSCore/AWSCore.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/AWSKinesisVideo/AWSKinesisVideo.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/AWSKinesisVideoSignaling/AWSKinesisVideoSignaling.bundle
+${PODS_CONFIGURATION_BUILD_DIR}/AWSMobileClient/AWSMobileClient.bundle
 ${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/CommonCryptoBridge.h
 ${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/module.modulemap

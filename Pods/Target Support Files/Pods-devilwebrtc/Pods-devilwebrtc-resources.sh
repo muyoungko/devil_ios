@@ -97,10 +97,24 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSAuthCore/AWSAuthCore.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSCore/AWSCore.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSKinesisVideo/AWSKinesisVideo.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSKinesisVideoSignaling/AWSKinesisVideoSignaling.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSMobileClient/AWSMobileClient.bundle"
   install_resource "${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/CommonCryptoBridge.h"
   install_resource "${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/module.modulemap"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSAuthCore/AWSAuthCore.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSCore/AWSCore.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSKinesisVideo/AWSKinesisVideo.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSKinesisVideoSignaling/AWSKinesisVideoSignaling.bundle"
+  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/AWSMobileClient/AWSMobileClient.bundle"
   install_resource "${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/CommonCryptoBridge.h"
   install_resource "${PODS_ROOT}/CommonCryptoModule/CommonCryptoModule/CommonCryptoBridge/module.modulemap"
 fi

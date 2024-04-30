@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2023 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2024 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -910,7 +910,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisVideoUploaderStatus) {
 @property (nonatomic, assign) AWSKinesisVideoImageSelectorType imageSelectorType;
 
 /**
- <p>The time interval in milliseconds (ms) at which the images need to be generated from the stream. The minimum value that can be provided is 33 ms, because a camera that generates content at 30 FPS would create a frame every 33.3 ms. If the timestamp range is less than the sampling interval, the Image from the <code>StartTimestamp</code> will be returned if available. </p>
+ <p>The time interval in milliseconds (ms) at which the images need to be generated from the stream. The minimum value that can be provided is 200 ms. If the timestamp range is less than the sampling interval, the Image from the <code>StartTimestamp</code> will be returned if available. </p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable samplingInterval;
 
@@ -1300,7 +1300,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisVideoUploaderStatus) {
 @end
 
 /**
- <p>A structure that encapsulates, or contains, the media storage configuration properties.</p>
+ <p>A structure that encapsulates, or contains, the media storage configuration properties.</p><ul><li><p>If <code>StorageStatus</code> is enabled, the data will be stored in the <code>StreamARN</code> provided. In order for WebRTC Ingestion to work, the stream must have data retention enabled.</p></li><li><p>If <code>StorageStatus</code> is disabled, no data will be stored, and the <code>StreamARN</code> parameter will not be needed. </p></li></ul>
  Required parameters: [Status]
  */
 @interface AWSKinesisVideoMediaStorageConfiguration : AWSModel
@@ -1312,7 +1312,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisVideoUploaderStatus) {
 @property (nonatomic, assign) AWSKinesisVideoMediaStorageConfigurationStatus status;
 
 /**
- <p>The Amazon Resource Name (ARN) of the stream </p>
+ <p>The Amazon Resource Name (ARN) of the stream. </p>
  */
 @property (nonatomic, strong) NSString * _Nullable streamARN;
 
@@ -1720,7 +1720,7 @@ typedef NS_ENUM(NSInteger, AWSKinesisVideoUploaderStatus) {
 @property (nonatomic, strong) NSString * _Nullable currentVersion;
 
 /**
- <p>The retention period, in hours. The value you specify replaces the current value. The maximum value for this parameter is 87600 (ten years).</p>
+ <p>The number of hours to adjust the current retention by. The value you specify is added to or subtracted from the current value, depending on the <code>operation</code>.</p><p>The minimum value for data retention is 0 and the maximum value is 87600 (ten years).</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable dataRetentionChangeInHours;
 

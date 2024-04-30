@@ -18,7 +18,7 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new release build to the App Store"
   lane :beta do
-    build_app(workspace: "devil.xcworkspace", scheme: "devil", export_options:"exportOptions.plist", include_bitcode:"true", include_symbols:"true")
+    build_app(workspace: "devil.xcworkspace", scheme: "devil", export_options:"exportOptions.plist", include_bitcode:"false", include_symbols:"true")
     upload_to_testflight
   end
   lane :release do
