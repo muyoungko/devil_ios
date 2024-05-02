@@ -129,7 +129,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             
             double now = (double)[NSDate date].timeIntervalSince1970;
-            if( (now - self.lastTime) < 1 || self.currentDownloadSize == self.downloadSize) {
+            if( (now - self.lastTime) < 0.3 || self.currentDownloadSize == self.downloadSize) {
                 return;
             }
             

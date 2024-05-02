@@ -172,13 +172,13 @@
                                                                              message:nil
                                                                       preferredStyle:UIAlertControllerStyleAlert];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"취소")
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"아니오")
                                                       style:UIAlertActionStyleCancel
                                                     handler:^(UIAlertAction *action) {
                                                         completionHandler(false);
     }]];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"OK")
+    [alertController addAction:[UIAlertAction actionWithTitle:trans(@"예")
                                                         style:UIAlertActionStyleDefault
                                                       handler:^(UIAlertAction *action) {
                                                           completionHandler(true);

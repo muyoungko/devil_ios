@@ -47,7 +47,7 @@
     
     int offsetY = 10;
     NSString* yes = trans(@"OK");
-    NSString* no = trans(@"취소");
+    NSString* no = trans(@"Cancel");
     int titleHeight = 0;
     if(titleText)
         titleHeight = 50;

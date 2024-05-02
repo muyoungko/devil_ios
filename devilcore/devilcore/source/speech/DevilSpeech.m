@@ -77,7 +77,10 @@
 }
 
 - (void)listenCore:(id)param {
-    self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ko-KR"] ];
+    NSString* locale = @"ko-KR";
+    if(param[@"locale"])
+        locale = param[@"locale"];
+    self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:locale] ];
     self.speechRecognizer.delegate = self;
     
     if(self.recognitionTask != nil) {
