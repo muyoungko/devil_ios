@@ -1287,13 +1287,17 @@
 }
 
 + (void)out:(NSString*)url :(BOOL)force {
-    if([url hasPrefix:@"http"] && !force) {
-        SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
-        [[JevilInstance currentInstance].vc presentViewController:svc animated:YES completion:nil];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
-            
-        }];
+    @try {
+        if([url hasPrefix:@"http"] && !force) {
+            SFSafariViewController *svc = [[SFSafariViewController alloc] initWithURL:[NSURL URLWithString:url]];
+            [[JevilInstance currentInstance].vc presentViewController:svc animated:YES completion:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString: url] options:@{} completionHandler:^(BOOL success) {
+                
+            }];
+        }
+    } @catch (NSException* e) {
+        [DevilExceptionHandler handle:e];
     }
 }
 
