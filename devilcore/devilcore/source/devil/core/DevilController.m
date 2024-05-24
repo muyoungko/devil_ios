@@ -189,7 +189,13 @@
         }
     }
     
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)
+    //screen 사이즈를 정확하게 맞춰도 하단에 틈이 남는다 해더있고 푸터없을 경우
+    float adjust = 0;
+    if(![WildCardConstructor isTablet] && self.header && !self.footer)
+        adjust = 6;
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height 
+                + (self.inside_footer?0:self.footer_sketch_height)
+                - adjust
                                                           landscape:self.landscape
     ];
 }

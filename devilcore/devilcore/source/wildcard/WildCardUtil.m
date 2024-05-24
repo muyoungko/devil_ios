@@ -418,11 +418,17 @@ static BOOL IS_TABLET = NO;
             h = row * [WildCardUtil measureHeight:targetLayer data:data];
         } else if([repeatType isEqualToString:REPEAT_TYPE_BOTTOM])
         {
-            //TODO margin 계산해야함 첫 셀의 start도 계산해야함
-            float thisH = [[[targetLayer objectForKey:@"frame"] objectForKey:@"h"] floatValue];
-            thisH = [WildCardConstructor convertSketchToPixel:thisH];
-            float margin = [WildCardConstructor convertSketchToPixel:[arrayContent[@"margin"] floatValue]];
-            h = targetDataJsonLen * thisH + margin*(targetDataJsonLen-1);
+            if([[[targetLayer objectForKey:@"frame"] objectForKey:@"h"] intValue] == -2) {
+                h = 0;
+                for(int i=0;i<targetDataJsonLen;i++) {
+                    h += [WildCardUtil measureHeight:targetLayer data:targetDataJson[i]];
+                }
+            } else {
+                float thisH = [[[targetLayer objectForKey:@"frame"] objectForKey:@"h"] floatValue];
+                thisH = [WildCardConstructor convertSketchToPixel:thisH];
+                float margin = [WildCardConstructor convertSketchToPixel:[arrayContent[@"margin"] floatValue]];
+                h = targetDataJsonLen * thisH + margin*(targetDataJsonLen-1);
+            }
         }
         
     }
