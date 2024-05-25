@@ -262,7 +262,7 @@ static NSString *default_project_id = nil;
     }
     
     if(r == nil) {
-        if(IS_TABLET && landscape && _tabletCloudJsonMap[blockKey] != nil)
+        if(IS_TABLET && landscape && _tabletLandscapeCloudJsonMap[blockKey] != nil)
             return _tabletLandscapeCloudJsonMap[blockKey];
         else if(IS_TABLET && _tabletCloudJsonMap[blockKey] != nil)
             return _tabletCloudJsonMap[blockKey];
