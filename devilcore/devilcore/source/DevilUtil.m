@@ -187,7 +187,9 @@
         
         NSString* url = a[@"url"];
         id contentType = a[@"contentType"];
-        NSData* data = a[@"data"];
+        
+        NSString* path = a[@"path"];
+        NSData* data = [NSData dataWithContentsOfFile:[DevilUtil replaceUdidPrefixDir:path]];
         void (^callback)(id res) = a[@"callback"];
         
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -218,15 +220,15 @@
     }
 }
 
-+(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType data:(NSData*)data complete:(void (^)(id res))callback {
++(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType path:(NSString*)path complete:(void (^)(id res))callback {
     
     __block NSString* udid = [NSUUID UUID].UUIDString;
     
     [[DevilUtil sharedInstance].httpPutWaitQueue addObject:[@{
-        @"udid":udid,
+        @"udid":udid, 
         @"url":url,
         @"contentType":contentType,
-        @"data":data,
+        @"path":path,
         @"callback":callback
     } mutableCopy]];
     

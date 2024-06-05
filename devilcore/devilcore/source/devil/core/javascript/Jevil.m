@@ -510,14 +510,14 @@
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
-    NSData* data = [[NSFileManager defaultManager] contentsAtPath:filepath];
+    NSData* data = [NSData dataWithContentsOfFile:[DevilUtil replaceUdidPrefixDir:filepath]];
     if(data == nil) {
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[@{@"r":@FALSE, @"msg":@"File not exists"}]];
         return;
     }
     NSString* contentType = [DevilUtil fileNameToContentType:filepath];
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
-    [DevilUtil httpPut:url contentType:contentType data:data complete:^(id _Nonnull res) {
+    [DevilUtil httpPut:url contentType:contentType path:filepath complete:^(id _Nonnull res) {
         if(res == nil)
             res = [@{} mutableCopy];
         else if([res isMemberOfClass:[NSError class]]){
@@ -764,29 +764,78 @@
         
         
         [DevilUtil httpPutQueueClear];
+        
+        NSString* url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], put_url];
+        id ext_list = [@[] mutableCopy];
+        id processed_path_list = [@[] mutableCopy];
         for(int i=0;i<[paths count];i++){
             __block NSString* path = [DevilUtil replaceUdidPrefixDir:paths[i]];
+            [processed_path_list addObject:path];
             id ss = [path componentsSeparatedByString:@"."];
             NSString* ext = ss[[ss count]-1];
-            NSString* url = [NSString stringWithFormat:@"%@%@/%@", [WildCardConstructor sharedInstance].project[@"host"], put_url, ext];
-            [uploadedFile addObject:path];
-            [uploadedFileSuccess addObject:@FALSE];
-            __block int thisIndex = i;
+            [ext_list addObject:ext];
+        }
+        
+        for(int i=0;i<[processed_path_list count];i++){
+            NSString* path = processed_path_list[i];
+            NSData* data = [NSData dataWithContentsOfFile:[DevilUtil replaceUdidPrefixDir:path]];
+            if([data length] == 0) {
+                result[@"r"] = @FALSE;
+                result[@"code"] = @"CODE_FILE_NOT_FOUND";
+                result[@"path"] = paths[i];
+                result[@"msg"] = @"File not found";
+                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
+            }
+        }
+        
+        [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:@{@"ext_list":ext_list} success:^(NSMutableDictionary *res) {
             
-            [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *upload) {
-                if(cancelled)
-                    return;
+            if(cancelled)
+                return;
+            
+            if(!res || ![res[@"r"] boolValue]) {
+                result[@"r"] = @FALSE;
+                if(showUploadingPopup)
+                    [vc closeActiveAlertMessage];
                 
-                if(upload == nil || !upload[@"upload_url"]){
+                [callback callWithArguments:@[result]];
+                [[JevilInstance currentInstance] syncData];
+                return;
+            }
+            
+            id upload_list = res[@"list"];
+            for(int i=0;i<[upload_list count];i++) {
+                id upload = upload_list[i];
+                
+                NSString* upload_url = upload[@"upload_url"];
+                [uploadedFile addObject:upload[@"key"]];
+                
+                NSString* path = processed_path_list[i];
+                NSString* contentType = [DevilUtil fileNameToContentType:path];
+                [DevilUtil httpPut:upload_url contentType:contentType path:path complete:^(id  _Nonnull res) {
+                    if(cancelled)
+                        return;
+                    
                     s3index++;
-                    result[@"r"] = @FALSE;
+                    
+                    if(showUploadingPopup)
+                        [vc setActiveAlertMessage:[NSString stringWithFormat:@"%@ %d / %d", trans(@"업로드 중입니다"), s3index, (int)[paths count]]];
+                    
+                    if(res != nil)
+                        [uploadedFileSuccess addObject:@TRUE];
+                    else {
+                        [uploadedFileSuccess addObject:@FALSE];
+                        result[@"r"] = @FALSE;
+                    }
+                    
                     if(s3index == s3length){
                         for(int j=0;j<[uploadedFile count];j++){
                             [result[@"uploadedFile"] addObject:
-                             [@{@"original" : paths[j],
+                             [@{
+                                @"original" : paths[j],
                                 @"key" : uploadedFile[j],
                                 @"success" : uploadedFileSuccess[j]
-                              } mutableCopy]];
+                             } mutableCopy]];
                         }
                         
                         if(showUploadingPopup)
@@ -795,71 +844,9 @@
                         [callback callWithArguments:@[result]];
                         [[JevilInstance currentInstance] syncData];
                     }
-                } else {
-                    NSString* upload_url = upload[@"upload_url"];
-                    uploadedFile[thisIndex] = upload[@"key"];
-                    
-                    NSData* data = [NSData dataWithContentsOfFile:[DevilUtil replaceUdidPrefixDir:path]];
-                    
-                    NSString* contentType = [DevilUtil fileNameToContentType:path];
-                    if([data length] == 0) {
-                        s3index++;
-                        result[@"r"] = @FALSE;
-                        result[@"code"] = @"CODE_FILE_NOT_FOUND";
-                        result[@"msg"] = @"File not found";
-                        if(s3index == s3length){
-                            for(int j=0;j<[uploadedFile count];j++){
-                                [result[@"uploadedFile"] addObject:
-                                 [@{@"original" : paths[j],
-                                    @"key" : uploadedFile[j],
-                                    @"success" : uploadedFileSuccess[j]
-                                  } mutableCopy]];
-                            }
-                            
-                            if(showUploadingPopup)
-                                [vc closeActiveAlertMessage];
-                            
-                            [callback callWithArguments:@[result]];
-                            [[JevilInstance currentInstance] syncData];
-                        }
-                        
-                        //                        @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
-                    } else {
-                        [DevilUtil httpPut:upload_url contentType:contentType data:data complete:^(id  _Nonnull res) {
-                            if(cancelled)
-                                return;
-                            
-                            s3index++;
-                            
-                            if(showUploadingPopup)
-                                [vc setActiveAlertMessage:[NSString stringWithFormat:@"업로드 중입니다 %d / %d", s3index, (int)[paths count]]];
-                            
-                            if(res != nil)
-                                uploadedFileSuccess[thisIndex] = @TRUE;
-                            else
-                                result[@"r"] = @FALSE;
-                            
-                            if(s3index == s3length){
-                                for(int j=0;j<[uploadedFile count];j++){
-                                    [result[@"uploadedFile"] addObject:
-                                     [@{
-                                        @"original" : paths[j],
-                                        @"key" : uploadedFile[j],
-                                        @"success" : uploadedFileSuccess[j]
-                                     } mutableCopy]];
-                                }
-                                
-                                if(showUploadingPopup)
-                                    [vc closeActiveAlertMessage];
-                                
-                                [callback callWithArguments:@[result]];
-                                [[JevilInstance currentInstance] syncData];
-                            }
-                        }];
-                    }
-                }
-            }];
-        }
+                }];
+            }
+        }];
     }];
     
 }

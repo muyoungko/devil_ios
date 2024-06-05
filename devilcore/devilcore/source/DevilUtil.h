@@ -42,7 +42,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 + (UIImage *) getThumbnail:(NSString*)path;
 + (int) getDuration:(NSString*)path;
 +(void)httpPutQueueClear;
-+(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType data:(NSData*)data complete:(void (^)(id res))callback;
++(void)httpPut:(NSString*)url contentType:(id _Nullable)contentType path:(NSString*)path complete:(void (^)(id res))callback;
 +(id) parseUrl:(NSString*)url;
 +(id) queryToJson:(NSURL*)url;
 + (void)clearTmpDirectory;
