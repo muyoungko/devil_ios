@@ -13,11 +13,13 @@
 #import "WildCardUtil.h"
 #import "ReplaceRuleRepeat.h"
 #import "WildCardUICollectionView.h"
-
+#import "ZoomableImageView.h"
 @import Photos;
 
 @interface ReplaceRuleImage()
+@property (nonatomic, retain) WildCardUIView* vv;
 @property (nonatomic, retain) NSString* currentUrl;
+@property BOOL zoomable;
 @property (nonatomic, retain) UIImageView* flipImageView;
 @property (nonatomic, retain) WildCardMeta* meta;
 @end
@@ -27,6 +29,7 @@
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
     self.meta = wcMeta;
     {
+        self.vv = vv;
         UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
         self.replaceView = iv;
         if(self.replaceJsonLayer[@"scaleType"] && [@"center_inside" isEqualToString:self.replaceJsonLayer[@"scaleType"]])
@@ -34,8 +37,18 @@
         else
             iv.contentMode = UIViewContentModeScaleAspectFill;
         
-        [vv addSubview:iv];
-        [WildCardConstructor followSizeFromFather:vv child:iv];
+        if(self.replaceJsonLayer[@"zoomable"] && [self.replaceJsonLayer[@"zoomable"] boolValue]) {
+            self.zoomable = true;
+            ZoomableImageView* zoom = [[ZoomableImageView alloc] initWithFrame:CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height)];
+            [zoom makeZoomable:(UIImageView*)iv];
+            vv.userInteractionEnabled = YES;
+            vv.clipsToBounds = YES;
+            [vv addSubview:zoom];
+        } else {
+            self.zoomable = false;
+            [vv addSubview:iv];
+            [WildCardConstructor followSizeFromFather:vv child:iv];
+        }
         
         iv.layer.cornerRadius = vv.layer.cornerRadius;
         iv.layer.maskedCorners = vv.layer.maskedCorners;
@@ -69,14 +82,13 @@
         url = [MappingSyntaxInterpreter interpret:jsonPath:opt];
     }
     
-    
     [self updateImageView:url view:(UIImageView*)self.replaceView meta:meta data:opt];
     self.currentUrl = url;
     
     if(self.currentUrl)
-        ((WildCardUIView*)[self.replaceView superview]).tags[@"url"] = url;
+        self.vv.tags[@"url"] = url;
     else
-        [((WildCardUIView*)[self.replaceView superview]).tags removeObjectForKey:@"url"];
+        [self.vv.tags removeObjectForKey:@"url"];
     
     if(self.flipImageView) {
         [self updateImageView:[MappingSyntaxInterpreter interpret:self.replaceJsonLayer[@"flipImageContent"]:opt] view:(UIImageView*)self.flipImageView meta:meta data:opt];
@@ -199,6 +211,9 @@
     } else {
         [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:imageView withUrl:url];
     }
+    
+    if(self.zoomable)
+        [((ZoomableImageView*)[self.replaceView superview]) updateContentSize];
     
     return url;
 }

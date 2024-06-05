@@ -784,7 +784,10 @@
                 result[@"code"] = @"CODE_FILE_NOT_FOUND";
                 result[@"path"] = paths[i];
                 result[@"msg"] = @"File not found";
-                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
+                [callback callWithArguments:@[result]];
+                [[JevilInstance currentInstance] syncData];
+                return;
+//                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
             }
         }
         

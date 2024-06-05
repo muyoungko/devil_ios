@@ -236,6 +236,8 @@
 		6D9F7C832637FE5E003A70EC /* ReplaceRuleWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7C812637FE5E003A70EC /* ReplaceRuleWeb.m */; };
 		6D9F7C8826396318003A70EC /* DevilToast.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9F7C8626396318003A70EC /* DevilToast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D9F7C8926396318003A70EC /* DevilToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D9F7C8726396318003A70EC /* DevilToast.m */; };
+		6DA1B0982C10A4C200025AB5 /* ZoomableImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA1B0962C10A4C100025AB5 /* ZoomableImageView.h */; };
+		6DA1B0992C10A4C200025AB5 /* ZoomableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA1B0972C10A4C100025AB5 /* ZoomableImageView.m */; };
 		6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */; };
 		6DA37CE0264C1C0B00982891 /* ReplaceRuleAccessibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */; };
 		6DA615F828C8F5E10078979D /* DevilPinLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DA615F628C8F5E10078979D /* DevilPinLayer.h */; };
@@ -547,6 +549,8 @@
 		6D9F7C812637FE5E003A70EC /* ReplaceRuleWeb.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleWeb.m; sourceTree = "<group>"; };
 		6D9F7C8626396318003A70EC /* DevilToast.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilToast.h; sourceTree = "<group>"; };
 		6D9F7C8726396318003A70EC /* DevilToast.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilToast.m; sourceTree = "<group>"; };
+		6DA1B0962C10A4C100025AB5 /* ZoomableImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZoomableImageView.h; sourceTree = "<group>"; };
+		6DA1B0972C10A4C100025AB5 /* ZoomableImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZoomableImageView.m; sourceTree = "<group>"; };
 		6DA37CDD264C1C0B00982891 /* ReplaceRuleAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleAccessibility.h; sourceTree = "<group>"; };
 		6DA37CDE264C1C0B00982891 /* ReplaceRuleAccessibility.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleAccessibility.m; sourceTree = "<group>"; };
 		6DA615F628C8F5E10078979D /* DevilPinLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPinLayer.h; sourceTree = "<group>"; };
@@ -959,6 +963,7 @@
 		6D467B5F257A2671006D57DD /* core */ = {
 			isa = PBXGroup;
 			children = (
+				6DA1B0952C10A4A000025AB5 /* zoomable */,
 				6D49DDA72BC3A6DF008F0142 /* multipart */,
 				6DE58FC72B52B55F006E27FF /* contact */,
 				6DDE203729222BA400AD7F3C /* animation */,
@@ -1105,6 +1110,15 @@
 				6D9F7B082629658F003A70EC /* UIImage+PECrop.m */,
 			);
 			path = crop;
+			sourceTree = "<group>";
+		};
+		6DA1B0952C10A4A000025AB5 /* zoomable */ = {
+			isa = PBXGroup;
+			children = (
+				6DA1B0962C10A4C100025AB5 /* ZoomableImageView.h */,
+				6DA1B0972C10A4C100025AB5 /* ZoomableImageView.m */,
+			);
+			path = zoomable;
 			sourceTree = "<group>";
 		};
 		6DC0CE2F28E5973600195F60 /* chart */ = {
@@ -1316,6 +1330,7 @@
 				6D12857127773A990086B1CB /* DevilPicker.h in Headers */,
 				6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */,
 				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
+				6DA1B0982C10A4C200025AB5 /* ZoomableImageView.h in Headers */,
 				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
 				6D9A9DEA28A37320003302B3 /* DevilImageMap.h in Headers */,
 				6DD09437269C79E8000A913A /* MarketComponent.h in Headers */,
@@ -1708,6 +1723,7 @@
 				6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */,
 				6D9F7C832637FE5E003A70EC /* ReplaceRuleWeb.m in Sources */,
 				6DECCD4F294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.m in Sources */,
+				6DA1B0992C10A4C200025AB5 /* ZoomableImageView.m in Sources */,
 				6D467AC6256AB07A006D57DD /* WildCardExtensionConstructor.m in Sources */,
 				6DE2BAFC27A8F2A7008344DE /* DevilRecord.m in Sources */,
 				6D9E2B1425BB41160027D16D /* WildCardPagerTabStripCell.m in Sources */,
