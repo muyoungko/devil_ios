@@ -384,14 +384,17 @@
                 id index_list = container.indexPathsForVisibleItems;
                 if([index_list count] > 0 && self.stickyPosition >= 0) {
                     NSIndexPath* first = index_list[0];
+                    for(NSIndexPath* a in index_list) {
+                        if(first.row > a.row)
+                            first = a;
+                    }
+                    
                     UICollectionViewLayoutAttributes *firstCellAttributes = [container layoutAttributesForItemAtIndexPath:first];
                     CGFloat y = firstCellAttributes.frame.origin.y - container.contentOffset.y;
                     //NSLog(@"self.stickyPosition= %d, first.row = %d, y=%f", self.stickyPosition, first.row, y);
                     
-                    if(first.row > self.stickyPosition)
+                    if(first.row >= self.stickyPosition)
                         self.stickyView.hidden = NO;
-                    else if(first.row == self.stickyPosition )
-                        self.stickyView.hidden = YES;
                     else
                         self.stickyView.hidden = YES;
                 }
