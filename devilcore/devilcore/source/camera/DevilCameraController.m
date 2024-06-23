@@ -372,6 +372,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [self.takenLayer addSubview:self.takenImageView];
     
     self.cropView = [[PECropView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+    [self.cropView construct:@{}];
     self.cropView.ratio = self.ratio;
     self.cropView.keepingCropAspectRatio = YES;
     [self.takenLayer addSubview:self.cropView];
@@ -1242,7 +1243,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 }
 -(void)onClickComplete1:(id)sender {
     UIImage* image = self.cropView.croppedImage;
-    CGSize size = CGSizeMake(1024, 1024);
+    CGSize size = CGSizeMake(1024, 1024*self.ratio);
     UIGraphicsBeginImageContext(size);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     image = UIGraphicsGetImageFromCurrentImageContext();

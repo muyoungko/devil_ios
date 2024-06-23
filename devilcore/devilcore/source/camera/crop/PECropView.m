@@ -10,6 +10,8 @@
 #import "PECropRectView.h"
 #import "UIImage+PECrop.h"
 
+#define DEGREES_TO_RADIANS(degrees)((M_PI * degrees)/180)
+
 static const CGFloat MarginTop = 0.0f;
 //static const CGFloat MarginBottom = MarginTop;
 static const CGFloat MarginLeft = 0.0f;
@@ -41,9 +43,6 @@ static const CGFloat MarginLeft = 0.0f;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
-        [self commonInit];
-    }
     
     return self;
 }
@@ -51,14 +50,10 @@ static const CGFloat MarginLeft = 0.0f;
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    if (self)
-    {
-        [self commonInit];
-    }
     return self;
 }
 
-- (void)commonInit
+- (void)construct:(id)param
 {
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.backgroundColor = [UIColor clearColor];
@@ -80,6 +75,8 @@ static const CGFloat MarginLeft = 0.0f;
     //[self.scrollView addGestureRecognizer:rotationGestureRecognizer];
     
     self.cropRectView = [[PECropRectView alloc] init];
+    [self.cropRectView construct:param];
+    
     self.cropRectView.delegate = self;
     [self addSubview:self.cropRectView];
     
@@ -186,27 +183,26 @@ static const CGFloat MarginLeft = 0.0f;
 - (void)setupImageView
 {
     CGRect cropRect = AVMakeRectWithAspectRatioInsideRect(self.image.size, self.insetRect);
-    
     float sw = [UIScreen mainScreen].bounds.size.width;
-    cropRect = CGRectMake(0,self.frame.size.height/2 - (sw*self.ratio)/2, sw, sw*self.ratio);
-    self.scrollView.frame = cropRect;
     
-//    float contentH = sw * self.image.size.height / self.image.size.width;
-//    self.scrollView.contentSize = CGSizeMake(sw, contentH);
-//    self.zoomingView = [[UIView alloc] initWithFrame:self.scrollView.bounds];
-    
-    float imageRatio = self.image.size.height / self.image.size.width;
-    if(imageRatio > 1.0f) {
-        float contentH = sw * self.image.size.height / self.image.size.width;
-        self.zoomingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sw, contentH)];
-        self.scrollView.contentSize = self.zoomingView.frame.size;
-        self.scrollView.contentOffset = CGPointMake(0, (contentH-sw)/2);
+    //ratio 고정일경우
+    if(self.ratio > 0) {
+        cropRect = CGRectMake(0, self.frame.size.height/2 - (sw*self.ratio)/2, sw, sw*self.ratio);
+        self.scrollView.frame = cropRect;
     } else {
-        float contentW = sw * self.image.size.width / self.image.size.height;
-        self.zoomingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, contentW, sw)];
-        self.scrollView.contentSize = self.zoomingView.frame.size;
-        self.scrollView.contentOffset = CGPointMake((contentW-sw)/2, 0);
+        float imageratio = self.image.size.height / self.image.size.width;
+        cropRect = CGRectMake(0, self.frame.size.height/2 - (sw*imageratio)/2, sw, sw*imageratio);
+        self.scrollView.frame = cropRect;
     }
+    
+    float contentH = sw * self.image.size.height / self.image.size.width;
+    self.zoomingView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, sw, contentH)];
+    self.scrollView.contentSize = self.zoomingView.frame.size;
+    
+    if(self.ratio > 0)
+        self.scrollView.contentOffset = CGPointMake(0, (contentH-sw)/2);
+    else
+        self.scrollView.contentOffset = CGPointMake(0, 0);
     
     self.zoomingView.backgroundColor = [UIColor clearColor];
     [self.scrollView addSubview:self.zoomingView];
@@ -457,7 +453,6 @@ static const CGFloat MarginLeft = 0.0f;
 - (void)cropRectViewEditingChanged:(PECropRectView *)cropRectView
 {
     CGRect cropRect = [self cappedCropRectInImageRectWithCropRectView:cropRectView];
-    
     [self layoutCropRectViewWithCropRect:cropRect];
     
     [self automaticZoomIfEdgeTouched:cropRect];
@@ -504,7 +499,7 @@ static const CGFloat MarginLeft = 0.0f;
         [self layoutCropRectViewWithCropRect:cropRect];
     } completion:NULL];
 }
-
+ 
 - (void)zoomToCropRect:(CGRect)toRect
 {
     [self zoomToCropRect:toRect andCenter:NO];
@@ -541,6 +536,10 @@ static const CGFloat MarginLeft = 0.0f;
 
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
 }
 

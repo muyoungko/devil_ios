@@ -28,6 +28,9 @@
 		6D1611DE2B7361A5001C0E3B /* DevilPaintMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */; };
 		6D1611E12B7362A3001C0E3B /* DevilPaintView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */; };
 		6D1611E22B7362A3001C0E3B /* DevilPaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611E02B7362A3001C0E3B /* DevilPaintView.m */; };
+		6D1EC7472C2718E900A26B3F /* DevilImageEditController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1EC7442C2718E900A26B3F /* DevilImageEditController.h */; };
+		6D1EC7482C2718E900A26B3F /* DevilImageEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1EC7452C2718E900A26B3F /* DevilImageEditController.m */; };
+		6D1EC74D2C273AD800A26B3F /* devil_pecrop_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1EC74C2C273AD800A26B3F /* devil_pecrop_border@2x.png */; };
 		6D23ECD32B9C602D00D1E106 /* lang.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D23ECD22B9C602D00D1E106 /* lang.json */; };
 		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
 		6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */; };
@@ -340,6 +343,9 @@
 		6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintMarketComponent.m; sourceTree = "<group>"; };
 		6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPaintView.h; sourceTree = "<group>"; };
 		6D1611E02B7362A3001C0E3B /* DevilPaintView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintView.m; sourceTree = "<group>"; };
+		6D1EC7442C2718E900A26B3F /* DevilImageEditController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImageEditController.h; sourceTree = "<group>"; };
+		6D1EC7452C2718E900A26B3F /* DevilImageEditController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImageEditController.m; sourceTree = "<group>"; };
+		6D1EC74C2C273AD800A26B3F /* devil_pecrop_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_pecrop_border@2x.png"; sourceTree = "<group>"; };
 		6D23ECD22B9C602D00D1E106 /* lang.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lang.json; sourceTree = "<group>"; };
 		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
 		6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIPageControl.m; sourceTree = "<group>"; };
@@ -656,6 +662,7 @@
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				6D1EC74C2C273AD800A26B3F /* devil_pecrop_border@2x.png */,
 				6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */,
 				6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */,
 				6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */,
@@ -1184,6 +1191,8 @@
 				6D7F7A9828D6F1F000F67029 /* DevilPhotoController.m */,
 				6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */,
 				6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */,
+				6D1EC7442C2718E900A26B3F /* DevilImageEditController.h */,
+				6D1EC7452C2718E900A26B3F /* DevilImageEditController.m */,
 			);
 			path = camera;
 			sourceTree = "<group>";
@@ -1327,6 +1336,7 @@
 				6D9F7AC726234431003A70EC /* DevilUtil.h in Headers */,
 				6DF377C627B3AC360050E1DA /* DevilLang.h in Headers */,
 				6DD097E226A28924000A913A /* WildCardUICollectionView.h in Headers */,
+				6D1EC7472C2718E900A26B3F /* DevilImageEditController.h in Headers */,
 				6D12857127773A990086B1CB /* DevilPicker.h in Headers */,
 				6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */,
 				6D530D07274B539E006EDD58 /* DevilGalleryController.h in Headers */,
@@ -1541,6 +1551,7 @@
 				6DF459002A829C8800E20636 /* devil_video_full_screen@3x.png in Resources */,
 				6D9F7AA92622E93C003A70EC /* devil_camera_front_back@3x.png in Resources */,
 				6D0224A126131F6500634842 /* devil_icon.png in Resources */,
+				6D1EC74D2C273AD800A26B3F /* devil_pecrop_border@2x.png in Resources */,
 				6D3DD34E275B93C600707521 /* devil_camera_close@3x.png in Resources */,
 				6D5C4AB62ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png in Resources */,
 				6D23ECD32B9C602D00D1E106 /* lang.json in Resources */,
@@ -1703,6 +1714,7 @@
 				6D8628FD287AAC5700E62B7B /* JevilAds.m in Sources */,
 				6D467AB9256AB07A006D57DD /* WildCardAction.m in Sources */,
 				6DD09448269C8054000A913A /* ReplaceRuleMarket.m in Sources */,
+				6D1EC7482C2718E900A26B3F /* DevilImageEditController.m in Sources */,
 				6D467B6D257A2F16006D57DD /* DevilBaseController.m in Sources */,
 				6D467AA1256AB07A006D57DD /* ReplaceRuleImageResource.m in Sources */,
 				6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */,

@@ -18,6 +18,8 @@
 
 @property (nonatomic) BOOL keepingAspectRatio;
 
+- (void)construct:(id)param;
+
 @end
 
 @protocol PECropRectViewDelegate <NSObject>

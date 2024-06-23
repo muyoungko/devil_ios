@@ -30,18 +30,32 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
+     
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor clearColor];
-        self.contentMode = UIViewContentModeRedraw;
         
-        self.showsGridMajor = YES;
-        self.showsGridMinor = NO;
+    }
+    
+    return self;
+}
+
+- (void)construct:(id)param {
+    self.backgroundColor = [UIColor clearColor];
+    self.contentMode = UIViewContentModeRedraw;
+    
+    self.showsGridMajor = YES;
+    self.showsGridMinor = NO;
+    
+    
         
-//        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectInset(self.bounds, -2.0f, -2.0f)];
-//        imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//        imageView.image = [[UIImage imageNamed:@"PEPhotoCropEditor.bundle/PEPhotoCropEditorBorder"] resizableImageWithCapInsets:UIEdgeInsetsMake(23.0f, 23.0f, 23.0f, 23.0f)];
-//        [self addSubview:imageView];
+    
+    if([param[@"enableChangeGuide"] boolValue]) {
+        
+        NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectInset(self.bounds, -2.0f, -2.0f)];
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        imageView.image = [[UIImage imageNamed:@"devil_pecrop_border" inBundle:bundle compatibleWithTraitCollection:nil] resizableImageWithCapInsets:UIEdgeInsetsMake(23.0f, 23.0f, 23.0f, 23.0f)];
+        [self addSubview:imageView];
         
         self.topLeftCornerView = [[PEResizeControl alloc] init];
         self.topLeftCornerView.delegate = self;
@@ -75,8 +89,6 @@
         self.rightEdgeView.delegate = self;
         [self addSubview:self.rightEdgeView];
     }
-    
-    return self;
 }
 
 #pragma mark -
@@ -187,7 +199,6 @@
     if(isnan(f.size.width) || isnan(f.size.height))
         return;
     self.frame = f;
-        
     if ([self.delegate respondsToSelector:@selector(cropRectViewEditingChanged:)]) {
         [self.delegate cropRectViewEditingChanged:self];
     }

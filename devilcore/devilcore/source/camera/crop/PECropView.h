@@ -30,6 +30,7 @@
 
 @property (nonatomic, weak, readonly) UIRotationGestureRecognizer *rotationGestureRecognizer;
 
+- (void)construct:(id)param;
 - (void)resetCropRect;
 - (void)resetCropRectAnimated:(BOOL)animated;
 

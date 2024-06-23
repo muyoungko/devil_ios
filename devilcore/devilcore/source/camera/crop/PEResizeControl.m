@@ -19,7 +19,7 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 0, 0)];
+    self = [super initWithFrame:CGRectMake(frame.origin.x, frame.origin.y, 44, 44)];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         self.exclusiveTouch = YES;
@@ -30,7 +30,7 @@
     
     return self;
 }
-
+ 
 - (void)handlePan:(UIPanGestureRecognizer *)gestureRecognizer
 {
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {

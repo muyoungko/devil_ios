@@ -192,6 +192,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)paintSave:(NSString*)nodeName :(JSValue *)callback;
 + (BOOL)paintIsEmpty:(NSString*)nodeName;
 + (void)paintClear:(NSString*)nodeName;
++ (void)goCropScreen:(NSDictionary*)param :(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

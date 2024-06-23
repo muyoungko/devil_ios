@@ -57,6 +57,7 @@
 #import "DevilPaintMarketComponent.h"
 #import "DevilMultiPartUploader.h"
 #import "DevilDownloader.h"
+#import "DevilImageEditController.h"
 
 @interface Jevil()
 
@@ -787,7 +788,7 @@
                 [callback callWithArguments:@[result]];
                 [[JevilInstance currentInstance] syncData];
                 return;
-//                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
+                //                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
             }
         }
         
@@ -1305,7 +1306,7 @@
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
     [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];
-
+    
 }
 
 + (void)downloadAndView:(NSString*)url {
@@ -1344,10 +1345,10 @@
             NSString* path = res[@"dest"];
             NSString* pathEncoding = res[@"dest_encoding"];
             UIActivityViewController *activityViewController = [[UIActivityViewController alloc] initWithActivityItems:@[[NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]]
-                                                                                                             applicationActivities:nil];
+                                                                                                 applicationActivities:nil];
             if(activityViewController.popoverPresentationController) {
                 activityViewController.popoverPresentationController.sourceView = [JevilInstance currentInstance].vc.view;
-
+                
                 float sw = [UIScreen mainScreen].bounds.size.width;
                 float sh = [UIScreen mainScreen].bounds.size.height;
                 activityViewController.popoverPresentationController.sourceRect = CGRectMake(sw*0.5, sh*0.5, 0, 0);
@@ -1356,7 +1357,7 @@
             [[JevilInstance currentInstance].vc.navigationController presentViewController:activityViewController
                                                                                   animated:YES
                                                                                 completion:^{
-
+                
             }];
         } else {
             if(res[@"msg"])
@@ -2017,29 +2018,29 @@
 }
 + (void)mapCallback:(NSString*)nodeName :(NSString*)event :(JSValue*)callback{
     DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];
-
+    
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-
+    
     if ([event isEqualToString:@"click"]) {
         [mc callbackMarkerClick: ^(id marker) {
             [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[marker]];
         }];
-
+        
     } else if ([event isEqualToString:@"map_click"]) {
         [mc callbackMapClick: ^(id res) {
             [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
         }];
-
+        
     } else if ([event isEqualToString:@"camera"]) {
         [mc callbackCamera: ^(id res) {
             [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ res ]];
         }];
-
+        
     } else if ([event isEqualToString:@"drag_start"]) {
         [mc callbackDragStart: ^(id marker) {
             [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ marker]];
         }];
-
+        
     } else if ([event isEqualToString:@"drag_end"]) {
         [mc callbackDragEnd: ^(id marker) {
             [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[ marker]];
@@ -2096,6 +2097,16 @@
 
 + (void)paintClear:(NSString*)nodeName {
     [((DevilPaintMarketComponent*)[[JevilInstance currentInstance] findMarketComponent:nodeName]) clear];
+}
+
++ (void)goCropScreen:(NSDictionary*)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    DevilImageEditController* d = [[DevilImageEditController alloc] init];
+    d.param = param;
+    d.callback = ^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    };
+    [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
 }
 
 @end
