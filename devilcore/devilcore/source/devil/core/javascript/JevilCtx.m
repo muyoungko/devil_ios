@@ -64,16 +64,16 @@
             }]];
             [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
             
-            [self sendLogIf];
+            [self sendLogIf:@{@"exception":msg}];
         }];
         
     }
     return self;
 }
 
--(void)sendLogIf {
+-(void)sendLogIf:(id)a {
     if(![[[NSBundle mainBundle] bundleIdentifier] isEqualToString:@"kr.co.july.CloudJsonViewer"]) {
-        id param = [@{} mutableCopy];
+        id param = [a mutableCopy];
         param[@"package"] = [[NSBundle mainBundle] bundleIdentifier];
         param[@"project_id"] = [Jevil get:@"PROJECT_ID"];
         param[@"screen"] = ((DevilController*)[JevilInstance currentInstance].vc).screenName;
