@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)start:(id)param :(JSValue *)callback;
 + (void)startView:(NSString*)nodeName :(id)param :(JSValue *)callback;
++ (void)callback:(JSValue *)callback;
 
 @end
 

@@ -36,6 +36,9 @@ public class DevilWebRtcInstance: NSObject {
     @objc public var sendVideo: Bool = true
     @objc public var sendAudio: Bool = true
     
+    @objc public var callback: (Any) -> Void = { res in
+    }
+    
     // clients for WEBRTC Connection
     var signalingClient: SignalingClient?
     var webRTCClient: WebRTCClient?
@@ -105,14 +108,8 @@ public class DevilWebRtcInstance: NSObject {
         
         // get signalling channel endpoints
         let endpoints = getSignallingEndpoints(channelARN: self.channelARN, region: awsRegionValue, isMaster: self.isMaster, useMediaServer: usingMediaServer)
-        
-        
-        var wssURL = createSignedWSSUrl(channelARN: self.channelARN, region: awsRegionValue, wssEndpoint: endpoints["WSS"]!, isMaster: self.isMaster)
-        
-        if !self.wssSignedUrl.isEmpty {
-            wssURL = URL(string: self.wssSignedUrl);
-        }
-            
+
+        let wssURL = createSignedWSSUrl(channelARN: self.channelARN, region: awsRegionValue, wssEndpoint: endpoints["WSS"]!, isMaster: self.isMaster)
         
         print("WSS URL :", wssURL?.absoluteString as Any)
         // get ice candidates using https endpoint
@@ -136,6 +133,7 @@ public class DevilWebRtcInstance: NSObject {
             
             if(self.parentView != nil) {
                 self.devilWebRtcVideoView = DevilWebRtcVideoView(webRTCClient: self.webRTCClient!, signalingClient: self.signalingClient!, localSenderClientID: self.localSenderId, isMaster: self.isMaster, mediaServerEndPoint: endpoints["WEBRTC"] ?? nil)
+                self.devilWebRtcVideoView?.clipsToBounds = true;
                 self.devilWebRtcVideoView?.frame = CGRect(x: 0, y: 0, width: self.parentView!.frame.size.width, height: self.parentView!.frame.size.height)
                 self.devilWebRtcVideoView?.sendVideo = self.sendVideo
                 self.devilWebRtcVideoView?.sendAudio = self.sendAudio
@@ -257,6 +255,10 @@ public class DevilWebRtcInstance: NSObject {
                 RTCIceServersList.append(RTCIceServer.init(urlStrings: kvsStunUrlStrings))
             }
         }).waitUntilFinished()
+        
+        let res: NSDictionary = ["r": true, "event": "ready"]
+        callback(res)
+        
         return RTCIceServersList
     }
    
@@ -423,6 +425,8 @@ extension DevilWebRtcInstance: WebRTCClientDelegate {
         switch state {
         case .connected, .completed:
             print("WebRTC connected/completed state")
+            let res: NSDictionary = ["r": true, "event": "play"]
+            callback(res)
         case .disconnected:
             print("WebRTC disconnected state")
         case .new:

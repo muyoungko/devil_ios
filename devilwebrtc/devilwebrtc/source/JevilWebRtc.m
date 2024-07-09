@@ -26,7 +26,11 @@
     d.sendVideo = [param[@"isVideoSent"] boolValue];
     d.sendAudio = [param[@"isAudioSent"] boolValue];
     d.parentView = nil;
-    [d connectAsRole];
+    
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [d connectAsRole];
+    });
     
     [JevilInstance currentInstance].forRetain[@"webrtc"] = d;
 }
@@ -50,9 +54,22 @@
     WildCardUIView* view = [dc findView:nodeName];
     
     d.parentView = view;
-    [d connectAsRole];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [d connectAsRole];
+    });
     
     [JevilInstance currentInstance].forRetain[@"webrtc"] = d;
 }
 
++ (void)callback:(JSValue *)callback{
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    __block DevilWebRtcInstance* d = (DevilWebRtcInstance*)[JevilInstance currentInstance].forRetain[@"webrtc"];
+    if(d) {
+        d.callback = ^ (id _Nonnull res) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+            });
+        };
+    }
+}
 @end
