@@ -3,7 +3,7 @@
 //  devilcore
 //
 //  Created by Mu Young Ko on 2020/12/04.
-//
+// 
 
 #import "DevilController.h"
 #import "devilcore.h"
@@ -59,12 +59,10 @@
     [self.view addSubview:_viewMain];
     [WildCardConstructor followSizeFromFather:self.view child:_viewMain];
     
-    
-    if(self.startData) {
-        self.data = self.startData;
-    } else
-        self.data = [@{} mutableCopy];
-    
+    if(self.startData)
+        self.data = [JSValue valueWithObject:self.startData inContext:self.jevil.jscontext];
+    else
+        self.data = [JSValue valueWithObject:[@{} mutableCopy] inContext:self.jevil.jscontext];
     
     [self updateFlexScreen];
     
@@ -243,10 +241,10 @@
         [self.mainWc removeFromSuperview];
     
     self.jevil = [[JevilCtx alloc] init];
-    if(self.startData) {
-        self.data = self.startData;
-    } else
-        self.data = [@{} mutableCopy];
+    if(self.startData)
+        self.data = [JSValue valueWithObject:self.startData inContext:self.jevil.jscontext];
+    else
+        self.data = [JSValue valueWithObject:[@{} mutableCopy] inContext:self.jevil.jscontext];
     
     NSString* common_javascript =[WildCardConstructor sharedInstance].project[@"common_javascript"];
     NSString* declared =[[WildCardConstructor sharedInstance] getDeclaredCode];

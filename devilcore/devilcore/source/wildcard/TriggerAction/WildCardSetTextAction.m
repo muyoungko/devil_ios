@@ -30,7 +30,7 @@
 - (void)act:(WildCardTrigger *)trigger{
     [super act:trigger];
     NSString* value = [MappingSyntaxInterpreter interpret:_targetjsonPath:super.meta.correspondData];
-    [super.meta.correspondData setObject:value forKey:_toJsonPath];
+    super.meta.correspondData[_toJsonPath] = value;
 }
 
 

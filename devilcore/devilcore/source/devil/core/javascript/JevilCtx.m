@@ -20,6 +20,8 @@
 
 @interface JevilCtx ()
 
+@property BOOL dataInitialized;
+
 @end
 
 
@@ -52,6 +54,8 @@
         [self.jscontext setExceptionHandler:^(JSContext *context, JSValue *exception) {
             NSLog(@"%@",exception);
             id line = [exception objectForKeyedSubscript:@"line"];
+            if([line isUndefined])
+                return;
             NSString* msg = [NSString stringWithFormat:@"line %@, %@",line, exception];
             UIAlertController *alertController = [UIAlertController alertControllerWithTitle:msg
                                                                              message:nil
@@ -85,11 +89,11 @@
     }
 }
 
--(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta {
+-(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(JSValue*)data meta:(WildCardMeta*)meta {
     return [self code:code viewController:vc data:data meta:meta hide:false];
 }
 
--(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(id)data meta:(WildCardMeta*)meta hide:(BOOL)hide{
+-(NSString*)code:(NSString*)code viewController:(UIViewController*)vc data:(JSValue*)data meta:(WildCardMeta*)meta hide:(BOOL)hide{
     if(!hide) {
         [JevilInstance currentInstance].vc = vc;
         [JevilInstance currentInstance].meta = meta;
@@ -98,30 +102,25 @@
         [JevilInstance currentInstance].jscontext = self.jscontext;
     }
     
-    id config_list = [WildCardConstructor sharedInstance].project[@"config_list"];
-    if(config_list != nil && config_list != [NSNull null]){
-        for(id c in config_list){
-            NSString* name = c[@"name"];
-            NSString* value = c[@"value"];
-            self.jscontext[name] = value;
-        }
+    if(!self.dataInitialized) {
+        self.jscontext[@"data"] = data;
+        self.dataInitialized = true;
     }
-    if([[data allKeys] count] == 0)
-        data[@"atLeastOneKey"] = @"1";
-    self.jscontext[@"data"] = data;
-    if(meta != nil){ 
-        NSString *d = [JevilUtil find:data :meta.correspondData];
-        d = [NSString stringWithFormat:@"thisData = data%@\n", d];
-        code = [d stringByAppendingString:code];
+    
+    if(meta != nil) {
+        //TODO scope 고려가 안되어있음
+        self.jscontext[@"thisData"] = meta.correspondData;
     }
     
     JSValue* r = [self.jscontext evaluateScript:code];
-    JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
-    id newData = [dataJs toDictionary];
-    [JevilUtil sync:newData :data];
-        
     return [r toString];
+    
+//    JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
+//    id newData = [dataJs toDictionary];
+//    [JevilUtil sync:newData :data];
+    
+    
+    
 }
-
 
 @end

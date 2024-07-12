@@ -25,7 +25,7 @@
     
 }
 
-- (void)update:(id)opt {
+- (void)update:(JSValue*)opt {
     [super update:opt];
     
     if(self.banner == nil && [DevilSdk sharedInstance].devilSdkGoogleAdsDelegate) {

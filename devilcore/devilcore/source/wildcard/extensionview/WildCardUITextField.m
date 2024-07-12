@@ -208,7 +208,7 @@
         self.text = [self formatString:text];
     }
     
-    [_meta.correspondData setObject:[textField text] forKey:_holder];
+    _meta.correspondData[_holder] = [textField text];
     
     if(self.textChangedCallback != nil && ![[textField text] isEqualToString:self.lastText]) {
         self.lastText = [textField text];
@@ -271,7 +271,7 @@
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    [_meta.correspondData setObject:[textField text] forKey:_holder];
+    _meta.correspondData[_holder] = [textField text];
     return YES;
 }
 
@@ -283,7 +283,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [_meta.correspondData setObject:[textField text] forKey:_holder];
+    _meta.correspondData[_holder] = [textField text];
     if(self.textFocusChangedCallback != nil) {
         self.textFocusChangedCallback(false);
     }

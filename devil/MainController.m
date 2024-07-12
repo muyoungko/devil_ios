@@ -140,7 +140,7 @@
         return true;
     } else if([functionName isEqualToString:@"more"]){
         
-        NSString *project_id = [meta.correspondData[@"id"] stringValue];
+        NSString *project_id = [meta.correspondData[@"id"] toString];
         
         [self showIndicator];
         NSString* url = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", project_id];

@@ -146,7 +146,7 @@
 }
 
 -(void)update {
-    int rate  = [self.meta.correspondData[self.watch] intValue];
+    int rate  = [self.meta.correspondData[self.watch] toInt32];
     [self rateToView:rate];
 }
 

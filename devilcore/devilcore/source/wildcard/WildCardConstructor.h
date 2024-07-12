@@ -82,9 +82,9 @@
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer;
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer instanceDelegate:(id)delegate;
 +(WildCardUIView*_Nonnull) constructLayer:(UIView*_Nullable)cell withLayer:(NSDictionary*_Nonnull)layer withParentMeta:(WildCardMeta*)parentMeta depth:(int)depth instanceDelegate:(id)delegate;
-+(void) applyRuleMeta:(WildCardMeta*)meta withData:(NSMutableDictionary*)opt;
-+(void) applyRule:(WildCardUIView*_Nonnull)v withData:(NSMutableDictionary*_Nonnull)opt;
-+(void) applyRuleCore:(WildCardMeta*)meta rule:(ReplaceRule*)rule withData:(NSMutableDictionary*)opt;
++(void) applyRuleMeta:(WildCardMeta*)meta withData:(JSValue* _Nonnull)opt;
++(void) applyRule:(WildCardUIView*_Nonnull)v withData:(JSValue* _Nonnull)opt;
++(void) applyRuleCore:(WildCardMeta*)meta rule:(ReplaceRule*)rule withData:(JSValue* _Nonnull)opt;
 +(float) convertSketchToPixel:(float)p;
 +(float) convertTextSize:(int)sketchTextSize;
 +(void) followSizeFromFather:(UIView*)vv child:(UIView*)tv;

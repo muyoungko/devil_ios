@@ -39,7 +39,7 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 @property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) id startData;
 
-@property(nonatomic, retain) NSMutableDictionary* data;
+@property(nonatomic, retain) JSValue* data;
 @property int viewHeight;
 @property int offsetY;
 @property (nonatomic, retain) WildCardUIView* mainWc;

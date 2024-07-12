@@ -7,7 +7,7 @@
 
 #import "MarketComponent.h"
 #import "JevilCtx.h"
-#import "JevilInstance.h"
+#import "JevilInstance.h" 
 
 @implementation MarketComponent
 
@@ -29,7 +29,7 @@
         [self.meta.jevil code:script viewController:[JevilInstance currentInstance].vc data:self.meta.correspondData meta:self.meta];
     }
 }
--(void)update:(id)opt{
+-(void)update:(JSValue*)opt{
     self.meta.correspondData = opt;
 }
 -(void)pause{

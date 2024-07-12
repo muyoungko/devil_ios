@@ -12,7 +12,7 @@
 
 
 +(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest {
-    [self sync:src :dest :0 :0];
+    //[self sync:src :dest :0 :0];
 }
 
 +(void)sync:(NSMutableDictionary*)src :(NSMutableDictionary*)dest :(int)depth :(int)subindex {
@@ -98,43 +98,4 @@
     }
 }
 
-+(NSString*)find:(NSMutableDictionary*)data :(NSMutableDictionary*)thisData{
-    id outList = [@[] mutableCopy];
-    BOOL found = [JevilUtil findCore:data :thisData :outList];
-    if(found){
-        NSString* r = @"";
-        for(NSString* s in outList){
-            r = [r stringByAppendingString:s];
-        }
-        return r;
-    }
-    return nil;
-}
-
-+(BOOL)findCore:(id)node :(id)thisData :(id)outList{
-    if(node == thisData){
-        return true;
-    } else if([[node class] isKindOfClass:[NSDictionary class]] || [[node class] isSubclassOfClass:[NSDictionary class]]){
-        id ks = [node allKeys];
-        for(id k in ks){
-            BOOL r = [JevilUtil findCore:node[k] :thisData :outList];
-            if(r){
-                [outList insertObject:[NSString stringWithFormat:@"['%@']",k] atIndex:0];
-                return true;
-            }
-        }
-        return false;
-    } else if([[node class] isSubclassOfClass:[NSArray class]] || [[node class] isKindOfClass:[NSArray class]]){
-        int index = 0;
-        for(id child in node){
-            BOOL r = [JevilUtil findCore:child :thisData :outList];
-            if(r){
-                [outList insertObject:[NSString stringWithFormat:@"[%d]",index] atIndex:0];
-                return true;
-            }
-            index++;
-        }
-    }
-    return false;
-}
 @end

@@ -204,8 +204,7 @@
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView{
-    NSString* text = [textView text];
-    [_meta.correspondData setObject:[textView text] forKey:_holder];
+    _meta.correspondData[_holder] = [textView text];
     [self updatePlaceHolderVisible];
     
     if(self.textFocusChangedCallback != nil) {
@@ -214,8 +213,7 @@
 }
 
 - (void)textViewDidChange:(UITextView *)textView{
-    NSString* text = self.text;
-    [_meta.correspondData setObject:self.text forKey:_holder];
+    _meta.correspondData[_holder] = [textView text];
     [self updatePlaceHolderVisible];
 }
 
@@ -233,7 +231,7 @@
                 [WildCardAction execute:trigger script:self.doneClickAction meta:self.meta];
             }
             
-            [_meta.correspondData setObject:@"" forKey:_holder];
+            _meta.correspondData[_holder] = @"";
         }
     }
     return YES;
@@ -263,7 +261,7 @@
 }
 
 - (void)textChanged:(UITextField *)textField{
-    [_meta.correspondData setObject:self.text forKey:_holder];
+    _meta.correspondData[_holder] = [textField text];
     [self updateHeight];
     
     if(self.textChangedCallback != nil && ![self.text isEqualToString:self.lastText]) {

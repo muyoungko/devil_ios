@@ -711,7 +711,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         kFIRParameterItemName:viewName,
     } mutableCopy];
     if(gaData) {
-        id ks = [gaData allKeys];
+        id ks = [[gaData toDictionary] allKeys];
         for(id k in ks) {
             p[k] = gaData[k];
         }

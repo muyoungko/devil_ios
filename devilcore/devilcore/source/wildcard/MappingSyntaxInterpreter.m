@@ -13,31 +13,30 @@
 
 @implementation MappingSyntaxInterpreter
 
-+(NSObject*) getJsonWithPath:(NSObject*)s : (NSString*) path
++(JSValue*) getJsonWithPath:(JSValue*)s : (NSString*) path
 {
     NSArray* target = [path componentsSeparatedByString: @">"];
     return [MappingSyntaxInterpreter getJsonFromString:s :target : 0];
 }
 
-+(NSObject*) getJsonFromString:(NSObject*) s : (NSArray*) target : (int) index
++(JSValue*) getJsonFromString:(JSValue*) s : (NSArray*) target : (int) index
 {
-    if( s == nil)
+    if(s == nil || [s isUndefined])
         return nil;
+    
     if([target count] <= index)
         return s;
     
     NSString *nowKey = [target objectAtIndex:index];
-    if([s isKindOfClass:[NSDictionary class]])
+    if([s isObject])
     {
-        NSDictionary* o = (NSDictionary*)s;
-        NSObject* p = [o objectForKey:nowKey];
+        JSValue* p = s[nowKey];
         return [MappingSyntaxInterpreter getJsonFromString:p:target:(index+1)];
     }
-    else if([s isKindOfClass:[NSArray class]])
+    else if([s isArray])
     {
-        NSArray* o = (NSArray*)s;
         int arrayIndex = [nowKey intValue];
-        NSObject* p = [o objectAtIndex:arrayIndex];
+        JSValue* p = s[arrayIndex];
         if([MappingSyntaxInterpreter isNumber:nowKey])
             return [MappingSyntaxInterpreter getJsonFromString:p:target:(index+1)];
         else
@@ -53,7 +52,7 @@
     return r.location == NSNotFound && s.length > 0;
 }
 
-+(NSString*) interpret:(NSString*) tomb : (NSDictionary*) data
++(NSString*) interpret:(NSString*) tomb : (JSValue*) data
 {
     //2022 02 23 tomb가 null이면 data를 json stringify하여 반환한다.
     if(tomb == nil)
@@ -73,7 +72,7 @@
         NSString* text = @"";
         for(int i=0;i<[rs count];i++)
         {
-            NSString* r = [rs objectAtIndex:i];
+            NSString* r = rs[i];
             r = [r stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             if([r hasPrefix:@"'"])
             {
@@ -98,10 +97,11 @@
                 }
                 else
                 {
-                    id ss = [MappingSyntaxInterpreter getJsonWithPath:data :r];
-                    if(ss == nil || ss == [NSNull null])
-                        ss = @"";
-                    NSString* s = [NSString stringWithFormat:@"%@" ,ss];
+                    JSValue* ss = [MappingSyntaxInterpreter getJsonWithPath:data :r];
+                    NSString* s = @"";
+                    if(ss != nil)
+                        s = [ss toString];
+                    
                     text = [text stringByAppendingString:s];
                 }
             }
@@ -120,11 +120,8 @@
         }
         else
         {
-            NSObject* o = [MappingSyntaxInterpreter getJsonWithPath:data :tomb];
-            if([o class] == [NSString class])
-                text = (NSString*)o;
-            else if(o != nil)
-                text = [NSString stringWithFormat:@"%@", o];
+            JSValue* o = [MappingSyntaxInterpreter getJsonWithPath:data :tomb];
+            text = [o toString];
         }
         return text;
     }
@@ -137,20 +134,12 @@
 }
 
 
-
-
-
-
-
-
-
-
-+(BOOL) ifexpression:(NSString*)ifexpression data:(NSDictionary*) data
++(BOOL) ifexpression:(NSString*)ifexpression data:(JSValue*) data
 {
     return [MappingSyntaxInterpreter ifexpressionRecur:ifexpression data:data defaultValue:NO];
 }
 
-+(BOOL) ifexpression:(NSString*)ifexpression data:(NSDictionary*) data defaultValue:(BOOL)value
++(BOOL) ifexpression:(NSString*)ifexpression data:(JSValue*) data defaultValue:(BOOL)value
 {
     return [MappingSyntaxInterpreter ifexpressionRecur:ifexpression  data:data defaultValue:value];
 }
@@ -221,7 +210,7 @@
     return r;
 }
 
-+(BOOL) ifexpressionRecur:(NSString*)ifexpression data:(NSDictionary*)data  defaultValue:(BOOL)defaultIfLeftNull
++(BOOL) ifexpressionRecur:(NSString*)ifexpression data:(JSValue*)data  defaultValue:(BOOL)defaultIfLeftNull
 {
     BOOL r = true;
     
@@ -246,7 +235,7 @@
                     r = r || [MappingSyntaxInterpreter ifexpressionUnit:[unit substringFromIndex:2] data:data defaultValue:defaultIfLeftNull];
                 }
             } else {
-                r = [MappingSyntaxInterpreter ifexpressionUnit:[units objectAtIndex:i] data:data defaultValue:defaultIfLeftNull];
+                r = [MappingSyntaxInterpreter ifexpressionUnit:units[i] data:data defaultValue:defaultIfLeftNull];
             }
         }
     }
@@ -254,7 +243,7 @@
 }
 
 
-+(BOOL) ifexpressionUnit:(NSString*)ifexpression data:(NSDictionary*)data defaultValue:(BOOL)defaultIfLeftNull
++(BOOL) ifexpressionUnit:(NSString*)ifexpression data:(JSValue*)data defaultValue:(BOOL)defaultIfLeftNull
 {
     BOOL r = false;
     BOOL reverse = false;
@@ -295,10 +284,6 @@
                 
                 NSString* targetValue = [MappingSyntaxInterpreter interpret:left:data];
                 NSString* compareStr = [MappingSyntaxInterpreter interpret:right:data];
-                if([compareStr isEqualToString:@"true"])
-                    compareStr = @"1";
-                else if([compareStr isEqualToString:@"false"])
-                    compareStr = @"0";
                 
                 if(targetValue == nil)
                     r = NO;

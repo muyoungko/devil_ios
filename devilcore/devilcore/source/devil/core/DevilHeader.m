@@ -177,8 +177,8 @@
                 for(id icon_layer in layer2){
                     NSString* name = icon_layer[@"name"];
                     if(self.barButtonByName[name]
-                        && self.meta.correspondData[@"left"]
-                       && [self.meta.correspondData[@"left"][name] boolValue]) {
+                        && [self.meta.correspondData hasProperty:@"left"]
+                       && [self.meta.correspondData[@"left"][name] toBool]) {
                         [barbuttons addObject:self.barButtonByName[name]];
                         
                         if(icon_layer[@"accessibility"]){
@@ -196,16 +196,16 @@
                     id icon_layer = layer2[j];
                     NSString* name = icon_layer[@"name"];
                     if(self.barButtonByName[name]
-                        && self.meta.correspondData[@"right"]
-                        && [self.meta.correspondData[@"right"][name] boolValue]
+                        && [self.meta.correspondData hasProperty:@"right"]
+                        && [self.meta.correspondData[@"right"][name] toBool]
                         )
                         [barbuttons addObject:self.barButtonByName[name]];
                 }
                 
                 self.vc.navigationItem.rightBarButtonItems = barbuttons;
             } else if([@"title" isEqualToString:layer_name]){
-                if(self.meta.correspondData[@"title"])
-                    self.vc.title = trans(self.meta.correspondData[@"title"]);
+                if([self.meta.correspondData hasProperty:@"title"])
+                    self.vc.title = trans([self.meta.correspondData[@"title"] toString]);
                 else
                     self.vc.title = layer[@"textSpec"][@"text"];
             }

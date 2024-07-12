@@ -586,7 +586,7 @@
     WildCardUIView* vv = self.generatedViews[vp];
     UICollectionView* c = [vv subviews][0];
     WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)c.delegate;
-   
+    
     int count = [adapter getCount];
     int index = [adapter getIndex];
     index += distance;

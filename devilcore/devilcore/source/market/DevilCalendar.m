@@ -19,7 +19,7 @@
 -(void)created{
     
 }
--(void)update:(id)opt{
+-(void)update:(JSValue*)opt{
     
 }
 -(void)pause{

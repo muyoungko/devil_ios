@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)pushData;
 
 @property (nonatomic, retain) JSContext* jscontext;
-@property (nonatomic, retain) NSMutableDictionary* data;
+@property (nonatomic, retain) JSValue* data;
 @property (nonatomic, retain) NSMutableDictionary* callbackData;
 @property (nonatomic, retain) JSValue* callbackFunction;
 @property (nonatomic, retain) UIViewController* vc;

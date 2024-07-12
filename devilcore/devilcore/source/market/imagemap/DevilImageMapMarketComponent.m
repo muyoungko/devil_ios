@@ -30,16 +30,17 @@
     [WildCardConstructor userInteractionEnableToParentPath:self.vv depth:10];
 }
 
-- (void)update:(id)opt {
+- (void)update:(JSValue*)opt {
     [super update:opt];
     NSString* imageContent = self.marketJson[@"select2"];
     NSString* pinListJasonPath = self.marketJson[@"select3"];
     NSString* url = [MappingSyntaxInterpreter interpret:imageContent :opt];
-    id pinList = [MappingSyntaxInterpreter getJsonWithPath:opt :pinListJasonPath];
     if(url && ![url isEqualToString:self.v.currentUrl]) {
         [self.v showImage:url];
     }
-    self.v.pinList = pinList;
+    
+    JSValue* pinListJsValue = [MappingSyntaxInterpreter getJsonWithPath:opt :pinListJasonPath];
+    self.v.pinList = [pinListJsValue toArray];
     self.v.currentUrl = url;
     [self.v syncPin];
 }

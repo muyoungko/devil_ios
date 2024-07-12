@@ -142,7 +142,7 @@
     _chart.extraBottomOffset = 8.0f;
 }
 
-- (void)update:(id)opt {
+- (void)update:(JSValue*)opt {
     [super update:opt];
     
     if([@"bar" isEqualToString:self.type] || [@"line" isEqualToString:self.type]) {

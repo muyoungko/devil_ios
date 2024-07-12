@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
+@import JavaScriptCore;
 
 #define WC_NEXT_TYPE_HORIZONTAL 0
 #define WC_NEXT_TYPE_VERTICAL 1
@@ -34,7 +34,7 @@
 @property (nonatomic, retain) NSMutableArray* replaceRules;
 @property (nonatomic, retain) NSMutableDictionary* generatedViews;
 @property (nonatomic, retain) NSDictionary* cloudJson;
-@property (nonatomic, retain) NSMutableDictionary* correspondData;
+@property (nonatomic, retain) JSValue* correspondData;
 @property (nonatomic, retain) NSMutableDictionary* triggersByName;
 
 @property (nonatomic, retain) NSMutableDictionary* nextChain;

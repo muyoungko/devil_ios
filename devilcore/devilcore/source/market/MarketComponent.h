@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(void)initialized;
 -(void)created;
--(void)update:(id)opt;
+-(void)update:(JSValue*)opt;
 -(void)pause;
 -(void)resume;
 -(void)destroy;

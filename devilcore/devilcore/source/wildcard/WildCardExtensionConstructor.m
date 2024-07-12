@@ -202,16 +202,16 @@
                 WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
                 if([@"number" isEqualToString:type]) {
                     UILabel *label = [rule.replaceView subviews][0];
-                    label.text = [NSString stringWithFormat:@"%d / %d", 1, (int)[adapter.data count]];
-                    rule.replaceView.hidden = [adapter.data count] <= 1;
+                    label.text = [NSString stringWithFormat:@"%d / %d", 1, (int)[adapter getCount]];
+                    rule.replaceView.hidden = [adapter getCount] <= 1;
                     [adapter addViewPagerSelected:^(int index) {
                         UILabel *label = [rule.replaceView subviews][0];
-                        label.text = [NSString stringWithFormat:@"%d / %d", (index)+1, (int)[adapter.data count]];
+                        label.text = [NSString stringWithFormat:@"%d / %d", (index)+1, (int)[adapter getCount]];
                     }];
                 } else {
                     adapter.pageControl = [[rule.replaceView subviews] objectAtIndex:0];
-                    adapter.pageControl.numberOfPages = [adapter.data count];
-                    if([adapter.data count] == 1)
+                    adapter.pageControl.numberOfPages = [adapter getCount];
+                    if([adapter getCount] == 1)
                         adapter.pageControl.hidden = YES;
                     else
                         adapter.pageControl.hidden = NO;
@@ -318,14 +318,14 @@
             
             
             BOOL check = YES;
-            if(meta.correspondData[watch] == nil)
+            if(![meta.correspondData hasProperty:watch])
             {
                 if([@"Y" isEqualToString:defaultOnOff])
                     check = YES;
                 else
                     check = NO;
             }
-            else if([meta.correspondData[watch] isEqualToString:onValue])
+            else if([[meta.correspondData[watch] toString] isEqualToString:onValue])
             {
                 check = YES;
             }

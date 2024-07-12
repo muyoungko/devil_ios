@@ -160,7 +160,7 @@
     return r;
 }
 
-- (BOOL)getBoolWithFunction:(NSString*)functionString data: (NSDictionary*)data defaultValue:(BOOL)defaultValue
+- (BOOL)getBoolWithFunction:(NSString*)functionString data: (JSValue*)data defaultValue:(BOOL)defaultValue
 {
     NSArray* sp = [functionString componentsSeparatedByString:@"("];
     NSString* functionName = [sp objectAtIndex:0];
@@ -175,8 +175,8 @@
     dispatch_once(&boolFunctionToken, ^{
         _boolFunctions = [[NSMutableDictionary alloc] init];
         
-        BOOL (^empty)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-            NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
+        BOOL (^empty)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
+            NSString* value = [MappingSyntaxInterpreter interpret:args[0]:data];
             if(value == nil || [value isEqualToString:@"<null>"] || [value isEqualToString:@""] || [value isEqualToString:@"{\n}"] || [value isEqualToString:@"(\n)"])
                 return YES;
             else
@@ -184,7 +184,7 @@
         };
         [_boolFunctions setObject:empty forKey:@"empty"];
         
-        BOOL (^number)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
+        BOOL (^number)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
             NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
             if(value == nil || [value isEqualToString:@""])
                 return defaultValue;
@@ -200,10 +200,10 @@
         [_boolFunctions setObject:number forKey:@"number"];
         
         
-        BOOL (^last_index)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
+        BOOL (^last_index)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
             
-            int index = [data[WC_INDEX] intValue];
-            int length = [data[WC_LENGTH] intValue];
+            int index = [data[WC_INDEX] toInt32];
+            int length = [data[WC_LENGTH] toInt32];
             
             if( length-1 == index)
                 return YES;
@@ -211,98 +211,10 @@
                 return NO;
         };
         [_boolFunctions setObject:last_index forKey:@"last_index"];
-        
-        
-        BOOL (^EQ)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-            NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
-            if(value == nil || [value isEqualToString:@""])
-                return defaultValue;
-            else
-            {
-                float left = [value floatValue];
-                float right = [[args objectAtIndex:1] floatValue];
-                BOOL r = (left == right);
-                return r;
-            }
-        };
-        [_boolFunctions setObject:EQ forKey:@"EQ"];
-        
-        BOOL (^NE)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-            NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
-            if(value == nil || [value isEqualToString:@""])
-                return defaultValue;
-            else
-            {
-                float left = [value floatValue];
-                float right = [[args objectAtIndex:1] floatValue];
-                BOOL r = (left != right);
-                return r;
-            }
-        };
-        [_boolFunctions setObject:NE forKey:@"NE"];
-        
-        BOOL (^LT)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-            NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
-            if(value == nil || [value isEqualToString:@""])
-                return defaultValue;
-            else
-            {
-                float left = [value floatValue];
-                float right = [[args objectAtIndex:1] floatValue];
-                BOOL r = (left < right);
-                return r;
-            }
-        };
-        [_boolFunctions setObject:LT forKey:@"LT"];
-        
-        
-        BOOL (^GT)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-            NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
-            if(value == nil || [value isEqualToString:@""])
-                return defaultValue;
-            else
-            {
-                float left = [value floatValue];
-                float right = [[args objectAtIndex:1] floatValue];
-                BOOL r = (left > right);
-                return r;
-            }
-        };
-        [_boolFunctions setObject:GT forKey:@"GT"];
-        
-        
-        BOOL (^LE)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-            NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
-            if(value == nil || [value isEqualToString:@""])
-                return defaultValue;
-            else
-            {
-                float left = [value floatValue];
-                float right = [[args objectAtIndex:1] floatValue];
-                BOOL r = (left <= right);
-                return r;
-            }
-        };
-        [_boolFunctions setObject:LE forKey:@"LE"];
-        
-        
-        BOOL (^GE)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-            NSString* value = [MappingSyntaxInterpreter interpret:[args objectAtIndex:0]:data];
-            if(value == nil || [value isEqualToString:@""])
-                return defaultValue;
-            else
-            {
-                float left = [value floatValue];
-                float right = [[args objectAtIndex:1] floatValue];
-                BOOL r = (left >= right);
-                return r;
-            }
-        };
-        [_boolFunctions setObject:GE forKey:@"GE"];
-        
+
     });
     
-    BOOL (^function)(NSArray*, NSDictionary*) = [_boolFunctions objectForKey:functionName];
+    BOOL (^function)(NSArray*, JSValue*) = [_boolFunctions objectForKey:functionName];
     
     BOOL r = defaultValue;
     if(function == nil)
@@ -316,14 +228,14 @@
 }
 
 
-- (NSString*)getValueWithFunction:(NSString*)functionString data: (NSDictionary*)data
+- (NSString*)getValueWithFunction:(NSString*)functionString data: (JSValue*)data
 {
     NSArray* sp = [functionString componentsSeparatedByString:@"("];
     NSString* functionName = [sp objectAtIndex:0];
     NSString* argument = [[sp objectAtIndex:1] stringByReplacingOccurrencesOfString:@")" withString:@""];
     NSArray* args = [argument componentsSeparatedByString:@","];
     
-    NSString* (^function)(NSArray*, NSDictionary*) = [_functions objectForKey:functionName];
+    NSString* (^function)(NSArray*, JSValue*) = [_functions objectForKey:functionName];
     NSString *r = @"";
     if(function == nil)
     {

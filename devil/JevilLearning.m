@@ -136,7 +136,7 @@
     WildCardUIView* v = [dc findView:node];
     WildCardUITextField* field = (WildCardUITextField*)[v subviews][0];
     field.text = text;
-    [field.meta.correspondData setObject:text forKey:field.holder];
+    field.meta.correspondData[field.holder] = text;
     [[JevilInstance currentInstance] pushData];
     
     double delayInSeconds = 1;

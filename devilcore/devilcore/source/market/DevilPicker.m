@@ -74,7 +74,7 @@
     }
 }
 
--(void)update:(id)opt{
+-(void)update:(JSValue*)opt{
     [super update:opt];
     self.picker_list_adapter.collectionView.hidden = NO;
     
@@ -82,8 +82,8 @@
     //NSLog(@"update to %@", self.meta.correspondData[self.watch_key]);
     //NSLog(@"adapter.data cound %@", [self.picker_list_adapter.data count]);
     //NSLog(@"list.data count to %d", );
-    if(self.meta.correspondData[self.watch_key]) {
-        for(int i=0;i<[self.meta.correspondData[self.list_key] count]; i++) {
+    if([self.meta.correspondData hasProperty:self.watch_key]) {
+        for(int i=0;i<[self.meta.correspondData[self.list_key][@"length"] toInt32]; i++) {
             id d = self.meta.correspondData[self.list_key][i];
             if([d[self.json_key] isEqual:self.meta.correspondData[self.watch_key]]) {
                 [(WildCardUICollectionView*)self.picker_list_adapter.collectionView asyncScrollTo:i : YES];

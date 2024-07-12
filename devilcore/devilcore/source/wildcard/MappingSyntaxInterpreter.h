@@ -7,22 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+@import JavaScriptCore;
 
 @interface MappingSyntaxInterpreter : NSObject
 
-+(NSObject*) getJsonWithPath:(NSObject*)s : (NSString*) path;
-+(NSObject*) getJsonFromString:(NSObject*) s : (NSArray*) target : (int) index;
-+(NSString*) interpret:(NSString*) tomb : (NSDictionary*) data;
-+(NSString*) getfunctionValue:(NSString*) text : (NSDictionary*) data;
++(JSValue*) getJsonWithPath:(JSValue*)s : (NSString*) path;
++(JSValue*) getJsonFromString:(JSValue*) s : (NSArray*) target : (int) index;
++(NSString*) interpret:(NSString*) tomb : (JSValue*) data;
++(NSString*) getfunctionValue:(NSString*) text : (JSValue*) data;
 
 
-+(BOOL) ifexpression:(NSString*)ifexpression data:(NSDictionary*) data;
++(BOOL) ifexpression:(NSString*)ifexpression data:(JSValue*) data;
 
-+(BOOL) ifexpression:(NSString*)ifexpression data:(NSDictionary*) data defaultValue:(BOOL)value;
++(BOOL) ifexpression:(NSString*)ifexpression data:(JSValue*) data defaultValue:(BOOL)value;
 
-+(BOOL) ifexpressionRecur:(NSString*)ifexpression data:(NSDictionary*) data defaultValue:(BOOL)defaultIfLeftNull;
++(BOOL) ifexpressionRecur:(NSString*)ifexpression data:(JSValue*) data defaultValue:(BOOL)defaultIfLeftNull;
 
-+(BOOL) ifexpressionUnit:(NSString*)ifexpression data:(NSDictionary*)data defaultValue:(BOOL)defaultIfLeftNull;
++(BOOL) ifexpressionUnit:(NSString*)ifexpression data:(JSValue*)data defaultValue:(BOOL)defaultIfLeftNull;
 
 +(NSArray*)devideSyntax:(NSString*)str;
 

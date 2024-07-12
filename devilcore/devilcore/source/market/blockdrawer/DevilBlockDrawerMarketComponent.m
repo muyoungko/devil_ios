@@ -106,7 +106,7 @@
         [self naviDown:false];
 }
 
-- (void)update:(id)opt {
+- (void)update:(JSValue*)opt {
     [super update:opt];
 }
 

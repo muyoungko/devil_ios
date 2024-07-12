@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #define CELL_UNDER_WILDCARD 273123
+@import JavaScriptCore;
 
 //typedef void (^ IteratorBlock)(id, int);
 
@@ -31,7 +32,7 @@ typedef void (^ ViewPagerSelected)(int);
 @property int selectedIndex;
 @property TypeGetter typeGetter;
 @property CloudJsonGetter cloudJsonGetter;
-@property (nonatomic, retain) NSArray* data;
+@property (nonatomic, retain) JSValue* data;
 @property (nonatomic, retain) UIPageControl* pageControl;
 
 @property (nonatomic, retain) NSMutableDictionary* cachedViewByType;

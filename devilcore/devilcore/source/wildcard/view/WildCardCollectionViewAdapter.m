@@ -97,15 +97,12 @@
 {
     if(_data == nil)
         return 0;
-    if(_infinite) {
-        return 2000;
-    }
-    return [_data count];
+    return [_data[@"length"] toInt32];
 }
 
 -(int)getIndex
 {
-    return _selectedIndex % [_data count];
+    return _selectedIndex % [self getCount];
 }
 
 
@@ -263,8 +260,8 @@
     if(indexPath.section == 0) {
         int position = (int)[indexPath row];
         if(_infinite)
-            position = position % [_data count];
-        if(position >= [_data count])
+            position = position % [self getCount];
+        if(position >= [self getCount])
             return CGSizeMake(collectionView.frame.size.width, 0);
         
         NSDictionary *cloudJson = _cloudJsonGetter(position);
@@ -303,12 +300,12 @@
         int position = (int)[indexPath row];
         
         if(_infinite)
-            position = position % [_data count];
+            position = position % [self getCount];
         
-        if(position >= [_data count])
+        if(position >= [self getCount])
             return [collectionView dequeueReusableCellWithReuseIdentifier:@"0" forIndexPath:indexPath];
         
-        NSMutableDictionary* item = [_data objectAtIndex:position];
+        JSValue* item = _data[position];
         NSString* type = _typeGetter(position);
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:type forIndexPath:indexPath];
         cell.tag = position;
@@ -339,7 +336,7 @@
             WildCardUIView *v = [[childUIView subviews] objectAtIndex:0];
             [WildCardConstructor applyRule:v withData:item];
             
-            if(self.readyToCallScrollEnd && self.lastItemCallback != nil && [indexPath row] == [_data count]-1) {
+            if(self.readyToCallScrollEnd && self.lastItemCallback != nil && [indexPath row] == [self getCount]-1) {
                 self.readyToCallScrollEnd = NO;
                 self.lastItemCallback(nil);
             }
@@ -377,7 +374,7 @@
             continue;
         
         atLeastOneCompared = YES;
-        if(index.row < [self.data count]) {
+        if(index.row < [self getCount]) {
             NSNumber* key = [NSNumber numberWithInt:(int)index.row];
             /**
              데이터를 문자로 변환해서 검사해야 변경 증분을 알수가 있다
@@ -414,7 +411,7 @@
     
     BOOL r = allVisibleSame && atLeastOneCompared ? NO : YES;
     
-    if(self.lastDataCount != [self.data count])
+    if(self.lastDataCount != [self.data[@"length"] toInt32])
         r = YES;
     
     return r;
@@ -428,7 +425,7 @@
         NSLog(@"Accessibility Scroll Captured YES");
         return YES;
     } else if(direction == UIAccessibilityScrollDirectionDown){
-        [self.c asyncScrollTo:[self.data count]-1:true];
+        [self.c asyncScrollTo:[self getCount]-1:true];
         [self accessibilityIncrement];
         NSLog(@"Accessibility Scroll Captured YES");
         return YES;
@@ -543,8 +540,8 @@
             int tobeIndex = sindex+direction;
             if(tobeIndex < 0 )
                 tobeIndex = 0;
-            else if(!_infinite && tobeIndex > [_data count] -1 )
-                tobeIndex = [_data count] -1;
+            else if(!_infinite && tobeIndex > [self getCount] -1 )
+                tobeIndex = [self getCount] -1;
             newIndex = tobeIndex;
             float tobe = -start + contentWidth*(tobeIndex);
             [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionAllowUserInteraction animations:^{
@@ -564,10 +561,10 @@
         for(int i=0;i<viewPagerSelectedIndex;i++)
         {
             @try{
-                viewPagerSelected[i](_selectedIndex % [_data count]);
+                viewPagerSelected[i](_selectedIndex % [self getCount]);
                 
                 if(self.viewPagerSelectedCallback)
-                    self.viewPagerSelectedCallback(_selectedIndex % [_data count]);
+                    self.viewPagerSelectedCallback(_selectedIndex % [self getCount]);
                 
             }@catch(NSException* e)
             {

@@ -115,7 +115,7 @@
 
 
 
-- (void)update:(id)opt {
+- (void)update:(JSValue*)opt {
     [super update:opt];
 }
 
@@ -178,7 +178,7 @@
                                  self.originalHeight - keyboardRect.size.height + bottomPadding
                                  );
         } completion:^(BOOL finished) {
-            [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([adapter.data count]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
+            [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([adapter getCount]-1) inSection:0] atScrollPosition:UICollectionViewScrollPositionBottom animated:YES];
         }];
     } else if(!up && self.keypadUp) {
         self.keypadUp = NO;

@@ -85,13 +85,9 @@
 }
 
 + (void)tab:(NSString*)screenName{
-    @try {
-        UIViewController*vc = [JevilInstance currentInstance].vc;
-        id meta = [JevilInstance currentInstance].meta;
-        [JevilAction act:@"Jevil.tab" args:@[screenName] viewController:vc meta:meta];
-    } @catch (NSException *exception) {
-        [Jevil alert:[NSString stringWithFormat:@"%@", exception]];
-    }
+    NSString* screenId = [[WildCardConstructor sharedInstance] getScreenIdByName:screenName];
+    DevilController*vc = [JevilInstance currentInstance].vc;
+    [vc tab:screenId];
 }
 
 + (void)replaceScreen:(NSString*)screenName :(id)param{
@@ -963,7 +959,7 @@
         if(nodeName && ![@"null" isEqualToString:nodeName] ) {
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             WildCardUICollectionView* list = (WildCardUICollectionView*)[[vc findView:nodeName] subviews][0];
-            int max = (int)[((WildCardCollectionViewAdapter*)list.delegate).data count];
+            int max = (int)[((WildCardCollectionViewAdapter*)list.delegate) getCount];
             if(index >= max)
                 index = max - 1;
             if(list != nil) {
@@ -1121,7 +1117,7 @@
     WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
     UICollectionView* cv = (UICollectionView*)[vv subviews][0];
     WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
-    if(index < [adapter.data count])
+    if(index < [adapter getCount])
         [adapter scrollToIndex:index view:adapter.collectionView];
     else {
         if(!dc.viewPagerReservedSelectedIndexMap)

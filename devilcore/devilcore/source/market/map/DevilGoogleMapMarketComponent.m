@@ -64,7 +64,7 @@
     return [location coordinate];
 }
 
--(void)update:(id)opt{
+-(void)update:(JSValue*)opt{
     [super update:opt];
     if(!self.consumeStartLocation) {
         CLLocationCoordinate2D position = [self currentLocation];

@@ -14,7 +14,6 @@
 #import "ReplaceRuleRepeat.h"
 #import "ReplaceRuleHidden.h"
 #import "ReplaceRuleLocalImage.h"
-#import "ReplaceRuleReplaceUrl.h"
 #import "ReplaceRuleExtension.h"
 #import "ReplaceRuleColor.h"
 #import "ReplaceRuleStrip.h"
@@ -438,7 +437,7 @@ static NSString *default_project_id = nil;
     WildCardUIView* onNodeView = meta.generatedViews[onNodeName];
     WildCardUIView* offNodeView = meta.generatedViews[offNodeName];
     BOOL check = YES;
-    if([meta.correspondData[watch] isEqualToString:onValue])
+    if([[meta.correspondData[watch] toString] isEqualToString:onValue])
     {
         check = YES;
     }
@@ -1361,7 +1360,7 @@ static BOOL IS_TABLET = NO;
 
 
 
-+(void) applyRuleMeta:(WildCardMeta*)meta withData:(NSMutableDictionary*)opt
++(void) applyRuleMeta:(WildCardMeta*)meta withData:(JSValue*)opt
 {
     @try{
         //NSLog(@"applyRule");
@@ -1380,7 +1379,7 @@ static BOOL IS_TABLET = NO;
     }
 }
 
-+(void) applyRule:(WildCardUIView*)v withData:(NSMutableDictionary*)opt
++(void) applyRule:(WildCardUIView*)v withData:(JSValue*)opt
 {
     //NSLog(@"applyRule");
     v.meta.correspondData = opt;
@@ -1401,59 +1400,13 @@ static BOOL IS_TABLET = NO;
 }
 
 
-+(void) applyRuleCore:(WildCardMeta*)meta rule:(ReplaceRule*)rule withData:(NSMutableDictionary*)opt
++(void) applyRuleCore:(WildCardMeta*)meta rule:(ReplaceRule*)rule withData:(NSValue*)opt
 {
     [rule updateRule:meta data:opt];
     
     if(rule.replaceType == RULE_TYPE_EXTENSION)
     {
         [WildCardExtensionConstructor update:meta extensionRule:(ReplaceRuleExtension*)rule data:opt];
-    }
-    else if(rule.replaceType == RULE_TYPE_REPLACE_URL)
-    {
-        NSDictionary* replaceUrl = rule.replaceJsonLayer;
-        NSString* urlJsonPath = rule.replaceJsonLayer[@"url"];
-        NSString* url = [MappingSyntaxInterpreter interpret:urlJsonPath :opt];
-        NSString* onceKey = [NSString stringWithFormat:@"%@%@", @"RULE_TYPE_REPLACE_URL", url];
-        if(url != nil && ![@"Y" isEqualToString:[opt objectForKey:onceKey]])
-        {
-            [opt setObject:@"Y" forKey:onceKey];
-            
-            NSString* fromJsonPath = replaceUrl[@"from"];
-            NSString* toJsonPath = replaceUrl[@"to"];
-            
-            [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* responseJsonObject) {
-                if(responseJsonObject != nil)
-                {
-                    NSObject* value = [MappingSyntaxInterpreter getJsonWithPath:responseJsonObject : fromJsonPath];
-                    
-                    NSRange lastT = [toJsonPath rangeOfString:@">" options:NSBackwardsSearch];
-                    NSString* toJsonPathParent = nil;
-                    NSString* toNodeName = toJsonPath;
-                    
-                    NSMutableDictionary* to = opt;
-                    if(lastT.length > 0) {
-                        toJsonPathParent = [toJsonPath substringToIndex:lastT.location];
-                        toNodeName = [toJsonPath substringFromIndex:lastT.location +1];
-                        
-                        to = (NSMutableDictionary*)[MappingSyntaxInterpreter getJsonWithPath:opt : toJsonPathParent];
-                    }
-                    
-                    if([value class] == [NSArray class] && [((NSArray*)value) count] == 0)
-                    {
-                        
-                    }
-                    else
-                    {
-                        if(value != nil)
-                            [to setObject:value forKey:toNodeName];
-                    }
-                    
-                    [WildCardConstructor applyRuleMeta:meta withData:opt];
-                }
-            }];
-            
-        }
     }
 }
 

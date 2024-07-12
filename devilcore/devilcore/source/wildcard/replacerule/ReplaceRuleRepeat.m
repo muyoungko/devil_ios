@@ -213,7 +213,7 @@
         }
         
         [adapter addViewPagerSelected:^(int position) {
-            for(int i=0;i<[adapter.data count];i++)
+            for(int i=0;i<[adapter getCount];i++)
             {
                 if(i==position)
                     adapter.data[i][WC_SELECTED] = @"Y";
@@ -516,7 +516,7 @@
     float margin = [[arrayContent objectForKey:@"margin"] floatValue];
     margin = [WildCardUtil convertSketchToPixel:margin];
     
-    NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
+    JSValue* targetDataJson = [MappingSyntaxInterpreter
                                           getJsonWithPath:opt : targetJsonString];
     
     NSArray* childLayers = [layer objectForKey:@"layers"];
@@ -534,7 +534,7 @@
     NSDictionary* targetLayer11 = nil;
     NSDictionary* targetLayer12 = nil;
     
-    for(int i=0;targetDataJson != [NSNull null] && i<[targetDataJson count];i++)
+    for(int i=0;![targetDataJson isUndefined] && i<[targetDataJson[@"length"] toInt32];i++)
     {
         if(i == 0)
         {
@@ -546,7 +546,7 @@
          2021.11.1 collectionView의 조건부 reload를 하기 위해 data를 비교한다. 거기서 WC_INDEX와 같은것을 제외하기 위해 아예 데이터 변조를 하지 않도록한다
          */
 //        targetDataJson[i][WC_INDEX] = [NSString stringWithFormat:@"%d", i];
-//        targetDataJson[i][WC_LENGTH] = [NSString stringWithFormat:@"%lu", [targetDataJson count]];
+//        targetDataJson[i][WC_LENGTH] = [NSString stringWithFormat:@"%lu", [targetDataJson[@"length"] toInt32]];
     }
     
     
@@ -567,12 +567,12 @@
     if([REPEAT_TYPE_BOTTOM isEqualToString:repeatType] || [REPEAT_TYPE_RIGHT isEqualToString:repeatType])
     {
         int i;
-        for(i=0;targetDataJson != [NSNull null] && i<[targetDataJson count];i++)
+        for(i=0;![targetDataJson isUndefined] && i<[targetDataJson[@"length"] toInt32];i++)
         {
             WildCardUIView* thisNode = nil;
             NSDictionary* thisLayer = targetLayer;
             int thisType = CREATED_VIEW_TYPE_NORMAL;
-            NSMutableDictionary* thisData = [targetDataJson objectAtIndex:i];
+            JSValue* thisData = targetDataJson[i];
             if(targetLayerSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data:thisData]){
                 thisLayer = targetLayerSelected;
                 thisType = CREATED_VIEW_TYPE_SELECTED;
@@ -608,7 +608,7 @@
             thisNode.hidden = NO;
             [WildCardConstructor userInteractionEnableToParentPath:repeatRule.createdContainer depth:10];
             thisNode.userInteractionEnabled = YES;
-            [WildCardConstructor applyRule:thisNode withData:[targetDataJson objectAtIndex:i]];
+            [WildCardConstructor applyRule:thisNode withData:targetDataJson[i]];
         }
         
         for (; i < [repeatRule.createdRepeatView count]; i++) {
@@ -659,7 +659,7 @@
         [adapter autoSwipe:[@"Y" isEqualToString:arrayContent[@"autoSwipe"]]];
         
         BOOL atLeastOneSelected = false;
-        for(int i=0;i<[targetDataJson count];i++)
+        for(int i=0;i<[targetDataJson[@"length"] toInt32];i++)
         {
             if([@"Y" isEqualToString:targetDataJson[i][WC_SELECTED]])
             {
@@ -667,7 +667,7 @@
                 break;
             }
         }
-        if(!atLeastOneSelected && [targetDataJson count] > 0)
+        if(!atLeastOneSelected && [targetDataJson[@"length"] toInt32] > 0)
             targetDataJson[0][WC_SELECTED] = @"Y";
         
         adapter.cloudJsonGetter = ^NSDictionary *(int position) {
@@ -737,7 +737,7 @@
             if(adapter.infinite) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if(targetDataJson)
-                        [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([targetDataJson count] * 10) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                        [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([targetDataJson[@"length"] toInt32] * 10) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
                 });
             }
         }
@@ -816,15 +816,6 @@
         
         if([adapter shouldReload])
             [cv reloadData];
-//        if(beforeData == nil || [beforeData count] != [targetDataJson count])
-//            [cv reloadData];
-//        else {
-//            id a = cv.indexPathsForVisibleItems;
-//            for(NSIndexPath* p in a) {
-//                UICollectionViewCell* c = [cv cellForItemAtIndexPath:p];
-//                [c subviews][0];
-//            }
-//        }
         
     } else if([REPEAT_TYPE_TAG isEqualToString:repeatType]) {
         int i;
@@ -833,12 +824,12 @@
         float containerWidth = [self getLayerWidth:self.replaceJsonLayer];
         float containerHeight = [self getLayerHeight:self.replaceJsonLayer ];
         int dpMargin = [WildCardConstructor convertSketchToPixel:margin];
-        for(i=0;i<[targetDataJson count];i++)
+        for(i=0;i<[targetDataJson[@"length"] toInt32];i++)
         {
             WildCardUIView* thisNode = nil;
             NSDictionary* thisLayer = targetLayer;
             int thisType = CREATED_VIEW_TYPE_NORMAL;
-            NSMutableDictionary* thisData = [targetDataJson objectAtIndex:i];
+            JSValue* thisData = targetDataJson[i];
             if(targetLayerSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data:thisData]){
                 thisLayer = targetLayerSelected;
                 thisType = CREATED_VIEW_TYPE_SELECTED;
@@ -865,7 +856,7 @@
             [WildCardConstructor userInteractionEnableToParentPath:repeatRule.createdContainer depth:10];
             repeatRule.createdContainer.userInteractionEnabled = true;
             thisNode.userInteractionEnabled = YES;
-            [WildCardConstructor applyRule:thisNode withData:[targetDataJson objectAtIndex:i]];
+            [WildCardConstructor applyRule:thisNode withData:targetDataJson[i]];
             
             int padding = 0;
             if(arrayContent[@"tagPadding"])
