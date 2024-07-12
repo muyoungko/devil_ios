@@ -10,6 +10,7 @@
 #import "WildCardConstructor.h"
 #import "WildCardUIView.h"
 #import "JevilInstance.h"
+#import "JevilCtx.h"
 #import "WildCardUITapGestureRecognizer.h"
 #import "ReplaceRuleRepeat.h"
 
@@ -172,11 +173,12 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
     WildCardUIView* wc = [WildCardConstructor constructLayer:nil withLayer:cj instanceDelegate:wildCardConstructorInstanceDelegate];
     [ReplaceRuleRepeat enableInset];
     
-    wc.meta.correspondData = data;
-    wc.meta.jevil = [JevilInstance currentInstance].jevil;
+    JevilCtx* jevil = [JevilInstance currentInstance].jevil;
+    wc.meta.correspondData = [jevil createJsValue:data];
+    wc.meta.jevil = jevil;
     
     [wc.meta created];
-    [WildCardConstructor applyRule:wc withData:data];
+    [wc.meta update];
     
     DevilBlockDialog *popup = [[[self class] alloc] init];
     popup.auto_dismiss = auto_dismiss;

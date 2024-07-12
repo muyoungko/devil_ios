@@ -365,6 +365,7 @@
  data의 각 아이템 주소가 바뀐경우 무조건 변경되어야함
  */
 - (BOOL)shouldReload {
+    return YES;
     id index_path_list = [self.collectionView indexPathsForVisibleItems];
     
     BOOL allVisibleSame = [index_path_list count] > 0 ? YES : NO;

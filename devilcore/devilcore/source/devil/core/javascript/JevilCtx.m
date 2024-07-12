@@ -27,15 +27,6 @@
 
 @implementation JevilCtx
 
-+(Jevil*)sharedInstance{
-    static JevilCtx *sharedInstance = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        sharedInstance = [[JevilCtx alloc] init];
-    });
-    return sharedInstance;
-}
-
 - (instancetype)init
 {
     self = [super init];
@@ -119,8 +110,10 @@
 //    id newData = [dataJs toDictionary];
 //    [JevilUtil sync:newData :data];
     
-    
-    
+}
+
+-(JSValue*)createJsValue:(NSDictionary*)dic {
+    return [JSValue valueWithObject:dic inContext:self.jscontext];
 }
 
 @end

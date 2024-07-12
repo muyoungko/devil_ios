@@ -56,7 +56,7 @@
 }
 
 -(void)pushData{
-    self.jscontext[@"data"] = self.data;
+    //self.jscontext[@"data"] = self.data;
 }
 
 -(void)videoViewAutoPlay{

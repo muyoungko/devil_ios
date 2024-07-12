@@ -929,7 +929,7 @@
     
     UIViewController*vc = [JevilInstance currentInstance].vc;
     if(vc != nil && ([vc isKindOfClass:[DevilController class]])) {
-        [((DevilController*)vc) updateMeta];
+        [((DevilController*)vc) updateMeta]; 
         if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
             [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog update];
     }

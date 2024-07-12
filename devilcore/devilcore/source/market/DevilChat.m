@@ -65,8 +65,8 @@
 - (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error{
     if(eventCode == MQTTSessionEventConnected) {
         self.connected = true;
-        self.chat_room_id = self.meta.correspondData[@"chat_room_id"];
-        self.chat_room_me = self.meta.correspondData[@"chat_room_me"];
+        self.chat_room_id = [self.meta.correspondData[@"chat_room_id"] toString];
+        self.chat_room_me = [self.meta.correspondData[@"chat_room_me"] toString];
         [self.session subscribeToTopic:self.chat_room_id atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
             
         }];
@@ -85,7 +85,7 @@
                qos:(MQTTQosLevel)qos
           retained:(BOOL)retained
                mid:(unsigned int)mid {
-    NSLog(@"%@", topic);
+    
     NSString* command = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     if([command hasPrefix:@"/chat/read"]) {
         id cc = [command componentsSeparatedByString:@"/"];
