@@ -57,7 +57,13 @@ static BOOL IS_TABLET = NO;
     }
     r+=topPadding;
     
-    return [WildCardUtil convertPixcelToSketch:r+44];
+    //테블릿에선 50
+    if([WildCardConstructor isTablet])
+        r+=50;
+    else
+        r+=44;
+    
+    return [WildCardUtil convertPixcelToSketch:r];
     //return 80.0f / 360.0f * SKETCH_WIDTH;
 }
 

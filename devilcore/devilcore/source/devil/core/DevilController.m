@@ -115,10 +115,20 @@
     }
 }
 
+-(id)updateSketchWidthByScreenBlock {
+    //테블릿인 경우 header가 생략될수있다 이때 모바일용 해더가 잡히지 않도록 주의
+    NSString* firstBlockId = [[WildCardConstructor sharedInstance] getFirstBlock:self.screenId];
+    id blockJson = [[WildCardConstructor sharedInstance] getBlockJson:firstBlockId :self.landscape];
+    [WildCardConstructor updateSketchWidth:blockJson];
+    return blockJson;
+}
+
 -(void)constructHeaderAndFooter{
+    
+    [self updateSketchWidthByScreenBlock];
+    
     if([[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId:self.landscape]){
         id headerCloudJson = [[WildCardConstructor sharedInstance] getHeaderCloudJson:self.screenId:self.landscape];
-        [WildCardConstructor updateSketchWidth:headerCloudJson];
         self.header = [[DevilHeader alloc] initWithViewController:self layer:headerCloudJson withData:self.data instanceDelegate:self];
         self.header_sketch_height = [WildCardUtil headerHeightInSketch];
     } else
@@ -136,7 +146,6 @@
     id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId:self.landscape];
     if(footer){
         id footerCloudJson = footer[@"cloudJson"];
-        [WildCardConstructor updateSketchWidth:footerCloudJson];
         self.fix_footer = [footer[@"fix_footer"] boolValue];
         self.footer = [WildCardConstructor constructLayer:nil withLayer:footerCloudJson instanceDelegate:self];
         self.isFooterVariableHeight = [footerCloudJson[@"frame"][@"h"] intValue] == -2;
@@ -191,10 +200,16 @@
     float adjust = 0;
     if(![WildCardConstructor isTablet] && self.header && !self.footer)
         adjust = 6;
-    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height 
+    
+    //header와 푸터가 있을때 바디를 약간 넓게 잡는다
+    if([WildCardConstructor isTablet] && self.header && self.footer)
+        adjust = 6;
+    
+    [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:
+                self.header_sketch_height
                 + (self.inside_footer?0:self.footer_sketch_height)
                 - adjust
-                                                          landscape:self.landscape
+                landscape:self.landscape
     ];
 }
 
@@ -283,9 +298,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSString* firstBlockId = [[WildCardConstructor sharedInstance] getFirstBlock:self.screenId];
-    id blockJson = [[WildCardConstructor sharedInstance] getBlockJson:firstBlockId :self.landscape];
-    [WildCardConstructor updateSketchWidth:blockJson];
+    id blockJson = [self updateSketchWidthByScreenBlock];
     [self checkHeader];
 //    if(!self.landscape) {
 //        [self toPortrait];
