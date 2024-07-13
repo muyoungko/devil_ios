@@ -294,7 +294,7 @@ static BOOL IS_TABLET = NO;
         return 0;
 }
 
-+(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
++(float) measureHeight:(NSMutableDictionary*)cloudJson data:(JSValue*)data
 {
     float h = [cloudJson[@"frame"][@"h"] floatValue];
     /**
@@ -382,9 +382,8 @@ static BOOL IS_TABLET = NO;
         NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
         NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
         NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
-        NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
-                                              getJsonWithPath:data : targetJsonString];
-        long targetDataJsonLen = [targetDataJson count];
+        JSValue* targetDataJson = [MappingSyntaxInterpreter getJsonWithPath:data : targetJsonString];
+        long targetDataJsonLen = [targetDataJson[@"length"] toInt32];
         
         for(int i=0;i<[childLayers count];i++)
         {
@@ -466,7 +465,7 @@ static BOOL IS_TABLET = NO;
                 NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
                 NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
                 NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
-                NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter getJsonWithPath:data : targetJsonString];
+                JSValue* targetDataJson = [MappingSyntaxInterpreter getJsonWithPath:data : targetJsonString];
                 thish = [WildCardUtil measureHeight:child data:targetDataJson[0]];
             } else {
                 thish = [WildCardUtil measureHeight:child data:data];

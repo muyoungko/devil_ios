@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+@import JavaScriptCore;
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -42,7 +43,7 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(CGRect)getGlobalFrame:(UIView*)v;
 +(float) convertPixcelToSketch:(float)p;
 +(float) convertSketchToPixel:(float)p;
-+(float) measureHeight:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data;
++(float) measureHeight:(NSMutableDictionary*)cloudJson data:(JSValue*)data;
 +(UIView*)findView:(id)layer name:(NSString*)name;
 +(BOOL)isTablet;
 +(float)cachedImagePixcelHeight:(NSString*)url height:(float)height;
