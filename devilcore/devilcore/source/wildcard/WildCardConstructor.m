@@ -482,7 +482,7 @@ static NSString *default_project_id = nil;
     NSString *action = vv.stringTag;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     trigger.node = vv;
-    [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga data:recognizer.meta.correspondData];
+    [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga data:@{}];
     [WildCardAction parseAndConducts:trigger action:action meta:recognizer.meta];
 }
 

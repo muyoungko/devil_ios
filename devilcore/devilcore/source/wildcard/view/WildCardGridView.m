@@ -87,7 +87,7 @@
 
 - (CGRect) reloadData
 {
-    int len = (int)[_data count];
+    int len = (int)[_data[@"length"] toInt32];
     int selfWidth = self.frame.size.width;
     float w = selfWidth / _col;
     _row = len / _col +  (len%_col > 0 ? 1 : 0);
@@ -106,7 +106,7 @@
     int i=0;
     for(i=0;i<len;i++)
     {
-        NSMutableDictionary* item = [_data objectAtIndex:i];
+        JSValue* item = _data[i];
         
         NSDictionary* cloudJson = _cloudJsonGetter(i);
         NSString* thisType = _typeGetter(i);

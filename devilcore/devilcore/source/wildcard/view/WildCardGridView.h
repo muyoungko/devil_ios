@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@import JavaScriptCore;
 
 @class WildCardMeta;
-
 
 typedef NSString* (^ TypeGetter)(int);
 typedef NSDictionary* (^ CloudJsonGetter)(int);
@@ -29,7 +28,7 @@ typedef NSDictionary* (^ CloudJsonGetter)(int);
 
 @property TypeGetter typeGetter;
 @property CloudJsonGetter cloudJsonGetter;
-@property (nonatomic, retain) NSArray* data;
+@property (nonatomic, retain) JSValue* data;
 @property (nonatomic, retain) WildCardMeta* meta;
 @property int depth;
 
