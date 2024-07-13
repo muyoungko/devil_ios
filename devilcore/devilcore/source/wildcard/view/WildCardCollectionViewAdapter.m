@@ -343,7 +343,7 @@
             
             if(indexPath.section == 0) {
                 self.visibleDataByIndexPath[[NSNumber numberWithInt:(int)indexPath.row]] = self.data[position];
-                self.visibleDataStringByIndexPath[[NSNumber numberWithInt:(int)position]] = [NSString stringWithFormat:@"%@", self.data[position]];
+                self.visibleDataStringByIndexPath[[NSNumber numberWithInt:(int)position]] = [NSString stringWithFormat:@"%@", [self.data[position] toDictionary]];
                 
                 self.lastDataCount = [self getCount];
             }
@@ -365,7 +365,7 @@
  data의 각 아이템 주소가 바뀐경우 무조건 변경되어야함
  */
 - (BOOL)shouldReload {
-    return YES;
+    
     id index_path_list = [self.collectionView indexPathsForVisibleItems];
     
     BOOL allVisibleSame = [index_path_list count] > 0 ? YES : NO;
@@ -381,24 +381,20 @@
              데이터를 문자로 변환해서 검사해야 변경 증분을 알수가 있다
              */
             id alreadyString = self.visibleDataStringByIndexPath[key];
-            /**
-             데이터의 문자는 같은데 주소가 변경되는 경우가 있다. 이경우는 무조건 리로드 해야한다
-             */
-            id alreadyAddress = self.visibleDataByIndexPath[key];
+            id alreadyItem = self.visibleDataByIndexPath[key];
             if(!alreadyString) {
                 allVisibleSame = NO;
                 break;
             }
             
-            
             NSString* a = alreadyString;
-            NSString* b = [NSString stringWithFormat:@"%@", self.data[(int)index.row]];
+            NSString* b = [NSString stringWithFormat:@"%@", [self.data[(int)index.row] toDictionary]];
             if(![a isEqualToString:b]) {
                 allVisibleSame = NO;
                 break;
             }
             
-            NSString* aa = [NSString stringWithFormat:@"%u", alreadyAddress];
+            NSString* aa = [NSString stringWithFormat:@"%u", alreadyItem];
             NSString* bb = [NSString stringWithFormat:@"%u", self.data[(int)index.row]];
             if(![aa isEqualToString:bb]) {
                 allVisibleSame = NO;
@@ -411,7 +407,6 @@
     }
     
     BOOL r = allVisibleSame && atLeastOneCompared ? NO : YES;
-    
     if(self.lastDataCount != [self.data[@"length"] toInt32])
         r = YES;
     

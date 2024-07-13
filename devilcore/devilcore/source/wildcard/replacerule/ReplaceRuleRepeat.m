@@ -755,7 +755,6 @@
         UICollectionView *cv = (UICollectionView *)repeatRule.createdContainer;
         WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)repeatRule.adapterForRetain;
         
-        id beforeData = adapter.data;
         adapter.data = targetDataJson;
         adapter.cloudJsonGetter = ^NSDictionary *(int position) {
             if(targetNodeSelected != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSelectedIf data: targetDataJson[position]])

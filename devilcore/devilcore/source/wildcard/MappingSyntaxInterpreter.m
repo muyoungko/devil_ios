@@ -263,10 +263,6 @@
             
             NSString* targetValue = [MappingSyntaxInterpreter interpret:left:data];
             NSString* compareStr = [MappingSyntaxInterpreter interpret:right:data];
-            if([compareStr isEqualToString:@"true"])
-                compareStr = @"1";
-            else if([compareStr isEqualToString:@"false"])
-                compareStr = @"0";
             
             if(targetValue == nil)
                 r = YES;
