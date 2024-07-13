@@ -70,7 +70,8 @@
         CLLocationCoordinate2D position = [self currentLocation];
         self.consumeStartLocation = true;
         id start_location_path = self.marketJson[@"select3"];
-        id start_location = [MappingSyntaxInterpreter getJsonWithPath:opt : start_location_path];
+        JSValue* start_location_jsvalue = [MappingSyntaxInterpreter getJsonWithPath:opt : start_location_path];
+        id start_location = [start_location_jsvalue toDictionary];
         if(start_location) {
             if([start_location[@"my_location"] boolValue]) {
                 ;

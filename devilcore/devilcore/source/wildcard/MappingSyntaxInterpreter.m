@@ -133,7 +133,6 @@
     return [[WildCardFunctionManager sharedInstance] getValueWithFunction:text data:data];
 }
 
-
 +(BOOL) ifexpression:(NSString*)ifexpression data:(JSValue*) data
 {
     return [MappingSyntaxInterpreter ifexpressionRecur:ifexpression data:data defaultValue:NO];

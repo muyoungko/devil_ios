@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MetaAndViewResult;
 
-@interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardScreenTableViewDelegate, WildCardConstructorLoading,
+@interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardConstructorLoading,
 UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 {
 }

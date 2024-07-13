@@ -106,7 +106,7 @@
 }
 
 
--(float) measureWidth:(NSMutableDictionary*)cloudJson data:(NSMutableDictionary*)data
+-(float) measureWidth:(NSMutableDictionary*)cloudJson data:(JSValue*)data
 {
     float w = [cloudJson[@"frame"][@"w"] floatValue];
     if(w == -2)

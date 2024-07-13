@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WildCardScreenTableView.h"
 #import "DevilSelectDialog.h"
 #import "DevilBlockDialog.h"
 #import "WifiManager.h"

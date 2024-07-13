@@ -162,7 +162,8 @@
                               @"#CC7CCC",
                               @"#F5C042",];
     
-    id chart_data = [MappingSyntaxInterpreter getJsonWithPath:opt :self.dataPath];
+    JSValue* chart_data_js = [MappingSyntaxInterpreter getJsonWithPath:opt :self.dataPath];
+    id chart_data = [chart_data_js toDictionary];
     
     id list = chart_data[@"list"];
     self.list = list;
@@ -219,7 +220,8 @@
                               @"#CC7CCC",
                               @"#F5C042",];
     
-    id chart_data = [MappingSyntaxInterpreter getJsonWithPath:opt :self.dataPath];
+    JSValue* chart_data_js = [MappingSyntaxInterpreter getJsonWithPath:opt :self.dataPath];
+    id chart_data = [chart_data_js toDictionary];
     id list = chart_data[@"list"];
     self.list = list;
     id keys = chart_data[@"keys"];

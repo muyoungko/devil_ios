@@ -493,8 +493,10 @@ static NSString *default_project_id = nil;
     WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
     trigger.node = vv;
     id gaData = nil;
-    if(recognizer.gaDataPath)
+    if(recognizer.gaDataPath) {
         gaData = [MappingSyntaxInterpreter getJsonWithPath:recognizer.meta.correspondData :recognizer.gaDataPath];
+        gaData = [gaData toDictionary];
+    }
     [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga data:gaData];
     [WildCardAction execute:trigger script:script meta:recognizer.meta];
 }

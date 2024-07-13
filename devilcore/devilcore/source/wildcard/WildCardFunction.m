@@ -23,21 +23,15 @@
     id r = [super init];
     _functions = [[NSMutableDictionary alloc] init];
     
-    NSString* (^comma)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
+    NSString* (^comma)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
         if(args == nil || [args count] == 0)
             return @"";
         NSString* arg = [args objectAtIndex:0];
     
-        NSObject* g = [MappingSyntaxInterpreter getJsonWithPath:data :arg];
-        if(g == nil)
+        JSValue* g = [MappingSyntaxInterpreter getJsonWithPath:data :arg];
+        if([g isUndefined])
             return @"";
-        if([g isKindOfClass:[NSNumber class]])
-            g = [(NSNumber*)g stringValue];
-        
-        if(![g isKindOfClass:[NSString class]])
-            return @"";
-        
-        NSString* a = (NSString*)g;
+        NSString* a = [g toString];
         
         if([a length] > 0)
         {
@@ -65,23 +59,20 @@
     };
     [_functions setObject:comma forKey:@"comma"];
     
-    NSString* (^len)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
+    NSString* (^len)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
         if(args == nil || [args count] == 0)
             return @"";
         NSString* arg = [args objectAtIndex:0];
         
-        NSObject* g = [MappingSyntaxInterpreter getJsonWithPath:data:arg];
-        if(g == nil)
-            return @"0";
-        if(![[g class] isSubclassOfClass:[NSArray class]])
+        JSValue* g = [MappingSyntaxInterpreter getJsonWithPath:data:arg];
+        if([g isUndefined] || ![g isArray])
             return @"";
-        NSArray* ar = (NSArray*)g;
-        return [NSString stringWithFormat:@"%lu", [ar count]];
+        return [NSString stringWithFormat:@"%d", [g[@"length"] toInt32]];
     };
     [_functions setObject:len forKey:@"len"];
     
     
-    NSString* (^enc)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
+    NSString* (^enc)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
         if(args == nil || [args count] < 1)
             return @"";
         NSString* arg = [args objectAtIndex:0];
@@ -90,10 +81,10 @@
         if([args count] >= 2)
             encode = [args objectAtIndex:1];
         
-        NSObject* g = [MappingSyntaxInterpreter getJsonWithPath:data:arg];
-        if(![[g class] isSubclassOfClass:[NSString class]])
+        JSValue* g = [MappingSyntaxInterpreter getJsonWithPath:data:arg];
+        if([g isUndefined])
             return @"";
-        NSString* s = (NSString*)g;
+        NSString* s = [g toString];
         
         if(encode == nil)
         {
@@ -108,14 +99,14 @@
     };
     [_functions setObject:enc forKey:@"enc"];
     
-    NSString* (^selected_index)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-        NSMutableArray* list = (NSMutableArray*)[MappingSyntaxInterpreter getJsonWithPath:data:[args objectAtIndex:0]];
-        if(list == nil || ![[list class] isKindOfClass:[NSArray class]])
+    NSString* (^selected_index)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
+        JSValue* list = [MappingSyntaxInterpreter getJsonWithPath:data:[args objectAtIndex:0]];
+        if([list isUndefined] || ![list isArray])
             return @"0";
         
-        for(int i=0;i<[list count];i++)
+        for(int i=0;i<[list[@"length"] toInt32];i++)
         {
-            if([@"Y" isEqualToString:list[i][WC_SELECTED]])
+            if([@"Y" isEqualToString:[list[i][WC_SELECTED] toString]])
             {
                 return [NSString stringWithFormat:@"%d",i];
             }
@@ -125,24 +116,22 @@
     [_functions setObject:selected_index forKey:@"selected_index"];
     
     
-    NSString* (^count)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
+    NSString* (^count)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
         if(args == nil || [args count] == 0)
             return @"";
         NSString* ifExpression = [args objectAtIndex:0];
         NSString* arrJsonPath = [args objectAtIndex:1];
         
         ifExpression = [ifExpression stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
         arrJsonPath = [arrJsonPath stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        NSObject* g = [MappingSyntaxInterpreter getJsonWithPath:data:arrJsonPath];
-        if(![[g class] isSubclassOfClass:[NSArray class]])
+        JSValue* g = [MappingSyntaxInterpreter getJsonWithPath:data:arrJsonPath];
+        if([g isUndefined] || ![g isArray])
             return @"";
-        NSArray* ar = (NSArray*)g;
         int r = 0;
-        for(int i=0;i<[ar count];i++)
+        for(int i=0;i<[g[@"length"] toInt32];i++)
         {
-            if([MappingSyntaxInterpreter ifexpression:ifExpression data:ar[i]])
+            if([MappingSyntaxInterpreter ifexpression:ifExpression data:g[i]])
                 r++;
         }
         return [NSString stringWithFormat:@"%d", r];
@@ -150,9 +139,9 @@
     [_functions setObject:count forKey:@"count"];
     
     
-    NSString* (^this_index)(NSArray*, NSDictionary*) = ^(NSArray* args, NSDictionary* data) {
-        NSString* index = data[WC_INDEX];
-        return index;
+    NSString* (^this_index)(NSArray*, JSValue*) = ^(NSArray* args, JSValue* data) {
+        JSValue* index = data[WC_INDEX];
+        return [index toString];
     };
     [_functions setObject:this_index forKey:@"this_index"];
     

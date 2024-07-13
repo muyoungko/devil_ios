@@ -110,8 +110,8 @@
     id stripLayer = rule.replaceJsonLayer[@"strip"];
     NSString* textJson = stripLayer[@"textJson"];
     NSString* listJson = stripLayer[@"listJson"];
-    id list = [MappingSyntaxInterpreter getJsonWithPath:opt:listJson];
-    strip.list = list;
+    JSValue* list_js = [MappingSyntaxInterpreter getJsonWithPath:opt:listJson];
+    strip.list = [[list_js toArray] mutableCopy];
     strip.jsonPath = textJson;
     if([strip.list count] == 0)
         [strip superview].hidden = YES;
