@@ -405,10 +405,10 @@
                 id cloudJson = fadapter.cloudJsonGetter(index);
                 if([cloudJson[@"name"] isEqualToString:sticky_node]) {
                     self.stickyPosition = index;
-                    NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
-                    NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
+                    NSString* targetJsonString = arrayContent[@"targetJson"];
+                    JSValue* targetDataJson = [MappingSyntaxInterpreter
                                                           getJsonWithPath:wcMeta.correspondData : targetJsonString];
-                    [WildCardConstructor applyRule:stickyViewCore withData:[targetDataJson objectAtIndex:index]];
+                    [WildCardConstructor applyRule:stickyViewCore withData:targetDataJson[index]];
                 }
             }];
             
