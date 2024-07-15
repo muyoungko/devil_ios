@@ -208,7 +208,7 @@
         self.text = [self formatString:text];
     }
     
-    _meta.correspondData[_holder] = [textField text];
+    _meta.correspondData[_holder] = self.text;
     
     if(self.textChangedCallback != nil && ![[textField text] isEqualToString:self.lastText]) {
         self.lastText = [textField text];

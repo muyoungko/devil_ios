@@ -261,7 +261,7 @@
 }
 
 - (void)textChanged:(UITextField *)textField{
-    _meta.correspondData[_holder] = [textField text];
+    _meta.correspondData[_holder] = self.text;
     [self updateHeight];
     
     if(self.textChangedCallback != nil && ![self.text isEqualToString:self.lastText]) {

@@ -33,16 +33,29 @@
 -(void)scrollTo:(int)index :(BOOL)ani{
     if([REPEAT_TYPE_HLIST isEqualToString:self.repeatType])
         [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:ani];
-    else
-        [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:ani];
+    else {
+        WildCardCollectionViewAdapter* adapter = ((WildCardCollectionViewAdapter*)self.delegate);
+        if(index >= [adapter getCount])
+            index = [adapter getCount] - 1;
+        if(index >= 0) {
+            
+            @try{
+                [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:ani];
+            }@catch(NSException* e) {
+                [self asyncScrollTo:index :ani];
+            }
+
+        }
+    }
 }
     
 -(void)scrollToCore:(NSNumber*)index{
     
     if([REPEAT_TYPE_HLIST isEqualToString:self.repeatType])
         [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:self.reservedAni];
-    else
+    else {
         [self scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[index intValue] inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:self.reservedAni];
+    }
     
 //    if(self.delegate) {
 //        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)self.delegate;

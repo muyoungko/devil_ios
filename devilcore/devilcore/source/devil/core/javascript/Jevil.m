@@ -974,7 +974,7 @@
                     int y = firstCellAttributes.frame.origin.y - offset - adjustAreaHeight;
                     [list setContentOffset:CGPointMake(0, y) animated:ani];
                 } else
-                    [list scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:index inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:ani];
+                    [list scrollTo:index : ani];
             }
         }
     }@catch(NSException* e){
