@@ -33,7 +33,10 @@
     
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
         CGPDFDocumentRef document = CGPDFDocumentCreateWithURL((CFURLRef)pdfUrl);
-        CGFloat width = 600.0;
+        int preferredWidth = 0;
+        if(param[@"width"])
+            preferredWidth = [param[@"width"] intValue];
+        
         id r = [@{@"r":@TRUE,
                   @"image_list" : [@[] mutableCopy],
                 } mutableCopy];
@@ -46,28 +49,31 @@
             CGPDFPageRef myPageRef = CGPDFDocumentGetPage(document, page);
             // Changed this line for the line above which is a generic line
             //CGPDFPageRef page = [self getPage:page_number];
+            
+            CGRect imageRect = CGPDFPageGetBoxRect(myPageRef, kCGPDFMediaBox);
+            imageRect.origin = CGPointZero;
+            CGFloat width = imageRect.size.width;
+            CGFloat height = imageRect.size.height;
+            float scale = 1.0f;
+            if(preferredWidth > 0) {
+                scale = preferredWidth / width;
+                height = (float)preferredWidth / width * height;
+                width = preferredWidth;
+            }
 
-            CGRect pageRect = CGPDFPageGetBoxRect(myPageRef, kCGPDFMediaBox);
-            CGFloat pdfScale = width/pageRect.size.width;
-            pageRect.size = CGSizeMake(pageRect.size.width*pdfScale, pageRect.size.height*pdfScale);
-            pageRect.origin = CGPointZero;
-
-            UIGraphicsBeginImageContext(pageRect.size);
+            UIGraphicsBeginImageContext(CGSizeMake(width, height));
 
             CGContextRef context = UIGraphicsGetCurrentContext();
 
             // White BG
             CGContextSetRGBFillColor(context, 1.0,1.0,1.0,1.0);
-            CGContextFillRect(context,pageRect);
+            CGContextFillRect(context, CGRectMake(0,0,width, height));
 
             CGContextSaveGState(context);
 
-            // ***********
-            // Next 3 lines makes the rotations so that the page look in the right direction
-            // ***********
-            CGContextTranslateCTM(context, 0.0, pageRect.size.height);
-            CGContextScaleCTM(context, 1.0, -1.0);
-            CGContextConcatCTM(context, CGPDFPageGetDrawingTransform(myPageRef, kCGPDFMediaBox, pageRect, 0, true));
+            CGContextTranslateCTM(context, 0.0, height);
+            CGContextScaleCTM(context, scale, -scale);
+            CGContextConcatCTM(context, CGPDFPageGetDrawingTransform(myPageRef, kCGPDFMediaBox, imageRect, 0, true));
 
             CGContextDrawPDFPage(context, myPageRef);
             CGContextRestoreGState(context);
