@@ -11,7 +11,7 @@
 #import "SubController.h"
 
 @interface SubController ()
-
+@property (nonatomic, retain) JevilCtx* jevil;
 @end
 
 @implementation SubController
@@ -19,7 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.data = [@{} mutableCopy];
+    self.jevil = [[JevilCtx alloc] init];
+    self.data = [JSValue valueWithObject:[@{} mutableCopy] inContext:self.jevil.jscontext];
+    
     [self updateFlexScreen];
     [self constructLeftBackButton];
 }

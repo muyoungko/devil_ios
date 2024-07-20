@@ -7,13 +7,11 @@
 //`
 
 #import "LoginController.h"
-#import "MainController.h"
-#import "JoinController.h"
 #import "Devil.h"
 #import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
 #import "MainV2Controller.h"
-
+@import devilcore;
 @interface LoginController ()
 
 @end
@@ -42,8 +40,8 @@
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
 {
     if([@"login_email" isEqualToString:functionName]){
-        NSString* email = trim(self.data[@"email"]);
-        NSString* pass = trim(self.data[@"pass"]);
+        NSString* email = trim([self.data[@"email"] toString]);
+        NSString* pass = trim([self.data[@"pass"] toString]);
         
         if(empty(email)){
             [self showAlert:@"이메일을 입력해주세요"];
@@ -86,11 +84,6 @@
         v.screenId = @"56560571";
         [self.navigationController pushViewController:v animated:true];
         return YES;
-    } else if([@"join" isEqualToString:functionName]){
-        JoinController* vc = [[JoinController alloc] init];
-        vc.type = @"email";
-        [self.navigationController pushViewController:vc animated:YES];
-        return YES;
     }
     return NO;
 }
@@ -122,7 +115,7 @@
         ASAuthorizationAppleIDCredential *appleIDCredential = authorization.credential;
         NSString *identifier = appleIDCredential.user;
         NSString *token = [NSString stringWithFormat:@"%@", appleIDCredential.identityToken];
-        
+         
         [self showIndicator];
         [[Devil sharedInstance] checkMemeber:@"apple" identifier:identifier callback:^(id  _Nonnull res) {
             if(res){
@@ -137,16 +130,16 @@
                             [self showAlert:res[@"msg"]];
                     }];
                 } else {
-                    JoinController* vc = [[JoinController alloc] init];
-                    vc.type = @"apple";
-                    vc.email = appleIDCredential.email? appleIDCredential.email : @"";
-                    vc.name = appleIDCredential.fullName.familyName? appleIDCredential.fullName.familyName:@"apple";
-                    vc.identifier = identifier;
-                    vc.token = @"";
-                    vc.sex = @"";
-                    vc.age = @"";
-                    vc.profile = @"";
-                    [self.navigationController pushViewController:vc animated:YES];
+                    id param = [@{} mutableCopy];
+                    param[@"type"] = @"apple";
+                    param[@"email"] = appleIDCredential.email? appleIDCredential.email : @"";
+                    param[@"name"] = appleIDCredential.fullName.familyName? appleIDCredential.fullName.familyName:@"apple";
+                    param[@"identifier"] = identifier;
+                    param[@"token"] = @"";
+                    param[@"sex"] = @"";
+                    param[@"age"] = @"";
+                    param[@"profile"] = @"";
+                    [Jevil go:@"join" : param];
                 }
             } else
                 [self showAlert:NETWORK_MSG];
@@ -190,16 +183,16 @@
                         [self showAlert:res[@"msg"]];
                 }];
             } else {
-                JoinController* vc = [[JoinController alloc] init];
-                vc.type = @"google";
-                vc.email = email;
-                vc.name = name;
-                vc.identifier = userId;
-                vc.token = token;
-                vc.profile = profile;
-                vc.sex = @"";
-                vc.age = @"";
-                [self.navigationController pushViewController:vc animated:YES];
+                id param = [@{} mutableCopy];
+                param[@"type"] = @"google";
+                param[@"email"] = email;
+                param[@"name"] = name;
+                param[@"identifier"] = userId;
+                param[@"token"] = token;
+                param[@"sex"] = @"";
+                param[@"age"] = @"";
+                param[@"profile"] = profile;
+                [Jevil go:@"join" : param];
             }
         }
         else

@@ -27,7 +27,6 @@
 #import "Devil.h"
 
 #import "FirstController.h"
-#import "MainController.h"
 #import "JulyUtil.h"
 #import "DeepLink.h"
 #import "DevilNaverLoginCallback.h"

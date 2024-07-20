@@ -7,6 +7,7 @@
 //
 
 #import "BaseController.h"
+@import JavaScriptCore;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, retain) UIScrollView* scrollView;
 @property (nonatomic, retain) WildCardScreenTableView* tv;
 @property (nonatomic, retain) UIView* noneView;
-@property(nonatomic, retain) NSMutableDictionary* data;
+@property(nonatomic, retain) JSValue* data;
 
 - (void)createWildCardScreenListView:(NSString*)screenName;
 

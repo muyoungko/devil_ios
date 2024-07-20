@@ -7,7 +7,6 @@
 //
 #import "WebController.h"
 #import "AppDelegate.h"
-#import "MainController.h"
 #import "JulyUtil.h"
 #import "Devil.h"
 

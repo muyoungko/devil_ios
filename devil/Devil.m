@@ -10,8 +10,8 @@
 #import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
 #import "AppDelegate.h"
-#import "MainController.h"
 #import "DeepLink.h"
+#import "MainV2Controller.h"
 
 @import devilcore;
 @import devilbill;
@@ -179,9 +179,9 @@
 - (void)consumeReservedUrl {
     if(self.reservedUrl) {
         AppDelegate* app = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        MainController* mainVc = nil;
+        MainV2Controller* mainVc = nil;
         for(id vc in app.navigationController.viewControllers ){
-            if([vc isKindOfClass:[MainController class]]) {
+            if([vc isKindOfClass:[MainV2Controller class]]) {
                 mainVc = vc;
                 break;
             }

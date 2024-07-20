@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MainV2Controller : DevilController
 
+-(void)startProject:(NSString*) project_id;
+
 @end
 
 NS_ASSUME_NONNULL_END
