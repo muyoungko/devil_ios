@@ -28,9 +28,10 @@
     });
     return sharedInstance;
 }
-
+ 
 - (void)start:(id)param :(void (^)(id res))callback {
-    if([NFCNDEFReaderSession readingAvailable]) {
+//    if([NFCNDEFReaderSession readingAvailable])
+    {
         self.param = param;
         self.callback = callback;
         self.session = [[NFCTagReaderSession alloc] initWithPollingOption:NFCPollingISO14443 delegate:self queue:nil];
