@@ -76,8 +76,15 @@
             if(res != nil)
             {
                 id list = res[@"project"][@"dev_host_list"];
+                NSString* host = res[@"project"][@"host"];
+                if(!host)
+                    host = @"";
+                if(!list)
+                    list = [@[] mutableCopy];
+                if(res[@"project"][@"host"])
+                    
                 list = [list mutableCopy];
-                [list insertObject:@{@"host": res[@"project"][@"host"]}atIndex:0];
+                [list insertObject:@{@"host": host}atIndex:0];
                 
                 NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
                 NSString* webHostKey = [NSString stringWithFormat:@"%@_WEB_HOST", project_id];
