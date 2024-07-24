@@ -81,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)out:(NSString*)url :(BOOL)force;
 + (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback;
 + (void)downloadAndView:(NSString*)url;
++ (void)downloadAndViewWithOption:(id)param;
 + (void)downloadAndShare:(NSString*)url;
 + (void)download:(NSString*)url;
 + (void)sound:(NSDictionary*)param;

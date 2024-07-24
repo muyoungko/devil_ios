@@ -135,6 +135,10 @@
     CLLocationDegrees latitude = [strLat doubleValue];
     CLLocationDegrees longitude = [strLogi doubleValue];
 
+    
+    if(self.markerDic[strKey])
+        [self removeMarker:strKey];
+    
     CLLocationCoordinate2D mapCenter = CLLocationCoordinate2DMake(latitude, longitude);
     GMSMarker *marker = [GMSMarker markerWithPosition:mapCenter];
     
@@ -218,17 +222,8 @@
             }
             return;
         }
-        
-        
-//        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
-//        
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-//            });
-//        });
     }
     
-    //marker.snippet = @"Current location";
     
     marker.map = self.mapView;
     marker.userData = param;
@@ -293,6 +288,7 @@
             ((GMSMarker*)object).map = nil;
         }
     }];
+    [self.markerDic removeObjectForKey:strKey];
 }
 
 -(void)addCircle:(id)param{

@@ -37,6 +37,11 @@
     self.progress_callback = progress_callback;
     self.complete_callback = callback;
     self.filePathEncoding = self.filePath = filePath;
+    if(filePath) {
+        self.filePathEncoding = [filePath stringByReplacingOccurrencesOfString:[filePath lastPathComponent]
+                        withString:urlencode([filePath lastPathComponent])];
+    }
+    
     
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
     [vc.retainObject addObject:self];
@@ -115,7 +120,7 @@
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.filePath])
         [[NSFileManager defaultManager] removeItemAtPath:self.filePath error:nil];
-    [[NSFileManager defaultManager] createFileAtPath:self.filePath contents:nil attributes:nil];
+    BOOL r = [[NSFileManager defaultManager] createFileAtPath:self.filePath contents:nil attributes:nil];
     self.fileHandle = [NSFileHandle fileHandleForWritingAtPath:self.filePath];
 }
 

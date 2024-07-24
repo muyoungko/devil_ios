@@ -929,7 +929,7 @@
     
     UIViewController*vc = [JevilInstance currentInstance].vc;
     if(vc != nil && ([vc isKindOfClass:[DevilController class]])) {
-        [((DevilController*)vc) updateMeta]; 
+        [((DevilController*)vc) updateMeta];
         if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog)
             [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog update];
     }
@@ -1309,6 +1309,33 @@
     
     DevilDownloader* downloder = [[DevilDownloader alloc] init];
     [downloder download:true url:url header:@{} filePath:nil progress:^(id  _Nonnull res) {
+        
+    } complete:^(id  _Nonnull res) {
+        if([res[@"r"] boolValue]) {
+            NSString* path = res[@"dest"];
+            NSString* pathEncoding = res[@"dest_encoding"];
+            UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]];
+            DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+            d.delegate = vc;
+            [d presentPreviewAnimated:YES];
+            [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
+        } else {
+            if(res[@"msg"])
+                [Jevil alert:res[@"msg"]];
+            else
+                [Jevil alert:trans(@"Unknown Error")];
+        }
+    }];
+    [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];
+}
+
++ (void)downloadAndViewWithOption:(id)param {
+    NSString* url = param[@"url"];
+    NSString* path = nil;
+    if(param[@"name"])
+        path = [DevilUtil generateTempFilePathWithName:param[@"name"]];
+    DevilDownloader* downloder = [[DevilDownloader alloc] init];
+    [downloder download:true url:url header:@{} filePath:path progress:^(id  _Nonnull res) {
         
     } complete:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
