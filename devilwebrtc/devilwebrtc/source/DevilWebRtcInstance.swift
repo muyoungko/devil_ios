@@ -120,13 +120,13 @@ public class DevilWebRtcInstance: NSObject {
         let RTCIceServersList = getIceCandidates(channelARN: self.channelARN, endpoint: httpsEndpoint!, regionType: awsRegionType, clientId: localSenderId)
         webRTCClient = WebRTCClient(iceServers: RTCIceServersList, sendAudio: self.sendAudio, sendVideo: self.sendVideo )
         webRTCClient!.delegate = self
-
+        
         // Connect to signalling channel with wss endpoint
         print("Connecting to web socket from channel config")
         signalingClient = SignalingClient(serverUrl: wssURL!)
         signalingClient!.delegate = self
         signalingClient!.connect()
-
+        
         // Create the video view
         let seconds = 2.0
         DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
@@ -369,6 +369,14 @@ public class DevilWebRtcInstance: NSObject {
             return .master
         }
         return .viewer
+    }
+    
+    @objc public func myrelease() {
+        do {
+            try AVAudioSession.sharedInstance().setActive(false)
+        } catch {
+            
+        }
     }
 }
 

@@ -101,4 +101,12 @@ class DevilWebRtcVideoView: UIView {
             self.webRTCClient.updatePeerConnectionAndHandleIceCandidates(clientId: recipientClientID)
         }
     }
+    
+    override func didMoveToWindow() {
+        super.didMoveToWindow()
+        if(self.window == nil) {
+            self.webRTCClient.shutdown()
+            self.signalingClient.disconnect()
+        }
+    }
 }
