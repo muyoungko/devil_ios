@@ -60,6 +60,7 @@
 
 @property (nonatomic, retain) NSString* _Nullable project_id;
 
+@property BOOL hideIcon;
 @property BOOL onLineMode;
 @property BOOL localImageMode;
 @property BOOL default_word_wrap;

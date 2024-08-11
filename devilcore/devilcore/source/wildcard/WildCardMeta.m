@@ -490,44 +490,36 @@
      - 일단 자기 width를 결정해야 자기가
      https://console.deavil.com/#/block/56548847
      
-     깊은 depth가 우선(단 gravity의 종류에 따라 뒤로 밀릴수있음) ,
-     그 후 wrap_content, Gravity,  Match_Prent, nextView,
+     깊은 depth - wrap_content가 우선
+     그 후 깊은 depth부터 Gravity,  Match_Prent, nextView,
      
      부모가 wrap_height이고 자식이 valign bottom 혹은 valige center이면
      부모의 크기가 먼저 결정된 다음 gravity가 적용되어야한다. 이경우 무조건적인 depth가 적용되선 안된다
-        
      */
-    _layoutPath = [temp sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        WildCardLayoutPathUnit* aa = (WildCardLayoutPathUnit*)a;
-        WildCardLayoutPathUnit* bb = (WildCardLayoutPathUnit*)b;
+    
+    _layoutPath = [temp sortedArrayUsingComparator:^NSComparisonResult(WildCardLayoutPathUnit* a, WildCardLayoutPathUnit* b) {
         
-        if(aa.depth < bb.depth)
-            return 1000;
-        else if(aa.depth > bb.depth)
-            return -1000;
-        else
-        {
-            if(aa.type == bb.type)
-                return 0;
-            else{
-                int av = [self typeToValue:aa.type];
-                int bv = [self typeToValue:bb.type];
-                return bv - av;
-            }
-        }
-        
+        int r = 0;
+        int av = [self typeToValue:a.type];
+        int bv = [self typeToValue:b.type];
+        r += (bv - av) * 10;
+        r += (b.depth - a.depth) * 100;
+        return r;
     }];
+    
+//    if([_layoutPath count] > 2)
+//        NSLog(@"%@", _layoutPath);
 }
 
 -(int)typeToValue:(int)type {
     if(type == WC_LAYOUT_TYPE_WRAP_CONTENT)
-        return 400;
-    if(type == WC_LAYOUT_TYPE_GRAVITY)
-        return 300;
+        return 4;
+    if(type == WC_LAYOUT_TYPE_GRAVITY) //_layoutPath 에서 gravity만 최 후순위로 뽑는다
+        return -1000;
     if(type == WC_LAYOUT_TYPE_MATCH_PARENT)
-        return 200;
+        return 2;
     if(type == WC_LAYOUT_TYPE_NEXT_VIEW)
-        return 100;
+        return 3;
     return 0;
 }
 

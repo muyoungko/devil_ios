@@ -42,9 +42,11 @@
        )
     {
         DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
+        debug.tag = TAG_DEBUG_ICON;
         [vc.view addSubview:debug];
     } else if(targetDevice) {
         DevilDebugView* debug = [[DevilDebugView alloc]initWithVc:vc];
+        debug.tag = TAG_DEBUG_ICON;
         [vc.view addSubview:debug];
     }
 }

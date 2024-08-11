@@ -95,7 +95,8 @@
 }
 
 -(void)debugView {
-    [DevilDebugView constructDebugViewIf:self];
+    if(![WildCardConstructor sharedInstance].hideIcon)
+        [DevilDebugView constructDebugViewIf:self];
 }
 
 -(void)updateHasFunction {

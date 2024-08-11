@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 #define DEVIL_LOG_NFC @"NFC"
 #define DEVIL_LOG_CUSTOM @"LOG"
 
+#define TAG_DEBUG_ICON 4723516
+
 @interface DevilDebugView : UIView
 
 @property(retain, nonatomic) NSMutableArray* logList;

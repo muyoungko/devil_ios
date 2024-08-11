@@ -44,6 +44,12 @@ alpha:1.0]
     [button addTarget:self action:@selector(link:) forControlEvents:UIControlEventTouchUpInside];
     [self.top addSubview:button];
     
+    UIButton* button2 = [UIButton buttonWithType:UIButtonTypeSystem];
+    button2.frame = CGRectMake(135, 5, 120, TOP_HEIGHT-10);
+    [button2 setTitle:@"Hide Devil" forState:UIControlStateNormal];
+    [button2 addTarget:self action:@selector(hide:) forControlEvents:UIControlEventTouchUpInside];
+    [self.top addSubview:button2];
+    
     self.tv = [[UITableView alloc] initWithFrame:CGRectMake(0, self.top.frame.size.height, sw, sh-self.top.frame.size.height) style:UITableViewStylePlain];
     self.tv.allowsMultipleSelection = NO;
     self.tv.allowsSelection = YES;
@@ -174,5 +180,14 @@ alpha:1.0]
     pasteboard.string = link;
     
     [Jevil toast:@"My Login Link Copied at clipboard"];
+}
+
+- (void)hide:(id)sender {
+    [WildCardConstructor sharedInstance].hideIcon = true;
+    
+    id vcs = self.navigationController.viewControllers;
+    DevilController* dc = (DevilController*) (vcs[[vcs count] - 2]);
+    [[dc.view viewWithTag:TAG_DEBUG_ICON] removeFromSuperview];
+    [Jevil toast:@"Icon is hided"];
 }
 @end
