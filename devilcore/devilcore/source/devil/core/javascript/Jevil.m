@@ -58,6 +58,7 @@
 #import "DevilMultiPartUploader.h"
 #import "DevilDownloader.h"
 #import "DevilImageEditController.h"
+#import "DevilGyroscope.h"
 
 @interface Jevil()
 
@@ -423,7 +424,7 @@
         
         
         __block int findex = j;
-        [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"GET " stringByAppendingString:originalUrl] log:nil];
         [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
             
             if(responseJsonObject != nil)
@@ -513,7 +514,7 @@
         return;
     }
     NSString* contentType = [DevilUtil fileNameToContentType:filepath];
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[NSString stringWithFormat:@"%@ %@",method,originalUrl] log:nil];
     [DevilUtil httpPut:url contentType:contentType path:filepath complete:^(id _Nonnull res) {
         if(res == nil)
             res = [@{} mutableCopy];
@@ -556,7 +557,7 @@
     
     if(!body)
         body = @{};
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[NSString stringWithFormat:@"%@ %@",method,originalUrl] log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestHttp:method :url :header :[body mutableCopy] :^(NSMutableDictionary *responseJsonObject) {
         if(responseJsonObject == nil)
             responseJsonObject = [@{} mutableCopy];
@@ -605,7 +606,7 @@
         }
     }
     
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"GET " stringByAppendingString:originalUrl] log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         
         if(responseJsonObject == nil)
@@ -646,7 +647,7 @@
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"POST " stringByAppendingString:originalUrl] log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
         
         if([responseJsonObject isKindOfClass:[NSError class]] || [responseJsonObject isMemberOfClass:[NSError class]]){
@@ -689,7 +690,7 @@
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"PUT " stringByAppendingString:originalUrl] log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPut:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
         
         if(responseJsonObject == nil)
@@ -783,7 +784,7 @@
                 result[@"msg"] = @"File not found";
                 [callback callWithArguments:@[result]];
                 [[JevilInstance currentInstance] syncData];
-                return;
+                
                 //                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
             }
         }
@@ -868,7 +869,7 @@
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
     
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:@"/push/key" log:nil];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"GET " stringByAppendingString:@"/push/key"] log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:@"/push/key" log:responseJsonObject];
     }];
@@ -881,7 +882,7 @@
     if([url hasPrefix:@"/"])
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:nil];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"GET " stringByAppendingString:originalUrl] log:nil];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestGet:url header:header success:^(NSMutableDictionary *responseJsonObject) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
@@ -901,7 +902,7 @@
     if(!header)
         header = [@{} mutableCopy];
     
-    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:originalUrl log:param];
+    [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"POST " stringByAppendingString:originalUrl] log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
@@ -2130,6 +2131,28 @@
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     };
     [[JevilInstance currentInstance].vc.navigationController pushViewController:d animated:YES];
+}
+
++ (void)gyroscopeStart:(NSDictionary *)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilGyroscope sharedInstance] startGyroscope:(id)param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)gyroscopeStop {
+    [[DevilGyroscope sharedInstance] stopGyroscope];
+}
+
++ (NSArray *)gyroscopeData:(NSDictionary *)param :(JSValue *)callback {
+    return [[DevilGyroscope sharedInstance] getData:param];
+}
+
++ (void)gyroscopeZipData:(NSDictionary *)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilGyroscope sharedInstance] getZipData:param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
 }
 
 @end

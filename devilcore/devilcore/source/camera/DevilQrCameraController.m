@@ -72,24 +72,29 @@
         if([rootView superview] == nil && rootView != self.view)
             [self.view addSubview:rootView];
         
+        float sw = [UIScreen mainScreen].bounds.size.width;
+        float sh = [UIScreen mainScreen].bounds.size.height;
+        
+        int BTN_SIZE = 30;
         UIButton* cancel = [rootView viewWithTag:333];
         [cancel addTarget:self action:@selector(buttonCancel:) forControlEvents:UIControlEventTouchUpInside];
         UIImage* back = [[UIImage imageNamed:@"devil_camera_cancel" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [cancel setImage:back forState:UIControlStateNormal];
+        cancel.frame = CGRectMake(23, 23, BTN_SIZE, BTN_SIZE);
         
         UIButton* front = [rootView viewWithTag:34];
         [front addTarget:self action:@selector(buttonFrontBack:) forControlEvents:UIControlEventTouchUpInside];
         UIImage* front_back = [[UIImage imageNamed:@"devil_camera_front_back" inBundle:bundle compatibleWithTraitCollection:nil] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         [front setImage:front_back forState:UIControlStateNormal];
+        front.frame = CGRectMake(sw - BTN_SIZE - 23, 23, BTN_SIZE, BTN_SIZE);
+         
         
-        float sw = [UIScreen mainScreen].bounds.size.width;
-        float sh = [UIScreen mainScreen].bounds.size.height;
         UIView* top = [[UIView alloc] initWithFrame:CGRectMake(0,0, sw, 200)];
         top.backgroundColor = [UIColor blackColor];
         top.alpha = 0.3;
         [rootView addSubview:top];
         
-        UIView* bottom = [[UIView alloc] initWithFrame:CGRectMake(0, sh-400 , sw, 400)];
+        UIView* bottom = [[UIView alloc] initWithFrame:CGRectMake(0, sh-300 , sw, 300)];
         bottom.backgroundColor = [UIColor blackColor];
         bottom.alpha = 0.3;
         [rootView addSubview:bottom];

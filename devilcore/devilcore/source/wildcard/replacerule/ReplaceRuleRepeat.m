@@ -366,9 +366,17 @@
             NSArray* childLayers = [layer objectForKey:@"layers"];
             id stickyNodeLayer = [self getReferenceBlock:sticky_node :childLayers];
             WildCardUIView* stickyViewCore = [WildCardConstructor constructLayer:nil withLayer : stickyNodeLayer withParentMeta:wcMeta depth:0 instanceDelegate:wcMeta.wildCardConstructorInstanceDelegate];
-            
             UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+            
             float adjustAreaHeight = window.safeAreaInsets.top;
+            BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
+            if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]]){
+                DevilController* dc = (DevilController*)[JevilInstance currentInstance].vc;
+                noHeader = [[WildCardConstructor sharedInstance] getHeaderCloudJson:dc.screenId :dc.landscape] == nil;
+            }
+            if(!noHeader)
+                adjustAreaHeight = 0;
+            
             stickyViewCore.frame = CGRectMake(stickyViewCore.frame.origin.x, adjustAreaHeight,
                                               stickyViewCore.frame.size.width, stickyViewCore.frame.size.height);
             self.stickyView = [[WildCardUIView alloc] initWithFrame:CGRectMake(0, 0, stickyViewCore.frame.size.width,

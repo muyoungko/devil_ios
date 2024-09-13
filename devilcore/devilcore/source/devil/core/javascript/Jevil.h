@@ -194,6 +194,10 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)paintIsEmpty:(NSString*)nodeName;
 + (void)paintClear:(NSString*)nodeName;
 + (void)goCropScreen:(NSDictionary*)param :(JSValue *)callback;
++ (void)gyroscopeStart:(NSDictionary *)param :(JSValue *)callback;
++ (void)gyroscopeStop;
++ (NSArray *)gyroscopeData:(NSDictionary *)param :(JSValue *)callback;
++ (void)gyroscopeZipData:(NSDictionary *)param :(JSValue *)callback;
 @end
 
 @interface Jevil : NSObject <Jevil>

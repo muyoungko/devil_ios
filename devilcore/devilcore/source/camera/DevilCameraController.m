@@ -14,6 +14,8 @@
 #import <MobileCoreServices/UTCoreTypes.h>
 #import "DevilLang.h"
 #import "DevilLocation.h"
+#import "WildCardConstructor.h"
+#import "JevilInstance.h"
 
 @import AVFoundation;
 @import Photos;
@@ -100,6 +102,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) BOOL hasVideo;
 @property (nonatomic) BOOL hasGallery;
 @property (nonatomic) BOOL hasGps;
+@property (nonatomic) BOOL hasFrontBack;
+@property (nonatomic) BOOL original;
 @property (nonatomic) int minSec;
 @property (nonatomic) int maxSec;
 @property (nonatomic) float ratio;
@@ -153,6 +157,12 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundRecordingID;
 
 @property (nonatomic, retain) UIActivityIndicatorView *spinner;
+
+@property (nonatomic, retain) NSString* blockName;
+@property (nonatomic, retain) NSString* nodeTake;
+@property (nonatomic, retain) NSString* nodeBack;
+@property (nonatomic, strong) WildCardUIView* mainVc;
+
 @end
 
 @implementation DevilCameraController
@@ -298,11 +308,15 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.minSec = 3;
     self.maxSec = 10;
     self.ratio = 1.0f;
+    self.original = false;
+    self.hasFrontBack = true;
     if(self.param) {
         if(self.param[@"startVideo"])
             self.startVideo = [self.param[@"startVideo"] boolValue];
         if(self.param[@"startFront"])
             self.startFront = [self.param[@"startFront"] boolValue];
+        if(self.param[@"hasFrontBack"])
+            self.hasFrontBack = [self.param[@"hasFrontBack"] boolValue];
         if(self.param[@"startFlash"])
             self.startFlash = [self.param[@"startFlash"] boolValue];
         if(self.param[@"hasPicture"])
@@ -320,6 +334,14 @@ typedef NS_ENUM(NSInteger, UIMode) {
             self.maxSec = [self.param[@"maxSec"] intValue];
         if(self.param[@"ratio"])
             self.ratio = [self.param[@"ratio"] floatValue];
+        if(self.param[@"original"])
+            self.original = [self.param[@"original"] boolValue];
+        if(self.param[@"blockName"])
+           self.blockName = [self.param[@"blockName"] stringValue];
+        if(self.param[@"nodeTake"])
+           self.nodeTake = [self.param[@"nodeTake"] stringValue];
+        if(self.param[@"nodeBack"])
+           self.nodeBack = [self.param[@"nodeBack"] stringValue];
     }
     
     self.front = self.startFront;
@@ -332,67 +354,96 @@ typedef NS_ENUM(NSInteger, UIMode) {
     float sh = [UIScreen mainScreen].bounds.size.height;
     
     self.previewView = [[DevilAVCamPreviewView alloc] initWithFrame:CGRectMake(0, 0,
-                                                                               self.view.frame.size.width, self.view.frame.size.height)];
+                                                                               self.view.frame.size.width, self.view.frame.size.height-100)];
     [self.view addSubview:self.previewView];
     
-    float capH = (sh - (_ratio * sw)) / 2.0f;
-    self.capTop = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, sw, capH)];
-    self.capTop.backgroundColor = UIColorFromRGBA(0xFF000000);
-    [self.view addSubview:self.capTop];
-    self.capBottom = [[UILabel alloc] initWithFrame:CGRectMake(0, sh-capH, sw, capH)];
-    self.capBottom.backgroundColor = UIColorFromRGBA(0xFF000000);
-    [self.view addSubview:self.capBottom];
+    if(self.blockName) {
+        id blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:self.blockName];
+        id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
+        self.mainVc = [WildCardConstructor constructLayer:self.view withLayer:cj instanceDelegate:self];
+        self.mainVc.backgroundColor = [UIColor clearColor];
+        
+        [WildCardConstructor applyRule:self.mainVc withData:[JevilInstance currentInstance].data];
+        WildCardMeta* meta = self.mainVc.meta;
+        
+        if(self.nodeTake) {
+            UIView* node = [meta getView:self.nodeTake];
+            UITapGestureRecognizer *buttonFrontRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickTake:)];
+            [WildCardConstructor userInteractionEnableToParentPath:node depth:10];
+            node.userInteractionEnabled = YES;
+            [node addGestureRecognizer:buttonFrontRecognizer];
+        }
+        
+        if(self.nodeBack) {
+            UIView* node = [meta getView:self.nodeBack];
+            UITapGestureRecognizer *buttonFrontRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickBack:)];
+            [WildCardConstructor userInteractionEnableToParentPath:node depth:10];
+            node.userInteractionEnabled = YES;
+            [node addGestureRecognizer:buttonFrontRecognizer];
+        }
+    } else {
+        float capH = (sh - (_ratio * sw)) / 2.0f;
+        self.capTop = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, sw, capH)];
+        self.capTop.backgroundColor = UIColorFromRGBA(0xFF000000);
+        [self.view addSubview:self.capTop];
+        self.capBottom = [[UILabel alloc] initWithFrame:CGRectMake(0, sh-capH, sw, capH)];
+        self.capBottom.backgroundColor = UIColorFromRGBA(0xFF000000);
+        [self.view addSubview:self.capBottom];
+        
+        self.topTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, sw, 50)];
+        self.topTitle.center = CGPointMake(sw/2, 80);
+        self.topTitle.textColor = [UIColor whiteColor];
+        self.topTitle.font = [UIFont systemFontOfSize:18];
+        self.topTitle.textAlignment = NSTextAlignmentCenter;
+        
+        [self.view addSubview:self.topTitle];
+        
+        self.btnBack = [self createButton:CGPointMake(40, 80) :@"devil_camera_cancel" :30 :@selector(onClickBack:) :UIColorFromRGB(0xffffff) :nil];
+        self.btnFlash = [self createButton:CGPointMake(sw-35, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff) :nil];
+        if(self.hasFrontBack)
+            self.btnFront = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_front_back" :30 :@selector(onClickFront:) :UIColorFromRGB(0xffffff) :nil];
+        
+        self.btnTake = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_shutter" :70 :@selector(onClickTake:) :UIColorFromRGB(0xffffff) :nil];
+        self.btnRecordStart = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_record_start" :110 :@selector(onClickRecordStartOrStop:) :UIColorFromRGB(0xff0000) :nil];
+        self.btnRecordStop = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_recording" :110 :@selector(onClickRecordStartOrStop:) : nil :nil];
+        
+        self.btnGallery = [self createButton:CGPointMake(sw/2 - 120, sh-100) :@"devil_camera_gallery" :30 :@selector(onClickGallery:) :UIColorFromRGB(0xffffff) :nil];
+        
+        self.btnPicture = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_picture" :35 :@selector(onClickPicture:) :UIColorFromRGB(0xffffff) :nil];
+        self.btnVideo = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_video" :35 :@selector(onClickVideo:) :UIColorFromRGB(0xffffff) :nil];
+        
+        self.takenLayer = [[UIView alloc] initWithFrame:self.view.frame];
+        self.takenLayer.userInteractionEnabled = YES;
+        [self.view addSubview:self.takenLayer];
+        self.takenLayer.backgroundColor = [UIColor whiteColor];
+        self.takenImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+        [self.takenLayer addSubview:self.takenImageView];
+        
+        self.cropView = [[PECropView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
+        [self.cropView construct:@{}];
+        self.cropView.ratio = self.ratio;
+        self.cropView.keepingCropAspectRatio = YES;
+        [self.takenLayer addSubview:self.cropView];
+        
+        self.btnBack1 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel1:) :UIColorFromRGB(0xff0000) :self.takenLayer];
+        self.btnComplete1 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete1:) :UIColorFromRGB(0x3cb043) :self.takenLayer];
+        
+         
+        self.recordLayer = [[UIView alloc] initWithFrame:self.view.frame];
+        self.recordLayer.userInteractionEnabled = YES;
+        [self.view addSubview:self.recordLayer];
+        self.recordLayer.backgroundColor = [UIColor whiteColor];
+        
+        self.videoView = [[WildCardVideoView alloc] initWithFrame:CGRectMake(0, 0, sw, sw)];
+        self.videoView.playerViewController.showsPlaybackControls = YES;
+        self.videoView.center = CGPointMake(sw/2, sh/2);
+        [self.recordLayer addSubview:self.videoView];
+        
+        self.btnBack2 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel2:) :UIColorFromRGB(0xff0000) :self.recordLayer];
+        self.btnComplete2 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete2:) :UIColorFromRGB(0x3cb043) :self.recordLayer];
+    }
     
-    self.topTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, sw, 50)];
-    self.topTitle.center = CGPointMake(sw/2, 80);
-    self.topTitle.textColor = [UIColor whiteColor];
-    self.topTitle.font = [UIFont systemFontOfSize:18];
-    self.topTitle.textAlignment = NSTextAlignmentCenter;
     
-    [self.view addSubview:self.topTitle];
-    
-    self.btnBack = [self createButton:CGPointMake(40, 80) :@"devil_camera_cancel" :30 :@selector(onClickBack:) :UIColorFromRGB(0xffffff) :nil];
-    self.btnFlash = [self createButton:CGPointMake(sw-90, 80) :@"devil_camera_flash" :30 :@selector(onClickFlash:) :UIColorFromRGB(0xffffff) :nil];
-    self.btnFront = [self createButton:CGPointMake(sw-35, 80) :@"devil_camera_front_back" :30 :@selector(onClickFront:) :UIColorFromRGB(0xffffff) :nil];
-    
-    self.btnTake = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_shutter" :70 :@selector(onClickTake:) :UIColorFromRGB(0xffffff) :nil];
-    self.btnRecordStart = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_record_start" :110 :@selector(onClickRecordStartOrStop:) :UIColorFromRGB(0xff0000) :nil];
-    self.btnRecordStop = [self createButton:CGPointMake(sw/2, sh-100) :@"devil_camera_recording" :110 :@selector(onClickRecordStartOrStop:) : nil :nil];
-    
-    self.btnGallery = [self createButton:CGPointMake(sw/2 - 120, sh-100) :@"devil_camera_gallery" :30 :@selector(onClickGallery:) :UIColorFromRGB(0xffffff) :nil];
-    
-    self.btnPicture = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_picture" :35 :@selector(onClickPicture:) :UIColorFromRGB(0xffffff) :nil];
-    self.btnVideo = [self createButton:CGPointMake(sw/2 + 120, sh-100) :@"devil_camera_video" :35 :@selector(onClickVideo:) :UIColorFromRGB(0xffffff) :nil];
-    
-    self.takenLayer = [[UIView alloc] initWithFrame:self.view.frame];
-    self.takenLayer.userInteractionEnabled = YES;
-    [self.view addSubview:self.takenLayer];
-    self.takenLayer.backgroundColor = [UIColor whiteColor];
-    self.takenImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
-    [self.takenLayer addSubview:self.takenImageView];
-    
-    self.cropView = [[PECropView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
-    [self.cropView construct:@{}];
-    self.cropView.ratio = self.ratio;
-    self.cropView.keepingCropAspectRatio = YES;
-    [self.takenLayer addSubview:self.cropView];
-    
-    self.btnBack1 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel1:) :UIColorFromRGB(0xff0000) :self.takenLayer];
-    self.btnComplete1 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete1:) :UIColorFromRGB(0x3cb043) :self.takenLayer];
-    
-    
-    self.recordLayer = [[UIView alloc] initWithFrame:self.view.frame];
-    self.recordLayer.userInteractionEnabled = YES;
-    [self.view addSubview:self.recordLayer];
-    self.recordLayer.backgroundColor = [UIColor whiteColor];
-    
-    self.videoView = [[WildCardVideoView alloc] initWithFrame:CGRectMake(0, 0, sw, sw)];
-    self.videoView.playerViewController.showsPlaybackControls = YES;
-    self.videoView.center = CGPointMake(sw/2, sh/2);
-    [self.recordLayer addSubview:self.videoView];
-    
-    self.btnBack2 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel2:) :UIColorFromRGB(0xff0000) :self.recordLayer];
-    self.btnComplete2 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete2:) :UIColorFromRGB(0x3cb043) :self.recordLayer];
     
     if(_hasVideo && !_hasPicture) {
         self.startVideo = YES;
@@ -491,7 +542,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     NSError* error = nil;
     
     [self.session beginConfiguration];
-    
+
     /*
      We do not create an AVCaptureMovieFileOutput when setting up the session because
      Live Photo is not supported when AVCaptureMovieFileOutput is added to the session.
@@ -516,6 +567,21 @@ typedef NS_ENUM(NSInteger, UIMode) {
         }
     }
     
+    if ([videoDevice lockForConfiguration:&error]) {
+        videoDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+        videoDevice.videoZoomFactor = 1.0f;
+        videoDevice.automaticallyAdjustsVideoHDREnabled = NO;
+        videoDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+        [videoDevice setSmoothAutoFocusEnabled:YES];
+        [videoDevice setVideoHDREnabled:YES];
+        [videoDevice unlockForConfiguration];
+        
+        //실시간 이미지 버퍼 파싱을 위한
+//        AVCaptureVideoDataOutput* a = [[AVCaptureVideoDataOutput alloc] init];
+//        [a setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
+//        [self.session addOutput:a];
+    }
+    
     AVCaptureDeviceInput* videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
     if (!videoDeviceInput) {
         NSLog(@"Could not create video device input: %@", error);
@@ -523,6 +589,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
         [self.session commitConfiguration];
         return;
     }
+    
     if ([self.session canAddInput:videoDeviceInput]) {
         [self.session addInput:videoDeviceInput];
         self.videoDeviceInput = videoDeviceInput;
@@ -617,7 +684,6 @@ typedef NS_ENUM(NSInteger, UIMode) {
     return UIInterfaceOrientationMaskPortrait;
 }
 
-
 - (void) onClickRecordStartOrStop:(id)sender
 {
     /*
@@ -663,22 +729,21 @@ typedef NS_ENUM(NSInteger, UIMode) {
             [self.movieFileOutput startRecordingToOutputFileURL:outputURL recordingDelegate:self];
         }
         else {
-            
             [self.movieFileOutput stopRecording];
         }
     });
 }
 
-- (void) captureOutput:(AVCaptureFileOutput*)captureOutput
-didStartRecordingToOutputFileAtURL:(NSURL*)fileURL
-       fromConnections:(NSArray*)connections
-{
+- (void) captureOutput:(AVCaptureFileOutput*)captureOutput didStartRecordingToOutputFileAtURL:(NSURL*)fileURL fromConnections:(NSArray*)connections {
     // Enable the Record button to let the user stop recording.
     dispatch_async(dispatch_get_main_queue(), ^{
         [self uiRecording];
     });
 }
 
+- (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection{
+    connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeStandard;
+}
 
 - (void) captureOutput:(AVCaptureFileOutput*)captureOutput
 didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
@@ -1015,13 +1080,26 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
                 self.inProgressPhotoCaptureDelegates[@(photoCaptureDelegate.requestedPhotoSettings.uniqueID)] = nil;
             });
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self uiTaken];
-                UIImage* photo = [UIImage imageWithData: photoCaptureDelegate.photoData];
-                if(_front)
-                    photo = [UIImage imageWithCGImage:photo.CGImage scale:photo.scale orientation:UIImageOrientationLeftMirrored];
-                [self.cropView setImage:photo];
-                
-                self.pictureTakening = false;
+                if(self.original) {
+                    UIImage* photo = [UIImage imageWithData: photoCaptureDelegate.photoData];
+                    NSData *imageData = UIImageJPEGRepresentation(photo, 1.0f);
+                    [imageData writeToFile:self.targetImagePath atomically:YES];
+                    [self.navigationController popViewControllerAnimated:YES];
+                    if(self.delegate) {
+                        id a = [@{
+                            @"image": self.targetImagePath
+                        } mutableCopy];
+                        [self.delegate completeCapture:self result:a];
+                    }
+                } else {
+                    [self uiTaken];
+                    UIImage* photo = [UIImage imageWithData: photoCaptureDelegate.photoData];
+                    if(_front)
+                        photo = [UIImage imageWithCGImage:photo.CGImage scale:photo.scale orientation:UIImageOrientationLeftMirrored];
+                    [self.cropView setImage:photo];
+                    
+                    self.pictureTakening = false;
+                }
             });
         } photoProcessingHandler:^(BOOL animate) {
             // Animates a spinner while photo is processing

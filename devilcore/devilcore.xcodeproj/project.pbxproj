@@ -149,6 +149,10 @@
 		6D530D11274B7D6F006EDD58 /* devil_camera_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */; };
 		6D530D13274B7D6F006EDD58 /* devil_checkbox_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */; };
 		6D530D14274B7D6F006EDD58 /* devil_checkbox@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */; };
+		6D54EE322C92DF1300B0A718 /* DevilGyroscope.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D54EE302C92DF1300B0A718 /* DevilGyroscope.h */; };
+		6D54EE332C92DF1300B0A718 /* DevilGyroscope.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D54EE312C92DF1300B0A718 /* DevilGyroscope.m */; };
+		6D54EE372C93006200B0A718 /* ZipUtil.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D54EE352C93006200B0A718 /* ZipUtil.h */; };
+		6D54EE382C93006200B0A718 /* ZipUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D54EE362C93006200B0A718 /* ZipUtil.m */; };
 		6D5C4AB32ADFCB3500DD1978 /* devil_map_bubble@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */; };
 		6D5C4AB62ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */; };
 		6D5C4AB72ADFD62800DD1978 /* devil_map_bubble_body@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */; };
@@ -463,6 +467,10 @@
 		6D530D0D274B7D6F006EDD58 /* devil_camera_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_icon@3x.png"; sourceTree = "<group>"; };
 		6D530D0F274B7D6F006EDD58 /* devil_checkbox_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox_on@3x.png"; sourceTree = "<group>"; };
 		6D530D10274B7D6F006EDD58 /* devil_checkbox@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_checkbox@3x.png"; sourceTree = "<group>"; };
+		6D54EE302C92DF1300B0A718 /* DevilGyroscope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGyroscope.h; sourceTree = "<group>"; };
+		6D54EE312C92DF1300B0A718 /* DevilGyroscope.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGyroscope.m; sourceTree = "<group>"; };
+		6D54EE352C93006200B0A718 /* ZipUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZipUtil.h; sourceTree = "<group>"; };
+		6D54EE362C93006200B0A718 /* ZipUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZipUtil.m; sourceTree = "<group>"; };
 		6D5C4AB22ADFCB3500DD1978 /* devil_map_bubble@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble@3x.png"; sourceTree = "<group>"; };
 		6D5C4AB42ADFD62800DD1978 /* devil_map_bubble_arrow@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble_arrow@3x.png"; sourceTree = "<group>"; };
 		6D5C4AB52ADFD62800DD1978 /* devil_map_bubble_body@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_map_bubble_body@3x.png"; sourceTree = "<group>"; };
@@ -787,6 +795,8 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6D54EE342C93005600B0A718 /* util */,
+				6D54EE2F2C92DEEC00B0A718 /* gyroscope */,
 				6DE10D402AFB24CF00E90394 /* review */,
 				6DE55C992AAEBD55004B7612 /* pdf */,
 				6D9A864528AA7B4C001002D8 /* filechooser */,
@@ -1012,6 +1022,24 @@
 				6D9259C12BCE58040023EB79 /* DevilDownloader.m */,
 			);
 			path = multipart;
+			sourceTree = "<group>";
+		};
+		6D54EE2F2C92DEEC00B0A718 /* gyroscope */ = {
+			isa = PBXGroup;
+			children = (
+				6D54EE302C92DF1300B0A718 /* DevilGyroscope.h */,
+				6D54EE312C92DF1300B0A718 /* DevilGyroscope.m */,
+			);
+			path = gyroscope;
+			sourceTree = "<group>";
+		};
+		6D54EE342C93005600B0A718 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				6D54EE352C93006200B0A718 /* ZipUtil.h */,
+				6D54EE362C93006200B0A718 /* ZipUtil.m */,
+			);
+			path = util;
 			sourceTree = "<group>";
 		};
 		6D7E267625A89ABA00600978 /* view */ = {
@@ -1427,6 +1455,7 @@
 				6D4679E8256AA5EA006D57DD /* devilcore.h in Headers */,
 				6D467B86257CD9F3006D57DD /* WildCardUIButton.h in Headers */,
 				6D05924D2BD64ABE0050CF94 /* ReplaceRuleLottie.h in Headers */,
+				6D54EE372C93006200B0A718 /* ZipUtil.h in Headers */,
 				6D44336F25881C3800B0E616 /* Jevil.h in Headers */,
 				6D9A864828AA7B6C001002D8 /* DevilFileChooser.h in Headers */,
 				6D3EBD4925D4001A0006ADD5 /* DevilJsonViewer.h in Headers */,
@@ -1440,6 +1469,7 @@
 				6DF5779026D00C1D009D41A1 /* DevilQrCameraController.h in Headers */,
 				6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */,
 				6D9F7ACC26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h in Headers */,
+				6D54EE322C92DF1300B0A718 /* DevilGyroscope.h in Headers */,
 				6D9E2B0D25BB3FC00027D16D /* WildCardPagerTabStrip.h in Headers */,
 				6D9F7B132629658F003A70EC /* PECropViewController.h in Headers */,
 				6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */,
@@ -1625,6 +1655,7 @@
 				6D467AC7256AB07A006D57DD /* WildCardFunction.m in Sources */,
 				6DEC183728484A0300B3FE88 /* DevilBle.m in Sources */,
 				6DD0943E269C7A1A000A913A /* DevilChat.m in Sources */,
+				6D54EE332C92DF1300B0A718 /* DevilGyroscope.m in Sources */,
 				6D467ABD256AB07A006D57DD /* WildCardApplyAgainAction.m in Sources */,
 				6D9A9DEB28A37320003302B3 /* DevilImageMap.m in Sources */,
 				6D467B87257CD9F3006D57DD /* WildCardUIButton.m in Sources */,
@@ -1690,6 +1721,7 @@
 				6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */,
 				6D7E267A25A89AD400600978 /* DevilSelectDialog.m in Sources */,
 				6D467AB2256AB07A006D57DD /* WildCardUILabel.m in Sources */,
+				6D54EE382C93006200B0A718 /* ZipUtil.m in Sources */,
 				6D4679E9256AA5EA006D57DD /* DevilSdk.m in Sources */,
 				6DD0944D269C85A8000A913A /* MarketInstance.m in Sources */,
 				6D467B94257CF51A006D57DD /* WildCardDrawerView.m in Sources */,
