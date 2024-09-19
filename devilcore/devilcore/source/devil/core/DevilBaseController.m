@@ -169,6 +169,7 @@
     }
 }
 
+
 - (void)keyboardDidShow:(NSNotification*)noti {
     self.keyboardOn = true;
     NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
@@ -217,30 +218,12 @@
     }
 }
 
-- (BOOL)hasEditText:(UIView*)view {
-    if([view isKindOfClass:[UITextField class]] || [view isKindOfClass:[UITextView class]])
-        return YES;
-        
-    for(UIView* v in [view subviews]) {
-        BOOL r = [self hasEditText:v];
-        if(r)
-            return r;
-    }
-    
-    return NO;
-}
-
 - (void)textEditing:(NSNotification*)noti
 {
     if(self.footer)
         self.should_up_footer = self.footer;
     else if(self.inside_footer)
         self.should_up_footer = self.inside_footer;
-    
-    if([self hasEditText:self.should_up_footer])
-        ;
-    else
-        self.should_up_footer = nil;
     
     UIView* tf = (UIView*)noti.object;
     editingNumberKey = NO;

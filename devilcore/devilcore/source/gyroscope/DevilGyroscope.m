@@ -169,7 +169,8 @@
         
         int len = (int)self.cachedList.count;
         NSUInteger bufferSize = len * (sizeof(double) + sizeof(float) * 3);
-        NSMutableData *byteBuffer = [NSMutableData dataWithLength:bufferSize];
+        NSMutableData *byteBuffer = [NSMutableData dataWithLength:0];
+        
         __block NSMutableDictionary *res = [NSMutableDictionary dictionary];
         for (int i=0;i<len;i++) {
             DevilGyroscopeValue *m = [self.cachedList objectAtIndex:i];

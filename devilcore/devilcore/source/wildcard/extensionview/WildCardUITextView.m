@@ -118,12 +118,12 @@
     tf.minHeight = [WildCardConstructor getFrame:layer:nil].size.height;
     tf.variableHeight = [extension[@"select10"] isEqualToString:@"Y"];
     
-    NSString *placeHolderTextColor = @"#777777";
+    NSString *placeHolderTextColor = @"#aaaaaa";
     if(extension[@"select9"] != nil)
         placeHolderTextColor = extension[@"select9"];
     
     if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"13.0"))
-        ;
+        [tf setValue:[WildCardUtil colorWithHexString:placeHolderTextColor] forKeyPath:@"_placeholderLabel.textColor"];
     else
         [tf setValue:[WildCardUtil colorWithHexString:placeHolderTextColor] forKeyPath:@"_placeholderLabel.textColor"];
     
