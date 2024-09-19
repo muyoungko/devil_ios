@@ -42,7 +42,7 @@
             text = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:text];
         tf.placeholder = text;
         
-        NSString *placeHolderTextColor = @"#777777";
+        NSString *placeHolderTextColor = @"#aaaaaa";
         if(extension[@"select9"] != nil)
             placeHolderTextColor = extension[@"select9"];
         
@@ -197,7 +197,7 @@
         b.hidden = NO;
         if([textField text].length > 0)
         {
-            b.hidden = NO;
+            b.hidden = NO; 
         }
         else
             b.hidden = YES;

@@ -111,7 +111,7 @@
     float w = [cloudJson[@"frame"][@"w"] floatValue];
     if(w == -2)
     {
-        w = 0; 
+        w = 0;
         //TODO 가변 텍스트에 의한 가변 높이는 성능상 이슈로 아직 구현 못함
         if(cloudJson[@"arrayContent"] != nil && [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_RIGHT])
         {
@@ -165,17 +165,32 @@
             for(int i=0;i<[arr count];i++)
             {
                 BOOL hidden = false;
-                if(arr[i][@"hiddenCondition"] != nil)
-                    hidden = [MappingSyntaxInterpreter ifexpression:arr[i][@"hiddenCondition"] data:data];
+                id child = arr[i];
+                if(child[@"hiddenCondition"] != nil)
+                    hidden = [MappingSyntaxInterpreter ifexpression:child[@"hiddenCondition"] data:data];
+                if(child[@"showCondition"] != nil)
+                    hidden = ![MappingSyntaxInterpreter ifexpression:child[@"showCondition"] data:data];
                 
                 if(!hidden)
                 {
-                    NSString* name = arr[i][@"name"];
-                    if(arr[i][@"textContent"] != nil)
+                    id frame = child[@"frame"];
+                    bool isRightOrCenter = NO;
+                    if(frame[@"alignment"]) {
+                        int alignment = [frame[@"alignment"] intValue];
+                        isRightOrCenter = [WildCardUtil isHCenterOrHRight:alignment];
+                    }
+                    
+                    id margin = child[@"margin"];
+                    float marginRight = 0;
+                    if(margin && margin[@"marginRight"])
+                        marginRight = [WildCardConstructor convertSketchToPixel:[margin[@"marginRight"] floatValue]];
+                    
+                    NSString* name = child[@"name"];
+                    if(child[@"textContent"] != nil)
                     {
-                        NSString* text = [MappingSyntaxInterpreter interpret:arr[i][@"textContent"] : data];
+                        NSString* text = [MappingSyntaxInterpreter interpret:child[@"textContent"] : data];
                         text = trans(text);
-                        NSDictionary* textSpec = [arr[i] objectForKey:@"textSpec"];
+                        NSDictionary* textSpec = [child objectForKey:@"textSpec"];
                         float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
                         
                         UIFont* font = nil;
@@ -187,25 +202,30 @@
                         NSDictionary *attributes = @{NSFontAttributeName: font};
                         
                         CGRect size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-                        w = size.size.width + [self getPaddingLeftRightConverted:arr[i]];
+                        w = size.size.width + [self getPaddingLeftRightConverted:child] + marginRight;
                         
-                        
-                        float thisx = [WildCardConstructor convertSketchToPixel:[arr[i][@"frame"][@"x"] floatValue]];
+                        float thisx = [WildCardConstructor convertSketchToPixel:[child[@"frame"][@"x"] floatValue]];
                         //현재 노드가 hNextTo를 가진다면 thisx는 0이 나와야한다. next검사에서 조정된 x에 따라 w를 넓혀야하므로
-                        if(arr[i][@"hNextTo"])
+                        if(child[@"hNextTo"])
                             thisx = 0;
+                        if(isRightOrCenter)
+                            thisx = 0;
+                        
                         rects[name] = [NSValue valueWithCGRect:CGRectMake(thisx,0,w,0)];
                     }
                     else
                     {
-                        float thisx = [WildCardConstructor convertSketchToPixel:[arr[i][@"frame"][@"x"] floatValue]];
-                        float thisw = [self measureWidth:arr[i] data:data];
+                        float thisx = [WildCardConstructor convertSketchToPixel:[child[@"frame"][@"x"] floatValue]];
+                        float thisw = [self measureWidth:child data:data];
                         //현재 노드가 hNextTo를 가진다면 thisx는 0이 나와야한다. next검사에서 조정된 x에 따라 w를 넓혀야하므로
-                        if(arr[i][@"hNextTo"])
+                        if(child[@"hNextTo"])
                             thisx = 0;
+                        if(isRightOrCenter)
+                            thisx = 0;
+                        
                         rects[name] = [NSValue valueWithCGRect:CGRectMake(thisx, 0, thisw, 0)];
                         if(thisx + thisw > w)
-                            w = thisx + thisw;
+                            w = thisx + thisw  + marginRight;
                     }
                 }
             }
@@ -213,10 +233,11 @@
             //hNextTo로 인해 w가 늘어나는 경우를 탐지한다.
             //TODO : 줄어드는 경우는 탐지 못한다. hNextTo가 줄줄이 이어지는 경우도 탐지 못한다.
             for(int i=0;i<[arr count];i++) {
-                NSString* hNextTo = arr[i][@"hNextTo"];
+                id child = arr[i];
+                NSString* hNextTo = child[@"hNextTo"];
                 if(hNextTo){
-                    NSString* name = arr[i][@"name"];
-                    float hNextToMargin = [arr[i][@"hNextToMargin"] floatValue];
+                    NSString* name = child[@"name"];
+                    float hNextToMargin = [child[@"hNextToMargin"] floatValue];
                     float thisx = 0;
                     if(rects[hNextTo])
                         thisx = [rects[hNextTo] CGRectValue].origin.x + [rects[hNextTo] CGRectValue].size.width;

@@ -121,7 +121,7 @@ static BOOL IS_TABLET = NO;
             blue  = [self colorComponentFrom: colorString start: 6 length: 2];
             break;
         default:
-//            [NSException raise:@"Invalid color value" format: @"Color value %@ is invalid.  It should be a hex value of the form #RBG, #ARGB, #RRGGBB, or #AARRGGBB", hexString];
+            //            [NSException raise:@"Invalid color value" format: @"Color value %@ is invalid.  It should be a hex value of the form #RBG, #ARGB, #RRGGBB, or #AARRGGBB", hexString];
             break;
     }
     return [UIColor colorWithRed: red green: green blue: blue alpha: alpha];
@@ -229,7 +229,7 @@ static BOOL IS_TABLET = NO;
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     float screenWidth = SCREEN_WIDTH;
     float screenHeight = SCREEN_HEIGHT;
-
+    
     float sketch_height_of_screen = screenHeight * SKETCH_WIDTH / screenWidth;
     [WildCardUtil fitToScreenRecur:layer offsety:0 height:sketch_height_of_screen - sketch_height_more];
 }
@@ -251,12 +251,12 @@ static BOOL IS_TABLET = NO;
     
     float y = [frame[@"y"] floatValue];
     float h = [frame[@"h"] floatValue];
-
+    
     if(offsety + y + h > height) {
         h -= (offsety + y + h) - height;
         frame[@"h"] = [NSNumber numberWithFloat:h];
     }
-
+    
     id layers = layer[@"layers"];
     if(layers != nil && layer[@"arrayContent"] == nil){
         for(int i=0;i<[layers count];i++){
@@ -477,7 +477,7 @@ static BOOL IS_TABLET = NO;
                 thish = [WildCardUtil measureHeight:child data:data];
                 //NSLog(@"child height - %@ %d", child[@"name"], thish);
             }
-
+            
             layersByName[name] = arr[i];
             if(child[@"hiddenCondition"] != nil)
                 hidden = [MappingSyntaxInterpreter ifexpression:child[@"hiddenCondition"] data:data defaultValue:YES];
@@ -526,7 +526,7 @@ static BOOL IS_TABLET = NO;
              혹은 hidden 처리되었더라도 그 노드의 next체인이 hidden이 아니라면, 이 노드의 y좌표는 높이에 반영되어야한다.
              따라서 어떤 노드부터 y좌표에 반영되어야하는지 먼저 확보해야한다
              TODO : MeasureWidth도 같은 방식으로 처리해야함
-             */ 
+             */
             NSString* cursorNodeName = name;
             id nextChainList = [@[name] mutableCopy];
             while(nextLayers[cursorNodeName]){
@@ -541,7 +541,7 @@ static BOOL IS_TABLET = NO;
              */
             BOOL thisHidden = hiddenByChildName[name] != nil;
             if(thisy + thish > h){
-//                NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
+                //                NSLog(@"%@ expended by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], name, (int)thisy , (int)thish, thisHidden);
                 h = thisy + thish;
             }
             
@@ -594,7 +594,7 @@ static BOOL IS_TABLET = NO;
                     //NSLog(@"%@ expended! by %@ y:%d h:%d hidden:%d", cloudJson[@"name"], nextName, (int)nexty , (int)nexth, nextHidden);
                     h = nexty + nexth;
                 }
-                    
+                
                 thisy = nexty;
                 thish = nexth;
                 name = nextName;
@@ -606,9 +606,9 @@ static BOOL IS_TABLET = NO;
     float padding = [WildCardUtil getPaddingTopBottomConverted:cloudJson];
     float margin = [WildCardUtil getMarginTopBottomConverted:cloudJson];
     
-//    if(padding > 0)
-//        NSLog(@"%@ expended! by padding %d", cloudJson[@"name"], (int)padding);
-
+    //    if(padding > 0)
+    //        NSLog(@"%@ expended! by padding %d", cloudJson[@"name"], (int)padding);
+    
     return h + padding + margin;
 }
 
@@ -670,4 +670,73 @@ static BOOL IS_TABLET = NO;
     }
 }
 
++ (float)getPaddingLeftRightConverted:(id)layer{
+    float paddingLeft = 0 , paddingRight = 0;
+    if([layer objectForKey:@"padding"] != nil) {
+        NSDictionary* padding = [layer objectForKey:@"padding"];
+        if([padding objectForKey:@"paddingLeft"] != nil) {
+            paddingLeft = [[padding objectForKey:@"paddingLeft"] floatValue];
+            paddingLeft = [WildCardConstructor convertSketchToPixel:paddingLeft];
+        }
+        
+        if([padding objectForKey:@"paddingRight"] != nil) {
+            paddingRight = [[padding objectForKey:@"paddingRight"] floatValue];
+            paddingRight = [WildCardConstructor convertSketchToPixel:paddingRight];
+        }
+    }
+    return paddingLeft + paddingRight;
+}
+
++ (float)getRightMarginConverted:(id)layer{
+    float marginRight = 0;
+    if([layer objectForKey:@"margin"] != nil) {
+        NSDictionary* margin = [layer objectForKey:@"margin"];
+        if([margin objectForKey:@"marginRight"] != nil) {
+            marginRight = [[margin objectForKey:@"marginRight"] floatValue];
+            marginRight = [WildCardConstructor convertSketchToPixel:marginRight];
+        }
+    }
+    return marginRight;
+}
+
++ (float)getBottomMarginConverted:(id)layer{
+    float marginBottom = 0;
+    if([layer objectForKey:@"margin"] != nil) {
+        NSDictionary* margin = [layer objectForKey:@"margin"];
+        if([margin objectForKey:@"marginBottom"] != nil) {
+            marginBottom = [[margin objectForKey:@"marginBottom"] floatValue];
+            marginBottom = [WildCardConstructor convertSketchToPixel:marginBottom];
+        }
+    }
+    return marginBottom;
+}
+
++(BOOL) isVCenterOrVBottom:(int)alignment {
+    switch(alignment) {
+        case GRAVITY_BOTTOM:
+        case GRAVITY_LEFT_BOTTOM:
+        case GRAVITY_HCENTER_BOTTOM:
+        case GRAVITY_RIGHT_BOTTOM:
+        case GRAVITY_VERTICAL_CENTER:
+        case GRAVITY_LEFT_VCENTER:
+        case GRAVITY_RIGHT_VCENTER:
+        case GRAVITY_CENTER:
+            return true;
+    }
+    return false;
+}
+
++(BOOL) isHCenterOrHRight:(int)alignment {
+    switch(alignment) {
+        case GRAVITY_RIGHT:
+        case GRAVITY_RIGHT_TOP:
+        case GRAVITY_RIGHT_BOTTOM:
+        case GRAVITY_HCENTER_TOP:
+        case GRAVITY_HCENTER_BOTTOM:
+        case GRAVITY_CENTER:
+        case GRAVITY_HORIZONTAL_CENTER:
+            return true;
+    }
+    return false;
+}
 @end

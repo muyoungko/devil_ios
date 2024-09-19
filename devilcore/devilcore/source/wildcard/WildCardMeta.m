@@ -262,46 +262,40 @@
     view.frame = CGRectMake(newX, newY, view.frame.size.width, view.frame.size.height);
 }
 
--(BOOL) isVCenterOrVBottom:(WildCardUIView*)view {
-    switch(view.alignment) {
-        case GRAVITY_BOTTOM:
-        case GRAVITY_LEFT_BOTTOM:
-        case GRAVITY_HCENTER_BOTTOM:
-        case GRAVITY_RIGHT_BOTTOM:
-        case GRAVITY_VERTICAL_CENTER:
-        case GRAVITY_LEFT_VCENTER:
-        case GRAVITY_RIGHT_VCENTER:
-        case GRAVITY_CENTER:
-            return true;
-    }
-    return false;
-}
+
 
 -(void) wrapContent:(WildCardUIView*)parent
 {
     NSArray* childs = [parent subviews];
     float maxW = 0;
     float maxH = 0;
+    
     for(int i=0;i<[childs count];i++)
     { 
         UIView *child = [childs objectAtIndex:i];
-        //TODO check childs aligment is horizontally ignored
         if(child.hidden)
             continue;
         
+        BOOL hCenterOrRight = NO;
+        BOOL vCenterOrBottom = NO;
+        float rightMargin = 0, bottomMargin = 0;
         if([child isKindOfClass:[WildCardUIView class]]) {
+            
             WildCardUIView* vchild = (WildCardUIView*)child;
-            if([self isVCenterOrVBottom:vchild])
-                continue;
+            hCenterOrRight = [WildCardUtil isHCenterOrHRight:vchild.alignment];
+            vCenterOrBottom = [WildCardUtil isVCenterOrVBottom:vchild.alignment];
+            rightMargin = vchild.rightMargin;
+            bottomMargin = vchild.bottomMargin;
         }
         
-        float childW = child.frame.origin.x + child.frame.size.width;
-        float childH = child.frame.origin.y + child.frame.size.height;
-        if(maxW < childW)
+        float childW = child.frame.origin.x + child.frame.size.width + rightMargin;
+        float childH = child.frame.origin.y + child.frame.size.height + bottomMargin;
+        if(!hCenterOrRight && maxW < childW)
             maxW = childW;
-        if(maxH < childH)
+        if(!vCenterOrBottom && maxH < childH)
             maxH = childH;
     }
+    
     maxW += parent.paddingRight;
     maxH += parent.paddingBottom;
     
@@ -515,7 +509,7 @@
     if(type == WC_LAYOUT_TYPE_WRAP_CONTENT)
         return 4;
     if(type == WC_LAYOUT_TYPE_GRAVITY) //_layoutPath 에서 gravity만 최 후순위로 뽑는다
-        return -1000;
+        return -100000;
     if(type == WC_LAYOUT_TYPE_MATCH_PARENT)
         return 2;
     if(type == WC_LAYOUT_TYPE_NEXT_VIEW)

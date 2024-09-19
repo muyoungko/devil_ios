@@ -48,4 +48,9 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(BOOL)isTablet;
 +(float)cachedImagePixcelHeight:(NSString*)url height:(float)height;
 +(CGRect)getTextSize:(NSString*)text font:(UIFont*)font maxWidth:(CGFloat)width maxHeight:(CGFloat)height;
++(float)getPaddingLeftRightConverted:(id)layer;
++(float)getRightMarginConverted:(id)layer;
++(float)getBottomMarginConverted:(id)layer;
++(BOOL)isVCenterOrVBottom:(int)alignment;
++(BOOL)isHCenterOrHRight:(int)alignment;
 @end
