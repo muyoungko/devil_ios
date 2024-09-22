@@ -777,7 +777,7 @@
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 277;
+				CURRENT_PROJECT_VERSION = 278;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -798,7 +798,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.277;
+				MARKETING_VERSION = 0.0.278;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -824,7 +824,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 277;
+				CURRENT_PROJECT_VERSION = 278;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -844,7 +844,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.277;
+				MARKETING_VERSION = 0.0.278;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

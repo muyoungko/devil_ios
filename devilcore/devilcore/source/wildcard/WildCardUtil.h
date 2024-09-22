@@ -53,4 +53,5 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(float)getBottomMarginConverted:(id)layer;
 +(BOOL)isVCenterOrVBottom:(int)alignment;
 +(BOOL)isHCenterOrHRight:(int)alignment;
++(NSString*)deviceModel;
 @end

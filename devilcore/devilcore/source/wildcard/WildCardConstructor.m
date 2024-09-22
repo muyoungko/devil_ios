@@ -182,7 +182,7 @@ static NSString *default_project_id = nil;
     [[NSUserDefaults standardUserDefaults] setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:
      [NSString stringWithFormat:@"UDID_%@", project_id]
      ];
-    [[NSUserDefaults standardUserDefaults] setObject:@"iphone" forKey:
+    [[NSUserDefaults standardUserDefaults] setObject:[WildCardUtil deviceModel] forKey:
      [NSString stringWithFormat:@"MODEL_%@", project_id]];
     [[NSUserDefaults standardUserDefaults] setObject:@"iOS" forKey:
      [NSString stringWithFormat:@"OS_%@", project_id]];

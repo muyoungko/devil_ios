@@ -12,6 +12,7 @@
 #import "WildCardConstructor.h"
 #import "ReplaceRuleRepeat.h"
 #import "Jevil.h"
+#import <sys/utsname.h>
 
 static float SKETCH_WIDTH = 360;
 static float SCREEN_WIDTH = 0;
@@ -739,4 +740,13 @@ static BOOL IS_TABLET = NO;
     }
     return false;
 }
+
++(NSString*)deviceModel {
+    struct utsname systemInfo;
+   uname(&systemInfo);
+   NSString *model = [NSString stringWithCString:systemInfo.machine
+                                        encoding:NSUTF8StringEncoding];
+   return model;
+}
+
 @end

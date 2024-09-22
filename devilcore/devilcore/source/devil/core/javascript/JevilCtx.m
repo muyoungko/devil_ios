@@ -17,6 +17,7 @@
 #import "DevilSdk.h"
 #import "DevilLang.h"
 #import "DevilController.h"
+#import "WildCardUtil.h"
 
 @interface JevilCtx ()
 
@@ -73,6 +74,7 @@
         param[@"project_id"] = [Jevil get:@"PROJECT_ID"];
         param[@"screen"] = ((DevilController*)[JevilInstance currentInstance].vc).screenName;
         param[@"os_version"] = [[UIDevice currentDevice] systemVersion];
+        param[@"model"] = [WildCardUtil deviceModel];
         param[@"os"] = @"ios";
         [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:@"https://console-api.deavil.com/api/report/abnormal" header:@{} json:param success:^(NSMutableDictionary *responseJsonObject) {
             
