@@ -1106,10 +1106,28 @@
         [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:d];
 }
 
-+ (void)resetTimer:(NSString *)nodeName{
-    id meta = [JevilInstance currentInstance].meta;
-    WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
++ (void)resetTimer:(NSString *)nodeName {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = [vc findView:nodeName];
     [vv.tags[@"timer"] reset];
+}
+
++ (void)timerReset:(NSString *)nodeName {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = [vc findView:nodeName];
+    [vv.tags[@"timer"] reset];
+}
+
++ (void)timerPause:(NSString *)nodeName {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = [vc findView:nodeName];
+    [vv.tags[@"timer"] pause];
+}
+
++ (void)timerResume:(NSString *)nodeName {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = [vc findView:nodeName];
+    [vv.tags[@"timer"] resume];
 }
 
 + (void)setViewPagerSelectedIndex:(NSString *)nodeName :(int)index{

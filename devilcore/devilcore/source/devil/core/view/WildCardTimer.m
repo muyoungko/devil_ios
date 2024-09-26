@@ -23,6 +23,7 @@
 @property int sec;
 @property int originalSec;
 @property BOOL singleCol;
+@property BOOL paused;
 
 @end
 
@@ -35,12 +36,24 @@
     self.layer = layer;
     self.name = name;
     self.vv = vv;
+    self.paused = false;
     return self;
 }
 
 -(void)reset{
     self.sec = self.originalSec;
     [self tick];
+}
+
+-(void)pause{
+    self.paused = true;
+}
+
+-(void)resume{
+    if(self.paused) {
+        self.paused = false;
+        [self tick];
+    }
 }
 
 -(void)startTimeFromSec:(int)sec {
@@ -134,7 +147,8 @@
 -(void)tick {
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(tick) object:nil];
     //NSLog(@"self.sec %d", self.sec);
-    
+    if(self.paused)
+        return;
     [self showTime];
     self.sec --;
     if(self.sec < 0){

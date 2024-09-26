@@ -51,18 +51,12 @@
         [((DevilController*)top) onResume];
 }
 
-
 - (void)sceneWillResignActive:(UIScene *)scene {
-    // Called when the scene will move from an active state to an inactive state.
-    // This may occur due to temporary interruptions (ex. an incoming phone call).
-    
     AppDelegate* application = [UIApplication sharedApplication].delegate;
-    if([application.navigationController.topViewController isKindOfClass:[DevilController class]]){
-        DevilController* vc = (DevilController*)application.navigationController.topViewController;
-        [vc onPause];
-    }
+    UIViewController* top = [application.navigationController topViewController];
+    if([top isKindOfClass:[DevilController class]])
+        [((DevilController*)top) onPause];
 }
-
 
 - (void)sceneWillEnterForeground:(UIScene *)scene {
     // Called as the scene transitions from the background to the foreground.

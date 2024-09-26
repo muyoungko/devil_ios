@@ -140,7 +140,7 @@
         if(a > _last_duration)
             a = _last_duration;
         _dragging_sec = a;
-        [self setTimeCore:a : _last_duration];
+        [self setTimeCore:a : _last_duration:true];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         _dragging = false;
         [self.delegate onSeek:_dragging_sec];
@@ -204,21 +204,26 @@
     
     _is_full_screen = !_is_full_screen;
     
-    [self setTime:_last_current : _last_duration];
+    [self setTimeCore:0 : _last_duration: false];
+    [self performSelector:@selector(updateTime) withObject:nil afterDelay:0.5f];
+}
+
+-(void)updateTime {
+    [self setTimeCore:_last_current : _last_duration:false];
 }
 
 -(void)finished {
-    [self setTime:_last_duration :_last_duration];
+    [self setTimeCore:_last_duration :_last_duration:false];
 }
 
 -(void)setTime:(int)current :(int)duration {
     _last_current = current;
     _last_duration = duration;
     if(!_dragging)
-        [self setTimeCore:current :duration];
+        [self setTimeCore:current :duration: true];
 }
 
--(void)setTimeCore:(int)current :(int)duration {
+-(void)setTimeCore:(int)current :(int)duration :(BOOL)animation{
     {
         int sec = current;
         NSString* t = @"";
@@ -239,12 +244,17 @@
         _time_text_max.text = t;
     }
     
+    float width = 0;
     if(duration > 0) {
         float rate = (float)current / duration;
-        float w = rate * _bar_bg.frame.size.width;
-        _bar.frame = CGRectMake(0, 0, w, _bar.frame.size.height);
+        width = rate * _bar_bg.frame.size.width;
+    }
+    if(animation) {
+        [UIView animateWithDuration:0.5f animations:^{
+            _bar.frame = CGRectMake(0, 0, width, _bar.frame.size.height);
+        }];
     } else {
-        _bar.frame = CGRectMake(0, 0, 0, _bar.frame.size.height);
+        _bar.frame = CGRectMake(0, 0, width, _bar.frame.size.height);
     }
 }
 

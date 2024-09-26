@@ -64,6 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)popupDate:(NSDictionary*)param :(JSValue *)callback;
 + (void)popupTime:(NSDictionary*)param :(JSValue *)callback;
 + (void)resetTimer:(NSString *)nodeName;
++ (void)timerReset:(NSString *)nodeName;
++ (void)timerPause:(NSString *)nodeName;
++ (void)timerResume:(NSString *)nodeName;
 + (void)setViewPagerSelectedIndex:(NSString *)nodeName :(int)index;
 + (int)getViewPagerSelectedIndex:(NSString *)nodeName;
 + (void)viewPagerSelectedCallback:(NSString*)nodeName :(JSValue*)callback;

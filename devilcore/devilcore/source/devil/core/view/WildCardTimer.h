@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)reset;
 -(void)startTimeFrom:(NSString*)mm_ss;
 -(void)startTimeFromSec:(int)sec;
+-(void)pause;
+-(void)resume;
 
 @end
 

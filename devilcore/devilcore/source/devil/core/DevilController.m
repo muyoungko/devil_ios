@@ -25,6 +25,8 @@
 @property (nonatomic, retain) DevilHeader* header;
 @property BOOL hasOnFinish;
 @property BOOL hasOnCreated;
+@property BOOL hasOnPause;
+@property BOOL hasOnResume;
 @property (nonatomic, retain) id thisMetas;
 @property BOOL noProjectIdChange;
 @end
@@ -100,7 +102,7 @@
 }
 
 -(void)updateHasFunction {
-    self.hasOnCreated = self.hasOnFinish = self.hasOnResume = false;
+    self.hasOnCreated = self.hasOnFinish = self.hasOnResume = self.hasOnPause = false;
     id screen = [[WildCardConstructor sharedInstance] getScreen:self.screenId];
     if(screen[@"javascript_on_create"]){
         NSString* code = screen[@"javascript_on_create"];
@@ -111,6 +113,8 @@
             self.hasOnResume = true;
         if([code rangeOfString:@"function onFinish"].length > 0)
             self.hasOnFinish = true;
+        if([code rangeOfString:@"function onPause"].length > 0)
+            self.hasOnPause = true;
         [WildCardConstructor sharedInstance].loadingDelegate = self;
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
@@ -404,8 +408,16 @@
 }
 
 -(void)onPause {
+    
     [[DevilRecord sharedInstance] cancel];
     [[DevilSound sharedInstance] stopIfNotMusic];
+    
+    for(NSString* key in [self.thisMetas allKeys])
+        [self.thisMetas[key] paused];
+    
+    if(self.hasOnPause && self.navigationController.topViewController == self){
+        [self.jevil code:@"onPause()" viewController:self data:self.data meta:nil];
+    }
 }
 
 - (void)startLoading{

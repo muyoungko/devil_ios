@@ -53,7 +53,6 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 -(void)debugView;
 @property (nonatomic, retain) NSMutableDictionary* viewPagerReservedSelectedIndexMap;
 @property (nonatomic, retain) NSMutableDictionary* viewPagerReservedSelectedCallbackMap;
-@property BOOL hasOnResume;
 
 @end
 
