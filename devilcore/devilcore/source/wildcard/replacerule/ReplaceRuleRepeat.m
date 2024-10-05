@@ -313,19 +313,14 @@
             minTop = 0;
     
         /**
-        CollectionView는 iPhone에 상단의 header나 x padding에 의해 contentInset이 자동으로 결정된다
-        하지만 아래처럼 세팅하면 이 자동 영역이 사라지고 무조건 xpadding 시작점 부터 리스트가 시작된다.
-        container.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+         CollectionView는 iPhone에 상단의 header나 x padding에 의해 contentInset이 자동으로 결정된다
+         하지만 아래처럼 세팅하면 이 자동 영역이 사라지고 무조건 xpadding 시작점 부터 리스트가 시작된다.
+         container.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         
          그럼 해더도 같이 무시되서 auto로 설정할수밖에 없는데, 여기서 문제가 되는게
          List가 No Header로 최상단부터 시작하면 안드로이드는 -48로 topmargin이 adjust되지만
          아이폰은 오히려 +48로 xpadding 만큼 자동으로 조정되어 서로 다르게 보이게 된다.
          그래서 List가 NoHeader이고 origin.y가 0인 경우 반대로 xpadding만큼 -top padding을 줘야한다.
-         
-         2021/10/22 markx 커리큘럼 참고
-         https://console.deavil.com/#/screen/37844913
-         
-                
          */
         float autoPaddingAdjust = 0;
         BOOL noHeader = [JevilInstance currentInstance].vc && [JevilInstance currentInstance].vc.navigationController.isNavigationBarHidden;
@@ -336,26 +331,17 @@
         
         CGRect vvGlobalFrame = [WildCardUtil getGlobalFrame:vv];
         if(noHeader && vvGlobalFrame.origin.y == 0 && [REPEAT_TYPE_VLIST isEqualToString:repeatType]) {
-            CGFloat topPadding = 0;
-            CGFloat bottomPadding = 0;
             if (@available(iOS 11.0, *)) {
                 UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
-                
-                /**
-                 2021/11/22
-                 https://console.deavil.com/#/block/56547552
-                 상위로 너무 붙어서 /2 를 붙였다
-                 로파이 소식 화면 보면 이걸 피하기위해 리스트를 약간 띄워놨는데(y값11)
-                 너무 붙거나 너무 떨어지거나 한다
-                 
-                 2021/11/28 사이드 이펙 나서 다시 없앰
-                 */
                 autoPaddingAdjust = -window.safeAreaInsets.top;
             }
         }
         
         if(enableReplaceRuleRepeatVListInset)
             container.contentInset = UIEdgeInsetsMake(minTop + autoPaddingAdjust, minLeft, 0, 0);
+        else
+            container.contentInset = UIEdgeInsetsMake(minTop, minLeft, 0, 0);
+        
         arrayContentContainer = self.createdContainer = container;
         
         vv.userInteractionEnabled = YES;
