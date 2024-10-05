@@ -841,12 +841,12 @@ static BOOL IS_TABLET = NO;
                 vv.layer.borderWidth = borderWidth;
             
             
-            if ([layer objectForKey:@"borderRound"] && [[layer objectForKey:@"borderRound"] boolValue]) {
+            if (layer[@"borderRound"] && [[layer objectForKey:@"borderRound"] boolValue]) {
                 
-                if ([layer objectForKey:@"borderRoundCorner"])
+                if (layer[@"borderRoundCorner"] && ![layer[@"borderRoundCorner"] isNull])
                 {
-                    float c = [WildCardConstructor convertSketchToPixel:[[layer objectForKey:@"borderRoundCorner"] intValue]];
-                    float h = [[[layer objectForKey:@"frame"] objectForKey:@"h"] floatValue];
+                    float c = [WildCardConstructor convertSketchToPixel:[layer[@"borderRoundCorner"] intValue]];
+                    float h = [layer[@"frame"][@"h"] floatValue];
                     //2019.12.25 vv.wrap_height 일 경우 원으로 만들어야할 경우가 있다고?? 일단 기억이 안나서 vv.wrap_height를 추가한다.
                     if(c < h/2 || vv.wrap_height)
                     {
