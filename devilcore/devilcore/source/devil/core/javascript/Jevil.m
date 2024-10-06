@@ -1012,6 +1012,8 @@
         [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
         [[JevilInstance currentInstance] syncData];
     }];
+    if(!d)
+        return [Jevil alert:[NSString stringWithFormat:@"Block Name does not exists[ %@]", blockName]];
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
         ((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog = d;

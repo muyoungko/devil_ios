@@ -70,6 +70,7 @@ float borderWidth = 7;
     
     self.pinLayer = [[DevilPinLayer alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
     self.pinLayer.backgroundColor = [UIColor clearColor];
+    self.pinLayer.minPinSizeScale = 10000;
     self.pinLayer.userInteractionEnabled = NO;
     
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, sw, sh)];
@@ -105,23 +106,20 @@ float borderWidth = 7;
     self.longClickTouching = self.longClickToMove = NO;
     self.longClickKeyList = [@[] mutableCopy];
     
-    
     self.mode = @"normal";
 }
 
 -(CGPoint) pinToScreenPoint:(id)pin {
-    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     float x = [pin[@"x"] floatValue];
     float y = [pin[@"y"] floatValue];
-    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:self];
     return pinPointInScreen;
 }
 
 -(CGPoint) mapToClickPoint:(CGPoint)p {
-    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     float x = p.x;
     float y = p.y;
-    CGPoint r = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    CGPoint r = [_contentView convertPoint:CGPointMake(x, y) toView:self];
     return r;
 }
 
@@ -131,10 +129,9 @@ float borderWidth = 7;
 
 
 -(BOOL) isNearPin:(id)pin tap:(CGPoint)tappedPoint {
-    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     float x = [pin[@"x"] floatValue];
     float y = [pin[@"y"] floatValue];
-    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:self];
     float w = 40;
     CGRect pinRect = CGRectMake(pinPointInScreen.x -w/2, pinPointInScreen.y-w/2, w, w);
     return CGRectContainsPoint(pinRect, tappedPoint);
@@ -155,8 +152,7 @@ float borderWidth = 7;
         y = fakeArrowTo.y;
     }
     
-    UIView* rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
-    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:rootView];
+    CGPoint pinPointInScreen = [_contentView convertPoint:CGPointMake(x, y) toView:self];
     float w = 40;
     CGRect pinRect = CGRectMake(pinPointInScreen.x -w/2, pinPointInScreen.y-w/2, w, w);
     return CGRectContainsPoint(pinRect, tappedPoint);
@@ -218,6 +214,8 @@ float borderWidth = 7;
 }
 
 -(void)onClickListener:(UIGestureRecognizer *)recognizer {
+    //pin의 x y는 풀스크린 기준으로 되어있다.
+    //그런데 이 view는 풀스크린이 아닐수도 있다. 해더가 있으면 해더 크기만큼 y가 내려온다.
     CGPoint tappedPoint = [recognizer locationInView:self];
     if([@"normal" isEqualToString:self.mode]) {
         for(id pin in self.pinList) {
@@ -406,11 +404,13 @@ float borderWidth = 7;
     //NSLog(@"touchesBegan %d", [touches count]);
     UITouch *touch = [[event allTouches] anyObject];
     CGPoint clickP = [touch locationInView:self];
+    
     self.touchStartTime = (double)[NSDate date].timeIntervalSince1970;
     if(self.pinFirst == PIN_FIRST_PIN) {
         if([self.mode isEqualToString:@"new"])
         {
             [self insertNewPin:clickP];
+            NSLog(@"Touch coordinates: y = %f piny= %f", clickP.y, [_insertingPin[@"y"] floatValue]);
             self.mode = @"new_direction";
             if(_editingPin) {
                 self.touchingPin = _editingPin;
@@ -685,8 +685,6 @@ float borderWidth = 7;
     
     if(param[@"minPinSizeScale"])
         self.pinLayer.minPinSizeScale = [param[@"minPinSizeScale"] floatValue];
-    else
-        self.pinLayer.minPinSizeScale = 10000;
     
     if([@"round" isEqualToString:param[@"arrowType"]])
         self.arrowType = ARROW_TYPE_ROUND;

@@ -166,6 +166,9 @@ const DevilBlockDialogLayout DevilBlockDialogLayout_Center = { DevilBlockDialogH
         cancelable = [param[@"cancelable"] boolValue];
     
     NSString* blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:blockName];
+    if(!blockId) {
+        return nil;
+    }
     id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
     
     //Why ?
