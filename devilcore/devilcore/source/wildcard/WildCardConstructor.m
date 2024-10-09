@@ -24,6 +24,7 @@
 #import "ReplaceRuleMarket.h"
 #import "ReplaceRuleQrcode.h"
 #import "ReplaceRuleAccessibility.h"
+#import "ReplaceRuleInput.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -948,7 +949,11 @@ static BOOL IS_TABLET = NO;
             [outRules addObject:rule];
         }
         
-        if([@"text" isEqualToString:_class])
+        if (layer[@"input"]) {
+            ReplaceRuleInput* rule = [[ReplaceRuleInput alloc] init];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            [outRules addObject:rule];
+        } else if([@"text" isEqualToString:_class])
         {
             WildCardUILabel* tv = [[WildCardUILabel alloc] init];
             //tv.isAccessibilityElement = YES;

@@ -879,7 +879,6 @@
     [[WildCardConstructor sharedInstance] firstBlockFitScreenIfTrue:self.screenId sketch_height_more:self.header_sketch_height + (self.inside_footer?0:self.footer_sketch_height)
                                                           landscape:self.landscape
     ];
-    [[JevilInstance currentInstance] syncData];
     [self construct];
     [self onResume];
 }

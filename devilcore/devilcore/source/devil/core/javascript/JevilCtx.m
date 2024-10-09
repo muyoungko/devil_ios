@@ -108,10 +108,6 @@
     JSValue* r = [self.jscontext evaluateScript:code];
     return [r toString];
     
-//    JSValue* dataJs = [self.jscontext evaluateScript:@"data"];
-//    id newData = [dataJs toDictionary];
-//    [JevilUtil sync:newData :data];
-    
 }
 
 -(JSValue*)createJsValue:(NSDictionary*)dic {

@@ -85,7 +85,6 @@
         DevilBlockDialog* d = [DevilBlockDialog popup:@"address-devil-template" data:[JevilInstance currentInstance].data title:nil yes:nil no:nil
                                                  show:@"bottom"
                                              onselect:^(BOOL yes, id res) {
-            [[JevilInstance currentInstance] syncData];
             if(yes) {
                 NSString* s = [NSString stringWithFormat:@"javascript:addressPopupCallback('%@', '%@', '%@', '%@', '%@', '%@', '%@')",
                                [JevilInstance currentInstance].data[@"address_name"],
@@ -109,7 +108,6 @@
         DevilBlockDialog* d = [DevilBlockDialog popup:@"address-select-devil-template" data:[JevilInstance currentInstance].data title:nil yes:nil no:nil
                                                  show:@"bottom"
                                              onselect:^(BOOL yes, id res) {
-            [[JevilInstance currentInstance] syncData];
             if(yes) {
                 NSString* s = [NSString stringWithFormat:@"javascript:addressSelectPopupCallback('%@')",
                                [JevilInstance currentInstance].data[@"selectedAddressId"]];

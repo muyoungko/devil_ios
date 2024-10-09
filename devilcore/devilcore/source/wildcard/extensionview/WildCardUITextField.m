@@ -29,6 +29,9 @@
 
 +(WildCardUITextField*)create:(id)layer meta:(WildCardMeta*)meta {
     NSDictionary* extension = [layer objectForKey:@"extension"];
+    if(extension == nil)
+        extension = [layer objectForKey:@"input"];
+    
     WildCardUITextField* tf = [[WildCardUITextField alloc] init];
     NSMutableDictionary* textSpec = [layer objectForKey:@"textSpec"];
     if(textSpec != nil)

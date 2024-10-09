@@ -293,7 +293,7 @@
     
     if(![DevilAlertDialog showConfirmTemplate:trans(msg) :yes :no :^(BOOL yes) {
         [callback callWithArguments:@[(yes?@YES:@NO)]];
-        [[JevilInstance currentInstance] syncData];
+        
     }]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
                                                                                  message:trans(msg)
@@ -303,7 +303,7 @@
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[@YES]];
-            [[JevilInstance currentInstance] syncData];
+            
             
         }]];
         
@@ -311,7 +311,7 @@
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[@NO]];
-            [[JevilInstance currentInstance] syncData];
+            
         }]];
         [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
     }
@@ -321,7 +321,7 @@
     
     if(![DevilAlertDialog showAlertTemplate:trans(msg) :^(BOOL yes) {
         [callback callWithArguments:@[]];
-        [[JevilInstance currentInstance] syncData];
+        
     }]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:trans(msg)
                                                                                  message:nil
@@ -331,7 +331,7 @@
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[]];
-            [[JevilInstance currentInstance] syncData];
+            
             
         }]];
         [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{}];
@@ -346,7 +346,7 @@
         yes = param[@"yes"];
     if(![DevilAlertDialog showAlertTemplate:trans(msg) :^(BOOL yes) {
         [callback callWithArguments:@[]];
-        [[JevilInstance currentInstance] syncData];
+        
     }]) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:trans(msg)
                                                                                  message:nil
@@ -356,7 +356,7 @@
                                                             style:UIAlertActionStyleCancel
                                                           handler:^(UIAlertAction *action) {
             [callback callWithArguments:@[]];
-            [[JevilInstance currentInstance] syncData];
+            
             
         }]];
         [[JevilInstance currentInstance].vc presentViewController:alertController animated:YES completion:^{
@@ -463,7 +463,7 @@
                 for(int i=0;i<len;i++)
                     [r[@"res"] addObject:result[i]];
                 [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[r]];
-                [[JevilInstance currentInstance] syncData];
+                
             }
         }];
     }
@@ -568,7 +568,7 @@
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[responseJsonObject]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
 }
 
@@ -618,7 +618,7 @@
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
         
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[responseJsonObject]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
 }
 
@@ -663,7 +663,7 @@
         else
             [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[]];
         
-        [[JevilInstance currentInstance] syncData];
+        
     }];
 }
 
@@ -704,7 +704,7 @@
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
 }
 
@@ -783,7 +783,7 @@
                 result[@"path"] = paths[i];
                 result[@"msg"] = @"File not found";
                 [callback callWithArguments:@[result]];
-                [[JevilInstance currentInstance] syncData];
+                
                 
                 //                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
             }
@@ -800,7 +800,7 @@
                     [vc closeActiveAlertMessage];
                 
                 [callback callWithArguments:@[result]];
-                [[JevilInstance currentInstance] syncData];
+                
                 return;
             }
             
@@ -843,7 +843,7 @@
                             [vc closeActiveAlertMessage];
                         
                         [callback callWithArguments:@[result]];
-                        [[JevilInstance currentInstance] syncData];
+                        
                     }
                 }];
             }
@@ -889,7 +889,7 @@
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject, @YES]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
 }
 
@@ -909,7 +909,7 @@
         if(!responseJsonObject)
             responseJsonObject = [@{} mutableCopy];
         [callback callWithArguments:@[responseJsonObject, @YES]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
 }
 
@@ -926,7 +926,7 @@
 
 + (void)update{
     
-    [[JevilInstance currentInstance] syncData];
+    
     
     UIViewController*vc = [JevilInstance currentInstance].vc;
     if(vc != nil && ([vc isKindOfClass:[DevilController class]])) {
@@ -993,7 +993,7 @@
 }
 
 + (void)updateThis{
-    [[JevilInstance currentInstance] syncData];
+    
     [[JevilInstance currentInstance].meta update];
 }
 
@@ -1003,14 +1003,14 @@
     NSString* no = param[@"no"];
     NSString* show = param[@"show"];
     
-    [[JevilInstance currentInstance] syncData];
+    
     DevilBlockDialog* d = [DevilBlockDialog popup:blockName data:[JevilInstance currentInstance].data title:title yes:yes no:no
                                              show:show
                                             param:param
                                          delegate:[JevilInstance currentInstance].vc
                                          onselect:^(BOOL yes, id res) {
         [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
     if(!d)
         return [Jevil alert:[NSString stringWithFormat:@"Block Name does not exists[ %@]", blockName]];
@@ -1033,13 +1033,13 @@
     NSString* yes = param[@"yes"];
     NSString* no = param[@"no"];
     NSString* show = param[@"show"];
-    [[JevilInstance currentInstance] syncData];
+    
     DevilBlockDialog* d = [DevilBlockDialog popup:@"address" data:[JevilInstance currentInstance].data title:title yes:yes no:no
                                              show:show
                                          onselect:^(BOOL yes, id res) {
         [[JevilInstance currentInstance] pushData];
         [callback callWithArguments:@[(yes?@TRUE:@FALSE)]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
@@ -1071,7 +1071,7 @@
         paramM[@"view"] = [JevilInstance currentInstance].meta.lastClick;
     [d popupSelect:list param:paramM onselect:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
@@ -1085,7 +1085,7 @@
     [d popup:paramM isDate:true onselect:^(id  _Nonnull res) {
         if(res) {
             [callback callWithArguments:@[res]];
-            [[JevilInstance currentInstance] syncData];
+            
         }
     }];
     
@@ -1100,7 +1100,7 @@
     [d popup:paramM isDate:false onselect:^(id  _Nonnull res) {
         if(res) {
             [callback callWithArguments:@[res]];
-            [[JevilInstance currentInstance] syncData];
+            
         }
     }];
     
@@ -1192,7 +1192,7 @@
     WifiManager* wm = [[WifiManager alloc] init];
     [wm getWifList:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
@@ -1206,7 +1206,7 @@
             [callback callWithArguments:@[@TRUE]];
         else
             [callback callWithArguments:@[@FALSE]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
     
     if([[JevilInstance currentInstance].vc isKindOfClass:[DevilController class]])
@@ -1217,7 +1217,7 @@
     [DevilCamera gallery:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             [callback callWithArguments:@[res]];
-            [[JevilInstance currentInstance] syncData];
+            
         } else if(res[@"msg"]){
             [Jevil alert:res[@"msg"]];
         }
@@ -1227,7 +1227,7 @@
 + (void)galleryList:(NSDictionary*)param :(JSValue *)callback {
     [DevilCamera galleryList:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         [callback callWithArguments:@[res]];
-        [[JevilInstance currentInstance] syncData];
+        
     }];
 }
 
@@ -1235,7 +1235,7 @@
     [[DevilCamera sharedInstance] gallerySystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             [callback callWithArguments:@[res]];
-            [[JevilInstance currentInstance] syncData];
+            
         } else if(res[@"msg"]){
             [Jevil alert:res[@"msg"]];
         }
@@ -1247,7 +1247,7 @@
     [[DevilCamera sharedInstance] cameraSystem:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             [callback callWithArguments:@[res]];
-            [[JevilInstance currentInstance] syncData];
+            
         } else if(res[@"msg"]){
             [Jevil alert:res[@"msg"]];
         }
@@ -1258,7 +1258,7 @@
     [DevilCamera camera:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             [callback callWithArguments:@[res]];
-            [[JevilInstance currentInstance] syncData];
+            
         } else if(res[@"msg"]){
             [Jevil alert:res[@"msg"]];
         }
@@ -1269,7 +1269,7 @@
     [DevilCamera cameraQr:[JevilInstance currentInstance].vc param:param callback:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             [callback callWithArguments:@[res]];
-            [[JevilInstance currentInstance] syncData];
+            
         } else if(res[@"msg"]){
             [Jevil alert:res[@"msg"]];
         }
@@ -1650,7 +1650,7 @@
                 [JevilInstance currentInstance].meta = meta;
                 [[JevilInstance currentInstance] pushData];
                 [callback callWithArguments:@[(focus?@TRUE:@FALSE)]];
-                [[JevilInstance currentInstance] syncData];
+                
                 
             };
         } else {
@@ -1659,7 +1659,7 @@
                 [JevilInstance currentInstance].meta = meta;
                 [[JevilInstance currentInstance] pushData];
                 [callback callWithArguments:@[(focus?@TRUE:@FALSE)]];
-                [[JevilInstance currentInstance] syncData];
+                
             };
         }
     }

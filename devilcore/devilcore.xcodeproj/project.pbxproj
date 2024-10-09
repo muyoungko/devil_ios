@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D00ADC02CB6E8D40016D337 /* ReplaceRuleImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D00ADBE2CB6E8D40016D337 /* ReplaceRuleImage.h */; };
+		6D00ADC12CB6E8D40016D337 /* ReplaceRuleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D00ADBF2CB6E8D40016D337 /* ReplaceRuleImage.m */; };
+		6D00ADC42CB6E9050016D337 /* ReplaceRuleInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D00ADC22CB6E9050016D337 /* ReplaceRuleInput.h */; };
+		6D00ADC52CB6E9050016D337 /* ReplaceRuleInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D00ADC32CB6E9050016D337 /* ReplaceRuleInput.m */; };
 		6D0224A126131F6500634842 /* devil_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224A026131F6500634842 /* devil_icon.png */; };
 		6D056FBD2A0FC535005C30EF /* devil_camera_flash_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */; };
 		6D05924D2BD64ABE0050CF94 /* ReplaceRuleLottie.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */; };
@@ -70,7 +74,6 @@
 		6D467A8F256AB07A006D57DD /* ReplaceRuleColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A45256AB079006D57DD /* ReplaceRuleColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D467A90256AB07A006D57DD /* ReplaceRuleExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */; };
 		6D467A91256AB07A006D57DD /* ReplaceRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A47256AB07A006D57DD /* ReplaceRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6D467A92256AB07A006D57DD /* ReplaceRuleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */; };
 		6D467A93256AB07A006D57DD /* ReplaceRuleRepeat.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A49256AB07A006D57DD /* ReplaceRuleRepeat.m */; };
 		6D467A94256AB07A006D57DD /* ReplaceRuleLocalImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A4B256AB07A006D57DD /* ReplaceRuleClick.m */; };
@@ -79,7 +82,6 @@
 		6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A50256AB07A006D57DD /* ReplaceRuleRepeat.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D467A9B256AB07A006D57DD /* ReplaceRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A51256AB07A006D57DD /* ReplaceRule.m */; };
-		6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D467A9D256AB07A006D57DD /* ReplaceRuleExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A53256AB07A006D57DD /* ReplaceRuleExtension.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D467A54256AB07A006D57DD /* ReplaceRuleColor.m */; };
 		6D467A9F256AB07A006D57DD /* ReplaceRuleClick.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D467A55256AB07A006D57DD /* ReplaceRuleClick.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -324,6 +326,10 @@
 
 /* Begin PBXFileReference section */
 		1032BFC6BE887F2D93A4D66B /* Pods-devilcore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.release.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.release.xcconfig"; sourceTree = "<group>"; };
+		6D00ADBE2CB6E8D40016D337 /* ReplaceRuleImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImage.h; sourceTree = "<group>"; };
+		6D00ADBF2CB6E8D40016D337 /* ReplaceRuleImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImage.m; sourceTree = "<group>"; };
+		6D00ADC22CB6E9050016D337 /* ReplaceRuleInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleInput.h; sourceTree = "<group>"; };
+		6D00ADC32CB6E9050016D337 /* ReplaceRuleInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleInput.m; sourceTree = "<group>"; };
 		6D0224A026131F6500634842 /* devil_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devil_icon.png; sourceTree = "<group>"; };
 		6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_flash_on@3x.png"; sourceTree = "<group>"; };
 		6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleLottie.h; sourceTree = "<group>"; };
@@ -388,7 +394,6 @@
 		6D467A45256AB079006D57DD /* ReplaceRuleColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleColor.h; sourceTree = "<group>"; };
 		6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleExtension.m; sourceTree = "<group>"; };
 		6D467A47256AB07A006D57DD /* ReplaceRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRule.h; sourceTree = "<group>"; };
-		6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImage.m; sourceTree = "<group>"; };
 		6D467A49256AB07A006D57DD /* ReplaceRuleRepeat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleRepeat.m; sourceTree = "<group>"; };
 		6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleLocalImage.h; sourceTree = "<group>"; };
 		6D467A4B256AB07A006D57DD /* ReplaceRuleClick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleClick.m; sourceTree = "<group>"; };
@@ -397,7 +402,6 @@
 		6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImageResource.h; sourceTree = "<group>"; };
 		6D467A50256AB07A006D57DD /* ReplaceRuleRepeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleRepeat.h; sourceTree = "<group>"; };
 		6D467A51256AB07A006D57DD /* ReplaceRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRule.m; sourceTree = "<group>"; };
-		6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleImage.h; sourceTree = "<group>"; };
 		6D467A53256AB07A006D57DD /* ReplaceRuleExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleExtension.h; sourceTree = "<group>"; };
 		6D467A54256AB07A006D57DD /* ReplaceRuleColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleColor.m; sourceTree = "<group>"; };
 		6D467A55256AB07A006D57DD /* ReplaceRuleClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleClick.h; sourceTree = "<group>"; };
@@ -883,8 +887,6 @@
 				6D467A46256AB07A006D57DD /* ReplaceRuleExtension.m */,
 				6D467A58256AB07A006D57DD /* ReplaceRuleHidden.h */,
 				6D467A4D256AB07A006D57DD /* ReplaceRuleHidden.m */,
-				6D467A52256AB07A006D57DD /* ReplaceRuleImage.h */,
-				6D467A48256AB07A006D57DD /* ReplaceRuleImage.m */,
 				6D467A4E256AB07A006D57DD /* ReplaceRuleImageResource.h */,
 				6D467A57256AB07A006D57DD /* ReplaceRuleImageResource.m */,
 				6D467A4A256AB07A006D57DD /* ReplaceRuleLocalImage.h */,
@@ -911,6 +913,10 @@
 				6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */,
 				6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */,
 				6D05924C2BD64ABE0050CF94 /* ReplaceRuleLottie.m */,
+				6D00ADBE2CB6E8D40016D337 /* ReplaceRuleImage.h */,
+				6D00ADBF2CB6E8D40016D337 /* ReplaceRuleImage.m */,
+				6D00ADC22CB6E9050016D337 /* ReplaceRuleInput.h */,
+				6D00ADC32CB6E9050016D337 /* ReplaceRuleInput.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -1373,7 +1379,6 @@
 				6DA615F828C8F5E10078979D /* DevilPinLayer.h in Headers */,
 				6D467AA8256AB07A006D57DD /* WildCardConstructor.h in Headers */,
 				6DA37CDF264C1C0B00982891 /* ReplaceRuleAccessibility.h in Headers */,
-				6D467A9C256AB07A006D57DD /* ReplaceRuleImage.h in Headers */,
 				6D3EBE7B25D9123F0006ADD5 /* ReplaceRuleIcon.h in Headers */,
 				6D467A8F256AB07A006D57DD /* ReplaceRuleColor.h in Headers */,
 				6D467AC3256AB07A006D57DD /* WildCardTrigger.h in Headers */,
@@ -1467,6 +1472,7 @@
 				6D5C4ABA2AE2A98E00DD1978 /* DevilSwipeBackGesture.h in Headers */,
 				6D9E2B1F25BB4A920027D16D /* ReplaceRuleStrip.h in Headers */,
 				6DF5779026D00C1D009D41A1 /* DevilQrCameraController.h in Headers */,
+				6D00ADC02CB6E8D40016D337 /* ReplaceRuleImage.h in Headers */,
 				6D9E2B1325BB41160027D16D /* WildCardPagerTabStripCell.h in Headers */,
 				6D9F7ACC26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.h in Headers */,
 				6D54EE322C92DF1300B0A718 /* DevilGyroscope.h in Headers */,
@@ -1475,6 +1481,7 @@
 				6D0EE16A2590BF6900C89D38 /* DevilExceptionHandler.h in Headers */,
 				6D9F7C822637FE5E003A70EC /* ReplaceRuleWeb.h in Headers */,
 				6D0EE1742590CC5600C89D38 /* WildCardScriptAction.h in Headers */,
+				6D00ADC42CB6E9050016D337 /* ReplaceRuleInput.h in Headers */,
 				6D7E267925A89AD400600978 /* DevilSelectDialog.h in Headers */,
 				6D467B9D257D2B5B006D57DD /* WildCardDrawerView.h in Headers */,
 				6D7E268125AA935800600978 /* WildCardUITextView.h in Headers */,
@@ -1701,7 +1708,6 @@
 				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,
 				6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */,
 				6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */,
-				6D467A92256AB07A006D57DD /* ReplaceRuleImage.m in Sources */,
 				6D467AB4256AB07A006D57DD /* WildCardCollectionViewAdapter.m in Sources */,
 				6DFC0CA02ACD68E900F26849 /* DevilGoogleMapMarketComponent.m in Sources */,
 				6D467B7F257A3010006D57DD /* DevilWebView.m in Sources */,
@@ -1755,6 +1761,8 @@
 				6D09C3BB25B07B3B00221A4C /* JevilInstance.m in Sources */,
 				6D7F7A9A28D6F1F100F67029 /* DevilPhotoController.m in Sources */,
 				6D467ABF256AB07A006D57DD /* WildCardUITapGestureRecognizer.m in Sources */,
+				6D00ADC12CB6E8D40016D337 /* ReplaceRuleImage.m in Sources */,
+				6D00ADC52CB6E9050016D337 /* ReplaceRuleInput.m in Sources */,
 				6D467B79257A2FFD006D57DD /* DevilWebViewController.m in Sources */,
 				6D98A8422700D97D004F3ECF /* DevilAlertDialog.m in Sources */,
 				6D9F7C832637FE5E003A70EC /* ReplaceRuleWeb.m in Sources */,
