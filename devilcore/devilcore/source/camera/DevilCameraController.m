@@ -567,21 +567,6 @@ typedef NS_ENUM(NSInteger, UIMode) {
         }
     }
     
-    if ([videoDevice lockForConfiguration:&error]) {
-        videoDevice.focusMode = AVCaptureFocusModeContinuousAutoFocus;
-        videoDevice.videoZoomFactor = 1.0f;
-        videoDevice.automaticallyAdjustsVideoHDREnabled = NO;
-        videoDevice.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
-        [videoDevice setSmoothAutoFocusEnabled:YES];
-        [videoDevice setVideoHDREnabled:YES];
-        [videoDevice unlockForConfiguration];
-        
-        //실시간 이미지 버퍼 파싱을 위한
-//        AVCaptureVideoDataOutput* a = [[AVCaptureVideoDataOutput alloc] init];
-//        [a setSampleBufferDelegate:self queue:dispatch_get_main_queue()];
-//        [self.session addOutput:a];
-    }
-    
     AVCaptureDeviceInput* videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:&error];
     if (!videoDeviceInput) {
         NSLog(@"Could not create video device input: %@", error);
