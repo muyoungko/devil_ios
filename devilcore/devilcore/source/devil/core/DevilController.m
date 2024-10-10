@@ -17,6 +17,7 @@
 #import "DevilUtil.h"
 #import "DevilRecord.h"
 #import "DevilBle.h"
+#import "DevilMqtt.h"
 #import "DevilAlertDialog.h"
 #import "WildCardEventTracker.h"
 
@@ -380,6 +381,7 @@
             [self.thisMetas[key] destroy];
         
         [[DevilBle sharedInstance] destroy];
+        [[DevilMqtt sharedInstance] close];
     }
     
     [self onPause];

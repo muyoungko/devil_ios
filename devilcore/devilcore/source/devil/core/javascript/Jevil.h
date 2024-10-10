@@ -201,6 +201,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)gyroscopeStop;
 + (NSArray *)gyroscopeData:(NSDictionary *)param :(JSValue *)callback;
 + (void)gyroscopeZipData:(NSDictionary *)param :(JSValue *)callback;
++ (void)mqttConnect:(id)param :(JSValue *)callback;
++ (void)mqttSubscribe:(id)param :(JSValue *)callback;
++ (void)mqttPublish:(id)param :(JSValue *)callback;
++ (void)mqttListener:(JSValue *)callback;
++ (void)mqttRelease;
 @end
 
 @interface Jevil : NSObject <Jevil>

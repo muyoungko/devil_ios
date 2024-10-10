@@ -59,6 +59,7 @@
 #import "DevilDownloader.h"
 #import "DevilImageEditController.h"
 #import "DevilGyroscope.h"
+#import "DevilMqtt.h"
 
 @interface Jevil()
 
@@ -2165,6 +2166,38 @@
     [[DevilGyroscope sharedInstance] getZipData:param callback:^(id  _Nonnull res) {
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
+}
+
++ (void)mqttConnect:(id)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilMqtt sharedInstance] connect:param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)mqttSubscribe:(id)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilMqtt sharedInstance] subscribe:param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)mqttPublish:(id)param :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilMqtt sharedInstance] publish:param callback:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)mqttListener:(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
+    [[DevilMqtt sharedInstance] listen:^(id  _Nonnull res) {
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    }];
+}
+
++ (void)mqttRelease {
+    [[DevilMqtt sharedInstance] close];
 }
 
 @end

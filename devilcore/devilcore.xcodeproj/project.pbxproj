@@ -11,6 +11,8 @@
 		6D00ADC12CB6E8D40016D337 /* ReplaceRuleImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D00ADBF2CB6E8D40016D337 /* ReplaceRuleImage.m */; };
 		6D00ADC42CB6E9050016D337 /* ReplaceRuleInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D00ADC22CB6E9050016D337 /* ReplaceRuleInput.h */; };
 		6D00ADC52CB6E9050016D337 /* ReplaceRuleInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D00ADC32CB6E9050016D337 /* ReplaceRuleInput.m */; };
+		6D00ADC92CB7B8AE0016D337 /* DevilMqtt.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D00ADC72CB7B8AE0016D337 /* DevilMqtt.h */; };
+		6D00ADCA2CB7B8AE0016D337 /* DevilMqtt.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D00ADC82CB7B8AE0016D337 /* DevilMqtt.m */; };
 		6D0224A126131F6500634842 /* devil_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224A026131F6500634842 /* devil_icon.png */; };
 		6D056FBD2A0FC535005C30EF /* devil_camera_flash_on@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */; };
 		6D05924D2BD64ABE0050CF94 /* ReplaceRuleLottie.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */; };
@@ -330,6 +332,8 @@
 		6D00ADBF2CB6E8D40016D337 /* ReplaceRuleImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleImage.m; sourceTree = "<group>"; };
 		6D00ADC22CB6E9050016D337 /* ReplaceRuleInput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleInput.h; sourceTree = "<group>"; };
 		6D00ADC32CB6E9050016D337 /* ReplaceRuleInput.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleInput.m; sourceTree = "<group>"; };
+		6D00ADC72CB7B8AE0016D337 /* DevilMqtt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilMqtt.h; sourceTree = "<group>"; };
+		6D00ADC82CB7B8AE0016D337 /* DevilMqtt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilMqtt.m; sourceTree = "<group>"; };
 		6D0224A026131F6500634842 /* devil_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = devil_icon.png; sourceTree = "<group>"; };
 		6D056FBC2A0FC535005C30EF /* devil_camera_flash_on@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_flash_on@3x.png"; sourceTree = "<group>"; };
 		6D05924B2BD64ABE0050CF94 /* ReplaceRuleLottie.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleLottie.h; sourceTree = "<group>"; };
@@ -667,6 +671,15 @@
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
+		6D00ADC62CB7B8990016D337 /* mqtt */ = {
+			isa = PBXGroup;
+			children = (
+				6D00ADC72CB7B8AE0016D337 /* DevilMqtt.h */,
+				6D00ADC82CB7B8AE0016D337 /* DevilMqtt.m */,
+			);
+			path = mqtt;
+			sourceTree = "<group>";
+		};
 		6D02249F26131F6500634842 /* resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -799,6 +812,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6D00ADC62CB7B8990016D337 /* mqtt */,
 				6D54EE342C93005600B0A718 /* util */,
 				6D54EE2F2C92DEEC00B0A718 /* gyroscope */,
 				6DE10D402AFB24CF00E90394 /* review */,
@@ -1354,6 +1368,7 @@
 				6D7F7A9928D6F1F100F67029 /* DevilPhotoController.h in Headers */,
 				6D9F7AB82622EA57003A70EC /* DevilCamera.h in Headers */,
 				6D1611DD2B7361A5001C0E3B /* DevilPaintMarketComponent.h in Headers */,
+				6D00ADC92CB7B8AE0016D337 /* DevilMqtt.h in Headers */,
 				6D862901287AAC5700E62B7B /* JevilAds.h in Headers */,
 				6D862902287AAC5700E62B7B /* JevilBill.h in Headers */,
 				6D862904287AAC5700E62B7B /* DevilBillInstance.h in Headers */,
@@ -1671,6 +1686,7 @@
 				6D467A90256AB07A006D57DD /* ReplaceRuleExtension.m in Sources */,
 				6DC0CE3728E5DDFB00195F60 /* JevilHealthBlank.m in Sources */,
 				6D467B8D257CF2F7006D57DD /* JevilAction.m in Sources */,
+				6D00ADCA2CB7B8AE0016D337 /* DevilMqtt.m in Sources */,
 				6D467AAF256AB07A006D57DD /* WildCardLayoutPathUnit.m in Sources */,
 				6DF53B682657F854001FB1D6 /* DevilSpeech.m in Sources */,
 				6DF377C727B3AC360050E1DA /* DevilLang.m in Sources */,
