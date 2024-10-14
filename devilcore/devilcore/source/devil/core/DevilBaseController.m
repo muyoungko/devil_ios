@@ -17,6 +17,7 @@
 @interface DevilBaseController ()<UIGestureRecognizerDelegate>
 
 @property int originalY;
+@property int originalDialogY;
 @property (retain, nonatomic) UIView* keypadTop;
 @property (retain, nonatomic) UIButton* keypadTopButton;
 @property (retain, nonatomic) WildCardUITextField* editingTextField;
@@ -216,7 +217,31 @@
         int toUp = screenHeight - rect.size.height - self.keypadTop.frame.size.height - viewGap;
         self.keypadTop.frame = CGRectMake(self.keypadTop.frame.origin.x, toUp, self.keypadTop.frame.size.width, self.keypadTop.frame.size.height);
     }
+    
+    if(self.devilBlockDialog && [[self.devilBlockDialog subviews] count] > 1){
+        CGRect absolute_rect = [editingView convertRect:editingView.frame toView:nil];
+        NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
+        CGRect rect = [keyboardFrameBegin CGRectValue];
+        int toUp = rect.origin.y - absolute_rect.origin.y - 50;
+        UIView* movingDialogView = [self.devilBlockDialog subviews][1];
+        if(toUp < 0 && movingDialogView)
+            self.originalDialogY = movingDialogView.frame.origin.y;
+            [UIView animateWithDuration:0.15f animations:^{
+                movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
+                                                     movingDialogView.frame.origin.y + toUp,
+                                                     movingDialogView.frame.size.width,
+                                                     movingDialogView.frame.size.height);
+            }];
+   }
 }
+
+- (BOOL)isInPopupView:(UIView*)view {
+    if(self.devilBlockDialog)
+        return YES;
+    
+    return NO;
+}
+
 
 - (void)textEditing:(NSNotification*)noti
 {
@@ -224,7 +249,7 @@
         self.should_up_footer = self.footer;
     else if(self.inside_footer)
         self.should_up_footer = self.inside_footer;
-    
+
     UIView* tf = (UIView*)noti.object;
     editingNumberKey = NO;
     numberKeyType = nil;
@@ -245,7 +270,6 @@
         }
         parent = [parent superview];
     }
-    
     
     if(editingInFooter) {
     } else {
@@ -280,6 +304,18 @@
         self.should_up_footer.frame = CGRectMake(self.should_up_footer.frame.origin.x, self.original_footer_y, self.should_up_footer.frame.size.width, self.should_up_footer.frame.size.height);
     editingView = nil;
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
+    
+    if(self.devilBlockDialog && [[self.devilBlockDialog subviews] count] > 1){
+        UIView* movingDialogView = [self.devilBlockDialog subviews][1];
+        if(movingDialogView)
+            [UIView animateWithDuration:0.15f animations:^{
+                movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
+                                                    self.originalDialogY,
+                                                     movingDialogView.frame.size.width,
+                                                     movingDialogView.frame.size.height);
+            }];
+   }
+    
 }
 
 
