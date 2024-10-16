@@ -174,17 +174,21 @@
 }
 
 +(void)httpPutQueueResume {
+    id a;
+    @synchronized(self) {
+        if([[DevilUtil sharedInstance].httpPutWaitQueue count] > 0) {
+            a = [[DevilUtil sharedInstance].httpPutWaitQueue firstObject];
+            
+            NSLog(@"httpPutQueueResume %lu %lu",
+                  [[DevilUtil sharedInstance].httpPutWaitQueue count],
+                  [[DevilUtil sharedInstance].httpPutIngQueue count]);
+            
+            [[DevilUtil sharedInstance].httpPutWaitQueue removeObjectAtIndex:0];
+            [[DevilUtil sharedInstance].httpPutIngQueue addObject:a];
+        }
+    }
     
-    if([[DevilUtil sharedInstance].httpPutWaitQueue count] > 0) {
-        __block id a = [[DevilUtil sharedInstance].httpPutWaitQueue firstObject];
-        
-        NSLog(@"httpPutQueueResume %lu %lu",
-              [[DevilUtil sharedInstance].httpPutWaitQueue count],
-              [[DevilUtil sharedInstance].httpPutIngQueue count]);
-        
-        [[DevilUtil sharedInstance].httpPutWaitQueue removeObjectAtIndex:0];
-        [[DevilUtil sharedInstance].httpPutIngQueue addObject:a];
-        
+    if(a) {
         NSString* url = a[@"url"];
         id contentType = a[@"contentType"];
         
@@ -201,7 +205,7 @@
         
         if([data length] == 0)
             @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte."] userInfo:nil];
-        
+        __block id fa = a;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
             NSError *err;
             NSURLResponse *response;
@@ -209,7 +213,7 @@
             NSString *res = [[NSString alloc]initWithData:responseData encoding:NSASCIIStringEncoding];
             [self httpPutQueueResume];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[DevilUtil sharedInstance].httpPutIngQueue removeObject:a];
+                [[DevilUtil sharedInstance].httpPutIngQueue removeObject:fa];
                 if(err)
                     callback(nil);
                 else

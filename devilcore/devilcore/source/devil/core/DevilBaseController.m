@@ -307,13 +307,11 @@
     
     if(self.devilBlockDialog && [[self.devilBlockDialog subviews] count] > 1){
         UIView* movingDialogView = [self.devilBlockDialog subviews][1];
-        if(movingDialogView)
-            [UIView animateWithDuration:0.15f animations:^{
-                movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
-                                                    self.originalDialogY,
-                                                     movingDialogView.frame.size.width,
-                                                     movingDialogView.frame.size.height);
-            }];
+        movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
+                                            self.originalDialogY,
+                                             movingDialogView.frame.size.width,
+                                             movingDialogView.frame.size.height);
+            
    }
     
 }
