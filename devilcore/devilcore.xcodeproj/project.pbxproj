@@ -34,6 +34,8 @@
 		6D1611DE2B7361A5001C0E3B /* DevilPaintMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */; };
 		6D1611E12B7362A3001C0E3B /* DevilPaintView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */; };
 		6D1611E22B7362A3001C0E3B /* DevilPaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1611E02B7362A3001C0E3B /* DevilPaintView.m */; };
+		6D1BB4312CC5289B0070B0EA /* ReplaceRuleCheckbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1BB42F2CC5289B0070B0EA /* ReplaceRuleCheckbox.h */; };
+		6D1BB4322CC5289B0070B0EA /* ReplaceRuleCheckbox.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1BB4302CC5289B0070B0EA /* ReplaceRuleCheckbox.m */; };
 		6D1EC7472C2718E900A26B3F /* DevilImageEditController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D1EC7442C2718E900A26B3F /* DevilImageEditController.h */; };
 		6D1EC7482C2718E900A26B3F /* DevilImageEditController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1EC7452C2718E900A26B3F /* DevilImageEditController.m */; };
 		6D1EC74D2C273AD800A26B3F /* devil_pecrop_border@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D1EC74C2C273AD800A26B3F /* devil_pecrop_border@2x.png */; };
@@ -355,6 +357,8 @@
 		6D1611DC2B7361A5001C0E3B /* DevilPaintMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintMarketComponent.m; sourceTree = "<group>"; };
 		6D1611DF2B7362A3001C0E3B /* DevilPaintView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPaintView.h; sourceTree = "<group>"; };
 		6D1611E02B7362A3001C0E3B /* DevilPaintView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPaintView.m; sourceTree = "<group>"; };
+		6D1BB42F2CC5289B0070B0EA /* ReplaceRuleCheckbox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleCheckbox.h; sourceTree = "<group>"; };
+		6D1BB4302CC5289B0070B0EA /* ReplaceRuleCheckbox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleCheckbox.m; sourceTree = "<group>"; };
 		6D1EC7442C2718E900A26B3F /* DevilImageEditController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImageEditController.h; sourceTree = "<group>"; };
 		6D1EC7452C2718E900A26B3F /* DevilImageEditController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImageEditController.m; sourceTree = "<group>"; };
 		6D1EC74C2C273AD800A26B3F /* devil_pecrop_border@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_pecrop_border@2x.png"; sourceTree = "<group>"; };
@@ -931,6 +935,8 @@
 				6D00ADBF2CB6E8D40016D337 /* ReplaceRuleImage.m */,
 				6D00ADC22CB6E9050016D337 /* ReplaceRuleInput.h */,
 				6D00ADC32CB6E9050016D337 /* ReplaceRuleInput.m */,
+				6D1BB42F2CC5289B0070B0EA /* ReplaceRuleCheckbox.h */,
+				6D1BB4302CC5289B0070B0EA /* ReplaceRuleCheckbox.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -1413,6 +1419,7 @@
 				6D5D41A1267F064100B01F2F /* DevilDateTimePopup.h in Headers */,
 				6DE55C9C2AAEBDF6004B7612 /* DevilPdf.h in Headers */,
 				6D467AA5256AB07A006D57DD /* WildCardFunction.h in Headers */,
+				6D1BB4312CC5289B0070B0EA /* ReplaceRuleCheckbox.h in Headers */,
 				6D467AB0256AB07A006D57DD /* WildCardGridView.h in Headers */,
 				6D9F7B0D2629658F003A70EC /* PEResizeControl.h in Headers */,
 				6D467A98256AB07A006D57DD /* ReplaceRuleImageResource.h in Headers */,
@@ -1750,6 +1757,7 @@
 				6DC6789F26EA29840005728A /* DevilLink.m in Sources */,
 				6D9824B125C5A91E0000BB12 /* JevilUtil.m in Sources */,
 				6DDE203C2923C02A00AD7F3C /* DevilBlockDrawerMarketComponent.m in Sources */,
+				6D1BB4322CC5289B0070B0EA /* ReplaceRuleCheckbox.m in Sources */,
 				6D467A97256AB07A006D57DD /* ReplaceRuleHidden.m in Sources */,
 				6D9F7B1826298930003A70EC /* WildCardVideoView.m in Sources */,
 				6D467AB7256AB07A006D57DD /* WildCardSetTextAction.m in Sources */,

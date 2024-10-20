@@ -25,6 +25,7 @@
 #import "ReplaceRuleQrcode.h"
 #import "ReplaceRuleAccessibility.h"
 #import "ReplaceRuleInput.h"
+#import "ReplaceRuleCheckbox.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
 #import "MappingSyntaxInterpreter.h"
@@ -941,10 +942,14 @@ static BOOL IS_TABLET = NO;
             ReplaceRuleLottie* rule = [[ReplaceRuleLottie alloc] init];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+        }else if(layer[@"strip"]){
+            ReplaceRuleStrip* rule = [[ReplaceRuleStrip alloc] init];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            [outRules addObject:rule];
         }
         
-        if(layer[@"strip"]){
-            ReplaceRuleStrip* rule = [[ReplaceRuleStrip alloc] init];
+        if (layer[@"checkbox"]) {
+            ReplaceRuleCheckbox* rule = [[ReplaceRuleCheckbox alloc] init];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
             [outRules addObject:rule];
         }
