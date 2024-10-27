@@ -926,9 +926,6 @@
 }
 
 + (void)update{
-    
-    
-    
     UIViewController*vc = [JevilInstance currentInstance].vc;
     if(vc != nil && ([vc isKindOfClass:[DevilController class]])) {
         [((DevilController*)vc) updateMeta];
@@ -1588,12 +1585,50 @@
     [web reload];
 }
 
++ (void)startDragAndDrop:(NSString*)node :(id)param :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = [vc findView:node];
+    WildCardUICollectionView* c = [vv subviews][0];
+    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)c.delegate;
+    if(param[@"dropRangeFrom"])
+        adapter.dragAndDropRangeFrom = [param[@"dropRangeFrom"] intValue];
+    else
+        adapter.dragAndDropRangeFrom = -1;
+    
+    if(param[@"dropRangeFrom"])
+        adapter.dragAndDropRangeTo = [param[@"dropRangeTo"] intValue];
+    else
+        adapter.dragAndDropRangeTo = -1;
+    
+    adapter.dragAndDropCallback = ^(int fromIndex, int toIndex) {
+        @try{
+            [callback callWithArguments:@[@{
+                @"event":@"complete",
+                @"fromIndex":[NSNumber numberWithInt:fromIndex],
+                @"toIndex":[NSNumber numberWithInt:toIndex],
+            }]];
+        }@catch(NSException* e){
+            [DevilExceptionHandler handle:e];
+        }
+    };
+    [c dragEnable:YES];
+}
+
++ (void)stopDragAndDrop:(NSString*)node :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* vv = [vc findView:node];
+    WildCardUICollectionView* c = [vv subviews][0];
+    [c dragEnable:NO];
+    WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)c.delegate;
+    adapter.dragAndDropCallback = nil;
+}
+
 + (void)scrollDragged:(NSString*)node :(JSValue *)callback {
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
     if(vc.mainWc != nil) {
         WildCardUIView* vv = (WildCardUIView*)[vc.mainWc.meta getView:node];
         UICollectionView* c = [vv subviews][0];
-        WildCardCollectionViewAdapter* adapter = c.delegate;
+        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)c.delegate;
         [adapter setDraggedCallback:^(id res) {
             [callback callWithArguments:@[]];
         }];

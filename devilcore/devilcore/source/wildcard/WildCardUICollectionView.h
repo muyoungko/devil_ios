@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)asyncScrollTo:(int)index :(BOOL)ani;
 -(void)scrollTo:(int)index :(BOOL)ani;
 -(void)scrollToCore:(NSNumber*)index;
+-(void)dragEnable:(BOOL)enable;
 
 @end
 

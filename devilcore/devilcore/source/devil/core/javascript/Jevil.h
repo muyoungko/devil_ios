@@ -116,6 +116,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)webForward:(NSString*)node;
 + (void)webRefresh:(NSString*)node;
 
++ (void)startDragAndDrop:(NSString*)node :(id)param :(JSValue *)callback;
++ (void)stopDragAndDrop:(NSString*)node :(JSValue *)callback;
 + (void)scrollDragged:(NSString*)node :(JSValue *)callback;
 + (void)scrollEnd:(NSString*)node :(JSValue *)callback;
 + (void)textChanged:(NSString*)node :(JSValue *)callback;
