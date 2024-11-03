@@ -28,6 +28,7 @@
 
 - (void)connect:(id)param callback:(void (^)(id res))callback {
     if(self.session) {
+        self.callbackEvent = nil;
         self.callbackConnect = nil;
         [self.session disconnect];
         self.session = nil;
