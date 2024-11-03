@@ -30,7 +30,7 @@
 }
  
 - (void)start:(id)param :(id (^)(id res))callback {
-//    if([NFCNDEFReaderSession readingAvailable])
+    if([NFCNDEFReaderSession readingAvailable])
     {
         self.param = param;
         self.callback = callback;
@@ -158,6 +158,8 @@
         
         if([msg.records count] > 0) {
             NSData* payload = [[msg.records firstObject] payload];
+            //payload에서 첫바이트 제거 0
+            //payload = [payload subdataWithRange:[NSMakeRange(1, [payload length]-1)]];
             NSString* payload_text = [[NSString alloc] initWithData:payload encoding:NSUTF8StringEncoding];
             [r[@"record_list"] addObject:[@{
                 @"payload_hex":[self hexString:payload],
@@ -217,7 +219,7 @@
                     self.callback(@{
                         @"r":@TRUE,
                         @"event":@"write",
-                    });        
+                    });
                 });
             }
         }];

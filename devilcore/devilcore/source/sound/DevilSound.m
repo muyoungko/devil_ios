@@ -6,6 +6,8 @@
 //
 
 #import "DevilSound.h"
+#import "DevilUtil.h"
+
 @import UIKit;
 @import MediaPlayer;
 
@@ -50,14 +52,17 @@
     int start = [param[@"start"] intValue];
     if([url hasPrefix:@"http"])
         self.player = [AVPlayer playerWithURL:[NSURL URLWithString:url]];
-    else
+    else {
+        url = [DevilUtil replaceUdidPrefixDir:url];
         self.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:url]];
+    }
         
     [self.player play];
     self.player.rate = self.speed;
     if(start > 0)
         [self.player seekToTime:CMTimeMake(start, 1)];
     
+    BOOL exsits = [[NSFileManager defaultManager] fileExistsAtPath:url];
     self.music = param[@"music"] ? [param[@"music"] boolValue] : true;
     if(self.music) {
         NSError *sessionError = nil;
