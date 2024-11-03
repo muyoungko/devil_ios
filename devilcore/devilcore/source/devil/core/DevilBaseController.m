@@ -224,14 +224,15 @@
         CGRect rect = [keyboardFrameBegin CGRectValue];
         int toUp = rect.origin.y - absolute_rect.origin.y - 50;
         UIView* movingDialogView = [self.devilBlockDialog subviews][1];
-        if(toUp < 0 && movingDialogView)
+        if((toUp < 0) && movingDialogView != nil) {
             self.originalDialogY = movingDialogView.frame.origin.y;
             [UIView animateWithDuration:0.15f animations:^{
                 movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
-                                                     movingDialogView.frame.origin.y + toUp,
-                                                     movingDialogView.frame.size.width,
-                                                     movingDialogView.frame.size.height);
+                                                    movingDialogView.frame.origin.y + toUp,
+                                                    movingDialogView.frame.size.width,
+                                                    movingDialogView.frame.size.height);
             }];
+        }
    }
 }
 

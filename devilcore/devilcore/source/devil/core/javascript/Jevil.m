@@ -2010,6 +2010,11 @@
     [WildCardConstructor sharedInstance].project[@"host"] = host;
 }
 
++ (NSString*)getConfigHost {
+    return [WildCardConstructor sharedInstance].project[@"host"];
+}
+
+
 + (void)log:(NSString*)text:(NSDictionary*)log{
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_CUSTOM title:text log:log];
 }

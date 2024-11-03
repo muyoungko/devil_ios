@@ -116,6 +116,7 @@
             beforeView.frame.size.height != afterView.frame.size.height) {
 
             beforeView.frame = afterView.frame;
+            NSLog(@"beforeView.name %@", beforeView.name);
         }
         
         if (beforeView.alpha != afterView.alpha) {

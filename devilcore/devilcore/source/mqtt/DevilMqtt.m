@@ -28,6 +28,7 @@
 
 - (void)connect:(id)param callback:(void (^)(id res))callback {
     if(self.session) {
+        self.callbackConnect = nil;
         [self.session disconnect];
         self.session = nil;
     }
@@ -54,7 +55,7 @@
         session.password = param[@"password"];
     }
     self.connected = false;
-    
+    [session connectAndWaitTimeout:5];
     [session connect];
 }
 - (void)subscribe:(id)param callback:(void (^)(id res))callback{
@@ -92,6 +93,8 @@
 }
 
 - (void)close{
+    self.callbackConnect = nil;
+    self.callbackEvent = nil;
     [self.session disconnect];
 }
 
@@ -114,12 +117,20 @@
                 }
             }];
             self.reservedTopicToSubscribe = nil;
+        } else {
+            [self callOnMainThread:self.callbackConnect res:@{
+                @"r":@TRUE,
+            }];
+            self.callbackConnect = nil;
         }
-        
-    } else {
+    } else if(eventCode == MQTTSessionEventConnectionError 
+              || eventCode == MQTTSessionEventConnectionClosed
+              || eventCode == MQTTSessionEventConnectionClosedByBroker
+              || eventCode == MQTTSessionEventConnectionRefused
+              || eventCode == MQTTSessionEventProtocolError){
         self.connected = false;
         [self callOnMainThread:self.callbackConnect res:@{
-            @"r":@TRUE,
+            @"r":@FALSE,
         }];
         self.callbackConnect = nil;
     }

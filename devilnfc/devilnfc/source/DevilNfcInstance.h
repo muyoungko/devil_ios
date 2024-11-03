@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DevilNfcInstance : NSObject
 
 + (DevilNfcInstance*)sharedInstance;
-- (void)start:(id)param :(void (^)(id res))callback;
+- (void)start:(id)param :(id (^)(id res))callback;
 - (void)stop;
 
 @end

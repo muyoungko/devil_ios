@@ -14,8 +14,9 @@
 
 + (void)start:(NSDictionary*)param :(JSValue*)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    [[DevilNfcInstance sharedInstance] start:param :^(id  _Nonnull res) {
-        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
+    [[DevilNfcInstance sharedInstance] start:param :^id _Nonnull(id  _Nonnull res) {
+        JSValue* value = [callback callWithArguments:@[res]];
+        return [value toDictionary];
     }];
 }
 
