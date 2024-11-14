@@ -424,6 +424,59 @@
     return @"";
 }
 
++ (NSData *)hexToByte:(NSString *)hexString {
+    // 문자열이 짝수 길이가 아니면 nil 반환
+    if (hexString.length % 2 != 0) {
+        return nil;
+    }
+    
+    // 16진수 문자열을 저장할 바이트 버퍼 생성
+    NSUInteger length = hexString.length / 2;
+    unsigned char *buffer = malloc(length);
+    if (buffer == NULL) {
+        // 메모리 할당 실패 시 예외 처리
+        [NSException raise:NSInternalInconsistencyException format:@"Failed to allocate more memory" arguments:nil];
+        return nil;
+    }
+    
+    // 2글자씩 끊어서 바이트 변환
+    unsigned char *ptr = buffer;
+    for (NSUInteger i = 0; i < hexString.length; i += 2) {
+        unsigned int byte;
+        NSString *byteString = [hexString substringWithRange:NSMakeRange(i, 2)];
+        NSScanner *scanner = [NSScanner scannerWithString:byteString];
+        [scanner scanHexInt:&byte];
+        *ptr++ = (unsigned char)byte;
+    }
+    
+    NSData *data = [NSData dataWithBytes:buffer length:length];
+    free(buffer);
+    
+    return data;
+}
+
++ (NSString *)safeHexToString:(NSString *)hex {
+    NSMutableString *result = [NSMutableString string];
+    NSData *data = [DevilUtil hexToByte:hex];
+    
+    const uint8_t *bytes = data.bytes;
+    NSUInteger length = data.length;
+
+    for (NSUInteger i = 0; i < length; i++) {
+        uint8_t byte = bytes[i];
+        
+        // ASCII 범위 문자 여부 확인
+        if (byte >= 0x20 && byte <= 0x7E) {
+            [result appendFormat:@"%c", byte];
+        } else {
+            // 변환 불가한 문자는 '?'로 대체
+            [result appendString:@"?"];
+        }
+    }
+    
+    return result;
+}
+
 +(NSString*)sha256:(NSString*)text {
     const char* utf8chars = [text UTF8String];
     unsigned char result[CC_SHA256_DIGEST_LENGTH];

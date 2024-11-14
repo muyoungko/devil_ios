@@ -11,7 +11,6 @@
 @property void (^callbackConnect)(id res);
 @property void (^callbackEvent)(id res);
 @property (nonatomic, retain) MQTTSession *session;
-@property BOOL connected;
 @property NSString* reservedTopicToSubscribe;
 @end
 
@@ -59,6 +58,7 @@
     [session connectAndWaitTimeout:5];
     [session connect];
 }
+
 - (void)subscribe:(id)param callback:(void (^)(id res))callback{
     [self.session subscribeToTopic:self.reservedTopicToSubscribe atLevel:MQTTQosLevelExactlyOnce subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss) {
         if(!error) {

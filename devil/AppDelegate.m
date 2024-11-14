@@ -210,6 +210,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         [Devil sharedInstance].reservedUrl = [NSURL URLWithString:[NSString stringWithFormat:@"devil-app-builder://project/start/%@", project_id]];
     }
     
+    FIRDynamicLink *dynamicLink = [launchOptions objectForKey:UIApplicationLaunchOptionsURLKey];
+    if (dynamicLink) {
+        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+    }
+    
     return YES;
 }
 

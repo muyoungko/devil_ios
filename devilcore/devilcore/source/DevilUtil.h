@@ -53,7 +53,9 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(NSString*)replaceUdidPrefixDir:(NSString*)url;
 +(void)showAlert:(DevilController*)vc msg:(NSString*)msg showYes:(BOOL)showYes yesText:(NSString*)yesText cancelable:(BOOL)cancelable callback:(void (^)(BOOL res))callback;
 +(NSString*)orientationToString:(UIInterfaceOrientationMask)mask;
-+(NSString *) byteToHex : (NSData*)data;
++(NSString *)byteToHex : (NSData*)data;
++(NSData *)hexToByte:(NSString *)hexString;
++(NSString *)safeHexToString:(NSString *)hex;
 +(NSString*)sha256:(NSString*)text;
 +(NSString*)sha256ToHex:(NSString*)text;
 +(NSString*)sha256ToHash:(NSString*)text;

@@ -784,9 +784,6 @@
                 result[@"path"] = paths[i];
                 result[@"msg"] = @"File not found";
                 [callback callWithArguments:@[result]];
-                
-                
-                //                @throw [NSException exceptionWithName:@"Devil" reason:[NSString stringWithFormat:@"Failed. Upload Data is 0 byte. %@", path] userInfo:nil];
             }
         }
         
@@ -2006,6 +2003,10 @@
     return [DevilUtil byteToHex:[text dataUsingEncoding:NSUTF8StringEncoding]];
 }
 
++ (NSString*)getTextFromHex:(NSString*)hex {
+    return [DevilUtil safeHexToString:hex];
+}
+
 + (void)configHost:(NSString*)host{
     [WildCardConstructor sharedInstance].project[@"host"] = host;
 }
@@ -2234,6 +2235,10 @@
     [[DevilMqtt sharedInstance] listen:^(id  _Nonnull res) {
         [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[res]];
     }];
+}
+
++ (BOOL)mqttIsConnected{
+    return [DevilMqtt sharedInstance].connected;
 }
 
 + (void)mqttRelease {

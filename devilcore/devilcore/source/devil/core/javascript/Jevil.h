@@ -169,6 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)imageMapFocus:(NSString*)nodeName :(NSString*)pinKey;
 + (void)imageMapConfig:(NSString*)nodeName : (NSDictionary*)param;
 + (NSString*)getByte:(NSString*)text;
++ (NSString*)getTextFromHex:(NSString*)hex;
 + (void)configHost:(NSString*)host;
 + (NSString*)getConfigHost;
 + (void)log:(NSString*)text:(NSDictionary*)log;
@@ -208,6 +209,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)mqttSubscribe:(id)param :(JSValue *)callback;
 + (void)mqttPublish:(id)param :(JSValue *)callback;
 + (void)mqttListener:(JSValue *)callback;
++ (BOOL)mqttIsConnected;
 + (void)mqttRelease;
 @end
 

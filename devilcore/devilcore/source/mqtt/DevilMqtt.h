@@ -12,6 +12,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilMqtt : NSObject<MQTTSessionDelegate>
+@property BOOL connected;
 + (DevilMqtt*)sharedInstance;
 - (void)connect:(id)param callback:(void (^)(id res))callback;
 - (void)subscribe:(id)param callback:(void (^)(id res))callback;
