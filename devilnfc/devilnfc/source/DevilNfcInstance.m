@@ -199,15 +199,29 @@
     
     if(b) {
         NSString* s = [[NSString alloc] initWithData:b encoding:NSUTF8StringEncoding];
-        [[DevilDebugView sharedInstance] log:DEVIL_LOG_NFC title:@"write" log:@{
+        
+        NFCNDEFPayload* payload = [[NFCNDEFPayload alloc] initWithFormat:NFCTypeNameFormatEmpty
+                                                                    type:[NSData data]
+                                                                 identifier:[NSData data]
+                                                                   payload:b];
+        NFCNDEFMessage* ndefmsg = [[NFCNDEFMessage alloc] initWithNDEFRecords:@[payload]];
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_NFC title:[NSString stringWithFormat:@"write %lu bytes", (unsigned long)[payload.payload length] ] log:@{
             @"text":s,
         }];
-        
-        NFCNDEFPayload* payload = [NFCNDEFPayload wellKnownTypeURIPayloadWithString:s];
-        NFCNDEFMessage* ndefmsg = [[NFCNDEFMessage alloc] initWithNDEFRecords:@[payload]];
         [tag writeNDEF:ndefmsg completionHandler:^(NSError * _Nullable err) {
-            if(err)
+            if(err) {
                 NSLog(@"%@", err);
+                if(self.callback) {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.callback(@{
+                            @"r":@FALSE,
+                            @"event":@"write",
+                            @"msg":@"NFC write failed",
+                        });
+                    });
+                }
+                return;
+            }
             
             if(self.session) {
                 [self.session invalidateSession];
