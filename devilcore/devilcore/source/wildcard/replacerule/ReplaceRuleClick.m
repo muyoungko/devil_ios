@@ -10,10 +10,12 @@
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardUITapGestureRecognizer.h"
+#import "WildCardUILongClickGestureRecognizer.h"
 #import "WildCardEventTracker.h"
 
 @interface ReplaceRuleClick()
 @property (nonatomic, retain) WildCardUITapGestureRecognizer* singleFingerTap;
+@property (nonatomic, retain) WildCardUILongClickGestureRecognizer* longClick;
 @end
 
 @implementation ReplaceRuleClick
@@ -49,6 +51,18 @@
         singleFingerTap.gaDataPath = gaDataPath;
         self.singleFingerTap = singleFingerTap;
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
+    }
+    
+    if(layer[@"longClickJavascript"]) {
+        
+        WildCardUILongClickGestureRecognizer *longClick =
+        [[WildCardUILongClickGestureRecognizer alloc] initWithTarget:[WildCardConstructor sharedInstance] action:@selector(scriptForLongClick:)];
+        longClick.meta = wcMeta;
+        [vv addGestureRecognizer:longClick];
+        longClick.ga = ga;
+        longClick.gaDataPath = gaDataPath;
+        self.longClick = longClick;
+        longClick.script = layer[@"longClickJavascript"];
     }
 }
 

@@ -119,7 +119,6 @@
                                 float writeAndReadTermMs = 0.25f;
                                 if(self.param[@"writeAndReadTermMs"]) {
                                     writeAndReadTermMs = [self.param[@"writeAndReadTermMs"] longValue] / 1000.0f;
-                                    
                                 }
                                 [NSThread sleepForTimeInterval:writeAndReadTermMs];
                                 
@@ -173,17 +172,16 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 id write_object = self.callback(r);
                 if(write_object) {
-                    [self writeAndRead:tag :write_object];
+                    [self nfc_write:tag :write_object];
                 } else {
-                    [self.session invalidateSession];
-                    self.session = nil;
+                    [self stop];
                 }
             });
         }
     }];
 }
 
-- (void)writeAndRead:(id)tag :(id)write_object {
+- (void)nfc_write:(id)tag :(id)write_object {
     NSString* hex = write_object[@"hex"];
     NSString* text = write_object[@"text"];
     
@@ -199,15 +197,44 @@
     
     if(b) {
         NSString* s = [[NSString alloc] initWithData:b encoding:NSUTF8StringEncoding];
+        [[DevilDebugView sharedInstance] log:DEVIL_LOG_NFC title:[NSString stringWithFormat:@"write %lu bytes", (unsigned long)[s length] ] log:@{
+            @"text":s,
+        }];
+        
+//        [self writeToISO7816Tag:tag data:b completion:^(NSError * _Nullable err) {
+//            if(err) {
+//                NSLog(@"%@", err);
+//                if(self.callback) {
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        self.callback(@{
+//                            @"r":@FALSE,
+//                            @"event":@"write",
+//                            @"msg":@"NFC write failed",
+//                        });
+//                    });
+//                }
+//                return;
+//            }
+//            
+//            [self stop];
+//            
+//            if(self.callback) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    self.callback(@{
+//                        @"r":@TRUE,
+//                        @"event":@"write",
+//                    });
+//                });
+//            }
+//        }];
+        
         
         NFCNDEFPayload* payload = [[NFCNDEFPayload alloc] initWithFormat:NFCTypeNameFormatEmpty
                                                                     type:[NSData data]
                                                                  identifier:[NSData data]
                                                                    payload:b];
         NFCNDEFMessage* ndefmsg = [[NFCNDEFMessage alloc] initWithNDEFRecords:@[payload]];
-        [[DevilDebugView sharedInstance] log:DEVIL_LOG_NFC title:[NSString stringWithFormat:@"write %lu bytes", (unsigned long)[payload.payload length] ] log:@{
-            @"text":s,
-        }];
+        
         [tag writeNDEF:ndefmsg completionHandler:^(NSError * _Nullable err) {
             if(err) {
                 NSLog(@"%@", err);
@@ -223,10 +250,7 @@
                 return;
             }
             
-            if(self.session) {
-                [self.session invalidateSession];
-                self.session = nil;
-            }
+            [self stop];
             
             if(self.callback) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -294,5 +318,33 @@
     return commandToSend;
 }
 
+
+- (void)writeToISO7816Tag:(id<NFCISO7816Tag>)tag data:(NSData *)data completion:(void (^)(NSError * _Nullable))completion {
+    // APDU 명령 생성
+    NFCISO7816APDU *apdu = [[NFCISO7816APDU alloc] initWithInstructionClass:0x00 // CLA
+                                                        instructionCode:0xD6       // INS (WRITE BINARY 명령 예시)
+                                                        p1Parameter:0x00           // P1
+                                                        p2Parameter:0x00           // P2 (오프셋)
+                                                        data:data                  // 보낼 데이터
+                                                        expectedResponseLength:-1]; // Le (-1: 모든 응답 받기)
+
+    // 명령 전송
+    [tag sendCommandAPDU:apdu completionHandler:^(NSData *responseData, uint8_t sw1, uint8_t sw2, NSError *error) {
+        if (error) {
+            NSLog(@"APDU 전송 실패: %@", error.localizedDescription);
+            if (completion) completion(error);
+            return;
+        }
+        
+        // 상태 워드(SW1, SW2) 확인
+        if (sw1 == 0x90 && sw2 == 0x00) {
+            NSLog(@"쓰기 성공");
+            if (completion) completion(nil);
+        } else {
+            NSLog(@"쓰기 실패 - 상태 워드: %02X %02X", sw1, sw2);
+            if (completion) completion([NSError errorWithDomain:@"NFCErrorDomain" code:-1 userInfo:@{NSLocalizedDescriptionKey: @"쓰기 실패"}]);
+        }
+    }];
+}
 
 @end

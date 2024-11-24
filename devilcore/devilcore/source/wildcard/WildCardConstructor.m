@@ -35,6 +35,7 @@
 #import "WildCardAction.h"
 #import "WildCardTrigger.h"
 #import "WildCardUITapGestureRecognizer.h"
+#import "WildCardUILongClickGestureRecognizer.h"
 #import "WildCardMeta.h"
 #import "WildCardFunction.h"
 #import "DevilWebView.h"
@@ -486,6 +487,21 @@ static NSString *default_project_id = nil;
     trigger.node = vv;
     [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga data:@{}];
     [WildCardAction parseAndConducts:trigger action:action meta:recognizer.meta];
+}
+
+-(void)scriptForLongClick:(WildCardUILongClickGestureRecognizer *)recognizer
+{
+    WildCardUIView* vv = (WildCardUIView*)recognizer.view;
+    NSString *script = recognizer.script;
+    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+    trigger.node = vv;
+    id gaData = nil;
+    if(recognizer.gaDataPath) {
+        gaData = [MappingSyntaxInterpreter getJsonWithPath:recognizer.meta.correspondData :recognizer.gaDataPath];
+        gaData = [gaData toDictionary];
+    }
+    [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga data:gaData];
+    [WildCardAction execute:trigger script:script meta:recognizer.meta];
 }
 
 -(void)script:(WildCardUITapGestureRecognizer *)recognizer

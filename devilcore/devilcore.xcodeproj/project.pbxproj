@@ -325,6 +325,8 @@
 		6DFB74A12824255A00A64539 /* ReplaceRulePullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */; };
 		6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */; };
 		6DFC0CA02ACD68E900F26849 /* DevilGoogleMapMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */; };
+		6DFF30AF2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFF30AD2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h */; };
+		6DFF30B02CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFF30AE2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
 /* End PBXBuildFile section */
 
@@ -649,6 +651,8 @@
 		6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRulePullToRefresh.m; sourceTree = "<group>"; };
 		6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGoogleMapMarketComponent.h; sourceTree = "<group>"; };
 		6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGoogleMapMarketComponent.m; sourceTree = "<group>"; };
+		6DFF30AD2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUILongClickGestureRecognizer.h; sourceTree = "<group>"; };
+		6DFF30AE2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUILongClickGestureRecognizer.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEA5A476BE733732DD59D925 /* Pods-devilcore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devilcore.debug.xcconfig"; path = "Target Support Files/Pods-devilcore/Pods-devilcore.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -985,6 +989,8 @@
 				6D467A6E256AB07A006D57DD /* WildCardViewPagerRightAction.m */,
 				6D0EE1722590CC5600C89D38 /* WildCardScriptAction.h */,
 				6D0EE1732590CC5600C89D38 /* WildCardScriptAction.m */,
+				6DFF30AD2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h */,
+				6DFF30AE2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m */,
 			);
 			path = TriggerAction;
 			sourceTree = "<group>";
@@ -1394,6 +1400,7 @@
 				6D9A9DEA28A37320003302B3 /* DevilImageMap.h in Headers */,
 				6DD09437269C79E8000A913A /* MarketComponent.h in Headers */,
 				6DC162452691711000FD769C /* DevilNavigationController.h in Headers */,
+				6DFF30AF2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h in Headers */,
 				6D9F7C8826396318003A70EC /* DevilToast.h in Headers */,
 				6D9F7AB32622EA46003A70EC /* DevilCameraController.h in Headers */,
 				6D3EBE8325D92DB00006ADD5 /* WifiManager.h in Headers */,
@@ -1717,6 +1724,7 @@
 				6D9A864928AA7B6C001002D8 /* DevilFileChooser.m in Sources */,
 				6D49DDAB2BC3A707008F0142 /* DevilMultiPartUploader.m in Sources */,
 				6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */,
+				6DFF30B02CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m in Sources */,
 				6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */,
 				6DD09443269C7A28000A913A /* DevilCalendar.m in Sources */,
 				6DE10D442AFB24E000E90394 /* DevilReview.m in Sources */,
