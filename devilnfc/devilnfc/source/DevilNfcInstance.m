@@ -170,6 +170,7 @@
         
         if(self.callback) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 id write_object = self.callback(r);
                 if(write_object) {
                     [self nfc_write:tag :write_object];

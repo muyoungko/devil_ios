@@ -10,7 +10,7 @@
 #import "WildCardConstructor.h"
 
 @interface WildCardUIView()
-@property void (^touchCallback)(int action, CGPoint p);
+@property void (^touchCallback)(int action, CGPoint p, NSSet *touches);
 @end
 
 @implementation WildCardUIView
@@ -77,7 +77,7 @@
     
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-    self.touchCallback(TOUCH_ACTION_DOWN, touchPoint);
+    self.touchCallback(TOUCH_ACTION_DOWN, touchPoint, touches);
     
     return ;
 }
@@ -89,7 +89,7 @@
     
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-    self.touchCallback(TOUCH_ACTION_MOVE, touchPoint);
+    self.touchCallback(TOUCH_ACTION_MOVE, touchPoint, touches);
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -99,7 +99,7 @@
     
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-    self.touchCallback(TOUCH_ACTION_CANCEL, touchPoint);
+    self.touchCallback(TOUCH_ACTION_CANCEL, touchPoint, touches);
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
@@ -108,7 +108,7 @@
     
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
-    self.touchCallback(TOUCH_ACTION_UP, touchPoint);
+    self.touchCallback(TOUCH_ACTION_UP, touchPoint, touches);
 }
 
 
@@ -121,7 +121,7 @@
     }
 }
 
-- (void)addTouchCallback:(void (^)(int action, CGPoint p))callback {    
+- (void)addTouchCallback:(void (^)(int action, CGPoint p, NSSet *touches))callback {
     self.touchCallback = callback;
 }
 

@@ -15,8 +15,12 @@
 + (void)start:(NSDictionary*)param :(JSValue*)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     [[DevilNfcInstance sharedInstance] start:param :^id _Nonnull(id  _Nonnull res) {
-        JSValue* value = [callback callWithArguments:@[res]];
-        return [value toDictionary];
+        @try {
+            JSValue* value = [callback callWithArguments:@[res]];
+            return [value toDictionary];
+        } @catch(NSException* e) {
+            [JevilNfc handle:e];
+        }
     }];
 }
 
@@ -24,5 +28,18 @@
     [[DevilNfcInstance sharedInstance] stop];
 }
 
++(void)handle:(NSException*)e{
+    UIViewController* vc = [JevilInstance currentInstance].vc;
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:e.name
+                                                                             message:e.reason
+                                                                      preferredStyle:UIAlertControllerStyleAlert];
+
+    [alertController addAction:[UIAlertAction actionWithTitle:@"OK"
+                                                      style:UIAlertActionStyleCancel
+                                                    handler:^(UIAlertAction *action) {
+                                                        
+    }]];
+    [vc presentViewController:alertController animated:YES completion:^{}];
+}
 
 @end

@@ -2245,4 +2245,39 @@
     [[DevilMqtt sharedInstance] close];
 }
 
++ (void)touchListener:(NSString*)node :(JSValue *)callback {
+    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+    WildCardUIView* v = [vc findView:node];
+    v.multipleTouchEnabled = YES;
+    [v addTouchCallback:^(int action, CGPoint p, NSSet *touches) {
+        NSString* event = @"";
+        if(action == TOUCH_ACTION_DOWN)
+            event = @"down";
+        else if(action == TOUCH_ACTION_UP)
+            event = @"up";
+        else if(action == TOUCH_ACTION_MOVE)
+            event = @"move";
+        else if(action == TOUCH_ACTION_CANCEL)
+            event = @"cancel";
+        
+        
+        id list = [@[] mutableCopy];
+        for (UITouch *touch in touches) {
+            CGPoint p = [touch locationInView:v];
+            NSString *touchKey = [NSString stringWithFormat:@"%lx", (long)touch];
+            p.x = [WildCardUtil convertPixcelToSketch:p.x];
+            p.y = [WildCardUtil convertPixcelToSketch:p.y];
+            [list addObject: @{
+                @"id": touchKey,
+                @"x": [NSNumber numberWithDouble:p.x],
+                @"y": [NSNumber numberWithDouble:p.y],
+            }];
+            if(action != TOUCH_ACTION_MOVE)
+                NSLog(@"touches %@ %@ %d (%f,%f)", touchKey, event, (int)[touches count], p.x, p.y);
+        }
+        
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[event, list]];
+    }];
+}
+
 @end

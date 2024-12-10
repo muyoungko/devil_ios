@@ -81,7 +81,7 @@
         [self.progressGroup addGestureRecognizer:singleFingerTap];
         self.singleFingerTap = singleFingerTap;
         
-        [self.progressGroup addTouchCallback:^(int action, CGPoint p) {
+        [self.progressGroup addTouchCallback:^(int action, CGPoint p, NSSet *touches) {
             float newBarWidth = self.startObjectX-(self.startX-p.x);
             float barBgWidth = self.bar_bg.frame.size.width;
             float barBgLeft = self.bar_bg.frame.origin.x;

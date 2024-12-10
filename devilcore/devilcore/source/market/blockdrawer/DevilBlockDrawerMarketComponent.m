@@ -46,7 +46,7 @@
     
     self.vv.userInteractionEnabled = YES;
     [WildCardConstructor userInteractionEnableToParentPath:self.vv depth:10];
-    [self.vv addTouchCallback:^(int action, CGPoint p) {
+    [self.vv addTouchCallback:^(int action, CGPoint p, NSSet *touches) { 
         
         CGPoint pp = [self.vv convertPoint:p toView:nil];
         //NSLog(@"touch %f %f", pp.x, pp.y);
