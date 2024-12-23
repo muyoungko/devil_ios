@@ -162,6 +162,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic, retain) NSString* nodeTake;
 @property (nonatomic, retain) NSString* nodeBack;
 @property (nonatomic, strong) WildCardUIView* mainVc;
+@property (nonatomic, strong) NSTimer *focusCheckTimer;
 
 @end
 
@@ -206,6 +207,20 @@ typedef NS_ENUM(NSInteger, UIMode) {
         self.spinner.color = [UIColor yellowColor];
         [self.previewView addSubview:self.spinner];
     });
+    
+    self.focusCheckTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                                target:self
+                                                              selector:@selector(checkFocusState)
+                                                              userInfo:nil
+                                                               repeats:YES];
+}
+
+- (void)checkFocusState {
+    AVCaptureDevice *device = self.videoDeviceInput.device;
+    NSLog(@"Lens Position: %f", device.lensPosition);
+    if(device.lensPosition == 0) {
+        
+    }
 }
 
 - (void) viewWillAppear:(BOOL)animated
@@ -272,6 +287,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
         }
     });
     
+    [self.focusCheckTimer invalidate];
+    
     [super viewDidDisappear:animated];
 }
 
@@ -337,11 +354,11 @@ typedef NS_ENUM(NSInteger, UIMode) {
         if(self.param[@"original"])
             self.original = [self.param[@"original"] boolValue];
         if(self.param[@"blockName"])
-           self.blockName = [self.param[@"blockName"] stringValue];
+            self.blockName = [self.param[@"blockName"] stringValue];
         if(self.param[@"nodeTake"])
-           self.nodeTake = [self.param[@"nodeTake"] stringValue];
+            self.nodeTake = [self.param[@"nodeTake"] stringValue];
         if(self.param[@"nodeBack"])
-           self.nodeBack = [self.param[@"nodeBack"] stringValue];
+            self.nodeBack = [self.param[@"nodeBack"] stringValue];
     }
     
     self.front = self.startFront;
@@ -428,7 +445,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
         self.btnBack1 = [self createButton:CGPointMake(sw/2 - 60, sh-100) :@"devil_camera_cancel" :50 :@selector(onClickCancel1:) :UIColorFromRGB(0xff0000) :self.takenLayer];
         self.btnComplete1 = [self createButton:CGPointMake(sw/2 + 60, sh-100) :@"devil_camera_complete" :50 :@selector(onClickComplete1:) :UIColorFromRGB(0x3cb043) :self.takenLayer];
         
-         
+        
         self.recordLayer = [[UIView alloc] initWithFrame:self.view.frame];
         self.recordLayer.userInteractionEnabled = YES;
         [self.view addSubview:self.recordLayer];
@@ -448,7 +465,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     if(_hasVideo && !_hasPicture) {
         self.startVideo = YES;
     }
-        
+    
     if(_hasVideo && _startVideo){
         self.video = YES;
         [self uiRecord];
@@ -542,21 +559,25 @@ typedef NS_ENUM(NSInteger, UIMode) {
     NSError* error = nil;
     
     [self.session beginConfiguration];
-
+    
     /*
      We do not create an AVCaptureMovieFileOutput when setting up the session because
      Live Photo is not supported when AVCaptureMovieFileOutput is added to the session.
-    */
+     */
     self.session.sessionPreset = AVCaptureSessionPresetPhoto;
     
-    // Add video input.
     
     // Choose the back dual camera if available, otherwise default to a wide angle camera.
+    //AVCaptureDeviceTypeBuiltInUltraWideCamera 접사 상황에서
+    //AVCaptureDeviceTypeBuiltInDualCamera 일반적인 상황에서
+    
     AVCaptureDevice* videoDevice = nil;
     if(self.front)
         videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
     else
-        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualWideCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+    
+    
     if (!videoDevice) {
         // If a rear dual camera is not available, default to the rear wide angle camera.
         videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
@@ -588,7 +609,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
              
              Use the status bar orientation as the initial video orientation. Subsequent orientation changes are
              handled by CameraViewController.viewWillTransition(to:with:).
-            */
+             */
             AVCaptureVideoOrientation initialVideoOrientation = AVCaptureVideoOrientationPortrait;
             if (self.windowOrientation != UIInterfaceOrientationUnknown) {
                 initialVideoOrientation = (AVCaptureVideoOrientation)self.windowOrientation;
@@ -605,7 +626,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     }
     
     /**
-    다음 코드때문에 microphone 권한을 물어본다.
+     다음 코드때문에 microphone 권한을 물어본다.
      */
     if(self.hasVideo) {
         AVCaptureDevice* audioDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeAudio];
@@ -676,13 +697,13 @@ typedef NS_ENUM(NSInteger, UIMode) {
      the Record button until recording starts or finishes.
      
      See the AVCaptureFileOutputRecordingDelegate methods.
-    */
+     */
     
     /*
      Retrieve the video preview layer's video orientation on the main queue
      before entering the session queue. We do this to ensure UI elements are
      accessed on the main thread and session configuration is done on the session queue.
-    */
+     */
     AVCaptureVideoOrientation videoPreviewLayerVideoOrientation = self.previewView.videoPreviewLayer.connection.videoOrientation;
     
     dispatch_async(self.sessionQueue, ^{
@@ -695,7 +716,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
                  This also ensures that there will be time to write the file to the photo library when AVCam is backgrounded.
                  To conclude this background execution, -[endBackgroundTask:] is called in
                  -[captureOutput:didFinishRecordingToOutputFileAtURL:fromConnections:error:] after the recorded file has been saved.
-                */
+                 */
                 self.backgroundRecordingID = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:nil];
             }
             
@@ -742,7 +763,7 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
      `recording` property is back to NO.
      Since a unique file path for each recording is used, a new recording will
      not overwrite a recording currently being saved.
-    */
+     */
     UIBackgroundTaskIdentifier currentBackgroundRecordingID = self.backgroundRecordingID;
     self.backgroundRecordingID = UIBackgroundTaskInvalid;
     
@@ -788,6 +809,8 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
 - (void) addObservers
 {
     [self.session addObserver:self forKeyPath:@"running" options:NSKeyValueObservingOptionNew context:SessionRunningContext];
+    [self.videoDeviceInput.device addObserver:self forKeyPath:@"adjustingFocus" options:NSKeyValueObservingOptionNew context:nil];
+    
     [self addObserver:self forKeyPath:@"videoDeviceInput.device.systemPressureState" options:NSKeyValueObservingOptionNew context:SystemPressureContext];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectAreaDidChange:) name:AVCaptureDeviceSubjectAreaDidChangeNotification object:self.videoDeviceInput.device];
@@ -799,9 +822,10 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
      AVCaptureSessionInterruptionReason. Add observers to handle these session
      interruptions and show a preview is paused message. See the documentation
      of AVCaptureSessionWasInterruptedNotification for other interruption reasons.
-    */
+     */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionWasInterrupted:) name:AVCaptureSessionWasInterruptedNotification object:self.session];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionInterruptionEnded:) name:AVCaptureSessionInterruptionEndedNotification object:self.session];
+    
 }
 
 - (void) removeObservers
@@ -840,6 +864,14 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
             self.oldVolume = newVolume;
             [self onClickTake:nil];
         }
+    } else if ([keyPath isEqualToString:@"adjustingFocus"]) {
+        BOOL isAdjustingFocus = [change[NSKeyValueChangeNewKey] boolValue];
+        
+        if (isAdjustingFocus) {
+            NSLog(@"초점 조정 중...");
+        } else {
+            NSLog(@"초점 고정 완료.");
+        }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
@@ -858,7 +890,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             /*
              Setting (focus/exposure)PointOfInterest alone does not initiate a (focus/exposure) operation.
              Call set(Focus/Exposure)Mode() to apply the new point of interest.
-            */
+             */
             if (device.isFocusPointOfInterestSupported && [device isFocusModeSupported:focusMode]) {
                 device.focusPointOfInterest = point;
                 device.focusMode = focusMode;
@@ -881,7 +913,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 - (void) subjectAreaDidChange:(NSNotification*)notification
 {
     CGPoint devicePoint = CGPointMake(0.5, 0.5);
-    [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposeWithMode:AVCaptureExposureModeContinuousAutoExposure atDevicePoint:devicePoint monitorSubjectAreaChange:NO];
+    [self focusWithMode:AVCaptureFocusModeContinuousAutoFocus exposeWithMode:AVCaptureExposureModeContinuousAutoExposure atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
 }
 
 - (void) sessionRuntimeError:(NSNotification*)notification
@@ -913,7 +945,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     /*
      The frame rates used here are for demonstrative purposes only for this app.
      Your frame rate throttling may be different depending on your app's camera configuration.
-    */
+     */
     AVCaptureSystemPressureLevel pressureLevel = [systemPressureState level];
     if (pressureLevel == AVCaptureSystemPressureLevelSerious || pressureLevel == AVCaptureSystemPressureLevelCritical) {
         if (![self.movieFileOutput isRecording] && [self.videoDeviceInput.device lockForConfiguration:nil]) {
@@ -937,7 +969,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
      the session running, which will stop music playback. Note that stopping
      music playback in control center will not automatically resume the session
      running. Also note that it is not always possible to resume, see -[resumeInterruptedSession:].
-    */
+     */
     BOOL showResumeButton = NO;
     
     AVCaptureSessionInterruptionReason reason = [notification.userInfo[AVCaptureSessionInterruptionReasonKey] integerValue];
@@ -988,7 +1020,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
      Retrieve the video preview layer's video orientation on the main queue before
      entering the session queue. We do this to ensure UI elements are accessed on
      the main thread and session configuration is done on the session queue.
-    */
+     */
     AVCaptureVideoOrientation videoPreviewLayerVideoOrientation = self.previewView.videoPreviewLayer.connection.videoOrientation;
     
     dispatch_async(self.sessionQueue, ^{
@@ -1046,7 +1078,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
              Because Live Photo captures can overlap, we need to keep track of the
              number of in progress Live Photo captures to ensure that the
              Live Photo label stays visible during these captures.
-            */
+             */
             dispatch_async(self.sessionQueue, ^{
                 if (capturing) {
                     self.inProgressLivePhotoCapturesCount++;
@@ -1104,7 +1136,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
          The Photo Output keeps a weak reference to the photo capture delegate so
          we store it in an array to maintain a strong reference to this object
          until the capture is completed.
-        */
+         */
         self.inProgressPhotoCaptureDelegates[@(photoCaptureDelegate.requestedPhotoSettings.uniqueID)] = photoCaptureDelegate;
         
         [self.photoOutput capturePhotoWithSettings:photoSettings delegate:photoCaptureDelegate];
@@ -1116,7 +1148,7 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
     if (captureDeviceClass != nil) {
         AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
         if ([device hasTorch] && [device hasFlash]){
-
+            
             [device lockForConfiguration:nil];
             if (device.torchMode == AVCaptureTorchModeOff)
             {
@@ -1136,38 +1168,41 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
 }
 
 -(void)onClickFront:(id)sender {
+    AVCaptureDevice* currentVideoDevice = self.videoDeviceInput.device;
+    AVCaptureDevicePosition currentPosition = currentVideoDevice.position;
+    AVCaptureDevicePosition preferredPosition;
+    AVCaptureDeviceType preferredDeviceType;
+    
+    switch (currentPosition)
+    {
+        case AVCaptureDevicePositionUnspecified:
+        case AVCaptureDevicePositionFront: {
+            preferredPosition = AVCaptureDevicePositionBack;
+            preferredDeviceType = AVCaptureDeviceTypeBuiltInDualWideCamera;
+            self.front = NO;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.btnFlash.hidden = NO;
+            });
+            break;
+        }
+        case AVCaptureDevicePositionBack: {
+            preferredPosition = AVCaptureDevicePositionFront;
+            preferredDeviceType = AVCaptureDeviceTypeBuiltInTrueDepthCamera;
+            self.front = YES;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.btnFlash.hidden = YES;
+            });
+            
+            break;
+        }
+    }
+    [self swithCameraTo:preferredPosition :preferredDeviceType];
+}
+
+-(void)swithCameraTo:(AVCaptureDevicePosition)preferredPosition :(AVCaptureDeviceType)preferredDeviceType  {
     dispatch_async(self.sessionQueue, ^{
         AVCaptureDevice* currentVideoDevice = self.videoDeviceInput.device;
-        AVCaptureDevicePosition currentPosition = currentVideoDevice.position;
-        
-        AVCaptureDevicePosition preferredPosition;
-        AVCaptureDeviceType preferredDeviceType;
-        
-        switch (currentPosition)
-        {
-            case AVCaptureDevicePositionUnspecified:
-            case AVCaptureDevicePositionFront: {
-                preferredPosition = AVCaptureDevicePositionBack;
-                preferredDeviceType = AVCaptureDeviceTypeBuiltInDualWideCamera;
-                self.front = NO;
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.btnFlash.hidden = NO;
-                });
-                break;
-            }
-            case AVCaptureDevicePositionBack: {
-                preferredPosition = AVCaptureDevicePositionFront;
-                preferredDeviceType = AVCaptureDeviceTypeBuiltInTrueDepthCamera;
-                self.front = YES;
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.btnFlash.hidden = YES;
-                });
-                
-                break;
-            }
-        }
-        
         NSArray<AVCaptureDevice* >* devices = self.videoDeviceDiscoverySession.devices;
         AVCaptureDevice* newVideoDevice = nil;
         
@@ -1188,7 +1223,6 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
                 }
             }
         }
-        
         
         if (newVideoDevice) {
             AVCaptureDeviceInput* videoDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:newVideoDevice error:NULL];
