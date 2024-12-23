@@ -29,11 +29,6 @@ typedef NS_ENUM(NSInteger, AVCamSetupResult) {
     AVCamSetupResultSessionConfigurationFailed
 };
 
-typedef NS_ENUM(NSInteger, AVCamCaptureMode) {
-    AVCamCaptureModePhoto = 0,
-    AVCamCaptureModeMovie = 1
-};
-
 typedef NS_ENUM(NSInteger, AVCamLivePhotoMode) {
     AVCamLivePhotoModeOn,
     AVCamLivePhotoModeOff
@@ -108,6 +103,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 @property (nonatomic) int maxSec;
 @property (nonatomic) float ratio;
 
+@property (nonatomic) BOOL closeShot;
+@property (nonatomic) double closeShotChangeTime;
 @property (nonatomic) UIMode uiMode;
 @property (nonatomic, retain) UILabel* topTitle;
 @property (nonatomic) int recordSec;
@@ -188,6 +185,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
     self.session = [[AVCaptureSession alloc] init];
     NSArray<AVCaptureDeviceType>* deviceTypes = @[AVCaptureDeviceTypeBuiltInWideAngleCamera,
                                                   AVCaptureDeviceTypeBuiltInDualWideCamera,
+                                                  AVCaptureDeviceTypeBuiltInUltraWideCamera,
                                                   AVCaptureDeviceTypeBuiltInTrueDepthCamera];
     self.videoDeviceDiscoverySession = [AVCaptureDeviceDiscoverySession discoverySessionWithDeviceTypes:deviceTypes mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionUnspecified];
     
@@ -207,19 +205,24 @@ typedef NS_ENUM(NSInteger, UIMode) {
         self.spinner.color = [UIColor yellowColor];
         [self.previewView addSubview:self.spinner];
     });
-    
-    self.focusCheckTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                                target:self
-                                                              selector:@selector(checkFocusState)
-                                                              userInfo:nil
-                                                               repeats:YES];
 }
 
 - (void)checkFocusState {
     AVCaptureDevice *device = self.videoDeviceInput.device;
-    NSLog(@"Lens Position: %f", device.lensPosition);
-    if(device.lensPosition == 0) {
-        
+    double now = (double)[NSDate date].timeIntervalSince1970;
+    if(!self.front && now - self.closeShotChangeTime > 2.0f) {
+        if(device.lensPosition == 0 && !self.closeShot) {
+            NSLog(@"AVCaptureDeviceTypeBuiltInUltraWideCamera");
+            [self switchCameraTo:AVCaptureDevicePositionBack :AVCaptureDeviceTypeBuiltInUltraWideCamera];
+            self.closeShot = YES;
+            self.closeShotChangeTime = now;
+        } 
+        else if(device.lensPosition < 1.0 && device.lensPosition > 0.8 && self.closeShot) {
+            NSLog(@"AVCaptureDeviceTypeBuiltInDualWideCamera");
+            [self switchCameraTo:AVCaptureDevicePositionBack :AVCaptureDeviceTypeBuiltInDualWideCamera];
+            self.closeShot = NO;
+            self.closeShotChangeTime = now;
+        }
     }
 }
 
@@ -271,6 +274,12 @@ typedef NS_ENUM(NSInteger, UIMode) {
     [[AVAudioSession sharedInstance] setActive:YES error:nil];
     self.oldVolume = [[AVAudioSession sharedInstance] outputVolume];
     [[AVAudioSession sharedInstance] addObserver:self forKeyPath:@"outputVolume" options:0 context:nil];
+    
+    self.focusCheckTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                                target:self
+                                                              selector:@selector(checkFocusState)
+                                                              userInfo:nil
+                                                               repeats:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -566,17 +575,18 @@ typedef NS_ENUM(NSInteger, UIMode) {
      */
     self.session.sessionPreset = AVCaptureSessionPresetPhoto;
     
-    
     // Choose the back dual camera if available, otherwise default to a wide angle camera.
     //AVCaptureDeviceTypeBuiltInUltraWideCamera 접사 상황에서
-    //AVCaptureDeviceTypeBuiltInDualCamera 일반적인 상황에서
+    //AVCaptureDeviceTypeBuiltInDualWideCamera 일반적인 상황에서
     
     AVCaptureDevice* videoDevice = nil;
     if(self.front)
         videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionFront];
-    else
-        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
-    
+    else {
+        videoDevice = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInDualWideCamera mediaType:AVMediaTypeVideo position:AVCaptureDevicePositionBack];
+        self.closeShot = NO;
+        self.closeShotChangeTime = 0;
+    }
     
     if (!videoDevice) {
         // If a rear dual camera is not available, default to the rear wide angle camera.
@@ -809,7 +819,6 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
 - (void) addObservers
 {
     [self.session addObserver:self forKeyPath:@"running" options:NSKeyValueObservingOptionNew context:SessionRunningContext];
-    [self.videoDeviceInput.device addObserver:self forKeyPath:@"adjustingFocus" options:NSKeyValueObservingOptionNew context:nil];
     
     [self addObserver:self forKeyPath:@"videoDeviceInput.device.systemPressureState" options:NSKeyValueObservingOptionNew context:SystemPressureContext];
     
@@ -863,14 +872,6 @@ didFinishRecordingToOutputFileAtURL:(NSURL*)outputFileURL
         if(self.oldVolume > newVolume || newVolume == 0) {
             self.oldVolume = newVolume;
             [self onClickTake:nil];
-        }
-    } else if ([keyPath isEqualToString:@"adjustingFocus"]) {
-        BOOL isAdjustingFocus = [change[NSKeyValueChangeNewKey] boolValue];
-        
-        if (isAdjustingFocus) {
-            NSLog(@"초점 조정 중...");
-        } else {
-            NSLog(@"초점 고정 완료.");
         }
     } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -1197,10 +1198,10 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             break;
         }
     }
-    [self swithCameraTo:preferredPosition :preferredDeviceType];
+    [self switchCameraTo:preferredPosition :preferredDeviceType];
 }
 
--(void)swithCameraTo:(AVCaptureDevicePosition)preferredPosition :(AVCaptureDeviceType)preferredDeviceType  {
+-(void)switchCameraTo:(AVCaptureDevicePosition)preferredPosition :(AVCaptureDeviceType)preferredDeviceType  {
     dispatch_async(self.sessionQueue, ^{
         AVCaptureDevice* currentVideoDevice = self.videoDeviceInput.device;
         NSArray<AVCaptureDevice* >* devices = self.videoDeviceDiscoverySession.devices;
