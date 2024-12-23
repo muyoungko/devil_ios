@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) WildCardUIView* bar;
 @property (nonatomic, retain) WildCardUIView* bar_bg;
 @property (nonatomic, retain) NSString* watch;
+@property (nonatomic, retain) NSString* type;
 
 @property (nonatomic, retain) NSString* dragUpScript;
 @property (nonatomic, retain) NSString* moveScript;

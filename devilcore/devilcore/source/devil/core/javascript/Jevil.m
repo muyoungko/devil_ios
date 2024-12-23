@@ -1871,10 +1871,14 @@
 
 
 + (void)timer:(NSString*)node :(int)sec {
-    DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
-    WildCardUIView* vv = [vc findView:node];
-    WildCardTimer* timer = (WildCardTimer*)vv.tags[@"timer"];
-    [timer startTimeFromSec:sec];
+    @try {
+        DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+        WildCardUIView* vv = [vc findView:node];
+        WildCardTimer* timer = (WildCardTimer*)vv.tags[@"timer"];
+        [timer startTimeFromSec:sec];
+    }@catch(NSException* e){
+        [DevilExceptionHandler handle:e];
+    }
 }
 
 + (void)custom:(NSString*)function {
@@ -2246,6 +2250,7 @@
 }
 
 + (void)touchListener:(NSString*)node :(JSValue *)callback {
+    [[JevilFunctionUtil sharedInstance] registFunction:callback];
     DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
     WildCardUIView* v = [vc findView:node];
     v.multipleTouchEnabled = YES;
@@ -2276,7 +2281,10 @@
                 NSLog(@"touches %@ %@ %d (%f,%f)", touchKey, event, (int)[touches count], p.x, p.y);
         }
         
-        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[event, list]];
+        [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[@{
+            @"action":event,
+            @"touches":list
+        }]];
     }];
 }
 

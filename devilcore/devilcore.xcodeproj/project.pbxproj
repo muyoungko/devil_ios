@@ -42,6 +42,8 @@
 		6D23ECD32B9C602D00D1E106 /* lang.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D23ECD22B9C602D00D1E106 /* lang.json */; };
 		6D25F6A5273934D900FAA045 /* WildCardUIPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */; };
 		6D25F6A6273934D900FAA045 /* WildCardUIPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */; };
+		6D2D47222D0944E40007CFCD /* ReplaceRuleProgress.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D2D47202D0944E40007CFCD /* ReplaceRuleProgress.h */; };
+		6D2D47232D0944E40007CFCD /* ReplaceRuleProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D2D47212D0944E40007CFCD /* ReplaceRuleProgress.m */; };
 		6D3DD34B275B778000707521 /* DevilPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D3DD349275B778000707521 /* DevilPlayerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D3DD34C275B778000707521 /* DevilPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3DD34A275B778000707521 /* DevilPlayerController.m */; };
 		6D3DD34E275B93C600707521 /* devil_camera_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D3DD34D275B93C600707521 /* devil_camera_close@3x.png */; };
@@ -367,6 +369,8 @@
 		6D23ECD22B9C602D00D1E106 /* lang.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lang.json; sourceTree = "<group>"; };
 		6D25F6A3273934D900FAA045 /* WildCardUIPageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUIPageControl.h; sourceTree = "<group>"; };
 		6D25F6A4273934D900FAA045 /* WildCardUIPageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUIPageControl.m; sourceTree = "<group>"; };
+		6D2D47202D0944E40007CFCD /* ReplaceRuleProgress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRuleProgress.h; sourceTree = "<group>"; };
+		6D2D47212D0944E40007CFCD /* ReplaceRuleProgress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRuleProgress.m; sourceTree = "<group>"; };
 		6D3DD349275B778000707521 /* DevilPlayerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilPlayerController.h; sourceTree = "<group>"; };
 		6D3DD34A275B778000707521 /* DevilPlayerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPlayerController.m; sourceTree = "<group>"; };
 		6D3DD34D275B93C600707521 /* devil_camera_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "devil_camera_close@3x.png"; sourceTree = "<group>"; };
@@ -941,6 +945,8 @@
 				6D00ADC32CB6E9050016D337 /* ReplaceRuleInput.m */,
 				6D1BB42F2CC5289B0070B0EA /* ReplaceRuleCheckbox.h */,
 				6D1BB4302CC5289B0070B0EA /* ReplaceRuleCheckbox.m */,
+				6D2D47202D0944E40007CFCD /* ReplaceRuleProgress.h */,
+				6D2D47212D0944E40007CFCD /* ReplaceRuleProgress.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -1475,6 +1481,7 @@
 				6D467B78257A2FFC006D57DD /* DevilWebViewController.h in Headers */,
 				6D467B7E257A3010006D57DD /* DevilWebView.h in Headers */,
 				6DE10D432AFB24E000E90394 /* DevilReview.h in Headers */,
+				6D2D47222D0944E40007CFCD /* ReplaceRuleProgress.h in Headers */,
 				6D467B72257A2F27006D57DD /* DevilController.h in Headers */,
 				6D467B6C257A2F16006D57DD /* DevilBaseController.h in Headers */,
 				6D1611E12B7362A3001C0E3B /* DevilPaintView.h in Headers */,
@@ -1781,6 +1788,7 @@
 				6D467AA1256AB07A006D57DD /* ReplaceRuleImageResource.m in Sources */,
 				6D467A95256AB07A006D57DD /* ReplaceRuleClick.m in Sources */,
 				6D467B63257A268C006D57DD /* DevilHeader.m in Sources */,
+				6D2D47232D0944E40007CFCD /* ReplaceRuleProgress.m in Sources */,
 				6D467AA7256AB07A006D57DD /* WildCardScreenTableView.m in Sources */,
 				6D7E268225AA935800600978 /* WildCardUITextView.m in Sources */,
 				6DCD33BA267DC69800784D91 /* DevilDrawer.m in Sources */,

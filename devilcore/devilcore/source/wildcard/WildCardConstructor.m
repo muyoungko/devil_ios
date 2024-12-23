@@ -25,6 +25,7 @@
 #import "ReplaceRuleQrcode.h"
 #import "ReplaceRuleAccessibility.h"
 #import "ReplaceRuleInput.h"
+#import "ReplaceRuleProgress.h"
 #import "ReplaceRuleCheckbox.h"
 #import "WildCardUtil.h"
 #import "WildCardUILabel.h"
@@ -966,6 +967,12 @@ static BOOL IS_TABLET = NO;
         
         if (layer[@"checkbox"]) {
             ReplaceRuleCheckbox* rule = [[ReplaceRuleCheckbox alloc] init];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            [outRules addObject:rule];
+        }
+        
+        if (layer[@"progress"]) {
+            ReplaceRuleProgress* rule = [[ReplaceRuleProgress alloc] init];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
             [outRules addObject:rule];
         }

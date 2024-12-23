@@ -69,7 +69,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if(touches.count > 1)
+    if(!self.multipleTouchEnabled && touches.count > 1)
         return;
     
     if(!self.touchCallback)
@@ -84,7 +84,7 @@
 
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    if(touches.count > 1 || !self.touchCallback)
+    if((!self.multipleTouchEnabled && touches.count > 1) || !self.touchCallback)
         return;
     
     UITouch *touch = [touches anyObject];
@@ -94,7 +94,7 @@
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if(touches.count > 1 || !self.touchCallback)
+    if((!self.multipleTouchEnabled && touches.count > 1) || !self.touchCallback)
         return;
     
     UITouch *touch = [touches anyObject];
@@ -103,7 +103,7 @@
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if(touches.count > 1 || !self.touchCallback)
+    if((!self.multipleTouchEnabled && touches.count > 1) || !self.touchCallback)
         return;
     
     UITouch *touch = [touches anyObject];

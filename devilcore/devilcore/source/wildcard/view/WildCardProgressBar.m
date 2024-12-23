@@ -19,13 +19,48 @@
 @property float startObjectY;
 @property NSTimeInterval downtime;
 @property (nonatomic, retain) WildCardUITapGestureRecognizer* singleFingerTap;
-
+@property (nonatomic, retain) CAShapeLayer *semiCircleLayer;
 @end
 
 @implementation WildCardProgressBar
 
 -(void)rateToView:(int)rate {
-    if(self.vertical) {
+    if([@"round" isEqualToString:self.type]) {
+        float border_width = self.bar.layer.borderWidth;
+        CGColorRef barCGColor = self.bar.layer.borderColor;
+        self.bar.layer.borderColor = [UIColor clearColor].CGColor;
+        
+        // 반원의 중심과 반지름 설정
+        CGPoint center = CGPointMake(self.bar.frame.size.width / 2, self.bar.frame.size.height / 2);
+        CGFloat radius = MIN(self.bar.frame.size.width, self.bar.frame.size.height) / 2 - border_width/2;
+        
+        double a_rate = rate / 100.0f * 360.0f * M_PI / 180.0;
+        UIBezierPath *semiCirclePath = [UIBezierPath bezierPathWithArcCenter:center
+                                                                          radius:radius
+                                                                      startAngle:-M_PI/2
+                                                                        endAngle:a_rate -M_PI/2
+                                                                       clockwise:YES];
+        
+        // CAShapeLayer 설정
+        if(self.semiCircleLayer == nil) {
+            self.semiCircleLayer = [CAShapeLayer layer];
+            self.semiCircleLayer.fillColor = [UIColor clearColor].CGColor; // 내부 색상
+            self.semiCircleLayer.strokeColor = barCGColor; // 경계선 색상
+            self.semiCircleLayer.lineWidth = border_width; // 경계선 두께
+            self.semiCircleLayer.lineCap = kCALineCapRound;
+            [self.bar.layer addSublayer:self.semiCircleLayer];
+        }
+        
+        // 애니메이션 설정
+//        CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
+//        pathAnimation.fromValue = (__bridge id)self.semiCircleLayer.path ?: (__bridge id)semiCirclePath.CGPath;
+//        pathAnimation.toValue = (__bridge id)semiCirclePath.CGPath;       // 새로운 경로
+//        pathAnimation.duration = 0.2;                                    // 애니메이션 지속 시간
+//        pathAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        [self.semiCircleLayer addAnimation:pathAnimation forKey:@"pathAnimation"];
+
+        self.semiCircleLayer.path = semiCirclePath.CGPath; // 반원 경로 설정
+    } else if(self.vertical) {
         __block float barBgWidth = self.bar_bg.frame.size.height;
         float newBarWidth = barBgWidth*rate/100.0f;
         self.bar.frame = CGRectMake(self.bar_bg.frame.origin.x,
