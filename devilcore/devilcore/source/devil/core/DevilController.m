@@ -281,6 +281,9 @@
     self.screenName = screen[@"name"];
     [self updateHasFunction];
 
+    if(!self.footer && !self.inside_footer && !self.header)
+        [self constructHeaderAndFooter];
+    
     id footer = [[WildCardConstructor sharedInstance] getFooterCloudJson:self.screenId: self.landscape];
     if(footer)
         self.fix_footer = [footer[@"fix_footer"] boolValue];

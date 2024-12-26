@@ -45,7 +45,9 @@
             id a = [@{} mutableCopy];
             a[@"sku"] = sku;
             if(test) {
-                id fallback = test[i];
+                id fallback = @{};
+                if(i < [test count])
+                    fallback = test[i];
                 self.fallbackInfo[sku] = fallback;
                 a[@"type"] = fallback[@"type"];
                 a[@"title"] = fallback[@"title"]?fallback[@"title"]:@"sku";
@@ -96,6 +98,9 @@
                 @"price" : product.price,
                 @"sku" : product.productIdentifier,
                 @"price_text" : formattedString,
+                @"currency": product.priceLocale.currencyCode,
+                @"date" : [NSNumber numberWithInt:[self getTotalDays:product.subscriptionPeriod]],
+                @"addtional_info": [self getAddtionalInfo:product],
             } mutableCopy]];
         }
         
@@ -131,6 +136,37 @@
             });
         }
     }
+}
+
+-(id)getAddtionalInfo:(SKProduct*) product {
+    id r = [@{} mutableCopy];
+    if(product.introductoryPrice) {
+        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+        [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
+        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+        [numberFormatter setLocale:product.priceLocale];
+        NSString *formattedString = [numberFormatter stringFromNumber:product.introductoryPrice.price];
+        
+        int d = [self getTotalDays:product.introductoryPrice.subscriptionPeriod];
+        r[@"text"] = [NSString stringWithFormat:@"%@ %d일", formattedString, d];
+        r[@"date"] = [NSNumber numberWithFloat:d];
+        
+    }
+    return r;
+}
+
+-(int)getTotalDays:(SKProductSubscriptionPeriod*)period {
+    if(!period)
+        return 0;
+    
+    int n = (int)period.numberOfUnits;
+    if(period.unit == SKProductPeriodUnitWeek)
+        n *= 7;
+    else if(period.unit == SKProductPeriodUnitMonth)
+        n *= 30;
+    else if(period.unit == SKProductPeriodUnitYear)
+        n *= 365;
+    return n;
 }
 
 - (BOOL) isDevilAppTest {
