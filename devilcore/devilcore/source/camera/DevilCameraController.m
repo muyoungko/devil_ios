@@ -210,6 +210,8 @@ typedef NS_ENUM(NSInteger, UIMode) {
 - (void)checkFocusState {
     AVCaptureDevice *device = self.videoDeviceInput.device;
     double now = (double)[NSDate date].timeIntervalSince1970;
+    //NSLog(@"lensPosition = %f", device.lensPosition);
+    
     if(!self.front && now - self.closeShotChangeTime > 2.0f) {
         if(device.lensPosition == 0 && !self.closeShot) {
             NSLog(@"AVCaptureDeviceTypeBuiltInUltraWideCamera");
@@ -1189,7 +1191,9 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
         }
         case AVCaptureDevicePositionBack: {
             preferredPosition = AVCaptureDevicePositionFront;
-            preferredDeviceType = AVCaptureDeviceTypeBuiltInTrueDepthCamera;
+            //preferredDeviceType = AVCaptureDeviceTypeBuiltInTrueDepthCamera;
+            
+            preferredDeviceType = AVCaptureDeviceTypeBuiltInWideAngleCamera;
             self.front = YES;
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.btnFlash.hidden = YES;
@@ -1198,10 +1202,13 @@ monitorSubjectAreaChange:(BOOL)monitorSubjectAreaChange
             break;
         }
     }
+    NSLog(@"currentVideoDevice %@", [currentVideoDevice.deviceType description]);
     [self switchCameraTo:preferredPosition :preferredDeviceType];
 }
 
 -(void)switchCameraTo:(AVCaptureDevicePosition)preferredPosition :(AVCaptureDeviceType)preferredDeviceType  {
+    NSLog(@"switchCameraTo %@ %@", (preferredPosition ==AVCaptureDevicePositionBack?@"back":@"front"), [preferredDeviceType description]);
+    NSLog(@"%@", self.videoDeviceDiscoverySession.devices);
     dispatch_async(self.sessionQueue, ^{
         AVCaptureDevice* currentVideoDevice = self.videoDeviceInput.device;
         NSArray<AVCaptureDevice* >* devices = self.videoDeviceDiscoverySession.devices;
