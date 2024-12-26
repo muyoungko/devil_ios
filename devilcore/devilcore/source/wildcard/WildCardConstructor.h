@@ -77,6 +77,7 @@
 @property (nonatomic, retain) NSMutableDictionary* _Nullable themeCloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable screenMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable blockMap;
+@property (nonatomic, retain) NSMutableArray* _Nullable resourceList;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable project;
 @property (nonatomic, retain) NSString* _Nullable xButtonImageName;
 

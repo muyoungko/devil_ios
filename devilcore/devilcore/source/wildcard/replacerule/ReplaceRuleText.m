@@ -10,6 +10,7 @@
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardConstructor.h"
 #import "WildCardUtil.h"
+#import "DevilDynamicAsset.h"
 
 @interface ReplaceRuleText()
 
@@ -30,6 +31,14 @@
     NSString* color = layer[@"textContentHighLightColor"];
     if(color)
         self.textContentHighLightColor = [WildCardUtil colorWithHexString:color];
+    
+    if(layer[@"font"]) {
+        NSString* font_key = layer[@"font"];
+        UILabel* label = [vv subviews][0];
+        
+        UIFont* font = [[DevilDynamicAsset sharedInstance] getFont:font_key fontSize:label.font.pointSize];
+        label.font = font;
+    }
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt {

@@ -257,6 +257,8 @@
 		6DA615F928C8F5E10078979D /* DevilPinLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DA615F728C8F5E10078979D /* DevilPinLayer.m */; };
 		6DACCFCE28DA244C002E7409 /* DevilImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */; };
 		6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */; };
+		6DAEA1CA2D1D2A8900E9A323 /* DevilDynamicAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DAEA1C82D1D2A8900E9A323 /* DevilDynamicAsset.h */; };
+		6DAEA1CB2D1D2A8900E9A323 /* DevilDynamicAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEA1C92D1D2A8900E9A323 /* DevilDynamicAsset.m */; };
 		6DC0CE3228E5974E00195F60 /* DevilChartMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */; };
 		6DC0CE3328E5974E00195F60 /* DevilChartMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */; };
 		6DC0CE3628E5DDFB00195F60 /* JevilHealthBlank.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */; };
@@ -585,6 +587,8 @@
 		6DA615F728C8F5E10078979D /* DevilPinLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilPinLayer.m; sourceTree = "<group>"; };
 		6DACCFCC28DA244C002E7409 /* DevilImagePickerController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilImagePickerController.h; sourceTree = "<group>"; };
 		6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImagePickerController.m; sourceTree = "<group>"; };
+		6DAEA1C82D1D2A8900E9A323 /* DevilDynamicAsset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDynamicAsset.h; sourceTree = "<group>"; };
+		6DAEA1C92D1D2A8900E9A323 /* DevilDynamicAsset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDynamicAsset.m; sourceTree = "<group>"; };
 		6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilChartMarketComponent.h; sourceTree = "<group>"; };
 		6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilChartMarketComponent.m; sourceTree = "<group>"; };
 		6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilHealthBlank.h; sourceTree = "<group>"; };
@@ -1047,6 +1051,8 @@
 				6DDE203E2924D7BE00AD7F3C /* DevilFlingChecker.m */,
 				6D5C4AB82AE2A98E00DD1978 /* DevilSwipeBackGesture.h */,
 				6D5C4AB92AE2A98E00DD1978 /* DevilSwipeBackGesture.m */,
+				6DAEA1C82D1D2A8900E9A323 /* DevilDynamicAsset.h */,
+				6DAEA1C92D1D2A8900E9A323 /* DevilDynamicAsset.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1404,6 +1410,7 @@
 				6DA1B0982C10A4C200025AB5 /* ZoomableImageView.h in Headers */,
 				6DC6789E26EA29840005728A /* DevilLink.h in Headers */,
 				6D9A9DEA28A37320003302B3 /* DevilImageMap.h in Headers */,
+				6DAEA1CA2D1D2A8900E9A323 /* DevilDynamicAsset.h in Headers */,
 				6DD09437269C79E8000A913A /* MarketComponent.h in Headers */,
 				6DC162452691711000FD769C /* DevilNavigationController.h in Headers */,
 				6DFF30AF2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h in Headers */,
@@ -1682,6 +1689,7 @@
 				6DF579A926D8D27F009D41A1 /* DevilBeacon.m in Sources */,
 				6D9F7AC826234431003A70EC /* DevilUtil.m in Sources */,
 				6D9F7B0B2629658F003A70EC /* PEResizeControl.m in Sources */,
+				6DAEA1CB2D1D2A8900E9A323 /* DevilDynamicAsset.m in Sources */,
 				6DD0987426A69987000A913A /* ReplaceRuleQrcode.m in Sources */,
 				6D467A8D256AB07A006D57DD /* WildCardIndicatorView.m in Sources */,
 				6D9F7ACD26234E62003A70EC /* DevilAVCamPhotoCaptureDelegate.m in Sources */,

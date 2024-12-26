@@ -48,6 +48,7 @@
 #import "WildCardUICollectionView.h"
 #import "WildCardEventTracker.h"
 #import "JevilInstance.h"
+#import "DevilDynamicAsset.h"
 
 //#import "UIImageView+AFNetworking.h"
 
@@ -113,7 +114,9 @@ static NSString *default_project_id = nil;
         {
             [self initWithProject:self.project_id json:responseJsonObject];
             
-            complete(YES);
+            [[DevilDynamicAsset sharedInstance] download:_resourceList callback:^(id  _Nonnull res) {
+                complete(YES);
+            }];
         }
         else
         {
@@ -182,6 +185,7 @@ static NSString *default_project_id = nil;
     _screenMap = projectJson[@"screenMap"];
     _blockMap = projectJson[@"block"];
     _project = projectJson[@"project"];
+    _resourceList = projectJson[@"resource_list"];
     
     [[NSUserDefaults standardUserDefaults] setObject:[[[UIDevice currentDevice] identifierForVendor] UUIDString] forKey:
      [NSString stringWithFormat:@"UDID_%@", project_id]
