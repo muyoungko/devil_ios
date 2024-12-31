@@ -97,6 +97,8 @@
 {
     if(_data == nil)
         return 0;
+    if(_infinite)
+        return [_data[@"length"] toInt32];
     return [_data[@"length"] toInt32];
 }
 

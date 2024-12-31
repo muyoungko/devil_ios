@@ -38,6 +38,9 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)save:(NSString *)key :(NSString *)value;
 + (void)remove:(NSString *)key;
 + (NSString*)get:(NSString *)key;
++ (void)_save:(NSString *)key :(NSString *)value;
++ (void)_remove:(NSString *)key;
++ (NSString*)_get:(NSString *)key;
 + (void)httpWithMultipartPost:(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)param :(JSValue *)progress_callback :(JSValue *)callback;
 + (void)httpWithFilePath:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSString*)filepath :(JSValue *)callback;
 + (void)http:(NSString *)method :(NSString *)url :(NSDictionary*)headerObject :(NSDictionary*)body :(JSValue *)callback;
@@ -181,6 +184,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)isScreenOrientationLandscape;
 + (BOOL)isTablet;
 + (void)previewProject:(NSString *)project_id :(NSString *)start_screen_id :(NSString *)version;
++ (void)_startProject:(NSString *)project_id;
 + (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapAddMarker:(NSString*)nodeName :(id)param :(JSValue*)callback;
 + (void)mapAddMarkers:(NSString*)nodeName :(id)param :(JSValue*)callback;

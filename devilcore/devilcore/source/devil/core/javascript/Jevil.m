@@ -386,6 +386,23 @@
     return r;
 }
 
++ (void)_save:(NSString *)key :(NSString *)value{
+    if(value == nil) {
+        [Jevil remove:key];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+}
++ (void)_remove:(NSString *)key{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
++ (NSString*)_get:(NSString *)key{
+    NSString* r = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    return r;
+}
+
 + (void)getMany:(NSArray *)paths then:(JSValue *)callback {
     [[JevilFunctionUtil sharedInstance] registFunction:callback];
     __block int len = (int)[paths count];
@@ -2065,6 +2082,26 @@
         
     }];
 }
+
++ (void)_startProject:(NSString *)project_id {
+    NSString* previous_project_id = [WildCardConstructor sharedInstance].project_id;
+    [WildCardConstructor sharedInstance:project_id].delegate = [WildCardConstructor sharedInstance:previous_project_id].delegate;
+    [WildCardConstructor sharedInstance:project_id].textConvertDelegate = [WildCardConstructor sharedInstance:previous_project_id].textConvertDelegate;
+    [WildCardConstructor sharedInstance:project_id].textTransDelegate = [WildCardConstructor sharedInstance:previous_project_id].textTransDelegate;
+    
+    [DevilSdk start:project_id viewController:[JevilInstance currentInstance].vc complete:^(BOOL res) {
+        NSString* hostKey = [NSString stringWithFormat:@"%@_HOST", project_id];
+        NSString* webHostKey = [NSString stringWithFormat:@"%@_WEB_HOST", project_id];
+        NSString *savedHost = [[NSUserDefaults standardUserDefaults] objectForKey:hostKey];
+        if(savedHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"host"] = savedHost;
+        
+        NSString *savedWebHost = [[NSUserDefaults standardUserDefaults] objectForKey:webHostKey];
+        if(savedWebHost)
+            [WildCardConstructor sharedInstance:project_id].project[@"web_host"] = savedWebHost;
+    }];
+}
+
 
 + (void)mapCamera:(NSString*)nodeName :(id)param :(JSValue*)callback{
     DevilGoogleMapMarketComponent* mc = [Jevil getDevilGoogleMapMarketComponent:nodeName];

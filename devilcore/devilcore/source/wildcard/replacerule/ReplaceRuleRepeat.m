@@ -731,7 +731,7 @@
             if(adapter.infinite) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if(targetDataJson)
-                        [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([targetDataJson[@"length"] toInt32] * 10) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+                        [cv scrollToItemAtIndexPath:[NSIndexPath indexPathForItem:([targetDataJson[@"length"] toInt32]/2) inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
                 });
             }
         }
