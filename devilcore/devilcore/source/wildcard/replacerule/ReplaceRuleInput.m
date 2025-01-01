@@ -10,7 +10,11 @@
 #import "WildCardUITextField.h"
 
 @interface ReplaceRuleInput()
-@property id input;
+@property (nonatomic, retain) id input;
+@property (nonatomic, retain) NSString* show_password_node;
+@property BOOL password;
+@property BOOL show_password_switch;
+@property BOOL first_update;
 @end
 
 
@@ -24,6 +28,12 @@
         v = [WildCardUITextView create:layer meta:meta];
     } else {
         v = [WildCardUITextField create:layer meta:meta];
+        id input = layer[@"input"];
+        self.password = [@"Y" isEqualToString:input[@"select4"]];
+        if(self.password) {
+            self.show_password_node = input[@"select15"];
+            self.show_password_switch = NO;
+        }
     }
     self.replaceView = v;
     
@@ -37,6 +47,7 @@
     
     vv.userInteractionEnabled = YES;
     [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
+    self.first_update = YES;
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{
@@ -60,6 +71,30 @@
         text = [NSString stringWithFormat:@"%@", opt[select3]]; //숫자가 나올때가 있다
     if(![dt.text isEqualToString:text])
         dt.text = text;
+    
+    if(self.first_update) {
+        self.first_update = NO;
+        
+        if(self.show_password_node && self.password) {
+            DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
+            MetaAndViewResult* mv = [vc findViewWithMeta:self.show_password_node];
+            if(mv && mv.view) {
+                UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showPasswordClick:)];
+                [WildCardConstructor userInteractionEnableToParentPath:mv.view depth:5];
+                mv.view.userInteractionEnabled = YES;
+                [mv.view addGestureRecognizer:tap];
+            }
+        }
+    }
+}
+
+- (void)showPasswordClick:(id)sender {
+    self.show_password_switch = !self.show_password_switch;
+    WildCardUITextField* tf = (WildCardUITextField*)self.replaceView;
+    if(self.show_password_switch)
+        tf.secureTextEntry = NO;
+    else
+        tf.secureTextEntry = YES;
 }
 
 @end
