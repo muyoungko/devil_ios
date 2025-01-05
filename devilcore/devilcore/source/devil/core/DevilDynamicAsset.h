@@ -11,7 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilDynamicAsset : NSObject
 + (DevilDynamicAsset*)sharedInstance;
-- (void)download:(id)key_list callback:(void (^)(id res))callback;
+- (void)download:(id)key_list callback:(void (^)(bool success))callback;
 - (UIFont*)getFont:(NSString*)key fontSize:(float)size;
 
 @end

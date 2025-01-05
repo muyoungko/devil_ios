@@ -14,6 +14,7 @@
 @interface DevilDynamicAsset()
 @property (nonatomic, retain) NSMutableDictionary* cache;
 @property int downloadCount;
+@property BOOL allSuccess;
 @property (nonatomic, retain) NSMutableArray* downloaderList;
 @end
 
@@ -29,10 +30,12 @@
     return instance;
 }
 
-- (void)download:(id)key_list callback:(void (^)(id res))callback {
+- (void)download:(id)key_list callback:(void (^)(bool success))callback {
     self.downloadCount= 0;
+    self.allSuccess = YES;
+    
     if(!key_list || [key_list count] == 0) {
-        callback(@{@"r":@TRUE});
+        callback(true);
         return;
     }
     
@@ -49,7 +52,7 @@
         if([[NSFileManager defaultManager] fileExistsAtPath:dest]) {
             self.downloadCount ++;
             if(self.downloadCount == [key_list count])
-                callback(@{@"r":@TRUE});
+                callback(self.allSuccess);
             continue;
         }
         
@@ -57,8 +60,10 @@
             
         } complete:^(id  _Nonnull res) {
             self.downloadCount ++ ;
+            if(res == nil || ![res[@"r"] boolValue])
+                self.allSuccess = NO;
             if(self.downloadCount == [key_list count])
-                callback(@{@"r":@TRUE});
+                callback(self.allSuccess);
         }];
     }
 }

@@ -114,9 +114,9 @@ static NSString *default_project_id = nil;
         {
             [self initWithProject:self.project_id json:responseJsonObject];
             
-            [[DevilDynamicAsset sharedInstance] download:_resourceList callback:^(id  _Nonnull res) {
-                complete(YES);
-            }];
+            [[DevilDynamicAsset sharedInstance] download:_resourceList callback:^(bool success) {
+                complete(success);
+            }];;
         }
         else
         {
@@ -159,7 +159,9 @@ static NSString *default_project_id = nil;
         {
             [self saveLastProject:responseJsonObject];
             [self initWithProject:self.project_id json:responseJsonObject];
-            complete(YES);
+            [[DevilDynamicAsset sharedInstance] download:_resourceList callback:^(bool success) {
+                complete(success);
+            }];
         }
         else
         {
