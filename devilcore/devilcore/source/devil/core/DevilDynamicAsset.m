@@ -122,8 +122,8 @@
     BOOL success = CTFontManagerRegisterFontsForURL((__bridge CFURLRef)fontURL, kCTFontManagerScopeProcess, &error);
     
     if (!success) {
-        NSLog(@"Failed to load font: %@", ((__bridge NSError *)error).localizedDescription);
-        return nil;
+//        NSLog(@"Failed to load font: %@", ((__bridge NSError *)error).localizedDescription);
+//        return nil;
     }
     
     // 폰트 이름 확인
