@@ -9,6 +9,7 @@
 #import "ReplaceRuleLocalImage.h"
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
+#import "WildCardUtil.h"
 
 @implementation ReplaceRuleLocalImage
 
@@ -19,7 +20,7 @@
         UIView* iv = [[WildCardConstructor sharedInstance].delegate getNetworkImageViewInstnace];
         iv.contentMode = UIViewContentModeScaleToFill;
         [vv addSubview:iv];
-        [WildCardConstructor followSizeFromFather:vv child:iv];
+        [WildCardUtil followSizeFromFather:vv child:iv];
         //[outRules addObject:ReplaceRuleLocalImage(iv, layer, [layer objectForKey:@"localImageContent"])];
         [[WildCardConstructor sharedInstance].delegate loadNetworkImageView:iv withUrl:[layer objectForKey:(@"localImageContent")]];
     }
@@ -35,7 +36,7 @@
         imageName = [imageName substringFromIndex:index+1];
         NSData* imgData = [WildCardConstructor getLocalFile:[NSString stringWithFormat:@"assets/images/%@", imageName]];
         [iv setImage: [UIImage imageWithData:imgData]];
-        [WildCardConstructor followSizeFromFather:vv child:iv];
+        [WildCardUtil followSizeFromFather:vv child:iv];
     }
 }
 

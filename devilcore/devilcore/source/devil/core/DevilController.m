@@ -10,7 +10,6 @@
 #import "JevilInstance.h"
 #import "DevilExceptionHandler.h"
 #import "DevilDebugView.h"
-#import "Lottie.h"
 #import "JevilCtx.h"
 #import "DevilSound.h"
 #import "DevilDrawer.h"
@@ -60,7 +59,7 @@
     _viewMain = [[UIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
     _viewMain.userInteractionEnabled = YES;
     [self.view addSubview:_viewMain];
-    [WildCardConstructor followSizeFromFather:self.view child:_viewMain];
+    [WildCardUtil followSizeFromFather:self.view child:_viewMain];
     
     if(self.startData)
         self.data = [JSValue valueWithObject:self.startData inContext:self.jevil.jscontext];
@@ -116,7 +115,6 @@
             self.hasOnFinish = true;
         if([code rangeOfString:@"function onPause"].length > 0)
             self.hasOnPause = true;
-        [WildCardConstructor sharedInstance].loadingDelegate = self;
         [self.jevil code:code viewController:self data:self.data meta:nil];
     }
 }
@@ -333,8 +331,6 @@
     
     [self checkHeader];
     
-    [WildCardConstructor sharedInstance].loadingDelegate = self;
-    
     if([JevilInstance globalInstance].callbackData){
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[JevilInstance globalInstance].callbackData
                                                            options:nil
@@ -426,11 +422,11 @@
 }
 
 - (void)startLoading{
-    [self showIndicator];
+    [[WildCardConstructor sharedInstance] startLoading];
 }
 
 - (void)stopLoading{
-    [self hideIndicator];
+    [[WildCardConstructor sharedInstance] stopLoading];
 }
 
 - (void)checkHeader{

@@ -101,7 +101,7 @@
         }
         
         [self.vv addSubview:self.mapView];
-        [WildCardConstructor followSizeFromFather:self.vv child:self.mapView];
+        [WildCardUtil followSizeFromFather:self.vv child:self.mapView];
         [WildCardConstructor userInteractionEnableToParentPath:self.mapView depth:5];
         
     }

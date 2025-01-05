@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "WildCardUIView.h"
-
 #import "ReplaceRule.h"
 
 @class UIView;
@@ -46,13 +45,6 @@
 -(float)convertTextSize:(int)sketchTextSize;
 @end
 
-@protocol WildCardConstructorLoading<NSObject>
-@required
--(float)startLoading;
--(float)stopLoading;
-@end
-
-
 @interface WildCardConstructor : NSObject
 
 + (WildCardConstructor*)sharedInstance;
@@ -68,7 +60,6 @@
 @property (nonatomic, weak, nullable) id <WildCardConstructorGlobalDelegate> delegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextConvertDelegate> textConvertDelegate;
 @property (nonatomic, weak, nullable) id <WildCardConstructorTextTransDelegate> textTransDelegate;
-@property (nonatomic, weak, nullable) id <WildCardConstructorLoading> loadingDelegate;
 
 @property (nonatomic, retain) NSMutableDictionary* _Nullable cloudJsonMap;
 @property (nonatomic, retain) NSMutableDictionary* _Nullable tabletCloudJsonMap;
@@ -119,6 +110,8 @@
 +(void)updateSketchWidth:(id)layer;
 +(void)updateScreenWidthHeight:(float)w :(float)h;
 -(UIInterfaceOrientationMask) supportedOrientation : (NSString*)screenId :(NSString*)limitOrientation;
+-(void)startLoading;
+-(void)stopLoading;
 
 @end
 

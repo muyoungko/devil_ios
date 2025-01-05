@@ -50,8 +50,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, retain) NSString* screenId;
 @property (nonatomic, retain) NSString* screenName;
 
-- (void)showIndicator;
-- (void)hideIndicator;
 - (void)adjustFooterPositionOnKeyboard;
 - (void)keyboardDidShow:(NSNotification*)noti;
 - (void)keyboardWillHide:(NSNotification*)noti;

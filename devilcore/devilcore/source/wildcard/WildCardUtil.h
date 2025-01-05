@@ -54,4 +54,6 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(BOOL)isVCenterOrVBottom:(int)alignment;
 +(BOOL)isHCenterOrHRight:(int)alignment;
 +(NSString*)deviceModel;
++(void) followSizeFromFather:(UIView*)vv child:(UIView*)tv;
+
 @end

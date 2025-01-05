@@ -39,7 +39,7 @@
         self.vv.userInteractionEnabled = YES;
         [WildCardConstructor userInteractionEnableToParentPath:self.vv depth:5];
         self.banner.center = CGPointMake(self.vv.frame.size.width/2, self.vv.frame.size.height/2);
-//        [WildCardConstructor followSizeFromFather:self.vv child:self.banner];
+//        [WildCardUtil followSizeFromFather:self.vv child:self.banner];
     }
 
 }

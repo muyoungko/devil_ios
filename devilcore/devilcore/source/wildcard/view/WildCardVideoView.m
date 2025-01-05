@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "DevilUtil.h"
 #import "DevilVideoPlayerController.h"
+#import "WildCardUtil.h"
 
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate, DevilVideoPlayerControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
@@ -47,12 +48,12 @@
     self.imageView.clipsToBounds = YES;
     self.imageView.hidden = YES;
     [self addSubview:_imageView];
-    [WildCardConstructor followSizeFromFather:self child:self.imageView];
+    [WildCardUtil followSizeFromFather:self child:self.imageView];
     
     
     self.loading = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     [self addSubview:_loading];
-    [WildCardConstructor followSizeFromFather:self child:_loading];
+    [WildCardUtil followSizeFromFather:self child:_loading];
     [_loading startAnimating];
     _loading.hidden = YES;
     
@@ -413,7 +414,7 @@
     _controler.fullScreenView = self;
     _controler.zoomView = _playerViewController.view;
     _controler.delegate = self;
-    [WildCardConstructor followSizeFromFather:self child:_controler];
+    [WildCardUtil followSizeFromFather:self child:_controler];
 }
 
 - (void)onSeek:(int)time_sec{

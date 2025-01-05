@@ -12,12 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class DevilController;
 
-@protocol DevilSdkDelegate<NSObject>
-@required
--(float)startLoading;
--(float)stopLoading;
-@end
-
 @protocol DevilSdkGADelegate<NSObject>
 @required
 -(void)onScreen:(NSString*)projectId screenId:(NSString*)screenId screenName:(NSString*)screenName;
@@ -40,7 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DevilSdk : NSObject
 
-@property (nonatomic, weak, nullable) id <DevilSdkDelegate> devilSdkDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkScreenDelegate> devilSdkScreenDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGoogleAdsDelegate> devilSdkGoogleAdsDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGADelegate> devilSdkGADelegate;

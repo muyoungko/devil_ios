@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class MetaAndViewResult;
 
-@interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate, WildCardConstructorLoading,
+@interface DevilController : DevilBaseController<WildCardConstructorInstanceDelegate,
 UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 {
 }
@@ -33,8 +33,10 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 -(void)setActiveAlertMessage:(NSString*)msg;
 -(void)closeActiveAlertMessage;
 -(void) addFixedView:(id)layer x:(float)x y:(float)y;
-- (void)toLandscape;
-- (void)toPortrait;
+-(void)toLandscape;
+-(void)toPortrait;
+-(void)startLoading;
+-(void)stopLoading;
 
 @property (nonatomic, retain) JevilCtx* jevil;
 @property (nonatomic, retain) id startData;

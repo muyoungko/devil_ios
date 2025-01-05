@@ -72,17 +72,17 @@
     NSArray<NSString *> *pathComponents = [key componentsSeparatedByString:@"/"];
     NSString *basePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
     NSString *currentPath = @"";
-
+    
     for (NSInteger i = 0; i < pathComponents.count - 1; i++) {
         NSString *component = pathComponents[i];
         currentPath = [currentPath stringByAppendingPathComponent:component];
         NSString *fullPath = [basePath stringByAppendingPathComponent:currentPath];
-
+        
         NSFileManager *fileManager = [NSFileManager defaultManager];
         if (![fileManager fileExistsAtPath:fullPath]) {
             NSError *error = nil;
             BOOL success = [fileManager createDirectoryAtPath:fullPath withIntermediateDirectories:YES attributes:nil error:&error];
-
+            
             if (!success || error) {
                 @throw [NSException exceptionWithName:@"DirectoryCreationException"
                                                reason:error.localizedDescription
@@ -90,6 +90,19 @@
             }
         }
     }
+}
+
+- (NSData*)getData:(NSString*)key {
+    NSData* r = nil;
+    if(!self.cache[key]) {
+        NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+        NSString* jsonPath = [NSString stringWithFormat:@"%@/%@", documentsDirectory, key];
+        NSError* error;
+        r = [NSData dataWithContentsOfFile:jsonPath options:0 error:&error];
+        self.cache[key] = r;
+    }
+    return self.cache[key];
+    
 }
 
 - (UIFont*)getFont:(NSString*)key fontSize:(float)size{

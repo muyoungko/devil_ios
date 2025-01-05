@@ -435,7 +435,7 @@
     
     if(arrayContentContainer != nil) {
         [vv addSubview:arrayContentContainer];
-        [WildCardConstructor followSizeFromFather:vv child:arrayContentContainer];
+        [WildCardUtil followSizeFromFather:vv child:arrayContentContainer];
         if(self.stickyView)
            [vv bringSubviewToFront:self.stickyView];
     }

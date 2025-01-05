@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (DevilDynamicAsset*)sharedInstance;
 - (void)download:(id)key_list callback:(void (^)(bool success))callback;
 - (UIFont*)getFont:(NSString*)key fontSize:(float)size;
+- (NSData*)getData:(NSString*)key;
 
 @end
 

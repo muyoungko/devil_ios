@@ -329,6 +329,8 @@
 		6DFB74A12824255A00A64539 /* ReplaceRulePullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */; };
 		6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */; };
 		6DFC0CA02ACD68E900F26849 /* DevilGoogleMapMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */; };
+		6DFE77122D2AA82D00166B43 /* DevilLoadingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFE77102D2AA82D00166B43 /* DevilLoadingManager.h */; };
+		6DFE77132D2AA82D00166B43 /* DevilLoadingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFE77112D2AA82D00166B43 /* DevilLoadingManager.m */; };
 		6DFF30AF2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFF30AD2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h */; };
 		6DFF30B02CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFF30AE2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m */; };
 		822F7F1BFA47B576E4D904C6 /* Pods_devilcore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */; };
@@ -659,6 +661,8 @@
 		6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRulePullToRefresh.m; sourceTree = "<group>"; };
 		6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGoogleMapMarketComponent.h; sourceTree = "<group>"; };
 		6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilGoogleMapMarketComponent.m; sourceTree = "<group>"; };
+		6DFE77102D2AA82D00166B43 /* DevilLoadingManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilLoadingManager.h; sourceTree = "<group>"; };
+		6DFE77112D2AA82D00166B43 /* DevilLoadingManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilLoadingManager.m; sourceTree = "<group>"; };
 		6DFF30AD2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardUILongClickGestureRecognizer.h; sourceTree = "<group>"; };
 		6DFF30AE2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardUILongClickGestureRecognizer.m; sourceTree = "<group>"; };
 		80AF1A24AC2FA85B8F761AA8 /* Pods_devilcore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devilcore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1053,6 +1057,8 @@
 				6D5C4AB92AE2A98E00DD1978 /* DevilSwipeBackGesture.m */,
 				6DAEA1C82D1D2A8900E9A323 /* DevilDynamicAsset.h */,
 				6DAEA1C92D1D2A8900E9A323 /* DevilDynamicAsset.m */,
+				6DFE77102D2AA82D00166B43 /* DevilLoadingManager.h */,
+				6DFE77112D2AA82D00166B43 /* DevilLoadingManager.m */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1479,6 +1485,7 @@
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
 				6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */,
 				6DDE203529222AEC00AD7F3C /* JevilAnimation.h in Headers */,
+				6DFE77122D2AA82D00166B43 /* DevilLoadingManager.h in Headers */,
 				6DC0CE3628E5DDFB00195F60 /* JevilHealthBlank.h in Headers */,
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
@@ -1739,6 +1746,7 @@
 				6D9A864928AA7B6C001002D8 /* DevilFileChooser.m in Sources */,
 				6D49DDAB2BC3A707008F0142 /* DevilMultiPartUploader.m in Sources */,
 				6D9F7AC0262310D7003A70EC /* DevilAVCamPreviewView.m in Sources */,
+				6DFE77132D2AA82D00166B43 /* DevilLoadingManager.m in Sources */,
 				6DFF30B02CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m in Sources */,
 				6DE55C9D2AAEBDF6004B7612 /* DevilPdf.m in Sources */,
 				6DD09443269C7A28000A913A /* DevilCalendar.m in Sources */,

@@ -21,7 +21,7 @@
     self.v = [[DevilImageMap alloc] initWithFrame:CGRectMake(0,0,0,0)];
     [self.v construct];
     [self.vv addSubview:self.v];
-    [WildCardConstructor followSizeFromFather:self.vv child:self.v];
+    [WildCardUtil followSizeFromFather:self.vv child:self.v];
 }
 
 - (void)created {

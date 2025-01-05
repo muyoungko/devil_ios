@@ -23,7 +23,7 @@
     
     iv.contentMode = UIViewContentModeScaleAspectFill;
     [vv addSubview:iv];
-    [WildCardConstructor followSizeFromFather:vv child:iv];
+    [WildCardUtil followSizeFromFather:vv child:iv];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

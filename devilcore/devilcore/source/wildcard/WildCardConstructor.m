@@ -49,11 +49,13 @@
 #import "WildCardEventTracker.h"
 #import "JevilInstance.h"
 #import "DevilDynamicAsset.h"
+#import "DevilLoadingManager.h"
 
-//#import "UIImageView+AFNetworking.h"
+@interface WildCardConstructor()
+@property (nonatomic, retain) DevilLoadingManager*_Nullable devilLoadingManager;
+@end
 
 @implementation WildCardConstructor
-
 
 static NSString *default_project_id = nil;
 + (WildCardConstructor*)sharedInstance {
@@ -229,6 +231,13 @@ static NSString *default_project_id = nil;
     
     if(projectJson[@"default_word_wrap"])
         self.default_word_wrap = [projectJson[@"default_word_wrap"] boolValue];
+    
+    if(projectJson[@"project"][@"loading_json"]) {
+        NSData* data = [[DevilDynamicAsset sharedInstance] getData:projectJson[@"project"][@"loading_json"]];
+        self.devilLoadingManager = [[DevilLoadingManager alloc] initWithLottieJson:data];
+    } else {
+        self.devilLoadingManager = [[DevilLoadingManager alloc] init];
+    }
 }
 
 -(NSMutableDictionary*_Nullable) getAllBlockJson
@@ -498,17 +507,19 @@ static NSString *default_project_id = nil;
 
 -(void)scriptForLongClick:(WildCardUILongClickGestureRecognizer *)recognizer
 {
-    WildCardUIView* vv = (WildCardUIView*)recognizer.view;
-    NSString *script = recognizer.script;
-    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-    trigger.node = vv;
-    id gaData = nil;
-    if(recognizer.gaDataPath) {
-        gaData = [MappingSyntaxInterpreter getJsonWithPath:recognizer.meta.correspondData :recognizer.gaDataPath];
-        gaData = [gaData toDictionary];
+    if(recognizer.state == UIGestureRecognizerStateBegan) {
+        WildCardUIView* vv = (WildCardUIView*)recognizer.view;
+        NSString *script = recognizer.script;
+        WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+        trigger.node = vv;
+        id gaData = nil;
+        if(recognizer.gaDataPath) {
+            gaData = [MappingSyntaxInterpreter getJsonWithPath:recognizer.meta.correspondData :recognizer.gaDataPath];
+            gaData = [gaData toDictionary];
+        }
+        [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga data:gaData];
+        [WildCardAction execute:trigger script:script meta:recognizer.meta];
     }
-    [[WildCardEventTracker sharedInstance] onClickEvent:recognizer.ga data:gaData];
-    [WildCardAction execute:trigger script:script meta:recognizer.meta];
 }
 
 -(void)script:(WildCardUITapGestureRecognizer *)recognizer
@@ -617,17 +628,6 @@ static BOOL IS_TABLET = NO;
         parent_cursor = (WildCardUIView*)[parent_cursor superview];
     }
 }
-
-+(void) followSizeFromFather:(UIView*)vv child:(UIView*)tv
-{
-    tv.translatesAutoresizingMaskIntoConstraints = NO;
-    NSDictionary *views = NSDictionaryOfVariableBindings(tv, vv);
-    
-    [vv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tv]-0-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:views]];
-    
-    [vv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tv]-0-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
-}
-
 
 +(WildCardUIView*) constructLayer1:(WildCardUIView*)parent
                                   :(NSDictionary*)layer
@@ -1474,4 +1474,10 @@ static BOOL IS_TABLET = NO;
     return r;
 }
 
+-(void)startLoading {
+    [self.devilLoadingManager startLoading];
+}
+-(void)stopLoading {
+    [self.devilLoadingManager stopLoading];
+}
 @end

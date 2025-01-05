@@ -47,7 +47,7 @@
         } else {
             self.zoomable = false;
             [vv addSubview:iv];
-            [WildCardConstructor followSizeFromFather:vv child:iv];
+            [WildCardUtil followSizeFromFather:vv child:iv];
         }
         
         iv.layer.cornerRadius = vv.layer.cornerRadius;
@@ -64,7 +64,7 @@
             iv.contentMode = UIViewContentModeScaleAspectFill;
         
         [vv addSubview:iv];
-        [WildCardConstructor followSizeFromFather:vv child:iv];
+        [WildCardUtil followSizeFromFather:vv child:iv];
         
         iv.layer.cornerRadius = vv.layer.cornerRadius;
         iv.layer.maskedCorners = vv.layer.maskedCorners;

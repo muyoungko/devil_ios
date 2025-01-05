@@ -10,6 +10,7 @@
 #import "DevilUtil.h"
 #import "DevilDownloader.h"
 #import "DevilDebugView.h"
+#import "WildCardConstructor.h"
 
 @interface DevilImageEditController ()
 
@@ -71,14 +72,14 @@
     }
     
     
-    [self showIndicator];
+    [[WildCardConstructor sharedInstance] startLoading];
     
     NSString* url = _param[@"url"];
     DevilDownloader* downloder = [[DevilDownloader alloc] init];
     [downloder download:false url:url header:@{} filePath:nil progress:^(id  _Nonnull res) {
         
     } complete:^(id  _Nonnull res) {
-        [self hideIndicator];
+        [[WildCardConstructor sharedInstance] stopLoading];
         if([res[@"r"] boolValue]) {
             NSString* path = res[@"dest"];
             NSString* pathEncoding = res[@"dest_encoding"];

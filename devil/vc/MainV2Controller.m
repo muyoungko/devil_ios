@@ -55,13 +55,13 @@
         if(savedWebHost)
             [WildCardConstructor sharedInstance:project_id].project[@"web_host"] = savedWebHost;
         
-        [self hideIndicator];
+        [[WildCardConstructor sharedInstance] stopLoading];
     }];
 }
 
 -(BOOL)onInstanceCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node{
     if([functionName isEqualToString:@"start"]){
-        [self showIndicator];
+        [[WildCardConstructor sharedInstance] startLoading];
         NSString* project_id = [NSString stringWithFormat:@"%@", meta.correspondData[@"id"]];
         [self startProject:project_id];
         return true;
@@ -69,10 +69,10 @@
         
         NSString *project_id = [meta.correspondData[@"id"] toString];
         
-        [self showIndicator];
+        [[WildCardConstructor sharedInstance] startLoading];
         NSString* url = [NSString stringWithFormat:@"https://console-api.deavil.com/api/project/%@", project_id];
         [[WildCardConstructor sharedInstance].delegate onNetworkRequest:url success:^(NSMutableDictionary* res) {
-            [self hideIndicator];
+            [[WildCardConstructor sharedInstance] stopLoading];
             if(res != nil)
             {
                 id list = res[@"project"][@"dev_host_list"];

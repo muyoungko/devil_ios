@@ -47,7 +47,7 @@
 
 - (void) createPieChart {
     [self.vv addSubview:self.pie_chart];
-    [WildCardConstructor followSizeFromFather:self.vv child:self.pie_chart];
+    [WildCardUtil followSizeFromFather:self.vv child:self.pie_chart];
     
     PieChartView* chartView = self.pie_chart;
     
@@ -102,7 +102,7 @@
     _chart.delegate = self;
     
     [self.vv addSubview:self.chart];
-    [WildCardConstructor followSizeFromFather:self.vv child:self.chart];
+    [WildCardUtil followSizeFromFather:self.vv child:self.chart];
     
     _chart.chartDescription.enabled = NO;
     _chart.maxVisibleCount = 60;

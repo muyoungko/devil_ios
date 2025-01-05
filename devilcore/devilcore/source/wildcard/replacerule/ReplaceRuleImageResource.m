@@ -7,7 +7,7 @@
 //
 
 #import "ReplaceRuleImageResource.h"
-#import "WildCardConstructor.h"
+#import "WildCardUtil.h"
 #import "MappingSyntaxInterpreter.h"
 
 @implementation ReplaceRuleImageResource
@@ -19,7 +19,7 @@
     self.replaceView = iv;
     iv.contentMode = UIViewContentModeScaleToFill;
     [vv addSubview:iv];
-    [WildCardConstructor followSizeFromFather:vv child:iv];
+    [WildCardUtil followSizeFromFather:vv child:iv];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

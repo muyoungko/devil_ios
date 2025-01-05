@@ -7,7 +7,7 @@
 
 #import "ReplaceRuleStrip.h"
 #import "WildCardPagerTabStrip.h"
-#import "WildCardConstructor.h"
+#import "WildCardUtil.h"
 #import "WildCardPagerTabStripMaker.h"
 
 @implementation ReplaceRuleStrip
@@ -19,7 +19,7 @@
     self.replaceView = strip;
     [vv addSubview:strip];
     vv.userInteractionEnabled = YES;
-    [WildCardConstructor followSizeFromFather:vv child:strip];
+    [WildCardUtil followSizeFromFather:vv child:strip];
     
 }
 

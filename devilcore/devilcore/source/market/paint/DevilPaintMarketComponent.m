@@ -22,7 +22,7 @@
     self.devilPaintView.bgColor = self.vv.backgroundColor;
     [self.vv addSubview:self.devilPaintView];
     self.devilPaintView.userInteractionEnabled = YES;
-    [WildCardConstructor followSizeFromFather:self.vv child:self.devilPaintView];
+    [WildCardUtil followSizeFromFather:self.vv child:self.devilPaintView];
     [WildCardConstructor userInteractionEnableToParentPath:self.devilPaintView depth:5];
     //[self.devilPaintView clear];
 }

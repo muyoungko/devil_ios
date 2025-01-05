@@ -20,7 +20,7 @@
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
     DevilWebView* web = [[DevilWebView alloc] init];
     [vv addSubview:web];
-    [WildCardConstructor followSizeFromFather:vv child:web];
+    [WildCardUtil followSizeFromFather:vv child:web];
     
     self.replaceView = web;
     self.replaceJsonKey = layer[@"web"][@"url"];

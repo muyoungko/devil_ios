@@ -160,7 +160,7 @@
                                 UIViewAutoresizingFlexibleBottomMargin;
         indicatorBg.tag = 2244;
         [window addSubview:indicatorBg];
-        [WildCardConstructor followSizeFromFather:window child:indicatorBg];
+        [WildCardUtil followSizeFromFather:window child:indicatorBg];
         
         UITapGestureRecognizer *singleFingerTap =
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideIndicator)];

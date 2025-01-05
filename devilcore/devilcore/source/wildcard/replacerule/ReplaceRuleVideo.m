@@ -7,6 +7,7 @@
 
 #import "ReplaceRuleVideo.h"
 #import "WildCardVideoView.h"
+#import "WildCardUtil.h"
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
 
@@ -21,7 +22,7 @@
     }
     
     [vv addSubview:videoView];
-    [WildCardConstructor followSizeFromFather:vv child:videoView];
+    [WildCardUtil followSizeFromFather:vv child:videoView];
     [WildCardConstructor userInteractionEnableToParentPath:vv depth:depth];
     
     NSString* showController = layer[@"video"][@"showController"];

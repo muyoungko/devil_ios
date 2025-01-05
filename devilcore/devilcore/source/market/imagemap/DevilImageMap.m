@@ -91,7 +91,7 @@ float borderWidth = 7;
     [_scrollView addSubview:_contentView];
     [_contentView addSubview:_imageView];
     [_contentView addSubview:_pinLayer];
-    [WildCardConstructor followSizeFromFather:self child:self.scrollView];
+    [WildCardUtil followSizeFromFather:self child:self.scrollView];
     
     _singleFingerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickListener:)];
     [self addGestureRecognizer:_singleFingerTap];

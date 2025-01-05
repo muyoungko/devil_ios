@@ -749,4 +749,16 @@ static BOOL IS_TABLET = NO;
    return model;
 }
 
++(void) followSizeFromFather:(UIView*)vv child:(UIView*)tv
+{
+    tv.translatesAutoresizingMaskIntoConstraints = NO;
+    NSDictionary *views = NSDictionaryOfVariableBindings(tv, vv);
+    
+    [vv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[tv]-0-|" options:NSLayoutFormatAlignAllCenterX metrics:nil views:views]];
+    
+    [vv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tv]-0-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
+}
+
+
+
 @end

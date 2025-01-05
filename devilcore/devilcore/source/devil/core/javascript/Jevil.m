@@ -931,12 +931,10 @@
 
 
 + (void)startLoading{
-    if([WildCardConstructor sharedInstance].loadingDelegate)
-        [[WildCardConstructor sharedInstance].loadingDelegate startLoading];
+    [[WildCardConstructor sharedInstance] startLoading];
 }
 + (void)stopLoading{
-    if([WildCardConstructor sharedInstance].loadingDelegate)
-        [[WildCardConstructor sharedInstance].loadingDelegate stopLoading];
+    [[WildCardConstructor sharedInstance] stopLoading];
 }
 
 + (void)update{

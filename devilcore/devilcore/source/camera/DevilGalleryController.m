@@ -66,13 +66,13 @@
     [self.list registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"camera"];
     [self.list registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"picture"];
     
-    [self showIndicator];
+    [[WildCardConstructor sharedInstance] startLoading];
     [DevilCamera galleryList:self param:[@{
         @"hasPicture": self.hasPicture?@TRUE:@FALSE,
         @"hasVideo": self.hasVideo?@TRUE:@FALSE,
         @"gps": self.gps?@TRUE:@FALSE,
     } mutableCopy] callback:^(id  _Nonnull res) {
-        [self hideIndicator];
+        [[WildCardConstructor sharedInstance] stopLoading];
         if(res && [res[@"r"] boolValue]) {
             [self.data addObjectsFromArray:res[@"list"]];
             [self.list reloadData];
@@ -128,12 +128,12 @@
         return;
     }
     
-    [self showIndicator];
+    [[WildCardConstructor sharedInstance] startLoading];
     __block int completeCount = 0;
     __block int shouldCompelteCount = (int)[self.selected count];
     void (^complete_callback)() = ^() {
         if(completeCount == shouldCompelteCount) {
-            [self hideIndicator];
+            [[WildCardConstructor sharedInstance] stopLoading];
             
             if(self.selected) {
                 id r = [@{} mutableCopy];
