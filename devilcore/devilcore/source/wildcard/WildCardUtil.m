@@ -759,6 +759,28 @@ static BOOL IS_TABLET = NO;
     [vv addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[tv]-0-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:views]];
 }
 
++ (CIImage *)applyGaussianBlurToImage:(CIImage *)image withRadius:(CGFloat)radius {
+    CIFilter *blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [blurFilter setValue:image forKey:kCIInputImageKey];
+    [blurFilter setValue:@(radius) forKey:kCIInputRadiusKey];
+    return blurFilter.outputImage;
+}
 
++ (UIImage *)imageFromCIImage:(CIImage *)ciImage {
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [context createCGImage:ciImage fromRect:[ciImage extent]];
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    return image;
+}
+
+
++ (CIImage *)imageFromLayer:(CAGradientLayer *)layer {
+    UIGraphicsBeginImageContextWithOptions(layer.bounds.size, NO, [UIScreen mainScreen].scale);
+    [layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return [[CIImage alloc] initWithImage:image];
+}
 
 @end

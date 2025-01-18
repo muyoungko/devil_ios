@@ -125,30 +125,5 @@
     self.touchCallback = callback;
 }
 
- 
-
-//- (void)drawRect:(CGRect)rect
-//{
-//    [super drawRect:rect];
-////    CGContextRef ctx = UIGraphicsGetCurrentContext();
-////    CGContextSaveGState(ctx);
-////
-////
-////    CGPathRef clippath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(x,y, width, height) cornerRadius:6].CGPath;
-////    CGContextAddPath(ctx, clippath);
-////
-////    CGContextSetFillColorWithColor(ctx, self.color.CGColor);
-////
-////    CGContextClosePath(ctx);
-////    CGContextFillPath(ctx);
-////
-////    [self.color set];
-////
-////
-////    [_path closePath]; // Implicitly does a line between p4 and p1
-////    [_path fill]; // If you want it filled, or...
-////    [_path stroke]; // ...if you want to draw the outline.
-////    CGContextRestoreGState(ctx);
-//}
 
 @end

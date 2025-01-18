@@ -835,10 +835,38 @@ static BOOL IS_TABLET = NO;
             //vv.backgroundColor = [UIColor whiteColor];
         }
         
-        //        if([@"text" isEqualToString:_class])
-        //        {
-        //            vv.backgroundColor = [UIColor redColor];
-        //        }
+        if(layer[@"linearEffect"]) {
+            id linearEffect = layer[@"linearEffect"];
+            float radius = [WildCardUtil convertSketchToPixel:[linearEffect[@"radius"] floatValue]];
+            CGColorRef color = [WildCardUtil colorWithHexString:linearEffect[@"color"]].CGColor;
+            
+            // Radial Gradient 레이어 생성
+            CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+            gradientLayer.frame = CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);
+            gradientLayer.name = @"RadialBlurLayer";
+            gradientLayer.cornerRadius = vv.layer.cornerRadius;
+            gradientLayer.maskedCorners = vv.layer.maskedCorners;
+
+            // Radial Gradient 설정
+            gradientLayer.colors = @[(__bridge id)color, (__bridge id)color];
+            gradientLayer.startPoint = CGPointMake(0.5, 0.5); // 중심
+            gradientLayer.endPoint = CGPointMake(1.0, 1.0);   // 외곽
+            gradientLayer.type = kCAGradientLayerRadial;       // 원형 그라데이션
+            
+            // Blur Layer 설정
+            CIImage *gradientImage = [WildCardUtil imageFromLayer:gradientLayer];
+            CIImage *blurredImage = [WildCardUtil applyGaussianBlurToImage:gradientImage withRadius:radius];
+            UIImage *finalImage = [WildCardUtil imageFromCIImage:blurredImage];
+            
+            // 최종 이미지를 가진 레이어 추가
+            CALayer *imageLayer = [CALayer layer];
+            imageLayer.contents = (__bridge id)finalImage.CGImage;
+            imageLayer.frame =  CGRectMake(-radius, -radius, vv.frame.size.width+radius*2, vv.frame.size.height+radius*2);
+            //imageLayer.frame =  CGRectMake(0, 0, vv.frame.size.width, vv.frame.size.height);
+            imageLayer.name = @"RadialBlurLayer";
+            [vv.layer addSublayer:imageLayer];
+            vv.backgroundColor = [UIColor clearColor];
+        }
         
         if([layer objectForKey:@"path"] != nil)
         {

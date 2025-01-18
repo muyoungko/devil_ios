@@ -55,5 +55,8 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(BOOL)isHCenterOrHRight:(int)alignment;
 +(NSString*)deviceModel;
 +(void) followSizeFromFather:(UIView*)vv child:(UIView*)tv;
++(CIImage *)applyGaussianBlurToImage:(CIImage *)image withRadius:(CGFloat)radius;
++(UIImage *)imageFromCIImage:(CIImage *)ciImage;
++ (CIImage *)imageFromLayer:(CAGradientLayer *)layer;
 
 @end
