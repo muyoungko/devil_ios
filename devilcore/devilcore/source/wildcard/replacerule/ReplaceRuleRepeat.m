@@ -628,6 +628,24 @@
                 return targetLayerPrefix;
             else if(targetLayerSurfix != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSurfixIf data: targetDataJson[position]])
                 return targetLayerSurfix;
+            else if(targetLayer4 != nil && [MappingSyntaxInterpreter ifexpression:targetNode4If data: targetDataJson[position]])
+                return targetLayer4;
+            else if(targetLayer5 != nil && [MappingSyntaxInterpreter ifexpression:targetNode5If data: targetDataJson[position]])
+                return targetLayer5;
+            else if(targetLayer6 != nil && [MappingSyntaxInterpreter ifexpression:targetNode6If data: targetDataJson[position]])
+                return targetLayer6;
+            else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode7If data: targetDataJson[position]])
+                return targetLayer7;
+            else if(targetLayer8 != nil && [MappingSyntaxInterpreter ifexpression:targetNode8If data: targetDataJson[position]])
+                return targetLayer8;
+            else if(targetLayer9 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
+                return targetLayer9;
+            else if(targetLayer10 != nil && [MappingSyntaxInterpreter ifexpression:targetNode10If data: targetDataJson[position]])
+                return targetLayer10;
+            else if(targetLayer11 != nil && [MappingSyntaxInterpreter ifexpression:targetNode11If data: targetDataJson[position]])
+                return targetLayer11;
+            else if(targetLayer12 != nil && [MappingSyntaxInterpreter ifexpression:targetNode12If data: targetDataJson[position]])
+                return targetLayer12;
             return targetLayer;
         };
         
@@ -638,6 +656,24 @@
                 return @"2";
             else if(targetLayerSurfix != nil && [MappingSyntaxInterpreter ifexpression:targetNodeSurfixIf data: targetDataJson[position]])
                 return @"1";
+            else if(targetLayer4 != nil && [MappingSyntaxInterpreter ifexpression:targetNode4If data: targetDataJson[position]])
+                return @"4";
+            else if(targetLayer5 != nil && [MappingSyntaxInterpreter ifexpression:targetNode5If data: targetDataJson[position]])
+                return @"5";
+            else if(targetLayer6 != nil && [MappingSyntaxInterpreter ifexpression:targetNode6If data: targetDataJson[position]])
+                return @"6";
+            else if(targetLayer7 != nil && [MappingSyntaxInterpreter ifexpression:targetNode7If data: targetDataJson[position]])
+                return @"7";
+            else if(targetLayer8 != nil && [MappingSyntaxInterpreter ifexpression:targetNode8If data: targetDataJson[position]])
+                return @"8";
+            else if(targetLayer9 != nil && [MappingSyntaxInterpreter ifexpression:targetNode9If data: targetDataJson[position]])
+                return @"9";
+            else if(targetLayer10 != nil && [MappingSyntaxInterpreter ifexpression:targetNode10If data: targetDataJson[position]])
+                return @"10";
+            else if(targetLayer11 != nil && [MappingSyntaxInterpreter ifexpression:targetNode11If data: targetDataJson[position]])
+                return @"11";
+            else if(targetLayer12 != nil && [MappingSyntaxInterpreter ifexpression:targetNode12If data: targetDataJson[position]])
+                return @"12";
             return @"0";
         };
         
