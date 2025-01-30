@@ -135,7 +135,10 @@
             if(!headerView.frameUpdateAvoid)
                 [self fireOnLayout:headerView offsetX:headerView.frame.origin.x offsetY:headerView.frame.origin.y outSize:size];
         }
-        else if(unit.type == WC_LAYOUT_TYPE_GRAVITY)
+        else if(unit.type == WC_LAYOUT_TYPE_GRAVITY_CENTER 
+                || unit.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER
+                || unit.type == WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER
+                )
         {
             WildCardUIView* headerView = [_gravityNodes objectForKey:unit.viewKey];
             if(self.requestLayoutDebug) NSLog(@"path(%d) gravity - %@", unit.depth, headerView.name);
@@ -157,7 +160,10 @@
     for(int i=0;i<[_layoutPath count];i++)
     {
         WildCardLayoutPathUnit *unit = [_layoutPath objectAtIndex:i];
-        if(unit.type == WC_LAYOUT_TYPE_GRAVITY)
+        if(unit.type == WC_LAYOUT_TYPE_GRAVITY_CENTER
+           || unit.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER
+           || unit.type == WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER
+           )
         {
             WildCardUIView* headerView = [_gravityNodes objectForKey:unit.viewKey];
             if(((WildCardUIView*)[headerView superview]).wrap_height) {
@@ -456,7 +462,31 @@
             WildCardUIView* headerView = (WildCardUIView*)[_gravityNodes objectForKey:[keys objectAtIndex:i]];
             
             NSString* headerViewKey = [NSString stringWithFormat:@"%lx", (long)headerView];
-            [temp addObject:[[WildCardLayoutPathUnit alloc] initWithType:WC_LAYOUT_TYPE_GRAVITY depth:headerView.depth viewKey:headerViewKey viewName:headerView.name]];
+            int layout_type = WC_LAYOUT_TYPE_GRAVITY_CENTER;
+            switch(headerView.alignment) {
+                case GRAVITY_BOTTOM:
+                case GRAVITY_LEFT_BOTTOM:
+                    layout_type = WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER;
+                    break;
+                case GRAVITY_VERTICAL_CENTER:
+                case GRAVITY_HORIZONTAL_CENTER:
+                case GRAVITY_CENTER:
+                case GRAVITY_LEFT_VCENTER:
+                case GRAVITY_RIGHT_VCENTER:
+                case GRAVITY_HCENTER_TOP:
+                case GRAVITY_HCENTER_BOTTOM:
+                    layout_type = WC_LAYOUT_TYPE_GRAVITY_CENTER;
+                    break;
+                case GRAVITY_RIGHT:
+                case GRAVITY_RIGHT_TOP:
+                case GRAVITY_RIGHT_BOTTOM:
+                    layout_type = WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER;
+                    break;
+                default:
+                    break;
+            }
+            
+            [temp addObject:[[WildCardLayoutPathUnit alloc] initWithType:layout_type depth:headerView.depth viewKey:headerViewKey viewName:headerView.name]];
         }
     }
     
@@ -473,46 +503,50 @@
     }
     
     /**
-     순서 - 깊은 depth,  wrap_content, Gravity, Match_Prent, nextView,
-     2022.01.06
-     Gravity가 최우선이 되어야하는데, 그렇게 안되는 버그가 있어서 이를 수정함
-     https://console.deavil.com/#/block/56545468
-     Gravity로 우측 할인가가 붙고 그 다음에 WrapContent된 오리지널 가격이 그 우측에 이어 붙는경우
-     
-     2022.01.12
-     - WrapContent Center 후에 우측에 화살표가 붙는 경우
-     - 일단 자기 width를 결정해야 자기가
-     https://console.deavil.com/#/block/56548847
-     
      깊은 depth - wrap_content가 우선
-     그 후 깊은 depth부터 Gravity,  Match_Prent, nextView,
      
-     부모가 wrap_height이고 자식이 valign bottom 혹은 valige center이면
-     부모의 크기가 먼저 결정된 다음 gravity가 적용되어야한다. 이경우 무조건적인 depth가 적용되선 안된다
+     경우 1 - next_to가 결정된 후 prev가 gravity로 위치 이동해버린다 이경우 같은 depth라면 gravity를 먼저 하고 next를 해야한다 (채팅 메세지 right)
+     "<WildCardLayoutPathUnit: 0x300fc28a0> type:WRAP_CONTENT depth:4 chat_text",
+     "<WildCardLayoutPathUnit: 0x300fc2900> type:WRAP_CONTENT depth:3 chat_text_group_right",
+     "<WildCardLayoutPathUnit: 0x300fc2840> type:NEXT_VIEW depth:3 chat_text_group_right",
+     "<WildCardLayoutPathUnit: 0x300fc28c0> type:WRAP_CONTENT depth:2 chat_message_right",
+     "<WildCardLayoutPathUnit: 0x300fc2940> type:GRAVITY depth:3 chat_text_group_right",
+     "<WildCardLayoutPathUnit: 0x300fc28e0> type:GRAVITY depth:3 chat_message_info"
+     이 때 WRAP_CONTENT depth:3 chat_text_group_right" 와 type:GRAVITY depth:3 chat_text_group_right"가 바껴야한다.
+     원래 GRAVITY는 depth무관 최후순위인데 그 이유는 부모의 크기가 결정되어야만 center를 결정할 수 있기 때문이다
+     하지만 이경우로 봤을때 GRAVITY가 right 혹은 left인경우만 부모 wrap_content보다 앞서야한다
+     
+     경우 2 - 부모가 wrap_height이고 자식이 valign bottom 혹은 valige center이면 부모의 크기가 먼저 결정된 다음 gravity가 적용되어야한다. 이경우 무조건적인 depth가 적용되선 안된다
+     경우 4 - WrapContent Center 후에 우측에 화살표가 붙는 경우, 이경우 같은 depth gravity가 먼저 적용해야한다  https://console.deavil.com/#/block/56548847
+     경우 5 - Gravity로 우측 할인가가 붙고 그 다음에 WrapContent된 오리지널 가격이 그 우측에 이어 붙는경우 https://console.deavil.com/#/block/56545468
+     
+     TODO 가로 세로 WRAP_CONTENT 와 상하 GRAVITY_NOT_CENTER 구분해서 각각에 정렬해야함
      */
     
     _layoutPath = [temp sortedArrayUsingComparator:^NSComparisonResult(WildCardLayoutPathUnit* a, WildCardLayoutPathUnit* b) {
         
         int r = 0;
-        int av = [self typeToValue:a.type];
-        int bv = [self typeToValue:b.type];
+        int av = [self typeToValue:a];
+        int bv = [self typeToValue:b];
         r += (bv - av) * 10;
         r += (b.depth - a.depth) * 100;
         return r;
     }];
     
-//    if([_layoutPath count] > 2)
-//        NSLog(@"%@", _layoutPath);
+    if([_layoutPath count] > 2)
+        NSLog(@"%@", _layoutPath);
 }
 
--(int)typeToValue:(int)type {
-    if(type == WC_LAYOUT_TYPE_WRAP_CONTENT)
-        return 4;
-    if(type == WC_LAYOUT_TYPE_GRAVITY) //_layoutPath 에서 gravity만 최 후순위로 뽑는다
+-(int)typeToValue:(WildCardLayoutPathUnit*)a {
+    if(a.type == WC_LAYOUT_TYPE_WRAP_CONTENT)
+        return 5;
+    else if(a.type == WC_LAYOUT_TYPE_GRAVITY_CENTER || a.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER)
         return -100000;
-    if(type == WC_LAYOUT_TYPE_MATCH_PARENT)
+    else if(a.type == WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER)
+        return 4;
+    else if(a.type == WC_LAYOUT_TYPE_MATCH_PARENT)
         return 2;
-    if(type == WC_LAYOUT_TYPE_NEXT_VIEW)
+    else if(a.type == WC_LAYOUT_TYPE_NEXT_VIEW)
         return 3;
     return 0;
 }
