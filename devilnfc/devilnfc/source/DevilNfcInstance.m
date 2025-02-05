@@ -185,6 +185,9 @@
 - (void)nfc_write:(id)tag :(id)write_object {
     NSString* hex = write_object[@"hex"];
     NSString* text = write_object[@"text"];
+    NSString *languageCode = @"en";
+    if(write_object[@"language"])
+        languageCode = write_object[@"language"];
     
     NSData* b = nil;
     if(hex)
@@ -230,10 +233,33 @@
 //        }];
         
         
-        NFCNDEFPayload* payload = [[NFCNDEFPayload alloc] initWithFormat:NFCTypeNameFormatEmpty
-                                                                    type:[NSData data]
+        NSData *languageData = [languageCode dataUsingEncoding:NSUTF8StringEncoding];
+
+        /**
+         NFC 텍스트 레코드는 **Text Record Type Definition (RTD)**을 따르며, 다음과 같은 구조를 가집니다.
+         1 Byte    Status Byte (언어 코드 길이 및 UTF-8/UTF-16 플래그 포함)
+         X Byte    언어 코드 (예: "en" = 2바이트)
+         Y Byte    텍스트 데이터 (UTF-8 또는 UTF-16 인코딩)
+         
+         Android에서 자동 생성되는 데이터 (NdefRecord.createTextRecord)
+         [0x02] [0x65, 0x6E] [텍스트 데이터]
+         
+         iOS에서 직접 생성한 데이터
+         [0x02] [언어 코드] [텍스트 데이터]
+         */
+        uint8_t statusByte = (uint8_t)languageData.length & 0x3F; // 상위 비트 0으로 유지 (UTF-8)
+        NSData *statusData = [NSData dataWithBytes:&statusByte length:1];
+
+        
+        NSMutableData *c = [NSMutableData data];
+        [c appendData:statusData];
+        [c appendData:languageData];  // 먼저 언어 코드 추가
+        [c appendData:b]; // 그 다음 실제 텍스트 추가
+
+        NFCNDEFPayload* payload = [[NFCNDEFPayload alloc] initWithFormat:NFCTypeNameFormatNFCWellKnown
+                                                                    type:[@"T" dataUsingEncoding:NSUTF8StringEncoding]
                                                                  identifier:[NSData data]
-                                                                   payload:b];
+                                                                   payload:c];
         NFCNDEFMessage* ndefmsg = [[NFCNDEFMessage alloc] initWithNDEFRecords:@[payload]];
         
         [tag writeNDEF:ndefmsg completionHandler:^(NSError * _Nullable err) {

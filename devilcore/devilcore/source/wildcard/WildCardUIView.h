@@ -58,6 +58,7 @@
 
 @property (retain, nonatomic) NSMutableDictionary* tags;
 @property BOOL passHitTest;
+@property BOOL effect;
 
 - (void)addTouchCallback:(void (^)(int action, CGPoint p, NSSet *touches))callback;
 

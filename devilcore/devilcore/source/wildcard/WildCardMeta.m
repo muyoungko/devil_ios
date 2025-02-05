@@ -533,8 +533,8 @@
         return r;
     }];
     
-    if([_layoutPath count] > 2)
-        NSLog(@"%@", _layoutPath);
+//    if([_layoutPath count] > 2)
+//        NSLog(@"%@", _layoutPath);
 }
 
 -(int)typeToValue:(WildCardLayoutPathUnit*)a {

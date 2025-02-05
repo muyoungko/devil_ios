@@ -53,6 +53,8 @@
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
     }
     
+    vv.effect = ![@"Y" isEqualToString:layer[@"disableEffect"]];
+    
     if(layer[@"longClickJavascript"]) {
         
         WildCardUILongClickGestureRecognizer *longClick =
