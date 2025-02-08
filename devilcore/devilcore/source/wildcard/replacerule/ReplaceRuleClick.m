@@ -53,7 +53,10 @@
         ((WildCardUIView*)self.replaceView).stringTag = layer[@"clickJavascript"];
     }
     
-    vv.effect = ![@"Y" isEqualToString:layer[@"disableEffect"]];
+    if(![@"Y" isEqualToString:layer[@"disableEffect"]]) {
+        vv.effect = true;
+        [vv prepareTouchEffect];
+    }
     
     if(layer[@"longClickJavascript"]) {
         

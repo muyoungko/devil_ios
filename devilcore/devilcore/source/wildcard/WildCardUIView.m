@@ -70,8 +70,10 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if(self.effect)
+    if(self.effect) {
+        [self prepareTouchEffect];
         [self touchEffect];
+    }
     
     if(!self.multipleTouchEnabled && touches.count > 1)
         return;
@@ -82,8 +84,6 @@
     UITouch *touch = [touches anyObject];
     CGPoint touchPoint = [touch locationInView:self];
     self.touchCallback(TOUCH_ACTION_DOWN, touchPoint, touches);
-    
-    
     
     return ;
 }
@@ -136,7 +136,7 @@
     self.touchCallback = callback;
 }
 
-- (void)touchEffect {
+- (void)prepareTouchEffect {
     if(!self.shapeLayer) {
         UIBezierPath *path = [self bezierPathWithRoundedRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
                                                topLeftRadius:(CGFloat)self.layer.cornerRadius
@@ -148,10 +148,13 @@
         CAShapeLayer *shapeLayer = [CAShapeLayer layer];
         shapeLayer.path = path.CGPath;
         shapeLayer.fillColor = [UIColor blackColor].CGColor; // 내부 색상
-        shapeLayer.opacity = 0.05f;
+        shapeLayer.opacity = 0.00f;
         [self.layer addSublayer:shapeLayer];
         self.shapeLayer = shapeLayer;
     }
+}
+
+- (void)touchEffect {
     
     self.shapeLayer.opacity = 0.1f;
     

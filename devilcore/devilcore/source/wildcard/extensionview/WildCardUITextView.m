@@ -30,6 +30,9 @@
 
 +(WildCardUITextView*)create:(id)layer meta:(WildCardMeta*)meta {
     NSDictionary* extension = [layer objectForKey:@"extension"];
+    if(extension == nil)
+        extension = [layer objectForKey:@"input"];
+    
     WildCardUITextView* tf = [[WildCardUITextView alloc] init];
     tf.backgroundColor = [UIColor clearColor];
     NSMutableDictionary* textSpec = [layer objectForKey:@"textSpec"];
