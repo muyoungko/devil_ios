@@ -213,9 +213,11 @@
                         if(isRightOrCenter)
                             thisx = 0;
                         
+                        w += thisx;
+                        
                         rects[name] = [NSValue valueWithCGRect:CGRectMake(thisx,0,w,0)];
                     }
-                    else
+                    else 
                     {
                         float thisx = [WildCardConstructor convertSketchToPixel:[child[@"frame"][@"x"] floatValue]];
                         float thisw = [self measureWidth:child data:data];

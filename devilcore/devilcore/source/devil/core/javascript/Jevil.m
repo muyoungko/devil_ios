@@ -1424,6 +1424,14 @@
 }
 
 
++ (void)vibrate{
+    @try {
+        [[DevilSound sharedInstance] vibrate:@{@"pattern":@TRUE}];
+    } @catch (NSException *exception) {
+        [DevilExceptionHandler handle:exception];
+    }
+}
+
 + (void)sound:(NSDictionary*)param{
     @try {
         [[DevilSound sharedInstance] sound:param];

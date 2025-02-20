@@ -55,7 +55,6 @@
     
     if(![@"Y" isEqualToString:layer[@"disableEffect"]]) {
         vv.effect = true;
-        [vv prepareTouchEffect];
     }
     
     if(layer[@"longClickJavascript"]) {

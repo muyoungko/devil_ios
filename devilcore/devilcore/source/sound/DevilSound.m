@@ -7,6 +7,7 @@
 
 #import "DevilSound.h"
 #import "DevilUtil.h"
+#import <CoreHaptics/CoreHaptics.h>
 
 @import UIKit;
 @import MediaPlayer;
@@ -22,6 +23,8 @@
 @property float speed;
 @property NSTimeInterval lastMoveTime;
 @property (nonatomic,retain) AVPlayer *recentAvPlayerCompleteCalled;
+@property (nonatomic, strong) CHHapticEngine *hapticEngine;
+
 @end
 
 
@@ -56,7 +59,7 @@
         url = [DevilUtil replaceUdidPrefixDir:url];
         self.player = [AVPlayer playerWithURL:[NSURL fileURLWithPath:url]];
     }
-        
+    
     [self.player play];
     self.player.rate = self.speed;
     if(start > 0)
@@ -70,7 +73,7 @@
         [[AVAudioSession sharedInstance] setActive:YES error:nil];
         [[AVAudioSession sharedInstance] setMode:AVAudioSessionModeMoviePlayback error:nil];
         [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-
+        
         [self setUpRemoteCommandCenter:param];
     }
 }
@@ -94,10 +97,10 @@
     NSString* title = param[@"title"];
     // Provides all audio data to be displayed to user in lock screen
     self.lockScreenInfo = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-       title==nil?@"player":title, MPMediaItemPropertyTitle,
-       [NSNumber numberWithDouble:CMTimeGetSeconds(self.player.currentItem.duration)], MPMediaItemPropertyPlaybackDuration,
-       [NSNumber numberWithDouble:CMTimeGetSeconds(self.player.currentItem.currentTime)], MPNowPlayingInfoPropertyElapsedPlaybackTime,
-       [NSNumber numberWithDouble:1], MPNowPlayingInfoPropertyPlaybackRate,
+                           title==nil?@"player":title, MPMediaItemPropertyTitle,
+                           [NSNumber numberWithDouble:CMTimeGetSeconds(self.player.currentItem.duration)], MPMediaItemPropertyPlaybackDuration,
+                           [NSNumber numberWithDouble:CMTimeGetSeconds(self.player.currentItem.currentTime)], MPNowPlayingInfoPropertyElapsedPlaybackTime,
+                           [NSNumber numberWithDouble:1], MPNowPlayingInfoPropertyPlaybackRate,
                            nil];
     
     if(param[@"artist"])
@@ -118,10 +121,10 @@
     }
     
     [[MPNowPlayingInfoCenter defaultCenter] setNowPlayingInfo:self.lockScreenInfo];
-
+    
     // For lock screen & remote audio controls
     MPRemoteCommandCenter *remoteCommandCenter = [MPRemoteCommandCenter sharedCommandCenter];
-
+    
     [remoteCommandCenter.stopCommand setEnabled:YES];
     [remoteCommandCenter.stopCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self pause];
@@ -133,7 +136,7 @@
         [self resume];
         return MPRemoteCommandHandlerStatusSuccess;
     }];
-
+    
     [remoteCommandCenter.togglePlayPauseCommand setEnabled:YES];
     [remoteCommandCenter.togglePlayPauseCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         if([self isPlaying]){
@@ -155,7 +158,7 @@
             self.callbackControl(@"pause");
         return MPRemoteCommandHandlerStatusSuccess;
     }];
-
+    
     [remoteCommandCenter.skipBackwardCommand setEnabled:YES];
     [remoteCommandCenter.skipBackwardCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self move:-15];
@@ -164,7 +167,7 @@
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     remoteCommandCenter.skipBackwardCommand.preferredIntervals = @[@(15)];
-
+    
     [remoteCommandCenter.skipForwardCommand setEnabled:YES];
     [remoteCommandCenter.skipForwardCommand addTargetWithHandler:^MPRemoteCommandHandlerStatus(MPRemoteCommandEvent * _Nonnull event) {
         [self move:15];
@@ -173,7 +176,7 @@
         return MPRemoteCommandHandlerStatusSuccess;
     }];
     remoteCommandCenter.skipForwardCommand.preferredIntervals = @[@(15)];
-
+    
     // Drag slider to change audio position
     // Check for iOS version here (later than iOS 9.0)
     if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_9_0) {
@@ -203,9 +206,9 @@
             self.observer = nil;
         }
         self.observer = [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1, 1)
-            queue:NULL // main queue
-            usingBlock:^(CMTime time) {
-
+                                                                  queue:NULL // main queue
+                                                             usingBlock:^(CMTime time) {
+            
             NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
             //NSLog(@"%f", now);
             if(now - self.lastMoveTime < 1)
@@ -292,4 +295,63 @@
         [self pause];
     }
 }
+
+- (void)vibrate:(id)param {
+    NSError *error = nil;
+    if(!self.hapticEngine) {
+        self.hapticEngine = [[CHHapticEngine alloc] initAndReturnError:&error];
+        if (error) {
+            NSLog(@"Haptic Engine Error: %@", error.localizedDescription);
+        } else {
+            [self.hapticEngine startAndReturnError:&error];
+        }
+    }
+    
+    CHHapticEventParameter *intensity = [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticIntensity value:1.0];
+    CHHapticEventParameter *sharpness = [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticSharpness value:1.0];
+    
+    NSMutableArray *events = [NSMutableArray array];
+    if(param[@"duration"]) {
+        CHHapticEvent *event = [[CHHapticEvent alloc] initWithEventType:CHHapticEventTypeHapticTransient parameters:@[intensity, sharpness] relativeTime:0];
+        [events addObject:event];
+    } else if(param[@"pattern"]) {
+
+        // 첫 번째 진동 (0초부터 0.1초간 강한 진동)
+        CHHapticEvent *event1 = [[CHHapticEvent alloc] initWithEventType:CHHapticEventTypeHapticTransient
+                                                              parameters:@[
+                                                                  [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticIntensity value:1.0],
+                                                                  [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticSharpness value:1.0]
+                                                              ]
+                                                             relativeTime:0];
+
+        // 두 번째 진동 (0.3초 후 0.2초간 약한 진동)
+        CHHapticEvent *event2 = [[CHHapticEvent alloc] initWithEventType:CHHapticEventTypeHapticTransient
+                                                              parameters:@[
+                                                                  [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticIntensity value:0.5],
+                                                                  [[CHHapticEventParameter alloc] initWithParameterID:CHHapticEventParameterIDHapticSharpness value:0.5]
+                                                              ]
+                                                             relativeTime:0.3];
+
+        [events addObjectsFromArray:@[event1, event2]];
+    }
+    
+    
+    CHHapticPattern *pattern = [[CHHapticPattern alloc] initWithEvents:events parameters:@[] error:&error];
+    if (error) {
+        NSLog(@"Haptic Pattern Error: %@", error.localizedDescription);
+        return;
+    }
+    
+    id<CHHapticPatternPlayer> player = [self.hapticEngine createPlayerWithPattern:pattern error:&error];
+    if (error) {
+        NSLog(@"Haptic Player Error: %@", error.localizedDescription);
+        return;
+    }
+    
+    [player startAtTime:0 error:&error];
+    if (error) {
+        NSLog(@"Haptic Play Error: %@", error.localizedDescription);
+    }
+}
+
 @end

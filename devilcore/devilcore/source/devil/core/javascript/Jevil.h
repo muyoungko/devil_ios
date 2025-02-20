@@ -90,6 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)downloadAndViewWithOption:(id)param;
 + (void)downloadAndShare:(NSString*)url;
 + (void)download:(NSString*)url;
++ (void)vibrate;
 + (void)sound:(NSDictionary*)param;
 + (id)soundCurrentInfo;
 + (void)soundCallback:(JSValue*)callback;

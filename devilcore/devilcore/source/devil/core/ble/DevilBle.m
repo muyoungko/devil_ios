@@ -292,7 +292,10 @@
     for(CBService* service in device.services) {
         for(CBCharacteristic* c in [service characteristics]) {
             if([[c.UUID description] isEqualToString:characteristic_udid]) {
-                [device writeValue:b forCharacteristic:c type:CBCharacteristicWriteWithResponse];
+                if( (c.properties & CBCharacteristicPropertyWrite) != 0)
+                    [device writeValue:b forCharacteristic:c type:CBCharacteristicWriteWithResponse];
+                else
+                    [device writeValue:b forCharacteristic:c type:CBCharacteristicWriteWithoutResponse];
                 NSString* name = [self nameFromDevice:device];
                 id j = [param mutableCopy];
                 j[@"name"] = name;
@@ -429,17 +432,17 @@
                     /**
                      아이폰은 [c descriptors]가 null이 나오는 기기가 있다. 안드로이드는 잘 나오는데,
                      */
-                    for(CBDescriptor* d in [c descriptors]) {
-                        if([[[d UUID] UUIDString] isEqualToString:@"2902"]) {
-                            [self writeDescriptor:@{
-                                @"udid": [peripheral.identifier description],
-                                @"service" : [[service UUID] UUIDString],
-                                @"characteristic" : [[c UUID] UUIDString],
-                                @"descriptor" : @"2902",
-                                @"hex":@"0100",
-                            }];
-                        }
-                    }
+//                    for(CBDescriptor* d in [c descriptors]) {
+//                        if([[[d UUID] UUIDString] isEqualToString:@"2902"]) {
+//                            [self writeDescriptor:@{
+//                                @"udid": [peripheral.identifier description],
+//                                @"service" : [[service UUID] UUIDString],
+//                                @"characteristic" : [[c UUID] UUIDString],
+//                                @"descriptor" : @"2902",
+//                                @"hex":@"0100",
+//                            }];
+//                        }
+//                    }
                 }
                 if( (p & CBCharacteristicPropertyIndicate) != 0)
                     k[@"indicate"] = @TRUE;
@@ -505,7 +508,7 @@
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error {
-    
+    NSLog(@"didUpdateValueForDescriptor");
 }
 
 - (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(NSError *)error{
