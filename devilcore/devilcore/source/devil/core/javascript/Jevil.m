@@ -1923,6 +1923,14 @@
     }
 }
 
++ (void)bleStopScan {
+    @try {
+        [[DevilBle sharedInstance] stopScan];
+    } @catch (NSException *exception) {
+        //TODO
+    }
+}
+
 + (void)bleConnect:(NSString*)udid {
     [[DevilBle sharedInstance] connect:udid :^(id  _Nonnull res) {
         

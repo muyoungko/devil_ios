@@ -205,34 +205,6 @@
             @"text":s,
         }];
         
-//        [self writeToISO7816Tag:tag data:b completion:^(NSError * _Nullable err) {
-//            if(err) {
-//                NSLog(@"%@", err);
-//                if(self.callback) {
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        self.callback(@{
-//                            @"r":@FALSE,
-//                            @"event":@"write",
-//                            @"msg":@"NFC write failed",
-//                        });
-//                    });
-//                }
-//                return;
-//            }
-//            
-//            [self stop];
-//            
-//            if(self.callback) {
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    self.callback(@{
-//                        @"r":@TRUE,
-//                        @"event":@"write",
-//                    });
-//                });
-//            }
-//        }];
-        
-        
         NSData *languageData = [languageCode dataUsingEncoding:NSUTF8StringEncoding];
 
         /**
@@ -301,6 +273,14 @@
 
 - (void)readerSession:(NFCNDEFReaderSession *)session didInvalidateWithError:(NSError *)error {
     NSLog(@"didInvalidateWithError");
+//    id r = [@{} mutableCopy];
+//    r[@"r"] = @FALSE;
+//    r[@"msg"] = [error localizedDescription];
+//    NSLog(@"%@", [error localizedDescription]);
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        self.callback(r);
+//        self.callback = nil;
+//    });
 }
 
 - (NSString *) hexString : (NSData*)data

@@ -153,6 +153,11 @@
     }
 }
 
+- (void)stopScan {
+    if(self.cbmanager)
+        [self.cbmanager stopScan];
+}
+
 - (void)bleRelease {
     for(CBPeripheral* ble in self.blue_list) {
         if(ble.state == CBPeripheralStateConnected || ble.state == CBPeripheralStateConnecting)
@@ -432,17 +437,18 @@
                     /**
                      아이폰은 [c descriptors]가 null이 나오는 기기가 있다. 안드로이드는 잘 나오는데,
                      */
-//                    for(CBDescriptor* d in [c descriptors]) {
-//                        if([[[d UUID] UUIDString] isEqualToString:@"2902"]) {
-//                            [self writeDescriptor:@{
-//                                @"udid": [peripheral.identifier description],
-//                                @"service" : [[service UUID] UUIDString],
-//                                @"characteristic" : [[c UUID] UUIDString],
-//                                @"descriptor" : @"2902",
-//                                @"hex":@"0100",
-//                            }];
-//                        }
-//                    }
+                    if(c)
+                        for(CBDescriptor* d in [c descriptors]) {
+                            if([[[d UUID] UUIDString] isEqualToString:@"2902"]) {
+                                [self writeDescriptor:@{
+                                    @"udid": [peripheral.identifier description],
+                                    @"service" : [[service UUID] UUIDString],
+                                    @"characteristic" : [[c UUID] UUIDString],
+                                    @"descriptor" : @"2902",
+                                    @"hex":@"0100",
+                                }];
+                            }
+                        }
                 }
                 if( (p & CBCharacteristicPropertyIndicate) != 0)
                     k[@"indicate"] = @TRUE;
@@ -452,6 +458,7 @@
         }
 //        NSLog(@"callDiscoveredCallback %@", r);
         [[DevilDebugView sharedInstance] log:DEVIL_LOG_BLUETOOTH title:@"discovered" log:r];
+        
         self.callbackDiscovered(r);
     });
     

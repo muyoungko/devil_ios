@@ -156,6 +156,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)timer:(NSString*)node :(int)sec;
 + (void)custom:(NSString*)function;
 + (void)bleList:(NSDictionary*)param :(JSValue *)callback;
++ (void)bleStopScan;
 + (void)bleConnect:(NSString*)udid;
 + (void)bleDisconnect:(NSString*)udid;
 + (void)bleRelease:(NSString*)udid;

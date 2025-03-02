@@ -15,6 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (DevilBle*)sharedInstance;
 - (void)list:(id)param :(void (^)(id res))callback;
+- (void)stopScan;
 - (void)connect:(NSString*)udid :(void (^)(id res))callback;
 - (void)disconnect:(NSString*)udid :(void (^)(id res))callback;
 - (void)send:(id)param :(void (^)(id res))callback;
