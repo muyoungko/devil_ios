@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DevilReview : NSObject
 
 +(DevilReview*)sharedInstance;
--(BOOL)review;
+-(BOOL)review:(BOOL)force;
 @end
 
 NS_ASSUME_NONNULL_END

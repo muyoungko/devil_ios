@@ -55,8 +55,11 @@
         session.password = param[@"password"];
     }
     self.connected = false;
-    [session connectAndWaitTimeout:5];
-    [session connect];
+    [session connectAndWaitTimeout:3];
+    
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^(void){
+        [session connect];
+    });
 }
 
 - (void)subscribe:(id)param callback:(void (^)(id res))callback{

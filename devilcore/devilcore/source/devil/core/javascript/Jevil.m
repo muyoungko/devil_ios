@@ -2187,8 +2187,8 @@
     return (DevilGoogleMapMarketComponent*)[MarketInstance findMarketComponent:mv.meta replaceView:mv.view];
 }
 
-+ (BOOL)review {
-    return [[DevilReview sharedInstance] review];
++ (BOOL)review:(BOOL)force {
+    return [[DevilReview sharedInstance] review:force];
 }
 + (void)setLanguage:(NSString*)lang{
     [DevilLang setCurrentLang:lang];
