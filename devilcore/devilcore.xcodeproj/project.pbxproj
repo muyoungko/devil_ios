@@ -325,6 +325,8 @@
 		6DF579A926D8D27F009D41A1 /* DevilBeacon.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF579A726D8D27F009D41A1 /* DevilBeacon.m */; };
 		6DFA289A28ED19DE007463FB /* WildCardEventTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFA289828ED19DE007463FB /* WildCardEventTracker.h */; };
 		6DFA289B28ED19DE007463FB /* WildCardEventTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFA289928ED19DE007463FB /* WildCardEventTracker.m */; };
+		6DFB0F7B2DA916BA0064CE3E /* ReplaceRulePageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFB0F792DA916BA0064CE3E /* ReplaceRulePageControl.h */; };
+		6DFB0F7C2DA916BA0064CE3E /* ReplaceRulePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB0F7A2DA916BA0064CE3E /* ReplaceRulePageControl.m */; };
 		6DFB74A02824255A00A64539 /* ReplaceRulePullToRefresh.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFB749E2824255A00A64539 /* ReplaceRulePullToRefresh.h */; };
 		6DFB74A12824255A00A64539 /* ReplaceRulePullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */; };
 		6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */; };
@@ -657,6 +659,8 @@
 		6DF579A726D8D27F009D41A1 /* DevilBeacon.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilBeacon.m; sourceTree = "<group>"; };
 		6DFA289828ED19DE007463FB /* WildCardEventTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WildCardEventTracker.h; sourceTree = "<group>"; };
 		6DFA289928ED19DE007463FB /* WildCardEventTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WildCardEventTracker.m; sourceTree = "<group>"; };
+		6DFB0F792DA916BA0064CE3E /* ReplaceRulePageControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRulePageControl.h; sourceTree = "<group>"; };
+		6DFB0F7A2DA916BA0064CE3E /* ReplaceRulePageControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRulePageControl.m; sourceTree = "<group>"; };
 		6DFB749E2824255A00A64539 /* ReplaceRulePullToRefresh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReplaceRulePullToRefresh.h; sourceTree = "<group>"; };
 		6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReplaceRulePullToRefresh.m; sourceTree = "<group>"; };
 		6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilGoogleMapMarketComponent.h; sourceTree = "<group>"; };
@@ -955,6 +959,8 @@
 				6D1BB4302CC5289B0070B0EA /* ReplaceRuleCheckbox.m */,
 				6D2D47202D0944E40007CFCD /* ReplaceRuleProgress.h */,
 				6D2D47212D0944E40007CFCD /* ReplaceRuleProgress.m */,
+				6DFB0F792DA916BA0064CE3E /* ReplaceRulePageControl.h */,
+				6DFB0F7A2DA916BA0064CE3E /* ReplaceRulePageControl.m */,
 			);
 			path = replacerule;
 			sourceTree = "<group>";
@@ -1502,6 +1508,7 @@
 				6D467B62257A268C006D57DD /* DevilHeader.h in Headers */,
 				6D467AB5256AB07A006D57DD /* WildCardUILabel.h in Headers */,
 				6D467AA9256AB07A006D57DD /* WildCardUtil.h in Headers */,
+				6DFB0F7B2DA916BA0064CE3E /* ReplaceRulePageControl.h in Headers */,
 				6D467B8C257CF2F7006D57DD /* JevilAction.h in Headers */,
 				6DECCD4E294AFB17007FBBD9 /* DevilGoogleAdsBannerMarketComponent.h in Headers */,
 				6DD0944C269C85A8000A913A /* MarketInstance.h in Headers */,
@@ -1760,6 +1767,7 @@
 				6D3EBCC125CAACAC0006ADD5 /* DevilDebugController.m in Sources */,
 				6D467AC9256AB07A006D57DD /* WildCardConstructor.m in Sources */,
 				6D467A8E256AB07A006D57DD /* WildCardUITextField.m in Sources */,
+				6DFB0F7C2DA916BA0064CE3E /* ReplaceRulePageControl.m in Sources */,
 				6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */,
 				6D467A9E256AB07A006D57DD /* ReplaceRuleColor.m in Sources */,
 				6D467AB4256AB07A006D57DD /* WildCardCollectionViewAdapter.m in Sources */,

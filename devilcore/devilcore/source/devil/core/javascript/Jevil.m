@@ -1166,28 +1166,33 @@
 }
 
 + (void)viewPagerSelectedCallback:(NSString*)nodeName :(JSValue*)callback{
-    DevilController* dc = ((DevilController*)[JevilInstance currentInstance].vc);
-    id meta = dc.mainWc.meta;
-    [[JevilFunctionUtil sharedInstance] registFunction:callback];
-    WildCardUIView* vv = (WildCardUIView*)[meta getView:nodeName];
-    if(vv) {
-        UICollectionView* cv = (UICollectionView*)[vv subviews][0];
-        WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
-        [adapter setViewPagerSelectedCallback:^(int index) {
-            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
-                nodeName,
-                [NSNumber numberWithInt:index]
-            ]];
-        }];
-    } else {
-        if(!dc.viewPagerReservedSelectedCallbackMap)
-            dc.viewPagerReservedSelectedCallbackMap = [@{} mutableCopy];
-        dc.viewPagerReservedSelectedCallbackMap[nodeName] = ^(int index) {
-            [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
-                nodeName,
-                [NSNumber numberWithInt:index]
-            ]];
-        };
+    @try {
+        DevilController* vc = ((DevilController*)[JevilInstance currentInstance].vc);
+        id meta = vc.mainWc.meta;
+        [[JevilFunctionUtil sharedInstance] registFunction:callback];
+        
+        WildCardUIView* vv = [vc findView:nodeName];
+        if(vv) {
+            UICollectionView* cv = (UICollectionView*)[vv subviews][0];
+            WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
+            [adapter setViewPagerSelectedCallback:^(int index) {
+                [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
+                    nodeName,
+                    [NSNumber numberWithInt:index]
+                ]];
+            }];
+        } else {
+            if(!vc.viewPagerReservedSelectedCallbackMap)
+                vc.viewPagerReservedSelectedCallbackMap = [@{} mutableCopy];
+            vc.viewPagerReservedSelectedCallbackMap[nodeName] = ^(int index) {
+                [[JevilFunctionUtil sharedInstance] callFunction:callback params:@[
+                    nodeName,
+                    [NSNumber numberWithInt:index]
+                ]];
+            };
+        }
+    }@catch(NSException *e) {
+        [DevilExceptionHandler handle:e];
     }
 }
 

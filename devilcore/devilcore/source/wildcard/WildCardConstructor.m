@@ -20,6 +20,7 @@
 #import "ReplaceRuleIcon.h"
 #import "ReplaceRuleVideo.h"
 #import "ReplaceRuleWeb.h"
+#import "ReplaceRulePageControl.h"
 #import "ReplaceRuleLottie.h"
 #import "ReplaceRuleMarket.h"
 #import "ReplaceRuleQrcode.h"
@@ -993,8 +994,12 @@ static BOOL IS_TABLET = NO;
             ReplaceRuleLottie* rule = [[ReplaceRuleLottie alloc] init];
             [outRules addObject:rule];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
-        }else if(layer[@"strip"]){
+        } else if(layer[@"strip"]){
             ReplaceRuleStrip* rule = [[ReplaceRuleStrip alloc] init];
+            [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
+            [outRules addObject:rule];
+        } else if(layer[@"pagecontrol"]) {
+            ReplaceRulePageControl* rule = [[ReplaceRulePageControl alloc] init];
             [rule constructRule:wcMeta parent:parent vv:vv layer:layer depth:depth result:result];
             [outRules addObject:rule];
         }
