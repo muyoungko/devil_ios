@@ -95,6 +95,7 @@
 
 - (void)keyboardWillShow:(NSNotification*)noti
 {
+    NSLog(@"keyboardWillShow");
     if(self.devilBlockDialog == nil &&
        editingPoint.y > screenHeight/4)
     {
@@ -115,6 +116,7 @@
 
 
 - (void)keyboardDidShow:(NSNotification*)noti {
+    NSLog(@"keyboardDidShow");
     self.keyboardOn = true;
     NSValue* keyboardFrameBegin = [noti.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect rect = [keyboardFrameBegin CGRectValue];
@@ -167,8 +169,8 @@
         CGRect rect = [keyboardFrameBegin CGRectValue];
         int toUp = rect.origin.y - absolute_rect.origin.y - 50;
         UIView* movingDialogView = [self.devilBlockDialog subviews][1];
+        self.originalDialogY = movingDialogView.frame.origin.y;
         if((toUp < 0) && movingDialogView != nil) {
-            self.originalDialogY = movingDialogView.frame.origin.y;
             [UIView animateWithDuration:0.15f animations:^{
                 movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
                                                     movingDialogView.frame.origin.y + toUp,
@@ -242,6 +244,7 @@
 }
 
 - (void)keyboardWillHide:(NSNotification*)noti {
+    NSLog(@"keyboardWillHide %d", self.originalDialogY);
     self.keyboardOn = NO;
     self.keypadTop.hidden = YES; 
     if(self.should_up_footer)
@@ -249,17 +252,19 @@
     editingView = nil;
     self.view.frame = CGRectMake(self.view.frame.origin.x, self.originalY, self.view.frame.size.width, self.view.frame.size.height);
     
+    
     if(self.devilBlockDialog && [[self.devilBlockDialog subviews] count] > 1){
         UIView* movingDialogView = [self.devilBlockDialog subviews][1];
-        movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
-                                            self.originalDialogY,
-                                             movingDialogView.frame.size.width,
-                                             movingDialogView.frame.size.height);
-            
+        if(![self.devilBlockDialog isBeingDismissed])
+            [UIView animateWithDuration:0.15f animations:^{
+                movingDialogView.frame = CGRectMake(movingDialogView.frame.origin.x,
+                                                    self.originalDialogY,
+                                                     movingDialogView.frame.size.width,
+                                                     movingDialogView.frame.size.height);
+            }];
    }
     
 }
-
 
 - (void)dotClick {
     if(self.editingTextField) {

@@ -1063,11 +1063,12 @@
 
 
 + (void)popupClose:(id)yes {
-    if(((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog) {
+    DevilController* dc = ((DevilController*)[JevilInstance currentInstance].vc);
+    if(dc.devilBlockDialog) {
         if(yes == nil)
-            [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismiss];
+            [dc.devilBlockDialog dismiss];
         else
-            [((DevilController*)[JevilInstance currentInstance].vc).devilBlockDialog dismissWithCallback:yes];
+            [dc.devilBlockDialog dismissWithCallback:yes];
     }
 }
 
