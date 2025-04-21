@@ -37,6 +37,10 @@
         typeString = @"WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER";
     else if(_type == WC_LAYOUT_TYPE_MATCH_PARENT)
         typeString = @"MATCH_PARENT";
+    else if(_type == WC_LAYOUT_TYPE_FOLLOW_PARENT_WIDTH)
+        typeString = @"WC_LAYOUT_TYPE_FOLLOW_PARENT_WIDTH";
+    else if(_type == WC_LAYOUT_TYPE_FOLLOW_PARENT_HEIGHT)
+        typeString = @"WC_LAYOUT_TYPE_FOLLOW_PARENT_HEIGHT";
     return [NSString stringWithFormat:@"%@ type:%@ depth:%d %@", s, typeString, _depth, _optionalViewName];
 }
 @end

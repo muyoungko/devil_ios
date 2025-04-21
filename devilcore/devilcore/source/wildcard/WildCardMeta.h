@@ -43,7 +43,8 @@
 @property (nonatomic, retain) NSArray* layoutPath;
 
 @property (nonatomic, retain) NSMutableDictionary* gravityNodes;
-
+@property (nonatomic, retain) NSMutableDictionary* followParentWidthNodes;
+@property (nonatomic, retain) NSMutableDictionary* followParentHeightNodes;
 @property (nonatomic, retain) NSMutableDictionary* wrapContentNodes;
 @property (nonatomic, retain) NSMutableDictionary* matchParentNodes;
 
@@ -59,6 +60,8 @@
 -(void)addNextChain:(UIView*)prevView next:(UIView*)nextView margin:(int)margin nextType:(int)nextType depth:(int)depth;
 
 -(void)addGravity:(UIView*)view depth:(int)depth;
+-(void)addFollowParentWidth:(UIView*)view depth:(int)depth;
+-(void)addFollowParentHeight:(UIView*)view depth:(int)depth;
 -(void)addWrapContent:(UIView*)view depth:(int)depth;
 -(void)addMatchParent:(UIView*)view depth:(int)depth;
 -(void) requestLayout;

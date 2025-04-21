@@ -150,6 +150,16 @@
             if(self.requestLayoutDebug) NSLog(@"path(%d) match_parent - %@", unit.depth,headerView.name);
             if(!headerView.frameUpdateAvoid)
                 [self matchParentView:headerView];
+        } else if(unit.type == WC_LAYOUT_TYPE_FOLLOW_PARENT_WIDTH)
+        {
+            WildCardUIView* headerView = [_followParentWidthNodes objectForKey:unit.viewKey];
+            if(self.requestLayoutDebug) NSLog(@"path(%d) follow_parent_width - %@", unit.depth,headerView.name);
+            [self followParentWidth:headerView];
+        } else if(unit.type == WC_LAYOUT_TYPE_FOLLOW_PARENT_HEIGHT)
+        {
+            WildCardUIView* headerView = [_followParentWidthNodes objectForKey:unit.viewKey];
+            if(self.requestLayoutDebug) NSLog(@"path(%d) follow_parent_height - %@", unit.depth,headerView.name);
+            [self followParentHeight:headerView];
         }
     }
     
@@ -221,7 +231,24 @@
     [_gravityNodes setObject:view forKey:viewKey];
 }
 
--(void) gravityView:(WildCardUIView*)view
+-(void)addFollowParentWidth:(UIView*)view depth:(int)depth
+{
+    if(_followParentWidthNodes == nil)
+        _followParentWidthNodes = [[NSMutableDictionary alloc] init];
+    NSString* viewKey = [NSString stringWithFormat:@"%lx", (long)view];
+    [_followParentWidthNodes setObject:view forKey:viewKey];
+}
+
+-(void)addFollowParentHeight:(UIView*)view depth:(int)depth
+{
+    if(_followParentHeightNodes == nil)
+        _followParentHeightNodes = [[NSMutableDictionary alloc] init];
+    NSString* viewKey = [NSString stringWithFormat:@"%lx", (long)view];
+    [_followParentHeightNodes setObject:view forKey:viewKey];
+}
+
+
+-(void)gravityView:(WildCardUIView*)view
 {
     WildCardUIView* parent = (WildCardUIView*)[view superview];
     
@@ -283,8 +310,10 @@
         BOOL vCenterOrBottom = NO;
         float rightMargin = 0, bottomMargin = 0;
         if([child isKindOfClass:[WildCardUIView class]]) {
-            
             WildCardUIView* vchild = (WildCardUIView*)child;
+            if(vchild.follow_width)
+                continue;
+            
             hCenterOrRight = [WildCardUtil isHCenterOrHRight:vchild.alignment];
             vCenterOrBottom = [WildCardUtil isVCenterOrVBottom:vchild.alignment];
             rightMargin = vchild.rightMargin;
@@ -395,6 +424,17 @@
     }
 }
 
+-(void)followParentWidth:(WildCardUIView*)view {
+    UIView* parent = [view superview];
+    NSLog(@"follow parent width %@ %f", ((WildCardUIView*)parent).name, parent.frame.size.width);
+    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, parent.frame.size.width, view.frame.size.height);
+}
+
+-(void)followParentHeight:(WildCardUIView*)view {
+    UIView* parent = [view superview];
+    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, parent.frame.size.height);
+}
+
 -(void) matchParentView:(WildCardUIView*)view {
     UIView* parent = [view superview];
     id childs = [[view superview] subviews];
@@ -499,6 +539,25 @@
         }
     }
     
+    if(_followParentWidthNodes != nil) {
+        NSArray* keys = [_followParentWidthNodes allKeys];
+        for(int i=0;i<[keys count];i++) {
+            WildCardUIView* headerView = (WildCardUIView*)[_followParentWidthNodes objectForKey:[keys objectAtIndex:i]];
+            
+            NSString* headerViewKey = [NSString stringWithFormat:@"%lx", (long)headerView];
+            [temp addObject:[[WildCardLayoutPathUnit alloc] initWithType:WC_LAYOUT_TYPE_FOLLOW_PARENT_WIDTH depth:headerView.depth viewKey:headerViewKey viewName:headerView.name]];
+        }
+    }
+    if(_followParentHeightNodes != nil) {
+        NSArray* keys = [_followParentHeightNodes allKeys];
+        for(int i=0;i<[keys count];i++) {
+            WildCardUIView* headerView = (WildCardUIView*)[_followParentHeightNodes objectForKey:[keys objectAtIndex:i]];
+            
+            NSString* headerViewKey = [NSString stringWithFormat:@"%lx", (long)headerView];
+            [temp addObject:[[WildCardLayoutPathUnit alloc] initWithType:WC_LAYOUT_TYPE_FOLLOW_PARENT_HEIGHT depth:headerView.depth viewKey:headerViewKey viewName:headerView.name]];
+        }
+    }
+    
     /**
      깊은 depth - wrap_content가 우선
      
@@ -537,8 +596,10 @@
 -(int)typeToValue:(WildCardLayoutPathUnit*)a {
     if(a.type == WC_LAYOUT_TYPE_WRAP_CONTENT)
         return 5;
-    else if(a.type == WC_LAYOUT_TYPE_GRAVITY_CENTER || a.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER)
+    else if(a.type == WC_LAYOUT_TYPE_FOLLOW_PARENT_WIDTH || a.type == WC_LAYOUT_TYPE_FOLLOW_PARENT_HEIGHT)
         return -100000;
+    else if(a.type == WC_LAYOUT_TYPE_GRAVITY_CENTER || a.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER)
+        return -1000;
     else if(a.type == WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER)
         return 4;
     else if(a.type == WC_LAYOUT_TYPE_MATCH_PARENT)

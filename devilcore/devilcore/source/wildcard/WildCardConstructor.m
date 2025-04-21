@@ -733,7 +733,10 @@ static BOOL IS_TABLET = NO;
             }
         }
         
-        if(vv.frame.size.width == 0)
+        if([frame[@"w"] intValue] == -3) {
+            vv.follow_width = YES;
+            [wcMeta addFollowParentWidth:vv depth:depth];
+        } else if(vv.frame.size.width == 0)
             vv.wrap_width = YES;
         
         if(vv.frame.size.height == 0)

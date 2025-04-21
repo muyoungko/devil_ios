@@ -21,7 +21,7 @@
     self = [super init];
     if (self) {
         self.alignment = GRAVITY_LEFT | GRAVITY_TOP;
-        self.wrap_width = NO;
+        self.follow_width = self.wrap_width = NO;
         self.wrap_height = NO;
         self.cornerRadiusHalf = NO;
         self.tags = [@{} mutableCopy];

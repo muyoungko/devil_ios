@@ -38,6 +38,7 @@
 @property (retain, nonatomic) WildCardMeta* meta;
 @property (retain, nonatomic) NSString* stringTag;
 @property BOOL wrap_width;
+@property BOOL follow_width;
 @property BOOL wrap_height;
 @property BOOL match_height;
 
