@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)hide:(UIViewController*)vc;
 -(void)show:(UIViewController*)vc;
 -(void)update:(UIViewController*) vc;
+-(void)destroy:(UIViewController*)vc;
 
 @end
 

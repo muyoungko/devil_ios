@@ -173,9 +173,6 @@
             }
         }
     }
-    
-    double e = [[NSDate date] timeIntervalSince1970];
-    //NSLog(@"RequestLayout time - %f", (e-s));
 }
 
 -(void)initWrapContentIfNeed

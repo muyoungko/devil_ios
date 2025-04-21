@@ -41,6 +41,7 @@
     UIWindow* w = [UIApplication sharedApplication].keyWindow;
     UIView* pv = w;
     
+    //vc가 이전 화면일 수 있다 시간차를 두고 호출해야함
     UIViewController* vc = [JevilInstance currentInstance].vc;
     NSString* vckey = [NSString stringWithFormat:@"%@", vc];
     if([DevilDrawer sharedInstance].keep[vckey] == nil)
@@ -56,10 +57,10 @@
         CGRect screenRect = [[UIScreen mainScreen] bounds];
         int screenWidth = screenRect.size.width;
         int screenHeight = screenRect.size.height;
-    
+        
         WildCardDrawerView* d = [[WildCardDrawerView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
         [pv addSubview:d];
-            
+        
         id cloudJson = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
         //TODO fitblock
         id contentView = [WildCardConstructor constructLayer:d withLayer:cloudJson instanceDelegate:vc];
@@ -107,6 +108,11 @@
             d.hidden = YES;
         }
     }
+}
+
+-(void)destroy:(UIViewController*)vc{
+    NSString* vckey = [NSString stringWithFormat:@"%@", vc];
+    [[DevilDrawer sharedInstance].keep removeObjectForKey:vckey];
 }
 
 -(void)show:(UIViewController*)vc{

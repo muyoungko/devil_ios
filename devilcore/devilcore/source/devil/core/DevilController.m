@@ -366,13 +366,13 @@
         [self.wifiManager dismiss];
     [[DevilSound sharedInstance] setTickCallback:nil];
     [[DevilDrawer sharedInstance] hide:self];
-    
+    [[DevilDrawer sharedInstance] destroy:self];
     for(NSString* key in [self.thisMetas allKeys])
         [self.thisMetas[key] paused];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    
+        
     if(![self.navigationController.viewControllers containsObject:self]) {
         [self finish];
         
