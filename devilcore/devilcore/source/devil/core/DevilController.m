@@ -366,7 +366,6 @@
         [self.wifiManager dismiss];
     [[DevilSound sharedInstance] setTickCallback:nil];
     [[DevilDrawer sharedInstance] hide:self];
-    [[DevilDrawer sharedInstance] destroy:self];
     for(NSString* key in [self.thisMetas allKeys])
         [self.thisMetas[key] paused];
 }
@@ -381,6 +380,7 @@
         
         [[DevilBle sharedInstance] destroy];
         [[DevilMqtt sharedInstance] close];
+        [[DevilDrawer sharedInstance] destroy:self];
     }
     
     [self onPause];
