@@ -259,6 +259,7 @@
 		6DACCFCF28DA244C002E7409 /* DevilImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */; };
 		6DAEA1CA2D1D2A8900E9A323 /* DevilDynamicAsset.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DAEA1C82D1D2A8900E9A323 /* DevilDynamicAsset.h */; };
 		6DAEA1CB2D1D2A8900E9A323 /* DevilDynamicAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DAEA1C92D1D2A8900E9A323 /* DevilDynamicAsset.m */; };
+		6DBCFD9D2DBC60D800F5FC5F /* DevilLottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBCFD9C2DBC60D800F5FC5F /* DevilLottie.swift */; };
 		6DC0CE3228E5974E00195F60 /* DevilChartMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */; };
 		6DC0CE3328E5974E00195F60 /* DevilChartMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */; };
 		6DC0CE3628E5DDFB00195F60 /* JevilHealthBlank.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */; };
@@ -593,6 +594,7 @@
 		6DACCFCD28DA244C002E7409 /* DevilImagePickerController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilImagePickerController.m; sourceTree = "<group>"; };
 		6DAEA1C82D1D2A8900E9A323 /* DevilDynamicAsset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilDynamicAsset.h; sourceTree = "<group>"; };
 		6DAEA1C92D1D2A8900E9A323 /* DevilDynamicAsset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilDynamicAsset.m; sourceTree = "<group>"; };
+		6DBCFD9C2DBC60D800F5FC5F /* DevilLottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevilLottie.swift; sourceTree = "<group>"; };
 		6DC0CE3028E5974E00195F60 /* DevilChartMarketComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DevilChartMarketComponent.h; sourceTree = "<group>"; };
 		6DC0CE3128E5974E00195F60 /* DevilChartMarketComponent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DevilChartMarketComponent.m; sourceTree = "<group>"; };
 		6DC0CE3428E5DDFB00195F60 /* JevilHealthBlank.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JevilHealthBlank.h; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 		6D4679E2256AA5E9006D57DD /* source */ = {
 			isa = PBXGroup;
 			children = (
+				6DBCFD992DBC4D5200F5FC5F /* lottie */,
 				6D00ADC62CB7B8990016D337 /* mqtt */,
 				6D54EE342C93005600B0A718 /* util */,
 				6D54EE2F2C92DEEC00B0A718 /* gyroscope */,
@@ -1204,6 +1207,14 @@
 				6DA1B0972C10A4C100025AB5 /* ZoomableImageView.m */,
 			);
 			path = zoomable;
+			sourceTree = "<group>";
+		};
+		6DBCFD992DBC4D5200F5FC5F /* lottie */ = {
+			isa = PBXGroup;
+			children = (
+				6DBCFD9C2DBC60D800F5FC5F /* DevilLottie.swift */,
+			);
+			path = lottie;
 			sourceTree = "<group>";
 		};
 		6DC0CE2F28E5973600195F60 /* chart */ = {
@@ -1582,7 +1593,7 @@
 				TargetAttributes = {
 					6D46792D256A16DB006D57DD = {
 						CreatedOnToolsVersion = 12.1;
-						LastSwiftMigration = 1430;
+						LastSwiftMigration = 1630;
 					};
 				};
 			};
@@ -1658,9 +1669,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1784,6 +1799,7 @@
 				6D5D41A2267F064100B01F2F /* DevilDateTimePopup.m in Sources */,
 				6D530D08274B539E006EDD58 /* DevilGalleryController.m in Sources */,
 				6DF458FC2A82827300E20636 /* DevilVideoPlayerController.m in Sources */,
+				6DBCFD9D2DBC60D800F5FC5F /* DevilLottie.swift in Sources */,
 				6D467AAC256AB07A006D57DD /* WildCardCollectionViewHelper.m in Sources */,
 				6D467AC1256AB07A006D57DD /* WildCardCustomAction.m in Sources */,
 				6D09C3B525ADDD9100221A4C /* WildCardTimer.m in Sources */,
@@ -1995,6 +2011,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2027,6 +2044,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

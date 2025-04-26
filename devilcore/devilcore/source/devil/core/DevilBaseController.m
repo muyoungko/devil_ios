@@ -6,7 +6,6 @@
 //
 
 #import "DevilBaseController.h"
-#import "Lottie.h"
 #import "WildCardUITextField.h"
 #import "DevilLang.h"
 #import "WildCardUtil.h"

@@ -10,8 +10,8 @@
 #import "AppDelegate.h"
 #import "Devil.h"
 #import <devilcore/devilcore.h>
-#import "Lottie/Lottie.h"
 #import "JulyUtil.h"
+#import "devilcore/devilcore-Swift.h"
 
 @interface BaseController ()
 
@@ -135,10 +135,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-
-
-
 - (UIWindow*)aWindow {
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     if (!window)
@@ -166,20 +162,10 @@
         [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideIndicator)];
         [indicatorBg addGestureRecognizer:singleFingerTap];
         
-        LOTAnimationView* loading = [LOTAnimationView animationNamed:@"loading" inBundle:[NSBundle mainBundle]];
-        int h = 170;
-        loading.frame = CGRectMake(0, 0 , h, h);
-        loading.userInteractionEnabled = NO;
-        
-        CGRect screenRect = [[UIScreen mainScreen] bounds];
-        int sw = screenRect.size.width;
-        int sh = screenRect.size.height;
-        
-        loading.center = CGPointMake(sw/2, sh/2);
-        loading.tag = 2243;
-        loading.loopAnimation = YES;
-        [loading play];
-        [window addSubview:loading];
+        UIView* a = (UIView*)[DevilLottie showIn:window];
+        [DevilLottie loopWithView:a Loop:YES];
+        [DevilLottie playWithView:a];
+        a.tag = 2243;
     }
 }
 

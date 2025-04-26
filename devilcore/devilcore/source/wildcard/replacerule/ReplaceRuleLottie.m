@@ -6,8 +6,8 @@
 //
 
 #import "ReplaceRuleLottie.h"
-#import "Lottie/Lottie.h"
 #import "WildCardConstructor.h"
+#import "devilcore/devilcore-Swift.h"
 
 @implementation ReplaceRuleLottie
 
@@ -38,6 +38,9 @@
     UIView* vv = self.replaceView;
     id lottie = self.replaceJsonLayer[@"lottie"];
     
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:json options:0 error:&error];
+
     float lw = [json[@"w"] floatValue];
     float lh = [json[@"h"] floatValue];
     float todow, todoh;
@@ -51,18 +54,19 @@
         todow = w;
         todoh = lh * w/lw;
     }
-     
-    LOTAnimationView* lv = [LOTAnimationView animationFromJSON:json];
-    lv.contentMode = UIViewContentModeScaleAspectFit;
-    lv.frame = CGRectMake(0, 0, todow, todoh);
-    lv.center = CGPointMake(w/2.0f, h/2.0f);
-    [vv addSubview:lv];
+    
+    //json to data
+    
+    UIView* a = [DevilLottie generateViewWithData:jsonData];
+    a.frame = CGRectMake(0, 0, todow, todoh);
+    a.center = CGPointMake(w/2.0f, h/2.0f);
+    [vv addSubview:a];
     
     if([@"Y" isEqualToString:lottie[@"infinite"]])
-        lv.loopAnimation = YES;
-    
+        [DevilLottie loopWithView:a Loop:YES];
+
     if([@"Y" isEqualToString:lottie[@"autoStart"]])
-        [lv play];
+        [DevilLottie playWithView:a];
 }
 
 - (void)updateRule:(WildCardMeta *)meta data:(id)opt{

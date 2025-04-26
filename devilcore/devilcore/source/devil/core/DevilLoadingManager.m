@@ -6,12 +6,13 @@
 //
 
 #import "DevilLoadingManager.h"
-#import <Lottie/Lottie.h>
+@import Lottie;
 #import "WildCardUtil.h"
+#import <devilcore/devilcore-Swift.h>
 
 @interface DevilLoadingManager()
 @property (nonatomic, retain) UIView* indicatorBg;
-@property (nonatomic, retain) LOTAnimationView* loading;
+@property (nonatomic, retain) UIView* loading;
 @end
 
 @implementation DevilLoadingManager
@@ -67,25 +68,22 @@
     [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideIndicator)];
     [indicatorBg addGestureRecognizer:singleFingerTap];
     
-    LOTAnimationView* loading;
     
-    if(lottie) {
-        NSError* error;
-        NSDictionary *animationJSON = [NSJSONSerialization JSONObjectWithData:lottie options:0 error:&error];
-        loading = [LOTAnimationView animationFromJSON:animationJSON];
-    } else
-        loading = [LOTAnimationView animationNamed:@"loading" inBundle:[NSBundle mainBundle]];
+    if(lottie)
+        self.loading = [DevilLottie generateViewWithData:lottie];
+    else
+        self.loading = [DevilLottie generateViewWithName:@"loading"];
+    
+    [DevilLottie loopWithView:self.loading Loop:YES];
+    [DevilLottie playWithView:self.loading];
     
     int w = 170;
-    int h = loading.frame.size.height / loading.frame.size.width * w;
-    loading.frame = CGRectMake(0, 0 , w, h);
-    loading.userInteractionEnabled = NO;
-    
-    loading.center = CGPointMake(sw/2, sh/2);
-    loading.tag = 2243;
-    loading.loopAnimation = YES;
-    
-    self.loading = loading;
+    int h = self.loading.frame.size.height / self.loading.frame.size.width * w;
+    self.loading.frame = CGRectMake(0, 0 , w, h);
+    self.loading.userInteractionEnabled = NO;
+
+    self.loading.center = CGPointMake(sw/2, sh/2);
+    self.loading.tag = 2243;
     self.indicatorBg = indicatorBg;
 }
 
@@ -95,7 +93,7 @@
         [window addSubview:self.indicatorBg];
         [WildCardUtil followSizeFromFather:window child:self.indicatorBg];
         [window addSubview:self.loading];
-        [self.loading play];
+        [DevilLottie playWithView:self.loading];
     }
 }
 

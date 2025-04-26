@@ -7,18 +7,18 @@
 
 #import "WildCardVideoView.h"
 #import "WildCardConstructor.h"
-#import "Lottie.h"
 #import <objc/runtime.h>
 #import <QuartzCore/QuartzCore.h>
 #import "DevilUtil.h"
 #import "DevilVideoPlayerController.h"
 #import "WildCardUtil.h"
+#import <devilcore/devilcore-Swift.h>
 
 @interface WildCardVideoView() <AVPlayerViewControllerDelegate, DevilVideoPlayerControllerDelegate>
 @property (nonatomic, retain) NSString* previewPath;
 @property (nonatomic, retain) NSString* videoPath;
 @property (nonatomic, retain) NSString* lastPlayingVideoPath;
-@property (nonatomic, retain) LOTAnimationView* playPause;
+@property (nonatomic, retain) UIView* playPause;
 @property (nonatomic, retain) UIActivityIndicatorView* loading;
 @property (nonatomic, retain) id observer;
 @property BOOL ready;
@@ -57,15 +57,14 @@
     [_loading startAnimating];
     _loading.hidden = YES;
     
-    
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    LOTAnimationView* loading = [LOTAnimationView animationNamed:@"play_pause" inBundle:bundle];
+    UIView* loading = [DevilLottie generateViewWithName:@"play_pause" bundle:bundle];;
+
     int w = 240;
     int h = 170;
     loading.frame = CGRectMake( (frame.size.width-w)/2, (frame.size.height-h)/2 , w, h);
     loading.userInteractionEnabled = NO;
     loading.tag = 5123;
-    loading.loopAnimation = NO;
     loading.alpha = 0.5;
     loading.hidden = YES;
     [self addSubview:loading];
@@ -170,19 +169,15 @@
 }
 
 -(void)blinkPlay {
-    [self.playPause stop];
+    [DevilLottie stopWithView:self.playPause];
     self.playPause.hidden = NO;
-    [self.playPause playFromFrame:[NSNumber numberWithInt:30] toFrame:[NSNumber numberWithInt:60] withCompletion:^(BOOL animationFinished) {
-        self.playPause.hidden = YES;
-    }];
+    [DevilLottie playWithView:self.playPause From:30 To:60];
 }
 
 -(void)blinkPause {
-    [self.playPause stop];
+    [DevilLottie stopWithView:self.playPause];
     self.playPause.hidden = NO;
-    [self.playPause playFromFrame:[NSNumber numberWithInt:0] toFrame:[NSNumber numberWithInt:30] withCompletion:^(BOOL animationFinished) {
-        self.playPause.hidden = YES;
-    }];
+    [DevilLottie playWithView:self.playPause From:0 To:30];
 }
 
 + (id)sharedMap {
