@@ -2347,6 +2347,7 @@
 
 +(void)clipboard:(NSString*)s {
     [UIPasteboard generalPasteboard].string = s;
+    [Jevil toast:@"Text is copied to clipboard"];
 }
 
 @end
