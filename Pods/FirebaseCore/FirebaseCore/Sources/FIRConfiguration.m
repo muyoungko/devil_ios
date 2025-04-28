@@ -17,7 +17,6 @@
 #import "FirebaseCore/Sources/FIRAnalyticsConfiguration.h"
 
 extern void FIRSetLoggerLevel(FIRLoggerLevel loggerLevel);
-extern FIRLoggerLevel FIRGetLoggerLevel(void);
 
 @implementation FIRConfiguration
 
@@ -41,15 +40,7 @@ extern FIRLoggerLevel FIRGetLoggerLevel(void);
 - (void)setLoggerLevel:(FIRLoggerLevel)loggerLevel {
   NSAssert(loggerLevel <= FIRLoggerLevelMax && loggerLevel >= FIRLoggerLevelMin,
            @"Invalid logger level, %ld", (long)loggerLevel);
-  @synchronized(self) {
-    FIRSetLoggerLevel(loggerLevel);
-  }
-}
-
-- (FIRLoggerLevel)loggerLevel {
-  @synchronized(self) {
-    return FIRGetLoggerLevel();
-  }
+  FIRSetLoggerLevel(loggerLevel);
 }
 
 @end

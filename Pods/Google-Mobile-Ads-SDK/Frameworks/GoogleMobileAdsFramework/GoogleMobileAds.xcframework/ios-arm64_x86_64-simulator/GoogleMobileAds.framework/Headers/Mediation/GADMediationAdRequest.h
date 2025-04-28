@@ -13,7 +13,6 @@
 #import <GoogleMobileAds/Mediation/GADMEnums.h>
 
 /// Provides information which can be used for making ad requests during mediation.
-NS_SWIFT_NAME(MediationAdRequest)
 @protocol GADMediationAdRequest <NSObject>
 
 /// Publisher ID set by the publisher on the AdMob frontend.

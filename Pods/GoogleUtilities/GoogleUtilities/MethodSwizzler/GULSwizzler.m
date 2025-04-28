@@ -89,12 +89,11 @@ dispatch_queue_t GetGULSwizzlingQueue(void) {
         IMP testOriginal;
         [inv getReturnValue:&testOriginal];
         if (originalImpOfClass != testOriginal) {
-          GULOSLogWarning(
-              kGULLogSubsystem, kGULLoggerSwizzler, NO,
-              [NSString
-                  stringWithFormat:@"I-SWZ%06ld", (long)kGULSwizzlerMessageCodeMethodSwizzling000],
-              @"Swizzling class: %@ SEL:%@ after it has been previously been swizzled.",
-              NSStringFromClass(resolvedClass), NSStringFromSelector(selector));
+          GULLogWarning(kGULLoggerSwizzler, NO,
+                        [NSString stringWithFormat:@"I-SWZ%06ld",
+                                                   (long)kGULSwizzlerMessageCodeMethodSwizzling000],
+                        @"Swizzling class: %@ SEL:%@ after it has been previously been swizzled.",
+                        NSStringFromClass(resolvedClass), NSStringFromSelector(selector));
         }
       }
     }

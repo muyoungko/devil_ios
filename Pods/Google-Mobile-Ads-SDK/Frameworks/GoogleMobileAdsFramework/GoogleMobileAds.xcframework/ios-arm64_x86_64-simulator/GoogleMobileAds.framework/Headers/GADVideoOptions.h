@@ -8,17 +8,16 @@
 #import <GoogleMobileAds/GADAdLoader.h>
 
 /// Video ad options.
-NS_SWIFT_NAME(VideoOptions)
 @interface GADVideoOptions : GADAdLoaderOptions
 
 /// Indicates whether videos should start muted. By default this property value is YES.
-@property(nonatomic, assign) BOOL startMuted NS_SWIFT_NAME(shouldStartMuted);
+@property(nonatomic, assign) BOOL startMuted;
 
 /// Indicates whether the requested video should have custom controls enabled for
 /// play/pause/mute/unmute.
-@property(nonatomic, assign) BOOL customControlsRequested NS_SWIFT_NAME(areCustomControlsRequested);
+@property(nonatomic, assign) BOOL customControlsRequested;
 
 /// Indicates whether the requested video should have the click to expand behavior.
-@property(nonatomic, assign) BOOL clickToExpandRequested NS_SWIFT_NAME(isClickToExpandRequested);
+@property(nonatomic, assign) BOOL clickToExpandRequested;
 
 @end

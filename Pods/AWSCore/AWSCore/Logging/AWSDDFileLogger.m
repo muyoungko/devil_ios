@@ -43,7 +43,7 @@
 
 
 #if TARGET_OS_IPHONE
-BOOL awsDoesAppRunInBackground(void);
+BOOL doesAppRunInBackground(void);
 #endif
 
 unsigned long long const kAWSDDDefaultLogMaxFileSize      = 1024 * 1024;      // 1 MB
@@ -174,7 +174,7 @@ NSTimeInterval     const kAWSDDRollingLeeway              = 1.0;              //
 - (NSFileProtectionType)logFileProtection {
     if (_defaultFileProtectionLevel.length > 0) {
         return _defaultFileProtectionLevel;
-    } else if (awsDoesAppRunInBackground()) {
+    } else if (doesAppRunInBackground()) {
         return NSFileProtectionCompleteUntilFirstUserAuthentication;
     } else {
         return NSFileProtectionCompleteUnlessOpen;
@@ -1026,7 +1026,7 @@ NSTimeInterval     const kAWSDDRollingLeeway              = 1.0;              //
     // a new one.
     //
     // If user has overwritten to NSFileProtectionNone there is no need to create a new one.
-    if (awsDoesAppRunInBackground()) {
+    if (doesAppRunInBackground()) {
         NSFileProtectionType key = mostRecentLogFileInfo.fileAttributes[NSFileProtectionKey];
         __auto_type isUntilFirstAuth = [key isEqualToString:NSFileProtectionCompleteUntilFirstUserAuthentication];
         __auto_type isNone = [key isEqualToString:NSFileProtectionNone];
@@ -1846,7 +1846,7 @@ static NSString *_xattrToExtensionName(NSString *attrName) {
  * want (even if device is locked). Thats why that attribute have to be changed to
  * NSFileProtectionCompleteUntilFirstUserAuthentication.
  */
-BOOL awsDoesAppRunInBackground(void) {
+BOOL doesAppRunInBackground(void) {
     if ([[[NSBundle mainBundle] executablePath] containsString:@".appex/"]) {
         return YES;
     }

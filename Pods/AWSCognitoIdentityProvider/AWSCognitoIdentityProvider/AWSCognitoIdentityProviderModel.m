@@ -533,9 +533,6 @@ NSString *const AWSCognitoIdentityProviderErrorDomain = @"com.amazonaws.AWSCogni
         if ([value caseInsensitiveCompare:@"FORCE_CHANGE_PASSWORD"] == NSOrderedSame) {
             return @(AWSCognitoIdentityProviderUserStatusTypeForceChangePassword);
         }
-        if ([value caseInsensitiveCompare:@"EXTERNAL_PROVIDER"] == NSOrderedSame) {
-            return @(AWSCognitoIdentityProviderUserStatusTypeExternalProvider);
-        }
         return @(AWSCognitoIdentityProviderUserStatusTypeUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -553,8 +550,6 @@ NSString *const AWSCognitoIdentityProviderErrorDomain = @"com.amazonaws.AWSCogni
                 return @"RESET_REQUIRED";
             case AWSCognitoIdentityProviderUserStatusTypeForceChangePassword:
                 return @"FORCE_CHANGE_PASSWORD";
-            case AWSCognitoIdentityProviderUserStatusTypeExternalProvider:
-                return @"EXTERNAL_PROVIDER";
             default:
                 return nil;
         }
@@ -6670,9 +6665,6 @@ NSString *const AWSCognitoIdentityProviderErrorDomain = @"com.amazonaws.AWSCogni
         if ([value caseInsensitiveCompare:@"FORCE_CHANGE_PASSWORD"] == NSOrderedSame) {
             return @(AWSCognitoIdentityProviderUserStatusTypeForceChangePassword);
         }
-        if ([value caseInsensitiveCompare:@"EXTERNAL_PROVIDER"] == NSOrderedSame) {
-            return @(AWSCognitoIdentityProviderUserStatusTypeExternalProvider);
-        }
         return @(AWSCognitoIdentityProviderUserStatusTypeUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -6690,8 +6682,6 @@ NSString *const AWSCognitoIdentityProviderErrorDomain = @"com.amazonaws.AWSCogni
                 return @"RESET_REQUIRED";
             case AWSCognitoIdentityProviderUserStatusTypeForceChangePassword:
                 return @"FORCE_CHANGE_PASSWORD";
-            case AWSCognitoIdentityProviderUserStatusTypeExternalProvider:
-                return @"EXTERNAL_PROVIDER";
             default:
                 return nil;
         }

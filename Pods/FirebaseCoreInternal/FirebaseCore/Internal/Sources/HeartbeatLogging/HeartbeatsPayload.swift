@@ -15,9 +15,9 @@
 import Foundation
 
 #if SWIFT_PACKAGE
-  internal import GoogleUtilities_NSData
+  import GoogleUtilities_NSData
 #else
-  internal import GoogleUtilities
+  import GoogleUtilities
 #endif // SWIFT_PACKAGE
 
 /// A type that provides a string representation for use in an HTTP header.
@@ -44,7 +44,7 @@ public protocol HTTPHeaderRepresentable {
 ///       ]
 ///     }
 ///
-public struct HeartbeatsPayload: Codable, Sendable {
+public struct HeartbeatsPayload: Codable {
   /// The version of the payload. See go/firebase-apple-heartbeats for details regarding current
   /// version.
   static let version: Int = 2
@@ -93,8 +93,12 @@ extension HeartbeatsPayload: HTTPHeaderRepresentable {
     let encoder = JSONEncoder()
     encoder.dateEncodingStrategy = .formatted(Self.dateFormatter)
     #if DEBUG
-      // Sort keys in debug builds to simplify output comparisons in unit tests.
-      encoder.outputFormatting = .sortedKeys
+      // TODO: Remove the following #available check when FirebaseCore's minimum deployment target
+      // is iOS 11+; all other supported platforms already meet the minimum for `.sortedKeys`.
+      if #available(iOS 11, *) {
+        // Sort keys in debug builds to simplify output comparisons in unit tests.
+        encoder.outputFormatting = .sortedKeys
+      }
     #endif // DEBUG
 
     guard let data = try? encoder.encode(self) else {

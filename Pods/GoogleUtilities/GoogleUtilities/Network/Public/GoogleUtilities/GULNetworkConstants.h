@@ -16,8 +16,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 /// Error codes in Firebase Network error domain.
 /// Note: these error codes should never change. It would make it harder to decode the errors if
 /// we inadvertently altered any of these codes in a future SDK version.
@@ -71,5 +69,3 @@ extern const int kGULNetworkHTTPStatusCodeMovedTemporarily;
 extern const int kGULNetworkHTTPStatusCodeNotFound;
 extern const int kGULNetworkHTTPStatusCodeCannotAcceptTraffic;
 extern const int kGULNetworkHTTPStatusCodeUnavailable;
-
-NS_ASSUME_NONNULL_END

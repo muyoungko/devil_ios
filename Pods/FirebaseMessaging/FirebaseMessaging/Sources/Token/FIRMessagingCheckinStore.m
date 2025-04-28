@@ -48,8 +48,8 @@ NSString *const kFIRMessagingCheckinKeychainService = @"com.google.iid.checkin";
   self = [super init];
   if (self) {
     _plist = [[FIRMessagingBackupExcludedPlist alloc]
-        initWithPlistFile:kCheckinFileName
-             subDirectory:kFIRMessagingInstanceIDSubDirectoryName];
+        initWithFileName:kCheckinFileName
+            subDirectory:kFIRMessagingInstanceIDSubDirectoryName];
     _keychain =
         [[FIRMessagingAuthKeychain alloc] initWithIdentifier:kFIRMessagingCheckinKeychainGeneric];
   }

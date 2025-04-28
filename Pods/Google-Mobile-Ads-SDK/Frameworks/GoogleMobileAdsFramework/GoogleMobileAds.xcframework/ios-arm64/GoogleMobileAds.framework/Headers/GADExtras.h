@@ -9,7 +9,6 @@
 #import <GoogleMobileAds/GADAdNetworkExtras.h>
 
 /// Ad network extras sent to Google networks.
-NS_SWIFT_NAME(Extras)
 @interface GADExtras : NSObject <GADAdNetworkExtras>
 
 /// Additional parameters to be sent to Google networks.

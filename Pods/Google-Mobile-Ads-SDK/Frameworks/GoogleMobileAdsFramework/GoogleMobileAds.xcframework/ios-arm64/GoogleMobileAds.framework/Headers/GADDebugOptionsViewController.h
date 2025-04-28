@@ -11,7 +11,6 @@
 @class GADDebugOptionsViewController;
 
 /// Delegate for the GADDebugOptionsViewController.
-NS_SWIFT_NAME(DebugOptionsViewControllerDelegate)
 @protocol GADDebugOptionsViewControllerDelegate <NSObject>
 
 /// Called when the debug options flow is finished.
@@ -20,7 +19,6 @@ NS_SWIFT_NAME(DebugOptionsViewControllerDelegate)
 @end
 
 /// Displays debug options to the user.
-NS_SWIFT_NAME(DebugOptionsViewController)
 @interface GADDebugOptionsViewController : UIViewController
 
 /// Creates and returns a GADDebugOptionsViewController object initialized with the ad unit ID.

@@ -31,7 +31,3 @@ static NSString *const kMetricEventMappingID = @"1710";
 }
 
 @end
-
-/// Stub used to force the linker to include the categories in this file.
-void GDTCCTInclude_GDTCOREvent_GDTMetricsSupport_Category(void) {
-}

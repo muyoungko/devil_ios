@@ -9,7 +9,6 @@
 #import <GoogleMobileAds/GADAdLoader.h>
 
 /// Ad loader options for configuring the view of native ads.
-NS_SWIFT_NAME(NativeAdViewAdOptions)
 @interface GADNativeAdViewAdOptions : GADAdLoaderOptions
 
 /// Indicates preferred location of AdChoices icon. Default is GADAdChoicesPositionTopRightCorner.

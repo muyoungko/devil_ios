@@ -63,8 +63,7 @@ void FIRCLSExceptionRaiseTestCppException(void) __attribute((noreturn));
 void FIRCLSExceptionRecordModel(FIRExceptionModel* exceptionModel, NSString* rolloutsInfoJSON);
 NSString* FIRCLSExceptionRecordOnDemandModel(FIRExceptionModel* exceptionModel,
                                              int previousRecordedOnDemandExceptions,
-                                             int previousDroppedOnDemandExceptions,
-                                             BOOL shouldSuspendThread);
+                                             int previousDroppedOnDemandExceptions);
 void FIRCLSExceptionRecordNSException(NSException* exception);
 void FIRCLSExceptionRecord(FIRCLSExceptionType type,
                            const char* name,
@@ -77,8 +76,7 @@ NSString* FIRCLSExceptionRecordOnDemand(FIRCLSExceptionType type,
                                         NSArray<FIRStackFrame*>* frames,
                                         BOOL fatal,
                                         int previousRecordedOnDemandExceptions,
-                                        int previousDroppedOnDemandExceptions,
-                                        BOOL shouldSuspendThread);
+                                        int previousDroppedOnDemandExceptions);
 #endif
 
 __END_DECLS

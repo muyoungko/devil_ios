@@ -20,8 +20,7 @@
 #import "FirebaseCore/Extension/FIRComponent.h"
 #import "FirebaseCore/Extension/FIRLibrary.h"
 #import "FirebaseCore/Extension/FIRLogger.h"
-#import "FirebaseCore/Sources/FIROptionsInternal.h"
-#import "FirebaseCore/Sources/Public/FirebaseCore/FIROptions.h"
+#import "FirebaseCore/Extension/FIROptionsInternal.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -149,7 +148,7 @@ static NSMutableSet<Class> *sFIRComponentRegistrants;
 ///   - Validate that the instance returned conforms to the protocol it claims to,
 ///   - Cache the instance if the block requests it
 ///
-/// Note that this method assumes the caller already has @synchronized on self.
+/// Note that this method assumes the caller already has @sychronized on self.
 - (nullable id)instantiateInstanceForProtocol:(Protocol *)protocol
                                     withBlock:(FIRComponentCreationBlock)creationBlock {
   if (!creationBlock) {

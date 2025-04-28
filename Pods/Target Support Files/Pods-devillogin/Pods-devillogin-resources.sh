@@ -101,8 +101,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth/GTMAppAuth_Privacy.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher/GTMSessionFetcher_Core_Privacy.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities-Environment-Logger-Privacy-UserDefaults/GoogleUtilities_Privacy.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises_Privacy.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/LottiePrivacyInfo.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.bundle"
 fi
@@ -111,8 +109,6 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GTMAppAuth/GTMAppAuth_Privacy.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher/GTMSessionFetcher_Core_Privacy.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities-Environment-Logger-Privacy-UserDefaults/GoogleUtilities_Privacy.bundle"
-  install_resource "${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises_Privacy.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/LottiePrivacyInfo.bundle"
   install_resource "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.bundle"
 fi

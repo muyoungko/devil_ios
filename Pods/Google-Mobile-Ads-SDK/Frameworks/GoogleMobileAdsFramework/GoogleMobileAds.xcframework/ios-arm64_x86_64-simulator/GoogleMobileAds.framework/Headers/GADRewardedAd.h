@@ -26,7 +26,6 @@ typedef void (^GADRewardedAdLoadCompletionHandler)(GADRewardedAd *_Nullable rewa
 
 /// A rewarded ad. Rewarded ads are ads that users have the option of interacting with in exchange
 /// for in-app rewards.
-NS_SWIFT_NAME(RewardedAd)
 @interface GADRewardedAd : NSObject <GADAdMetadataProvider, GADFullScreenPresentingAd>
 
 /// The ad unit ID.
@@ -56,29 +55,14 @@ NS_SWIFT_NAME(RewardedAd)
 /// @param completionHandler A handler to execute when the load operation finishes or times out.
 + (void)loadWithAdUnitID:(nonnull NSString *)adUnitID
                  request:(nullable GADRequest *)request
-       completionHandler:(nonnull GADRewardedAdLoadCompletionHandler)completionHandler
-    NS_SWIFT_NAME(load(with:request:completionHandler:));
+       completionHandler:(nonnull GADRewardedAdLoadCompletionHandler)completionHandler;
 
-/// Loads a rewarded ad.
-///
-/// @param adResponseString A server-to-server ad response string.
-/// @param completionHandler A handler to execute when the load operation finishes or times out.
-+ (void)loadWithAdResponseString:(nonnull NSString *)adResponseString
-               completionHandler:(nonnull GADRewardedAdLoadCompletionHandler)completionHandler
-    NS_SWIFT_NAME(load(with:completionHandler:));
-
-/// Indicates whether the rewarded ad can be presented from the provided root view controller. Must
-/// be called on the main thread.
-///
-/// - Parameters:
-///   - rootViewController: The root view controller to present the ad from. If `rootViewController`
-/// is `nil`, uses the top view controller of the application's main window.
-///   - error: Sets the error out parameter if the ad can't be presented.
-/// - Returns: `YES` if the rewarded ad can be presented from the provided root view controller,
-/// `NO` otherwise.
+/// Returns whether the rewarded ad can be presented from the provided root view
+/// controller. Sets the error out parameter if the ad can't be presented. Must be called on the
+/// main thread. If rootViewController is nil, uses the top view controller of the application's
+/// main window.
 - (BOOL)canPresentFromRootViewController:(nullable UIViewController *)rootViewController
-                                   error:(NSError *_Nullable __autoreleasing *_Nullable)error
-    NS_SWIFT_NAME(canPresent(from:)) NS_SWIFT_UI_ACTOR;
+                                   error:(NSError *_Nullable __autoreleasing *_Nullable)error;
 
 /// Presents the rewarded ad. Must be called on the main thread.
 ///
@@ -86,7 +70,6 @@ NS_SWIFT_NAME(RewardedAd)
 /// the top view controller of the application's main window.
 /// @param userDidEarnRewardHandler A handler to execute when the user earns a reward.
 - (void)presentFromRootViewController:(nullable UIViewController *)rootViewController
-             userDidEarnRewardHandler:(nonnull GADUserDidEarnRewardHandler)userDidEarnRewardHandler
-    NS_SWIFT_NAME(present(from:userDidEarnRewardHandler:)) NS_SWIFT_UI_ACTOR;
+             userDidEarnRewardHandler:(nonnull GADUserDidEarnRewardHandler)userDidEarnRewardHandler;
 
 @end

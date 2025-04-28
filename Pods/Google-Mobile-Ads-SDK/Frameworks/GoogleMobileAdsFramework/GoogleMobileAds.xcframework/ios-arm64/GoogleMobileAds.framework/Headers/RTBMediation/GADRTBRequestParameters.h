@@ -11,7 +11,6 @@
 #import <GoogleMobileAds/Mediation/GADMediationServerConfiguration.h>
 
 /// Mediation configuration for a particular ad request.
-NS_SWIFT_NAME(RTBMediationSignalsConfiguration)
 @interface GADRTBMediationSignalsConfiguration : NSObject
 
 /// Array of mediation credential configurations set by the publisher on the AdMob UI. Each
@@ -22,7 +21,6 @@ NS_SWIFT_NAME(RTBMediationSignalsConfiguration)
 @end
 
 /// Request parameters provided by the publisher and Google Mobile Ads SDK.
-NS_SWIFT_NAME(RTBRequestParameters)
 @interface GADRTBRequestParameters : NSObject
 
 /// Mediation configuration for this request set by the publisher on the AdMob UI.

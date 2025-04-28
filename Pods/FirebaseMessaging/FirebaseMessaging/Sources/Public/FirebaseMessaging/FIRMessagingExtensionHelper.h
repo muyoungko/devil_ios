@@ -16,8 +16,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FIRMessaging+ExtensionHelper.h"
-
 @class UNMutableNotificationContent, UNNotificationContent;
 
 #if __has_include(<UserNotifications/UserNotifications.h>)

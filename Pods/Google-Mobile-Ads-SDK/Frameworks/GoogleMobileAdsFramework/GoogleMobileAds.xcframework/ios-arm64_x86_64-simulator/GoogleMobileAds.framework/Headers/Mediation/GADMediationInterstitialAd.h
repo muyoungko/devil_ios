@@ -11,16 +11,13 @@
 #import <UIKit/UIKit.h>
 
 /// Rendered interstitial ad.
-NS_SWIFT_NAME(MediationInterstitialAd)
 @protocol GADMediationInterstitialAd <GADMediationAd>
 
 /// Presents the receiver from the view controller.
-- (void)presentFromViewController:(nonnull UIViewController *)viewController
-    NS_SWIFT_NAME(present(from:));
+- (void)presentFromViewController:(nonnull UIViewController *)viewController;
 
 @end
 
 /// Interstitial ad configuration.
-NS_SWIFT_NAME(MediationInterstitialAdConfiguration)
 @interface GADMediationInterstitialAdConfiguration : GADMediationAdConfiguration
 @end

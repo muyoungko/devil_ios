@@ -19,5 +19,5 @@
 - (BOOL)synchronizeWroteToDisk;
 - (NSDictionary *)loadDefaults;
 - (NSURL *)generateDirectoryURLForBaseURL:(NSURL *)directoryBaseURL
-                  hostAppBundleIdentifier:(NSString *)hostAppBundleIdentifier;
+                  hostAppBundleIdentifier:(NSString *)hostAppBundleIdentifer;
 @end

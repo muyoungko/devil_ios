@@ -205,7 +205,3 @@ gdt_client_metrics_LogEventDropped_Reason GDTCCTConvertEventDropReasonToProtoRea
 }
 
 @end
-
-/// Stub used to force the linker to include the categories in this file.
-void GDTCCTInclude_GDTCORLogSourceMetrics_Internal_Category(void) {
-}

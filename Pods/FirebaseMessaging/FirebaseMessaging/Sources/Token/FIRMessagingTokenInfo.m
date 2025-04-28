@@ -26,7 +26,7 @@
  *              created from a dictionary. The same keys are used
  *              when decoding/encoding an archive.
  */
-/// Specifies a dictionary key whose value represents the authorized entity, or
+/// Specifies a dictonary key whose value represents the authorized entity, or
 /// Sender ID for the token.
 static NSString *const kFIRInstanceIDAuthorizedEntityKey = @"authorized_entity";
 /// Specifies a dictionary key whose value represents the scope of the token,
@@ -143,29 +143,32 @@ static const NSTimeInterval kDefaultFetchTokenInterval = 7 * 24 * 60 * 60;  // 7
   BOOL needsMigration = NO;
   // These value cannot be nil
 
-  NSString *authorizedEntity = [aDecoder decodeObjectOfClass:[NSString class]
-                                                      forKey:kFIRInstanceIDAuthorizedEntityKey];
-  if (!authorizedEntity) {
+  id authorizedEntity = [aDecoder decodeObjectForKey:kFIRInstanceIDAuthorizedEntityKey];
+  if (![authorizedEntity isKindOfClass:[NSString class]]) {
     return nil;
   }
 
-  NSString *scope = [aDecoder decodeObjectOfClass:[NSString class] forKey:kFIRInstanceIDScopeKey];
-  if (!scope) {
+  id scope = [aDecoder decodeObjectForKey:kFIRInstanceIDScopeKey];
+  if (![scope isKindOfClass:[NSString class]]) {
     return nil;
   }
 
-  NSString *token = [aDecoder decodeObjectOfClass:[NSString class] forKey:kFIRInstanceIDTokenKey];
-  if (!token) {
+  id token = [aDecoder decodeObjectForKey:kFIRInstanceIDTokenKey];
+  if (![token isKindOfClass:[NSString class]]) {
     return nil;
   }
 
-  // These values are nullable, so don't fail on nil.
+  // These values are nullable, so only fail the decode if the type does not match
 
-  NSString *appVersion = [aDecoder decodeObjectOfClass:[NSString class]
-                                                forKey:kFIRInstanceIDAppVersionKey];
-  NSString *firebaseAppID = [aDecoder decodeObjectOfClass:[NSString class]
-                                                   forKey:kFIRInstanceIDFirebaseAppIDKey];
+  id appVersion = [aDecoder decodeObjectForKey:kFIRInstanceIDAppVersionKey];
+  if (appVersion && ![appVersion isKindOfClass:[NSString class]]) {
+    return nil;
+  }
 
+  id firebaseAppID = [aDecoder decodeObjectForKey:kFIRInstanceIDFirebaseAppIDKey];
+  if (firebaseAppID && ![firebaseAppID isKindOfClass:[NSString class]]) {
+    return nil;
+  }
   NSSet *classes = [[NSSet alloc] initWithArray:@[ FIRMessagingAPNSInfo.class ]];
   FIRMessagingAPNSInfo *rawAPNSInfo = [aDecoder decodeObjectOfClasses:classes
                                                                forKey:kFIRInstanceIDAPNSInfoKey];
@@ -176,13 +179,13 @@ static const NSTimeInterval kDefaultFetchTokenInterval = 7 * 24 * 60 * 60;  // 7
     // users have upgraded to at least 10.19.0. Perhaps, after privacy manifests have been required
     // for awhile?
     @try {
-      NSKeyedUnarchiver *unarchiver =
-          [[NSKeyedUnarchiver alloc] initForReadingFromData:(NSData *)rawAPNSInfo error:nil];
-      unarchiver.requiresSecureCoding = NO;
-      [unarchiver setClass:[FIRMessagingAPNSInfo class] forClassName:@"FIRInstanceIDAPNSInfo"];
-      rawAPNSInfo = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
-      [unarchiver finishDecoding];
+      [NSKeyedUnarchiver setClass:[FIRMessagingAPNSInfo class]
+                     forClassName:@"FIRInstanceIDAPNSInfo"];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+      rawAPNSInfo = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData *)rawAPNSInfo];
       needsMigration = YES;
+#pragma clang diagnostic pop
     } @catch (NSException *exception) {
       FIRMessagingLoggerInfo(kFIRMessagingMessageCodeTokenInfoBadAPNSInfo,
                              @"Could not parse raw APNS Info while parsing archived token info.");
@@ -191,8 +194,10 @@ static const NSTimeInterval kDefaultFetchTokenInterval = 7 * 24 * 60 * 60;  // 7
     }
   }
 
-  NSDate *cacheTime = [aDecoder decodeObjectOfClass:[NSDate class]
-                                             forKey:kFIRInstanceIDCacheTimeKey];
+  id cacheTime = [aDecoder decodeObjectForKey:kFIRInstanceIDCacheTimeKey];
+  if (cacheTime && ![cacheTime isKindOfClass:[NSDate class]]) {
+    return nil;
+  }
 
   self = [super init];
   if (self) {

@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-#ifndef FIREBASECORE_FIRAPPINTERNAL_H
-#define FIREBASECORE_FIRAPPINTERNAL_H
-
 #import <FirebaseCore/FIRApp.h>
 
 @class FIRComponentContainer;
@@ -43,26 +40,8 @@ extern NSString *const kFIRAppNameKey;
 extern NSString *const kFIRGoogleAppIDKey;
 extern NSString *const kFirebaseCoreErrorDomain;
 
-/**
- * Keys for the strings in the plist file.
- */
-extern NSString *const kFIRAPIKey;
-extern NSString *const kFIRTrackingID;
-extern NSString *const kFIRGoogleAppID;
-extern NSString *const kFIRClientID;
-extern NSString *const kFIRGCMSenderID;
-extern NSString *const kFIRAndroidClientID;
-extern NSString *const kFIRDatabaseURL;
-extern NSString *const kFIRStorageBucket;
-extern NSString *const kFIRBundleID;
-extern NSString *const kFIRProjectID;
-
-/**
- * Keys for the plist file name
- */
-extern NSString *const kServiceInfoFileName;
-
-extern NSString *const kServiceInfoFileType;
+/** The `UserDefaults` suite name for `FirebaseCore`, for those storage locations that use it. */
+extern NSString *const kFirebaseCoreDefaultsSuiteName;
 
 /**
  * The format string for the `UserDefaults` key used for storing the data collection enabled flag.
@@ -178,5 +157,3 @@ extern NSString *const FIRAuthStateDidChangeInternalNotificationUIDKey;
 @end
 
 NS_ASSUME_NONNULL_END
-
-#endif  // FIREBASECORE_FIRAPPINTERNAL_H

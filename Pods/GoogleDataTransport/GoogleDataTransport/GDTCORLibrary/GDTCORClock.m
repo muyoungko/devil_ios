@@ -37,6 +37,8 @@
 
 /** Returns the kernel boottime property from sysctl.
  *
+ * Inspired by https://stackoverflow.com/a/40497811
+ *
  * @return The KERN_BOOTTIME property from sysctl, in nanoseconds.
  */
 static int64_t KernelBootTimeInNanoseconds(void) {
@@ -52,6 +54,8 @@ static int64_t KernelBootTimeInNanoseconds(void) {
 }
 
 /** Returns value of gettimeofday, in nanoseconds.
+ *
+ * Inspired by https://stackoverflow.com/a/40497811
  *
  * @return The value of gettimeofday, in nanoseconds.
  */

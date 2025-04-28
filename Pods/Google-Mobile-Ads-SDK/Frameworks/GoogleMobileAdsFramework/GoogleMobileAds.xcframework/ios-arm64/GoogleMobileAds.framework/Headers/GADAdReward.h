@@ -11,7 +11,6 @@
 typedef void (^GADUserDidEarnRewardHandler)(void);
 
 /// Ad reward information.
-NS_SWIFT_NAME(AdReward)
 @interface GADAdReward : NSObject
 
 /// Type of the reward.

@@ -15,7 +15,7 @@
 
 import Foundation
 
-internal import FirebaseInstallations
+@_implementationOnly import FirebaseInstallations
 
 protocol InstallationsProtocol {
   var installationsWaitTimeInSecond: Int { get }
@@ -37,7 +37,7 @@ extension InstallationsProtocol {
 
   func installationID(completion: @escaping (Result<(String, String), Error>) -> Void) {
     var authTokenComplete = ""
-    var installationComplete: String?
+    var intallationComplete: String?
     var errorComplete: Error?
 
     let workingGroup = DispatchGroup()
@@ -50,8 +50,8 @@ extension InstallationsProtocol {
 
     workingGroup.enter()
     installationID { (installationID: String?, error: Error?) in
-      if let installationID {
-        installationComplete = installationID
+      if let installationID = installationID {
+        intallationComplete = installationID
       } else if let error = error {
         errorComplete = error
       }
@@ -67,10 +67,10 @@ extension InstallationsProtocol {
       completion(.failure(FirebaseSessionsError.SessionInstallationsTimeOutError))
       return
     default:
-      if let installationComplete {
-        completion(.success((installationComplete, authTokenComplete)))
-      } else if let errorComplete {
-        completion(.failure(errorComplete))
+      if let installationID = intallationComplete {
+        completion(.success((installationID, authTokenComplete)))
+      } else if let error = errorComplete {
+        completion(.failure(error))
       }
     }
   }

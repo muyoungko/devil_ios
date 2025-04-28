@@ -12,7 +12,6 @@
 #import <UIKit/UIKit.h>
 
 /// Specifies optional parameters for ad requests.
-NS_SWIFT_NAME(Request)
 @interface GADRequest : NSObject <NSCopying>
 
 /// Returns a default request.
@@ -37,8 +36,7 @@ NS_SWIFT_NAME(Request)
 
 #pragma mark Publisher Provided
 
-/// Scene object. Used in multiscene apps to request ads of the appropriate size. If this is nil,
-/// uses the application's key window scene.
+/// Scene object. Used in multiscene apps to request ads of the appropriate size.
 @property(nonatomic, nullable, weak) UIWindowScene *scene API_AVAILABLE(ios(13.0));
 
 #pragma mark Contextual Information
@@ -54,8 +52,7 @@ NS_SWIFT_NAME(Request)
 /// URL strings for non-primary web content near an ad. Promotes brand safety and allows displayed
 /// ads to have an app level rating (MA, T, PG, etc) that is more appropriate to neighboring
 /// content.
-@property(nonatomic, copy, nullable)
-    NSArray<NSString *> *neighboringContentURLStrings NS_SWIFT_NAME(neighboringContentURLs);
+@property(nonatomic, copy, nullable) NSArray<NSString *> *neighboringContentURLStrings;
 
 #pragma mark Request Agent Information
 
@@ -64,10 +61,5 @@ NS_SWIFT_NAME(Request)
 /// For example, a third party ad network called "CoolAds network" that is mediating requests to the
 /// Mobile Ads SDK should set this property as "CoolAds".
 @property(nonatomic, copy, nullable) NSString *requestAgent;
-
-#pragma mark Optional Targeting Information
-
-/// Key-value pairs used for custom targeting.
-@property(nonatomic, copy, nullable) NSDictionary<NSString *, id> *customTargeting;
 
 @end

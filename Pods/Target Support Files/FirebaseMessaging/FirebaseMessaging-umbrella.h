@@ -11,7 +11,6 @@
 #endif
 
 #import "FirebaseMessaging.h"
-#import "FIRMessaging+ExtensionHelper.h"
 #import "FIRMessaging.h"
 #import "FIRMessagingExtensionHelper.h"
 

@@ -18,8 +18,6 @@
 
 #import "GULNetworkMessageCode.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 /// The log levels used by GULNetworkLogger.
 typedef NS_ENUM(NSInteger, GULNetworkLogLevel) {
   kGULNetworkLogLevelError = 3,
@@ -49,5 +47,3 @@ typedef NS_ENUM(NSInteger, GULNetworkLogLevel) {
                         message:(NSString *)message;
 
 @end
-
-NS_ASSUME_NONNULL_END

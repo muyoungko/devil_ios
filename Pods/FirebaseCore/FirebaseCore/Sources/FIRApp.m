@@ -38,8 +38,7 @@
 #import "FirebaseCore/Extension/FIRHeartbeatLogger.h"
 #import "FirebaseCore/Extension/FIRLibrary.h"
 #import "FirebaseCore/Extension/FIRLogger.h"
-#import "FirebaseCore/Sources/FIROptionsInternal.h"
-#import "FirebaseCore/Sources/Public/FirebaseCore/FIROptions.h"
+#import "FirebaseCore/Extension/FIROptionsInternal.h"
 #import "FirebaseCore/Sources/Public/FirebaseCore/FIRVersion.h"
 
 #import <GoogleUtilities/GULAppEnvironmentUtil.h>
@@ -80,10 +79,19 @@ NSString *const FIRAuthStateDidChangeInternalNotificationUIDKey =
  */
 NSString *const kFirebaseCoreErrorDomain = @"com.firebase.core";
 
+/** The NSUserDefaults suite name for FirebaseCore, for those storage locations that use it. */
+NSString *const kFirebaseCoreDefaultsSuiteName = @"com.firebase.core";
+
 /**
  * The URL to download plist files.
  */
 static NSString *const kPlistURL = @"https://console.firebase.google.com/";
+
+/**
+ * An array of all classes that registered as `FIRCoreConfigurable` in order to receive lifecycle
+ * events from Core.
+ */
+static NSMutableArray<Class<FIRLibrary>> *sRegisteredAsConfigurable;
 
 @interface FIRApp ()
 
@@ -233,8 +241,7 @@ static FIRApp *sDefaultApp;
               @"application initialization. This can be done in "
               @"in the App Delegate's application(_:didFinishLaunchingWithOptions:)` "
               @"(or the `@main` struct's initializer in SwiftUI). "
-              @"Read more: "
-              @"https://firebase.google.com/docs/ios/setup#initialize_firebase_in_your_app");
+              @"Read more: https://goo.gl/ctyzm8.");
   return nil;
 }
 
@@ -446,6 +453,14 @@ static FIRApp *sDefaultApp;
   [[NSNotificationCenter defaultCenter] postNotificationName:kFIRAppReadyToConfigureSDKNotification
                                                       object:self
                                                     userInfo:appInfoDict];
+
+  // This is the new way of sending information to SDKs.
+  // TODO: Do we want this on a background thread, maybe?
+  @synchronized(self) {
+    for (Class<FIRLibrary> library in sRegisteredAsConfigurable) {
+      [library configureWithApp:app];
+    }
+  }
 }
 
 + (NSError *)errorForMissingOptions {
@@ -510,6 +525,15 @@ static FIRApp *sDefaultApp;
   }
 
   [FIRComponentContainer registerAsComponentRegistrant:library];
+  if ([(Class)library respondsToSelector:@selector(configureWithApp:)]) {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+      sRegisteredAsConfigurable = [[NSMutableArray alloc] init];
+    });
+    @synchronized(self) {
+      [sRegisteredAsConfigurable addObject:library];
+    }
+  }
   [self registerLibrary:name withVersion:version];
 }
 
@@ -627,7 +651,7 @@ static FIRApp *sDefaultApp;
  *
  * @param appID Contents of GOOGLE_APP_ID from the plist file.
  * @param version Indicates what version of the app id format this string should be.
- * @return YES if provided string fulfills the expected format, NO otherwise.
+ * @return YES if provided string fufills the expected format, NO otherwise.
  */
 + (BOOL)validateAppIDFormat:(NSString *)appID withVersion:(NSString *)version {
   if (!appID.length || !version.length) {
@@ -709,8 +733,8 @@ static FIRApp *sDefaultApp;
  *
  * @param appID Contents of GOOGLE_APP_ID from the plist file.
  * @param version Indicates what version of the app id format this string should be.
- * @return YES if provided string fulfills the expected hashed bundle ID and the version is known,
- *         NO otherwise.
+ * @return YES if provided string fufills the expected hashed bundle ID and the version is known, NO
+ *         otherwise.
  */
 + (BOOL)validateBundleIDHashWithinAppID:(NSString *)appID forVersion:(NSString *)version {
   // Extract the hashed bundle ID from the given app ID.
@@ -801,10 +825,10 @@ static FIRApp *sDefaultApp;
   SEL componentsToRegisterSEL = @selector(componentsToRegister);
   // Dictionary of class names that conform to `FIRLibrary` and their user agents. These should only
   // be SDKs that are written in Swift but still visible to ObjC.
-  // This is only necessary for products that need to do work at launch during configuration.
   NSDictionary<NSString *, NSString *> *swiftComponents = @{
     @"FIRSessions" : @"fire-ses",
-    @"FIRAuthComponent" : @"fire-auth",
+    @"FIRFunctionsComponent" : @"fire-fun",
+    @"FIRStorageComponent" : @"fire-str",
   };
   for (NSString *className in swiftComponents.allKeys) {
     Class klass = NSClassFromString(className);
@@ -819,27 +843,11 @@ static FIRApp *sDefaultApp;
     @"FIRCombineFirestoreLibrary" : @"comb-firestore",
     @"FIRCombineFunctionsLibrary" : @"comb-functions",
     @"FIRCombineStorageLibrary" : @"comb-storage",
-    @"FIRFunctions" : @"fire-fun",
-    @"FIRStorage" : @"fire-str",
-    @"FIRVertexAIComponent" : @"fire-vertex",
-    @"FIRDataConnectComponent" : @"fire-dc",
   };
   for (NSString *className in swiftLibraries.allKeys) {
     Class klass = NSClassFromString(className);
     if (klass) {
-      NSString *version = FIRFirebaseVersion();
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wundeclared-selector"
-      SEL sdkVersionSelector = @selector(sdkVersion);
-#pragma clang diagnostic pop
-      if ([klass respondsToSelector:sdkVersionSelector]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        NSString *sdkVersion = (NSString *)[klass performSelector:sdkVersionSelector];
-        if (sdkVersion) version = sdkVersion;
-#pragma clang diagnostic pop
-      }
-      [FIRApp registerLibrary:swiftLibraries[className] withVersion:version];
+      [FIRApp registerLibrary:swiftLibraries[className] withVersion:FIRFirebaseVersion()];
     }
   }
 }
@@ -847,7 +855,7 @@ static FIRApp *sDefaultApp;
 #pragma mark - App Life Cycle
 
 - (void)subscribeForAppDidBecomeActiveNotifications {
-#if TARGET_OS_IOS || TARGET_OS_TV || TARGET_OS_VISION
+#if TARGET_OS_IOS || TARGET_OS_TV || (defined(TARGET_OS_VISION) && TARGET_OS_VISION)
   NSNotificationName notificationName = UIApplicationDidBecomeActiveNotification;
 #elif TARGET_OS_OSX
   NSNotificationName notificationName = NSApplicationDidBecomeActiveNotification;

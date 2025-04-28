@@ -14,8 +14,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 /// This is a copy of Google Toolbox for Mac library to avoid creating an extra framework.
 
 // NOTE: For 64bit, none of these apis handle input sizes >32bits, they will return nil when given
@@ -26,11 +24,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// Returns an data as the result of decompressing the payload of |data|.The data to decompress must
 /// be a gzipped payloads.
-+ (nullable NSData *)gul_dataByInflatingGzippedData:(NSData *)data error:(NSError **)error;
++ (NSData *)gul_dataByInflatingGzippedData:(NSData *)data error:(NSError **)error;
 
 /// Returns an compressed data with the result of gzipping the payload of |data|. Uses the default
 /// compression level.
-+ (nullable NSData *)gul_dataByGzippingData:(NSData *)data error:(NSError **)error;
++ (NSData *)gul_dataByGzippingData:(NSData *)data error:(NSError **)error;
 
 FOUNDATION_EXPORT NSString *const GULNSDataZlibErrorDomain;
 FOUNDATION_EXPORT NSString *const GULNSDataZlibErrorKey;           // NSNumber
@@ -49,5 +47,3 @@ typedef NS_ENUM(NSInteger, GULNSDataZlibError) {
 };
 
 @end
-
-NS_ASSUME_NONNULL_END

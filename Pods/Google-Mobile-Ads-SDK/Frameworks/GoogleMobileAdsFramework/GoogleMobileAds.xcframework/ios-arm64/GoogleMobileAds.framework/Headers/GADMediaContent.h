@@ -10,7 +10,6 @@
 
 /// Provides media content information. Interact with instances of this class on the main queue
 /// only.
-NS_SWIFT_NAME(MediaContent)
 @interface GADMediaContent : NSObject
 
 /// Controls the media content's video.

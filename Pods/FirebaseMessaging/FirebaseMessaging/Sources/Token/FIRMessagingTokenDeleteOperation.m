@@ -77,7 +77,7 @@
         [self handleResponseWithData:data response:response error:error];
       };
 
-  NSURLSessionConfiguration *config = NSURLSessionConfiguration.ephemeralSessionConfiguration;
+  NSURLSessionConfiguration *config = NSURLSessionConfiguration.defaultSessionConfiguration;
   config.timeoutIntervalForResource = 60.0f;  // 1 minute
   NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
   self.dataTask = [session dataTaskWithRequest:request completionHandler:requestHandler];

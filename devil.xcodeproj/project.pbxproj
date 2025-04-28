@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00E623F908B33740371C2AEF /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E01066AB5D181B67D34BAF79 /* Pods_devil.framework */; };
 		6D0224EE2613959900634842 /* devillogin.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224ED2613959900634842 /* devillogin.podspec */; };
 		6D0224F026143D8300634842 /* devilcore.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D0224EF26143D8300634842 /* devilcore.podspec */; };
-		6D0A69EC2AB9DB2D00140B43 /* Pods_devil.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7272D425B6C30572295CD1 /* Pods_devil.framework */; };
 		6D0A69EE2AB9DB5700140B43 /* devilnfc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; };
 		6D0A69EF2AB9DB5700140B43 /* devilnfc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D0A69F02AB9DB8100140B43 /* devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; };
@@ -97,9 +97,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2C62D2C300C12F33B6DD4A1C /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
-		2D7272D425B6C30572295CD1 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		56A327FF4E9BB40D9C0A5C96 /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
 		6D0224ED2613959900634842 /* devillogin.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devillogin.podspec; sourceTree = "<group>"; };
 		6D0224EF26143D8300634842 /* devilcore.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilcore.podspec; sourceTree = "<group>"; };
 		6D0A69A52AB5824300140B43 /* devilwebrtc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilwebrtc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -193,6 +190,9 @@
 		6DF50F912A5C75E8006160A0 /* CapblSecureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblSecureViewController.h; sourceTree = "<group>"; };
 		6DF50F922A5C75E8006160A0 /* CapblTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblTableController.h; sourceTree = "<group>"; };
 		6DF50F932A5C75E8006160A0 /* CapblMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblMainViewController.h; sourceTree = "<group>"; };
+		B9233B10DC98D373FBA74B47 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
+		C7FDC29DE8B13AA37D5EA88F /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
+		E01066AB5D181B67D34BAF79 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,13 +201,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6DACD00328DD61E7002E7409 /* devilextra.framework in Frameworks */,
-				6D0A69EC2AB9DB2D00140B43 /* Pods_devil.framework in Frameworks */,
 				6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */,
 				6D0A69F72AB9E10700140B43 /* WebRTC.framework in Frameworks */,
 				6D0A69EE2AB9DB5700140B43 /* devilnfc.framework in Frameworks */,
 				6D0A69F02AB9DB8100140B43 /* devilwebrtc.framework in Frameworks */,
 				6D0A69FA2AB9E12A00140B43 /* devilbill.framework in Frameworks */,
 				6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */,
+				00E623F908B33740371C2AEF /* Pods_devil.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +226,7 @@
 				6D86290A287E50BA00E62B7B /* StoreKit.framework */,
 				6D22CF6125FFB25C00A1CB25 /* devillogin.framework */,
 				6D467AED256AB1B0006D57DD /* devilcore.framework */,
-				2D7272D425B6C30572295CD1 /* Pods_devil.framework */,
+				E01066AB5D181B67D34BAF79 /* Pods_devil.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -406,8 +406,8 @@
 		F0CDCB8A11149BBB3516D5E1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				2C62D2C300C12F33B6DD4A1C /* Pods-devil.debug.xcconfig */,
-				56A327FF4E9BB40D9C0A5C96 /* Pods-devil.release.xcconfig */,
+				B9233B10DC98D373FBA74B47 /* Pods-devil.debug.xcconfig */,
+				C7FDC29DE8B13AA37D5EA88F /* Pods-devil.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -419,14 +419,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6DF1380D20D7469B00071B9F /* Build configuration list for PBXNativeTarget "devil" */;
 			buildPhases = (
-				EB062D4AC26E8B7E9C042070 /* [CP] Check Pods Manifest.lock */,
+				962CE35DE44528BCD9C8E49F /* [CP] Check Pods Manifest.lock */,
 				6DF137EF20D7469A00071B9F /* Sources */,
 				6DF137F020D7469A00071B9F /* Frameworks */,
 				6DF137F120D7469A00071B9F /* Resources */,
 				6D467998256A174F006D57DD /* Embed Frameworks */,
 				6DC676ED26E5B36C0005728A /* ShellScript */,
-				445ABB5B85F0CE89FE83E4E8 /* [CP] Embed Pods Frameworks */,
-				B17B2FBCEB028E1D7A5ACDF8 /* [CP] Copy Pods Resources */,
+				04354A945D6D7A8131A8B071 /* [CP] Embed Pods Frameworks */,
+				902800E1C4CF12501AE983C8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -510,7 +510,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		445ABB5B85F0CE89FE83E4E8 /* [CP] Embed Pods Frameworks */ = {
+		04354A945D6D7A8131A8B071 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -547,7 +547,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n\n";
 		};
-		B17B2FBCEB028E1D7A5ACDF8 /* [CP] Copy Pods Resources */ = {
+		902800E1C4CF12501AE983C8 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -569,7 +569,7 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport/GoogleDataTransport_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUserMessagingPlatform/UserMessagingPlatformResources.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities-7cacef58/GoogleUtilities_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/PromisesSwift/Promises_Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/lottie-ios/LottiePrivacyInfo.bundle",
@@ -603,7 +603,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-devil/Pods-devil-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EB062D4AC26E8B7E9C042070 /* [CP] Check Pods Manifest.lock */ = {
+		962CE35DE44528BCD9C8E49F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -772,7 +772,7 @@
 		};
 		6DF1380E20D7469B00071B9F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C62D2C300C12F33B6DD4A1C /* Pods-devil.debug.xcconfig */;
+			baseConfigurationReference = B9233B10DC98D373FBA74B47 /* Pods-devil.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -818,7 +818,7 @@
 		};
 		6DF1380F20D7469B00071B9F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 56A327FF4E9BB40D9C0A5C96 /* Pods-devil.release.xcconfig */;
+			baseConfigurationReference = C7FDC29DE8B13AA37D5EA88F /* Pods-devil.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

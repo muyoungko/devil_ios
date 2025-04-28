@@ -279,23 +279,13 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
     @synchronized (self) {
         _internalCredentials = internalCredentials;
 
-        // Handle the case when internalCredentials is nil
-        if (internalCredentials) {
-            // Store credentials in keychain when credentials are not nil
-            self.keychain[AWSCredentialsProviderKeychainAccessKeyId] = internalCredentials.accessKey;
-            self.keychain[AWSCredentialsProviderKeychainSecretAccessKey] = internalCredentials.secretKey;
-            self.keychain[AWSCredentialsProviderKeychainSessionToken] = internalCredentials.sessionKey;
-            if (internalCredentials.expiration) {
-                self.keychain[AWSCredentialsProviderKeychainExpiration] = [NSString stringWithFormat:@"%f", [internalCredentials.expiration timeIntervalSince1970]];
-            } else {
-                self.keychain[AWSCredentialsProviderKeychainExpiration] = nil;
-            }
+        self.keychain[AWSCredentialsProviderKeychainAccessKeyId] = internalCredentials.accessKey;
+        self.keychain[AWSCredentialsProviderKeychainSecretAccessKey] = internalCredentials.secretKey;
+        self.keychain[AWSCredentialsProviderKeychainSessionToken] = internalCredentials.sessionKey;
+        if (internalCredentials.expiration) {
+            self.keychain[AWSCredentialsProviderKeychainExpiration] = [NSString stringWithFormat:@"%f", [internalCredentials.expiration timeIntervalSince1970]];
         } else {
-            // Clear keychain entries when credentials are nil
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainAccessKeyId];
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainSecretAccessKey];
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainSessionToken];
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainExpiration];
+            self.keychain[AWSCredentialsProviderKeychainExpiration] = nil;
         }
     }
 }
@@ -847,23 +837,13 @@ static NSString *const AWSCredentialsProviderKeychainIdentityId = @"identityId";
     @synchronized (self) {
         _internalCredentials = internalCredentials;
 
-        // Handle the case when internalCredentials is nil
-        if (internalCredentials) {
-            // Store credentials in keychain when credentials are not nil
-            self.keychain[AWSCredentialsProviderKeychainAccessKeyId] = internalCredentials.accessKey;
-            self.keychain[AWSCredentialsProviderKeychainSecretAccessKey] = internalCredentials.secretKey;
-            self.keychain[AWSCredentialsProviderKeychainSessionToken] = internalCredentials.sessionKey;
-            if (internalCredentials.expiration) {
-                self.keychain[AWSCredentialsProviderKeychainExpiration] = [NSString stringWithFormat:@"%f", [internalCredentials.expiration timeIntervalSince1970]];
-            } else {
-                self.keychain[AWSCredentialsProviderKeychainExpiration] = nil;
-            }
+        self.keychain[AWSCredentialsProviderKeychainAccessKeyId] = internalCredentials.accessKey;
+        self.keychain[AWSCredentialsProviderKeychainSecretAccessKey] = internalCredentials.secretKey;
+        self.keychain[AWSCredentialsProviderKeychainSessionToken] = internalCredentials.sessionKey;
+        if (internalCredentials.expiration) {
+            self.keychain[AWSCredentialsProviderKeychainExpiration] = [NSString stringWithFormat:@"%f", [internalCredentials.expiration timeIntervalSince1970]];
         } else {
-            // Clear keychain entries when credentials are nil
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainAccessKeyId];
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainSecretAccessKey];
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainSessionToken];
-            [self.keychain removeItemForKey:AWSCredentialsProviderKeychainExpiration];
+            self.keychain[AWSCredentialsProviderKeychainExpiration] = nil;
         }
     }
 }

@@ -15,34 +15,25 @@
 import Foundation
 
 /// An object that provides API to log and flush heartbeats from a synchronized storage container.
-public final class HeartbeatController: Sendable {
-  /// Used for standardizing dates for calendar-day comparison.
-  private enum DateStandardizer {
-    private static let calendar: Calendar = {
-      var calendar = Calendar(identifier: .iso8601)
-      calendar.locale = Locale(identifier: "en_US_POSIX")
-      calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-      return calendar
-    }()
-
-    static func standardize(_ date: Date) -> (Date) {
-      return calendar.startOfDay(for: date)
-    }
-  }
-
+public final class HeartbeatController {
   /// The thread-safe storage object to log and flush heartbeats from.
-  private let storage: any HeartbeatStorageProtocol
+  private let storage: HeartbeatStorageProtocol
   /// The max capacity of heartbeats to store in storage.
-  private static let heartbeatsStorageCapacity: Int = 30
+  private let heartbeatsStorageCapacity: Int = 30
   /// Current date provider. It is used for testability.
-  private let dateProvider: @Sendable () -> Date
-  /// Used for standardizing dates for calendar-day comparison.
-  private static let dateStandardizer = DateStandardizer.self
+  private let dateProvider: () -> Date
+  /// Used for standardizing dates for calendar-day comparision.
+  static let dateStandardizer: (Date) -> (Date) = {
+    var calendar = Calendar(identifier: .iso8601)
+    calendar.locale = Locale(identifier: "en_US_POSIX")
+    calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+    return calendar.startOfDay(for:)
+  }()
 
   /// Public initializer.
   /// - Parameter id: The `id` to associate this controller's heartbeat storage with.
   public convenience init(id: String) {
-    self.init(id: id, dateProvider: { Date() })
+    self.init(id: id, dateProvider: Date.init)
   }
 
   /// Convenience initializer. Mirrors the semantics of the public initializer with the added
@@ -51,7 +42,7 @@ public final class HeartbeatController: Sendable {
   /// - Parameters:
   ///   - id: The id to associate this controller's heartbeat storage with.
   ///   - dateProvider: A date provider.
-  convenience init(id: String, dateProvider: @escaping @Sendable () -> Date) {
+  convenience init(id: String, dateProvider: @escaping () -> Date) {
     let storage = HeartbeatStorage.getInstance(id: id)
     self.init(storage: storage, dateProvider: dateProvider)
   }
@@ -61,9 +52,9 @@ public final class HeartbeatController: Sendable {
   ///   - storage: A heartbeat storage container.
   ///   - dateProvider: A date provider. Defaults to providing the current date.
   init(storage: HeartbeatStorageProtocol,
-       dateProvider: @escaping @Sendable () -> Date = { Date() }) {
+       dateProvider: @escaping () -> Date = Date.init) {
     self.storage = storage
-    self.dateProvider = { Self.dateStandardizer.standardize(dateProvider()) }
+    self.dateProvider = { Self.dateStandardizer(dateProvider()) }
   }
 
   /// Asynchronously logs a new heartbeat, if needed.
@@ -76,7 +67,7 @@ public final class HeartbeatController: Sendable {
 
     storage.readAndWriteAsync { heartbeatsBundle in
       var heartbeatsBundle = heartbeatsBundle ??
-        HeartbeatsBundle(capacity: Self.heartbeatsStorageCapacity)
+        HeartbeatsBundle(capacity: self.heartbeatsStorageCapacity)
 
       // Filter for the time periods where the last heartbeat to be logged for
       // that time period was logged more than one time period (i.e. day) ago.
@@ -109,7 +100,7 @@ public final class HeartbeatController: Sendable {
       // The new value that's stored will use the old's cache to prevent the
       // logging of duplicates after flushing.
       return HeartbeatsBundle(
-        capacity: Self.heartbeatsStorageCapacity,
+        capacity: self.heartbeatsStorageCapacity,
         cache: oldHeartbeatsBundle.lastAddedHeartbeatDates
       )
     }
@@ -123,34 +114,6 @@ public final class HeartbeatController: Sendable {
     } catch {
       // If the operation throws, assume no heartbeat(s) were retrieved or set.
       return HeartbeatsPayload.emptyPayload
-    }
-  }
-
-  public func flushAsync(completionHandler: @escaping @Sendable (HeartbeatsPayload) -> Void) {
-    let resetTransform = { @Sendable (heartbeatsBundle: HeartbeatsBundle?) -> HeartbeatsBundle? in
-      guard let oldHeartbeatsBundle = heartbeatsBundle else {
-        return nil // Storage was empty.
-      }
-      // The new value that's stored will use the old's cache to prevent the
-      // logging of duplicates after flushing.
-      return HeartbeatsBundle(
-        capacity: Self.heartbeatsStorageCapacity,
-        cache: oldHeartbeatsBundle.lastAddedHeartbeatDates
-      )
-    }
-
-    // Asynchronously gets and returns the stored heartbeats, resetting storage
-    // using the given transform.
-    storage.getAndSetAsync(using: resetTransform) { result in
-      switch result {
-      case let .success(heartbeatsBundle):
-        // If no heartbeats bundle was stored, return an empty payload.
-        completionHandler(heartbeatsBundle?.makeHeartbeatsPayload() ?? HeartbeatsPayload
-          .emptyPayload)
-      case .failure:
-        // If the operation throws, assume no heartbeat(s) were retrieved or set.
-        completionHandler(HeartbeatsPayload.emptyPayload)
-      }
     }
   }
 

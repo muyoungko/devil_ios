@@ -15,7 +15,7 @@
 
 import Foundation
 
-internal import FirebaseInstallations
+@_implementationOnly import FirebaseInstallations
 
 struct SessionInfo {
   let sessionId: String

@@ -11,7 +11,6 @@
 
 /// Base ad loader delegate protocol. Ad types provide extended protocols that declare methods to
 /// handle successful ad loads.
-NS_SWIFT_NAME(AdLoaderDelegate)
 @protocol GADAdLoaderDelegate <NSObject>
 
 /// Called when adLoader fails to load an ad.

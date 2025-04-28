@@ -9,7 +9,6 @@
 #import <GoogleMobileAds/GADRequest.h>
 
 /// Specifies optional parameters for ad requests.
-NS_SWIFT_NAME(AdManagerRequest)
 @interface GAMRequest : GADRequest
 
 /// Publisher provided user ID.
@@ -17,5 +16,8 @@ NS_SWIFT_NAME(AdManagerRequest)
 
 /// Array of strings used to exclude specified categories in ad results.
 @property(nonatomic, copy, nullable) NSArray<NSString *> *categoryExclusions;
+
+/// Key-value pairs used for custom targeting.
+@property(nonatomic, copy, nullable) NSDictionary<NSString *, NSString *> *customTargeting;
 
 @end

@@ -14,7 +14,6 @@
 #import <UIKit/UIKit.h>
 
 /// Rendered native ad.
-NS_SWIFT_NAME(MediationNativeAd)
 @protocol GADMediationNativeAd <GADMediationAd, GADMediatedUnifiedNativeAd>
 
 @optional
@@ -35,7 +34,6 @@ NS_SWIFT_NAME(MediationNativeAd)
 @end
 
 /// Native ad configuration.
-NS_SWIFT_NAME(MediationNativeAdConfiguration)
 @interface GADMediationNativeAdConfiguration : GADMediationAdConfiguration
 
 /// Additional options configured by the publisher for requesting a native ad.

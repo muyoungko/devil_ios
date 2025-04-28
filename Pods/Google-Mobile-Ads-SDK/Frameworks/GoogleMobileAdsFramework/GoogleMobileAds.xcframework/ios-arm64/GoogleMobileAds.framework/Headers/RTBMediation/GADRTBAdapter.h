@@ -14,7 +14,6 @@ typedef void (^GADRTBSignalCompletionHandler)(NSString *_Nullable signals,
                                               NSError *_Nullable error);
 
 /// Adapter that provides signals to the Google Mobile Ads SDK to be included in an auction.
-NS_SWIFT_NAME(RTBAdapter)
 @protocol GADRTBAdapter <GADMediationAdapter>
 
 /// Returns an initialized RTB adapter.

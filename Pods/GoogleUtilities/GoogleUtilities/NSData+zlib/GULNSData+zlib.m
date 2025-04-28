@@ -25,7 +25,7 @@ NSString *const GULNSDataZlibRemainingBytesKey = @"GULNSDataZlibRemainingBytesKe
 
 @implementation NSData (GULGzip)
 
-+ (nullable NSData *)gul_dataByInflatingGzippedData:(NSData *)data error:(NSError **)error {
++ (NSData *)gul_dataByInflatingGzippedData:(NSData *)data error:(NSError **)error {
   const void *bytes = [data bytes];
   NSUInteger length = [data length];
   if (!bytes || !length) {
@@ -119,7 +119,7 @@ NSString *const GULNSDataZlibRemainingBytesKey = @"GULNSDataZlibRemainingBytesKe
   return result;
 }
 
-+ (nullable NSData *)gul_dataByGzippingData:(NSData *)data error:(NSError **)error {
++ (NSData *)gul_dataByGzippingData:(NSData *)data error:(NSError **)error {
   const void *bytes = [data bytes];
   NSUInteger length = [data length];
 

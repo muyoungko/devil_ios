@@ -15,7 +15,7 @@
 
 import Foundation
 
-internal import GoogleDataTransport
+@_implementationOnly import GoogleDataTransport
 
 protocol EventGDTLoggerProtocol {
   func logEvent(event: SessionStartEvent, completion: @escaping (Result<Void, Error>) -> Void)

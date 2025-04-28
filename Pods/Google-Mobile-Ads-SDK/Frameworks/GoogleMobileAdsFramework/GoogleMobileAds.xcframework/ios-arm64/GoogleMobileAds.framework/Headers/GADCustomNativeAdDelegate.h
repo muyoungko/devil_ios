@@ -10,7 +10,6 @@
 @class GADCustomNativeAd;
 
 /// Identifies native ad assets.
-NS_SWIFT_NAME(CustomNativeAdDelegate)
 @protocol GADCustomNativeAdDelegate <NSObject>
 
 @optional
@@ -32,13 +31,13 @@ NS_SWIFT_NAME(CustomNativeAdDelegate)
 /// the customNativeAdDidDismissScreen: message. However, if the user hits the Home button or clicks
 /// on an App Store link, your application will end. The next method called will be the
 /// applicationWillResignActive: of your UIApplicationDelegate object.
-- (void)customNativeAdWillPresentScreen:(nonnull GADCustomNativeAd *)nativeAd NS_SWIFT_UI_ACTOR;
+- (void)customNativeAdWillPresentScreen:(nonnull GADCustomNativeAd *)nativeAd;
 
 /// Called just before dismissing a full screen view.
-- (void)customNativeAdWillDismissScreen:(nonnull GADCustomNativeAd *)nativeAd NS_SWIFT_UI_ACTOR;
+- (void)customNativeAdWillDismissScreen:(nonnull GADCustomNativeAd *)nativeAd;
 
 /// Called just after dismissing a full screen view. Use this opportunity to restart anything you
 /// may have stopped as part of customNativeAdWillPresentScreen:.
-- (void)customNativeAdDidDismissScreen:(nonnull GADCustomNativeAd *)nativeAd NS_SWIFT_UI_ACTOR;
+- (void)customNativeAdDidDismissScreen:(nonnull GADCustomNativeAd *)nativeAd;
 
 @end

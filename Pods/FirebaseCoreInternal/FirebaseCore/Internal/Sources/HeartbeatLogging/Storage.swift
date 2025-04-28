@@ -15,7 +15,7 @@
 import Foundation
 
 /// A type that reads from and writes to an underlying storage container.
-protocol Storage: Sendable {
+protocol Storage {
   /// Reads and returns the data stored by this storage type.
   /// - Returns: The data read from storage.
   /// - Throws: An error if the read failed.
@@ -38,12 +38,16 @@ enum StorageError: Error {
 final class FileStorage: Storage {
   /// A  file system URL to the underlying file resource.
   private let url: URL
+  /// The file manager used to perform file system operations.
+  private let fileManager: FileManager
 
   /// Designated initializer.
   /// - Parameters:
   ///   - url: A file system URL for the underlying file resource.
-  init(url: URL) {
+  ///   - fileManager: A file manager. Defaults to `default` manager.
+  init(url: URL, fileManager: FileManager = .default) {
     self.url = url
+    self.fileManager = fileManager
   }
 
   /// Reads and returns the data from this object's associated file resource.
@@ -67,7 +71,7 @@ final class FileStorage: Storage {
   func write(_ data: Data?) throws {
     do {
       try createDirectories(in: url.deletingLastPathComponent())
-      if let data {
+      if let data = data {
         try data.write(to: url, options: .atomic)
       } else {
         let emptyData = Data()
@@ -86,7 +90,7 @@ final class FileStorage: Storage {
   /// - Parameter url: The URL to create directories in.
   private func createDirectories(in url: URL) throws {
     do {
-      try FileManager.default.createDirectory(
+      try fileManager.createDirectory(
         at: url,
         withIntermediateDirectories: true
       )
@@ -100,26 +104,17 @@ final class FileStorage: Storage {
 
 /// A object that provides API for reading and writing to a user defaults resource.
 final class UserDefaultsStorage: Storage {
-  /// The suite name for the underlying defaults container.
-  private let suiteName: String
-
+  /// The underlying defaults container.
+  private let defaults: UserDefaults
   /// The key mapping to the object's associated resource in `defaults`.
   private let key: String
 
-  /// The underlying defaults container.
-  private var defaults: UserDefaults {
-    // It's safe to force unwrap the below defaults instance because the
-    // initializer only returns `nil` when the bundle id or `globalDomain`
-    // is passed in as the `suiteName`.
-    UserDefaults(suiteName: suiteName)!
-  }
-
   /// Designated initializer.
   /// - Parameters:
-  ///   - suiteName: The suite name for the defaults container.
+  ///   - defaults: The defaults container.
   ///   - key: The key mapping to the value stored in the defaults container.
-  init(suiteName: String, key: String) {
-    self.suiteName = suiteName
+  init(defaults: UserDefaults, key: String) {
+    self.defaults = defaults
     self.key = key
   }
 
@@ -141,7 +136,7 @@ final class UserDefaultsStorage: Storage {
   ///
   /// - Parameter data: The `Data?` to write to this object's associated defaults.
   func write(_ data: Data?) throws {
-    if let data {
+    if let data = data {
       defaults.set(data, forKey: key)
     } else {
       defaults.removeObject(forKey: key)

@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-#ifndef FIREBASECORE_FIRCOMPONENTTYPE_H
-#define FIREBASECORE_FIRCOMPONENTTYPE_H
-
 #import <Foundation/Foundation.h>
 
 @class FIRComponentContainer;
@@ -36,5 +33,3 @@ NS_SWIFT_NAME(ComponentType)
 @end
 
 NS_ASSUME_NONNULL_END
-
-#endif  // FIREBASECORE_FIRCOMPONENTTYPE_H

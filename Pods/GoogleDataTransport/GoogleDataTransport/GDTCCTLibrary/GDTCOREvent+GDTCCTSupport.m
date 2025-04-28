@@ -238,7 +238,3 @@ NSString *const GDTCCTEventCodeInfo = @"event_code_info";
 }
 
 @end
-
-/// Stub used to force the linker to include the categories in this file.
-void GDTCCTInclude_GDTCOREvent_GDTCCTSupport_Category(void) {
-}

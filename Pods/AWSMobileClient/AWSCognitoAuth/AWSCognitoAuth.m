@@ -51,11 +51,7 @@ NSString *const AWSCognitoAuthErrorDomain = @"com.amazon.cognito.AWSCognitoAuthE
 API_AVAILABLE(ios(11.0))
 @interface AWSCognitoAuth()
 
-// SFAuthenticationSession was deprecated in iOS 12, but keeping it for flows without a presentationAnchor
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-@property (nonatomic, strong) SFAuthenticationSession *sfAuthSession;
-#pragma clang diagnostic pop
+@property (nonatomic, strong) ASWebAuthenticationSession *sfAuthSession;
 
 @end
 
@@ -84,7 +80,7 @@ API_AVAILABLE(ios(13.0))
 
 @implementation AWSCognitoAuth
 
-NSString *const AWSCognitoAuthSDKVersion = @"2.40.2";
+NSString *const AWSCognitoAuthSDKVersion = @"2.36.0";
 
 
 static NSMutableDictionary *_instanceDictionary = nil;
@@ -358,23 +354,19 @@ withPresentingViewController:(UIViewController *)presentingViewController {
     }
 }
 
-// SFAuthenticationSession was deprecated in iOS 12, but keeping it for flows without a presentationAnchor
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)launchSFWebAuthenticationSession:(NSURL *)hostedUIURL API_AVAILABLE(ios(11.0)) {
     self.sfAuthenticationSessionAvailable = YES;
     NSString *callbackURLScheme = [[self urlEncode:self.authConfiguration.signInRedirectUri] copy];
     __weak AWSCognitoAuth *weakSelf = self;
-    self.sfAuthSession = [[SFAuthenticationSession alloc] initWithURL:hostedUIURL
-                                                    callbackURLScheme:callbackURLScheme
-                                                    completionHandler:^(NSURL * _Nullable url,
-                                                                        NSError * _Nullable error) {
+    self.sfAuthSession = [[ASWebAuthenticationSession alloc] initWithURL:hostedUIURL
+                                                       callbackURLScheme:callbackURLScheme
+                                                       completionHandler:^(NSURL * _Nullable url,
+                                                                           NSError * _Nullable error) {
         __strong AWSCognitoAuth *strongSelf = weakSelf;
         [strongSelf handleSignInCallbackWithURL:url error:error];
     }];
     [self.sfAuthSession start];
 }
-#pragma clang diagnostic pop
 
 - (void)launchASWebAuthenticationSession:(NSURL *)hostedUIURL API_AVAILABLE(ios(13.0)) {
     NSString *callbackURLString = [[self urlEncode:self.authConfiguration.signInRedirectUri] copy];
@@ -661,22 +653,19 @@ withPresentingViewController:(UIViewController *)presentingViewController {
     }
 }
 
-// SFAuthenticationSession was deprecated in iOS 12, but keeping it for flows without a presentationAnchor
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 - (void)launchSFAuthenticationSessionForSignOut:(NSURL *) url API_AVAILABLE(ios(11.0)) {
     self.sfAuthenticationSessionAvailable = YES;
     NSString *callbackURLScheme = [[self urlEncode:self.authConfiguration.signOutRedirectUri] copy];
     __weak AWSCognitoAuth *weakSelf = self;
-    self.sfAuthSession = [[SFAuthenticationSession alloc] initWithURL:url
-                                                    callbackURLScheme:callbackURLScheme
-                                                    completionHandler:^(NSURL * _Nullable url,
-                                                                        NSError * _Nullable error) {
+    self.sfAuthSession = [[ASWebAuthenticationSession alloc] initWithURL:url
+                                                       callbackURLScheme:callbackURLScheme
+                                                       completionHandler:^(NSURL * _Nullable url,
+                                                                           NSError * _Nullable error) {
         __strong AWSCognitoAuth *strongSelf = weakSelf;
         if (url) {
             [strongSelf processURL:url forRedirection:NO];
         } else {
-            if (error.code != SFAuthenticationErrorCanceledLogin) {
+            if (error.code != ASWebAuthenticationSessionErrorCodeCanceledLogin) {
                 [strongSelf signOutLocallyAndClearLastKnownUser];
             }
             [strongSelf dismissSafariViewControllerAndCompleteSignOut:error];
@@ -684,7 +673,6 @@ withPresentingViewController:(UIViewController *)presentingViewController {
     }];
     [self.sfAuthSession start];
 }
-#pragma clang diagnostic pop
 
 - (void)signOutSFSafariVC: (UIViewController *) vc
                       url:(NSURL *)url {

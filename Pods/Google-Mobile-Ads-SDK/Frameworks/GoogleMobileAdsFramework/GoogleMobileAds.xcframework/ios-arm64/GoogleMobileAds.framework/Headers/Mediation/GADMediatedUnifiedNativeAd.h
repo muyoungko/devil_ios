@@ -11,7 +11,6 @@
 
 /// Provides methods used for constructing native ads. The adapter must return an object conforming
 /// to this protocol for native ad requests.
-NS_SWIFT_NAME(MediatedUnifiedNativeAd)
 @protocol GADMediatedUnifiedNativeAd <NSObject>
 
 /// Headline.
@@ -84,8 +83,7 @@ NS_SWIFT_NAME(MediatedUnifiedNativeAd)
 /// -[GADMAdNetworkAdapter handlesUserClicks] returns NO.
 - (void)didRecordClickOnAssetWithName:(nonnull GADNativeAssetIdentifier)assetName
                                  view:(nonnull UIView *)view
-                       viewController:(nonnull UIViewController *)viewController
-    NS_SWIFT_NAME(didRecordClickOnAsset(with:view:viewController:));
+                       viewController:(nonnull UIViewController *)viewController;
 
 /// Tells the receiver that it has untracked |view|. This method is called when the mediated native
 /// ad is no longer rendered in the provided view and the delegate should stop tracking the view's

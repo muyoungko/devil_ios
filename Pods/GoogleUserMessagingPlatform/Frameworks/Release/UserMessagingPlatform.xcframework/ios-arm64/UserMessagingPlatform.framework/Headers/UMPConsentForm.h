@@ -11,23 +11,18 @@ typedef void (^UMPConsentFormLoadCompletionHandler)(UMPConsentForm *_Nullable co
 typedef void (^UMPConsentFormPresentCompletionHandler)(NSError *_Nullable error);
 
 /// A single use consent form object.
-NS_SWIFT_NAME(ConsentForm)
 @interface UMPConsentForm : NSObject
-
 /// Loads a consent form and calls completionHandler on completion. Must be called on the
 /// main queue.
-+ (void)loadWithCompletionHandler:(nonnull UMPConsentFormLoadCompletionHandler)completionHandler
-    NS_SWIFT_NAME(load(with:));
++ (void)loadWithCompletionHandler:(nonnull UMPConsentFormLoadCompletionHandler)completionHandler;
 
 /// Loads a consent form and immediately presents it from the provided viewController if
 /// UMPConsentInformation.sharedInstance.consentStatus is UMPConsentStatusRequired. Calls
 /// completionHandler after the user selects an option and the form is dismissed, or on the next run
-/// loop if no form is presented. Must be called on the main queue. If viewController is nil, uses
-/// the top view controller of the application's main window.
-+ (void)loadAndPresentIfRequiredFromViewController:(nullable UIViewController *)viewController
+/// loop if no form is presented. Must be called on the main queue.
++ (void)loadAndPresentIfRequiredFromViewController:(nonnull UIViewController *)viewController
                                  completionHandler:(nullable UMPConsentFormPresentCompletionHandler)
-                                                       completionHandler
-    NS_SWIFT_NAME(loadAndPresentIfRequired(from:completionHandler:));
+                                                       completionHandler;
 
 /// Presents a privacy options form from the provided viewController if
 /// UMPConsentInformation.sharedInstance.privacyOptionsRequirementStatus is
@@ -38,23 +33,20 @@ NS_SWIFT_NAME(ConsentForm)
 /// This method should only be called in response to a user input to request a privacy options form
 /// to be shown. The privacy options form is preloaded by the SDK automatically when a form becomes
 /// available. If no form is preloaded, the SDK will invoke the completionHandler on the next run
-/// loop, but will asynchronously retry to load one. If viewController is nil, uses the top view
-/// controller of the application's main window.
-+ (void)presentPrivacyOptionsFormFromViewController:(nullable UIViewController *)viewController
+/// loop, but will asynchronously retry to load one.
++ (void)presentPrivacyOptionsFormFromViewController:(nonnull UIViewController *)viewController
                                   completionHandler:
                                       (nullable UMPConsentFormPresentCompletionHandler)
-                                          completionHandler
-    NS_SWIFT_NAME(presentPrivacyOptionsForm(from:completionHandler:));
+                                          completionHandler;
 
 /// Unavailable. Use +loadWithCompletionHandler: instead.
-- (nonnull instancetype)init NS_UNAVAILABLE;
+- (nullable instancetype)init NS_UNAVAILABLE;
 
 /// Presents the full screen consent form over viewController. The form is dismissed and
 /// completionHandler is called after the user selects an option.
 /// UMPConsentInformation.sharedInstance.consentStatus is updated prior to completionHandler being
-/// called. completionHandler is called on the main queue. If viewController is nil, uses the top
-/// view controller of the application's main window.
-- (void)presentFromViewController:(nullable UIViewController *)viewController
-                completionHandler:(nullable UMPConsentFormPresentCompletionHandler)completionHandler
-    NS_SWIFT_NAME(present(from:completionHandler:));
+/// called. completionHandler is called on the main queue.
+- (void)presentFromViewController:(nonnull UIViewController *)viewController
+                completionHandler:
+                    (nullable UMPConsentFormPresentCompletionHandler)completionHandler;
 @end

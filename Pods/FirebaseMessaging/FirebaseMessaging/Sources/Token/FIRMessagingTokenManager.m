@@ -194,13 +194,13 @@
     return;
   }
 
-#if TARGET_OS_SIMULATOR
+#if TARGET_OS_SIMULATOR && TARGET_OS_IOS
   if (tokenOptions[kFIRMessagingTokenOptionsAPNSKey] != nil) {
     // If APNS token is available on iOS Simulator, we must use the sandbox profile
     // https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes
     tokenOptions[kFIRMessagingTokenOptionsAPNSIsSandboxKey] = @(YES);
   }
-#endif  // TARGET_OS_SIMULATOR
+#endif
 
   if (tokenOptions[kFIRMessagingTokenOptionsAPNSKey] != nil &&
       tokenOptions[kFIRMessagingTokenOptionsAPNSIsSandboxKey] == nil) {
@@ -333,7 +333,7 @@
               handler:^(NSError *error) {
                 if (!error) {
                   // Do not send the token back in case the save was unsuccessful. Since with
-                  // the new asynchronous fetch mechanism this can lead to infinite loops, for
+                  // the new asychronous fetch mechanism this can lead to infinite loops, for
                   // example, we will return a valid token even though we weren't able to store
                   // it in our cache. The first token will lead to a onTokenRefresh callback
                   // wherein the user again calls `getToken` but since we weren't able to save
@@ -689,17 +689,17 @@
     return;
   }
   // Use this token type for when we have to automatically fetch tokens in the future
-#if TARGET_OS_SIMULATOR
+#if TARGET_OS_SIMULATOR && TARGET_OS_IOS
   // If APNS token is available on iOS Simulator, we must use the sandbox profile
   // https://developer.apple.com/documentation/xcode-release-notes/xcode-14-release-notes
   BOOL isSandboxApp = YES;
-#else   // TARGET_OS_SIMULATOR
+#else
   NSInteger type = [userInfo[kFIRMessagingAPNSTokenType] integerValue];
   BOOL isSandboxApp = (type == FIRMessagingAPNSTokenTypeSandbox);
   if (type == FIRMessagingAPNSTokenTypeUnknown) {
     isSandboxApp = FIRMessagingIsSandboxApp();
   }
-#endif  // TARGET_OS_SIMULATOR
+#endif
 
   // Pro-actively invalidate the default token, if the APNs change makes it
   // invalid. Previously, we invalidated just before fetching the token.
@@ -744,7 +744,7 @@
                                         handler:^(NSString *_Nullable token,
                                                   NSError *_Nullable error){
                                             // Do nothing as callback is not needed and the
-                                            // sub-function already handle errors.
+                                            // sub-funciton already handle errors.
                                         }];
       }
       if ([self->_tokenStore cachedTokenInfos].count == 0) {
@@ -752,7 +752,7 @@
                                   scope:kFIRMessagingDefaultTokenScope
                                 options:tokenOptions
                                 handler:^(NSString *_Nullable FCMToken, NSError *_Nullable error){
-                                    // Do nothing as callback is not needed and the sub-function
+                                    // Do nothing as callback is not needed and the sub-funciton
                                     // already handle errors.
                                 }];
       }
