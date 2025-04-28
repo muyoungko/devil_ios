@@ -2345,4 +2345,8 @@
     }];
 }
 
++(void)clipboard:(NSString*)s {
+    [UIPasteboard generalPasteboard].string = s;
+}
+
 @end

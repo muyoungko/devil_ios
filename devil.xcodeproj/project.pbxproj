@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,8 +14,6 @@
 		6D0A69EF2AB9DB5700140B43 /* devilnfc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D62FB0828DD7A0B0094426E /* devilnfc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D0A69F02AB9DB8100140B43 /* devilwebrtc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; };
 		6D0A69F12AB9DB8100140B43 /* devilwebrtc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69A52AB5824300140B43 /* devilwebrtc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		6D0A69F72AB9E10700140B43 /* WebRTC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */; };
-		6D0A69F82AB9E10700140B43 /* WebRTC.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D0A69FA2AB9E12A00140B43 /* devilbill.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F92AB9E12A00140B43 /* devilbill.framework */; };
 		6D0A69FB2AB9E12B00140B43 /* devilbill.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D0A69F92AB9E12A00140B43 /* devilbill.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D132B9C255E6E0F00004E1F /* JulyUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B90255E6E0F00004E1F /* JulyUtil.m */; };
@@ -24,6 +22,8 @@
 		6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B9A255E6E0F00004E1F /* DeepLink.m */; };
 		6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BBA255E751C00004E1F /* GoogleService-Info.plist */; };
 		6D132BC5255E76F400004E1F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC3255E76F400004E1F /* loading.json */; };
+		6D2BE7C32DBF995500DA0EE8 /* WebRTC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; };
+		6D2BE7C42DBF995500DA0EE8 /* WebRTC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678B62567B1E2006D57DD /* BaseController.m */; };
 		6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BB2567B1E2006D57DD /* LoginController.m */; };
 		6D4678CF2567B1E2006D57DD /* Devil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BC2567B1E2006D57DD /* Devil.m */; };
@@ -89,7 +89,7 @@
 				6D0A69FB2AB9E12B00140B43 /* devilbill.framework in Embed Frameworks */,
 				6D0A69F12AB9DB8100140B43 /* devilwebrtc.framework in Embed Frameworks */,
 				6DACD00428DD61E7002E7409 /* devilextra.framework in Embed Frameworks */,
-				6D0A69F82AB9E10700140B43 /* WebRTC.framework in Embed Frameworks */,
+				6D2BE7C42DBF995500DA0EE8 /* WebRTC.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -114,6 +114,7 @@
 		6D132BC3255E76F400004E1F /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		6D22CF6125FFB25C00A1CB25 /* devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2AAC212BDF713700C6263A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = WebRTC.xcframework; path = "Pods/WebRTC-SDK/WebRTC.xcframework"; sourceTree = "<group>"; };
 		6D4678B62567B1E2006D57DD /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
 		6D4678B82567B1E2006D57DD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6D4678BA2567B1E2006D57DD /* SubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubController.h; sourceTree = "<group>"; };
@@ -200,9 +201,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D2BE7C32DBF995500DA0EE8 /* WebRTC.xcframework in Frameworks */,
 				6DACD00328DD61E7002E7409 /* devilextra.framework in Frameworks */,
 				6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */,
-				6D0A69F72AB9E10700140B43 /* WebRTC.framework in Frameworks */,
 				6D0A69EE2AB9DB5700140B43 /* devilnfc.framework in Frameworks */,
 				6D0A69F02AB9DB8100140B43 /* devilwebrtc.framework in Frameworks */,
 				6D0A69FA2AB9E12A00140B43 /* devilbill.framework in Frameworks */,
@@ -217,6 +218,7 @@
 		0BCC150E47406F73DA50155A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */,
 				6D0A69F92AB9E12A00140B43 /* devilbill.framework */,
 				6D0A69F52AB9E0FC00140B43 /* WebRTC.framework */,
 				6D0A69A52AB5824300140B43 /* devilwebrtc.framework */,
@@ -787,13 +789,15 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Devil App Buildler";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",
@@ -833,13 +837,15 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/frameworks",
-					"$(PROJECT_DIR)/Pods/GoogleWebRTC/Frameworks/frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/devil/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Devil App Buildler";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/swift",

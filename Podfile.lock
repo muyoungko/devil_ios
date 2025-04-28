@@ -175,7 +175,6 @@ PODS:
   - GoogleUtilities/UserDefaults (7.13.0):
     - GoogleUtilities/Logger
     - GoogleUtilities/Privacy
-  - GoogleWebRTC (1.1.32000)
   - GTMAppAuth (4.1.1):
     - AppAuth/Core (~> 1.7)
     - GTMSessionFetcher/Core (< 4.0, >= 3.3)
@@ -220,6 +219,7 @@ PODS:
   - Starscream (3.1.1)
   - SwiftAlgorithms (1.0.0)
   - TossPayments (0.1.32)
+  - WebRTC-SDK (125.6422.07)
   - ZXingObjC (3.6.9):
     - ZXingObjC/All (= 3.6.9)
   - ZXingObjC/All (3.6.9)
@@ -241,7 +241,6 @@ DEPENDENCIES:
   - Google-Mobile-Ads-SDK
   - GoogleMaps (= 7.3.0)
   - GoogleSignIn
-  - GoogleWebRTC
   - KakaoSDKAuth (= 2.11.3)
   - KakaoSDKCommon (= 2.11.3)
   - KakaoSDKStory (= 2.11.3)
@@ -252,6 +251,7 @@ DEPENDENCIES:
   - naveridlogin-sdk-ios
   - Starscream (~> 3.0)
   - TossPayments
+  - WebRTC-SDK
   - ZXingObjC (~> 3.6.9)
 
 SPEC REPOS:
@@ -287,7 +287,6 @@ SPEC REPOS:
     - GoogleSignIn
     - GoogleUserMessagingPlatform
     - GoogleUtilities
-    - GoogleWebRTC
     - GTMAppAuth
     - GTMSessionFetcher
     - KakaoSDKAuth
@@ -306,6 +305,7 @@ SPEC REPOS:
     - Starscream
     - SwiftAlgorithms
     - TossPayments
+    - WebRTC-SDK
     - ZXingObjC
 
 SPEC CHECKSUMS:
@@ -340,7 +340,6 @@ SPEC CHECKSUMS:
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
   GoogleUserMessagingPlatform: f131fa7978d2ba88d7426702b057c2cc318e6595
   GoogleUtilities: d053d902a8edaa9904e1bd00c37535385b8ed152
-  GoogleWebRTC: 4d261187b30512efdb711d21fa961a6adf138717
   GTMAppAuth: f69bd07d68cd3b766125f7e072c45d7340dea0de
   GTMSessionFetcher: 8000756fc1c19d2e5697b90311f7832d2e33f6cd
   KakaoSDKAuth: a64dde90516e18fdfc35b83bbad2677c3675c329
@@ -359,8 +358,9 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftAlgorithms: 38dda4731d19027fdeee1125f973111bf3386b53
   TossPayments: f8ff9725971a673a5a37c8219fd8a0f1e5a020ba
+  WebRTC-SDK: dff00a3892bc570b6014e046297782084071657e
   ZXingObjC: 8898711ab495761b2dbbdec76d90164a6d7e14c5
 
-PODFILE CHECKSUM: 8aa578ceb7eb20308af4ebd46671fd00a3e5a4cc
+PODFILE CHECKSUM: d05740e67700d004c87c837e1212e87d3b4613f1
 
 COCOAPODS: 1.14.3

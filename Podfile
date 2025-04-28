@@ -103,7 +103,7 @@ target 'devilwebrtc' do
   pod 'CommonCryptoModule'
   pod 'AWSKinesisVideo'
   pod 'AWSKinesisVideoSignaling'
-  pod 'GoogleWebRTC'
+  pod 'WebRTC-SDK'
   pod 'Starscream', '~> 3.0'
 end
 

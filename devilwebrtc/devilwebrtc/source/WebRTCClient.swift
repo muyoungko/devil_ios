@@ -36,6 +36,7 @@ final class WebRTCClient: NSObject {
     private var sendAudio: Bool?
     
     required init(iceServers: [RTCIceServer], sendAudio: Bool, sendVideo: Bool) {
+        
         let config = RTCConfiguration()
         config.iceServers = iceServers
         config.sdpSemantics = .unifiedPlan
@@ -46,7 +47,7 @@ final class WebRTCClient: NSObject {
         config.tcpCandidatePolicy = .enabled
 
         let constraints = RTCMediaConstraints(mandatoryConstraints: nil, optionalConstraints: nil)
-        peerConnection = WebRTCClient.factory.peerConnection(with: config, constraints: constraints, delegate: nil)
+        peerConnection = WebRTCClient.factory.peerConnection(with: config, constraints: constraints, delegate: nil)!
 
         super.init()
         configureAudioSession()

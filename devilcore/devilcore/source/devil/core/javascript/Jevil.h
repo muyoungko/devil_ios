@@ -218,6 +218,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (BOOL)mqttIsConnected;
 + (void)mqttRelease;
 + (void)touchListener:(NSString*)node :(JSValue *)callback;
++ (void)clipboard:(NSString*)s;
 @end
 
 @interface Jevil : NSObject <Jevil>
