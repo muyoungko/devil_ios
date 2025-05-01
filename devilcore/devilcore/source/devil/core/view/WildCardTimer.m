@@ -9,6 +9,7 @@
 #import "WildCardTrigger.h"
 #import "WildCardAction.h"
 #import "JevilInstance.h"
+#import "DevilExceptionHandler.h"
 
 @interface WildCardTimer()
 
@@ -145,23 +146,27 @@
 }
 
 -(void)tick {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(tick) object:nil];
-    //NSLog(@"self.sec %d", self.sec);
-    if(self.paused)
-        return;
-    [self showTime];
-    self.sec --;
-    if(self.sec < 0){
-        NSString* currentVcKey = [NSString stringWithFormat:@"%ul", [JevilInstance currentInstance].vc];
-        if([currentVcKey isEqualToString:self.vcKey]) {
-            NSString* action = self.layer[@"timer"][@"action"];
-            if(action && [action length] > 0) {
-                WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
-                [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
+    @try {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(tick) object:nil];
+        //NSLog(@"self.sec %d", self.sec);
+        if(self.paused)
+            return;
+        [self showTime];
+        self.sec --;
+        if(self.sec < 0){
+            NSString* currentVcKey = [NSString stringWithFormat:@"%ul", [JevilInstance currentInstance].vc];
+            if([currentVcKey isEqualToString:self.vcKey]) {
+                NSString* action = self.layer[@"timer"][@"action"];
+                if(action && [action length] > 0) {
+                    WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+                    [WildCardAction parseAndConducts:trigger action:action meta:self.meta];
+                }
             }
-        }
-    } else
-        [self performSelector:@selector(tick) withObject:nil afterDelay:1];
+        } else
+            [self performSelector:@selector(tick) withObject:nil afterDelay:1];
+    } @catch(NSException* e) {
+        [DevilExceptionHandler handle:e];
+    }
 }
 
 @end
