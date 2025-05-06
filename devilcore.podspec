@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'devilcore'
   s.platform         = :ios
-  s.version          = '0.0.295'
+  s.version          = '0.0.297'
   s.summary          = 'Devil Core'
   s.description      = <<-DESC
     This is Devil Login
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.static_framework = true
   s.source_files = 'devilcore/devilcore/source/**/*.*', 'devilcore/devilcore/header/**/*.h'
   s.public_header_files = 'devilcore/devilcore/source/**/*.h', '"${DERIVED_SOURCES_DIR}/*-Swift.h'
-  s.dependency 'lottie-ios', '~> 2.5.3'
+  s.dependency 'lottie-ios'
   s.dependency 'MQTTClient'
   s.dependency 'ZXingObjC', '~> 3.6.9'
   s.dependency 'Charts', '~> 4.1.0'

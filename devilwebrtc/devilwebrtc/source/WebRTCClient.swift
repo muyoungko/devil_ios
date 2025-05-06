@@ -200,6 +200,13 @@ final class WebRTCClient: NSObject {
                 return
             }
 
+        let captureSession = capturer.captureSession
+            captureSession.beginConfiguration()
+        if captureSession.canSetSessionPreset(.high) {
+            captureSession.sessionPreset = .high
+        }
+        captureSession.commitConfiguration()
+        
         capturer.startCapture(with: frontCamera,
                               format: format,
                               fps: Int(fps.magnitude))
@@ -212,14 +219,12 @@ final class WebRTCClient: NSObject {
     }
 
     private func createVideoStream(sendVideo : Bool) {
-        //여기서 createStream해도 되며 VideoViewController에서 send를 안하면된다
-        if(sendVideo || true) {
-            localVideoTrack = createVideoTrack()
-            if let localVideoTrack = localVideoTrack {
-                peerConnection.add(localVideoTrack, streamIds: [streamId])
-            }
-        }
 
+        localVideoTrack = createVideoTrack()
+        if let localVideoTrack = localVideoTrack {
+            peerConnection.add(localVideoTrack, streamIds: [streamId])
+        }
+        
         remoteVideoTrack = peerConnection.transceivers.first { $0.mediaType == .video }?.receiver.track as? RTCVideoTrack
 
     }

@@ -1177,14 +1177,8 @@ static BOOL IS_TABLET = NO;
             {
                 continue;
             }
-            else if(childLayer[@"fix"])
+            else if([childLayer objectForKey:@"fix"])
             {
-                UIViewController* vc = [JevilInstance currentInstance].vc;
-                if([vc isMemberOfClass:[DevilController class]]) {
-                    DevilController* dc = (DevilController*)vc;
-                    [dc addFixedView:childLayer x:0 y:0];
-                }
-                
                 continue;
             }
             else
@@ -1327,6 +1321,18 @@ static BOOL IS_TABLET = NO;
         }
         else if(childLayer[@"fix"])
         {
+            UIViewController* vc = [JevilInstance currentInstance].vc;
+            if([vc isMemberOfClass:[DevilController class]]) {
+                DevilController* dc = (DevilController*)vc;
+                id fix = childLayer[@"fix"];
+                UIView* fixNodeView = nil;
+                if(fix[@"fixNode"]) {
+                    NSString* fixNodeName = fix[@"fixNode"];
+                    fixNodeView = [wcMeta getView:fixNodeName];
+                }
+                
+                [dc addFixedView:childLayer x:0 y:0:fixNodeView];
+            }
             continue;
         }
         else

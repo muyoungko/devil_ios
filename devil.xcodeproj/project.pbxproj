@@ -22,8 +22,8 @@
 		6D132BA1255E6E0F00004E1F /* DeepLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D132B9A255E6E0F00004E1F /* DeepLink.m */; };
 		6D132BBB255E751C00004E1F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BBA255E751C00004E1F /* GoogleService-Info.plist */; };
 		6D132BC5255E76F400004E1F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC3255E76F400004E1F /* loading.json */; };
-		6D2BE7C32DBF995500DA0EE8 /* WebRTC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; };
-		6D2BE7C42DBF995500DA0EE8 /* WebRTC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D2BE7CD2DC3CF5300DA0EE8 /* WebRTC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; };
+		6D2BE7CE2DC3CF5300DA0EE8 /* WebRTC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678B62567B1E2006D57DD /* BaseController.m */; };
 		6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BB2567B1E2006D57DD /* LoginController.m */; };
 		6D4678CF2567B1E2006D57DD /* Devil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BC2567B1E2006D57DD /* Devil.m */; };
@@ -89,7 +89,7 @@
 				6D0A69FB2AB9E12B00140B43 /* devilbill.framework in Embed Frameworks */,
 				6D0A69F12AB9DB8100140B43 /* devilwebrtc.framework in Embed Frameworks */,
 				6DACD00428DD61E7002E7409 /* devilextra.framework in Embed Frameworks */,
-				6D2BE7C42DBF995500DA0EE8 /* WebRTC.xcframework in Embed Frameworks */,
+				6D2BE7CE2DC3CF5300DA0EE8 /* WebRTC.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,7 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D2BE7C32DBF995500DA0EE8 /* WebRTC.xcframework in Frameworks */,
+				6D2BE7CD2DC3CF5300DA0EE8 /* WebRTC.xcframework in Frameworks */,
 				6DACD00328DD61E7002E7409 /* devilextra.framework in Frameworks */,
 				6DF50F942A5C75E8006160A0 /* libcapbl.a in Frameworks */,
 				6D0A69EE2AB9DB5700140B43 /* devilnfc.framework in Frameworks */,
@@ -781,7 +781,7 @@
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 304;
+				CURRENT_PROJECT_VERSION = 306;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -804,7 +804,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.304;
+				MARKETING_VERSION = 0.0.306;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -830,7 +830,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 304;
+				CURRENT_PROJECT_VERSION = 306;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -852,7 +852,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.304;
+				MARKETING_VERSION = 0.0.306;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -32,7 +32,7 @@ UIDocumentInteractionControllerDelegate, UIScrollViewDelegate>
 -(void)adjustFooterHeight;
 -(void)setActiveAlertMessage:(NSString*)msg;
 -(void)closeActiveAlertMessage;
--(void) addFixedView:(id)layer x:(float)x y:(float)y;
+-(void) addFixedView:(id)layer x:(float)x y:(float)y :(UIView*)fixNodeView;
 -(void)toLandscape;
 -(void)toPortrait;
 -(void)startLoading;

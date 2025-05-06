@@ -259,6 +259,13 @@
     if(self.mainWc)
         [self.mainWc removeFromSuperview];
     
+    if(_fixedView) {
+        [_fixedView removeFromSuperview];
+        _fixedView = nil;
+        [_fixedViewContainer removeFromSuperview];
+        _fixedViewContainer = nil;
+    }
+    
     self.jevil = [[JevilCtx alloc] init];
     if(self.startData)
         self.data = [JSValue valueWithObject:self.startData inContext:self.jevil.jscontext];
@@ -837,9 +844,9 @@
     //NSLog(@"updateFlexScreen %@ %@ %@ %d %d", self.projectId, self.screenName, self.landscape?@"landscape":@"portrait", screenWidth, screenHeight);
 }
 
--(void) addFixedView:(id)layer x:(float)x y:(float)y {
+-(void) addFixedView:(id)layer x:(float)x y:(float)y :(UIView*)fixNodeView {
     if(_fixedView)
-        return;
+        return; 
     
     if(_fixedViewContainer == nil) {
         _fixedViewContainer = [[WildCardUIView alloc] initWithFrame:CGRectMake(0,0,screenWidth, screenHeight)];
@@ -855,7 +862,18 @@
     NSString* showType = fix[@"showType"];
     if([@"fadein" isEqualToString:showType]) {
         _fixedView.alpha = 0.0f;
-        _scrollView.delegate = self;
+        if(fixNodeView) {
+            UIView* child = [fixNodeView subviews][0];
+            if([child isKindOfClass:[UICollectionView class]]) {
+                UICollectionView* cv = (UICollectionView*)child;
+                WildCardCollectionViewAdapter* adapter = (WildCardCollectionViewAdapter*)cv.delegate;
+                adapter.scrolledCallback = ^(id res) {
+                    [self scrollViewDidScroll:res];
+                };
+            }
+        }
+        else
+            _scrollView.delegate = self;
     }
 }
 
@@ -867,7 +885,6 @@
     alpha = scrollView.contentOffset.y / max;
     if(alpha > 1.0f)
         alpha = 1.0f;
-    
     _fixedView.alpha = alpha;
 }
 

@@ -145,7 +145,8 @@ public class DevilWebRtcInstance: NSObject {
                 
                 self.vc?.sendVideo = self.sendVideo
                 self.vc?.sendAudio = self.sendAudio
-                
+            
+                //self.currentVc.navigationController?.pushViewController(self.vc!, animated: true);
                 self.currentVc.present(self.vc!, animated: true, completion: nil)
             }
         }

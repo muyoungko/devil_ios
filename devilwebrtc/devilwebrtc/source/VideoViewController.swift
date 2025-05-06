@@ -6,22 +6,20 @@ class VideoViewController: UIViewController {
     @IBOutlet var localVideoView: UIView?
     @IBOutlet var joinStorageButton: UIButton?
     
-    public var sendVideo: Bool = true 
-    public var sendAudio: Bool = true
-    
     private let webRTCClient: WebRTCClient
     private let signalingClient: SignalingClient
     private let localSenderClientID: String
     private let isMaster: Bool
-    
 
+    public var sendVideo: Bool = true
+    public var sendAudio: Bool = true
+    
     init(webRTCClient: WebRTCClient, signalingClient: SignalingClient, localSenderClientID: String, isMaster: Bool, mediaServerEndPoint: String?) {
         self.webRTCClient = webRTCClient
         self.signalingClient = signalingClient
         self.localSenderClientID = localSenderClientID
         self.isMaster = isMaster
-        
-        super.init(nibName: String(describing: VideoViewController.self), bundle: Bundle(for: type(of: self)))
+        super.init(nibName: "VideoViewController", bundle: Bundle(for: Self.self))
         
         if !isMaster {
             // In viewer mode send offer once connection is established
@@ -40,20 +38,17 @@ class VideoViewController: UIViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
-        //AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+       // AppDelegate.AppUtility.lockOrientation(UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         #if arch(arm64)
         // Using metal (arm64 only)
-        
         let localRenderer = RTCMTLVideoView(frame: localVideoView?.frame ?? CGRect.zero)
         localRenderer.videoContentMode = .scaleAspectFill
-        
         let remoteRenderer = RTCMTLVideoView(frame: view.frame)
         remoteRenderer.videoContentMode = .scaleAspectFill
-        
         #else
         // Using OpenGLES for the rest
         let localRenderer = RTCEAGLVideoView(frame: localVideoView?.frame ?? CGRect.zero)
@@ -72,11 +67,6 @@ class VideoViewController: UIViewController {
         view.sendSubviewToBack(remoteRenderer)
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.signalingClient.disconnect();
-        self.webRTCClient.shutdown();
-    }
     private func embedView(_ view: UIView, into containerView: UIView) {
         containerView.addSubview(view)
         view.translatesAutoresizingMaskIntoConstraints = false

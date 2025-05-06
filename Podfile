@@ -36,7 +36,7 @@ target 'devil' do
   google_ads
   
   pod 'AFNetworking','~>4.0'
-  
+   
   pod 'FirebaseMessaging'
   pod 'FirebaseAuth'
   pod 'FirebaseAnalytics'
