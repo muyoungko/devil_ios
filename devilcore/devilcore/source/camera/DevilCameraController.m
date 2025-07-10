@@ -365,11 +365,11 @@ typedef NS_ENUM(NSInteger, UIMode) {
         if(self.param[@"original"])
             self.original = [self.param[@"original"] boolValue];
         if(self.param[@"blockName"])
-            self.blockName = [self.param[@"blockName"] stringValue];
+            self.blockName = [NSString stringWithFormat:@"%@", self.param[@"blockName"] ];
         if(self.param[@"nodeTake"])
-            self.nodeTake = [self.param[@"nodeTake"] stringValue];
+            self.nodeTake = [NSString stringWithFormat:@"%@", self.param[@"nodeTake"]];
         if(self.param[@"nodeBack"])
-            self.nodeBack = [self.param[@"nodeBack"] stringValue];
+            self.nodeBack = [NSString stringWithFormat:@"%@", self.param[@"nodeBack"]];
     }
     
     self.front = self.startFront;

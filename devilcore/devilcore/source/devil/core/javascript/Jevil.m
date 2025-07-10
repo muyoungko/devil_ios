@@ -7,6 +7,7 @@
 
 
 #import "Jevil.h"
+#import "JevilUtil.h"
 #import "WildCardConstructor.h"
 #import "DevilController.h"
 #import "JevilCtx.h"
@@ -423,6 +424,7 @@
             url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
         
         id header = [@{} mutableCopy];
+        [JevilUtil devInfoTo:header];
         id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
         for(id h in header_list){
             NSString* content = h[@"content"];
@@ -497,7 +499,7 @@
     id header = [@{} mutableCopy];
     if(headerObject)
         header = [headerObject mutableCopy];
-    
+    [JevilUtil devInfoTo:header];
     NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
@@ -555,7 +557,7 @@
     id header = [@{} mutableCopy];
     if(headerObject)
         header = [headerObject mutableCopy];
-    
+    [JevilUtil devInfoTo:header];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
         NSString* content = h[@"content"];
@@ -648,6 +650,7 @@
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
     id header = [@{} mutableCopy];
+    [JevilUtil devInfoTo:header];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
         NSString* content = h[@"content"];
@@ -664,6 +667,7 @@
     NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
+    
     
     [[DevilDebugView sharedInstance] log:DEVIL_LOG_REQUEST title:[@"POST " stringByAppendingString:originalUrl] log:param];
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
@@ -691,6 +695,7 @@
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
     id header = [@{} mutableCopy];
+    [JevilUtil devInfoTo:header];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
         NSString* content = h[@"content"];
@@ -745,6 +750,7 @@
      */
     [DevilCamera changePhAssetToUrlPath:paths callback:^(id  _Nonnull paths) {
         id header = [@{} mutableCopy];
+        [JevilUtil devInfoTo:header];
         id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
         for(id h in header_list){
             header[h[@"header"]] = h[@"content"];
@@ -880,6 +886,7 @@
     url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
     id header = [@{} mutableCopy];
+    [JevilUtil devInfoTo:header];
     NSString* x_access_token_key = [NSString stringWithFormat:@"x-access-token"];
     if([Jevil get:x_access_token_key])
         header[@"x-access-token"] = [Jevil get:x_access_token_key];
@@ -1340,6 +1347,13 @@
     }];
     [((DevilController*)[JevilInstance currentInstance].vc).retainObject addObject:downloder];
     
+}
+
++ (BOOL)isFileExists:(NSString*)url {
+    if(url)
+        return [[NSFileManager defaultManager] fileExistsAtPath:[DevilUtil replaceUdidPrefixDir:url]];
+    else
+        return false;
 }
 
 + (void)downloadAndView:(NSString*)url {

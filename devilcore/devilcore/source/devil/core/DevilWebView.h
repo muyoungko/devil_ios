@@ -24,7 +24,9 @@ typedef void(^WKWebViewActionHandler)(WKWebViewAction action, id result);
 
 @interface DevilWebView : WKWebView< WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler>
 
+@property BOOL scrollListenerCalledInThisPage;
 @property BOOL (^shouldOverride)(NSString* url);
+@property void (^scrollBottomCallback)(void);
 - (void)setWKWebViewAction:(WKWebViewActionHandler)actionHandler;
 
 @end

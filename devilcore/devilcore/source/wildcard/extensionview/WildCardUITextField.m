@@ -219,33 +219,33 @@
     }
 }
 
--(NSString*) formatString:(NSString*)input {
-    int chunkSize = 3;
-    const char *cStr = [input UTF8String];
-    int length = (int)strlen(cStr);
+- (NSString *)formatString:(NSString *)input {
+    // Remove leading zeros
+    NSCharacterSet *zeroSet = [NSCharacterSet characterSetWithCharactersInString:@"0"];
+    NSUInteger nonZeroIndex = [input rangeOfCharacterFromSet:[zeroSet invertedSet]].location;
+    if (nonZeroIndex == NSNotFound) return @"0"; // 전부 0일 경우
     
-    // 0이 아닌 문자가 처음으로 나오는 인덱스 찾기
-    int nonZeroIndex = 0;
-    while (nonZeroIndex < length && cStr[nonZeroIndex] == '0') {
-        nonZeroIndex++;
-    }
+    NSString *trimmed = [input substringFromIndex:nonZeroIndex];
     
-    // 앞의 0을 제외한 부분을 NSString으로 변환
-    NSString *result = [NSString stringWithUTF8String:&cStr[nonZeroIndex]];
-    
-    // 3글자마다 콤마 추가
-    NSMutableString *formatted = [NSMutableString string];
-    int count = 0;
-    for (int i = 0; i < result.length; i++) {
-        [formatted appendFormat:@"%c", [result characterAtIndex:i]];
+    // 오른쪽부터 3자리마다 콤마 삽입
+    NSMutableString *reversed = [NSMutableString string];
+    NSInteger count = 0;
+    for (NSInteger i = trimmed.length - 1; i >= 0; i--) {
+        unichar c = [trimmed characterAtIndex:i];
+        [reversed appendFormat:@"%C", c];
         count++;
-        if (count == chunkSize && i < result.length - 1) {
-            [formatted appendString:@","];
-            count = 0;
+        if (count % 3 == 0 && i != 0) {
+            [reversed appendString:@","];
         }
     }
     
-    return formatted;
+    // 다시 순서 뒤집기
+    NSMutableString *result = [NSMutableString stringWithCapacity:reversed.length];
+    for (NSInteger i = reversed.length - 1; i >= 0; i--) {
+        [result appendFormat:@"%C", [reversed characterAtIndex:i]];
+    }
+    
+    return result;
 }
 
 -(void)clearAll:(id)sender

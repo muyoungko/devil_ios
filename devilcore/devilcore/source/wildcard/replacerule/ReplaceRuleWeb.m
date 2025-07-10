@@ -10,9 +10,11 @@
 #import "DevilUtil.h"
 #import "JevilInstance.h"
 #import "DevilController.h"
+#import "WildCardUITapGestureRecognizer.h"
 
 @interface ReplaceRuleWeb()
 @property (nonatomic, retain) NSString* lastUrl;
+@property (nonatomic, retain) WildCardUITapGestureRecognizer* singleFingerTap;
 @end
 
 @implementation ReplaceRuleWeb
@@ -39,6 +41,16 @@
         }
         return NO;
     };
+    
+    
+    NSString* scriptScrollEnd = layer[@"web"][@"scriptScrollEnd"];
+    if(scriptScrollEnd) {
+        web.scrollBottomCallback = ^{
+            WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+            trigger.node = vv;
+            [WildCardAction execute:trigger script:scriptScrollEnd meta:wcMeta];
+        };
+    }
     
 }
 

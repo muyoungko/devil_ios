@@ -13,7 +13,7 @@
 #import "DevilLink.h"
 #import "DevilLang.h"
 
-@interface DevilWebView ()
+@interface DevilWebView () <UIScrollViewDelegate>
 @property (copy, nonatomic) WKWebViewActionHandler actionHandler;
 @end
 
@@ -25,8 +25,10 @@
     self = [super init];
     if (self) {
         self.scrollView.bounces = NO;
+        self.scrollView.delegate = self;
         self.UIDelegate = self;
         self.navigationDelegate = self;
+        self.scrollListenerCalledInThisPage = false;
     }
     return self;
 }
@@ -41,6 +43,7 @@
 
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
     //[self showIndicator];
+    self.scrollListenerCalledInThisPage = false;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
@@ -260,4 +263,19 @@
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message{
     //message.name
 }
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offsetY = scrollView.contentOffset.y;
+    CGFloat contentHeight = scrollView.contentSize.height;
+    CGFloat frameHeight = scrollView.frame.size.height;
+
+    if (offsetY + frameHeight >= contentHeight - 10) {
+        if(self.scrollBottomCallback && !self.scrollListenerCalledInThisPage) {
+            self.scrollListenerCalledInThisPage = true;
+            self.scrollBottomCallback();
+        }
+    }
+}
+
 @end

@@ -43,16 +43,31 @@
     NSString* arrayContentTargetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
     NSString* arrayContentTargetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
     NSString* arrayContentTargetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
+    NSString* targetNode4 = [arrayContent objectForKey:@"targetNode4"];
+    NSString* targetNode5 = [arrayContent objectForKey:@"targetNode5"];
+    NSString* targetNode6 = [arrayContent objectForKey:@"targetNode6"];
+    NSString* targetNode7 = [arrayContent objectForKey:@"targetNode7"];
+    NSString* targetNode8 = [arrayContent objectForKey:@"targetNode8"];
+    NSString* targetNode9 = [arrayContent objectForKey:@"targetNode9"];
+    NSString* targetNode10 = [arrayContent objectForKey:@"targetNode10"];
+    NSString* targetNode11 = [arrayContent objectForKey:@"targetNode11"];
+    NSString* targetNode12 = [arrayContent objectForKey:@"targetNode12"];
     
     id shouldContinueChild = [@[] mutableCopy];
-    if(arrayContentTargetNode)
-        [shouldContinueChild addObject:arrayContentTargetNode];
-    if(arrayContentTargetNodeSurfix)
-        [shouldContinueChild addObject:arrayContentTargetNodeSurfix];
-    if(arrayContentTargetNodePrefix)
-        [shouldContinueChild addObject:arrayContentTargetNodePrefix];
-    if(arrayContentTargetNodeSelected)
-        [shouldContinueChild addObject:arrayContentTargetNodeSelected];
+    if(arrayContentTargetNode) [shouldContinueChild addObject:arrayContentTargetNode];
+    if(arrayContentTargetNodeSurfix) [shouldContinueChild addObject:arrayContentTargetNodeSurfix];
+    if(arrayContentTargetNodePrefix) [shouldContinueChild addObject:arrayContentTargetNodePrefix];
+    if(arrayContentTargetNodeSelected) [shouldContinueChild addObject:arrayContentTargetNodeSelected];
+    if(targetNode4) [shouldContinueChild addObject:targetNode4];
+    if(targetNode5) [shouldContinueChild addObject:targetNode5];
+    if(targetNode6) [shouldContinueChild addObject:targetNode6];
+    if(targetNode7) [shouldContinueChild addObject:targetNode7];
+    if(targetNode8) [shouldContinueChild addObject:targetNode8];
+    if(targetNode9) [shouldContinueChild addObject:targetNode9];
+    if(targetNode10) [shouldContinueChild addObject:targetNode10];
+    if(targetNode11) [shouldContinueChild addObject:targetNode11];
+    if(targetNode12) [shouldContinueChild addObject:targetNode12];
+    
     
     result[@"shouldContinueChild"] = shouldContinueChild;
     

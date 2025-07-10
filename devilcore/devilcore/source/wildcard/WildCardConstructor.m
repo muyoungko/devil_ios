@@ -1153,6 +1153,15 @@ static BOOL IS_TABLET = NO;
             }
         }
 
+        if(layer[@"rotation"]) {
+            CGFloat radians = [layer[@"rotation"] floatValue];
+            vv.layer.anchorPoint = CGPointMake(0.5, 0.5);
+            vv.transform = CGAffineTransformMakeRotation(radians);
+            vv.superview.clipsToBounds = NO;
+            vv.clipsToBounds = NO;
+        }
+        
+        
         if([layer objectForKey:@"arrayContent"])
         {
             ReplaceRuleRepeat* replaceRule = [[ReplaceRuleRepeat alloc] initWithRuleJson:layer];

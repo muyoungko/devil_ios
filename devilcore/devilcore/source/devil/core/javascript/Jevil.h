@@ -86,6 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)share:(NSString*)url;
 + (void)out:(NSString*)url :(BOOL)force;
 + (void)saveFileFromUrl:(NSDictionary*)param :(JSValue *)callback;
++ (BOOL)isFileExists:(NSString*)url;
 + (void)downloadAndView:(NSString*)url;
 + (void)downloadAndViewWithOption:(id)param;
 + (void)downloadAndShare:(NSString*)url;
