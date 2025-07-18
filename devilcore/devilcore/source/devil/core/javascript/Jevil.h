@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)rootScreen:(NSString*)screenName :(id)param;
 + (void)markScreen;
 + (void)backToMarkScreen;
++ (void)backToMarkScreenAndGo:(NSString*)screenName :(id)param;
 + (void)tab:(NSString*)screenName;
 + (void)finish:(id)callbackData;
 + (void)finishThen:(JSValue *)callback;
