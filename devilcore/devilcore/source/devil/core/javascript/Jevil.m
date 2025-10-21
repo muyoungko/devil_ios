@@ -607,6 +607,7 @@
         url = [NSString stringWithFormat:@"%@%@", [WildCardConstructor sharedInstance].project[@"host"], url];
     
     id header = [@{} mutableCopy];
+    [JevilUtil devInfoTo:header];
     id header_list = [WildCardConstructor sharedInstance].project[@"header_list"];
     for(id h in header_list){
         NSString* content = h[@"content"];

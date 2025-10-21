@@ -321,9 +321,7 @@ static BOOL IS_TABLET = NO;
     /**
      이미지인경우 scapeType wrap_heigth를 감안해야한다 이미지를 불러오고 그에 따라 높이를 변경하는 구조이며,
      이미지가 불러오면 데이터에 해당 이미지의 w와 h를 넣어준다
-     
      */
-    
     if([@"wrap_height" isEqualToString:cloudJson[@"scaleType"]]){
         NSString* imageContent = cloudJson[@"imageContent"];
         NSString* url = [MappingSyntaxInterpreter interpret:imageContent :data];

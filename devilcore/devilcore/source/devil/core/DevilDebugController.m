@@ -9,6 +9,7 @@
 #import "DevilDebugView.h"
 #import "DevilJsonViewer.h"
 #import "Jevil.h"
+#import "DevilSdk.h"
 
 #define UIColorFromRGB(rgbValue) \
 [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 \
@@ -29,7 +30,7 @@ alpha:1.0]
 
 - (void)viewDidLoad{
     [super viewDidLoad];
-    
+     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     int sw = screenRect.size.width;
     int sh = screenRect.size.height;
@@ -38,14 +39,26 @@ alpha:1.0]
     self.top.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.top];
     
-    UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
-    button.frame = CGRectMake(15, 5, 120, TOP_HEIGHT-10);
-    [button setTitle:@"My Login Link" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(link:) forControlEvents:UIControlEventTouchUpInside];
-    [self.top addSubview:button];
+    int offsetx = 15;
+    {
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
+        button.frame = CGRectMake(offsetx, 5, 120, TOP_HEIGHT-10);
+        [button setTitle:@"Source" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(source:) forControlEvents:UIControlEventTouchUpInside];
+        [self.top addSubview:button];
+        offsetx+=120;
+    }
+    {
+        UIButton* button = [UIButton buttonWithType:UIButtonTypeSystem];
+        button.frame = CGRectMake(offsetx, 5, 120, TOP_HEIGHT-10);
+        [button setTitle:@"My Login Link" forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(link:) forControlEvents:UIControlEventTouchUpInside];
+        [self.top addSubview:button];
+        offsetx+=120;
+    }
     
     UIButton* button2 = [UIButton buttonWithType:UIButtonTypeSystem];
-    button2.frame = CGRectMake(135, 5, 120, TOP_HEIGHT-10);
+    button2.frame = CGRectMake(offsetx, 5, 120, TOP_HEIGHT-10);
     [button2 setTitle:@"Hide Devil" forState:UIControlStateNormal];
     [button2 addTarget:self action:@selector(hide:) forControlEvents:UIControlEventTouchUpInside];
     [self.top addSubview:button2];
@@ -190,4 +203,11 @@ alpha:1.0]
     [[dc.view viewWithTag:TAG_DEBUG_ICON] removeFromSuperview];
     [Jevil toast:@"Icon is hided"];
 }
+
+- (void)source:(id)sender {
+    if([DevilSdk sharedInstance].devilSourceDelegate) {
+        [[DevilSdk sharedInstance].devilSourceDelegate goScriptController:self.screenId];
+    }
+}
+
 @end

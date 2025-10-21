@@ -41,8 +41,9 @@
 #import "MainV2Controller.h"
 
 #import "CapblMainViewController.h"
+#import "ScriptController.h"
 
-@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate, GADFullScreenContentDelegate>
+@interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate, GADFullScreenContentDelegate, DevilSourceDelegate>
 
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
 @property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
@@ -135,7 +136,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     else {
         // Code for old versions
     }
-}
+} 
 
 
 - (void) preparePushToken:(UIApplication *)application {
@@ -185,6 +186,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [[DevilSdk sharedInstance] addCustomJevil:[JevilWebRtc class]];
     
     [DevilSdk sharedInstance].devilSdkGADelegate = self;
+    [DevilSdk sharedInstance].devilSourceDelegate = self;
     [GADMobileAds.sharedInstance startWithCompletionHandler:nil];
     
     if(launchOptions == nil){
@@ -597,7 +599,15 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 //GOOGLE Ads delegate
 -(UIView*)createBanner:(id)params {
     GADBannerView* bannerView = [[GADBannerView alloc] initWithAdSize:GADAdSizeBanner];
-    bannerView.adUnitID = params[@"adUnitId"];
+    #if DEBUG
+        BOOL isDebug = true;
+    #else
+        BOOL isDebug = false;
+    #endif
+    if(isDebug)
+        bannerView.adUnitID = @"ca-app-pub-3940256099942544/2435281174";
+    else
+        bannerView.adUnitID = params[@"adUnitId"];
     bannerView.rootViewController = [self.navigationController topViewController];
     [bannerView loadRequest:[GADRequest request]];
     return bannerView;
@@ -722,6 +732,12 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }
     [FIRAnalytics logEventWithName:viewName
                         parameters:p];
+}
+    
+- (void)goScriptController:(NSString *)screenId{
+    ScriptController* vc = [[ScriptController alloc] init];
+    vc.screenId = screenId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
     
 @end

@@ -24,6 +24,7 @@
 		6D132BC5255E76F400004E1F /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 6D132BC3255E76F400004E1F /* loading.json */; };
 		6D2BE7CD2DC3CF5300DA0EE8 /* WebRTC.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; };
 		6D2BE7CE2DC3CF5300DA0EE8 /* WebRTC.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		6D3F45C22E95ED2000FD45E5 /* ScriptController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3F45C12E95ED2000FD45E5 /* ScriptController.m */; };
 		6D4678CC2567B1E2006D57DD /* BaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678B62567B1E2006D57DD /* BaseController.m */; };
 		6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BB2567B1E2006D57DD /* LoginController.m */; };
 		6D4678CF2567B1E2006D57DD /* Devil.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D4678BC2567B1E2006D57DD /* Devil.m */; };
@@ -74,6 +75,8 @@
 		6DF50F9C2A5C75E8006160A0 /* CapblWebController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F8D2A5C75E8006160A0 /* CapblWebController.xib */; };
 		6DF50F9D2A5C75E8006160A0 /* CapblSecureViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DF50F8E2A5C75E8006160A0 /* CapblSecureViewController.xib */; };
 		6DF50F9E2A5C75E8006160A0 /* CapblPartialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DF50F902A5C75E8006160A0 /* CapblPartialController.m */; };
+		6DFE3A992E9CD9B3006BC9E3 /* aceeditor in Resources */ = {isa = PBXBuildFile; fileRef = 6DFE3A982E9CD9B3006BC9E3 /* aceeditor */; };
+		6DFE3A9D2E9CEDE3006BC9E3 /* ScriptController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6DFE3A9C2E9CEDE3006BC9E3 /* ScriptController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +118,8 @@
 		6D22CF6125FFB25C00A1CB25 /* devillogin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devillogin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D2AAC212BDF713700C6263A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6D2BE7C22DBF995500DA0EE8 /* WebRTC.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = WebRTC.xcframework; path = "Pods/WebRTC-SDK/WebRTC.xcframework"; sourceTree = "<group>"; };
+		6D3F45C02E95ED2000FD45E5 /* ScriptController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScriptController.h; sourceTree = "<group>"; };
+		6D3F45C12E95ED2000FD45E5 /* ScriptController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScriptController.m; sourceTree = "<group>"; };
 		6D4678B62567B1E2006D57DD /* BaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseController.m; sourceTree = "<group>"; };
 		6D4678B82567B1E2006D57DD /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6D4678BA2567B1E2006D57DD /* SubController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubController.h; sourceTree = "<group>"; };
@@ -191,6 +196,8 @@
 		6DF50F912A5C75E8006160A0 /* CapblSecureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblSecureViewController.h; sourceTree = "<group>"; };
 		6DF50F922A5C75E8006160A0 /* CapblTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblTableController.h; sourceTree = "<group>"; };
 		6DF50F932A5C75E8006160A0 /* CapblMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CapblMainViewController.h; sourceTree = "<group>"; };
+		6DFE3A982E9CD9B3006BC9E3 /* aceeditor */ = {isa = PBXFileReference; lastKnownFileType = folder; name = aceeditor; path = devil/aceeditor; sourceTree = "<group>"; };
+		6DFE3A9C2E9CEDE3006BC9E3 /* ScriptController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScriptController.xib; sourceTree = "<group>"; };
 		B9233B10DC98D373FBA74B47 /* Pods-devil.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.debug.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.debug.xcconfig"; sourceTree = "<group>"; };
 		C7FDC29DE8B13AA37D5EA88F /* Pods-devil.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-devil.release.xcconfig"; path = "Target Support Files/Pods-devil/Pods-devil.release.xcconfig"; sourceTree = "<group>"; };
 		E01066AB5D181B67D34BAF79 /* Pods_devil.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_devil.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -313,6 +320,9 @@
 				6DE2BAEC278AC802008344DE /* MainV2Controller.m */,
 				6DE2BAEE278B2B1F008344DE /* LearningController.h */,
 				6DE2BAEF278B2B1F008344DE /* LearningController.m */,
+				6D3F45C02E95ED2000FD45E5 /* ScriptController.h */,
+				6D3F45C12E95ED2000FD45E5 /* ScriptController.m */,
+				6DFE3A9C2E9CEDE3006BC9E3 /* ScriptController.xib */,
 			);
 			path = vc;
 			sourceTree = "<group>";
@@ -331,6 +341,7 @@
 		6DF137EA20D7469A00071B9F = {
 			isa = PBXGroup;
 			children = (
+				6DFE3A982E9CD9B3006BC9E3 /* aceeditor */,
 				6D2AAC212BDF713700C6263A /* PrivacyInfo.xcprivacy */,
 				6DF50F7E2A5C75E8006160A0 /* capbl */,
 				6DBC7CF9286AF4C90037ED1A /* Podfile.lock */,
@@ -480,6 +491,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DFE3A992E9CD9B3006BC9E3 /* aceeditor in Resources */,
 				6DC6783226E76CDC0005728A /* xbutton@3x.png in Resources */,
 				6DACD01428DD64AA002E7409 /* devilhealth.podspec in Resources */,
 				6D4678E22567D46D006D57DD /* FirstController.xib in Resources */,
@@ -501,6 +513,7 @@
 				6DE2BAF5278B3CBC008344DE /* devil_learning_icon@3x.png in Resources */,
 				6D4678DB2567B24C006D57DD /* Assets.xcassets in Resources */,
 				6D52E6112619988700935D3A /* devil.plist in Resources */,
+				6DFE3A9D2E9CEDE3006BC9E3 /* ScriptController.xib in Resources */,
 				6D62FAFA28DD75F00094426E /* devilnfc.podspec in Resources */,
 				6DF50F9C2A5C75E8006160A0 /* CapblWebController.xib in Resources */,
 				6DF50F972A5C75E8006160A0 /* CapblPartialController.xib in Resources */,
@@ -660,6 +673,7 @@
 				6D4678E12567D46D006D57DD /* FirstController.m in Sources */,
 				6D4678CE2567B1E2006D57DD /* LoginController.m in Sources */,
 				6D132B9F255E6E0F00004E1F /* CustomIOSAlertView.m in Sources */,
+				6D3F45C22E95ED2000FD45E5 /* ScriptController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

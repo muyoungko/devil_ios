@@ -32,11 +32,17 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)showAds:(id)params complete:(void (^)(id res))callback;
 @end
 
+@protocol DevilSourceDelegate<NSObject>
+@optional
+-(void)goScriptController:(NSString*)screenId;
+@end
+
 @interface DevilSdk : NSObject
 
 @property (nonatomic, weak, nullable) id <DevilSdkScreenDelegate> devilSdkScreenDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGoogleAdsDelegate> devilSdkGoogleAdsDelegate;
 @property (nonatomic, weak, nullable) id <DevilSdkGADelegate> devilSdkGADelegate;
+@property (nonatomic, weak, nullable) id <DevilSourceDelegate> devilSourceDelegate;
 @property BOOL autoChangeOrientation;
 @property (nonatomic, retain) NSMutableDictionary* registeredClass;
 @property UIInterfaceOrientationMask currentOrientation;

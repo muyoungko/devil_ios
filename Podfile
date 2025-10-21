@@ -25,7 +25,7 @@ def google_signin
 end
 
 def lottie_libs
-  pod 'lottie-ios'
+  pod 'Lottie'
 end
 
 target 'devil' do
