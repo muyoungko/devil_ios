@@ -618,6 +618,13 @@
             [WildCardConstructor userInteractionEnableToParentPath:repeatRule.createdContainer depth:10];
             thisNode.userInteractionEnabled = YES;
             [WildCardConstructor applyRule:thisNode withData:targetDataJson[i]];
+            
+            
+        }
+        
+        for (int a=(i-1); a >= 0; a--) {
+            UIView *child = ((CreatedViewInfo*)repeatRule.createdRepeatView[a]).view;
+            [[child superview] bringSubviewToFront:child];
         }
         
         for (; i < [repeatRule.createdRepeatView count]; i++) {
