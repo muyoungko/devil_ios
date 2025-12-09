@@ -18,8 +18,10 @@
 @property (nonatomic, strong) AVAudioInputNode* inputNode;
 @property (nonatomic, strong) AVAudioPlayer* beepPlayer;
 @property (nonatomic, strong) NSString* text;
+@property NSTimeInterval lastSpeechTime;
 @property BOOL ing;
 @property BOOL streaming;
+@property int index;
 @end
 
 @implementation DevilSpeech
@@ -29,6 +31,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
+        sharedInstance.index = 0;
     });
     return sharedInstance;
 }
@@ -72,6 +75,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self performSelector:@selector(listenCore:) withObject:param afterDelay:0.5f];
             });
+        } else {
+            NSLog(@"Speech Recognition Authorization Status: %ld", (long)status);
         }
     }];
 }
@@ -83,6 +88,12 @@
     self.speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[[NSLocale alloc] initWithLocaleIdentifier:locale] ];
     self.speechRecognizer.delegate = self;
     
+    if (!self.speechRecognizer.isAvailable) {
+        NSLog(@"SFSpeechRecognizer is not available right now. Check network connection or device support.");
+        // 사용자에게 알리거나 재시도를 요청하는 로직 추가
+        return;
+    }
+    
     if(self.recognitionTask != nil) {
         [self.recognitionTask cancel];
         self.recognitionTask = nil;
@@ -91,28 +102,62 @@
         self.inputNode = nil;
     
     AVAudioSession* session = [AVAudioSession sharedInstance];
-    [session setCategory:AVAudioSessionCategoryRecord error:nil];
-    [session setMode:AVAudioSessionModeMeasurement error:nil];
-    [session setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+    NSError *categoryError = nil;
+    [session setCategory:AVAudioSessionCategoryRecord
+             mode:AVAudioSessionModeMeasurement
+          options:AVAudioSessionCategoryOptionAllowBluetooth | AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers
+            error:&categoryError];
+
+    if (categoryError) {
+        NSLog(@"AVAudioSession setCategory error: %@", categoryError.localizedDescription);
+        // 여기서 콜백을 통해 에러를 알리는 로직을 추가할 수 있습니다.
+        return;
+    }
+
+    NSError *activationError = nil;
+    BOOL success = [session setActive:YES withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:&activationError];
+
+    if (!success || activationError) {
+        NSLog(@"AVAudioSession setActive error: %@", activationError.localizedDescription);
+        return;
+    }
     
     self.recognitionRequest = [[SFSpeechAudioBufferRecognitionRequest alloc] init];
     self.inputNode = self.audioEngine.inputNode;
+    AVAudioFormat *recordingFormat = [self.inputNode outputFormatForBus:0];
+    NSLog(@"Audio Input Format Sample Rate: %f, Channels: %lu",
+          recordingFormat.sampleRate, (unsigned long)recordingFormat.channelCount);
     
     self.recognitionRequest.shouldReportPartialResults = YES;
     
     self.recognitionTask = [self.speechRecognizer recognitionTaskWithRequest:self.recognitionRequest delegate:self];
+    NSLog(@"Task created pointer: %@", self.recognitionTask); // Task 객체가 nil이 아닌지 확인
     
     [self.inputNode installTapOnBus:0 bufferSize:1024 format:[self.inputNode outputFormatForBus:0] block:^(AVAudioPCMBuffer * _Nonnull buffer, AVAudioTime * _Nonnull when) {
         [self.recognitionRequest appendAudioPCMBuffer:buffer];
     }];
     
     [self.audioEngine prepare];
-    [self.audioEngine startAndReturnError:nil];
+    NSError* error;
+    [self.audioEngine startAndReturnError:&error];
+    if(error) {
+        NSLog(@"%@", error);
+    }
      
+    
     self.text = @"";
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self performSelector:@selector(finish) withObject:nil afterDelay:4];
+        [self performSelector:@selector(stopReserve) withObject:nil afterDelay:3];
     });
+}
+
+- (void)stopReserve {
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    if((now - self.lastSpeechTime) >= 3.0f)
+        [self finish];
+    else if(self.ing) {
+        [self performSelector:@selector(stopReserve) withObject:nil afterDelay:3];
+    }
 }
 
 - (void) finish {
@@ -160,6 +205,10 @@
     
 }
 
+- (void)speechRecognitionTask:(SFSpeechRecognitionTask *)task didStartSubmittingAudio:(SFSpeechRecognitionRequest *)request {
+    NSLog(@"🟢 Audio Submission Started. Waiting for transcription...");
+}
+
 - (void)speechRecognitionTaskWasCancelled:(SFSpeechRecognitionTask *)task{
     NSLog(@"speechRecognitionTaskWasCancelled");
 }
@@ -181,8 +230,27 @@
 
 }
 
+- (void)speechRecognitionTask:(SFSpeechRecognitionTask *)task didFinishWithError:(NSError *)error {
+    NSLog(@"didFinishWithError: %@", error);
+    
+    // 에러 발생 시 처리 (네트워크 문제, 권한 문제, 서버 응답 없음 등)
+    if (error) {
+        // 에러를 콜백으로 전달하거나, 사용자에게 알리는 로직 추가
+        if (self.callback != nil) {
+            self.callback(@{
+                @"r":@FALSE,
+                @"error":error.localizedDescription,
+                @"end":@TRUE,
+            });
+        }
+    }
+    
+    [self stop]; // 에러 발생 시 정리
+}
+
 - (void)speechRecognitionTask:(SFSpeechRecognitionTask *)task didHypothesizeTranscription:(SFTranscription *)transcription{
     NSLog(@"didHypothesizeTranscription");
+    self.lastSpeechTime = [[NSDate date] timeIntervalSince1970];
     self.text = [transcription formattedString];
     NSLog(@"%@", self.text);
     if(self.streaming && self.callback) {

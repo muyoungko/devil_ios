@@ -66,7 +66,10 @@
             });
             
         } else {
-            callback(nil);
+            callback([@{
+                @"r": @FALSE,
+                @"msg": @"No Authority"
+            } mutableCopy]);
         }
     }];
     

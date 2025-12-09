@@ -298,10 +298,15 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                                                     
         NSLog(@"%@", dynamicLink.url);
         
-        [[DeepLink sharedInstance] reserveDeepLink:dynamicLink.url.absoluteString];
+        [[DevilLink sharedInstance] setReserveUrl:[dynamicLink.url absoluteString]];
         [[DeepLink sharedInstance] consumeDeepLink];
         
-                                                                }];
+        if([self.navigationController.topViewController isKindOfClass:[DevilController class]]){
+            DevilController* vc = (DevilController*)self.navigationController.topViewController;
+            [vc onResume];
+        }
+    }];
+            
     return handled;
 }
     
