@@ -650,6 +650,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                 callback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
             } else {
                 self.rewardedAd = rewardedInterstitialAd;
+                self.rewardedAd.fullScreenContentDelegate = self;
                 id r = [@{@"r":@TRUE,} mutableCopy];
                 r[@"type"] = self.rewardedAd.adReward.type;
                 r[@"reward"] = self.rewardedAd.adReward.amount;
@@ -663,7 +664,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     if(self.interstitial) {
         self.adsCallback = callback;
         [self.interstitial presentFromRootViewController:[JevilInstance currentInstance].vc];
-        self.interstitial = nil;
     } else if(self.rewardedAd) {
         [self.rewardedAd presentFromRootViewController:[JevilInstance currentInstance].vc
                                       userDidEarnRewardHandler:^{
@@ -673,7 +673,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                         r[@"reward"] = self.rewardedAd.adReward.amount;
                                         callback(r);
                                     }];
-        self.rewardedAd = nil;
     } else {
         id r = [@{@"r":@FALSE,} mutableCopy];
         callback(r);
@@ -691,6 +690,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     if(self.adsCallback) {
         self.adsCallback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
         self.adsCallback = nil;
+        self.rewardedAd = nil;
+        self.interstitial = nil;
     }
 }
 
@@ -704,6 +705,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     if(self.adsCallback) {
         self.adsCallback([@{@"r":@TRUE} mutableCopy]);
         self.adsCallback = nil;
+        self.rewardedAd = nil;
+        self.interstitial = nil;
     }
 }
 
