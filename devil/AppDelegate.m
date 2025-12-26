@@ -48,7 +48,7 @@
 @property (nonatomic, retain) DevilGoogleLogin* devilGoogleLogin;
 @property (nonatomic, retain) DevilNaverLoginCallback* devilNaverLoginCallback;
 @property(nonatomic, strong) GADInterstitialAd *interstitial;
-@property (nonatomic, retain) GADRewardedAd* rewardedAd;
+@property (nonatomic, retain) GADRewardedInterstitialAd* rewardedAd;
 @property void (^adsCallback)(id res);
 
 @end
@@ -636,20 +636,17 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             }
           }];
     } else {
-        [GADRewardedAd
-             loadWithAdUnitID:adUnitId
-                      request:request
-            completionHandler:^(GADRewardedAd *ad, NSError *error) {
-              if (error) {
-                  callback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
-              } else {
-                  self.rewardedAd = ad;
-                  id r = [@{@"r":@TRUE,} mutableCopy];
-                  r[@"type"] = self.rewardedAd.adReward.type;
-                  r[@"reward"] = self.rewardedAd.adReward.amount;
-                  callback(r);
-              }
-            }];
+        [GADRewardedInterstitialAd loadWithAdUnitID:adUnitId request:request completionHandler:^(GADRewardedInterstitialAd * _Nullable rewardedInterstitialAd, NSError * _Nullable error) {
+            if (error) {
+                callback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
+            } else {
+                self.rewardedAd = rewardedInterstitialAd;
+                id r = [@{@"r":@TRUE,} mutableCopy];
+                r[@"type"] = self.rewardedAd.adReward.type;
+                r[@"reward"] = self.rewardedAd.adReward.amount;
+                callback(r);
+            }
+        }];
     }
 }
 
@@ -657,10 +654,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     if(self.interstitial) {
         self.adsCallback = callback;
         [self.interstitial presentFromRootViewController:[JevilInstance currentInstance].vc];
+        self.interstitial = nil;
     } else if(self.rewardedAd) {
         [self.rewardedAd presentFromRootViewController:[JevilInstance currentInstance].vc
                                       userDidEarnRewardHandler:^{
-                                        GADAdReward *reward = self.rewardedAd.adReward;
+                                        GADRewardedInterstitialAd *reward = self.rewardedAd.adReward;
                                         id r = [@{@"r":@TRUE,} mutableCopy];
                                         r[@"type"] = self.rewardedAd.adReward.type;
                                         r[@"reward"] = self.rewardedAd.adReward.amount;
