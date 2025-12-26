@@ -622,7 +622,14 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     NSString* adUnitId = params[@"adUnitId"];
     NSString* type = params[@"type"];
     GADRequest *request = [GADRequest request];
+    #if DEBUG
+        BOOL isDebug = true;
+    #else
+        BOOL isDebug = false;
+    #endif
     if([@"interstitial" isEqualToString:type]) {
+        if(isDebug)
+            adUnitId = @"ca-app-pub-3940256099942544/4411468910";
         [GADInterstitialAd loadWithAdUnitID:adUnitId
                                       request:request
                             completionHandler:^(GADInterstitialAd *ad, NSError *error) {
@@ -636,6 +643,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
             }
           }];
     } else {
+        if(isDebug)
+            adUnitId = @"ca-app-pub-3940256099942544/6978759866";
         [GADRewardedInterstitialAd loadWithAdUnitID:adUnitId request:request completionHandler:^(GADRewardedInterstitialAd * _Nullable rewardedInterstitialAd, NSError * _Nullable error) {
             if (error) {
                 callback([@{@"r":@FALSE, @"msg":[error localizedDescription]} mutableCopy]);
