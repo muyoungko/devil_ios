@@ -673,6 +673,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                         r[@"reward"] = self.rewardedAd.adReward.amount;
                                         callback(r);
                                     }];
+        self.rewardedAd = nil;
     } else {
         id r = [@{@"r":@FALSE,} mutableCopy];
         callback(r);
