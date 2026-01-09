@@ -9,6 +9,7 @@
 #import "MappingSyntaxInterpreter.h"
 #import "WildCardUtil.h"
 #import "WildCardConstructor.h"
+#import "DevilUtil.h"
 
 @import Charts;
 
@@ -19,6 +20,11 @@
 @property (nonatomic, retain) BarLineChartViewBase* chart;
 @property (nonatomic, retain) PieChartView* pie_chart;
 @property (nonatomic, retain) NSMutableArray* list;
+
+@property BOOL showLegend;
+@property BOOL showPercent;
+@property (nonatomic, retain) UIColor *textColorOnGraph;
+@property (nonatomic, retain) NSString *legendLocation;
 
 @end
 
@@ -39,10 +45,15 @@
         [self createBarChart];
     } else if([@"pie" isEqualToString:self.type]) {
         self.pie_chart = [[PieChartView alloc] init];
+        self.showLegend = [@"Y" isEqualToString:self.marketJson[@"select4"]];
+        self.showPercent = [@"Y" isEqualToString:self.marketJson[@"select7"]];
+        NSString* regendLocationString = self.marketJson[@"select5"];
+        if(self.marketJson[@"select6"])
+            self.textColorOnGraph = [WildCardUtil colorWithHexString:(self.marketJson[@"select6"])];
+        else
+            self.textColorOnGraph = [UIColor blackColor];
         [self createPieChart];
     }
-    
-    
 }
 
 - (void) createPieChart {
@@ -51,12 +62,12 @@
     
     PieChartView* chartView = self.pie_chart;
     
-    chartView.usePercentValuesEnabled = YES;
+    chartView.usePercentValuesEnabled = self.showPercent;
     chartView.drawSlicesUnderHoleEnabled = NO;
     chartView.holeRadiusPercent = 0.58;
-    chartView.transparentCircleRadiusPercent = 0.61;
+    chartView.transparentCircleRadiusPercent = 0.58;
     chartView.chartDescription.enabled = NO;
-    [chartView setExtraOffsetsWithLeft:5.f top:10.f right:5.f bottom:5.f];
+    [chartView setExtraOffsetsWithLeft:0 top:0 right:0 bottom:0];
     
     chartView.drawCenterTextEnabled = YES;
     
@@ -71,6 +82,7 @@
     chartView.highlightPerTapEnabled = YES;
     
     ChartLegend *l = chartView.legend;
+    l.enabled = self.showLegend;
     l.horizontalAlignment = ChartLegendHorizontalAlignmentRight;
     l.verticalAlignment = ChartLegendVerticalAlignmentTop;
     l.orientation = ChartLegendOrientationVertical;
@@ -79,10 +91,6 @@
     l.yEntrySpace = 0.0;
     l.yOffset = 0.0;
     chartView.delegate = self;
-    
-    // entry label styling
-    chartView.entryLabelColor = UIColor.blackColor;
-    chartView.entryLabelFont = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.f];
     
     //    _sliderX.value = 4.0;
     //    _sliderY.value = 100.0;
@@ -177,12 +185,15 @@
         id m = keys[i];
         NSString* key = m[@"key"];
         NSString* legend = m[@"legend"];
+        
+        if([WildCardConstructor sharedInstance].textTransDelegate != nil )
+            legend = [[WildCardConstructor sharedInstance].textTransDelegate translateLanguage:legend : nil];
+        
         NSString* color = m[@"color"];
         if(!color)
             color = DEFAULT_COLOR_LIST[i % [DEFAULT_COLOR_LIST count]];
         [colors addObject:[WildCardUtil colorWithHexString:color]];
         double value = [values[key] floatValue];
-        
         [entiries addObject:[[PieChartDataEntry alloc] initWithValue:value label:legend]];
     }
     
@@ -197,14 +208,9 @@
     
     PieChartData *data = [[PieChartData alloc] initWithDataSet:dataSet];
     
-    NSNumberFormatter *pFormatter = [[NSNumberFormatter alloc] init];
-    pFormatter.numberStyle = NSNumberFormatterPercentStyle;
-    pFormatter.maximumFractionDigits = 1;
-    pFormatter.multiplier = @1.f;
-    pFormatter.percentSymbol = @" %";
-    [data setValueFormatter:[[ChartDefaultValueFormatter alloc] initWithFormatter:pFormatter]];
-    [data setValueFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:11.f]];
-    [data setValueTextColor:UIColor.blackColor];
+    [data setValueFormatter:self];
+    [data setValueFont:[UIFont systemFontOfSize:14]];
+    [data setValueTextColor:self.textColorOnGraph];
     
     self.pie_chart.data = data;
     [self.pie_chart highlightValues:nil];
@@ -340,6 +346,12 @@
 }
 
 -(NSString*)stringForValue:(double)value entry:(ChartDataEntry *)entry dataSetIndex:(NSInteger)dataSetIndex viewPortHandler:(ChartViewPortHandler *)viewPortHandler {
+    if([@"pie" isEqualToString:self.type]) {
+        if(self.showPercent)
+            return [NSString stringWithFormat:@"%.0f%%", value];
+        else
+            return [NSString stringWithFormat:@"%.0f", value];
+    }
     return @"";
 }
 
