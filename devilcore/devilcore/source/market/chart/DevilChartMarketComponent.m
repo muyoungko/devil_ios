@@ -10,6 +10,7 @@
 #import "WildCardUtil.h"
 #import "WildCardConstructor.h"
 #import "DevilUtil.h"
+#import "JevilCtx.h"
 
 @import Charts;
 
@@ -25,6 +26,7 @@
 @property BOOL showPercent;
 @property (nonatomic, retain) UIColor *textColorOnGraph;
 @property (nonatomic, retain) NSString *legendLocation;
+@property (nonatomic, retain) NSString *clickScript;
 
 @end
 
@@ -47,6 +49,7 @@
         self.pie_chart = [[PieChartView alloc] init];
         self.showLegend = [@"Y" isEqualToString:self.marketJson[@"select4"]];
         self.showPercent = [@"Y" isEqualToString:self.marketJson[@"select7"]];
+        self.clickScript = self.marketJson[@"select8"];
         NSString* regendLocationString = self.marketJson[@"select5"];
         if(self.marketJson[@"select6"])
             self.textColorOnGraph = [WildCardUtil colorWithHexString:(self.marketJson[@"select6"])];
@@ -67,7 +70,7 @@
     chartView.holeRadiusPercent = 0.58;
     chartView.transparentCircleRadiusPercent = 0.58;
     chartView.chartDescription.enabled = NO;
-    [chartView setExtraOffsetsWithLeft:0 top:0 right:0 bottom:0];
+    [chartView setExtraOffsetsWithLeft:5 top:5 right:5 bottom:5];
     
     chartView.drawCenterTextEnabled = YES;
     
@@ -194,11 +197,14 @@
             color = DEFAULT_COLOR_LIST[i % [DEFAULT_COLOR_LIST count]];
         [colors addObject:[WildCardUtil colorWithHexString:color]];
         double value = [values[key] floatValue];
-        [entiries addObject:[[PieChartDataEntry alloc] initWithValue:value label:legend]];
+        PieChartDataEntry* entry = [[PieChartDataEntry alloc] initWithValue:value label:legend];
+        entry.data = key;
+        [entiries addObject:entry];
     }
     
     PieChartDataSet *dataSet = [[PieChartDataSet alloc] initWithEntries:entiries label:@""];
     
+    dataSet.selectionShift = 5;
     dataSet.drawIconsEnabled = NO;
     
     dataSet.sliceSpace = 2.0;
@@ -214,6 +220,9 @@
     
     self.pie_chart.data = data;
     [self.pie_chart highlightValues:nil];
+    
+    if(self.clickScript)
+        [WildCardConstructor userInteractionEnableToParentPath:self.pie_chart depth:5];
 }
 
 - (void)updateBarChart:(id)opt {
@@ -364,6 +373,16 @@
             return [NSString stringWithFormat:@"%d", index];
     } else
         return @"";
+}
+
+- (void)chartValueSelected:(ChartViewBase *)chartView entry:(ChartDataEntry *)entry highlight:(ChartHighlight *)highlight {
+    id data = entry.data;
+    if(self.clickScript) {
+        NSString* fullScript = [NSString stringWithFormat:@"var chartKey = '%@'; %@", data, self.clickScript];
+        WildCardTrigger* trigger = [[WildCardTrigger alloc] init];
+        trigger.node = self.vv;
+        [WildCardAction execute:trigger script:fullScript meta:self.meta];
+    }
 }
 
 @end
