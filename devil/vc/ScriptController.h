@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ScriptController : DevilBaseController
 
 @property (nonatomic, retain) NSString* screenId;
-@property (weak, nonatomic) IBOutlet WKWebView *webview;
+@property (nonatomic, retain) WKWebView *webview;
 
 @end
 

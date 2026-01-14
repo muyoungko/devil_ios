@@ -43,6 +43,7 @@
 		6D467B69257A2E18006D57DD /* refresh@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6D467B68257A2E17006D57DD /* refresh@3x.png */; };
 		6D52E6112619988700935D3A /* devil.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6D52E6102619988700935D3A /* devil.plist */; };
 		6D62FAFA28DD75F00094426E /* devilnfc.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 6D62FAF928DD75F00094426E /* devilnfc.podspec */; };
+		6D6BAD7B2F17367C00639D9E /* ScriptViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D6BAD7A2F17367C00639D9E /* ScriptViewer.m */; };
 		6D6D31042869CC3500E6466A /* devillogin.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6D22CF6125FFB25C00A1CB25 /* devillogin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6D7F7A9628D40BD100F67029 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7F7A9528D40BD100F67029 /* SceneDelegate.m */; };
 		6D86290B287E50BA00E62B7B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D86290A287E50BA00E62B7B /* StoreKit.framework */; };
@@ -150,6 +151,8 @@
 		6D52E6102619988700935D3A /* devil.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = devil.plist; sourceTree = "<group>"; };
 		6D62FAF928DD75F00094426E /* devilnfc.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = devilnfc.podspec; sourceTree = "<group>"; };
 		6D62FB0828DD7A0B0094426E /* devilnfc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = devilnfc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D6BAD792F17367C00639D9E /* ScriptViewer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScriptViewer.h; sourceTree = "<group>"; };
+		6D6BAD7A2F17367C00639D9E /* ScriptViewer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScriptViewer.m; sourceTree = "<group>"; };
 		6D7F7A9428D40BD100F67029 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		6D7F7A9528D40BD100F67029 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		6D86290A287E50BA00E62B7B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -274,6 +277,7 @@
 		6D4678B52567B1E2006D57DD /* devil */ = {
 			isa = PBXGroup;
 			children = (
+				6D6BAD782F17365D00639D9E /* script */,
 				6D46791A25680570006D57DD /* devil.entitlements */,
 				6D4678DD2567B257006D57DD /* vc */,
 				6D4678DA2567B24C006D57DD /* Assets.xcassets */,
@@ -336,6 +340,15 @@
 				6D46791D25699107006D57DD /* back_black@3x.png */,
 			);
 			path = image;
+			sourceTree = "<group>";
+		};
+		6D6BAD782F17365D00639D9E /* script */ = {
+			isa = PBXGroup;
+			children = (
+				6D6BAD792F17367C00639D9E /* ScriptViewer.h */,
+				6D6BAD7A2F17367C00639D9E /* ScriptViewer.m */,
+			);
+			path = script;
 			sourceTree = "<group>";
 		};
 		6DF137EA20D7469A00071B9F = {
@@ -651,6 +664,7 @@
 				6D4678CF2567B1E2006D57DD /* Devil.m in Sources */,
 				6D4679182567DDE3006D57DD /* WebController.m in Sources */,
 				6DE2BAF8278B4B0F008344DE /* JevilLearning.m in Sources */,
+				6D6BAD7B2F17367C00639D9E /* ScriptViewer.m in Sources */,
 				6D467A35256AAE12006D57DD /* Void.swift in Sources */,
 				6DD47A9E26AE946600F4B3E4 /* MyDevilController.m in Sources */,
 				6DDAC3B9260C89F400E76300 /* Test.swift in Sources */,
@@ -795,7 +809,7 @@
 				CODE_SIGN_ENTITLEMENTS = devil/devil.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 310;
+				CURRENT_PROJECT_VERSION = 312;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -818,7 +832,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.310;
+				MARKETING_VERSION = 0.0.312;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -845,7 +859,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Mondayless Inc. (3675B8UJSV)";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 310;
+				CURRENT_PROJECT_VERSION = 312;
 				DEVELOPMENT_TEAM = 3675B8UJSV;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 3675B8UJSV;
 				EXCLUDED_ARCHS = "";
@@ -867,7 +881,7 @@
 					"$(PROJECT_DIR)/naver/thirdPartyModule",
 					"$(PROJECT_DIR)/capbl",
 				);
-				MARKETING_VERSION = 0.0.310;
+				MARKETING_VERSION = 0.0.312;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = kr.co.july.CloudJsonViewer;
 				PRODUCT_NAME = "$(TARGET_NAME)";

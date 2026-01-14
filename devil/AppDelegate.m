@@ -42,6 +42,7 @@
 
 #import "CapblMainViewController.h"
 #import "ScriptController.h"
+#import "ScriptViewer.h"
 
 @interface AppDelegate ()<DevilGoogleLoginDelegate, DevilLinkDelegate, DevilSdkScreenDelegate, DevilSdkGoogleAdsDelegate, DevilSdkGADelegate, GADFullScreenContentDelegate, DevilSourceDelegate>
 
@@ -473,7 +474,21 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension
 {
+    NSString* select3 = extension[@"select3"];
+    if([@"script" isEqualToString:select3]) {
+        return [[ScriptViewer alloc] init];
+    }
     return nil;
+}
+    
+-(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data
+{
+    NSString* select3 = extension[@"select3"];
+    if([@"script" isEqualToString:select3]) {
+        ScriptViewer* sv = [view subviews][0];
+        NSString* script = [data[@"script"] toString];
+        [sv updateView:script];
+    }
 }
 
 - (void)onMultiPartPost:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath progress:(void (^)(long sentByte, long totalByte))progress_callback complete:(void (^)(id res))callback {
@@ -498,9 +513,6 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     }];
 }
     
--(void)onCustomExtensionUpdate:(UIView*)view meta:(WildCardMeta *)meta extensionLayer:(NSDictionary*)extension data:(NSMutableDictionary*) data
-{
-}
 
 -(void)onCustomAction:(WildCardMeta *)meta function:(NSString*)functionName args:(NSArray*)args view:(WildCardUIView*) node
 {

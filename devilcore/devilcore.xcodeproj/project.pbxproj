@@ -332,7 +332,7 @@
 		6DFB74A12824255A00A64539 /* ReplaceRulePullToRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFB749F2824255A00A64539 /* ReplaceRulePullToRefresh.m */; };
 		6DFC0C9F2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFC0C9D2ACD68E900F26849 /* DevilGoogleMapMarketComponent.h */; };
 		6DFC0CA02ACD68E900F26849 /* DevilGoogleMapMarketComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFC0C9E2ACD68E900F26849 /* DevilGoogleMapMarketComponent.m */; };
-		6DFE77122D2AA82D00166B43 /* DevilLoadingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFE77102D2AA82D00166B43 /* DevilLoadingManager.h */; };
+		6DFE77122D2AA82D00166B43 /* DevilLoadingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFE77102D2AA82D00166B43 /* DevilLoadingManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DFE77132D2AA82D00166B43 /* DevilLoadingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFE77112D2AA82D00166B43 /* DevilLoadingManager.m */; };
 		6DFF30AF2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = 6DFF30AD2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.h */; };
 		6DFF30B02CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DFF30AE2CF2C35D009E2F32 /* WildCardUILongClickGestureRecognizer.m */; };
@@ -1410,6 +1410,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DFE77122D2AA82D00166B43 /* DevilLoadingManager.h in Headers */,
 				6DF458FB2A82827300E20636 /* DevilVideoPlayerController.h in Headers */,
 				6DD097DD26A1AE29000A913A /* JevilFunctionUtil.h in Headers */,
 				6D7F7A9928D6F1F100F67029 /* DevilPhotoController.h in Headers */,
@@ -1502,7 +1503,6 @@
 				6DD09447269C8054000A913A /* ReplaceRuleMarket.h in Headers */,
 				6DD0987326A69987000A913A /* ReplaceRuleQrcode.h in Headers */,
 				6DDE203529222AEC00AD7F3C /* JevilAnimation.h in Headers */,
-				6DFE77122D2AA82D00166B43 /* DevilLoadingManager.h in Headers */,
 				6DC0CE3628E5DDFB00195F60 /* JevilHealthBlank.h in Headers */,
 				6D467A89256AB07A006D57DD /* WildCardIndicatorView.h in Headers */,
 				6D467A9A256AB07A006D57DD /* ReplaceRuleRepeat.h in Headers */,
@@ -1669,9 +1669,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

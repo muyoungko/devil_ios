@@ -1305,6 +1305,9 @@
 		6C9290006FB103B2FABA1C8E70180CB8 /* BehaviorsConfigurableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466FC873EE0BB234EA7AA2972F1AB0C6 /* BehaviorsConfigurableView.swift */; };
 		6CD4E7CF65B1498454D36A48BA0367B8 /* FIRCLSNetworkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC7D1DAB0AFA8A4F98EA7694B9171D /* FIRCLSNetworkOperation.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6CF3AD527BDC0FCFEE09CA354D1ACED2 /* MQTTCoreDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = E088777B142E7044070382CC30832F89 /* MQTTCoreDataPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D6BAD712F132D8400639D9E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6D6BAD702F132D8400639D9E /* PrivacyInfo.xcprivacy */; };
+		6D6BAD722F132D8400639D9E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6D6BAD702F132D8400639D9E /* PrivacyInfo.xcprivacy */; };
+		6D6BAD732F132D8400639D9E /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6D6BAD702F132D8400639D9E /* PrivacyInfo.xcprivacy */; };
 		6D732348C5E861260C439EDFD1A98FAA /* SwiftAlgorithms-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8E8B247BECC245FEB2C62A6597B0D234 /* SwiftAlgorithms-dummy.m */; };
 		6D7A00F18CF61C6595B55A21F267D1BE /* AWSMTLManagedObjectAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D26BD11DB5D394E53D22C04670A2C37 /* AWSMTLManagedObjectAdapter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		6D878FE6964089A7F47EB406F566ECC0 /* ScatterChartDataSetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61FB31C5D871DE1D588DA11399272F51 /* ScatterChartDataSetProtocol.swift */; };
@@ -5261,6 +5264,7 @@
 		6D1A016EBEC6B0EE45C28F0A754E00E3 /* EitherSequence.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EitherSequence.swift; path = Sources/Algorithms/EitherSequence.swift; sourceTree = "<group>"; };
 		6D498C3C75552F7347803CA9659F1230 /* ZXRSSExpandedRow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZXRSSExpandedRow.m; path = ZXingObjC/oned/rss/expanded/ZXRSSExpandedRow.m; sourceTree = "<group>"; };
 		6D5C551E09D4C3CFEB4EC22123D73286 /* FIRUserInfo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FIRUserInfo.h; path = FirebaseAuth/Sources/Public/FirebaseAuth/FIRUserInfo.h; sourceTree = "<group>"; };
+		6D6BAD702F132D8400639D9E /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6D729B11F989D1D369B630DD6CCDF6ED /* WidgetMessageProtocol.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WidgetMessageProtocol.swift; path = TossPayments/Sources/UIKit/Message/WidgetMessageProtocol.swift; sourceTree = "<group>"; };
 		6D9E5E01E25D435D05D51FFC155043F7 /* ZXWifiParsedResult.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZXWifiParsedResult.h; path = ZXingObjC/client/result/ZXWifiParsedResult.h; sourceTree = "<group>"; };
 		6DA473D7E9AF404736A783E97FC7BA36 /* LRUAnimationCache.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = LRUAnimationCache.swift; path = Sources/Public/AnimationCache/LRUAnimationCache.swift; sourceTree = "<group>"; };
@@ -10605,6 +10609,7 @@
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
+				6D6BAD702F132D8400639D9E /* PrivacyInfo.xcprivacy */,
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
 				3F7CACA6941E96249A73BFFF74E852CC /* Pods */,
@@ -15499,6 +15504,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D6BAD732F132D8400639D9E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -15848,6 +15854,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D6BAD712F132D8400639D9E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -15891,6 +15898,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D6BAD722F132D8400639D9E /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

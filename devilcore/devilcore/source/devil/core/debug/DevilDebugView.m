@@ -177,6 +177,8 @@
                     [self reload];
                 } else if([res isEqualToString:@"Debug View"]) {
                     DevilDebugController*vc = [[DevilDebugController alloc] init];
+                    DevilController* dc = ((DevilController*)self.vc.navigationController.topViewController);
+                    vc.screenId = dc.screenId;
                     [self.vc.navigationController pushViewController:vc animated:YES];
                 } else {
                     int index = [res intValue];
@@ -188,6 +190,8 @@
             self.vc.devilSelectDialog = d;
         } else {
             DevilDebugController*vc = [[DevilDebugController alloc] init];
+            DevilController* dc = ((DevilController*)self.vc.navigationController.topViewController);
+            vc.screenId = dc.screenId;
             [self.vc.navigationController pushViewController:vc animated:YES];
         }
     }
