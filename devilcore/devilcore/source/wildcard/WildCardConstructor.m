@@ -904,13 +904,17 @@ static BOOL IS_TABLET = NO;
                 {
                     float c = [WildCardConstructor convertSketchToPixel:[layer[@"borderRoundCorner"] intValue]];
                     float h = [layer[@"frame"][@"h"] floatValue];
-                    //2019.12.25 vv.wrap_height 일 경우 원으로 만들어야할 경우가 있다고?? 일단 기억이 안나서 vv.wrap_height를 추가한다.
-                    if(c < h/2 || vv.wrap_height)
+                    id clist = layer[@"borderRoundCorners"];
+                    BOOL clistAllSame = NO;
+                    if(clist)
+                        clistAllSame = clist[0] == clist[1] && clist[1] == clist[2] && clist[2] == clist[3];
+                    
+                    //부분 굴곡
+                    if(c < h/2 || vv.wrap_height || (clist && !clistAllSame))
                     {
                         vv.layer.cornerRadius = c;
-                        if(layer[@"borderRoundCorners"]){
+                        if(clist){
                             if(@available(iOS 11.0, *)){
-                                id clist = layer[@"borderRoundCorners"];
                                 vv.layer.maskedCorners = 0;
                                 if([clist[0] intValue] > 0)
                                     vv.layer.maskedCorners |= kCALayerMinXMinYCorner;

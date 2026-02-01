@@ -589,6 +589,20 @@
         return r;
     }];
     
+    // NSMutableArray* path = [_layoutPath mutableCopy];
+    // for(int i=0; i<[path count]; i++) {
+        
+    //     WildCardLayoutPathUnit* u = path[i];
+    //     if(u.type == WC_LAYOUT_TYPE_GRAVITY_CENTER ||
+    //        u.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER ||
+    //         u.type == WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER) {
+            
+    //         // u.optionalViewName과 관련있는 WC_LAYOUT_TYPE_NEXT_VIEW를 모두 이 뒤로 옮긴다
+    //     }
+    // }
+    // _layoutPath = path;
+    
+    
 //    if([_layoutPath count] > 2)
 //        NSLog(@"%@", _layoutPath);
 }
@@ -598,10 +612,14 @@
         return 5;
     else if(a.type == WC_LAYOUT_TYPE_FOLLOW_PARENT_WIDTH || a.type == WC_LAYOUT_TYPE_FOLLOW_PARENT_HEIGHT)
         return -100000;
+    
+//    else if(a.type == WC_LAYOUT_TYPE_GRAVITY_CENTER || a.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER || a.type == WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER)
+//        return -1000;
     else if(a.type == WC_LAYOUT_TYPE_GRAVITY_CENTER || a.type == WC_LAYOUT_TYPE_GRAVITY_VERTICAL_NOT_CENTER)
         return -1000;
     else if(a.type == WC_LAYOUT_TYPE_GRAVITY_HORIZONTAL_NOT_CENTER)
         return 4;
+    
     else if(a.type == WC_LAYOUT_TYPE_MATCH_PARENT)
         return 2;
     else if(a.type == WC_LAYOUT_TYPE_NEXT_VIEW)

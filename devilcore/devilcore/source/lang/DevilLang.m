@@ -159,7 +159,7 @@ NSRegularExpression *regex;
         id value = [DevilLang sharedInstance].sentWait[key];
         id a = [@{
             @"key":key,
-            @"project_id":[NSNumber numberWithInt:[value[@"project_id"] intValue]],
+            @"project_id":[value[@"project_id"] stringValue],
             @"screen_id":[NSNumber numberWithInt:[value[@"screen_id"] intValue]],
         } mutableCopy];
         
