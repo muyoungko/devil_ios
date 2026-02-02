@@ -1304,6 +1304,15 @@ static BOOL IS_TABLET = NO;
     NSString* arrayContentTargetNodeSurfix = nil;
     NSString* arrayContentTargetNodePrefix = nil;
     NSString* arrayContentTargetNodeSelected = nil;
+    NSString* targetNode4 = nil;
+    NSString* targetNode5 = nil;
+    NSString* targetNode6 = nil;
+    NSString* targetNode7 = nil;
+    NSString* targetNode8 = nil;
+    NSString* targetNode9 = nil;
+    NSString* targetNode10 = nil;
+    NSString* targetNode11 = nil;
+    NSString* targetNode12 = nil;
     
     if([layer objectForKey:@"arrayContent"])
     {
@@ -1312,6 +1321,15 @@ static BOOL IS_TABLET = NO;
         arrayContentTargetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
         arrayContentTargetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
         arrayContentTargetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
+        targetNode4 = [arrayContent objectForKey:@"targetNode4"];
+        targetNode5 = [arrayContent objectForKey:@"targetNode5"];
+        targetNode6 = [arrayContent objectForKey:@"targetNode6"];
+        targetNode7 = [arrayContent objectForKey:@"targetNode7"];
+        targetNode8 = [arrayContent objectForKey:@"targetNode8"];
+        targetNode9 = [arrayContent objectForKey:@"targetNode9"];
+        targetNode10 = [arrayContent objectForKey:@"targetNode10"];
+        targetNode11 = [arrayContent objectForKey:@"targetNode11"];
+        targetNode12 = [arrayContent objectForKey:@"targetNode12"];
     }
     
     for (int i = 0; layers != nil && i < [layers count]; i++)
@@ -1324,6 +1342,15 @@ static BOOL IS_TABLET = NO;
             || [childName isEqualToString:arrayContentTargetNodeSurfix]
             || [childName isEqualToString:arrayContentTargetNodePrefix]
             || [childName isEqualToString:arrayContentTargetNodeSelected]
+            || [childName isEqualToString:targetNode4]
+            || [childName isEqualToString:targetNode5]
+            || [childName isEqualToString:targetNode6]
+            || [childName isEqualToString:targetNode7]
+            || [childName isEqualToString:targetNode8]
+            || [childName isEqualToString:targetNode9]
+            || [childName isEqualToString:targetNode10]
+            || [childName isEqualToString:targetNode11]
+            || [childName isEqualToString:targetNode12]
             )
            ) {
             continue;
