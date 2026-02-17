@@ -12,6 +12,8 @@
 #import "WildCardConstructor.h"
 #import "ReplaceRuleRepeat.h"
 #import "Jevil.h"
+#import "DevilLang.h"
+
 #import <sys/utsname.h>
 
 static float SKETCH_WIDTH = 360;
@@ -611,6 +613,178 @@ static BOOL IS_TABLET = NO;
     return h + padding + margin;
 }
 
+
++(float) measureWidth:(NSMutableDictionary*)cloudJson data:(JSValue*)data
+{
+    float w = [cloudJson[@"frame"][@"w"] floatValue];
+    if(w == -2)
+    {
+        w = 0;
+        //TODO 가변 텍스트에 의한 가변 높이는 성능상 이슈로 아직 구현 못함
+        if(cloudJson[@"arrayContent"] != nil && [cloudJson[@"arrayContent"][@"repeatType"] isEqualToString:REPEAT_TYPE_RIGHT])
+        {
+            NSMutableDictionary* arrayContent = cloudJson[@"arrayContent"];
+            NSString* repeatType = arrayContent[@"repeatType"];
+            NSString* targetNode = [arrayContent objectForKey:@"targetNode"];
+            NSArray* childLayers = [cloudJson objectForKey:@"layers"];
+            NSDictionary* targetLayer = nil;
+            NSDictionary* targetLayerSurfix = nil;
+            NSDictionary* targetLayerPrefix = nil;
+            NSDictionary* targetLayerSelected = nil;
+            NSString* targetNodeSurfix = [arrayContent objectForKey:@"targetNodeSurfix"];
+            NSString* targetNodePrefix = [arrayContent objectForKey:@"targetNodePrefix"];
+            NSString* targetNodeSelected = [arrayContent objectForKey:@"targetNodeSelected"];
+            NSString* targetNodeSelectedIf = [arrayContent objectForKey:@"targetNodeSelectedIf"];
+            NSString* targetJsonString = [arrayContent objectForKey:@"targetJson"];
+            NSArray* targetDataJson = (NSArray*) [MappingSyntaxInterpreter
+                                                  getJsonWithPath:data : targetJsonString];
+            long targetDataJsonLen = [targetDataJson count];
+            
+            for(int i=0;i<[childLayers count];i++)
+            {
+                NSDictionary* childLayer = [childLayers objectAtIndex:i];
+                if([targetNode isEqualToString:[childLayer objectForKey:@"name"]])
+                {
+                    targetLayer = childLayer;
+                }
+                else if(targetNodePrefix == nil && [targetNodePrefix isEqualToString:[childLayer objectForKey:@"name"]])
+                {
+                    targetLayerPrefix = childLayer;
+                }
+                else if(targetNodeSurfix != nil && [targetNodeSurfix isEqualToString:[childLayer objectForKey:@"name"]])
+                {
+                    targetLayerSurfix = childLayer;
+                }
+                else if(targetNodeSelected != nil && [targetNodeSelected isEqualToString:[childLayer objectForKey:@"name"]])
+                {
+                    targetLayerSelected = childLayer;
+                }
+            }
+            if([repeatType isEqualToString:REPEAT_TYPE_RIGHT])
+            {
+                float thisW = [[[targetLayer objectForKey:@"frame"] objectForKey:@"w"] floatValue];
+                w = targetDataJsonLen * thisW;
+            }
+        }
+        else
+        {
+            NSMutableArray* arr = cloudJson[@"layers"];
+            NSMutableDictionary* rects = [@{} mutableCopy];
+            for(int i=0;i<[arr count];i++)
+            {
+                BOOL hidden = false;
+                id child = arr[i];
+                if(child[@"hiddenCondition"] != nil)
+                    hidden = [MappingSyntaxInterpreter ifexpression:child[@"hiddenCondition"] data:data];
+                if(child[@"showCondition"] != nil)
+                    hidden = ![MappingSyntaxInterpreter ifexpression:child[@"showCondition"] data:data];
+                
+                if(!hidden)
+                {
+                    id frame = child[@"frame"];
+                    bool isRightOrCenter = NO;
+                    if(frame[@"alignment"]) {
+                        int alignment = [frame[@"alignment"] intValue];
+                        isRightOrCenter = [WildCardUtil isHCenterOrHRight:alignment];
+                    }
+                    
+                    id margin = child[@"margin"];
+                    float marginRight = 0;
+                    if(margin && margin[@"marginRight"])
+                        marginRight = [WildCardConstructor convertSketchToPixel:[margin[@"marginRight"] floatValue]];
+                    
+                    NSString* name = child[@"name"];
+                    if(child[@"textContent"] != nil)
+                    {
+                        NSString* text = [MappingSyntaxInterpreter interpret:child[@"textContent"] : data];
+                        text = trans(text);
+                        NSDictionary* textSpec = [child objectForKey:@"textSpec"];
+                        float textSize = [WildCardConstructor convertTextSize:[[textSpec objectForKey:@"textSize"] floatValue]];
+                        
+                        UIFont* font = nil;
+                        if([[textSpec objectForKey:@"bold"] boolValue])
+                            font = [UIFont boldSystemFontOfSize:textSize];
+                        else
+                            font = [UIFont systemFontOfSize:textSize];
+                        
+                        NSDictionary *attributes = @{NSFontAttributeName: font};
+                        
+                        CGRect size = [text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+                        w = size.size.width + [self getPaddingLeftRightConverted:child] + marginRight;
+                        
+                        float thisx = [WildCardConstructor convertSketchToPixel:[child[@"frame"][@"x"] floatValue]];
+                        //현재 노드가 hNextTo를 가진다면 thisx는 0이 나와야한다. next검사에서 조정된 x에 따라 w를 넓혀야하므로
+                        if(child[@"hNextTo"])
+                            thisx = 0;
+                        if(isRightOrCenter)
+                            thisx = 0;
+                        
+                        w += thisx;
+                        
+                        rects[name] = [NSValue valueWithCGRect:CGRectMake(thisx,0,w,0)];
+                    }
+                    else
+                    {
+                        float thisx = [WildCardConstructor convertSketchToPixel:[child[@"frame"][@"x"] floatValue]];
+                        float thisw = [self measureWidth:child data:data];
+                        //현재 노드가 hNextTo를 가진다면 thisx는 0이 나와야한다. next검사에서 조정된 x에 따라 w를 넓혀야하므로
+                        if(child[@"hNextTo"])
+                            thisx = 0;
+                        if(isRightOrCenter)
+                            thisx = 0;
+                        
+                        rects[name] = [NSValue valueWithCGRect:CGRectMake(thisx, 0, thisw, 0)];
+                        if(thisx + thisw > w)
+                            w = thisx + thisw  + marginRight;
+                    }
+                }
+            }
+            
+            //hNextTo로 인해 w가 늘어나는 경우를 탐지한다.
+            //TODO : 줄어드는 경우는 탐지 못한다. hNextTo가 줄줄이 이어지는 경우도 탐지 못한다.
+            for(int i=0;i<[arr count];i++) {
+                id child = arr[i];
+                NSString* hNextTo = child[@"hNextTo"];
+                if(hNextTo){
+                    NSString* name = child[@"name"];
+                    float hNextToMargin = [child[@"hNextToMargin"] floatValue];
+                    float thisx = 0;
+                    if(rects[hNextTo])
+                        thisx = [rects[hNextTo] CGRectValue].origin.x + [rects[hNextTo] CGRectValue].size.width;
+                    thisx += [WildCardConstructor convertSketchToPixel:hNextToMargin];
+                    float thisw = [rects[name] CGRectValue].size.width;
+                    if(thisx + thisw > w)
+                        w = thisx + thisw;
+                }
+            }
+        }
+    }
+    else
+    {
+        w = [WildCardConstructor convertSketchToPixel:w];
+    }
+    
+    return w + [self getPaddingLeftRightConverted:cloudJson];
+}
+
++ (float)getPaddingLeftRightConverted:(id)layer{
+    float paddingLeft = 0 , paddingRight = 0;
+    if([layer objectForKey:@"padding"] != nil) {
+        NSDictionary* padding = [layer objectForKey:@"padding"];
+        if([padding objectForKey:@"paddingLeft"] != nil) {
+            paddingLeft = [[padding objectForKey:@"paddingLeft"] floatValue];
+            paddingLeft = [WildCardConstructor convertSketchToPixel:paddingLeft];
+        }
+        
+        if([padding objectForKey:@"paddingRight"] != nil) {
+            paddingRight = [[padding objectForKey:@"paddingRight"] floatValue];
+            paddingRight = [WildCardConstructor convertSketchToPixel:paddingRight];
+        }
+    }
+    return paddingLeft + paddingRight;
+}
+
+
 + (float)getMarginTopBottomConverted:(id)layer{
     float nextTopMargin = 0;
     float nextBottomMargin = 0;
@@ -667,23 +841,6 @@ static BOOL IS_TABLET = NO;
         r.size.height+=3;
         return r;
     }
-}
-
-+ (float)getPaddingLeftRightConverted:(id)layer{
-    float paddingLeft = 0 , paddingRight = 0;
-    if([layer objectForKey:@"padding"] != nil) {
-        NSDictionary* padding = [layer objectForKey:@"padding"];
-        if([padding objectForKey:@"paddingLeft"] != nil) {
-            paddingLeft = [[padding objectForKey:@"paddingLeft"] floatValue];
-            paddingLeft = [WildCardConstructor convertSketchToPixel:paddingLeft];
-        }
-        
-        if([padding objectForKey:@"paddingRight"] != nil) {
-            paddingRight = [[padding objectForKey:@"paddingRight"] floatValue];
-            paddingRight = [WildCardConstructor convertSketchToPixel:paddingRight];
-        }
-    }
-    return paddingLeft + paddingRight;
 }
 
 + (float)getRightMarginConverted:(id)layer{

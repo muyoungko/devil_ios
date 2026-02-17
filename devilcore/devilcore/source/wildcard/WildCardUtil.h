@@ -41,9 +41,10 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(void)fitToScreen:(id)layer sketch_height_more:(int)sketch_height_more;
 +(void)fitToScreenRecur:(id)layer offsety:(float)offsety theight:(float)height;
 +(CGRect)getGlobalFrame:(UIView*)v;
-+(float) convertPixcelToSketch:(float)p;
-+(float) convertSketchToPixel:(float)p;
-+(float) measureHeight:(NSMutableDictionary*)cloudJson data:(JSValue*)data;
++(float)convertPixcelToSketch:(float)p;
++(float)convertSketchToPixel:(float)p;
++(float)measureHeight:(NSMutableDictionary*)cloudJson data:(JSValue*)data;
++(float)measureWidth:(NSMutableDictionary*)cloudJson data:(JSValue*)data;
 +(UIView*)findView:(id)layer name:(NSString*)name;
 +(BOOL)isTablet;
 +(float)cachedImagePixcelHeight:(NSString*)url height:(float)height;

@@ -875,6 +875,7 @@
         float containerWidth = [self getLayerWidth:self.replaceJsonLayer];
         float containerHeight = [self getLayerHeight:self.replaceJsonLayer ];
         int dpMargin = [WildCardConstructor convertSketchToPixel:margin];
+        BOOL containerWrapHeight = ((WildCardUIView*)repeatRule.createdContainer).wrap_height;
         for(i=0;i<[targetDataJson[@"length"] toInt32];i++)
         {
             WildCardUIView* thisNode = nil;
@@ -909,11 +910,7 @@
             thisNode.userInteractionEnabled = YES;
             [WildCardConstructor applyRule:thisNode withData:targetDataJson[i]];
             
-            int padding = 0;
-            if(arrayContent[@"tagPadding"])
-                padding = [WildCardConstructor convertSketchToPixel:[arrayContent[@"tagPadding"] intValue]];
-            float thisWidth = padding + [self measureTagWidth:thisNode] + padding;
-            [self fitTagWidth:thisNode :thisWidth];
+            float thisWidth = [WildCardUtil measureWidth:thisLayer data:targetDataJson[i]];
             
             float thisHeight = [self getLayerHeight:thisLayer];
             offsetX += dpMargin;
@@ -921,7 +918,7 @@
             if(offsetX + thisWidth < containerWidth)
                 offsetX += thisWidth;
             else {
-                if(offsetY + thisHeight  + dpMargin < containerHeight) {
+                if(containerWrapHeight || (offsetY + thisHeight  + dpMargin < containerHeight)) {
                     offsetY += thisHeight + dpMargin;
                     offsetX = self.tagOffsetX;
                     
@@ -940,35 +937,6 @@
     }
 }
 
--(void)fitTagWidth:(UIView*)vv :(int)width {
-    vv.frame = CGRectMake(vv.frame.origin.x, vv.frame.origin.y, width, vv.frame.size.height);
-    if([vv isMemberOfClass:[UILabel class]])
-        ((UILabel*)vv).textAlignment = UITextAlignmentCenter;
-    for(int i=0;i<[[vv subviews] count];i++){
-        UIView* child = [vv subviews][i];
-        [self fitTagWidth:child:width];
-    }
-}
-
--(float)measureTagWidth:(UIView*)vv {
-    float textWidth = 0;
-    if([vv isKindOfClass:[UILabel class]]) {
-        UILabel* tv = (UILabel*)vv;
-        UIFont* font = tv.font;
-        NSDictionary *attributes = @{NSFontAttributeName: font};
-        CGRect size = [tv.text boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
-        textWidth = size.size.width;
-    }
-    
-    for(int i=0;i<[[vv subviews] count];i++){
-        UIView* child = [vv subviews][i];
-        float thisTextWidth = [self measureTagWidth:child];
-        if(thisTextWidth > textWidth)
-            textWidth = thisTextWidth;
-    }
-
-    return textWidth;
-}
 
 -(float)getLayerWidth:(id)layer {
     id frame = layer[@"frame"];
