@@ -70,11 +70,7 @@
     [SFSpeechRecognizer requestAuthorization:^(SFSpeechRecognizerAuthorizationStatus status) {
         if(status == SFSpeechRecognizerAuthorizationStatusAuthorized){
             self.callback = callback;
-
-            [self playBeep];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self performSelector:@selector(listenCore:) withObject:param afterDelay:0.5f];
-            });
+            [self listenCore:param];
         } else {
             NSLog(@"Speech Recognition Authorization Status: %ld", (long)status);
         }
@@ -82,6 +78,10 @@
 }
 
 - (void)listenCore:(id)param {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopReserve) object:nil];
+    });
+    
     NSString* locale = @"ko-KR";
     if(param[@"locale"])
         locale = param[@"locale"];
@@ -156,7 +156,9 @@
     if((now - self.lastSpeechTime) >= 3.0f)
         [self finish];
     else if(self.ing) {
-        [self performSelector:@selector(stopReserve) withObject:nil afterDelay:3];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self performSelector:@selector(stopReserve) withObject:nil afterDelay:3];
+        });
     }
 }
 
@@ -195,7 +197,10 @@
     self.recognitionRequest = nil;
     self.audioEngine = nil;
     
-    [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.5f];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(stopReserve) object:nil];
+    });
+    [self performSelector:@selector(playBeep) withObject:nil afterDelay:0.2f];
 }
 - (void)speechRecognitionDidDetectSpeech:(SFSpeechRecognitionTask *)task{
     NSLog(@"speechRecognitionDidDetectSpeech");

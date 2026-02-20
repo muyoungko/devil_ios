@@ -466,7 +466,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
         }
     }
             failure:^(NSURLSessionDataTask * _Nullable task, NSError *error) {
-        success(nil);
+        success(error);
     }];
     
     [dataTask resume];

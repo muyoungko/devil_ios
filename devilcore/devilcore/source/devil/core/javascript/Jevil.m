@@ -478,7 +478,7 @@
             if(responseJsonObject == nil)
                 responseJsonObject = [@{} mutableCopy];
             else if([responseJsonObject isMemberOfClass:[NSError class]]){
-                NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+                NSString* error = [((NSError*)responseJsonObject) localizedDescription];
                 [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
             } else
                 [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
@@ -547,7 +547,7 @@
         if(res == nil)
             res = [@{} mutableCopy];
         else if([res isMemberOfClass:[NSError class]]){
-            NSString* error = [NSString stringWithFormat:@"%@", res];
+            NSString* error = [((NSError*)res) localizedDescription];
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
         } else
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:res];
@@ -590,7 +590,7 @@
         if(responseJsonObject == nil)
             responseJsonObject = [@{} mutableCopy];
         else if([responseJsonObject isMemberOfClass:[NSError class]]){
-            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            NSString* error = [((NSError*)responseJsonObject) localizedDescription];
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
         } else
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
@@ -641,7 +641,7 @@
         if(responseJsonObject == nil)
             responseJsonObject = [@{} mutableCopy];
         else if([responseJsonObject isMemberOfClass:[NSError class]]){
-            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            NSString* error = [((NSError*)responseJsonObject) localizedDescription];
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
         } else
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
@@ -682,7 +682,7 @@
     [[WildCardConstructor sharedInstance].delegate onNetworkRequestPost:url header:header json:param success:^(NSMutableDictionary *responseJsonObject) {
         
         if([responseJsonObject isKindOfClass:[NSError class]] || [responseJsonObject isMemberOfClass:[NSError class]]){
-            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            NSString* error = [((NSError*)responseJsonObject) localizedDescription];
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
             responseJsonObject = nil;
         } else
@@ -728,7 +728,7 @@
         if(responseJsonObject == nil)
             responseJsonObject = [@{} mutableCopy];
         else if([responseJsonObject isMemberOfClass:[NSError class]]){
-            NSString* error = [NSString stringWithFormat:@"%@", responseJsonObject];
+            NSString* error = [((NSError*)responseJsonObject) localizedDescription];
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:@{error:error}];
         } else
             [[DevilDebugView sharedInstance] log:DEVIL_LOG_RESPONSE title:originalUrl log:responseJsonObject];
