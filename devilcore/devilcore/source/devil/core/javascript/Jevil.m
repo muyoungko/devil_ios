@@ -1374,12 +1374,16 @@
     } complete:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             NSString* path = res[@"dest"];
-            NSString* pathEncoding = res[@"dest_encoding"];
-            UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]];
+            NSURL *fileURL = [NSURL fileURLWithPath:path];
+            UIDocumentInteractionController *d = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+            
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             d.delegate = vc;
-            [d presentPreviewAnimated:YES];
-            [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
+            [JevilInstance currentInstance].forRetain[@"PDF_RETAIN"] = d;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [d presentPreviewAnimated:YES];
+            });
         } else {
             if(res[@"msg"])
                 [Jevil alert:res[@"msg"]];
@@ -1401,12 +1405,16 @@
     } complete:^(id  _Nonnull res) {
         if([res[@"r"] boolValue]) {
             NSString* path = res[@"dest"];
-            NSString* pathEncoding = res[@"dest_encoding"];
-            UIDocumentInteractionController * d = [UIDocumentInteractionController interactionControllerWithURL: [NSURL URLWithString:[NSString stringWithFormat:@"file:/%@", pathEncoding]]];
+            NSURL *fileURL = [NSURL fileURLWithPath:path];
+            UIDocumentInteractionController *d = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+            
             DevilController* vc = (DevilController*)[JevilInstance currentInstance].vc;
             d.delegate = vc;
-            [d presentPreviewAnimated:YES];
-            [JevilInstance currentInstance].forRetain[@"UIDocumentInteractionController"] = d;
+            [JevilInstance currentInstance].forRetain[@"PDF_RETAIN"] = d;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [d presentPreviewAnimated:YES];
+            });
         } else {
             if(res[@"msg"])
                 [Jevil alert:res[@"msg"]];
