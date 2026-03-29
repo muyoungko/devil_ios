@@ -16,6 +16,7 @@
 #import "DevilLocation.h"
 #import "WildCardConstructor.h"
 #import "JevilInstance.h"
+#import "WildCardUtil.h"
 
 @import AVFoundation;
 @import Photos;
@@ -218,7 +219,7 @@ typedef NS_ENUM(NSInteger, UIMode) {
             [self switchCameraTo:AVCaptureDevicePositionBack :AVCaptureDeviceTypeBuiltInUltraWideCamera];
             self.closeShot = YES;
             self.closeShotChangeTime = now;
-        } 
+        }
         else if(device.lensPosition < 1.0 && device.lensPosition > 0.8 && self.closeShot) {
             NSLog(@"AVCaptureDeviceTypeBuiltInDualWideCamera");
             [self switchCameraTo:AVCaptureDevicePositionBack :AVCaptureDeviceTypeBuiltInDualWideCamera];
@@ -387,7 +388,9 @@ typedef NS_ENUM(NSInteger, UIMode) {
     
     if(self.blockName) {
         id blockId = [[WildCardConstructor sharedInstance] getBlockIdByName:self.blockName];
+        
         id cj = [[WildCardConstructor sharedInstance] getBlockJson:blockId];
+        [WildCardUtil fitToScreen: cj sketch_height_more:0];
         self.mainVc = [WildCardConstructor constructLayer:self.view withLayer:cj instanceDelegate:self];
         self.mainVc.backgroundColor = [UIColor clearColor];
         

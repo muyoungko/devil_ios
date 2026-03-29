@@ -11,6 +11,10 @@
 #import "WildCardConstructor.h"
 #import "MappingSyntaxInterpreter.h"
 
+@interface ReplaceRuleVideo()
+@property (nonatomic, retain) NSString* currentUrl;
+@end
+
 @implementation ReplaceRuleVideo
 
 - (void)constructRule:(WildCardMeta *)wcMeta parent:(UIView *)parent vv:(WildCardUIView *)vv layer:(id)layer depth:(int)depth result:(id)result{
@@ -37,6 +41,10 @@
     NSString* autoPlay = video[@"autoPlay"];
     NSString* previewUrl = [MappingSyntaxInterpreter interpret:previewUrlJsonPath :opt];
     NSString* videoUrl = [MappingSyntaxInterpreter interpret:videoUrlJsonPath :opt];
+    
+    if(_currentUrl != nil && [_currentUrl isEqualToString:videoUrl])
+        return;
+    _currentUrl = videoUrl;
     
     WildCardVideoView* videoView = (WildCardVideoView*)self.replaceView;
     videoView.centerInside = [@"center_inside" isEqualToString:video[@"scaleType"]];
