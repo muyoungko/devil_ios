@@ -8,7 +8,6 @@
 
 #import "LoginController.h"
 #import "Devil.h"
-#import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
 #import "MainV2Controller.h"
 @import devilcore;

@@ -1669,13 +1669,9 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			inputPaths = (
-			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-devilcore/Pods-devilcore-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

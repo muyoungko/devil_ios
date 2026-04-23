@@ -7,7 +7,6 @@
 //
 
 #import "Devil.h"
-#import <AFNetworking/AFNetworking.h>
 #import "JulyUtil.h"
 #import "AppDelegate.h"
 #import "DeepLink.h"
@@ -99,70 +98,27 @@
 
     url = [NSString stringWithFormat:@"%@%@", HOST_API, url];
     
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     id headers = [@{@"Accept": @"application/json"} mutableCopy];
     if(token)
         headers[@"x-access-token"] = token;
-    
-    if(params == nil){
-        [manager GET:url parameters:@{} headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
-        {
-            NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-            callback(r);
-        }
-             failure:^(NSURLSessionTask *operation, NSError *error)
-        {
-            callback(nil);
-        }];
-    } else {
-        [manager POST:url parameters:params headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
-        {
-            NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-            callback(r);
-        }
-             failure:^(NSURLSessionTask *operation, NSError *error)
-        {
-            callback(nil);
-        }];
-    }
+    if(params == nil)
+        [JulyUtil request:url header:headers complete:callback];
+    else
+        [JulyUtil request:url header:headers postParam:params complete:callback];
 }
 
 -(void)requestLearn:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback{
 
     url = [NSString stringWithFormat:@"%@%@", LEARN_API, url];
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
     NSString* token = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
     id headers = [@{@"Accept": @"application/json"} mutableCopy];
     if(token)
         headers[@"x-access-token"] = token;
-    
-    if(params == nil){
-        [manager GET:url parameters:@{} headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
-        {
-            NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-            callback(r);
-        }
-             failure:^(NSURLSessionTask *operation, NSError *error)
-        {
-            callback(nil);
-        }];
-    } else {
-        [manager POST:url parameters:params headers:headers progress:nil success:^(NSURLSessionTask *task, id res)
-        {
-            NSMutableDictionary* r = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-            callback(r);
-        }
-             failure:^(NSURLSessionTask *operation, NSError *error)
-        {
-            callback(nil);
-        }];
-    }
+    if(params == nil)
+        [JulyUtil request:url header:headers complete:callback];
+    else
+        [JulyUtil request:url header:headers postParam:params complete:callback];
 }
 
 -(void)logout{

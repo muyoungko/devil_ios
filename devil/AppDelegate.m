@@ -22,8 +22,6 @@
 @import FirebaseAuth;
 @import GoogleMobileAds;
 
-#import <AFNetworking/AFNetworking.h>
-#import "UIImageView+AFNetworking.h"
 #import "Devil.h"
 
 #import "FirstController.h"
@@ -421,55 +419,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
     
 - (void)onNetworkRequestHttp:(NSString*)method :(NSString*)url :(NSDictionary*)header :(NSMutableDictionary*)body :(void (^)(NSMutableDictionary* responseJsonObject))success {
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    if([@"application/x-www-form-urlencoded" isEqualToString:header[@"Content-Type"]])
-        [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    else
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
-    id headers = [@{
-        @"Accept": @"application/json, application/*+json",
-        @"Content-Type": @"application/json"
-                  } mutableCopy];
-    for(id k in [header allKeys])
-        headers[k] = header[k];
-    
-    [manager.requestSerializer setTimeoutInterval:10.0];
-    method = [method uppercaseString];
-    
-    if(!body)
-        body = [@{} mutableCopy];
-    
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithHTTPMethod:method
-                                                        URLString:url
-                                                       parameters:body
-                                                          headers:headers
-                                                   uploadProgress:nil
-                                                 downloadProgress:nil
-            success:^(NSURLSessionDataTask *task, id _Nullable res) {
-                
-        if(res) {
-            NSString* s = [[NSString alloc] initWithData:res encoding:NSUTF8StringEncoding];
-            if([s hasPrefix:@"["]) {
-                id a = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-                success([@{@"devil_list":a} mutableCopy]);
-            } else if([s hasPrefix:@"{"]) {
-                id a = [NSJSONSerialization JSONObjectWithData:res options:NSJSONReadingMutableContainers error:nil];
-                success(a);
-            } else {
-                success([@{@"string":s} mutableCopy]);
-            }
-        }
-    }
-            failure:^(NSURLSessionDataTask * _Nullable task, NSError *error) {
-        success(error);
-    }];
-    
-    [dataTask resume];
+    [JulyUtil requestHttp:method url:url header:header body:body complete:success];
 }
     
 -(UIView*)onCustomExtensionCreate:(WildCardMeta *)meta extensionLayer:(NSDictionary*) extension
@@ -492,25 +442,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 - (void)onMultiPartPost:(NSString*)urlString header:(id)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath progress:(void (^)(long sentByte, long totalByte))progress_callback complete:(void (^)(id res))callback {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    [manager POST:urlString parameters:nil headers:header constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
-        NSURL* fileUri = [NSURL fileURLWithPath:filePath];
-        NSError *error;
-        [formData appendPartWithFileURL:fileUri name:name fileName:filename mimeType:@"application/octet-stream" error:&error];
-        if(error){
-            NSLog(@"%@", [error localizedDescription]);
-        }
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
-        progress_callback(uploadProgress.completedUnitCount, uploadProgress.totalUnitCount);
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"success");
-        callback(responseObject);
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"error %@", [error localizedDescription]);
-        callback(@{@"r":@FALSE, @"msg":[error localizedDescription]});
-    }];
+    [JulyUtil multiPartPost:urlString header:header name:name filename:filename filePath:filePath progress:progress_callback complete:callback];
 }
     
 

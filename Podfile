@@ -35,7 +35,7 @@ target 'devil' do
   lottie_libs
   google_ads
   
-  pod 'AFNetworking','~>4.0'
+  pod 'SDWebImage'
    
   pod 'FirebaseMessaging'
   pod 'FirebaseAuth'

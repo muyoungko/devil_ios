@@ -44,6 +44,8 @@ alpha:((float)((argbValue & 0xFF000000) >>  24))/255.0]
 +(void)request:(NSString*)url postParam:(id _Nullable)params complete:(void (^)(id res))callback;
 +(void)request:(NSString*)url complete:(void (^)(id res))callback;
 +(void)requestPut:(NSString*)url header:(id _Nullable)header data:(NSData*)data complete:(void (^)(id res))callback;
++(void)requestHttp:(NSString*)method url:(NSString*)url header:(NSDictionary* _Nullable)header body:(NSMutableDictionary* _Nullable)body complete:(void (^)(NSMutableDictionary* responseJsonObject))success;
++(void)multiPartPost:(NSString*)urlString header:(id _Nullable)header name:(NSString*)name filename:(NSString*)filename filePath:(NSString*)filePath progress:(void (^)(long sentByte, long totalByte))progress_callback complete:(void (^)(id res))callback;
 +(void)share:(UIViewController*)vc text:(NSString*)textToShare;
 
 @end
