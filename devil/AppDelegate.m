@@ -7,6 +7,7 @@
 //
 
 #import <UserNotifications/UserNotifications.h>
+#import <SDWebImage/SDWebImage.h>
 #define SYSTEM_VERSION_GRATERTHAN_OR_EQUALTO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 @import CoreData;
@@ -330,60 +331,54 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 }
 
 - (void)cancelNetworkImageView:(UIView*)networkImageView {
-    __block UIImageView* nv = ((UIImageView*)networkImageView);
-    [nv cancelImageDownloadTask];
+    [(UIImageView*)networkImageView sd_cancelCurrentImageLoad];
 }
 
 - (void)loadNetworkImageView:(UIView*)networkImageView withUrl:(NSString*)url
 {
-    __block UIImageView* nv = ((UIImageView*)networkImageView);
-    NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    [nv setImageWithURLRequest:req placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+    UIImageView* nv = (UIImageView*)networkImageView;
+    [nv sd_setImageWithURL:[NSURL URLWithString:url]
+          placeholderImage:nil
+                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error || !image) return;
 
         WildCardUIView* f = (WildCardUIView*)[networkImageView superview];
-        if([f isMemberOfClass:[WildCardUIView class]] && [f.name hasPrefix:@"profile"])
-            networkImageView.layer.cornerRadius = f.frame.size.width/2;
+        if ([f isMemberOfClass:[WildCardUIView class]] && [f.name hasPrefix:@"profile"])
+            networkImageView.layer.cornerRadius = f.frame.size.width / 2;
         networkImageView.layer.cornerRadius = f.layer.cornerRadius;
         f.layer.borderWidth = 0;
 
-        if(nv.image == nil) {
-            [nv setImage:image];
+        if (cacheType == SDImageCacheTypeNone) {
             [nv setAlpha:0];
             [UIView animateWithDuration:0.3 animations:^{
                 [nv setAlpha:1.0];
             }];
-        } else
-            [nv setImage:image];
-        
-    } failure:nil];
+        }
+    }];
 }
     
 - (void)loadNetworkImageViewWithSize:(UIView*)networkImageView withUrl:(NSString*)url callback:(void (^)(CGSize size))callback
 {
-    __block UIImageView* nv = ((UIImageView*)networkImageView);
-    NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    [nv setImageWithURLRequest:req placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-        
+    UIImageView* nv = (UIImageView*)networkImageView;
+    [nv sd_setImageWithURL:[NSURL URLWithString:url]
+          placeholderImage:nil
+                 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (error || !image) return;
+
         callback(image.size);
-        
+
         WildCardUIView* f = (WildCardUIView*)[networkImageView superview];
-        if([f isMemberOfClass:[WildCardUIView class]] && [f.name hasPrefix:@"profile"])
-            networkImageView.layer.cornerRadius = f.frame.size.width/2;
+        if ([f isMemberOfClass:[WildCardUIView class]] && [f.name hasPrefix:@"profile"])
+            networkImageView.layer.cornerRadius = f.frame.size.width / 2;
         networkImageView.layer.cornerRadius = f.layer.cornerRadius;
         f.layer.borderWidth = 0;
-        
-        if(nv.image == nil) {
-            [nv setImage:image];
+
+        if (cacheType == SDImageCacheTypeNone) {
             [nv setAlpha:0];
             [UIView animateWithDuration:0.3 animations:^{
                 [nv setAlpha:1.0];
             }];
-        } else
-            [nv setImage:image];
-        
-    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-        
+        }
     }];
 }
 
