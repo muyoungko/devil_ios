@@ -259,6 +259,14 @@ float borderWidth = 7;
         CGPoint mp = [self clickToMapPoint:tappedPoint];
         BOOL inMap = CGRectContainsPoint([WildCardUtil getGlobalFrame:self.contentView], tappedPoint);
         if(inMap) {
+            NSString *editingKey = self.editingPin[@"key"];
+            for(id pin in self.pinList) {
+                if([pin[@"key"] isEqualToString:editingKey]) {
+                    self.editingPin = pin;
+                    break;
+                }
+            }
+
             float ox = [self.editingPin[@"x"] floatValue];
             float oy = [self.editingPin[@"y"] floatValue];
             self.editingPin[@"x"] = [NSNumber numberWithFloat:mp.x];
@@ -268,6 +276,7 @@ float borderWidth = 7;
                 self.editingPin[@"toY"] = [NSNumber numberWithFloat:[self.editingPin[@"toY"] floatValue] - (oy - mp.y)];
             }
             
+            //NSLog(@"editing pin is moving from %d, %d to %d, %d", (int)ox, (int)oy, (int)mp.x, (int)mp.y);
             [self.pinLayer syncPinWithAnimation:self.editingPin[@"key"]];
             [self setMode:@"new_direction" : nil];
             [self showPopup:@[@"취소", @"완료"]];

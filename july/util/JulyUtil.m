@@ -130,6 +130,10 @@
     [self baseRequest:request complete:callback];
 }
 
++(void)request:(NSString*)url complete:(void (^)(id res))callback {
+    [self request:url postParam:nil complete:callback];
+}
+
 // 8. Header 및 Content-Type 대응 POST 요청
 +(void)request:(NSString*)url header:(id _Nullable)header postParam:(id _Nullable)params complete:(void (^)(id res))callback{
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
