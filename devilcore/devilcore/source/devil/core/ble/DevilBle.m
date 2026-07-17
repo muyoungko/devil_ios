@@ -25,6 +25,8 @@
 @property NSTimeInterval startScanSec;
 @property float scanSec;
 @property (nonatomic, retain) NSString* scanName;
+@property (nonatomic, retain) NSString* scanUuid;
+@property (nonatomic, retain) NSTimer* scanTimer;
 @property BOOL reserveScan;
 
 @property (nonatomic, retain) id characteristics;
@@ -87,10 +89,17 @@
         self.scanSec = 10;
     self.startScanSec = [[NSDate date] timeIntervalSince1970];
     
-    if(param[@"name"])
-        self.scanName = [param[@"name"] stringValue];
-    else
-        self.scanName = nil;
+    self.scanName = nil;
+    self.scanUuid = nil;
+    if(param[@"filter"]) {
+        id filter = param[@"filter"];
+        for(id f in filter) {
+            if(f[@"name"])
+                self.scanName = [f[@"name"] stringValue];
+            if(f[@"uuid"])
+                self.scanUuid = f[@"uuid"];
+        }
+    }
 }
 
 - (void)scan {
@@ -105,8 +114,22 @@
         }
     } else {
         [self.blue_list removeAllObjects];
-        [self.cbmanager scanForPeripheralsWithServices:@[] options:nil];
+        NSArray *serviceUUIDs = self.scanUuid ? @[[CBUUID UUIDWithString:self.scanUuid]] : @[];
+        [self.cbmanager scanForPeripheralsWithServices:serviceUUIDs options:nil];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        
+        self.scanTimer = [NSTimer scheduledTimerWithTimeInterval:self.scanSec target:self selector:@selector(scanTimeout) userInfo:nil repeats:NO];
+    }
+}
+
+- (void)scanTimeout {
+    [self.cbmanager stopScan];
+    if(self.callbackList) {
+        self.callbackList([@{
+            @"r":@TRUE,
+            @"stop":@TRUE,
+            @"list":[self bleListArray]
+        } mutableCopy]);
     }
 }
 
@@ -134,6 +157,9 @@
         }
     }
     if(!already) {
+        if(self.scanName && ![peripheral.name isEqualToString:self.scanName]) {
+            return;
+        }
         NSLog(@"Discovered %@ at %@", peripheral.name, RSSI);
         [self.blue_list addObject:peripheral];
         
@@ -145,20 +171,11 @@
         }
     }
     
-    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-    if(now - self.startScanSec > self.scanSec) {
-        [self.cbmanager stopScan];
-        if(self.callbackList) {
-            self.callbackList([@{
-                @"r":@TRUE,
-                @"stop":@TRUE,
-                @"list":[self bleListArray]
-            } mutableCopy]);
-        }
-    }
 }
 
 - (void)stopScan {
+    [self.scanTimer invalidate];
+    self.scanTimer = nil;
     if(self.cbmanager)
         [self.cbmanager stopScan];
 }
