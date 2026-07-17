@@ -24,6 +24,7 @@
 
 @property NSTimeInterval startScanSec;
 @property float scanSec;
+@property (nonatomic, retain) NSString* scanName;
 @property BOOL reserveScan;
 
 @property (nonatomic, retain) id characteristics;
@@ -86,7 +87,10 @@
         self.scanSec = 10;
     self.startScanSec = [[NSDate date] timeIntervalSince1970];
     
-    
+    if(param[@"name"])
+        self.scanName = [param[@"name"] stringValue];
+    else
+        self.scanName = nil;
 }
 
 - (void)scan {
@@ -95,11 +99,12 @@
         if(self.callbackList) {
             self.callbackList(@{
                 @"r":@FALSE,
+                @"code":@"off",
+                @"msg":@"Bluetooth is off",
             });
         }
     } else {
         [self.blue_list removeAllObjects];
-//        [self.characteristics removeAllObjects];
         [self.cbmanager scanForPeripheralsWithServices:@[] options:nil];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     }
