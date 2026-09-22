@@ -132,7 +132,7 @@
                     id param = [@{} mutableCopy];
                     param[@"type"] = @"apple";
                     param[@"email"] = appleIDCredential.email? appleIDCredential.email : @"";
-                    param[@"name"] = appleIDCredential.fullName.familyName? appleIDCredential.fullName.familyName:@"apple";
+                    param[@"name"] = appleIDCredential.fullName.familyName? appleIDCredential.fullName.familyName:@"";
                     param[@"identifier"] = identifier;
                     param[@"token"] = identifier;
                     param[@"sex"] = @"";

@@ -157,6 +157,8 @@ NSRegularExpression *regex;
     id ks = [[DevilLang sharedInstance].sentWait allKeys];
     for(id key in ks) {
         id value = [DevilLang sharedInstance].sentWait[key];
+        if(!value[@"screen_id"])
+            continue;
         id a = [@{
             @"key":key,
             @"project_id":[value[@"project_id"] stringValue],
